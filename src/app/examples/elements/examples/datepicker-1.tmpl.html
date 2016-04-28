@@ -1,0 +1,49 @@
+<div class="margin-bottom-20" layout="row" layout-align="space-around center">
+    <p>Please select a date</p>
+    <md-datepicker ng-model="myDate" md-placeholder="Enter date"></md-datepicker>
+</div>
+<md-divider></md-divider>
+<md-table-container class="margin-top-20">
+    <table md-table class="md-primary md-data-table">
+        <thead md-head md-order="vm.query.order" md-on-reorder="vm.getUsers">
+            <tr md-row>
+                <th md-column>Date Format</th>
+                <th md-column>Example</th>
+            </tr>
+        </thead>
+        <tbody md-body>
+            <tr md-row>
+                <td md-cell>
+                    mediumDate
+                </td>
+                <td md-cell>
+                    {{myDate | date}}
+                </td>
+            </tr>
+            <tr md-row>
+                <td md-cell>
+                    fullDate
+                </td>
+                <td md-cell>
+                    {{myDate | date:'fullDate'}}
+                </td>
+            </tr>
+            <tr md-row>
+                <td md-cell>
+                    longDate
+                </td>
+                <td md-cell>
+                    {{myDate | date:'longDate'}}
+                </td>
+            </tr>
+            <tr md-row>
+                <td md-cell>
+                    using moment directive
+                </td>
+                <td md-cell>
+                    <span am-time-ago="myDate"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</md-table-container>

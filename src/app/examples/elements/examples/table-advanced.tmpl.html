@@ -1,0 +1,50 @@
+<div ng-controller="TablesAdvancedController as vm">
+    <md-toolbar ng-hide="vm.selected.length || vm.filter.show" class="md-table-toolbar md-default">
+        <div class="md-toolbar-tools">
+            <h2 class="md-title">Popular Github Users</h2>
+            <div flex></div>
+            <md-button class="md-icon-button" ng-click="vm.filter.show = true">
+                <md-icon md-font-icon="zmdi zmdi-filter-list"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <md-toolbar ng-show="vm.filter.show && !vm.selected.length" class="md-table-toolbar md-default">
+        <div class="md-toolbar-tools">
+            <md-icon md-font-icon="zmdi zmdi-search"></md-icon>
+            <form flex="" name="vm.filter.form">
+                <input type="text" ng-model="vm.query.filter" ng-model-options="vm.filter.options" placeholder="search">
+            </form>
+            <md-button class="md-icon-button" ng-click="vm.removeFilter()">
+                <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <md-toolbar class="md-table-toolbar alternate" ng-show="vm.selected.length">
+        <div class="md-toolbar-tools" layout-align="start center">
+            <div>{{vm.selected.length}} {{vm.selected.length > 1 ? 'users' : 'user'}} selected</div>
+        </div>
+    </md-toolbar>
+
+    <md-table-container>
+        <table md-table class="md-primary md-data-table" md-row-select ng-model="vm.selected" md-progress="vm.promise">
+            <thead md-head md-order="vm.query.order" md-on-reorder="vm.getUsers">
+                <tr md-row>
+                    <th md-column><span translate>{{vm.columns.avatar}}</span></th>
+                    <th md-column><span translate>{{vm.columns.login}}</span></th>
+                    <th md-column md-numberic md-order-by="id"><span translate>{{vm.columns.id}}</span></th>
+                </tr>
+            </thead>
+            <tbody md-body>
+                <tr md-row md-auto-select md-select="user" ng-repeat="user in vm.users.items">
+                    <td md-cell><a href="{{::user.html_url}}"><img ng-src="{{::user.avatar_url}}"/></a></td>
+                    <td md-cell>{{::user.login}}</td>
+                    <td md-cell>{{::user.id}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </md-table-container>
+
+    <md-table-pagination md-limit="vm.query.limit" md-page-select md-page="vm.query.page" md-total="{{vm.users.total_count}}" md-on-paginate="vm.getUsers"></md-table-pagination>
+</div>

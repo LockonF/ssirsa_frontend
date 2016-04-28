@@ -1,0 +1,8 @@
+<div layout="column" layout-fill ng-controller="Loader1Controller as vm">
+
+    <div layout="row" layout-align="center space-around">
+        <p flex>Show the loader for {{vm.time}} seconds.</p>
+        <md-slider flex class="md-accent" min="1" max="30" md-discrete ng-model="vm.time" aria-label="loader time"></md-slider>
+    </div>
+    <md-button class="md-primary md-raised" ng-click="vm.showLoader()">Show the loader</md-button>
+</div>

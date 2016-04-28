@@ -1,0 +1,242 @@
+<div>
+
+    <div layout="row" layout-align="center center">
+        <p flex="70"  flex-xs="90" class="md-headline font-weight-300 text-center text-light" translate>We have combined material tabs and form inputs to create an interactive form wizardController.  We have also added validation messages to all fields and prevented the user from completing a step in the wizard until it is valid.</p>
+    </div>
+
+    <div flex layout="row" layout-align="center center" layout-fill>
+        <md-card flex="90" class="md-whiteframe-z1 margin-bottom-100" tri-wizard>
+            <md-toolbar class="md-primary">
+                <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+                    <h2>Form Wizard</h2><h2> {{triWizard.progress}}% <span translate>Complete</span></h2>
+                </div>
+                <md-progress-linear class="md-accent padding-bottom-10" md-mode="determinate" ng-value="triWizard.progress"></md-progress-linear>
+            </md-toolbar>
+            <md-tabs class="md-primary" layout-fill md-selected="triWizard.currentStep" md-dynamic-height>
+                <md-tab id="account">
+                    <md-tab-label>
+                        <span class="oxy-step-label">1</span>
+                        <span translate>Account details</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <md-content class="md-padding">
+                            <form name="accountForm" tri-wizard-form novalidate>
+                                <div>
+                                    <md-input-container class="md-block">
+                                        <label translate>Username</label>
+                                        <input name="username" ng-model="wizardController.data.account.username" required>
+                                        <div ng-messages="accountForm.username.$error" md-auto-hide="false" ng-show="accountForm.username.$touched">
+                                            <div ng-message when="required">
+                                                <span translate>This field is required</span>
+                                            </div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container class="md-block">
+                                        <label>Email</label>
+                                        <input type="email" name="email" ng-model="wizardController.data.account.email" required>
+                                        <div ng-messages="accountForm.email.$error" md-auto-hide="false" ng-show="accountForm.email.$touched">
+                                            <div ng-message when="required">
+                                                <span translate>This field is required</span>
+                                            </div>
+                                            <div ng-message when="email">
+                                                <span translate>Please enter a valid email</span>
+                                            </div>
+                                        </div>
+                                    </md-input-container>
+                                    <div layout layout-xs="column" flex>
+                                        <md-input-container flex>
+                                            <label translate>Password</label>
+                                            <input type="password" name="password" ng-model="wizardController.data.account.password" required>
+                                            <div ng-messages="accountForm.password.$error" md-auto-hide="false" ng-show="accountForm.password.$touched">
+                                                <div ng-message when="required">
+                                                    <span translate>This field is required</span>
+                                                </div>
+                                            </div>
+                                        </md-input-container>
+                                        <md-input-container flex>
+                                            <label translate>Password-CONFIRM</label>
+                                            <input type="password" name="passwordConfirm" ng-model="wizardController.data.account.passwordConfirm" required>
+                                            <div ng-messages="accountForm.passwordConfirm.$error" md-auto-hide="false" ng-show="accountForm.passwordConfirm.$touched">
+                                                <div ng-message when="required">
+                                                    <span translate>This field is required</span>
+                                                </div>
+                                            </div>
+                                        </md-input-container>
+                                    </div>
+                                </div>
+                            </form>
+                        </md-content>
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="address" ng-disabled="accountForm.$invalid">
+                    <md-tab-label>
+                        <span class="oxy-step-label">2</span>
+                        <span translate>Your address</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <md-content class="md-padding">
+                            <form name="addressForm" tri-wizard-form>
+                                <div>
+                                    <div layout layout-xs="column" flex>
+                                        <md-input-container flex>
+                                            <label translate>First name</label>
+                                            <input name="firstName" ng-model="wizardController.data.address.firstName" required>
+                                            <div ng-messages="addressForm.firstName.$error" md-auto-hide="false" ng-show="addressForm.firstName.$touched">
+                                                <div ng-message when="required">
+                                                    <span translate>This field is required</span>
+                                                </div>
+                                            </div>
+                                        </md-input-container>
+                                        <md-input-container flex>
+                                            <label translate>Last name</label>
+                                            <input name="lastName" ng-model="wizardController.data.address.lastName" required>
+                                            <div ng-messages="addressForm.lastName.$error" md-auto-hide="false" ng-show="addressForm.lastName.$touched">
+                                                <div ng-message when="required">
+                                                    <span translate>This field is required</span>
+                                                </div>
+                                            </div>
+                                        </md-input-container>
+                                    </div>
+                                    <md-input-container class="md-block">
+                                        <label translate>Address Line 1</label>
+                                        <input name="address1" ng-model="wizardController.data.address.line1" required>
+                                        <div ng-messages="addressForm.address1.$error" md-auto-hide="false" ng-show="addressForm.address1.$touched">
+                                            <div ng-message when="required">
+                                                <span translate>This field is required</span>
+                                            </div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container class="md-block">
+                                        <label translate>Address Line 1-2</label>
+                                        <input ng-model="wizardController.data.address.line2">
+                                    </md-input-container>
+                                    <div layout layout-xs="column" flex>
+                                        <md-input-container flex>
+                                            <label translate>Town</label>
+                                            <input ng-model="wizardController.data.address.town">
+                                        </md-input-container>
+                                        <md-input-container flex>
+                                            <label translate>State</label>
+                                            <input ng-model="wizardController.data.address.state">
+                                        </md-input-container>
+                                    </div>
+                                    <div layout layout-xs="column" flex>
+                                        <md-input-container flex>
+                                            <label translate>Zip</label>
+                                            <input name="zip" ng-model="wizardController.data.address.zip" required>
+                                            <div ng-messages="addressForm.zip.$error" md-auto-hide="false" ng-show="addressForm.zip.$touched">
+                                                <div ng-message when="required">
+                                                    <span translate>This field is required</span>
+                                                </div>
+                                            </div>
+                                        </md-input-container>
+                                        <md-input-container flex>
+                                            <label translate>Country</label>
+                                            <md-select ng-change="triWizard.updateProgress()" name="country" ng-model="wizardController.data.address.country" required>
+                                                <md-option value="US" translate>United States</md-option>
+                                            </md-select>
+                                            <div ng-messages="addressForm.country.$error" md-auto-hide="false" ng-show="addressForm.country.$touched">
+                                                <div ng-message when="required">
+                                                    <span translate>This field is required</span>
+                                                </div>
+                                            </div>
+                                        </md-input-container>
+                                    </div>
+                                </div>
+                            </form>
+                        </md-content>
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="billing" ng-disabled="addressForm.$invalid">
+                    <md-tab-label>
+                        <span class="oxy-step-label">3</span>
+                        <span translate>Billing details</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <md-content class="md-padding">
+                            <form name="billingForm" tri-wizard-form>
+                                <div>
+                                    <md-input-container class="md-block">
+                                        <label translate>Credit card number</label>
+                                        <input name="cardNumber" ng-model="wizardController.data.billing.number" required>
+                                        <div ng-messages="billingForm.cardNumber.$error" md-auto-hide="false" ng-show="billingForm.cardNumber.$touched">
+                                            <div ng-message when="required">
+                                                <span translate>This field is required</span>
+                                            </div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container class="md-block">
+                                        <label translate>Name on card</label>
+                                        <input name="cardName" ng-model="wizardController.data.billing.name" required>
+                                        <div ng-messages="billingForm.cardName.$error" md-auto-hide="false" ng-show="billingForm.cardName.$touched">
+                                            <div ng-message when="required">
+                                                <span translate>This field is required</span>
+                                            </div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                                <div layout layout-xs="column" flex>
+                                    <md-input-container flex>
+                                        <label translate>Expiry date (MM)</label>
+                                        <input name="cardMonth" ng-model="wizardController.data.billing.cardMonth" ng-minlength="2" ng-maxlength="2" ng-pattern="/^(0?[1-9]|1[012])$/" required>
+                                        <div ng-messages="billingForm.cardMonth.$error" md-auto-hide="false" ng-show="billingForm.cardMonth.$touched">
+                                            <div ng-message when="required">
+                                                <span translate>This field is required</span>
+                                            </div>
+                                            <div ng-message when="maxlength">
+                                                <span translate>Month must be in the format MM</span>
+                                            </div>
+                                            <div ng-message when="minlength">
+                                                <span translate>Month must be in the format MM</span>
+                                            </div>
+                                            <div ng-message when="pattern">
+                                                <span translate>Month must be in the format MM</span>
+                                            </div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container flex>
+                                        <label translate>Expiry date (YYYY)</label>
+                                        <input name="cardYear" ng-model="wizardController.data.billing.cardYear" ng-minlength="4" ng-maxlength="4" ng-pattern="/^[0-9]+$/" required>
+                                        <div ng-messages="billingForm.cardYear.$error" md-auto-hide="false" ng-show="billingForm.cardYear.$touched">
+                                            <div ng-message when="required">
+                                                <span translate>This field is required</span>
+                                            </div>
+                                            <div ng-message when="maxlength">
+                                                <span translate>Year must be in the format YYYY</span>
+                                            </div>
+                                            <div ng-message when="minlength">
+                                                <span translate>Year must be in the format YYYY</span>
+                                            </div>
+                                            <div ng-message when="pattern">
+                                                <span translate>Year must be in the format YYYY</span>
+                                            </div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                            </form>
+                        </md-content>
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="confirm" ng-disabled="billingForm.$invalid">
+                    <md-tab-label>
+                        <span class="oxy-step-label">4</span>
+                        <span translate>Confirmation</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <md-content class="md-padding">
+                            <div class="padding-40" flex layout="column" layout-align="center center">
+                                <md-icon class="big-icon" md-font-icon="zmdi zmdi-cake"></md-icon>
+                                <h2 class="md-display-2" translate>Congratulations - we will be in touch</h2>
+                            </div>
+                        </md-content>
+                    </md-tab-body>
+                </md-tab>
+            </md-tabs>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button class="md-primary md-raised" ng-click="triWizard.prevStep()" ng-hide="triWizard.currentStep > 2" ng-disabled="triWizard.prevStepDisabled()" translate="Previous"></md-button>
+                <md-button class="md-primary md-raised" ng-click="triWizard.nextStep()" ng-hide="triWizard.progress == 100 && triWizard.currentStep > 1" ng-disabled="triWizard.nextStepDisabled()" translate="Next"></md-button>
+                <md-button class="md-accent md-raised" ng-click="triWizard.currentStep = 3" ng-show="triWizard.progress == 100 && triWizard.currentStep < 3" translate="Send"></md-button>
+            </md-card-actions>
+        </div>
+    </md-card>
+</div>

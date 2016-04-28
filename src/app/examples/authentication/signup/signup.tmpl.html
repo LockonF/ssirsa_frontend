@@ -1,0 +1,78 @@
+<div layout="row" flex layout-padding layout-fill layout-align="center center">
+    <div flex="40" flex-lg="50" flex-md="70" flex-xs="100">
+        <md-card>
+            <md-toolbar class="padding-20">
+                <div layout="row" layout-align="center center">
+                    <img ng-src="{{::vm.triSettings.logo}}" alt="{{vm.triSettings.name}}">
+                </div>
+                <div layout="row" layout-align="center center">
+                    <h1 class="md-headline" translate>Sign up</h1>
+                </div>
+            </md-toolbar>
+
+            <md-content class="md-padding">
+                <form name="signup">
+                    <md-input-container class="md-block">
+                        <label for="name" translate>name</label>
+                        <input id="name" label="name" name="name" type="text" ng-model="vm.user.name" required/>
+                        <div ng-messages="signup.name.$error" md-auto-hide="false" ng-show="signup.name.$touched">
+                            <div ng-message when="required">
+                                <span translate>Please enter your name</span>
+                            </div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label for="email" translate>email</label>
+                        <input id="email" label="email" name="email" type="email" ng-model="vm.user.email" required/>
+                        <div ng-messages="signup.email.$error" md-auto-hide="false" ng-show="signup.email.$touched">
+                            <div ng-message when="required">
+                                <span translate>Please enter your email address</span>
+                            </div>
+                            <div ng-message when="email">
+                                <span translate>Please enter a valid email address</span>
+                            </div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label for="password" translate>password</label>
+                        <input id="password" label="password" name="password" type="password" ng-model="vm.user.password" tri-same-password="signup.confirm" ng-minlength="8" required/>
+                        <ng-messages for="signup.password.$error" md-auto-hide="false" ng-show="signup.password.$touched">
+                            <div ng-message when="required">
+                                <span translate>Please enter a password</span>
+                            </div>
+                            <div ng-message when="minlength">
+                                <span translate>Your password must be greater than 8 characters long</span>
+                            </div>
+                            <div ng-message when="samePassword">
+                                <span translate>You need to enter the same password</span>
+                            </div>
+                        </ng-messages>
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label for="password" translate>confirm password</label>
+                        <input id="confirm" label="confirm" name="confirm" type="password" ng-model="vm.user.confirm" tri-same-password="signup.password" ng-minlength="8" required/>
+                        <ng-messages for="signup.confirm.$error" md-auto-hide="false" ng-show="signup.confirm.$touched">
+                            <div ng-message when="required">
+                                <span translate>Please enter a password</span>
+                            </div>
+                            <div ng-message when="minlength">
+                                <span translate>Your password must be greater than 8 characters long</span>
+                            </div>
+                            <div ng-message when="samePassword">
+                                <span translate>You need to enter the same password</span>
+                            </div>
+                        </ng-messages>
+                    </md-input-container>
+
+                    <md-button class="md-raised md-primary full-width margin-left-0 margin-right-0 margin-top-10 margin-bottom-10" ng-click="vm.signupClick()" ng-disabled="signup.$invalid" translate="Sign Up" aria-label="{{'Sign Up' | triTranslate}}"></md-button>
+
+                    <md-button  class="md-primary full-width margin-left-0 margin-right-0 margin-top-10 margin-bottom-10" href="#/login" translate="Already have an account? Login here." aria-label="{{'Already have an account? Login here.' | triTranslate}}"></md-button>
+
+                </form>
+            </md-content>
+
+        </md-card>
+    </div>
+</div>

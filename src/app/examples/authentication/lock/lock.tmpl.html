@@ -1,0 +1,35 @@
+<div layout="row" flex layout-padding layout-fill layout-align="center center">
+    <div flex="40" flex-lg="50" flex-md="70" flex-xs="100">
+        <md-card>
+            <md-toolbar class="padding-20">
+                <div layout="row" layout-align="center center">
+                    <img ng-src="{{::vm.triSettings.logo}}" alt="{{vm.triSettings.name}}">
+                </div>
+                <div layout="row" layout-align="center center">
+                    <h1 class="md-headline">
+                        <span translate>Welcome back</span> {{vm.user.name}}
+                    </h1>
+                </div>
+            </md-toolbar>
+
+            <md-content class="md-padding">
+                <p class="margin-top-20 margin-bottom-20" translate>You have been logged out due to idleness. Enter your password to log back in.</p>
+
+                <form name="lock">
+                    <md-input-container class="md-block">
+                        <label for="password" translate>password</label>
+                        <input label="password" name="password" type="password" ng-model="vm.user.password" required/>
+                        <div ng-messages for="lock.password.$error" md-auto-hide="false" ng-show="lock.password.$touched">
+                            <div ng-message when="required"><span translate>Please enter your password.</span></div>
+                        </div>
+                    </md-input-container>
+
+                    <div layout="row">
+                        <md-button flex href="#/login" translate="Log out"></md-button>
+                        <md-button flex class="md-primary" ng-click="vm.loginClick()" ng-disabled="lock.$invalid" translate="Log in"></md-button>
+                    </div>
+                </form>
+            </md-content>
+        </md-card>
+    </div>
+</div>

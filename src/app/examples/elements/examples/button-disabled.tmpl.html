@@ -1,0 +1,11 @@
+<div class="elements-button-colors" layout="row" layout-xs="column" layout-align="space-around center">
+    <div layout="column" layout-align="center center">
+        <md-switch ng-model="vm.buttonDisabled" aria-label="Switch 2" class="md-primary">
+            Toggle Button Disabled
+        </md-switch>
+    </div>
+    <div layout="column" layout-align="center center">
+        <md-button class="md-primary md-raised" ng-disabled="vm.buttonDisabled" aria-label="disabled button">Disabled</md-button>
+        <h3>Disabled: {{vm.buttonDisabled}}</h3>
+    </div>
+</div>
