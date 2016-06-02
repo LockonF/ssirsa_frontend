@@ -12,7 +12,8 @@
             'app.translate',
             // only need one language?  if you want to turn off translations
             // comment out or remove the 'app.translate', line above
-            'app.examples'
+            'app.examples',
+            'app.mainApp'
         ])
 
         // set a constant for the API we are connecting to
