@@ -6,14 +6,13 @@
             'triangular',
             'ngAnimate', 'ngCookies', 'ngSanitize', 'ngMessages', 'ngMaterial',
             'ui.router', 'googlechart', 'chart.js', 'linkify', 'ui.calendar', 'angularMoment', 'textAngular', 'uiGmapgoogle-maps', 'hljs', 'md.data.table', angularDragula(angular), 'ngFileUpload',
-            'youtube-embed',
 
             // 'seed-module'
             // uncomment above to activate the example seed module
             'app.translate',
             // only need one language?  if you want to turn off translations
             // comment out or remove the 'app.translate', line above
-            'app.examples',
+            'app.examples'
         ])
 
         // set a constant for the API we are connecting to
