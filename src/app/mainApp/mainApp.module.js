@@ -5,7 +5,8 @@
 
 
     angular.module('app.mainApp',[
-        'app.mainApp.solicitudes'
+        'app.mainApp.solicitudes',
+        'app.mainApp.login'
     ]);
 
 })();
