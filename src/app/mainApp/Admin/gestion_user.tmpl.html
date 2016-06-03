@@ -12,37 +12,44 @@
                     <h2>Creación de Usuario</h2>
                     <md-input-container md-no-float class="md-block">
                         <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
-                        <input type="text" placeholder="Usuario" ng-model='vm.user.user'>
+                        <input type="text" placeholder="Usuario" ng-model="vm.user.user">
                     </md-input-container>
 
                     <md-input-container md-no-float class="md-block">
                         <md-icon md-font-icon="zmdi zmdi-key"></md-icon>
-                        <input type="password" placeholder="Contraseña" ng-model='vm.user.password'>
+                        <input type="password" placeholder="Contraseña" ng-model="vm.user.password">
                     </md-input-container>
 
                     <md-input-container md-no-float class="md-block">
                         <md-icon md-font-icon="zmdi zmdi-key"></md-icon>
-                        <input type="password" placeholder="Confirmación de Contraseña" ng-model='vm.user.confirmacion'>
+                        <input type="password" placeholder="Confirmación de Contraseña" ng-model="vm.user.confirmacion">
                     </md-input-container>
 
                     <md-input-container md-no-float class="md-block">
                         <md-icon md-font-icon="zmdi zmdi-pin"></md-icon>
-                        <input type="text" placeholder="Correo Electrónico"  ng-model='vm.user.mail'>
+                        <input type="text" placeholder="Correo Electrónico"  ng-model="vm.user.mail">
                     </md-input-container>
 
                     <md-input-container layout="row">
-                        
+
                     </md-input-container>
 
                 </md-card-content>
-                <md-input-container layout="row">
 
-                </md-input-container>
             </md-card>
         </md-input-container>
         <md-input-container flex="50">
             <md-card>
+                <md-input-container md-no-float>
+                        <h3>To:</h3><span>{{vm.correo.to}}</span>
 
+                        <h3>from:</h3>//<span>{{vm.correo.from}}</span>
+
+                        <h3>Mensaje:</h3>//<span>{{vm.correo.content}}</span>
+
+
+
+                </md-input-container>
             </md-card>
         </md-input-container>
 
