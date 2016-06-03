@@ -16,6 +16,21 @@
 
         })
 
+
+
+        triMenuProvider.addMenu({
+            name: 'Solicitudes',
+            icon: 'zmdi zmdi-account',
+            type: 'dropdown',
+            priority: 4.1,
+            children: [{
+                name: 'Solicitudes Pendientes',
+                state: 'triangular.admin-default.solicitudes',
+                type: 'link'
+            }]
+        });
     }
+
+
 
 })();

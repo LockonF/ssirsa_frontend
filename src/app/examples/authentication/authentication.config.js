@@ -9,7 +9,7 @@
     function moduleConfig($stateProvider, triMenuProvider) {
 
         $stateProvider
-        .state('authentication', {
+            .state('authentication', {
             abstract: true,
             templateUrl: 'app/examples/authentication/layouts/authentication.tmpl.html'
         })

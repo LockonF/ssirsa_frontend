@@ -1,5 +1,5 @@
 /**
- * Created by lockonDaniel on 6/2/16.
+ * Created by franciscojaviercerdamartinez on 6/2/16.
  */
 (function () {
     angular.module('app.mainApp.solicitudes',[
