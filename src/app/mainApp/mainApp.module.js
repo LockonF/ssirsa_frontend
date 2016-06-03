@@ -9,7 +9,8 @@
         'app.mainApp.login',
         'app.mainApp.admin',
         'app.mainApp.bienvenida',
-        //'app.examples'
+        //'app.examples',
+        'app.mainApp.calendar'
     ]);
 
 })();
