@@ -20,7 +20,7 @@
 
         triMenuProvider.addMenu({
             name: 'Solicitudes',
-            icon: 'zmdi zmdi-account',
+            icon: 'zmdi zmdi-bookmark',
             type: 'dropdown',
             priority: 4.1,
             children: [{
