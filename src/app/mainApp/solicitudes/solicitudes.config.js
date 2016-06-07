@@ -1,5 +1,5 @@
 /**
- * Created by lockonDaniel on 6/2/16.
+ * Created by franciscojaviercerdamartinez on 6/2/16.
  */
 (function () {
     angular
@@ -27,7 +27,14 @@
                 name: 'Solicitudes Pendientes',
                 state: 'triangular.admin-default.solicitudes',
                 type: 'link'
-            }]
+            },
+                {
+                    name: 'Solicitudes Pendientes',
+                    state: 'triangular.admin-default.solicitudes',
+                    type: 'link'
+                },
+            ]
+
         });
     }
 

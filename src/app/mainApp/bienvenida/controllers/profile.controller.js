@@ -4,15 +4,15 @@
 (function () {
     angular
         .module('app.mainApp.admin')
-        .controller('bienvenidaController',bienvenidaController);
+        .controller('profileController',profileController);
 
-    function bienvenidaController(){
+    function profileController(){
         var vm = this;
         vm.usuario={
             nombre:'Francisco',
             apellidop:'Cerda',
             apellidom:'Martínez',
-            typeuser:'Administrador',
+            typeuser:'Admin',
             avatar:'avatar-7.png',
             fechanac:'07-02-1993'
         };
