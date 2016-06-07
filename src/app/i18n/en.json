@@ -372,6 +372,20 @@
     "MANAGE": {
       "MANAGEMENT_USER": "Administración de Usuarios"
     }
-  }
+  },
+
+  "validations": {
+    "missing": {
+      "user": "Please enter your user ID",
+      "password": "Please enter your password"
+    },
+    "invalid": {
+      "user": "Please enter a valid user",
+      "password": "Incorrect password"
+    }
+  },
+  "user":"User",
+  "password":"Password",
+  "Log in 2":"Login with Card"
 
 }

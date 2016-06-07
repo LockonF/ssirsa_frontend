@@ -1,9 +1,9 @@
-<div layout="row" flex layout-padding layout-fill layout-align="center center">
+<div class="full-height full-image-background mb-bg-14" layout="row" flex layout-padding layout-fill layout-align="center center">
     <div flex="40" flex-lg="50" flex-md="70" flex-xs="100">
         <md-card>
             <md-toolbar class="padding-20">
                 <div flex layout="row" layout-align="center center">
-                    <img style="width:100px;" ng-src="{{::vm.triSettings.logo}}" alt="{{vm.triSettings.name}}">
+                    <img style="max-width:100px; max-height:130px" ng-src="{{::vm.triSettings.logo}}" alt="{{vm.triSettings.name}}">
                 </div>
                 <div layout="row" layout-align="center center">
                     <h1 class="md-headline" translate>Log in</h1>
@@ -16,20 +16,20 @@
                         <label for="user" translate>user</label>
                         <input id="user" label="user" name="user" type="text" ng-model="vm.user.id" required/>
                         <div ng-messages="login.user.$error" md-auto-hide="false" ng-show="login.user.$touched">
-                            <div ng-message when="required"><span translate>Please enter your user ID</span></div>
-                            <div ng-message when="user"><span translate>Please enter a valid user ID</span></div>
+                            <div ng-message when="required"><span translate="validations.missing.user"></span></div>
+                            <div ng-message when="user"><span translate="validations.invalid.user"></span></div>
                         </div>
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label for="password" translate>password</label>
                         <input  id="password" label="password" name="password" type="password" ng-model="vm.user.password" required/>
                         <div ng-messages for="login.password.$error" md-auto-hide="false" ng-show="login.password.$touched">
-                            <div ng-message when="required"><span translate>Please enter your password.</span></div>
+                            <div ng-message when="required"><span translate="validations.missing.password"></span></div>
                         </div>
                     </md-input-container>
 
                     <md-button class="md-raised md-primary full-width margin-left-0 margin-right-0 margin-top-10 margin-bottom-10"  ng-click="vm.loginClick()" ng-disabled="login.$invalid" translate="Log in" aria-label="{{'Log in' | triTranslate}}"></md-button>
-                    <md-button class="md-raised md-primary full-width margin-left-0 margin-right-0 margin-top-10 margin-bottom-10"  ng-click="vm.loginTagClick()" translate="Log in 2" aria-label="{{'Log in' | triTranslate}}"></md-button>
+                    <md-button class="md-raised md-primary full-width margin-left-0 margin-right-0 margin-top-10 margin-bottom-10 padding-top-20 padding-bottom-20"  ng-click="vm.loginTagClick($event,vm.newDialog)" translate="Log in 2" aria-label="{{'Log in' | triTranslate}}"></md-button>
                     <!--
                     <md-button class="md-primary full-width margin-left-0 margin-right-0 margin-top-10 margin-bottom-10" href="#/signup" translate="Don't have an account? Create one now" aria-label="{{'Don\'t have an account? Create one now' | triTranslate}}"></md-button>
                     -->

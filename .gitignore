@@ -3,3 +3,5 @@ bower_components/
 .sass-cache/
 .tmp/
 dist/
+src/app/mainApp/login/controllers/login.controller.js
+src/assets/images/logo-triangular.png
