@@ -11,145 +11,46 @@
         // sets the current active tab
         vm.close = close;
         vm.currentTab = 0;
-        vm.notificationGroups = [{
-            name: 'Twitter',
-            notifications: [{
-                title: 'Mention from oxygenna',
-                icon: 'fa fa-twitter',
-                iconColor: '#55acee',
-                date: moment().startOf('hour')
-            },{
-                title: 'Oxygenna',
-                icon: 'fa fa-twitter',
-                iconColor: '#55acee',
-                date: moment().startOf('hour')
-            },{
-                title: 'Oxygenna',
-                icon: 'fa fa-twitter',
-                iconColor: '#55acee',
-                date: moment().startOf('hour')
-            },{
-                title: 'Followed by Oxygenna',
-                icon: 'fa fa-twitter',
-                iconColor: '#55acee',
-                date: moment().startOf('hour')
-            }]
-        },{
-            name: 'Server',
-            notifications: [{
-                title: 'Server Down',
-                icon: 'zmdi zmdi-alert-circle',
-                iconColor: 'rgb(244, 67, 54)',
-                date: moment().startOf('hour')
-            },{
-                title: 'Slow Response Time',
-                icon: 'zmdi zmdi-alert-triangle',
-                iconColor: 'rgb(255, 152, 0)',
-                date: moment().startOf('hour')
-            },{
-                title: 'Server Down',
-                icon: 'zmdi zmdi-alert-circle',
-                iconColor: 'rgb(244, 67, 54)',
-                date: moment().startOf('hour')
-            }]
-        },{
-            name: 'Sales',
-            notifications: [{
-                title: 'Triangular Admin $21',
-                icon: 'zmdi zmdi-shopping-cart',
-                iconColor: 'rgb(76, 175, 80)',
-                date: moment().startOf('hour')
-            },{
-                title: 'Lambda WordPress $60',
-                icon: 'zmdi zmdi-shopping-cart',
-                iconColor: 'rgb(76, 175, 80)',
-                date: moment().startOf('hour')
-            },{
-                title: 'Triangular Admin $21',
-                icon: 'zmdi zmdi-shopping-cart',
-                iconColor: 'rgb(76, 175, 80)',
-                date: moment().startOf('hour')
-            },{
-                title: 'Triangular Admin $21',
-                icon: 'zmdi zmdi-shopping-cart',
-                iconColor: 'rgb(76, 175, 80)',
-                date: moment().startOf('hour')
-            },{
-                title: 'Lambda WordPress $60',
-                icon: 'zmdi zmdi-shopping-cart',
-                iconColor: 'rgb(76, 175, 80)',
-                date: moment().startOf('hour')
-            },{
-                title: 'Triangular Admin $21',
-                icon: 'zmdi zmdi-shopping-cart',
-                iconColor: 'rgb(76, 175, 80)',
-                date: moment().startOf('hour')
-            }]
-        }];
-        vm.openMail = openMail;
-        vm.settingsGroups = [{
-            name: 'Account Settings',
-            settings: [{
-                title: 'Show my location',
-                icon: 'zmdi zmdi-pin',
-                enabled: true
-            },{
-                title: 'Show my avatar',
-                icon: 'zmdi zmdi-face',
-                enabled: false
-            },{
-                title: 'Send me notifications',
-                icon: 'zmdi zmdi-notifications-active',
-                enabled: true
-            }]
-        },{
-            name: 'Chat Settings',
-            settings: [{
-                title: 'Show my username',
-                icon: 'zmdi zmdi-account',
-                enabled: true
-            },{
-                title: 'Make my profile public',
-                icon: 'zmdi zmdi-account-box',
-                enabled: false
-            },{
-                title: 'Allow cloud backups',
-                icon: 'zmdi zmdi-cloud-upload',
-                enabled: true
-            }]
-        }];
+        vm.solicitudes = [{
+            title:'Loncheria Martinez',
+            type:'Servicio en Sucursal',
+            icon:'fa fa-home',
+            fecha:'06-08-2016'
+        },
+            {
+                title:'La Tapatía',
+                type:'Servicio en Sucursal',
+                icon:'fa fa-home',
+                fecha:'06-07-2016'
+            },
+            {
+                title:'Unilever',
+                type:'Recolección',
+                icon:'fa fa-archive',
+                fecha:'06-07-2016'
+            },
 
-        vm.statisticsGroups = [{
-            name: 'User Statistics',
-            stats: [{
-                title: 'Storage Space (120/160 Gb)',
-                mdClass: 'md-primary',
-                value: 60
-            },{
-                title: 'Bandwidth Usage (10/100 Gb)',
-                mdClass: 'md-accent',
-                value: 10
-            },{
-                title: 'Memory Usage (1/8 Gb)',
-                mdClass: 'md-warn',
-                value: 100
-            }]
-        },{
-            name: 'Server Statistics',
-            stats: [{
-                title: 'Storage Space (120/160 Gb)',
-                mdClass: 'md-primary',
-                value: 60
-            },{
-                title: 'Bandwidth Usage (10/100 Gb)',
-                mdClass: 'md-accent',
-                value: 10
-            },{
-                title: 'Memory Usage (1/8 Gb)',
-                mdClass: 'md-warn',
-                value: 100
-            }]
-        }];
+        ];
+        vm.solicitudes2 = [{
+            title:'Distribuidora 1',
+            type:'Servicio',
+            icon:'fa fa-wrench',
+            fecha:'06-08-2016'
+        },
+            {
+                title:'Distribuidora 2',
+                type:'Servicio ',
+                icon:'fa fa-wrench',
+                fecha:'06-07-2016'
+            },
+            {
+                title:'Unilever',
+                type:'Recolección',
+                icon:'fa fa-archive',
+                fecha:'06-07-2016'
+            },
+
+        ];
 
         ////////////////
 

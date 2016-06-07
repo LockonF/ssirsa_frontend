@@ -13,8 +13,8 @@
         vm.enviar =enviar;
         vm.clean=clean;
         vm.user={
-            user:"",
-            password:"",
+            user:'',
+            password:'',
             confirm:"",
             mail:"" ,
             tipo:""
@@ -53,6 +53,21 @@
             };
         }
         function enviar() {
+
+            console.log(vm.user);
+
+            vm.correo={
+                to:vm.user.mail,
+                from:"sssir@mail.com.mx",
+                content: "Buen día, el motivo del presente correo es informarle que" +
+                "ya cuenta con una cuenta del tipo" +vm.user.tipo+
+                " para hacer uso de SSIR, a continuación se le dará su usuario:" +vm.user.user+
+                ", y contraseña:" +vm.user.password+
+                ", sin más por el momento esperamos disfrute del sistema y le recordamos que en su primer acceso" +
+                "ingrese su Información Personal"
+            };
+            console.log(vm.correo);
+
             vm.user={
                 user:"",
                 password:"",
@@ -61,6 +76,7 @@
                 tipo:""
 
             };
+
             vm.correo={
                 to:vm.user.mail,
                 from:"sssir@mail.com.mx",
@@ -74,7 +90,7 @@
         }
 
 
-
+    
 
 
     }

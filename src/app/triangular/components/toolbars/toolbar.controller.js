@@ -8,6 +8,7 @@
     /* @ngInject */
     function DefaultToolbarController($scope, $injector, $rootScope, $mdMedia, $state, $element, $filter, $mdUtil, $mdSidenav, $mdToast, $timeout, $document, triBreadcrumbsService, triSettings, triLayout) {
         var vm = this;
+        vm.no_solicitudes=6;
         vm.breadcrumbs = triBreadcrumbsService.breadcrumbs;
         vm.emailNew = false;
         vm.languages = triSettings.languages;
@@ -18,6 +19,14 @@
         vm.isFullScreen = false;
         vm.fullScreenIcon = 'zmdi zmdi-fullscreen';
         vm.toggleFullScreen = toggleFullScreen;
+        vm.usuario={
+            nombre:'Francisco',
+            apellidop:'Cerda',
+            apellidom:'Martínez',
+            typeuser:'Admin',
+            avatar:'avatar-7.png',
+            fechanac:'07-02-1993'
+        };
 
         // initToolbar();
 

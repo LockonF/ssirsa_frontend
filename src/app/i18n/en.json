@@ -366,5 +366,12 @@
   "Sidebar": "Sidebar",
   "Content": "Content",
   "Choose a skin": "Choose a skin",
-  "Try It": "Try It"
+  "Try It": "Try It",
+
+  "ADMIN": {
+    "MANAGE": {
+      "MANAGEMENT_USER": "Administración de Usuarios"
+    }
+  }
+
 }

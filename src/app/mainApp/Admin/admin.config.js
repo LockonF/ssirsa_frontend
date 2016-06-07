@@ -18,9 +18,9 @@
             })
         triMenuProvider.addMenu({
             name: 'Administrador',
-            icon: 'zmdi zmdi-account',
+            icon: 'zmdi zmdi-case',
             type: 'dropdown',
-            priority: 4.1,
+            priority: 2.1,
             children: [{
                 name: 'Gestion Usuarios',
                 state: 'triangular.admin-default.gestion_user',

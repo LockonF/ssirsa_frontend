@@ -1,5 +1,5 @@
 /**
- * Created by lockonDaniel on 6/2/16.
+ * Created by franciscojaviercerdamartinez on 6/2/16.
  */
 (function () {
     angular
@@ -20,14 +20,21 @@
 
         triMenuProvider.addMenu({
             name: 'Solicitudes',
-            icon: 'zmdi zmdi-account',
+            icon: 'zmdi zmdi-bookmark',
             type: 'dropdown',
             priority: 4.1,
             children: [{
                 name: 'Solicitudes Pendientes',
                 state: 'triangular.admin-default.solicitudes',
                 type: 'link'
-            }]
+            },
+                {
+                    name: 'Solicitudes Pendientes',
+                    state: 'triangular.admin-default.solicitudes',
+                    type: 'link'
+                },
+            ]
+
         });
     }
 
