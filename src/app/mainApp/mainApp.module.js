@@ -9,6 +9,7 @@
         'app.mainApp.login',
         'app.mainApp.admin',
         'app.mainApp.bienvenida',
+        'app.mainApp.tecnico'
         //'app.examples'
     ]);
 
