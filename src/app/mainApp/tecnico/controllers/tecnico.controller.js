@@ -11,10 +11,16 @@
     function tecnicoController(){
         var vm=this;
         vm.user = {
-            name:'Elías Hernandez',
-            level:'A',
-            area:'Diagnóstico inicial'
+            name:'Francisco Javier Cerda Martínez',
+            level:'SU',
+            area:'Todas'
         }
+        vm.tecnicoAVisibility=true;
+        vm.tecnicoBVisibility=true;
+        vm.tecnicoCVisibility=true;
+        vm.tecnicoDVisibility=true;
+        vm.tecnicoEVisibility=true;
     }
+
 
 })();

@@ -11,11 +11,11 @@
         vm.loginClick = loginClick;
         vm.loginTagClick = loginTagClick;
         vm.newDialog = {
-            title: 'Card Login',
-            content: 'Hold you card near the reader',
-            holder:'Card ID',
+            title: 'Login por TAG',
+            content: 'Coloque su tarjeta cerca del lector',
+            holder:'ID Tarjeta',
             ok: 'OK',
-            cancel: 'Cancel'
+            cancel: 'Cancelar'
         };
         
         vm.triSettings = triSettings;
@@ -38,7 +38,7 @@
                 .cancel(dialog.cancel)
                 .targetEvent($event);
             $mdDialog.show(confirm).then(function(result){
-                $state.go('tecnico');
+                $state.go('triangular.admin-default.tecnico');
             });
 
         }
