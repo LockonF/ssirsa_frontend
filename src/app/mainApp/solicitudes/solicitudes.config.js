@@ -34,19 +34,19 @@
             icon: 'zmdi zmdi-bookmark',
             type: 'dropdown',
             priority: 4.1,
-            children: [{
+            children: [/*{
                 name: 'Solicitudes Pendientes',
                 state: 'triangular.admin-default.solicitudes',
                 type: 'link'
-            },{
+            },*/{
                 name: 'Crear Solicitud',
                 state: 'triangular.admin-default.realizarSolicitud',
                 type: 'link'
-            },{
+            }/*,{
                 name: 'Pruebas',
                 state: 'triangular.admin-default.Pruebas',
                 type: 'link'
-            }
+            }*/
 
             ]
         });

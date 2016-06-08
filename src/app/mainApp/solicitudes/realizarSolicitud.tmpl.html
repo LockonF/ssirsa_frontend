@@ -11,13 +11,13 @@
                             <md-option value="3">UDN_3</md-option>
                         </md-select>
                         <div class="margin-bottom-20" layout="row" layout-align="space-around center">
-                            <p>Please select a date</p>
+                            <p>Fecha de inicio</p>
 
-                            <p>Please select a date</p>
+                            <p>Fecha de Termino</p>
                         </div>
                         <div class="margin-bottom-20" layout="row" layout-align="space-around center">
                             <md-datepicker ng-model="myDate" md-placeholder="Enter date"></md-datepicker>
-                            <md-datepicker ng-model="myDate" md-placeholder="Enter date"></md-datepicker>
+                            <md-datepicker ng-model="myDate2" md-placeholder="Enter date"></md-datepicker>
                         </div>
                         <md-input-container class="md-block">
                             <label>Descripción</label>
@@ -115,7 +115,7 @@
 </div>
 <!-- opc 1-->
 <div layout="row" flex layout-padding layout-fill layout-align="center center" ng-show="vm.solicitudTipo==1">
-    <div flex="75" flex-xs="100">
+    <div flex="50" flex-xs="100">
         <!-- exact table from live demo ***********************************************************************-->
         <md-card>
             <div layout="row" layout-sm="column" layout-md="column">
@@ -123,11 +123,11 @@
                     <table md-table="" md-row-select="" ng-model="vm.requisito">
                         <thead md-head="" md-order="vm.query.order">
                         <tr md-row="md-row">
-                            <th md-column="md-column" md-order-by="rTipo"><span translate="">SOLICITUD.TABLE.TIPO</span>
+                            <th md-column="md-column" md-order-by="rTipo"><span translate="">TIPO</span>
                             </th>
                             <th md-column="md-column" md-order-by="rEstatus"><span
-                                    translate="">SOLICITUD.TABLE.ESTATUS</span></th>
-                            <th md-column="md-column" md-order-by="rCantidad"><span translate="">SOLICITUD.TABLE.CANTIDAD</span>
+                                    translate="">ESTATUS</span></th>
+                            <th md-column="md-column" md-order-by="rCantidad"><span translate="">CANTIDAD</span>
                             </th>
                             <!-- Cuerpo de la tabla-->
                         </tr>
@@ -162,11 +162,11 @@
                     <table md-table="" md-row-select="" ng-model="vm.requisito">
                         <thead md-head="" md-order="vm.query.order">
                         <tr md-row="md-row">
-                            <th md-column="md-column" md-order-by="rTipo"><span translate="">SOLICITUD.TABLE.TIPO</span>
+                            <th md-column="md-column" md-order-by="rTipo"><span translate="">TIPO</span>
                             </th>
                             <th md-column="md-column" md-order-by="rEstatus"><span
-                                    translate="">SOLICITUD.TABLE.ESTATUS</span></th>
-                            <th md-column="md-column" md-order-by="rCantidad"><span translate="">SOLICITUD.TABLE.CANTIDAD</span>
+                                    translate="">ESTATUS</span></th>
+                            <th md-column="md-column" md-order-by="rCantidad"><span translate="">CANTIDAD</span>
                             </th>
                             <!-- Cuerpo de la tabla-->
                         </tr>
@@ -201,11 +201,11 @@
                     <table md-table="" md-row-select="" ng-model="vm.requisito">
                         <thead md-head="" md-order="vm.query.order">
                         <tr md-row="md-row">
-                            <th md-column="md-column" md-order-by="rTipo"><span translate="">SOLICITUD.TABLE.TIPO</span>
+                            <th md-column="md-column" md-order-by="rTipo"><span translate="">TIPO</span>
                             </th>
                             <th md-column="md-column" md-order-by="rEstatus"><span
-                                    translate="">SOLICITUD.TABLE.ESTATUS</span></th>
-                            <th md-column="md-column" md-order-by="rCantidad"><span translate="">SOLICITUD.TABLE.CANTIDAD</span>
+                                    translate="">ESTATUS</span></th>
+                            <th md-column="md-column" md-order-by="rCantidad"><span translate="">CANTIDAD</span>
                             </th>
                             <!-- Cuerpo de la tabla-->
                         </tr>
