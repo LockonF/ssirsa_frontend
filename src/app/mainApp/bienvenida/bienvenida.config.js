@@ -16,6 +16,13 @@
                 controller: 'bienvenidaController',
                 controllerAs: 'vm'
             })
+            .state('triangular.admin-default.profile', {
+                url: '/profile',
+                templateUrl: 'app/mainApp/bienvenida/profile.tmpl.html',
+                controller: 'profileController',
+                controllerAs: 'vm'
+            })
+
         triMenuProvider.addMenu({
             name: 'Bienvenida',
             icon: 'zmdi zmdi-home',

@@ -22,10 +22,16 @@
             type: 'dropdown',
             priority: 2.1,
             children: [{
-                name: 'Gestion Usuarios',
+                name: 'Nuevo Usuarios',
                 state: 'triangular.admin-default.gestion_user',
                 type: 'link'
-            }]
+            },{
+                name: 'Buscar Usuario',
+                state: 'triangular.admin-default.buscarUsuario',
+                type: 'link'
+            }
+
+            ]
         });
     }
     

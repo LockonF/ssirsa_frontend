@@ -13,10 +13,18 @@
         vm.enviar =enviar;
         vm.clean=clean;
         vm.user={
-            user:'',
-            password:'',
+            user:"",
+            password:"",
             confirm:"",
-            mail:"" ,
+            nombre:"",
+            aPaterno:"",
+            aMaterno:"",
+            mail:"",
+            telefono:"",
+            direccion:"",
+            sucursal:"",
+            ine:"",
+            foto:"",
             tipo:""
 
         };
