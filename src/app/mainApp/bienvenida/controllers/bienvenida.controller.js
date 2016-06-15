@@ -13,7 +13,7 @@
             apellidop:'Cerda',
             apellidom:'Martínez',
             typeuser:'Administrador',
-            avatar:'avatar-7.png',
+            avatar:'boss.jpg',
             fechanac:'07-02-1993'
         };
     }

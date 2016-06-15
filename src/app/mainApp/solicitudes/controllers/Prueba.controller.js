@@ -4,9 +4,9 @@
 (function () {
     angular
         .module('app.mainApp.solicitudes')
-        .controller('solicitudesController',solicitudesController);
+        .controller('Prueba',PruebaController);
 
-    function solicitudesController(){
+    function PruebaController(){
         var vm = this;
         vm.id=0;
         vm.requisito = {
@@ -61,9 +61,9 @@
 
                     console.log(index);
                     //if(vm.Requisitos[index].Descripcion==vm.requisitocopy.Descripcion){
-                    console.log("voy a borrar");
-                    console.log(vm.Requisitos[index]);
-                    vm.Requisitos.splice(index, 1);
+                        console.log("voy a borrar");
+                        console.log(vm.Requisitos[index]);
+                        vm.Requisitos.splice(index, 1);
                     //
                 }
                 else{console.log("Aun no lo encuentro")}
@@ -76,6 +76,7 @@
 
 
         }
+
     }
 
 })();
