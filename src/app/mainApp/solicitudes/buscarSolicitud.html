@@ -1,0 +1,104 @@
+<div layout="row" flex layout-padding layout-fill layout-align="center center">
+    <div flex="50" flex-xs="100">
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <h2>Buscar Solicitud</h2>
+                    <div layout="row">
+                        <md-input-container class="md-block" flex="50">
+                            <label>No de Solicitud</label>
+                            <textarea ng-model="vm.id"></textarea>
+                        </md-input-container>
+                        <div layout="column">
+                            <div class="margin-bottom-20" layout="row" layout-align="space-around center" flex="50">
+                                <p>Fecha de Termino</p>
+                            </div>
+                            <div class="margin-bottom-20" layout="row" layout-align="space-around center" flex="50">
+                                <md-datepicker ng-model="vm.FechaFin"
+                                               md-placeholder="Enter date"></md-datepicker>
+                            </div>
+                        </div>
+
+                        <!-- opc 1-->
+
+
+
+
+
+                    </div>
+                    <md-button ng-click="vm.mostrarRequisito()" ng-class="guardar" aria-label="fab button"
+                               class="md-fab md-primary md-raised">
+                        <md-icon md-font-icon="fa fa-save"></md-icon>
+                    </md-button>
+                </md-card-title-text>
+
+
+            </md-card-title>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button>Guardar</md-button>
+                <md-button>Cancelar</md-button>
+            </md-card-actions>
+        </md-card>
+
+        <!--md-toolbar class="md-table-toolbar md-default">
+            <div class="md-toolbar-tools">
+                <span>Nutrition</span>
+            </div>
+        </md-toolbar-->
+
+
+    </div>
+</div>
+<!-- opc 1-->
+<div layout="row" flex layout-padding layout-fill layout-align="center center" ng-show="vm.flag==1">
+    <div flex="70" flex-xs="100">
+        <!-- exact table from live demo ***********************************************************************-->
+        <md-card>
+            <div layout="row" layout-sm="column" layout-md="column">
+                <md-table-container>
+                    <table md-table="" md-row-select="" ng-model="vm.requisito">
+                        <thead md-head="" md-order="vm.query.order">
+                        <tr md-row="md-row">
+                            <th md-column="md-column" md-order-by="id"><span translate="">No. Solicitud</span>
+                            </th>
+                            <th md-column="md-column" md-order-by="rUDN"><span translate="">UDN</span>
+                                <!--vm.requisito. -->
+                            </th>
+                            <th md-column="md-column" md-order-by="rFechaIni"><span translate="">Inicio</span>
+                            </th>
+                            <th md-column="md-column" md-order-by="rFechaFin"><span translate="">Fin</span>
+                            </th>
+                            <th md-column="md-column" md-order-by="rTipo"><span translate="">TIPO</span>
+                            </th>
+                            <th md-column="md-column" md-order-by="rEstatus"><span translate="">ESTATUS</span>
+                            </th>
+                            <th md-column="md-column" md-order-by="rCantidad"><span translate="">CANTIDAD</span>
+                            </th>
+                            <!-- Cuerpo de la tabla-->
+                        </tr>
+                        </thead>
+                        <tbody md-body="md-body">
+                        <tr md-row="md-row" md-select="requisito" md-select-id="{{requisito.id}}"
+                            ng-repeat="requisito in vm.Requisitos | orderBy:vm.query.order">
+                            <td md-cell="md-cell">{{requisito.id}}</td>
+                            <td md-cell="md-cell">{{requisito.rUDN}}</td>
+                            <td md-cell="md-cell">{{requisito.rFechaIni}}</td>
+                            <td md-cell="md-cell">{{requisito.rFechaFin}}</td>
+                            <td md-cell="md-cell">{{requisito.rTipo}}</td>
+                            <td md-cell="md-cell">{{requisito.rEstatus}}</td>
+                            <td md-cell="md-cell">{{requisito.rCantidad}}</td>
+                            <td md-cell="md-cell" ng-click="$event.stopPropagation()"><!-- -->
+                                <md-button ng-click="vm.eliminarRequisito(requisito)" class="md-fab md-warn md-mini">
+                                    <md-icon md-font-icon="fa fa-times-circle"></md-icon>
+                                </md-button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </md-table-container>
+            </div>
+        </md-card>
+    </div>
+</div>
+
+

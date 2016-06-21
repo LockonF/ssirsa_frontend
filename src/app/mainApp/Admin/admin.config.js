@@ -16,6 +16,12 @@
                 controller: 'gestion_userController',
                 controllerAs: 'vm'
             })
+            .state('triangular.admin-default.buscarUsuario',{
+                url:'/buscarUsuario',
+                templateUrl:'app/mainApp/Admin/buscarUsuario.html',
+                controller:'buscarUsuarioController',
+                controllerAs:'vm'
+            })
         triMenuProvider.addMenu({
             name: 'Administrador',
             icon: 'zmdi zmdi-case',

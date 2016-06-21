@@ -1,0 +1,115 @@
+<div layout="row" flex layout-padding layout-fill layout-align="center center">
+    <div flex="50" flex-xs="100">
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <h2>Buscar Usuario</h2>
+                    <div layout="row">
+                        <!--md-input-container class="md-block" flex="50">
+                            <label>Nombre de Usuario</label>
+                            <textarea ng-model="vm.id"></textarea>
+                        </md-input-container-->
+                        <md-input-container class="md-block" flex="50">
+                            <label>Nombre de Usuario</label>
+                            <textarea ng-model="vm.userName"></textarea>
+                        </md-input-container>
+                        <!--md-input-container class="md-block" flex="50">
+                            <label>No de Solicitud</label>
+                            <textarea ng-model="vm.id"></textarea>
+                        </md-input-container>
+
+                        <!-- opc 1-->
+
+
+                    </div>
+                    <md-button ng-click="vm.mostrarUsuario()" ng-class="guardar" aria-label="fab button"
+                               class="md-fab md-primary md-raised">
+                        <md-icon md-font-icon="fa fa-save"></md-icon>
+                    </md-button>
+                </md-card-title-text>
+
+
+            </md-card-title>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button>Guardar</md-button>
+                <md-button>Cancelar</md-button>
+            </md-card-actions>
+        </md-card>
+
+        <!--md-toolbar class="md-table-toolbar md-default">
+            <div class="md-toolbar-tools">
+                <span>Nutrition</span>
+            </div>
+        </md-toolbar-->
+
+
+    </div>
+</div>
+<!-- opc 1-->
+<div layout="row" flex layout-padding layout-fill layout-align="center center" ng-show="vm.flag==1">
+    <div flex="70" flex-xs="100">
+        <!-- exact table from live demo ***********************************************************************-->
+        <md-card>
+            <div layout="row" layout-sm="column" layout-md="column">
+                <md-table-container>
+                    <table md-table="" md-row-select="" ng-model="vm.usuario">
+                        <thead md-head="" md-order="vm.query.order">
+                        <tr md-row="md-row">
+                            <th md-column="md-column" md-order-by="id"><span translate="">ID</span>
+                            </th>
+                            <th md-column="md-column" md-order-by="user"><span translate="">UserName</span>
+                                <!--vm.usuario. -->
+                            </th>
+                            <th md-column="md-column" md-order-by="password"><span translate="">Password</span>
+                            </th>
+                            <th md-column="md-column" md-order-by="aMaterno"><span translate="">AMaterno</span>
+                            </th>
+                            <th md-column="md-column" md-order-by="mail"><span translate="">Mail</span>
+                            </th>
+                            <th md-column="md-column" md-order-by="telefono"><span translate="">Telefono</span>
+                            </th>
+                            <th md-column="md-column" md-order-by="direccion"><span translate="">Dirección</span>
+                            </th>
+                            <th md-column="md-column" md-order-by="sucursal"><span translate="">Sucursal</span>
+                            </th>
+                            <th md-column="md-column" md-order-by="ine"><span translate="">INE</span>
+                            </th>
+                            <th md-column="md-column" md-order-by="foto"><span translate="">Foto</span>
+                            </th>
+                            <th md-column="md-column" md-order-by="tipo"><span translate="">Tipo</span>
+                            </th>
+
+                            <!-- Cuerpo de la tabla-->
+                        </tr>
+                        </thead>
+                        <tbody md-body="md-body">
+                        <tr md-row="md-row" md-select="usuario" md-select-id="{{usuario.id}}"
+                            ng-repeat="usuario in vm.Usuarios | orderBy:vm.query.order">
+                            <td md-cell="md-cell">{{usuario.id}}</td>
+                            <td md-cell="md-cell">{{usuario.user}}</td>
+                            <td md-cell="md-cell">{{usuario.password}}</td>
+                            <td md-cell="md-cell">{{usuario.aMaterno}}</td>
+                            <td md-cell="md-cell">{{usuario.aPaterno}}</td>
+                            <td md-cell="md-cell">{{usuario.mail}}</td>
+                            <td md-cell="md-cell">{{usuario.telefono}}</td>
+                            <td md-cell="md-cell">{{usuario.direccion}}</td>
+                            <td md-cell="md-cell">{{usuario.sucursal}}</td>
+                            <td md-cell="md-cell">{{usuario.ine}}</td>
+                            <td md-cell="md-cell">{{usuario.foto}}</td>
+                            <td md-cell="md-cell">{{usuario.tipo}}</td>
+
+                            <td md-cell="md-cell" ng-click="$event.stopPropagation()"><!-- -->
+                                <md-button ng-click="vm.eliminarUsuario(usuario)" class="md-fab md-warn md-mini">
+                                    <md-icon md-font-icon="fa fa-times-circle"></md-icon>
+                                </md-button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </md-table-container>
+            </div>
+        </md-card>
+    </div>
+</div>
+
+
