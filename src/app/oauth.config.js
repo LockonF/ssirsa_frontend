@@ -12,8 +12,8 @@
     function OauthConfig(OAuthProvider,SERVER){
         OAuthProvider.configure({
             baseUrl: SERVER.URL+'oauth/',
-            clientId: 'rBLSap7rJORjfTh80GI4vBgcxSefUHHrKtVXWEaD',
-            clientSecret: 'CofY368VLw4iFkUtTuU5Rcle93NGCx93ec3FFajYdsb3dBPqZrGFsBqMaDqadD8f2oljocjP62LQaJkrZc8XKhcjuaxpUuMTGhJjKH6IfIATdkPBybsi1FxyKsBicYPX',
+            clientId: SERVER.clientId,
+            clientSecret: SERVER.clientSecret,
             grantPath: 'token/',
             revokePath: 'revoke_token/'
         });
