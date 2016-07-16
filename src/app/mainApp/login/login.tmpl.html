@@ -14,7 +14,7 @@
                 <form name="login">
                     <md-input-container class="md-block">
                         <label for="user" translate>user</label>
-                        <input id="user" label="user" name="user" type="text" ng-model="vm.user.id" required/>
+                        <input id="user" label="user" name="user" type="text" ng-model="vm.user.username" required/>
                         <div ng-messages="login.user.$error" md-auto-hide="false" ng-show="login.user.$touched">
                             <div ng-message when="required"><span translate="validations.missing.user"></span></div>
                             <div ng-message when="user"><span translate="validations.invalid.user"></span></div>

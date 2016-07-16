@@ -6,7 +6,7 @@
         .controller('DefaultToolbarController', DefaultToolbarController);
 
     /* @ngInject */
-    function DefaultToolbarController($scope, $injector, $rootScope, $mdMedia, $state, $element, $filter, $mdUtil, $mdSidenav, $mdToast, $timeout, $document, triBreadcrumbsService, triSettings, triLayout) {
+    function DefaultToolbarController($scope, $injector, $rootScope, $mdMedia, $state, $element, $filter, $mdUtil, $mdSidenav, $mdToast, $timeout, $document, triBreadcrumbsService, triSettings, triLayout, OAuth, toastr) {
         var vm = this;
         vm.no_solicitudes=6;
         vm.breadcrumbs = triBreadcrumbsService.breadcrumbs;
@@ -19,13 +19,12 @@
         vm.isFullScreen = false;
         vm.fullScreenIcon = 'zmdi zmdi-fullscreen';
         vm.toggleFullScreen = toggleFullScreen;
+        vm.LogOut=LogOut;
         vm.usuario={
             nombre:'Francisco',
-            apellidop:'Cerda',
-            apellidom:'Martínez',
-            typeuser:'Admin',
-            avatar:'boss.jpg',
-            fechanac:'07-02-1993'
+            apellido_paterno:'Cerda',
+            apellido_materno:'Martínez',
+            foto:'boss.jpg'
         };
 
         // initToolbar();
@@ -89,6 +88,15 @@
                     doc.webkitExitFullscreen();
                 }
             }
+        }
+
+        function LogOut(){
+            OAuth.revokeToken().then(function(res){
+                toastr.info('Sesión cerrada','Información');
+                $state.go('login');
+            }).catch(function(err){
+
+            });
         }
 
         $scope.$on('newMailNotification', function(){

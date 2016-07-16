@@ -6,8 +6,9 @@
         .controller('loginController', loginController);
 
     /* @ngInject */
-    function loginController($state, triSettings,$mdDialog) {
+    function loginController($state, triSettings,$mdDialog,OAuth,toastr) {
         var vm = this;
+        
         vm.loginClick = loginClick;
         vm.loginTagClick = loginTagClick;
         vm.newDialog = {
@@ -21,12 +22,21 @@
         vm.triSettings = triSettings;
         // create blank user variable for login form
         vm.user = {
-            id: '',
+            username: '',
             password: ''
         };
 
         function loginClick() {
-            $state.go('triangular.admin-default.bienvenida');
+            var options={
+                secure:false
+            };
+            OAuth.getAccessToken(vm.user,options).then(function(res){
+                $state.go('triangular.admin-default.bienvenida');
+            }).catch(function(err){
+                toastr.error('Usuario o Contraseña incorrectos','Error',err.data.error);
+                console.log(err);
+            });
+            
         }
         function loginTagClick($event,dialog){
             var confirm=$mdDialog.prompt()
