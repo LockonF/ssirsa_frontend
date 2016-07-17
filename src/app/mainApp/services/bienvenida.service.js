@@ -14,7 +14,11 @@
         };
 
         function getPersona(){
-            return Restangular.all('persona').customGET();
+            return Restangular.all('persona').customGET().then(function(res){
+                return res;
+            }).catch(function(err){
+                return err;
+            });
         }
     }
 })();

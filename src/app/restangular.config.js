@@ -4,9 +4,17 @@
 (function(){
     angular
         .module('app')
-        .config('config');
+        .config(config);
 
-    function config(RestangularProvider, OAuthToken) {
+    function config(RestangularProvider, SERVER) {
+
+        var OAuthToken;
+        angular.injector(['angular-oauth2']).invoke(['OAuthToken', function(_OAuthToken_) {
+            OAuthToken = _OAuthToken_;
+        }]);
+
+        var token = OAuthToken.getToken();
+
 
         RestangularProvider.setBaseUrl(SERVER.URL);
         //RestangularProvider.setExtraFields(['name']);
@@ -14,17 +22,9 @@
             return response.data;
         });
 
-        RestangularProvider.addFullRequestInterceptor(function(element, operation, route, url, headers, params, httpConfig) {
-            var token = OAuthToken.getToken();
-            delete element.name;
-            headers.authorization='Bearer ' +token.acces_token;
-            return {
-                element: element,
-                params: _.extend(params, {single: true}),
-                headers: headers,
-                httpConfig: httpConfig
-            };
-        });
+        RestangularProvider.setDefaultHeaders({Authorization: "Bearer "+token.access_token});
+
+
 
     }
 })();
