@@ -36,6 +36,7 @@
             Bienvenida.getPersona().then(
                 function(res){
                     vm.persona=res;
+                    console.log(res);
                 }
             ).catch(
                 function(err){
