@@ -9,7 +9,7 @@
         .run(Run);
     function Run($rootScope, $state, OAuth){
         $rootScope.$on('$stateChangeSuccess',function(event,dest){
-            console.log('funciona');
+            //console.log('funciona');
             if(!OAuth.isAuthenticated()){
                 OAuth.getRefreshToken().then(
                     function(res){
@@ -17,6 +17,7 @@
                     }
                 ).catch(
                     function(err){
+                        //Uncomment for enable user validation
                         $state.go('login')
                     }
                 )
