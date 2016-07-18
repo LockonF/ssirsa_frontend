@@ -6,7 +6,9 @@
         .controller('DefaultToolbarController', DefaultToolbarController);
 
     /* @ngInject */
-    function DefaultToolbarController($scope, $injector, $rootScope, $mdMedia, $state, $element, $filter, $mdUtil, $mdSidenav, $mdToast, $timeout, $document, triBreadcrumbsService, triSettings, triLayout, OAuth, toastr) {
+    function DefaultToolbarController($scope, $injector, $rootScope, $mdMedia, $state, $element, $filter,
+                                      $mdUtil, $mdSidenav,$mdToast, $timeout, $document, triBreadcrumbsService,
+                                      triSettings, triLayout, OAuth, toastr, PersonaLocalService) {
         var vm = this;
         vm.no_solicitudes=6;
         vm.breadcrumbs = triBreadcrumbsService.breadcrumbs;
@@ -20,14 +22,15 @@
         vm.fullScreenIcon = 'zmdi zmdi-fullscreen';
         vm.toggleFullScreen = toggleFullScreen;
         vm.LogOut=LogOut;
-        vm.usuario={
-            nombre:'Francisco',
-            apellido_paterno:'Cerda',
-            apellido_materno:'Martínez',
-            foto:'boss.jpg'
-        };
 
-        // initToolbar();
+
+        initToolbar();
+
+        function initToolbar()
+        {
+            vm.usuario = PersonaLocalService.persona;
+            console.log(vm.usuario);
+        }
 
         ////////////////
 

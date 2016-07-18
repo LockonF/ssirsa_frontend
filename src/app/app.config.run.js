@@ -7,12 +7,16 @@
     angular
         .module('app')
         .run(Run);
-    function Run($rootScope, $state, OAuth, OAuthToken, $http){
+    function Run($rootScope, $state, OAuth, OAuthToken, $http, Bienvenida,PersonaLocalService){
 
 
 
         $rootScope.$on('$stateChangeSuccess',function(event,dest){
             $http.defaults.headers.common['Authorization'] = 'Bearer '+OAuthToken.getToken().access_token;
+
+            Bienvenida.getPersona().then(function(res){
+                PersonaLocalService.persona = res;
+            }).catch(function(err){});
 
 
             //console.log('funciona');

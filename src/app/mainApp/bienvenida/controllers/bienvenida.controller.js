@@ -6,7 +6,7 @@
         .module('app.mainApp')
         .controller('bienvenidaController',bienvenidaController);
 
-    function bienvenidaController(Bienvenida, toastr){
+    function bienvenidaController(PersonaLocalService, toastr){
         var vm = this;
         vm.role={
             id:1,
@@ -33,17 +33,7 @@
         }
 
         function loadUser(){
-            Bienvenida.getPersona().then(
-                function(res){
-                    vm.persona=res;
-                    console.log(res);
-                }
-            ).catch(
-                function(err){
-                    toastr.error('Error al obbtener información','Error',err.data.error);
-                    console.log(err);
-                }
-            );
+            vm.persona = PersonaLocalService.persona;
         }
 
         function loadRole(){
