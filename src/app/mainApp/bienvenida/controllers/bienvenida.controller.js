@@ -6,14 +6,10 @@
         .module('app.mainApp')
         .controller('bienvenidaController',bienvenidaController);
 
-    function bienvenidaController(PersonaLocalService, toastr){
+    function bienvenidaController(PersonaLocalService, toastr, Bienvenida){
         var vm = this;
         vm.role={
-            id:1,
-            name:"Rol de prueba",
-            slug:"",
-            description:"",
-            parent_id:""
+            name:"Rol de prueba"
         };
         vm.persona={
             "id": 1,
@@ -37,7 +33,7 @@
         }
 
         function loadRole(){
-
+            vm.role = PersonaLocalService.role;
         }
 
     }

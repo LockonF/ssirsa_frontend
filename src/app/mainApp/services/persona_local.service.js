@@ -17,6 +17,9 @@
                 telefono:'',
                 ife:'',
                 foto:''
+            },
+            role:{
+                name:''
             }
         };
 

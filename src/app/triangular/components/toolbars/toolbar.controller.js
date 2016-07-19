@@ -29,7 +29,7 @@
         function initToolbar()
         {
             vm.usuario = PersonaLocalService.persona;
-            console.log(vm.usuario);
+            //console.log(vm.usuario);
         }
 
         ////////////////

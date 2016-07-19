@@ -2,25 +2,16 @@
  * Created by Emmanuel on 17/07/2016.
  */
 (function(){
-    'use strict';
+    'use_strict';
 
     angular
         .module('app.mainApp')
-        .factory('Bienvenida',Bienvenida);
+        .factory('Tecnico',Tecnico);
 
-    function Bienvenida($q,Restangular){
+    function Tecnico($q,Restangular){
         return{
-            getPersona:getPersona,           
             getRole:getRole
         };
-
-        function getPersona(){
-            return Restangular.all('persona').customGET().then(function(res){
-                return res;
-            }).catch(function(err) {
-                console.log(err);
-            });
-        }
 
         function getRole(){
             return Restangular.all('my_groups').customGET().then(function(res){
@@ -29,6 +20,5 @@
                 console.log(err);
             });
         }
-
     }
 })();
