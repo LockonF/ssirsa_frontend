@@ -6,15 +6,16 @@
 
     angular
         .module('app.mainApp')
-        .factory('loadMenu',loadMenu);
+        .factory('dynamicMenu',dynamicMenu);
 
-    function loadMenu(triMenu,Restangular,PersonaLocalService){
+    function dynamicMenu(triMenu,PersonaLocalService){
         var service={
           loadMenu:loadMenu
         };
         var role=PersonaLocalService.role.name;
 
         function loadMenu(){
+            triMenu.menu=[];
             switch (role){
                 case "Administrador":
                     loadAdminMenu();
@@ -26,7 +27,8 @@
                     loadClienteMenu();
                     break;
                 case "Tecnico A":
-                    loadTecnicoAMenu();
+                    loadAdminMenu();
+                    //loadTecnicoAMenu();
                     break;
                 case "Tecnico B":
                     loadTecnicoBMenu();
@@ -45,6 +47,7 @@
         }
 
         function loadAdminMenu(){
+            triMenu.menu=[];
             var adminMenu=[
                 {
                     name: 'Bienvenida',
@@ -52,11 +55,11 @@
                     type: 'dropdown',
                     priority: 1,
                     children: [
-                    {
-                        name: 'Inicio',
-                        state: 'triangular.admin-default.bienvenida',
-                        type: 'link'
-                    }
+                        {
+                            name: 'Inicio',
+                            state: 'triangular.admin-default.bienvenida',
+                            type: 'link'
+                        }
                     ]
                 },
                 {
@@ -65,16 +68,16 @@
                     type: 'dropdown',
                     priority:2,
                     children: [
-                    {
-                        name: 'Solicitudes Pendientes',
-                        state: 'triangular.admin-default.solicitudes',
-                        type: 'link'
-                    },
-                    {
-                        name: 'Crear Solicitud',
-                        state: 'triangular.admin-default.realizarSolicitud',
-                        type: 'link'
-                    }
+                        {
+                            name: 'Solicitudes Pendientes',
+                            state: 'triangular.admin-default.solicitudes',
+                            type: 'link'
+                        },
+                        {
+                            name: 'Crear Solicitud',
+                            state: 'triangular.admin-default.realizarSolicitud',
+                            type: 'link'
+                        }
                     ]
                 },
                 {
@@ -84,17 +87,59 @@
                     priority:3,
                     children: [
                         {
-                            name: 'Diagnostico',
+                            name: 'Diagnosticos',
                             state: 'triangular.admin-default.diagnostico',
+                            type: 'link'
+                        },
+                        {
+                            name:'Registrar Servicio',
+                            state: 'triangular.admin-default.servicio',
+                            type:'link'
+                        }
+                    ]
+                }
+            ]
+
+            //triMenu.menu.unshift(adminMenu);
+            triMenu.menu=adminMenu;
+        }
+
+        function loadCapturistaMenu(){
+            triMenu.menu=[];
+            var capturistaMenu=[
+                {
+                    name: 'Bienvenida',
+                    icon: 'zmdi zmdi-home',
+                    type: 'dropdown',
+                    priority: 1,
+                    children: [
+                        {
+                            name: 'Inicio',
+                            state: 'triangular.admin-default.bienvenida',
+                            type: 'link'
+                        }
+                    ]
+                },
+                {
+                    name: 'Solicitudes',
+                    icon: 'zmdi zmdi-bookmark',
+                    type: 'dropdown',
+                    priority:2,
+                    children: [
+                        {
+                            name: 'Solicitudes Pendientes',
+                            state: 'triangular.admin-default.solicitudes',
+                            type: 'link'
+                        },
+                        {
+                            name: 'Crear Solicitud',
+                            state: 'triangular.admin-default.realizarSolicitud',
                             type: 'link'
                         }
                     ]
                 }
             ]
-        }
-
-        function loadCapturistaMenu(){
-
+            triMenu.menu=capturistaMenu;
         }
 
         function loadClienteMenu(){
