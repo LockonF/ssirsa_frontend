@@ -8,7 +8,7 @@
     /* @ngInject */
     function DefaultToolbarController($scope, $injector, $rootScope, $mdMedia, $state, $element, $filter, $mdUtil, $mdSidenav, $mdToast, $timeout, $document, triBreadcrumbsService, triSettings, triLayout) {
         var vm = this;
-        vm.no_solicitudes=6;
+        vm.no_solicitudes=2;
         vm.breadcrumbs = triBreadcrumbsService.breadcrumbs;
         vm.emailNew = false;
         vm.languages = triSettings.languages;

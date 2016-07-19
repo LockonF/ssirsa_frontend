@@ -48,6 +48,11 @@
                 type:'Recolección',
                 icon:'fa fa-archive',
                 fecha:'06-07-2016'
+            },{
+                title:'Unilever2',
+                type:'Recolección',
+                icon:'fa fa-archive',
+                fecha:'06-07-2016'
             },
 
         ];
