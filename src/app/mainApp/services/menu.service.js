@@ -78,7 +78,7 @@
                     ]
                 },
                 {
-                    name: 'Diagnostico',
+                    name: 'Servicios',
                     icon: 'zmdi zmdi-home',
                     type: 'dropdown',
                     priority:3,
