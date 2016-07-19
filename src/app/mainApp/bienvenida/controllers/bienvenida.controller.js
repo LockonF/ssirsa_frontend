@@ -3,19 +3,39 @@
  */
 (function () {
     angular
-        .module('app.mainApp.admin')
+        .module('app.mainApp')
         .controller('bienvenidaController',bienvenidaController);
 
-    function bienvenidaController(){
+    function bienvenidaController(PersonaLocalService, toastr, Bienvenida){
         var vm = this;
-        vm.usuario={
-            nombre:'Francisco',
-            apellidop:'Cerda',
-            apellidom:'Martínez',
-            typeuser:'Administrador',
-            avatar:'boss.jpg',
-            fechanac:'07-02-1993'
+        vm.role={
+            name:"Rol de prueba"
         };
+        vm.persona={
+            "id": 1,
+            "nombre": "Persona",
+            "apellido_paterno": "De",
+            "apellido_materno": "Prueba",
+            "direccion": "Calle X Número Y",
+            "telefono": "12345678",
+            "ife": null,
+            "foto": null
+        };
+        activate();
+
+        function activate(){
+            loadUser();
+            loadRole();
+        }
+
+        function loadUser(){
+            vm.persona = PersonaLocalService.persona;
+        }
+
+        function loadRole(){
+            vm.role = PersonaLocalService.role;
+        }
+
     }
 
 })();

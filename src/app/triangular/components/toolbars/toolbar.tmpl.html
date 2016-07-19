@@ -34,7 +34,7 @@
 
     <md-menu>
         <md-button aria-label="Open user menu" ng-click="$mdOpenMenu()" aria-label="side navigation">
-            <img class="toolbar-user-avatar" src="assets/images/avatars/{{vm.usuario.avatar}}">
+            <img class="toolbar-user-avatar" src="{{vm.usuario.foto}}">
             {{vm.usuario.nombre}}
         </md-button>
         <md-menu-content width="4">
@@ -48,7 +48,7 @@
             </md-menu-item>
             <md-menu-divider></md-menu-divider>
             <md-menu-item>
-                <md-button href="#/login" aria-label="side navigation">
+                <md-button ng-click="vm.LogOut()" aria-label="side navigation">
                     <md-icon md-font-icon="zmdi zmdi-sign-in"></md-icon>
                     <span translate="Logout"></span>
                 </md-button>

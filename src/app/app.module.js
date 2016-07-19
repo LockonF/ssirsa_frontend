@@ -5,11 +5,16 @@
         .module('app', [
             'triangular',
             'ngAnimate', 'ngCookies', 'ngSanitize', 'ngMessages', 'ngMaterial',
-            'ui.router', 'googlechart', 'chart.js', 'linkify', 'ui.calendar', 'angularMoment', 'textAngular', 'uiGmapgoogle-maps', 'hljs', 'md.data.table', angularDragula(angular), 'ngFileUpload',
+            'ui.router', 'googlechart', 'chart.js', 'linkify', 'ui.calendar',
+            'angularMoment', 'textAngular', 'hljs', 'md.data.table',
+            angularDragula(angular), 'ngFileUpload',
 
             // 'seed-module'
             // uncomment above to activate the example seed module
             'app.translate',
+            'angular-oauth2',
+            'toastr',
+            'restangular',
             // only need one language?  if you want to turn off translations
             // comment out or remove the 'app.translate', line above
             //'app.examples',
