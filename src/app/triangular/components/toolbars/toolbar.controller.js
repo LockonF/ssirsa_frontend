@@ -10,7 +10,7 @@
                                       $mdUtil, $mdSidenav,$mdToast, $timeout, $document, triBreadcrumbsService,
                                       triSettings, triLayout, OAuth, toastr, PersonaLocalService) {
         var vm = this;
-        vm.no_solicitudes=6;
+        vm.no_solicitudes=2;
         vm.breadcrumbs = triBreadcrumbsService.breadcrumbs;
         vm.emailNew = false;
         vm.languages = triSettings.languages;

@@ -20,6 +20,12 @@
                 controller:'realizarSolicitudController',
                 controllerAs:'vm'
             })
+            .state('triangular.admin-default.buscarSolicitud',{
+                url:'/buscarSolicitud',
+                templateUrl:'app/mainApp/solicitudes/buscarSolicitud.html',
+                controller:'buscarSolicitudController',
+                controllerAs:'vm'
+            })
             .state('triangular.admin-default.Pruebas',{
                 url:'/Pruebas',
                 templateUrl:'app/mainApp/solicitudes/Pruebas.html',
@@ -42,11 +48,15 @@
                 name: 'Crear Solicitud',
                 state: 'triangular.admin-default.realizarSolicitud',
                 type: 'link'
-            }/*,{
+            },{
+                name: 'Buscar Solicitud',
+                state: 'triangular.admin-default.buscarSolicitud',
+                type: 'link'
+            },{
                 name: 'Pruebas',
                 state: 'triangular.admin-default.Pruebas',
                 type: 'link'
-            }*/
+            }
 
             ]
         });

@@ -5,7 +5,7 @@
                 <md-card-title-text>
                     <div>
                         <h2>Crear Solicitud</h2>
-                        <md-select placeholder="Elige la UDN" ng-model="numCakes">
+                        <md-select placeholder="Elige la UDN" ng-model="vm.requisito.rUDN">
                             <md-option value="1">UDN_1</md-option>
                             <md-option value="2">UDN_2</md-option>
                             <md-option value="3">UDN_3</md-option>
@@ -16,24 +16,28 @@
                             <p>Fecha de Termino</p>
                         </div>
                         <div class="margin-bottom-20" layout="row" layout-align="space-around center">
-                            <md-datepicker ng-model="myDate" md-placeholder="Enter date"></md-datepicker>
-                            <md-datepicker ng-model="myDate2" md-placeholder="Enter date"></md-datepicker>
+                            <md-datepicker ng-model="vm.requisito.rFechaIni" md-placeholder="Enter date"></md-datepicker>
+                            <md-datepicker ng-model="vm.requisito.rFechaFin" md-placeholder="Enter date"></md-datepicker>
                         </div>
                         <md-input-container class="md-block">
                             <label>Descripción</label>
                             <textarea></textarea>
                         </md-input-container>
-                        <md-select placeholder="Elige tipo de solicitud" ng-model="vm.solicitudTipo">
+                        <md-select placeholder="Elige tipo de solicitud" ng-model="vm.requisito.rTipo">
                             <md-option value="1">Solicitud de envió</md-option>
                             <md-option value="2">Solicitud de recolección</md-option>
                             <md-option value="3">Solicitud de punto de venta</md-option>
                         </md-select>
                         <!-- opc 1-->
-                        <div ng-show="vm.solicitudTipo==1">
+                        <div ng-show="vm.requisito.rTipo==1">
                             <h3>Solicitud de envio</h3>
                             <md-input-container class="md-block">
+                                <label>Equipo</label>
+                                <textarea ></textarea>
+                            </md-input-container>
+                            <md-input-container class="md-block">
                                 <label>Tipo</label>
-                                <textarea ng-model="vm.requisito.rTipo"></textarea>
+                                <textarea ></textarea>
                             </md-input-container>
                             <md-input-container class="md-block">
                                 <label>Estatus</label>
@@ -44,14 +48,14 @@
                                 <textarea ng-model="vm.requisito.rCantidad"></textarea>
                             </md-input-container>
 
-                            <md-button ng-click="vm.crearRequisito()" ng-class="guardar" aria-label="fab button"
+                            <md-button ng-click="vm.crearRequisito(vm.requisito.rTipo)" ng-class="guardar" aria-label="fab button"
                                        class="md-fab md-primary md-raised">
                                 <md-icon md-font-icon="fa fa-save"></md-icon>
                             </md-button>
                         </div>
 
                         <!-- opc 2-->
-                        <div ng-show="vm.solicitudTipo==2">
+                        <div ng-show="vm.requisito.rTipo==2">
                             <h3>Solicitud de recoleccióno</h3>
                             <md-input-container class="md-block">
                                 <label>Tipo</label>
@@ -73,7 +77,7 @@
                         </div>
 
                         <!-- opc 3-->
-                        <div ng-show="vm.solicitudTipo==3">
+                        <div ng-show="vm.requisito.rTipo==3">
                             <h3>Solicitud de punto de venta</h3>
                             <md-input-container class="md-block">
                                 <label>Tipo</label>
@@ -114,8 +118,8 @@
     </div>
 </div>
 <!-- opc 1-->
-<div layout="row" flex layout-padding layout-fill layout-align="center center" ng-show="vm.solicitudTipo==1">
-    <div flex="50" flex-xs="100">
+<div layout="row" flex layout-padding layout-fill layout-align="center center" ng-show="vm.requisito.rTipo==1">
+    <div flex="70" flex-xs="100">
         <!-- exact table from live demo ***********************************************************************-->
         <md-card>
             <div layout="row" layout-sm="column" layout-md="column">
@@ -123,18 +127,30 @@
                     <table md-table="" md-row-select="" ng-model="vm.requisito">
                         <thead md-head="" md-order="vm.query.order">
                         <tr md-row="md-row">
+                            <th md-column="md-column" md-order-by="id"><span translate="">No. Solicitud</span>
+                            </th>
+                            <th md-column="md-column" md-order-by="rUDN"><span translate="">UDN</span><!--vm.requisito. -->
+                            </th>
+                            <th md-column="md-column" md-order-by="rFechaIni"><span translate="">Inicio</span>
+                            </th>
+                            <th md-column="md-column" md-order-by="rFechaFin"><span translate="">Fin</span>
+                            </th>
                             <th md-column="md-column" md-order-by="rTipo"><span translate="">TIPO</span>
                             </th>
-                            <th md-column="md-column" md-order-by="rEstatus"><span
-                                    translate="">ESTATUS</span></th>
+                            <th md-column="md-column" md-order-by="rEstatus"><span translate="">ESTATUS</span>
+                            </th>
                             <th md-column="md-column" md-order-by="rCantidad"><span translate="">CANTIDAD</span>
                             </th>
                             <!-- Cuerpo de la tabla-->
                         </tr>
                         </thead>
                         <tbody md-body="md-body">
-                        <tr md-row="md-row" md-select="requisito" md-select-id="{{requisito.rTipo}}"
+                        <tr md-row="md-row" md-select="requisito" md-select-id="{{requisito.id}}"
                             ng-repeat="requisito in vm.Requisitos | orderBy:vm.query.order">
+                            <td md-cell="md-cell">{{requisito.id}}</td>
+                            <td md-cell="md-cell">{{requisito.rUDN}}</td>
+                            <td md-cell="md-cell">{{requisito.rFechaIni}}</td>
+                            <td md-cell="md-cell">{{requisito.rFechaFin}}</td>
                             <td md-cell="md-cell">{{requisito.rTipo}}</td>
                             <td md-cell="md-cell">{{requisito.rEstatus}}</td>
                             <td md-cell="md-cell">{{requisito.rCantidad}}</td>
@@ -153,7 +169,7 @@
 </div>
 
 <!-- opc 2-->
-<div layout="row" flex layout-padding layout-fill layout-align="center center" ng-show="vm.solicitudTipo==2">
+<div layout="row" flex layout-padding layout-fill layout-align="center center" ng-show="vm.requisito.rTipo==2">
     <div flex="75" flex-xs="100">
         <!-- exact table from live demo ***********************************************************************-->
         <md-card>
@@ -192,7 +208,7 @@
 </div>
 
 <!-- opc 3-->
-<div layout="row" flex layout-padding layout-fill layout-align="center center" ng-show="vm.solicitudTipo==3">
+<div layout="row" flex layout-padding layout-fill layout-align="center center" ng-show="vm.requisito.rTipo==3">
     <div flex="75" flex-xs="100">
         <!-- exact table from live demo ***********************************************************************-->
         <md-card>

@@ -1,106 +1,137 @@
-<div layout="row" flex layout-padding layout-fill layout-align="center center">
-    <div flex="50" flex-xs="100">
-        <md-card>
-            <md-card-title>
-                <md-card-title-text>
-                <div>
-                    <h2>Crear Solicitud</h2>
-                    <md-select placeholder="Elige la UDN" ng-model="numCakes">
-                        <md-option value="1">UDN_1</md-option>
-                        <md-option value="2">UDN_2</md-option>
-                        <md-option value="3">UDN_3</md-option>
-                    </md-select>
-                    <div class="margin-bottom-20" layout="row" layout-align="space-around center">
-                        <p>Please select a date</p>
+<md-content laout="column" flex ng-controller="nutritionController">
 
-                        <p>Please select a date</p>
-                    </div>
-                    <div class="margin-bottom-20" layout="row" layout-align="space-around center">
-                        <md-datepicker ng-model="myDate" md-placeholder="Enter date"></md-datepicker>
-                        <md-datepicker ng-model="myDate" md-placeholder="Enter date"></md-datepicker>
-                    </div>
-                    <md-input-container class="md-block">
-                        <label>Descripción</label>
-                        <textarea></textarea>
-                    </md-input-container>
-                    <md-select placeholder="Elige tipo de solicitud" ng-model="vm.solicitudTipo">
-                        <md-option value="1">Solicitud de envió</md-option>
-                        <md-option value="2">Solicitud de recolección</md-option>
-                        <md-option value="3">Solicitud de punto de venta</md-option>
-                    </md-select>
-                    <div ng-show="vm.solicitudTipo==1">
-                        <h3>Solicitud de envio</h3>
-                        <md-input-container class="md-block">
-                            <label>Tipo</label>
-                            <textarea ng-model="vm.requisito.rTipo"></textarea>
-                        </md-input-container>
-                        <md-input-container class="md-block">
-                            <label>Estatus</label>
-                            <textarea ng-model="vm.requisito.rEstatus"></textarea>
-                        </md-input-container>
-                        <md-input-container class="md-block">
-                            <label>Cantidad</label>
-                            <textarea ng-model="vm.requisito.rCantidad"></textarea>
-                        </md-input-container>
+    <md-card>
+        <md-table-container>
+            <table md-table md-row-select="options.rowSelection" multiple="{{options.multiSelect}}" ng-model="selected" md-progress="promise">
 
-                        <md-button ng-click="vm.crearRequisito()" ng-class="guardar" aria-label="fab button"
-                                   class="md-fab md-primary md-raised">
-                            <md-icon md-font-icon="fa fa-save"></md-icon>
-                        </md-button>
-                        </md-card-title-text>
-                    </div>
-                </div>
-            </md-card-title>
-            <md-card-actions layout="row" layout-align="end center">
-                <md-button>Guardar</md-button>
-                <md-button>Cancelar</md-button>
-            </md-card-actions>
-        </md-card>
+                <tbody md-body>
+                <tr md-row md-select="dessert" md-on-select="logItem" md-auto-select="options.autoSelect" ng-disabled="dessert.calories.value > 400" ng-repeat="dessert in desserts.data | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                    <td md-cell>{{dessert.name}}</td>
+                    <td md-cell>
+                        <md-select ng-model="dessert.type" placeholder="Other">
+                            <md-option ng-value="type" ng-repeat="type in getTypes()">{{type}}</md-option>
+                        </md-select>
+                    </td>
 
-        <!--md-toolbar class="md-table-toolbar md-default">
-            <div class="md-toolbar-tools">
-                <span>Nutrition</span>
-            </div>
-        </md-toolbar-->
+                    <td md-cell ng-click="editComment($event, dessert)" ng-class="{'md-placeholder': !dessert.comment}">
+                        {{dessert.comment || 'Add a comment'}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+
+        <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{desserts.count}}" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination"></md-table-pagination>
+    </md-card>
+</md-content>
+<script>
+    angular.module('demoApp', ['ngMaterial', 'md.data.table'])
+
+            .config(['$mdThemingProvider', function ($mdThemingProvider) {
+                'use strict';
+
+                $mdThemingProvider.theme('default')
+                        .primaryPalette('blue');
+            }])
+
+            .controller('nutritionController', ['$mdEditDialog', '$q', '$scope', '$timeout', function ($mdEditDialog, $q, $scope, $timeout) {
+                'use strict';
+
+                $scope.selected = [];
+                $scope.limitOptions = [5, 10, 15];
+
+                $scope.options = {
+                    rowSelection: true,
+                    multiSelect: true,
+                    autoSelect: true,
+                    decapitate: false,
+                    largeEditDialog: false,
+                    boundaryLinks: false,
+                    limitSelect: true,
+                    pageSelect: true
+                };
+
+                $scope.query = {
+                    order: 'name',
+                    limit: 5,
+                    page: 1
+                };
+
+                $scope.desserts = {
+                    "count": 9,
+                    "data": [
+                        {
+                            "name": "Frozen yogurt",
+                            "type": "Ice cream",
+                            "calories": { "value": 159.0 },
+                            "fat": { "value": 6.0 },
+                            "carbs": { "value": 24.0 },
+                            "protein": { "value": 4.0 },
+                            "sodium": { "value": 87.0 },
+                            "calcium": { "value": 14.0 },
+                            "iron": { "value": 1.0 }
+                        }, {
+                            "name": "Ice cream sandwich",
+                            "type": "Ice cream",
+                            "calories": { "value": 237.0 },
+                            "fat": { "value": 9.0 },
+                            "carbs": { "value": 37.0 },
+                            "protein": { "value": 4.3 },
+                            "sodium": { "value": 129.0 },
+                            "calcium": { "value": 8.0 },
+                            "iron": { "value": 1.0 }
+                        }
+                    ]
+                };
+
+                $scope.editComment = function (event, dessert) {
+                    event.stopPropagation(); // in case autoselect is enabled
+
+                    var editDialog = {
+                        modelValue: dessert.comment,
+                        placeholder: 'Add a comment',
+                        save: function (input) {
+                            if(input.$modelValue === 'Donald Trump') {
+                                input.$invalid = true;
+                                return $q.reject();
+                            }
+                            if(input.$modelValue === 'Bernie Sanders') {
+                                return dessert.comment = 'FEEL THE BERN!'
+                            }
+                            dessert.comment = input.$modelValue;
+                        },
+                        targetEvent: event,
+                        title: 'Add a comment',
+                        validators: {
+                            'md-maxlength': 30
+                        }
+                    };
+
+                    var promise;
+
+                    if($scope.options.largeEditDialog) {
+                        promise = $mdEditDialog.large(editDialog);
+                    } else {
+                        promise = $mdEditDialog.small(editDialog);
+                    }
+
+                    promise.then(function (ctrl) {
+                        var input = ctrl.getInput();
+
+                        input.$viewChangeListeners.push(function () {
+                            input.$setValidity('test', input.$modelValue !== 'test');
+                        });
+                    });
+                };
 
 
-    </div>
-</div>
+                $scope.getTypes = function () {
+                    return ['Candy', 'Ice cream', 'Other', 'Pastry'];
+                };
 
-<div layout="row" flex layout-padding layout-fill layout-align="center center" ng-show="vm.solicitudTipo==1">
-    <div flex="75" flex-xs="100">
-        <!-- exact table from live demo ***********************************************************************-->
-        <md-card>
-            <div layout="row" layout-sm="column" layout-md="column">
-                <md-table-container>
-                    <table md-table="" md-row-select="" ng-model="vm.requisito">
-                        <thead md-head="" md-order="vm.query.order">
-                        <tr md-row="md-row">
-                            <th md-column="md-column" md-order-by="rTipo"><span translate="">SOLICITUD.TABLE.TIPO</span>
-                            </th>
-                            <th md-column="md-column" md-order-by="rEstatus"><span
-                                    translate="">SOLICITUD.TABLE.ESTATUS</span></th>
-                            <th md-column="md-column" md-order-by="rCantidad"><span translate="">SOLICITUD.TABLE.CANTIDAD</span>
-                            </th>
-                            <!-- Cuerpo de la tabla-->
-                        </tr>
-                        </thead>
-                        <tbody md-body="md-body">
-                        <tr md-row="md-row" md-select="requisito" md-select-id="{{requisito.rTipo}}"
-                            ng-repeat="requisito in vm.Requisitos | orderBy:vm.query.order">
-                            <td md-cell="md-cell">{{requisito.rTipo}}</td>
-                            <td md-cell="md-cell">{{requisito.rEstatus}}</td>
-                            <td md-cell="md-cell">{{requisito.rCantidad}}</td>
-                            <td md-cell="md-cell" ng-click="$event.stopPropagation()"><!-- -->
-                                <md-button ng-click="vm.eliminarRequisito(requisito)" class="md-fab md-warn md-mini">
-                                    <md-icon md-font-icon="fa fa-times-circle"></md-icon>
-                                </md-button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </md-table-container>
-            </div>
-        </md-card>
-    </div>
-</div>
+                $scope.logPagination = function (page, limit) {
+                    console.log('page: ', page);
+                    console.log('limit: ', limit);
+                }
+            }]);
+</script>
