@@ -6,9 +6,9 @@
 
     angular
         .module('app.mainApp.inventario')
-        .controller('cabinetController', cabinetController);
+        .controller('asignacionLineaController', asignacionLineaController);
 
-    function cabinetController() {
+    function asignacionLineaController() {
         var vm = this;
         vm.cabinet={
             activo:true,
@@ -18,6 +18,8 @@
             noSerie:639462927220282323,
             ano:2014,
             incidencias:1,
+            linea_x:4,
+            linea_y:10,
             marca:2
 
         };

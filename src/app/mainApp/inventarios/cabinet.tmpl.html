@@ -31,7 +31,7 @@
                     </md-button>
                 </md-input-container>
                 <md-input-container flex>
-                    <md-switch class="md-primary" ng-model="vm.cabinet.activo" aria-label="Aun es Funcional"  ng-disabled="true">
+                    <md-switch class="md-primary" ng-model="vm.cabinet.activo" aria-label="Aun es Funcional" >
                         Funciona
                     </md-switch>
                 </md-input-container>
@@ -51,36 +51,36 @@
         <div layout="row" , flex="flex">
             <md-input-container flex>
                 <label>Economico</label>
-                <input type="number" ng-model="vm.cabinet.economico" ng-disabled="true"/>
+                <input type="number" ng-model="vm.cabinet.economico" />
             </md-input-container>
             <md-input-container flex>
                 <label translate>Etapa Actual</label>
-                <md-select ng-model="vm.cabinet.status" name="select" ng-disabled="true">
+                <md-select ng-model="vm.cabinet.status" name="select" >
                     <md-option ng-repeat="stat in vm.status" ng-value="stat.id">{{stat.nombre}}</md-option>
                 </md-select>
             </md-input-container>
             <md-input-container flex>
                 <label>Incidencias</label>
-                <input type="number" ng-model="vm.cabinet.incidencias" ng-disabled="true"/>
+                <input type="number" ng-model="vm.cabinet.incidencias" />
             </md-input-container>
 
         </div>
         <div layout="row" , flex="flex">
             <md-input-container flex="25">
                 <label>tipo Entrada</label>
-                <input type="text" ng-model="vm.cabinet.tipoEntrada" ng-disabled="true"/>
+                <input type="text" ng-model="vm.cabinet.tipoEntrada" />
             </md-input-container>
             <md-input-container flex="25">
                 <label>No de Serie</label>
-                <input type="text" ng-model="vm.cabinet.noSerie" ng-disabled="true"/>
+                <input type="text" ng-model="vm.cabinet.noSerie" />
             </md-input-container>
             <md-input-container flex="25">
                 <label>Año</label>
-                <input type="text" ng-model="vm.cabinet.ano" ng-disabled="true"/>
+                <input type="text" ng-model="vm.cabinet.ano" />
             </md-input-container>
             <md-input-container flex="25">
                 <label translate>Marca</label>
-                <md-select ng-model="vm.cabinet.marca" name="select" ng-disabled="true">
+                <md-select ng-model="vm.cabinet.marca" name="select" >
                     <md-option ng-repeat="marca in vm.marcas" ng-value="marca.id">{{marca.nombre}}</md-option>
                 </md-select>
             </md-input-container>
