@@ -37,7 +37,7 @@
 
             })
             .state('triangular.admin-default.asignacionLinea',{
-                url:'/validarEtapa',
+                url:'/asignacionLinea',
                 templateUrl:'app/mainApp/tecnico/asignacionLinea.tmpl.html',
                 controller:'asignacionLineaController',
                 controllerAs:'vm'
