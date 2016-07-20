@@ -6,7 +6,7 @@
         .module('app.mainApp.solicitudes')
         .controller('realizarSolicitudController',realizarSolicitudController);
 
-    function realizarSolicitudController(){
+    function realizarSolicitudController(udn,tipoEquipo,$mdDialog,$mdEditDialog,toastr,Solicitudes){
         var vm = this;
         /*vm.selectedDate = moment().startOf('day').format();
         $mdDateLocaleProvider.formatDate = function(date) {
@@ -14,19 +14,52 @@
         };*/
         vm.id=0;
         vm.requisito = {
-            "id":vm.id,
-            "rUDN":null,
-            "rFechaIni":new Date(),
-            "rFechaFin":new Date(),
-            "rDesc":null,
-            "rTipo": null,
-            "rEstatus": null,
-            "rCantidad": null
+            "id":null,
+            "udn":null,
+            "fecha_inicio":new Date(),
+            "fecha_termino":new Date(),
+            "descripcion":null,
+            "tipo_solicitud": null,
+            "status": null,
+            "comentario": null,
+            "datos":[]
+        };
+        vm.requisito_vacio = {
+            "id":null,
+            "udn":null,
+            "fecha_inicio":new Date(),
+            "fecha_termino":new Date(),
+            "descripcion":null,
+            "tipo_solicitud": null,
+            "status": null,
+            "comentario": null,
+            "datos":[]
         };
         vm.crearRequisito=crearRequisito;
         vm.eliminarRequisito=eliminarRequisito;
+        vm.showCreateDialog=showCreateDialog;
+        vm.edit=edit;
+        vm.eliminarDato=eliminarDato;
+        vm.guardarSolicitud=guardarSolicitud;
         vm.Requisitos = [];
+        vm.udns=null;
+        vm.tiposEquipo=null;
+        activate();
+        function activate(){
+            udn.list().then(function(rest){
+                vm.udns=rest;
+                //console.log(vm.udns);
+            }).catch(function(error){
 
+            });
+
+            tipoEquipo.list().then(function(rest){
+                vm.tiposEquipo=rest;
+                //console.log(vm.tiposEquipo);
+            }).catch(function(error){
+
+            });
+        }
         // Crear requisito
 
         function crearRequisito() {
@@ -89,6 +122,71 @@
         function editarRequisito(requisito) {
 
 
+        }
+
+        function showCreateDialog(event)
+        {
+            //var visualization = chooseTemplateController(model);
+            var config = {
+                controller:'solicitudDataDialogController',
+                controllerAs: 'vm',
+                bindToController:true,
+                templateUrl:'app/mainApp/solicitudes/solicitudDataDialog.tmpl.html',
+                parent:angular.element(document.body),
+                targetEvent:event,
+                clickOutsideToClose:true,
+                fullscreen: false
+            };
+
+            $mdDialog.show(config).then(function(object){
+                    //Agregar el objeto al arreglo de datos de la solicitud
+                    vm.requisito.datos.push(object);
+                },function() {
+                }
+            );
+        }
+
+        function eliminarDato(dato){
+            var  resultado=_.indexOf(vm.requisito.datos,dato);
+            if(resultado!=-1){
+                vm.requisito.datos.splice(resultado,1);
+            }
+        }
+
+        function guardarSolicitud(){
+            vm.requisito.fecha_inicio=moment(vm.requisito.fecha_inicio).format('YYYY-MM-DD');
+            vm.requisito.fecha_termino=moment(vm.requisito.fecha_termino).format('YYYY-MM-DD');
+            Solicitudes.create(vm.requisito).then(function(resp){
+                vm.requisito= _.clone(vm.requisito_vacio);
+                toastr.success('exito al guardar','exito');
+            }).catch(function(err){
+                toastr.error('error al guardar','error');
+                console.log(err);
+            })
+        }
+
+        function edit(event,object,field) {
+            var config =
+            {
+                modelValue: object[field],
+                placeholder: 'Edita el campo',
+                save: function (input) {
+
+                    object[field] = input.$modelValue;
+                    updateObject(object);
+                },
+                targetEvent: event,
+                validators: {
+                    'md-maxlength': 30
+                }
+            };
+
+            function updateObject(funcion){
+            }
+
+            $mdEditDialog.small(config).then(function(ctrl){
+            }).catch(function(err){
+            });
         }
 
     }

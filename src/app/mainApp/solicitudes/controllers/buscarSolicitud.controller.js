@@ -1,66 +1,94 @@
 /**
- * Created by franciscojaviercerdamartinez on 6/2/16.
+ * Created by Luis_Olvera on 15/06/2016.
  */
 (function () {
     angular
         .module('app.mainApp.solicitudes')
         .controller('buscarSolicitudController',buscarSolicitudController);
 
-    function buscarSolicitudController(){
+    function buscarSolicitudController($mdEditDialog,Solicitudes){
         var vm = this;
         vm.flag=0;
         vm.id=null;
         vm.FechaFin=new Date();
         vm.requisito = {
             "id":null,
-            "rUDN":null,
-            "rFechaIni":null,
-            "rFechaFin":null,
-            "rDesc":null,
-            "rTipo": null,
-            "rEstatus": null,
-            "rCantidad": null
+            "udn":null,
+            "fecha_inicio":new Date(),
+            "fecha_termino":new Date(),
+            "descripcion":null,
+            "tipo_solicitud": null,
+            "status": null,
+            "comentario": null,
+            "datos":[]
         };
         vm.solicitud = [
             {
                 "id":123,
-                "rUDN": "UDN_2",
-                "rFechaIni": "6/12/2016",
-                "rFechaFin": "7/12/2016",
-                "rTipo": "UDN_3",
-                "rEstatus": "Dañado",
-                "rCantidad": "10"
+                "udn": "UDN_2",
+                "fecha_inicio": "6/12/2016",
+                "fecha_termino": "7/12/2016",
+                "tipo_solicitud": "UDN_3",
+                "status": "Dañado",
+                "comentario": "10"
             },
             {
                 "id":124,
-                "rUDN": "UDN_2",
-                "rFechaIni": "6/12/2016",
-                "rFechaFin": "7/12/2016",
-                "rTipo": "UDN_1",
-                "rEstatus": "Dañado",
-                "rCantidad": "1"
+                "udn": "UDN_2",
+                "fecha_inicio": "6/12/2016",
+                "fecha_termino": "7/12/2016",
+                "tipo_solicitud": "UDN_1",
+                "status": "Dañado",
+                "comentario": "1"
             },
             {
                 "id":125,
-                "rTipo": "UDN_2",
-                "rEstatus": "Dañado",
-                "rCantidad": "5"
+                "tipo_solicitud": "UDN_2",
+                "status": "Dañado",
+                "comentario": "5"
             },
             {
                 "id": 126,
-                "rUDN": "UDN_2",
-                "rFechaIni": "6/12/2016",
-                "rFechaFin": "7/12/2016",
+                "udn": "UDN_2",
+                "fecha_inicio": "6/12/2016",
+                "fecha_termino": "7/12/2016",
                 //"rDesc": null,
-                "rTipo": "UDN_3",
-                "rEstatus": "Dañado",
-                "rCantidad": "8"
+                "tipo_solicitud": "UDN_3",
+                "status": "Dañado",
+                "comentario": "8"
             }
         ];
 
         vm.mostrarRequisito=mostrarRequisito;
         vm.eliminarRequisito=eliminarRequisito;
+        vm.buscarSolicitudes=buscarSolicitudes;
+        vm.edit=edit;
         vm.Requisitos = [];
+        vm.solicitudes=null;
+
+        function edit(event,object,field) {
+            var config =
+            {
+                modelValue: object[field],
+                placeholder: 'Edita el campo',
+                save: function (input) {
+
+                    object[field] = input.$modelValue;
+                    updateObject(object);
+                },
+                targetEvent: event,
+                validators: {
+                    'md-maxlength': 30
+                }
+            };
+
+            function updateObject(funcion){
+            }
+
+            $mdEditDialog.small(config).then(function(ctrl){
+            }).catch(function(err){
+            });
+        }
 
         function mostrarRequisito() {
             if (vm.flag==0) {
@@ -77,31 +105,31 @@
                 {
                     console.log("Entre al if- k: "+k);
                     console.log("vm.solicitud[k].id: "+vm.solicitud[k].id)
-                    console.log("vm.solicitud[k].rUDN: "+vm.solicitud[k].rUDN);
-                    console.log("vm.solicitud[k].rFechaIni: "+vm.solicitud[k].rFechaIni);
-                    console.log("vm.solicitud[k].rFechaFin: "+vm.solicitud[k].rFechaFin);
-                    console.log("vm.solicitud[k].rTipo: "+vm.solicitud[k].rTipo);
-                    console.log("vm.solicitud[k].rEstatus: "+vm.solicitud[k].rEstatus);
+                    console.log("vm.solicitud[k].udn: "+vm.solicitud[k].udn);
+                    console.log("vm.solicitud[k].fecha_inicio: "+vm.solicitud[k].fecha_inicio);
+                    console.log("vm.solicitud[k].fecha_termino: "+vm.solicitud[k].fecha_termino);
+                    console.log("vm.solicitud[k].tipo_solicitud: "+vm.solicitud[k].tipo_solicitud);
+                    console.log("vm.solicitud[k].status: "+vm.solicitud[k].status);
                     vm.requisito = {
                         "id":vm.solicitud[k].id,
-                        "rUDN":vm.solicitud[k].rUDN,
-                        "rFechaIni":vm.solicitud[k].rFechaIni,
-                        "rFechaFin":vm.solicitud[k].rFechaFin,
+                        "udn":vm.solicitud[k].udn,
+                        "fecha_inicio":vm.solicitud[k].fecha_inicio,
+                        "fecha_termino":vm.solicitud[k].fecha_termino,
                         //"rDesc":vm.solicitud[k],
-                        "rTipo": vm.solicitud[k].rTipo,
-                        "rEstatus": vm.solicitud[k].rEstatus,
-                        "rCantidad": vm.solicitud[k].rCantidad
+                        "tipo_solicitud": vm.solicitud[k].tipo_solicitud,
+                        "status": vm.solicitud[k].status,
+                        "comentario": vm.solicitud[k].comentario
                     };
 
                // console.log("Objeto: "+vm.requisito);
-               // console.log("Tipo: "+vm.requisito.rTipo);
+               // console.log("Tipo: "+vm.requisito.tipo_solicitud);
                 console.log("el requisito es:"+vm.requisito.id);
                 console.log("vm.requisito.id: "+vm.requisito.id)
-                console.log("vm.requisito.rUDN: "+vm.requisito.rUDN);
-                console.log("vm.requisito.rFechaFin: "+vm.requisito.rFechaFin);
-                console.log("vm.requisito.rFechaIni: "+vm.requisito.rFechaIni);
-                console.log("vm.requisito.rTipo: "+vm.requisito.rTipo);
-                console.log("vm.requisito.rEstatus: "+vm.requisito.rEstatus);
+                console.log("vm.requisito.udn: "+vm.requisito.udn);
+                console.log("vm.requisito.fecha_termino: "+vm.requisito.fecha_termino);
+                console.log("vm.requisito.fecha_inicio: "+vm.requisito.fecha_inicio);
+                console.log("vm.requisito.tipo_solicitud: "+vm.requisito.tipo_solicitud);
+                console.log("vm.requisito.status: "+vm.requisito.status);
                 console.log("requisito:");
                 console.log(vm.requisito);
                 vm.Requisitos.push(vm.requisito);
@@ -121,13 +149,13 @@
 
                 vm.requisito = {
                     "id":vm.id,
-                    "rUDN":null,
-                    "rFechaIni":new Date(),
-                    "rFechaFin":new Date(),
+                    "udn":null,
+                    "fecha_inicio":new Date(),
+                    "fecha_termino":new Date(),
                     "rDesc":null,
-                    "rTipo": tipo,
-                    "rEstatus": null,
-                    "rCantidad": null
+                    "tipo_solicitud": tipo,
+                    "status": null,
+                    "comentario": null
                 };
 
                 console.log("Los requisitos son:");
@@ -145,7 +173,7 @@
 
             for (index = 0; index < vm.Requisitos.length; ++index) {//Cambiar a un for each
 
-                console.log("El requisito a borrar es:"+vm.requisitocopy.rTipo);
+                console.log("El requisito a borrar es:"+vm.requisitocopy.tipo_solicitud);
                 console.log(vm.Requisitos[index]);
                 if (vm.Requisitos[index].id == vm.requisitocopy.id) {
 
@@ -164,7 +192,17 @@
 
         function editarRequisito(requisito) {
 
+        }
 
+        function buscarSolicitudes(){
+            Solicitudes.list().then(function(rest){
+                vm.solicitudes=rest;
+                console.log(vm.solicitudes);
+                //if(vm.solicitudes)
+                //console.log(vm.udns);
+            }).catch(function(error){
+
+            });
         }
 
     }

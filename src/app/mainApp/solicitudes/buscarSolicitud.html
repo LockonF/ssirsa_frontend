@@ -21,12 +21,10 @@
 
                         <!-- opc 1-->
 
-
-
-
-
                     </div>
-                    <md-button ng-click="vm.mostrarRequisito()" ng-class="guardar" aria-label="fab button"
+                    <!--md-button ng-click="vm.mostrarRequisito()" ng-class="guardar" aria-label="fab button"
+                               class="md-fab md-primary md-raised"-->
+                    <md-button ng-click="vm.buscarSolicitudes()" ng-class="guardar" aria-label="fab button"
                                class="md-fab md-primary md-raised">
                         <md-icon md-font-icon="fa fa-search"></md-icon>
                     </md-button>
@@ -45,8 +43,6 @@
                 <span>Nutrition</span>
             </div>
         </md-toolbar-->
-
-
     </div>
 </div>
 <!-- opc 1-->
@@ -61,18 +57,18 @@
                         <tr md-row="md-row">
                             <th md-column="md-column" md-order-by="id"><span translate="">No. Solicitud</span>
                             </th>
-                            <th md-column="md-column" md-order-by="rUDN"><span translate="">UDN</span>
+                            <th md-column="md-column" md-order-by="udn"><span translate="">UDN</span>
                                 <!--vm.requisito. -->
                             </th>
-                            <th md-column="md-column" md-order-by="rFechaIni"><span translate="">Inicio</span>
+                            <th md-column="md-column" md-order-by="fecha_inicio"><span translate="">Inicio</span>
                             </th>
-                            <th md-column="md-column" md-order-by="rFechaFin"><span translate="">Fin</span>
+                            <th md-column="md-column" md-order-by="fecha_termino"><span translate="">Fin</span>
                             </th>
-                            <th md-column="md-column" md-order-by="rTipo"><span translate="">TIPO</span>
+                            <th md-column="md-column" md-order-by="tipo_solicitud"><span translate="">TIPO</span>
                             </th>
-                            <th md-column="md-column" md-order-by="rEstatus"><span translate="">ESTATUS</span>
+                            <th md-column="md-column" md-order-by="status"><span translate="">ESTATUS</span>
                             </th>
-                            <th md-column="md-column" md-order-by="rCantidad"><span translate="">CANTIDAD</span>
+                            <th md-column="md-column" md-order-by="comentario"><span translate="">CANTIDAD</span>
                             </th>
                             <!-- Cuerpo de la tabla-->
                         </tr>
@@ -81,12 +77,12 @@
                         <tr md-row="md-row" md-select="requisito" md-select-id="{{requisito.id}}"
                             ng-repeat="requisito in vm.Requisitos | orderBy:vm.query.order">
                             <td md-cell="md-cell">{{requisito.id}}</td>
-                            <td md-cell="md-cell">{{requisito.rUDN}}</td>
-                            <td md-cell="md-cell">{{requisito.rFechaIni}}</td>
-                            <td md-cell="md-cell">{{requisito.rFechaFin}}</td>
-                            <td md-cell="md-cell">{{requisito.rTipo}}</td>
-                            <td md-cell="md-cell">{{requisito.rEstatus}}</td>
-                            <td md-cell="md-cell">{{requisito.rCantidad}}</td>
+                            <td md-cell="md-cell">{{requisito.udn}}</td>
+                            <td md-cell="md-cell">{{requisito.fecha_inicio}}</td>
+                            <td md-cell="md-cell">{{requisito.fecha_termino}}</td>
+                            <td md-cell="md-cell">{{requisito.tipo_solicitud}}</td>
+                            <td md-cell="md-cell">{{requisito.status}}</td>
+                            <td md-cell="md-cell" ng-click='vm.edit($event,requisito,"comentario")'>{{requisito.comentario}}</td>
                             <td md-cell="md-cell" ng-click="$event.stopPropagation()"><!-- -->
                                 <md-button ng-click="vm.eliminarRequisito(requisito)" class="md-fab md-warn md-mini">
                                     <md-icon md-font-icon="fa fa-times-circle"></md-icon>
