@@ -27,17 +27,17 @@
                         </md-autocomplete>
                     </md-input-container>
                     <div layout="row" flex="100">
-                        <md-input-container flex>
+                        <md-input-container flex="50">
                             <label>No. de Servicio</label>
                             <input type="text" ng-model="vm.etapa.noServicio" ng-disabled="true"/>
                         </md-input-container>
-                        <md-input-container flex>
+                        <md-input-container flex="50">
                             <label translate>Etapa Actual</label>
                             <md-select ng-model="vm.etapa.etapaActual" name="select" ng-disabled="true">
                                 <md-option ng-repeat="etap in vm.etapas" ng-value="etap.id">{{etap.nombre}}</md-option>
                             </md-select>
                         </md-input-container>
-                        <md-input-container flex>
+                        <md-input-container flex="20">
                             <md-button class="md-raised" ng-class="md-primary" aria-label="raised button"
                                        ng-click='vm.crearInsumo()'>
                                 <md-icon md-font-icon="fa fa-save"></md-icon>
