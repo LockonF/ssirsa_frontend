@@ -17,6 +17,7 @@
             eliminarCheckListServicio: eliminarCheckListServicio,
             getAllCheckListServicio: getAllCheckListServicio
         };
+        
 
         function crearCheckListServicio(CheckList) {
             var deferred = $q.defer();

@@ -11,11 +11,7 @@
 
     function checklistController(){
         var vm=this;
-        vm.user = {
-            name:'Francisco Javier Cerda Martínez',
-            level:'SU',
-            area:'Todas'
-        };
+       
         vm.diagnostico={
             idCabinet:"34124142112443",
             isSalida:true,

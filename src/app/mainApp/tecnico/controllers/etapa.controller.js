@@ -11,11 +11,7 @@
 
     function etapaController() {
         var vm = this;
-        vm.user = {
-            name: 'Francisco Javier Cerda Martínez',
-            level: 'SU',
-            area: 'Todas'
-        };
+      
         vm.etapa = {
             idCabinet: "34124142112443",
             noServicio: "234567812212",
@@ -26,8 +22,8 @@
 
         };
         vm.insumo = {
-            id:"",
-            nombre:"",
+            id: "",
+            nombre: "",
             cantidad: "",
             notas: ""
         };
@@ -62,8 +58,8 @@
         }
 
         ];
-        vm.crearInsumo=crearInsumo;
-        vm.eliminarInsumo=eliminarInsumo;
+        vm.crearInsumo = crearInsumo;
+        vm.eliminarInsumo = eliminarInsumo;
         // Crear insumo
 
         function crearInsumo() {
@@ -78,7 +74,7 @@
 
                 vm.insumo = {
                     id: "",
-                    nombre:"",
+                    nombre: "",
                     cantidad: 0,
                     notas: ""
                 };
@@ -93,21 +89,23 @@
 
         function eliminarInsumo(insu) {
 
-            vm.insumocopy=insu;
-            var index=0;
+            vm.insumocopy = insu;
+            var index = 0;
 
             for (index = 0; index < vm.etapa.insumos.length; ++index) {
 
                 console.log(vm.insumocopy);
                 console.log(vm.etapa.insumos[index]);
                 if (vm.etapa.insumos[index].id == vm.insumocopy.id) {
-                    
-                        console.log("voy a borrar");
-                        console.log(vm.etapa.insumos[index]);
-                        vm.etapa.insumos.splice(index, 1);
+
+                    console.log("voy a borrar");
+                    console.log(vm.etapa.insumos[index]);
+                    vm.etapa.insumos.splice(index, 1);
 
                 }
-                else{console.log("Aun no lo encuentro")}
+                else {
+                    console.log("Aun no lo encuentro")
+                }
 
             }
 

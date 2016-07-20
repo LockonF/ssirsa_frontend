@@ -1,4 +1,4 @@
-<div  layout="column">
+<div layout="column">
     <md-card class="md-padding card1" flex="100">
         <img src="assets/images/backgrounds/material-backgrounds/mb-bg-01-narrow.jpg" alt="Card Image">
         <md-card-title>
@@ -40,20 +40,21 @@
                 </div>
                 <div layout="column" flex="30">
                     <md-input-container flex="15">
-                        <md-switch class="md-primary" ng-model="vm.etapa.isValidated" aria-label="Primary Switch" ng-init="switches.primary = true">
+                        <md-switch class="md-primary" ng-model="vm.etapa.isValidated" aria-label="Primary Switch"
+                                   ng-init="switches.primary = true">
                             Validado
                         </md-switch>
                     </md-input-container>
-                    <md-input-container  flex="15">
+                    <md-input-container flex="15">
                         <label translate>Siguiente etapa</label>
-                        <md-select ng-model="vm.etapa.siguienteEtapa" name="select" >
-                            <md-option ng-repeat="etap in vm.etapas" ng-value="etap.id" >{{etap.nombre}}</md-option>
+                        <md-select ng-model="vm.etapa.siguienteEtapa" name="select">
+                            <md-option ng-repeat="etap in vm.etapas" ng-value="etap.id">{{etap.nombre}}</md-option>
                         </md-select>
                     </md-input-container>
-                    <md-input-container  flex="15">
+                    <md-input-container flex="15">
                         <label translate>Etapa Actual</label>
                         <md-select ng-model="vm.etapa.etapaActual" name="select" ng-disabled="true">
-                            <md-option ng-repeat="etap in vm.etapas" ng-value="etap.id" >{{etap.nombre}}</md-option>
+                            <md-option ng-repeat="etap in vm.etapas" ng-value="etap.id">{{etap.nombre}}</md-option>
                         </md-select>
                     </md-input-container>
                     <md-input-container flex="15">
@@ -64,9 +65,9 @@
             </div>
 
             <md-input-container flex="25">
-            <md-button class="md-raised"  class="md-primary" aria-label="raised button" ng-click='vm.crearInsumo()'>
-                <md-icon md-font-icon="fa fa-save" > </md-icon>
-            </md-button>
+                <md-button class="md-raised" class="md-primary" aria-label="raised button" ng-click='vm.crearInsumo()'>
+                    <md-icon md-font-icon="fa fa-save"></md-icon>
+                </md-button>
             </md-input-container>
         </md-card-content>
     </md-card>
@@ -85,7 +86,8 @@
                     </tr>
                     </thead>
                     <tbody md-body="md-body">
-                    <tr md-row="md-row" md-select="insu" md-select-id="{{insu.id}}" ng-repeat="insu in vm.etapa.insumos | orderBy:vm.query.order">
+                    <tr md-row="md-row" md-select="insu" md-select-id="{{insu.id}}"
+                        ng-repeat="insu in vm.etapa.insumos | orderBy:vm.query.order">
                         <td md-cell="md-cell" flex="25">{{insu.nombre}}</td>
                         <td md-cell="md-cell" flex="15">{{insu.cantidad}}</td>
                         <td md-cell="md-cell" flex="50">{{insu.notas}}</td>

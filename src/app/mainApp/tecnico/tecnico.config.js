@@ -36,6 +36,13 @@
                 controllerAs:'vm'
 
             })
+            .state('triangular.admin-default.asignacionLinea',{
+                url:'/validarEtapa',
+                templateUrl:'app/mainApp/tecnico/asignacionLinea.tmpl.html',
+                controller:'asignacionLineaController',
+                controllerAs:'vm'
+
+            })
         triMenuProvider.addMenu({
             name: 'Servicios',
             icon: 'fa fa-wrench',
@@ -59,6 +66,11 @@
                 {
                     name: 'Checklist',
                     state: 'triangular.admin-default.checklist',
+                    type: 'link'
+                },
+                {
+                    name: 'Asignación de Linea',
+                    state: 'triangular.admin-default.asignacionLinea',
                     type: 'link'
                 },
             ]

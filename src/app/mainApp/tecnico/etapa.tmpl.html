@@ -1,4 +1,4 @@
-<div  layout="column">
+<div layout="column">
     <md-card class="md-padding card1" flex="100">
         <img src="assets/images/backgrounds/material-backgrounds/mb-bg-01-narrow.jpg" alt="Card Image">
         <md-card-title>
@@ -27,21 +27,22 @@
                         </md-autocomplete>
                     </md-input-container>
                     <div layout="row" flex="100">
-                    <md-input-container flex>
-                        <label>No. de Servicio</label>
-                        <input type="text" ng-model="vm.etapa.noServicio" ng-disabled="true"/>
-                    </md-input-container>
-                    <md-input-container flex>
-                        <label translate>Etapa Actual</label>
-                        <md-select ng-model="vm.etapa.etapaActual" name="select" ng-disabled="true">
-                            <md-option ng-repeat="etap in vm.etapas" ng-value="etap.id" >{{etap.nombre}}</md-option>
-                        </md-select>
-                    </md-input-container>
-                    <md-input-container flex>
-                        <md-button class="md-raised" ng-class="md-primary" aria-label="raised button" ng-click='vm.crearInsumo()'>
-                            <md-icon md-font-icon="fa fa-save" > </md-icon>
-                        </md-button>
-                    </md-input-container>
+                        <md-input-container flex>
+                            <label>No. de Servicio</label>
+                            <input type="text" ng-model="vm.etapa.noServicio" ng-disabled="true"/>
+                        </md-input-container>
+                        <md-input-container flex>
+                            <label translate>Etapa Actual</label>
+                            <md-select ng-model="vm.etapa.etapaActual" name="select" ng-disabled="true">
+                                <md-option ng-repeat="etap in vm.etapas" ng-value="etap.id">{{etap.nombre}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container flex>
+                            <md-button class="md-raised" ng-class="md-primary" aria-label="raised button"
+                                       ng-click='vm.crearInsumo()'>
+                                <md-icon md-font-icon="fa fa-save"></md-icon>
+                            </md-button>
+                        </md-input-container>
                     </div>
                 </div>
                 <div layout="row" flex="20">
@@ -56,6 +57,7 @@
                         </md-button>
                     </md-input-container>
                 </div>
+
             </div>
         </md-card-content>
     </md-card>
@@ -63,8 +65,8 @@
         <div layout="row">
             <md-input-container flex="25">
                 <label translate>Insumo</label>
-                <md-select ng-model="vm.insumo" name="select" >
-                    <md-option ng-repeat="insu in vm.insumos" ng-value="insu" >{{insu.nombre}}</md-option>
+                <md-select ng-model="vm.insumo" name="select">
+                    <md-option ng-repeat="insu in vm.insumos" ng-value="insu">{{insu.nombre}}</md-option>
                 </md-select>
             </md-input-container>
             <md-input-container flex="15">
@@ -76,8 +78,9 @@
                 <input type="text" ng-model="vm.insumo.notas"/>
             </md-input-container>
             <md-input-container flex="10">
-                <md-button class="md-raised" ng-class="md-primary" aria-label="raised button" ng-click='vm.crearInsumo()'>
-                    <md-icon md-font-icon="zmdi zmdi-plus" ></md-icon>
+                <md-button class="md-raised" ng-class="md-primary" aria-label="raised button"
+                           ng-click='vm.crearInsumo()'>
+                    <md-icon md-font-icon="zmdi zmdi-plus"></md-icon>
                 </md-button>
             </md-input-container>
         </div>
@@ -94,7 +97,8 @@
                     </tr>
                     </thead>
                     <tbody md-body="md-body">
-                    <tr md-row="md-row" md-select="insu" md-select-id="{{insu.id}}" ng-repeat="insu in vm.etapa.insumos | orderBy:vm.query.order">
+                    <tr md-row="md-row" md-select="insu" md-select-id="{{insu.id}}"
+                        ng-repeat="insu in vm.etapa.insumos | orderBy:vm.query.order">
                         <td md-cell="md-cell" flex="25">{{insu.nombre}}</td>
                         <td md-cell="md-cell" flex="15">{{insu.cantidad}}</td>
                         <td md-cell="md-cell" flex="50">{{insu.notas}}</td>
