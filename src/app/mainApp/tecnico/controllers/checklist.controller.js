@@ -13,42 +13,70 @@
         var vm=this;
        
         vm.diagnostico={
-            idCabinet:"34124142112443",
-            isSalida:true,
-            isCabinet:true,
-            rodajas:10,
-            canastillas:2,
-            puertas:1,
-            rejillas:0,
-            sticker:false,
-            pintura:true,
-            lavado:true,
-            emplayado:false,
-            lubricacion:true,
-            listo:false,
-            file:"assets/images/files/refri1.jpg"
+
 
         };
 
         vm.status = 'idle';  // idle | uploading | complete
         vm.upload = upload;
+        vm.buscar=buscar;
+        vm.guardar=guardar;
 
         var fileList;
         ////////////////
+        function buscar(){
+            vm.diagnostico={
+                idCabinet:"34124142112443",
+                isSalida:true,
+                isCabinet:true,
+                rodajas:10,
+                canastillas:2,
+                puertas:1,
+                rejillas:0,
+                sticker:false,
+                pintura:true,
+                lavado:true,
+                emplayado:false,
+                lubricacion:true,
+                listo:false,
+                file:"assets/images/files/refri1.jpg"
 
+            };
+
+        }
+        function guardar(){
+            vm.diagnostico={
+                idCabinet:"",
+                isSalida:false,
+                isCabinet:false,
+                rodajas:null,
+                canastillas:null,
+                puertas:null,
+                rejillas:null,
+                sticker:null,
+                pintura:null,
+                lavado:null,
+                emplayado:null,
+                lubricacion:null,
+                file:null
+
+            };
+
+        }
         function upload($files) {
-            if($files !== null && $files.length > 0) {
+            $files="assets/images/files/refri2.jpg";
+            if($files !== null ) {
                 vm.diagnostico.file = $files;
 
-                uploadStarted();
+                //uploadStarted();
 
                 $timeout(uploadComplete, 4000);
             }
         }
 
-        function uploadStarted() {
-            vm.status = 'uploading';
-        }
+        //function uploadStarted() {
+          //  vm.status = 'uploading';
+       // }
 
         function uploadComplete() {
             vm.status = 'complete';

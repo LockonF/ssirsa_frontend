@@ -13,15 +13,57 @@
         var vm = this;
 
         vm.etapa = {
-            idCabinet: "34124142112443",
-            noServicio: "234567812212",
-            isValidated: true,
-            etapaActual: 1,
-            siguienteEtapa: 2,
-            fecha: "02/07/2016",
+            idCabinet: "",
+            noServicio: "",
+            isValidated: false,
+            etapaActual: "",
+            siguienteEtapa: "",
             insumos: []
 
         };
+        vm.guardar=guardar;
+        vm.buscar=buscar;
+
+        function buscar(){
+
+
+            vm.etapa = {
+                idCabinet: "34124142112443",
+                noServicio: "234567812212",
+                isValidated: false,
+                etapaActual: 1,
+                siguienteEtapa: 2,
+                fecha:"19/07/2016",
+                insumos: [{
+                    id: "1",
+                    nombre: "Carburador",
+                    cantidad: "1",
+                    notas: "no de serie 32245345543"
+                },{
+                    id: "2",
+                    nombre: "Aceite",
+                    cantidad: "2",
+                    notas: "Litros de viscosidad .7"
+                }]
+
+            };
+
+
+        }
+        
+        function guardar(){
+            vm.etapa = {
+                idCabinet: "",
+                noServicio: "",
+                isValidated: false,
+                etapaActual: "",
+                siguienteEtapa: "",
+                insumos: []
+
+            };
+
+
+        }
         vm.insumo = {
             id: "",
             nombre: "",

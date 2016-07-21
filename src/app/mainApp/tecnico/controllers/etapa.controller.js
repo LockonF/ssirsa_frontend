@@ -13,14 +13,55 @@
         var vm = this;
       
         vm.etapa = {
-            idCabinet: "34124142112443",
-            noServicio: "234567812212",
-            isValidated: true,
-            etapaActual: 1,
-            siguienteEtapa: 2,
+            idCabinet: "",
+            noServicio: "",
+            isValidated: false,
+            etapaActual: "",
+            siguienteEtapa: "",
             insumos: []
 
         };
+        vm.editable=false;
+        vm.guardar=guardar;
+        vm.buscar=buscar;
+        vm.editar=editar;
+        function buscar(){
+
+
+            vm.etapa = {
+                idCabinet: "34124142112443",
+                noServicio: "234567812212",
+                isValidated: false,
+                etapaActual: 1,
+                siguienteEtapa: 2,
+                insumos: [{
+                    id: "1",
+                    nombre: "Carburador",
+                    cantidad: "1",
+                    notas: "no de serie 32245345543"
+                }]
+
+            };
+            vm.editable=true;
+
+        }
+        function editar(){
+            vm.editable=false;
+
+        }
+        function guardar(){
+            vm.etapa = {
+                idCabinet: "",
+                noServicio: "",
+                isValidated: false,
+                etapaActual: "",
+                siguienteEtapa: "",
+                insumos: []
+
+            };
+            vm.editable=false;
+
+        }
         vm.insumo = {
             id: "",
             nombre: "",
@@ -75,7 +116,7 @@
                 vm.insumo = {
                     id: "",
                     nombre: "",
-                    cantidad: 0,
+                    cantidad: "",
                     notas: ""
                 };
 
