@@ -12,7 +12,7 @@
             .state('triangular.admin-default.cabinets', { //Nombre del state
                 url: '/cabinets', //Nombre que quiero en mi url
                 templateUrl: 'app/mainApp/inventarios/cabinet.tmpl.html', //Dirección del archivo a usar
-                controller: 'asignacionLineaController', //nombre del controlador
+                controller: 'cabinetController', //nombre del controlador
                 controllerAs: 'vm' //se renombra al scope
             })
             .state('triangular.admin-default.insumo', { //Nombre del state

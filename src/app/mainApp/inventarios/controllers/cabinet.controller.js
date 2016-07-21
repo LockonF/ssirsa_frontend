@@ -6,9 +6,9 @@
 
     angular
         .module('app.mainApp.inventario')
-        .controller('asignacionLineaController', asignacionLineaController);
+        .controller('cabinetController', cabinetController);
 
-    function asignacionLineaController() {
+    function cabinetController() {
         var vm = this;
         vm.cabinet={
             activo:true,
