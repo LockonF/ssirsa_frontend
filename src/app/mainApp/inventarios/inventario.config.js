@@ -12,8 +12,14 @@
             .state('triangular.admin-default.cabinets', { //Nombre del state
                 url: '/cabinets', //Nombre que quiero en mi url
                 templateUrl: 'app/mainApp/inventarios/cabinet.tmpl.html', //Dirección del archivo a usar
-                //controller: 'asignacionLineaController', //nombre del controlador
-                //controllerAs: 'vm' //se renombra al scope
+                controller: 'asignacionLineaController', //nombre del controlador
+                controllerAs: 'vm' //se renombra al scope
+            })
+            .state('triangular.admin-default.insumo', { //Nombre del state
+                url: '/insumos', //Nombre que quiero en mi url
+                templateUrl: 'app/mainApp/inventarios/insumo.tmpl.html', //Dirección del archivo a usar
+                controller: 'insumoController', //nombre del controlador
+                controllerAs: 'vm' //se renombra al scope
             })
             .state('triangular.admin-default.construccion', { //Nombre del state
                 url: '/construccion', //Nombre que quiero en mi url
@@ -33,7 +39,7 @@
                 type: 'link'
             }, {
                 name: 'Insumos',
-                state: 'triangular.admin-default.construccion',
+                state: 'triangular.admin-default.insumo',
                 type: 'link'
             },{
                 name: 'Catalogo de Insumos',

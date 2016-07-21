@@ -3,13 +3,15 @@
         <img src="assets/images/backgrounds/material-backgrounds/mb-bg-01-narrow.jpg" alt="Card Image">
         <md-card-title>
             <md-card-title-text>
-                <span class="md-headline">Gestión de Cabinet</span>
+                <span class="md-headline">Gestión de Insumos</span>
             </md-card-title-text>
         </md-card-title>
         <md-card-content>
+            <span class="md-title">Buscar Insumo</span>
             <div flex="100" layout="row">
+
                 <md-input-container flex="60">
-                    <label>Id Cabinet</label>
+                    <label>Id Insumo</label>
                     <md-autocomplete
                             class="md-padding card1"
                             ng-disabled="vm.isDisabled"
@@ -30,61 +32,51 @@
                         <md-icon md-font-icon="zmdi zmdi-zoom-in"></md-icon>
                     </md-button>
                 </md-input-container>
-                <md-input-container flex>
-                    <md-switch class="md-primary" ng-model="vm.cabinet.activo" aria-label="Aun es Funcional" >
-                        Funciona
-                    </md-switch>
-                </md-input-container>
-                <md-input-container flex>
-                    <md-button class="md-primary md-raised"
-                               aria-label="guardar" ng-click='vm.guardarCabinet()'>
-                        <md-icon md-font-icon="fa fa-save"></md-icon>
-                    </md-button>
-                </md-input-container>
             </div>
         </md-card-content>
     </md-card>
 
     <md-card class="md-padding card1" flex="100">
-        <span class="md-subhead">Cabinet Seleccionado.</span>
+        <span class="md-subhead">Información de Insumo.</span>
 
         <div layout="row" , flex="flex">
             <md-input-container flex>
-                <label>Economico</label>
-                <input type="number" ng-model="vm.cabinet.economico" />
+                <label>Número de Remisión</label>
+                <input type="number" ng-model="vm.insumo.noRemision" />
             </md-input-container>
             <md-input-container flex>
-                <label translate>Etapa Actual</label>
-                <md-select ng-model="vm.cabinet.status" name="select" >
-                    <md-option ng-repeat="stat in vm.status" ng-value="stat.id">{{stat.nombre}}</md-option>
+                <label translate>Categoria </label>
+                <md-select ng-model="vm.insumo.categoria" name="selectCategoria" >
+                    <md-option ng-repeat="categoria in vm.categorias" ng-value="categoria.id">{{categoria.nombre}}</md-option>
                 </md-select>
             </md-input-container>
             <md-input-container flex>
-                <label>Incidencias</label>
-                <input type="number" ng-model="vm.cabinet.incidencias" />
+                <label translate>Catalogo Insumos</label>
+                <md-select ng-model="vm.insumo.tipo" name="selectInsumos" >
+                    <md-option ng-repeat="tipoInsumo in vm.tiposInsumo" ng-value="tipoInsumo.id">{{tipoInsumo.nombre}}</md-option>
+                </md-select>
             </md-input-container>
+
+
+
 
         </div>
         <div layout="row" , flex="flex">
-            <md-input-container flex="25">
-                <label>tipo Entrada</label>
-                <input type="text" ng-model="vm.cabinet.tipoEntrada" />
-            </md-input-container>
-            <md-input-container flex="25">
-                <label>No de Serie</label>
-                <input type="text" ng-model="vm.cabinet.noSerie" />
-            </md-input-container>
-            <md-input-container flex="25">
-                <label>Año</label>
-                <input type="text" ng-model="vm.cabinet.ano" />
-            </md-input-container>
-            <md-input-container flex="25">
-                <label translate>Marca</label>
-                <md-select ng-model="vm.cabinet.marca" name="select" >
-                    <md-option ng-repeat="marca in vm.marcas" ng-value="marca.id">{{marca.nombre}}</md-option>
+            <md-input-container flex>
+                <label translate>Zona</label>
+                <md-select ng-model="vm.insumo.zona" name="selectZona" >
+                    <md-option ng-repeat="zona in vm.zonas" ng-value="zona.id">{{zona.nombre}}</md-option>
                 </md-select>
             </md-input-container>
-
+            <div class="margin-bottom-20" layout="row" layout-align="space-around center" flex="30">
+                <md-datepicker ng-model="vm.requisito.rFechaIni" md-placeholder="Enter date"></md-datepicker>
+            </div>
+            <md-input-container flex="30">
+                <md-button class="md-primary md-raised"
+                           aria-label="guardar" ng-click='vm.guardarInsumo()'>
+                    <md-icon md-font-icon="fa fa-save"></md-icon>
+                </md-button>
+            </md-input-container>
 
         </div>
     </md-card>
