@@ -6,7 +6,7 @@
         .controller('loginController', loginController);
 
     /* @ngInject */
-    function loginController($state, triSettings,$mdDialog,OAuth,toastr,dynamicMenu) {
+    function loginController($state, triSettings,$mdDialog,OAuth,toastr,dynamicMenu, Bienvenida, PersonaLocalService) {
         var vm = this;
         
         vm.loginClick = loginClick;
@@ -30,7 +30,7 @@
             var options={
                 secure:false
             };
-            dynamicMenu.loadMenu();
+
             OAuth.getAccessToken(vm.user,options).then(function(res){
                 $state.go('triangular.admin-default.bienvenida');
             }).catch(function(err){
@@ -39,6 +39,7 @@
             });
             
         }
+
         function loginTagClick($event,dialog){
             var confirm=$mdDialog.prompt()
                 .title(dialog.title)
@@ -53,7 +54,6 @@
             });
 
         }
-
 
     }
 })();

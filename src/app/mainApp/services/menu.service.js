@@ -12,10 +12,11 @@
         var service={
           loadMenu:loadMenu
         };
-        var role=PersonaLocalService.role.name;
+
 
         function loadMenu(){
             triMenu.menu=[];
+            var role=PersonaLocalService.role.name;
             switch (role){
                 case "Administrador":
                     loadAdminMenu();
@@ -27,21 +28,19 @@
                     loadClienteMenu();
                     break;
                 case "Tecnico A":
-                    loadAdminMenu();
-                    //loadTecnicoAMenu();
+                    loadTecnicoMenu();
                     break;
                 case "Tecnico B":
-                    loadTecnicoBMenu();
+                    loadTecnicoMenu();
                     break;
                 case "Tecnico C":
-                    loadTecnicoCMenu();
+                    loadTecnicoMenu();
                     break;
                 case "Tecnico D":
-                    loadTecnicoDMenu();
+                    loadTecnicoMenu();
                     break;
                 case "Tecnico E":
-                    loadTecnicoEMenu();
-                    break;
+                    loadTecnicoMenu();break;
                 default:
             }
         }
@@ -63,10 +62,28 @@
                     ]
                 },
                 {
+                    name: 'Gestion de Usuarios',
+                    icon: 'zmdi zmdi-user',
+                    type: 'dropdown',
+                    priority:2,
+                    children:[
+                        {
+                            name:'Nuevo usuario',
+                            state:'trianggular.admin-default.newUsuario',
+                            type:'link'
+                        },
+                        {
+                            name:'Buscar usuarios',
+                            state:'trianggular.admin-default.lokUsuario',
+                            type:'link'
+                        }
+                    ]
+                },
+                {
                     name: 'Solicitudes',
                     icon: 'zmdi zmdi-bookmark',
                     type: 'dropdown',
-                    priority:2,
+                    priority:3,
                     children: [
                         {
                             name: 'Solicitudes Pendientes',
@@ -84,7 +101,7 @@
                     name: 'Servicios',
                     icon: 'zmdi zmdi-home',
                     type: 'dropdown',
-                    priority:3,
+                    priority:4,
                     children: [
                         {
                             name: 'Diagnosticos',
@@ -143,29 +160,85 @@
         }
 
         function loadClienteMenu(){
+            triMenu.menu=[];
+            var clienteMenu=[
+                {
+                    name: 'Bienvenida',
+                    icon: 'zmdi zmdi-home',
+                    type: 'dropdown',
+                    priority: 1,
+                    children: [
+                        {
+                            name: 'Inicio',
+                            state: 'triangular.admin-default.bienvenida',
+                            type: 'link'
+                        }
+                    ]
+                },
 
+                {
+                    name: 'Solicitudes',
+                    icon: 'zmdi zmdi-bookmark',
+                    type: 'dropdown',
+                    priority:2,
+                    children: [
+                        {
+                            name: 'Solicitudes Pendientes',
+                            state: 'triangular.admin-default.solicitudes',
+                            type: 'link'
+                        },
+                        {
+                            name: 'Crear Solicitud',
+                            state: 'triangular.admin-default.realizarSolicitud',
+                            type: 'link'
+                        }
+                    ]
+                }
+            ]
+
+            //triMenu.menu.unshift(adminMenu);
+            triMenu.menu=clienteMenu;
         }
 
-        function loadTecnicoAMenu(){
+        function loadTecnicoMenu(){
+            triMenu.menu=[];
+            var tecnicoMenu=[
+                {
+                    name: 'Bienvenida',
+                    icon: 'zmdi zmdi-home',
+                    type: 'dropdown',
+                    priority: 1,
+                    children: [
+                        {
+                            name: 'Inicio',
+                            state: 'triangular.admin-default.bienvenida',
+                            type: 'link'
+                        }
+                    ]
+                },
+                {
+                    name: 'Servicios',
+                    icon: 'zmdi zmdi-home',
+                    type: 'dropdown',
+                    priority:4,
+                    children: [
+                        {
+                            name: 'Diagnosticos',
+                            state: 'triangular.admin-default.diagnostico',
+                            type: 'link'
+                        },
+                        {
+                            name:'Registrar Servicio',
+                            state: 'triangular.admin-default.servicio',
+                            type:'link'
+                        }
+                    ]
+                }
+            ]
 
+            //triMenu.menu.unshift(adminMenu);
+            triMenu.menu=tecnicoMenu;
         }
-
-        function loadTecnicoBMenu(){
-
-        }
-
-        function loadTecnicoCMenu(){
-
-        }
-
-        function loadTecnicoDMenu(){
-
-        }
-
-        function loadTecnicoEMenu(){
-
-        }
-
 
         return service;
     }
