@@ -99,22 +99,66 @@
                 },
                 {
                     name: 'Servicios',
-                    icon: 'zmdi zmdi-home',
+                    icon: 'fa fa-wrench',
                     type: 'dropdown',
-                    priority:4,
-                    children: [
+                    priority: 4,
+                    children: [{
+                        name: 'Inicio',
+                        state: 'triangular.admin-default.tecnico',
+                        type: 'link'
+                    },
                         {
-                            name: 'Diagnosticos',
-                            state: 'triangular.admin-default.diagnostico',
+                            name: 'Validar Etapa',
+                            state: 'triangular.admin-default.validarEtapa',
                             type: 'link'
                         },
                         {
-                            name:'Registrar Servicio',
-                            state: 'triangular.admin-default.servicio',
-                            type:'link'
-                        }
+                            name: 'Registro Etapa',
+                            state: 'triangular.admin-default.etapa',
+                            type: 'link'
+                        },
+                        {
+                            name: 'Checklist',
+                            state: 'triangular.admin-default.checklist',
+                            type: 'link'
+                        },
+                        {
+                            name: 'Asignación de Linea',
+                            state: 'triangular.admin-default.asignacionLinea',
+                            type: 'link'
+                        },
+                    ]
+                },
+                {
+                    name: 'Inventarios',
+                    icon: 'fa fa-archive',
+                    type: 'dropdown',
+                    priority: 5,
+                    children: [{
+                        name: 'Cabinets',
+                        state: 'triangular.admin-default.cabinets',
+                        type: 'link'
+                    }, {
+                        name: 'Insumos',
+                        state: 'triangular.admin-default.insumos',
+                        type: 'link'
+                    },{
+                        name: 'Catalogo de Insumos',
+                        state: 'triangular.admin-default.catalogoInsumos',
+                        type: 'link'
+                    }, {
+                        name: 'Categoria Insumos',
+                        state: 'triangular.admin-default.construccion',
+                        type: 'link'
+                    }, {
+                        name: 'Proveedores',
+                        state: 'triangular.admin-default.construccion',
+                        type: 'link'
+                    }
+
                     ]
                 }
+
             ]
 
             //triMenu.menu.unshift(adminMenu);
@@ -141,7 +185,7 @@
                     name: 'Solicitudes',
                     icon: 'zmdi zmdi-bookmark',
                     type: 'dropdown',
-                    priority:2,
+                    priority:3,
                     children: [
                         {
                             name: 'Solicitudes Pendientes',
@@ -156,6 +200,7 @@
                     ]
                 }
             ]
+
             triMenu.menu=capturistaMenu;
         }
 
@@ -175,7 +220,6 @@
                         }
                     ]
                 },
-
                 {
                     name: 'Solicitudes',
                     icon: 'zmdi zmdi-bookmark',
@@ -194,6 +238,7 @@
                         }
                     ]
                 }
+
             ]
 
             //triMenu.menu.unshift(adminMenu);
@@ -218,22 +263,37 @@
                 },
                 {
                     name: 'Servicios',
-                    icon: 'zmdi zmdi-home',
+                    icon: 'fa fa-wrench',
                     type: 'dropdown',
-                    priority:4,
-                    children: [
+                    priority: 2,
+                    children: [{
+                        name: 'Inicio',
+                        state: 'triangular.admin-default.tecnico',
+                        type: 'link'
+                    },
                         {
-                            name: 'Diagnosticos',
-                            state: 'triangular.admin-default.diagnostico',
+                            name: 'Validar Etapa',
+                            state: 'triangular.admin-default.validarEtapa',
                             type: 'link'
                         },
                         {
-                            name:'Registrar Servicio',
-                            state: 'triangular.admin-default.servicio',
-                            type:'link'
-                        }
+                            name: 'Registro Etapa',
+                            state: 'triangular.admin-default.etapa',
+                            type: 'link'
+                        },
+                        {
+                            name: 'Checklist',
+                            state: 'triangular.admin-default.checklist',
+                            type: 'link'
+                        },
+                        {
+                            name: 'Asignación de Linea',
+                            state: 'triangular.admin-default.asignacionLinea',
+                            type: 'link'
+                        },
                     ]
                 }
+
             ]
 
             //triMenu.menu.unshift(adminMenu);
