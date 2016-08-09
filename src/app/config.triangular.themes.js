@@ -151,8 +151,6 @@
         .toolbarTheme('white-blue-grey')
         .logoTheme('blue-grey')
         .contentTheme('blue-grey');
-        
-
 
         // ZESTY ORANGE SKIN
         triThemingProvider.theme('orange')
