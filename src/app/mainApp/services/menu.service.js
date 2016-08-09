@@ -6,15 +6,17 @@
 
     angular
         .module('app.mainApp')
-        .factory('loadMenu',loadMenu);
+        .factory('dynamicMenu',dynamicMenu);
 
-    function loadMenu(triMenu,Restangular,PersonaLocalService){
+    function dynamicMenu(triMenu,PersonaLocalService){
         var service={
           loadMenu:loadMenu
         };
-        var role=PersonaLocalService.role.name;
+
 
         function loadMenu(){
+            triMenu.menu=[];
+            var role=PersonaLocalService.role.name;
             switch (role){
                 case "Administrador":
                     loadAdminMenu();
@@ -26,25 +28,25 @@
                     loadClienteMenu();
                     break;
                 case "Tecnico A":
-                    loadTecnicoAMenu();
+                    loadTecnicoMenu();
                     break;
                 case "Tecnico B":
-                    loadTecnicoBMenu();
+                    loadTecnicoMenu();
                     break;
                 case "Tecnico C":
-                    loadTecnicoCMenu();
+                    loadTecnicoMenu();
                     break;
                 case "Tecnico D":
-                    loadTecnicoDMenu();
+                    loadTecnicoMenu();
                     break;
                 case "Tecnico E":
-                    loadTecnicoEMenu();
-                    break;
+                    loadTecnicoMenu();break;
                 default:
             }
         }
 
         function loadAdminMenu(){
+            triMenu.menu=[];
             var adminMenu=[
                 {
                     name: 'Bienvenida',
@@ -52,11 +54,170 @@
                     type: 'dropdown',
                     priority: 1,
                     children: [
-                    {
+                        {
+                            name: 'Inicio',
+                            state: 'triangular.admin-default.bienvenida',
+                            type: 'link'
+                        }
+                    ]
+                },
+                {
+                    name: 'Gestion de Usuarios',
+                    icon: 'zmdi zmdi-user',
+                    type: 'dropdown',
+                    priority:2,
+                    children:[
+                        {
+                            name:'Nuevo usuario',
+                            state:'trianggular.admin-default.newUsuario',
+                            type:'link'
+                        },
+                        {
+                            name:'Buscar usuarios',
+                            state:'trianggular.admin-default.lokUsuario',
+                            type:'link'
+                        }
+                    ]
+                },
+                {
+                    name: 'Solicitudes',
+                    icon: 'zmdi zmdi-bookmark',
+                    type: 'dropdown',
+                    priority:3,
+                    children: [
+                        {
+                            name: 'Solicitudes Pendientes',
+                            state: 'triangular.admin-default.solicitudes',
+                            type: 'link'
+                        },
+                        {
+                            name: 'Crear Solicitud',
+                            state: 'triangular.admin-default.realizarSolicitud',
+                            type: 'link'
+                        }
+                    ]
+                },
+                {
+                    name: 'Servicios',
+                    icon: 'fa fa-wrench',
+                    type: 'dropdown',
+                    priority: 4,
+                    children: [{
                         name: 'Inicio',
-                        state: 'triangular.admin-default.bienvenida',
+                        state: 'triangular.admin-default.tecnico',
+                        type: 'link'
+                    },
+                        {
+                            name: 'Validar Etapa',
+                            state: 'triangular.admin-default.validarEtapa',
+                            type: 'link'
+                        },
+                        {
+                            name: 'Registro Etapa',
+                            state: 'triangular.admin-default.etapa',
+                            type: 'link'
+                        },
+                        {
+                            name: 'Checklist',
+                            state: 'triangular.admin-default.checklist',
+                            type: 'link'
+                        },
+                        {
+                            name: 'Asignación de Linea',
+                            state: 'triangular.admin-default.asignacionLinea',
+                            type: 'link'
+                        },
+                    ]
+                },
+                {
+                    name: 'Inventarios',
+                    icon: 'fa fa-archive',
+                    type: 'dropdown',
+                    priority: 5,
+                    children: [{
+                        name: 'Cabinets',
+                        state: 'triangular.admin-default.cabinets',
+                        type: 'link'
+                    }, {
+                        name: 'Insumos',
+                        state: 'triangular.admin-default.insumos',
+                        type: 'link'
+                    },{
+                        name: 'Catalogo de Insumos',
+                        state: 'triangular.admin-default.catalogoInsumos',
+                        type: 'link'
+                    }, {
+                        name: 'Categoria Insumos',
+                        state: 'triangular.admin-default.construccion',
+                        type: 'link'
+                    }, {
+                        name: 'Proveedores',
+                        state: 'triangular.admin-default.construccion',
                         type: 'link'
                     }
+
+                    ]
+                }
+
+            ]
+
+            //triMenu.menu.unshift(adminMenu);
+            triMenu.menu=adminMenu;
+        }
+
+        function loadCapturistaMenu(){
+            triMenu.menu=[];
+            var capturistaMenu=[
+                {
+                    name: 'Bienvenida',
+                    icon: 'zmdi zmdi-home',
+                    type: 'dropdown',
+                    priority: 1,
+                    children: [
+                        {
+                            name: 'Inicio',
+                            state: 'triangular.admin-default.bienvenida',
+                            type: 'link'
+                        }
+                    ]
+                },
+                {
+                    name: 'Solicitudes',
+                    icon: 'zmdi zmdi-bookmark',
+                    type: 'dropdown',
+                    priority:3,
+                    children: [
+                        {
+                            name: 'Solicitudes Pendientes',
+                            state: 'triangular.admin-default.solicitudes',
+                            type: 'link'
+                        },
+                        {
+                            name: 'Crear Solicitud',
+                            state: 'triangular.admin-default.realizarSolicitud',
+                            type: 'link'
+                        }
+                    ]
+                }
+            ]
+
+            triMenu.menu=capturistaMenu;
+        }
+
+        function loadClienteMenu(){
+            triMenu.menu=[];
+            var clienteMenu=[
+                {
+                    name: 'Bienvenida',
+                    icon: 'zmdi zmdi-home',
+                    type: 'dropdown',
+                    priority: 1,
+                    children: [
+                        {
+                            name: 'Inicio',
+                            state: 'triangular.admin-default.bienvenida',
+                            type: 'link'
+                        }
                     ]
                 },
                 {
@@ -65,62 +226,79 @@
                     type: 'dropdown',
                     priority:2,
                     children: [
-                    {
-                        name: 'Solicitudes Pendientes',
-                        state: 'triangular.admin-default.solicitudes',
-                        type: 'link'
-                    },
-                    {
-                        name: 'Crear Solicitud',
-                        state: 'triangular.admin-default.realizarSolicitud',
-                        type: 'link'
-                    }
-                    ]
-                },
-                {
-                    name: 'Servicios',
-                    icon: 'zmdi zmdi-home',
-                    type: 'dropdown',
-                    priority:3,
-                    children: [
                         {
-                            name: 'Diagnostico',
-                            state: 'triangular.admin-default.diagnostico',
+                            name: 'Solicitudes Pendientes',
+                            state: 'triangular.admin-default.solicitudes',
+                            type: 'link'
+                        },
+                        {
+                            name: 'Crear Solicitud',
+                            state: 'triangular.admin-default.realizarSolicitud',
                             type: 'link'
                         }
                     ]
                 }
+
             ]
+
+            //triMenu.menu.unshift(adminMenu);
+            triMenu.menu=clienteMenu;
         }
 
-        function loadCapturistaMenu(){
+        function loadTecnicoMenu(){
+            triMenu.menu=[];
+            var tecnicoMenu=[
+                {
+                    name: 'Bienvenida',
+                    icon: 'zmdi zmdi-home',
+                    type: 'dropdown',
+                    priority: 1,
+                    children: [
+                        {
+                            name: 'Inicio',
+                            state: 'triangular.admin-default.bienvenida',
+                            type: 'link'
+                        }
+                    ]
+                },
+                {
+                    name: 'Servicios',
+                    icon: 'fa fa-wrench',
+                    type: 'dropdown',
+                    priority: 2,
+                    children: [{
+                        name: 'Inicio',
+                        state: 'triangular.admin-default.tecnico',
+                        type: 'link'
+                    },
+                        {
+                            name: 'Validar Etapa',
+                            state: 'triangular.admin-default.validarEtapa',
+                            type: 'link'
+                        },
+                        {
+                            name: 'Registro Etapa',
+                            state: 'triangular.admin-default.etapa',
+                            type: 'link'
+                        },
+                        {
+                            name: 'Checklist',
+                            state: 'triangular.admin-default.checklist',
+                            type: 'link'
+                        },
+                        {
+                            name: 'Asignación de Linea',
+                            state: 'triangular.admin-default.asignacionLinea',
+                            type: 'link'
+                        },
+                    ]
+                }
 
+            ]
+
+            //triMenu.menu.unshift(adminMenu);
+            triMenu.menu=tecnicoMenu;
         }
-
-        function loadClienteMenu(){
-
-        }
-
-        function loadTecnicoAMenu(){
-
-        }
-
-        function loadTecnicoBMenu(){
-
-        }
-
-        function loadTecnicoCMenu(){
-
-        }
-
-        function loadTecnicoDMenu(){
-
-        }
-
-        function loadTecnicoEMenu(){
-
-        }
-
 
         return service;
     }

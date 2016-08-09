@@ -26,6 +26,8 @@
         function activate(){
             loadUser();
             loadRole();
+            console.log(vm.persona);
+            console.log(vm.role);
         }
 
         function loadUser(){
