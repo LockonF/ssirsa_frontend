@@ -1,0 +1,95 @@
+<div layout="column">
+    <md-card class="md-padding card1" flex="100">
+        <img src="assets/images/backgrounds/material-backgrounds/mb-bg-01-narrow.jpg" alt="Card Image">
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">Gestión del Inventario de Insumos</span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+            <span class="md-title">Buscar Insumo</span>
+            <div flex="100" layout="row">
+
+                <md-input-container flex="60">
+                    <label>Id Catalogo Insumo</label>
+                    <md-autocomplete
+                            class="md-padding card1"
+                            ng-disabled="vm.isDisabled"
+                            md-no-cache="vm.noCache"
+                            md-selected-item="selectedItem"
+                            md-search-text-change="vm.searchTextChange(vm.searchText)"
+                            md-search-text="vm.searchText"
+                            md-selected-item-change="vm.selectedItemChange(item)"
+                            md-items="item in vm.querySearch(vm.searchText)"
+                            md-item-text="item.display"
+                            md-min-length="0">
+
+                        <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.display}}</span>
+                    </md-autocomplete>
+                </md-input-container>
+                <md-input-container flex>
+                    <md-button class="md-fab"  aria-label="fab button">
+                        <md-icon md-font-icon="zmdi zmdi-zoom-in"></md-icon>
+                    </md-button>
+                </md-input-container>
+            </div>
+        </md-card-content>
+    </md-card>
+
+    <md-card class="md-padding card1" flex="100">
+        <span class="md-subhead">Información del Insumo Catalogado.</span>
+
+        <div layout="row" , flex="flex">
+            <md-input-container flex>
+                <label>Cantidad</label>
+                <input type="number" ng-model="vm.insumo.cantidad" />
+            </md-input-container>
+            <md-input-container flex>
+                <label>Costo</label>
+                <input type="number" ng-model="vm.insumo.costo" />
+            </md-input-container>
+            <md-input-container flex>
+                <label translate>Tipo</label>
+                <md-select ng-model="vm.insumo.tipo" name="selectInsumos" >
+                    <md-option ng-repeat="tipoInsumo in vm.tiposInsumo" ng-value="tipoInsumo.id">{{tipoInsumo.nombre}}</md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex>
+                <label translate>Categoria</label>
+                <md-select ng-model="vm.insumo.categoria" name="selectZona" >
+                    <md-option ng-repeat="categoria in vm.categorias" ng-value="categoria.id">{{categoria.nombre}}</md-option>
+                </md-select>
+            </md-input-container>
+
+
+
+
+        </div>
+        <div layout="column" , flex="flex">
+            <md-input-container flex>
+                <label translate>Proveedor</label>
+                <md-select ng-model="vm.insumo.provedor" name="selectZona" >
+                    <md-option ng-repeat="provedor in vm.provedores" ng-value="provedor.id">{{provedor.nombre}}</md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container flex class="md-block">
+                <label translate>Descripción</label>
+                <text-angular name="emailBody" ng-model="email.content" ta-target-toolbars="editor-toolbar"></text-angular>
+            </md-input-container>
+            <md-input-container>
+                <div layout="row">
+                    <div flex="90"><span></span></div>
+                    <div flex="10">
+                <md-button class="md-primary md-raised"
+                           aria-label="guardar" ng-click='vm.guardarInsumo()'>
+                    <md-icon md-font-icon="fa fa-save"></md-icon>
+                </md-button>
+                    </div>
+                </div>
+
+            </md-input-container>
+
+        </div>
+    </md-card>
+
+</div>

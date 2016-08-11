@@ -11,7 +11,8 @@
         'app.mainApp.bienvenida',
         //'app.examples',
         'app.mainApp.calendar',
-        'app.mainApp.tecnico'
+        'app.mainApp.tecnico',
+        'app.mainApp.inventario'
     ]);
 
 })();

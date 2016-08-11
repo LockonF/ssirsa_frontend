@@ -1,24 +1,24 @@
 /**
  * Created by Emmanuel on 05/06/2016.
  */
-(function(){
+(function () {
     'use strict';
 
     angular
         .module('app.mainApp.tecnico')
         .controller('tecnicoController', tecnicoController);
-    
-    function tecnicoController(Tecnico, PersonaLocalService){
-        var vm=this;
+
+    function tecnicoController(Tecnico, PersonaLocalService) {
+        var vm = this;
         vm.user = {
-            name:'Francisco Javier Cerda Martínez',
-            level:'SU',
-            area:'Todas'
+            name: 'Francisco Javier Cerda Martínez',
+            level: 'SU',
+            area: 'Todas'
         }
-        vm.role={
-            name:"Rol de prueba"
+        vm.role = {
+            name: "Rol de prueba"
         };
-        vm.persona={
+        vm.persona = {
             "id": 1,
             "nombre": "Persona",
             "apellido_paterno": "De",
@@ -30,23 +30,24 @@
         };
         activate();
 
-        function activate(){
+        function activate() {
             loadUser();
             loadRole();
         }
 
-        function loadUser(){
+        function loadUser() {
             vm.persona = PersonaLocalService.persona;
         }
 
-        function loadRole(){
+        function loadRole() {
             vm.role = PersonaLocalService.role;
         }
-        vm.tecnicoAVisibility=true;
-        vm.tecnicoBVisibility=true;
-        vm.tecnicoCVisibility=true;
-        vm.tecnicoDVisibility=true;
-        vm.tecnicoEVisibility=true;
+
+        vm.tecnicoAVisibility = true;
+        vm.tecnicoBVisibility = true;
+        vm.tecnicoCVisibility = true;
+        vm.tecnicoDVisibility = true;
+        vm.tecnicoEVisibility = true;
     }
 
 
