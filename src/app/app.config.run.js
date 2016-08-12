@@ -28,27 +28,6 @@
                     }
                 )
             }
-
-            // Bienvenida.getPersona().then(function(res){
-            //     PersonaLocalService.persona = res;
-            //     console.log('Loading persona');
-            //     console.log(PersonaLocalService.persona);
-            // }).catch(function(err){
-            //     console.log(err);
-            // });
-            //
-            // Bienvenida.getRole().then(function(res){
-            //     console.log('Loading role role');
-            //     PersonaLocalService.role=res[0]
-            //     console.log(PersonaLocalService.role.name);
-            // }).catch(function(err){
-            //     console.log(err);
-            // });
-            //
-            // dynamicMenu.loadMenu();
-
-
-            
         });
 
     }
