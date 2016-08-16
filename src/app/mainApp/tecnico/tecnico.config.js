@@ -43,7 +43,7 @@
                 controllerAs:'vm'
 
             })
-        triMenuProvider.addMenu({
+        /*triMenuProvider.addMenu({
             name: 'Servicios',
             icon: 'fa fa-wrench',
             type: 'dropdown',
@@ -75,6 +75,6 @@
                 },
             ]
 
-        });
+        });*/
     }
 })();

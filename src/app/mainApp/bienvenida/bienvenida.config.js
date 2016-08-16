@@ -38,24 +38,6 @@
                     }
                 }
             })
-            // .state('triangular.admin-default.profile', {
-            //     url: '/profile',
-            //     templateUrl: 'app/mainApp/bienvenida/profile.tmpl.html',
-            //     controller: 'profileController',
-            //     controllerAs: 'vm'
-            // })
-
-        // triMenuProvider.addMenu({
-        //     name: 'Bienvenida',
-        //     icon: 'zmdi zmdi-home',
-        //     type: 'dropdown',
-        //     priority: 1.1,
-        //     children: [{
-        //         name: 'Inicio',
-        //         state: 'triangular.admin-default.bienvenida',
-        //         type: 'link'
-        //     }]
-        // });
     }
     
 } )();

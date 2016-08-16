@@ -15,13 +15,13 @@
                 controller: 'cabinetController', //nombre del controlador
                 controllerAs: 'vm' //se renombra al scope
             })
-            .state('triangular.admin-default.insumo', { //Nombre del state
+            .state('triangular.admin-default.insumos', { //Nombre del state
                 url: '/insumos', //Nombre que quiero en mi url
                 templateUrl: 'app/mainApp/inventarios/insumo.tmpl.html', //Dirección del archivo a usar
                 controller: 'insumoController', //nombre del controlador
                 controllerAs: 'vm' //se renombra al scope
             })
-            .state('triangular.admin-default.catalogoInsumo', { //Nombre del state
+            .state('triangular.admin-default.catalogoInsumos', { //Nombre del state
                 url: '/catalogoInsumo', //Nombre que quiero en mi url
                 templateUrl: 'app/mainApp/inventarios/catalogoInsumo.tmpl.html', //Dirección del archivo a usar
                 controller: 'catalogoInsumoController', //nombre del controlador

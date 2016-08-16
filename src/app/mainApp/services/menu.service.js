@@ -138,7 +138,7 @@
                         name: 'Cabinets',
                         state: 'triangular.admin-default.cabinets',
                         type: 'link'
-                    }, {
+                    },{
                         name: 'Insumos',
                         state: 'triangular.admin-default.insumos',
                         type: 'link'

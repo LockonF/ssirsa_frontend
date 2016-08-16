@@ -16,9 +16,7 @@
             categoria:1,
             tipo:1,
             zona:2,
-            fechaAlta:'18/7/2016',
-
-
+            fechaAlta:'18/7/2016'
         };
         vm.tiposInsumo = [{
             id: '1',
