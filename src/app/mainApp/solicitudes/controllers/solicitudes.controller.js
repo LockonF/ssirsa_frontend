@@ -26,7 +26,7 @@
             if (vm.requisito != null) {
                 console.log("requisitos antes de agregarlo");
                 console.log(vm.Requisitos);
-                vm.id=vm.id+1;//ID
+                vm.id=vm.id+1;//
                 console.log("El id es:"+vm.id);
                 vm.Requisitos.id=vm.id;
                 vm.Requisitos.push(vm.requisito);
@@ -60,7 +60,6 @@
                 if (vm.Requisitos[index].id == vm.requisitocopy.id) {
 
                     console.log(index);
-                    //if(vm.Requisitos[index].Descripcion==vm.requisitocopy.Descripcion){
                     console.log("voy a borrar");
                     console.log(vm.Requisitos[index]);
                     vm.Requisitos.splice(index, 1);

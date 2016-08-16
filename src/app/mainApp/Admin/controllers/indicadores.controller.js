@@ -9,14 +9,12 @@
     function indicadoresController($translate, $interval){
         var vm = this;
         var maximum = 100;
-        //----------grafica 1-----------------------
 
         vm.labels1 = ['Download Sales', 'Instore Sales', 'Mail Order'];
         vm.options1 = {
             datasetFill: false
         };
 
-        /////////////
 
         function randomData1() {
             vm.data1 = [];
@@ -25,22 +23,17 @@
             }
         }
 
-        // init
 
         randomData1();
 
-        // Simulate async data update
         $interval(randomData1, 5000);
 
-        //-----------grafica 2----------------------
 
         vm.labels2 = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
         vm.series2 = ['Series A', 'Series B', 'Series C'];
         vm.options2 = {
             datasetFill: true
         };
-
-        ///////////
 
         function randomData2() {
             vm.data2 = [];
@@ -52,16 +45,9 @@
                 vm.data2.push(row);
             }
         }
-
-        // init
-
         randomData2();
 
-
-        // Simulate async data update
         $interval(randomData2, 5000);
-
-        //------grafica 3------------------
 
         vm.data = [[]];
         vm.labels = [];
@@ -73,7 +59,6 @@
             datasetStrokeWidth: 0.5
         };
 
-        // Update the dataset at 25FPS for a smoothly-animating chart
         $interval(function () {
             getLiveChartData();
         }, 40);
@@ -183,9 +168,6 @@
                 "ingrese su Información Personal"
             };
         }
-
-
-    
 
 
     }

@@ -8,10 +8,6 @@
 
     function realizarSolicitudController(udn,tipoEquipo,$mdDialog,$mdEditDialog,toastr,Solicitudes,PersonaLocalService){
         var vm = this;
-        /*vm.selectedDate = moment().startOf('day').format();
-        $mdDateLocaleProvider.formatDate = function(date) {
-            return moment(date).format('DD/MM/YYYY');
-        };*/
         vm.id=0;
         vm.requisito = {
             "id":null,
@@ -50,7 +46,6 @@
         function activate(){
             udn.list().then(function(rest){
                 vm.udns=rest;
-                //console.log(vm.udns);
                 console.log(vm.isClient);
             }).catch(function(error){
 
@@ -58,7 +53,6 @@
 
             tipoEquipo.list().then(function(rest){
                 vm.tiposEquipo=rest;
-                //console.log(vm.tiposEquipo);
             }).catch(function(error){
 
             });

@@ -13,7 +13,6 @@
           loadMenu:loadMenu
         };
 
-
         function loadMenu(){
             triMenu.menu=[];
             var role=PersonaLocalService.role.name;
@@ -160,8 +159,6 @@
                 }
 
             ]
-
-            //triMenu.menu.unshift(adminMenu);
             triMenu.menu=adminMenu;
         }
 
@@ -240,8 +237,6 @@
                 }
 
             ]
-
-            //triMenu.menu.unshift(adminMenu);
             triMenu.menu=clienteMenu;
         }
 
@@ -295,8 +290,6 @@
                 }
 
             ]
-
-            //triMenu.menu.unshift(adminMenu);
             triMenu.menu=tecnicoMenu;
         }
 

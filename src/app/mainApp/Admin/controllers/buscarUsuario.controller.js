@@ -108,11 +108,9 @@
                 console.log("vm.solicitud[k].id: " + vm.solicitud[k].id);
                 console.log("vm.id: " + vm.id);
                 console.log("k: " + k);
-                //if (vm.solicitud[k].id == vm.id) {
                 if (vm.solicitud[k].user == vm.userName) {
                     if (vm.flag == 0) {
                         vm.flag = 1;
-                        //console.log(vm.flag);
                     }
                     console.log("Entre al if- k: " + k);
                     console.log("vm.solicitud[k].id: " + vm.solicitud[k].id);
@@ -132,9 +130,6 @@
                         foto: vm.solicitud[k].foto,
                         tipo: vm.solicitud[k].tipo
                     };
-
-                    // console.log("Objeto: "+vm.usuario);
-                    // console.log("Tipo: "+vm.usuario.rTipo);
                     console.log("el usuario es:" + vm.usuario.id);
                     console.log("usuario:");
                     console.log(vm.usuario);
@@ -143,63 +138,31 @@
                     console.log(vm.Usuarios);
                 }
             }
-            /*if (vm.usuario != null) {
-             console.log("Usuarios antes de agregarlo");
-             console.log(vm.Usuarios);
-             vm.id=vm.id+1;//ID
-             console.log("El id es:"+vm.id);
-             //vm.Usuarios.id=vm.id;
-             vm.Usuarios.push(vm.usuario);
-             console.log("Usuarios despues de agregarlo");
-             console.log(vm.Usuarios);
-
-             vm.usuario = {
-             "id":vm.id,
-             "rUDN":null,
-             "rFechaIni":new Date(),
-             "rFechaFin":new Date(),
-             "rDesc":null,
-             "rTipo": tipo,
-             "rEstatus": null,
-             "rCantidad": null
-             };
-
-             console.log("Los Usuarios son:");
-             console.log(vm.Usuarios);
-             }*/
         }
 
         // Eliminar usuario
-
-
         function eliminarUsuario(usuario) {
 
             vm.usuariocopy = usuario;
             var index = 0;
 
-            for (index = 0; index < vm.Usuarios.length; ++index) {//Cambiar a un for each
+            for (index = 0; index < vm.Usuarios.length; ++index) {
 
                 console.log("El usuario a borrar es:" + vm.usuariocopy.rTipo);
                 console.log(vm.Usuarios[index]);
                 if (vm.Usuarios[index].id == vm.usuariocopy.id) {
 
                     console.log(index);
-                    //if(vm.Usuarios[index].Descripcion==vm.usuariocopy.Descripcion){
                     console.log("voy a borrar");
                     console.log(vm.Usuarios[index]);
                     vm.Usuarios.splice(index, 1);
-                    //
+
                 }
                 else {
                     console.log("Aun no lo encuentro")
                 }
 
             }
-
-        }
-
-        function editarUsuario(usuario) {
-
 
         }
 

@@ -1,9 +1,6 @@
 /**
  * Created by franciscojaviercerdamartinez on 17/07/16.
  */
-/**
- * Created by franciscojaviercerdamartinez on 16/07/16.
- */
 (function() {
     'use strict';
 
@@ -11,7 +8,6 @@
         .module('app')
         .factory('Servicios', Servicios);
 
-    /* @ngInject */
     function Servicios($q, Restangular) {
         var service = {
             crearEtapaServicio: crearEtapaServicio,
@@ -27,7 +23,6 @@
         
         function crearEtapaServicio(etapa) {
             var deferred = $q.defer();
-            //checar rutas :D
             Restangular.all('').customPOST(etapa).then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
@@ -39,7 +34,6 @@
 
         function consultarEtapaServicio(etapa) {
             var deferred = $q.defer();
-            //checar rutas :D
             Restangular.one('Etapa', etapa.id).customGET(etapa).then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
@@ -91,7 +85,6 @@
 
         function consultarInsumosEtapa(etapa) {
             var deferred = $q.defer();
-            //checar rutas :D
             Restangular.one('Insumos', etapa.NoEtapa).customGET(etapa).then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
@@ -103,7 +96,6 @@
         }
         function getAllEtapasServicio(etapa) {
             var deferred = $q.defer();
-            //checar rutas :D
             Restangular.one('Etapas', etapa.idCabinet).customGET(etapa).then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {

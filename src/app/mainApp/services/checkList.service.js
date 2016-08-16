@@ -21,7 +21,6 @@
 
         function crearCheckListServicio(CheckList) {
             var deferred = $q.defer();
-            //checar rutas :D
             Restangular.all('').customPOST(CheckList).then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
@@ -74,7 +73,6 @@
 
         function getAllCheckListServicio(CheckList) {
             var deferred = $q.defer();
-            //checar rutas :D
             Restangular.one('CheckList', CheckList.idCabinet).customGET(CheckList).then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
