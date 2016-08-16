@@ -6,7 +6,7 @@
         .module('app.mainApp.solicitudes')
         .controller('buscarSolicitudController',buscarSolicitudController);
 
-    function buscarSolicitudController($mdEditDialog,Solicitudes){
+    function buscarSolicitudController($mdEditDialog,Solicitudes,Solicitudes_Admin,PersonaLocalService,udn,tipoEquipo){
         var vm = this;
         vm.flag=0;
         vm.id=null;
@@ -16,6 +16,7 @@
             "udn":null,
             "fecha_inicio":new Date(),
             "fecha_termino":new Date(),
+            "fecha_atendida":new Date(),
             "descripcion":null,
             "tipo_solicitud": null,
             "status": null,
@@ -65,6 +66,32 @@
         vm.edit=edit;
         vm.Requisitos = [];
         vm.solicitudes=null;
+        vm.isClient=true;
+        activate();
+        function activate(){
+            udn.list().then(function(rest){
+                vm.udns=rest;
+                //console.log(vm.udns);
+                console.log(vm.isClient);
+            }).catch(function(error){
+
+            });
+
+            tipoEquipo.list().then(function(rest){
+                vm.tiposEquipo=rest;
+                //console.log(vm.tiposEquipo);
+            }).catch(function(error){
+
+            });
+            if(PersonaLocalService.role.name == 'Cliente'){
+                vm.isClient=true;
+            }else{
+                vm.isClient=false;
+            }
+            console.log(vm.isClient);
+
+        }
+
 
         function edit(event,object,field) {
             var config =
@@ -195,14 +222,27 @@
         }
 
         function buscarSolicitudes(){
-            Solicitudes.list().then(function(rest){
-                vm.solicitudes=rest;
-                console.log(vm.solicitudes);
-                //if(vm.solicitudes)
-                //console.log(vm.udns);
-            }).catch(function(error){
+            if(!vm.isClient){
+                Solicitudes_Admin.consultaEsp(vm.requisito).then(function (rest){
+                    console.log("Soy admin");
+                    console.log(vm.requisito);
+                    vm.solicitudes = rest;
+                    console.log(vm.solicitudes);
+                }).catch(function(error){
+                    console.log(error);
+                })
+            }else {
 
-            });
+                Solicitudes.list().then(function (rest) {
+                    console.log("Soy cliente");
+                    vm.solicitudes = rest;
+                    console.log(vm.solicitudes);
+                    //if(vm.solicitudes)
+                    //console.log(vm.udns);
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            }
         }
 
     }

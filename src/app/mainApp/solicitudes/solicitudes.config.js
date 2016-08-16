@@ -52,11 +52,11 @@
                 name: 'Buscar Solicitud',
                 state: 'triangular.admin-default.buscarSolicitud',
                 type: 'link'
-            },{
+            }/*,{
                 name: 'Pruebas',
                 state: 'triangular.admin-default.Pruebas',
                 type: 'link'
-            }
+            }*/
 
             ]
         });

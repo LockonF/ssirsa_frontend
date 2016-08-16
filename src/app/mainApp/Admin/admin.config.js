@@ -21,6 +21,7 @@
                 controller:'buscarUsuarioController',
                 controllerAs:'vm'
             })
+
         
             triMenuProvider.addMenu({
                 name: 'Administrador',

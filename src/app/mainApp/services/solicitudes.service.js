@@ -14,8 +14,10 @@
     function Solicitudes($q, Restangular){
         return{
             create:create,
-            list:list
+            list:list,
+            modify:modify
         };
+
         function create(object){
             //Forma canonica
             var deferred=$q.defer();//Genera la promesa
@@ -32,7 +34,18 @@
         }
 
         function list(){
-            return Restangular.all('solicitud').customGET;
+            return Restangular.all('solicitud').customGET();
         }
+
+        function modify(object){
+            return Restangular.one('solicitud',object.id).customPUT(object).then(function(resp){
+                console.log(resp);
+                return resp;
+
+            }).catch(function(err){
+                console.log(err);
+            })
+        }
+
     }
 })();

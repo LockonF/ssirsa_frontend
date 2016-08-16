@@ -6,7 +6,7 @@
         .module('app.mainApp.solicitudes')
         .controller('realizarSolicitudController',realizarSolicitudController);
 
-    function realizarSolicitudController(udn,tipoEquipo,$mdDialog,$mdEditDialog,toastr,Solicitudes){
+    function realizarSolicitudController(udn,tipoEquipo,$mdDialog,$mdEditDialog,toastr,Solicitudes,PersonaLocalService){
         var vm = this;
         /*vm.selectedDate = moment().startOf('day').format();
         $mdDateLocaleProvider.formatDate = function(date) {
@@ -18,6 +18,7 @@
             "udn":null,
             "fecha_inicio":new Date(),
             "fecha_termino":new Date(),
+            "fecha_atendida":new Date(),
             "descripcion":null,
             "tipo_solicitud": null,
             "status": null,
@@ -44,11 +45,13 @@
         vm.Requisitos = [];
         vm.udns=null;
         vm.tiposEquipo=null;
+        vm.isClient=true;
         activate();
         function activate(){
             udn.list().then(function(rest){
                 vm.udns=rest;
                 //console.log(vm.udns);
+                console.log(vm.isClient);
             }).catch(function(error){
 
             });
@@ -59,6 +62,13 @@
             }).catch(function(error){
 
             });
+            if(PersonaLocalService.role.name == 'Cliente'){
+                vm.isClient=true;
+            }else{
+                vm.isClient=false;
+            }
+            console.log(vm.isClient);
+
         }
         // Crear requisito
 

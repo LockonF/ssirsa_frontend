@@ -18,12 +18,20 @@
                             <p>Fecha de inicio</p>
 
                             <p>Fecha de Termino</p>
+
+                            <p ng-if="!vm.isClient">Fecha atendida</p>
                         </div>
                         <div class="margin-bottom-20" layout="row" layout-align="space-around center">
                             <md-datepicker ng-model="vm.requisito.fecha_inicio" md-placeholder="Enter date"></md-datepicker>
                             <md-datepicker ng-model="vm.requisito.fecha_termino" md-placeholder="Enter date"></md-datepicker>
+                            <md-datepicker ng-if="!vm.isClient" ng-model="vm.requisito.fecha_atendida" md-placeholder="Enter date"></md-datepicker>
                         </div>
+                        <!-- if estatus es igual a confirmado o cancelado no se puede modificar fecha atendida
 
+                        <div ng-if="vm.isClient">
+                            hola
+                            <!--clientTest 1234567a >
+                        </div-->
                         <!-- -->
                         <md-input-container class="md-block">
                             <label>Descripción</label>
@@ -33,6 +41,11 @@
                             <md-option value="Envio">Solicitud de envió</md-option>
                             <md-option value="Recoleccion">Solicitud de recolección</md-option>
                             <md-option value="3">Solicitud de punto de venta</md-option>
+                        </md-select>
+                        <md-select ng-if="!vm.isClient" placeholder="Elige tipo de estatus" ng-model="vm.requisito.status">
+                            <md-option value="Confirmada">Confirmada</md-option>
+                            <md-option value="No Confirmada">No Confirmada</md-option>
+                            <md-option value="Cancelada">Cancelada</md-option>
                         </md-select>
                         <!-- opc 1-->
 
@@ -114,6 +127,11 @@
                                 <md-icon md-font-icon="fa fa-save"></md-icon>
                             </md-button>
                         </div>
+
+                        <md-input-container class="md-block">
+                            <label>Comentario</label>
+                            <textarea ng-model="vm.requisito.comentario" md-maxlength="100"></textarea>
+                        </md-input-container>
                     </div>
                 </md-card-title-text>
 

@@ -127,8 +127,14 @@
                         <md-icon md-font-icon="zmdi zmdi-card"></md-icon>
                         <input type="text" placeholder="INE"  ng-model="vm.user.ine">
                     </md-input-container-->
-                </md-card-content>
+
+
             </md-card>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button ng-click="vm.guardarUsuario()" class="md-raised md-primary">Guardar</md-button>
+                <md-button>Cancelar</md-button>
+                </md-card-content>
+            </md-card-actions>
         </md-input-container>
 
     </div>
