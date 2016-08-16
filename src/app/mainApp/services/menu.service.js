@@ -86,8 +86,8 @@
                     priority:3,
                     children: [
                         {
-                            name: 'Solicitudes Pendientes',
-                            state: 'triangular.admin-default.solicitudes',
+                            name: 'Buscar Solicitudes',
+                            state: 'triangular.admin-default.buscarSolicitud',
                             type: 'link'
                         },
                         {
@@ -188,8 +188,8 @@
                     priority:3,
                     children: [
                         {
-                            name: 'Solicitudes Pendientes',
-                            state: 'triangular.admin-default.solicitudes',
+                            name: 'Buscar Solicitudes',
+                            state: 'triangular.admin-default.buscarSolicitud',
                             type: 'link'
                         },
                         {
@@ -224,11 +224,11 @@
                     name: 'Solicitudes',
                     icon: 'zmdi zmdi-bookmark',
                     type: 'dropdown',
-                    priority:2,
+                    priority:3,
                     children: [
                         {
-                            name: 'Solicitudes Pendientes',
-                            state: 'triangular.admin-default.solicitudes',
+                            name: 'Buscar Solicitudes',
+                            state: 'triangular.admin-default.buscarSolicitud',
                             type: 'link'
                         },
                         {
