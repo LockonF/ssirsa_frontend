@@ -1,8 +1,9 @@
 /**
- * Created by franciscojaviercerdamartinez on 02/06/16.
+ * Created by franciscojaviercerdamartinez on 02/06/16 ffff.
  */
 (function () {
     'use strict';
+
     angular
         .module('app.mainApp.admin')
         .config(moduleConfig);
@@ -21,6 +22,7 @@
                 controller:'buscarUsuarioController',
                 controllerAs:'vm'
             })
+
         
             triMenuProvider.addMenu({
                 name: 'Administrador',

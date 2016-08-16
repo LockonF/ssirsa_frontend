@@ -5,7 +5,6 @@
             <md-card-title-text>
                 <span class="md-headline">Checklist</span>
             </md-card-title-text>
-
         </md-card-title>
         <md-card-content>
             <div flex="100" layout="row">
@@ -27,7 +26,7 @@
                     </md-autocomplete>
                 </md-input-container>
                 <md-input-container flex>
-                    <md-button class="md-fab" aria-label="fab button" ng-click="vm.buscar()">
+                    <md-button class="md-fab"  aria-label="fab button">
                         <md-icon md-font-icon="zmdi zmdi-zoom-in"></md-icon>
                     </md-button>
                 </md-input-container>
@@ -102,27 +101,27 @@
         </div>
     </md-card>
 
-    <md-card class="md-padding card1">
-        <md-card-title>
-            <md-card-title-text flex="20">
-                <span class="md-headline">Evidencia</span>
-                <span class="md-subhead">Fotografica</span>
-                <md-button ngf-select="vm.upload($files)" ng-disabled="vm.status != 'idle'" ngf-multiple="false"
-                           aria-label="upload">
-                    <md-icon md-font-icon
-                             ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}"></md-icon>
-                </md-button>
-                <md-button class="md-primary md-raised" ng-click="vm.guardar()">
-                    <md-icon md-font-icon="fa fa-save">
-                </md-button>
+<md-card class="md-padding card1">
+    <md-card-title>
+        <md-card-title-text flex="20">
+            <span class="md-headline">Evidencia</span>
+            <span class="md-subhead">Fotografica</span>
+            <md-button ngf-select="vm.upload($files)" ng-disabled="vm.status != 'idle'" ngf-multiple="false"
+                       aria-label="upload">
+                <md-icon md-font-icon
+                         ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}"></md-icon>
+            </md-button>
+            <md-button>
+                <md-icon md-font-icon="fa fa-save">
+            </md-button>
 
-            </md-card-title-text>
-            <md-card-title-media flex="80">
-                <div class="md-media-xl card-media">
-                    <img src="{{vm.diagnostico.file}}" alt="Card Image">
-                </div>
-            </md-card-title-media>
-        </md-card-title>
+        </md-card-title-text>
+        <md-card-title-media flex="80">
+            <div class="md-media-xl card-media">
+                <img src="{{vm.diagnostico.file}}" alt="Card Image">
+            </div>
+        </md-card-title-media>
+    </md-card-title>
 
-    </md-card>
+</md-card>
 </div>

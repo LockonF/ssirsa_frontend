@@ -6,7 +6,8 @@
             'triangular',
             'ngAnimate', 'ngCookies', 'ngSanitize', 'ngMessages', 'ngMaterial',
             'ui.router', 'googlechart', 'chart.js', 'linkify', 'ui.calendar',
-            'angularMoment', 'textAngular', 'hljs', 'md.data.table',
+            'angularMoment', 'textAngular', 'hljs', 'md.data.table','ngMdIcons',
+            'vAccordion',
             angularDragula(angular), 'ngFileUpload',
 
             // 'seed-module'

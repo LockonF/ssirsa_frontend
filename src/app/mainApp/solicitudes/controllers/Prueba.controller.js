@@ -199,7 +199,35 @@
 
         vm.mostrarRequisito=mostrarRequisito;
         vm.eliminarRequisito=eliminarRequisito;
+        vm.edit=edit;
         vm.Requisitos = [];
+
+        function edit(event,object,field,model) {
+            var config =
+            {
+                modelValue: object[field],
+                placeholder: 'Edita el campo',
+                save: function (input) {
+
+                    object[field] = input.$modelValue;
+                    updateObject(object,model);
+
+                },
+                targetEvent: event,
+                validators: {
+                    'md-maxlength': 30
+                }
+
+            };
+            $mdEditDialog.small(config).then(function(ctrl){
+
+            }).catch(function(err){
+
+            });
+
+
+        }
+
 
         function mostrarRequisito() {
             if (vm.flag==0) {
