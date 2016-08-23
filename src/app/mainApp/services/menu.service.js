@@ -69,12 +69,12 @@
                     children:[
                         {
                             name:'Nuevo usuario',
-                            state:'trianggular.admin-default.newUsuario',
+                            state:'triangular.admin-default.gestion_user',
                             type:'link'
                         },
                         {
                             name:'Buscar usuarios',
-                            state:'trianggular.admin-default.lokUsuario',
+                            state:'triangular.admin-default.buscarUsuario',
                             type:'link'
                         }
                     ]
