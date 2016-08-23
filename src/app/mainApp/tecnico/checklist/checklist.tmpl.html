@@ -1,0 +1,128 @@
+<div layout="column">
+    <md-card class="md-padding card1" flex="100">
+        <img src="assets/images/backgrounds/material-backgrounds/mb-bg-01-narrow.jpg" alt="Card Image">
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">{{'ADMIN.MANAGE.MANAGEMENT_USER'|translate}}</span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+            <div flex="100" layout="row">
+                <md-input-container flex="60">
+                    <label>Id Cabinet</label>
+                    <input ng-model="vm.cabinet" required minlength="0">
+                    <!--<md-autocomplete
+                            class="md-padding card1"
+                            ng-disabled="vm.isDisabled"
+                            md-no-cache="vm.noCache"
+                            md-selected-item="selectedItem"
+                            md-search-text-change="vm.searchTextChange(vm.searchText)"
+                            md-search-text="vm.searchText"
+                            md-selected-item-change="vm.selectedItemChange(item)"
+                            md-items="item in vm.querySearch(vm.searchText)"
+                            md-item-text="item.display"
+                            md-min-length="0">
+
+                        <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.display}}</span>
+                    </md-autocomplete>-->
+                </md-input-container>
+                <md-input-container flex>
+                    <md-button class="md-fab"  aria-label="fab button" ng-click="vm.searchCabinet">
+                        <md-icon md-font-icon="zmdi zmdi-zoom-in"></md-icon>
+                    </md-button>
+                </md-input-container>
+                <md-input-container flex="15">
+                    <md-switch class="md-primary" ng-model="vm.diagnostico.isSalida" aria-label="Primary Switch"
+                               ng-init="switches.primary = true">
+                        Salida
+                    </md-switch>
+                </md-input-container>
+                <md-input-container flex="15">
+                    <md-switch class="md-primary" ng-model="vm.diagnostico.isCabinet" aria-label="Es un Cabinet">
+                        Cabinet
+                    </md-switch>
+                </md-input-container>
+            </div>
+        </md-card-content>
+    </md-card>
+
+    <md-card class="md-padding card1" flex="100">
+        <span class="md-subhead">Número de Piezas</span>
+        <div layout="row" , flex="flex">
+            <md-input-container flex="25">
+                <label>No. de Rodajas</label>
+                <input type="number" ng-model="vm.diagnostico.rodajas"/>
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>No. de Canastillas</label>
+                <input type="number" ng-model="vm.diagnostico.canastillas"/>
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>No. de Puertas</label>
+                <input type="number" ng-model="vm.diagnostico.puertas"/>
+            </md-input-container>
+            <md-input-container flex="25">
+                <label>No. de Rejillas</label>
+                <input type="number" ng-model="vm.diagnostico.rejillas"/>
+            </md-input-container>
+        </div>
+        <div ng-show="vm.diagnostico.isSalida">
+            <span class="md-subhead">Validación de Salida</span>
+            <div layout="row" flex="flex">
+                <md-input-container flex="15">
+                    <md-switch class="md-primary" ng-model="vm.diagnostico.sticker" aria-label="Sticker Correcto">
+                        Sticker
+                    </md-switch>
+                </md-input-container>
+                <md-input-container flex="15">
+                    <md-switch class="md-primary" ng-model="vm.diagnostico.pintura" aria-label="Pintura Correcto">
+                        Pintura
+                    </md-switch>
+                </md-input-container>
+                <md-input-container flex="15">
+                    <md-switch class="md-primary" ng-model="vm.diagnostico.lavado" aria-label="Lavado Correcto">Lavado
+                    </md-switch>
+                </md-input-container>
+                <md-input-container flex="15">
+                    <md-switch class="md-primary" ng-model="vm.diagnostico.emplayado" aria-label="Emplayado Correcto">
+                        Emplayado
+                    </md-switch>
+                </md-input-container>
+                <md-input-container flex="15">
+                    <md-switch class="md-primary" ng-model="vm.diagnostico.lubricacion"
+                               aria-label="Lubricación Correcta">Lubricación
+                    </md-switch>
+                </md-input-container>
+                <md-input-container flex="20">
+                    <md-switch class="md-primary" ng-model="vm.diagnostico.listo" aria-label="Listo para Mercado">Listo
+                        para Mercado
+                    </md-switch>
+                </md-input-container>
+            </div>
+        </div>
+    </md-card>
+
+<md-card class="md-padding card1">
+    <md-card-title>
+        <md-card-title-text flex="20">
+            <span class="md-headline">Evidencia</span>
+            <span class="md-subhead">Fotografica</span>
+            <md-button ngf-select="vm.upload($files)" ng-disabled="vm.status != 'idle'" ngf-multiple="false"
+                       aria-label="upload">
+                <md-icon md-font-icon
+                         ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}"></md-icon>
+            </md-button>
+            <md-button>
+                <md-icon md-font-icon="fa fa-save">
+            </md-button>
+
+        </md-card-title-text>
+        <md-card-title-media flex="80">
+            <div class="md-media-xl card-media">
+                <img src="{{vm.diagnostico.file}}" alt="Card Image">
+            </div>
+        </md-card-title-media>
+    </md-card-title>
+
+</md-card>
+</div>
