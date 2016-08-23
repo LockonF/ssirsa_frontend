@@ -11,10 +11,7 @@
 
     function checklistController(){
         var vm=this;
-       
         vm.diagnostico={
-
-
         };
 
         vm.status = 'idle';  // idle | uploading | complete
@@ -27,7 +24,7 @@
         function buscar(){
             vm.diagnostico={
                 idCabinet:"34124142112443",
-                isSalida:true,
+                isSalida:false,
                 isCabinet:true,
                 rodajas:10,
                 canastillas:2,
