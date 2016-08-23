@@ -23,7 +23,7 @@
                 controllerAs:'vm'
             })
 
-        
+        /*
             triMenuProvider.addMenu({
                 name: 'Administrador',
                 icon: 'zmdi zmdi-case',
@@ -41,7 +41,7 @@
 
                 ]
             });
-        
+        */
     }
     
 } )();

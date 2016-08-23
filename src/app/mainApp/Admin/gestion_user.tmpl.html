@@ -40,11 +40,15 @@
                         <input type="text" placeholder="Apellido Materno" ng-model="vm.user.aPaterno">
                     </md-input-container>
 
-                    <md-input-container md-no-float class="md-block">
-                        <md-icon md-font-icon="zmdi zmdi-pin"></md-icon>
-                        <input type="text" placeholder="Correo Electrónico" ng-model="vm.user.mail">
+                    <md-input-container class="md-block">
+                        <md-icon md-font-icon="zmdi zmdi-phone"></md-icon>
+                        <input type="text" placeholder="Telefono" ng-model="vm.user.telefono">
                     </md-input-container>
 
+                    <md-input-container class="md-block">
+                        <md-icon md-font-icon="zmdi zmdi-pin"></md-icon>
+                        <input type="text" placeholder="Dirección" ng-model="vm.user.direccion">
+                    </md-input-container>
 
                     <!--md-input-container class="md-block">
                         <md-icon md-font-icon="zmdi zmdi-card"></md-icon>
@@ -72,14 +76,9 @@
             <md-card class="md-padding card1">
                 <md-card-content>
 
-                    <md-input-container class="md-block">
-                        <md-icon md-font-icon="zmdi zmdi-phone"></md-icon>
-                        <input type="text" placeholder="Telefono" ng-model="vm.user.telefono">
-                    </md-input-container>
-
-                    <md-input-container class="md-block">
+                    <md-input-container md-no-float class="md-block">
                         <md-icon md-font-icon="zmdi zmdi-pin"></md-icon>
-                        <input type="text" placeholder="Dirección" ng-model="vm.user.direccion">
+                        <input type="text" placeholder="Correo Electrónico" ng-model="vm.user.mail">
                     </md-input-container>
 
                     <md-input-container class="md-block">
@@ -87,11 +86,17 @@
                         <input type="text" placeholder="Sucursal" ng-model="vm.user.sucursal">
                     </md-input-container>
 
-
                     <md-input-container class="md-block">
                         <md-icon md-font-icon="zmdi zmdi-account-box"></md-icon>
                         <input type="text" placeholder="Tipo de usuario" ng-model="vm.user.tipo">
                     </md-input-container>
+
+                    <md-select placeholder="Elige la UDN" ng-model="vm.requisito.udn">
+                        <md-option ng-value="udn.id" ng-repeat='udn in vm.udns'>{{udn.zona}}</md-option>
+                        <!--md-option value="1">UDN_1</md-option>
+                        <md-option value="2">UDN_2</md-option>
+                        <md-option value="3">UDN_3</md-option-->
+                    </md-select>
 
                     <md-card-title>
                         <md-card-title-text>
@@ -122,7 +127,10 @@
                             </div>
                         </md-card-title-media>
                     </md-card-title>
-
+                    <md-card-actions layout="row" layout-align="center">
+                        <md-button ng-click="vm.guardarUsuario()" class="md-raised md-primary">Guardar</md-button>
+                        <md-button>Cancelar</md-button>
+                    </md-card-actions>
                     <!--md-input-container class="md-block">
                         <md-icon md-font-icon="zmdi zmdi-card"></md-icon>
                         <input type="text" placeholder="INE"  ng-model="vm.user.ine">
@@ -130,11 +138,6 @@
 
 
             </md-card>
-            <md-card-actions layout="row" layout-align="end center">
-                <md-button ng-click="vm.guardarUsuario()" class="md-raised md-primary">Guardar</md-button>
-                <md-button>Cancelar</md-button>
-                </md-card-content>
-            </md-card-actions>
         </md-input-container>
 
     </div>
