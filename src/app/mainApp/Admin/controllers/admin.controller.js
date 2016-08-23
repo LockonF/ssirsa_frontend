@@ -6,10 +6,21 @@
         .module('app.mainApp.admin')
         .controller('gestion_userController',gestion_userController);
 
-    function gestion_userController($translate){
+    function gestion_userController($translate,udn){
         var vm = this;
 
+        activate();
+        function activate(){
+            udn.list().then(function(rest){
+                vm.udns=rest;
+                //console.log(vm.udns);
+                console.log(vm.isClient);
+            }).catch(function(error){
 
+            });
+
+        }
+        // Crear requisito
         vm.enviar =enviar;
         vm.clean=clean;
         vm.user={

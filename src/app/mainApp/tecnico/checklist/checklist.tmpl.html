@@ -3,14 +3,15 @@
         <img src="assets/images/backgrounds/material-backgrounds/mb-bg-01-narrow.jpg" alt="Card Image">
         <md-card-title>
             <md-card-title-text>
-                <span class="md-headline">Checklist</span>
+                <span class="md-headline">{{'ADMIN.MANAGE.MANAGEMENT_USER'|translate}}</span>
             </md-card-title-text>
         </md-card-title>
         <md-card-content>
             <div flex="100" layout="row">
                 <md-input-container flex="60">
                     <label>Id Cabinet</label>
-                    <md-autocomplete
+                    <input ng-model="vm.cabinet" required minlength="0">
+                    <!--<md-autocomplete
                             class="md-padding card1"
                             ng-disabled="vm.isDisabled"
                             md-no-cache="vm.noCache"
@@ -23,10 +24,10 @@
                             md-min-length="0">
 
                         <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.display}}</span>
-                    </md-autocomplete>
+                    </md-autocomplete>-->
                 </md-input-container>
                 <md-input-container flex>
-                    <md-button class="md-fab"  aria-label="fab button">
+                    <md-button class="md-fab"  aria-label="fab button" ng-click="vm.searchCabinet">
                         <md-icon md-font-icon="zmdi zmdi-zoom-in"></md-icon>
                     </md-button>
                 </md-input-container>
@@ -65,7 +66,7 @@
                 <input type="number" ng-model="vm.diagnostico.rejillas"/>
             </md-input-container>
         </div>
-        <div ng-show={{vm.diagnostico.isSalida}}>
+        <div ng-show="vm.diagnostico.isSalida">
             <span class="md-subhead">Validación de Salida</span>
             <div layout="row" flex="flex">
                 <md-input-container flex="15">

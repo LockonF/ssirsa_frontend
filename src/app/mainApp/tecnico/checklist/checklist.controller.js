@@ -9,25 +9,22 @@
         .module('app.mainApp.tecnico')
         .controller('checklistController', checklistController);
 
-    function checklistController(){
+    function checklistController(Cabinet){
         var vm=this;
-       
         vm.diagnostico={
-
-
         };
 
         vm.status = 'idle';  // idle | uploading | complete
         vm.upload = upload;
         vm.buscar=buscar;
         vm.guardar=guardar;
-
+        vm.searchCabinet=searchCabinet;
         var fileList;
         ////////////////
         function buscar(){
             vm.diagnostico={
                 idCabinet:"34124142112443",
-                isSalida:true,
+                isSalida:false,
                 isCabinet:true,
                 rodajas:10,
                 canastillas:2,
@@ -96,6 +93,14 @@
 
         function uploadReset() {
             vm.status = 'idle';
+        }
+
+        function searchCabinet() {
+            Cabinet.get(vm.cabinet).then(function () {
+
+            }).catch(function () {
+
+            });
         }
 
 
