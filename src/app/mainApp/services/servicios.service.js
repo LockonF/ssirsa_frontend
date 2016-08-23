@@ -15,12 +15,14 @@
     function Servicios($q, Restangular) {
         var service = {
             crearEtapaServicio: crearEtapaServicio,
-            consultarEtapaServicio: consultarEtapaServicio,
             editarEtapaServicio: editarEtapaServicio,
             eliminarEtapaServicio: eliminarEtapaServicio,
-            validarEtapaServicio: validarEtapaServicio,
-            consultarInsumosEtapa: consultarInsumosEtapa,
-            getAllEtapasServicio: getAllEtapasServicio
+            consultarAllEtapaServicioDiagnostico: consultarAllEtapaServicioDiagnostico,
+            consultarEtapaServicioDiagnostico:consultarEtapaServicioDiagnostico,
+            verEtapaNoValidada:verEtapaNoValidada,
+            verEtapaValidada:verEtapaValidada,
+            etapasValidablesByPerson:etapasValidablesByPerson,
+            consultarInsumosEtapa:consultarInsumosEtapa
         };
 
 
@@ -28,7 +30,7 @@
         function crearEtapaServicio(etapa) {
             var deferred = $q.defer();
             //checar rutas :D
-            Restangular.all('').customPOST(etapa).then(function (res) {
+            Restangular.all('etapa_servicio').customPOST(etapa).then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(false);
@@ -37,24 +39,12 @@
             return deferred.promise;
         }
 
-        function consultarEtapaServicio(etapa) {
-            var deferred = $q.defer();
-            //checar rutas :D
-            Restangular.one('Etapa', etapa.id).customGET(etapa).then(function (res) {
-                deferred.resolve(res);
-            }).catch(function (err) {
-                deferred.reject(err);
-            });
-
-
-            return deferred.promise;
-        }
 
         function editarEtapaServicio(etapa) {
 
             var deferred = $q.defer();
 
-            Restangular.all('etapaServicio').one('Update', etapa.id).customPOST(etapa).then(function (res) {
+            Restangular.one('etapa_servicio', etapa.id).customPUT(etapa).then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);
@@ -76,19 +66,78 @@
 
             return deferred.promise;
         }
+        function consultarAllEtapaServicioDiagnostico(etapa) {
+            var deferred = $q.defer();
+            //checar rutas :D
+            Restangular.all('etapa_servicio').one('diagnostic', etapa.id).customGET(etapa).then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            });
 
-        function validarEtapaServicio(etapa) {
+
+
+            return deferred.promise;
+        }
+        function consultarEtapaServicioDiagnostico(etapa) {
+            var deferred = $q.defer();
+            //checar rutas :D
+            Restangular.all('etapa_servicio').all('diagnostic').one('latest', etapa.id).customGET(etapa).then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            });
+
+            return deferred.promise;
+        }
+
+        function verEtapaNoValidada(etapa) {
 
             var deferred = $q.defer();
 
-            Restangular.all('ValidarEtapaServicio').one('Update', etapa.id).customPOST(etapa).then(function (res) {
+            Restangular.all('etapa_servicio').all('diagnostic').one('notvalidated', etapa.id).customGET(etapa).then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);
             })
-
+            return deferred.promise;
         }
 
+        function verEtapaNoValidada(etapa) {
+
+            var deferred = $q.defer();
+
+            Restangular.all('etapa_servicio').all('diagnostic').one('notvalidated', etapa.id).customGET(etapa).then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            })
+            return deferred.promise;
+        }
+        function verEtapaValidada(etapa) {
+
+            var deferred = $q.defer();
+
+            Restangular.all('etapa_servicio').all('diagnostic').one('validated', etapa.id).customGET(etapa).then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            })
+            return deferred.promise;
+
+        }
+        function etapasValidablesByPerson(etapa) {
+
+            var deferred = $q.defer();
+
+            Restangular.all('etapa_servicio').all('user').one('stage', etapa.id).customGET(etapa).then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            })
+            return deferred.promise;
+
+        }
         function consultarInsumosEtapa(etapa) {
             var deferred = $q.defer();
             //checar rutas :D
@@ -101,18 +150,7 @@
 
             return deferred.promise;
         }
-        function getAllEtapasServicio(etapa) {
-            var deferred = $q.defer();
-            //checar rutas :D
-            Restangular.one('Etapas', etapa.idCabinet).customGET(etapa).then(function (res) {
-                deferred.resolve(res);
-            }).catch(function (err) {
-                deferred.reject(err);
-            });
 
-
-            return deferred.promise;
-        }
 
     }
 
