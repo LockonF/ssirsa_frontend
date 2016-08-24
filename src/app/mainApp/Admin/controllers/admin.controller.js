@@ -6,27 +6,60 @@
         .module('app.mainApp.admin')
         .controller('gestion_userController',gestion_userController);
 
-    function gestion_userController($translate){
+    function gestion_userController($translate,groups,PersonaLocalService,Persona_Admin,toastr){
         var vm = this;
+        vm.isClient=true;
+        activate();
+        function activate(){
+            groups.list().then(function(rest){
+                vm.grupos=rest;
+                //console.log(vm.udns);
+                //console.log(vm.isClient);
+            }).catch(function(error){
 
+            });
 
+            /*if(PersonaLocalService.role.name == 'Cliente'){
+                vm.isClient=true;
+            }else{
+                vm.isClient=false;
+            }
+            console.log(vm.isClient);*/
+        }
+        // Crear requisito
+        vm.guardarUsuario = guardarUsuario;
         vm.enviar =enviar;
         vm.clean=clean;
         vm.user={
-            user:"",
-            password:"",
-            confirm:"",
-            nombre:"",
-            aPaterno:"",
-            aMaterno:"",
-            mail:"",
-            telefono:"",
-            direccion:"",
-            sucursal:"",
-            ine:"",
-            foto:"",
-            tipo:""
+            "mail":""
+        }
+        vm.user_ini={
+            "user": {
+                "username": "",
+                "email": "",
+                "cpassword": "",
+                "password": "",
+                "role": ""
+            },
+            "nombre": "",
+            "apellido_paterno": "",
+            "apellido_materno": "",
+            "direccion": "",
+            "telefono": ""
+        };
 
+        vm.user_vacio={
+            "user": {
+                "username": "",
+                "email": "",
+                "password": "",
+                "role": ""
+            },
+            "nombre": "",
+            "apellido_paterno": "",
+            "apellido_materno": "",
+            "direccion": "",
+            "telefono": ""
         };
         vm.correo={
             to:vm.user.mail,
@@ -97,8 +130,21 @@
             };
         }
 
+        function guardarUsuario(){
+            console.log("vm.user_ini: ");
+            console.log(vm.user_ini);
+            console.log("vm.user_ini.user: ");
+            console.log(vm.user_ini.user);
+            Persona_Admin.create(vm.user_ini).then(function(resp){
+                vm.user_ini= _.clone(vm.user_vacio);
+                toastr.success('exito al guardar','exito');
+            }).catch(function(err){
+                toastr.error('error al guardar','error');
+                console.log(err);
+            })
+        }
 
-    
+
 
 
     }
