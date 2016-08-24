@@ -5,74 +5,70 @@
         </md-input-container>
     </md-card>
     <div flex="100" layout='row'>
+        <div flex="50">
+            <md-card class="md-padding card">
+                <h2>Creación de Usuario</h2>
+                <md-input-container >
+                    <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
+                    <input type="text" placeholder="Usuario" ng-model="vm.user.user">
+                </md-input-container>
 
-        <md-input-container flex="50">
-            <md-card class="md-padding card1">
-                <md-card-content>
-                    <h2>Creación de Usuario</h2>
+                    <md-input-container class="md-block">
+                        <md-icon md-font-icon="zmdi zmdi-key"></md-icon>
+                        <input type="password" placeholder="Contraseña" ng-model="vm.user.password">
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <md-icon md-font-icon="zmdi zmdi-key"></md-icon>
+                        <input type="password" placeholder="Confirmación de Contraseña" ng-model="vm.user.confirmacion">
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
+                        <input type="text" placeholder="Nombre" ng-model="vm.user.nombre">
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
+                        <input type="text" placeholder="Apellido Paterno" ng-model="vm.user.aPaterno">
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
+                        <input type="text" placeholder="Apellido Materno" ng-model="vm.user.aPaterno">
+                    </md-input-container>
 
                     <md-input-container md-no-float class="md-block">
-                        <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
-                        <input type="text" placeholder="Usuario" ng-model="vm.user_ini.user.username">
+                        <md-icon md-font-icon="zmdi zmdi-pin"></md-icon>
+                        <input type="text" placeholder="Correo Electrónico" ng-model="vm.user.mail">
                     </md-input-container>
 
-                    <md-input-container class="md-block">
-                        <md-icon md-font-icon="zmdi zmdi-key"></md-icon>
-                        <input type="password" placeholder="Contraseña" ng-model="vm.user_ini.user.password">
-                    </md-input-container>
-
-                    <md-input-container class="md-block">
-                        <md-icon md-font-icon="zmdi zmdi-key"></md-icon>
-                        <input type="password" placeholder="Confirmación de Contraseña" ng-model="vm.user_ini.user.cpassword">
-                    </md-input-container>
-
-                    <md-input-container class="md-block">
-                        <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
-                        <input type="text" placeholder="Nombre" ng-model="vm.user_ini.nombre">
-                    </md-input-container>
-
-                    <md-input-container class="md-block">
-                        <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
-                        <input type="text" placeholder="Apellido Paterno" ng-model="vm.user_ini.apellido_paterno">
-                    </md-input-container>
-
-                    <md-input-container class="md-block">
-                        <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
-                        <input type="text" placeholder="Apellido Materno" ng-model="vm.user_ini.apellido_materno">
-                    </md-input-container>
+            </md-card>
+        </div>
+        <!-- Second part-->
+        <div flex="50">
+            <md-card class="md-padding card">
+                <md-card-content>
 
                     <md-input-container class="md-block">
                         <md-icon md-font-icon="zmdi zmdi-phone"></md-icon>
-                        <input type="text" placeholder="Telefono" ng-model="vm.user_ini.telefono">
+                        <input type="text" placeholder="Telefono" ng-model="vm.user.telefono">
                     </md-input-container>
-
-                </md-card-content>
-
-            </md-card>
-        </md-input-container>
-
-        <md-input-container flex="50">
-            <md-card class="md-padding card1">
-                <md-card-content>
 
                     <md-input-container class="md-block">
                         <md-icon md-font-icon="zmdi zmdi-pin"></md-icon>
-                        <input type="text" placeholder="Dirección" ng-model="vm.user_ini.direccion">
-                    </md-input-container>
-
-                    <md-input-container md-no-float class="md-block">
-                        <md-icon md-font-icon="zmdi zmdi-email"></md-icon>
-                        <input type="text" placeholder="Correo Electronico" ng-model="vm.user_ini.user.email">
+                        <input type="text" placeholder="Dirección" ng-model="vm.user.direccion">
                     </md-input-container>
 
                     <md-input-container class="md-block">
+                        <md-icon md-font-icon="zmdi zmdi-city"></md-icon>
+                        <input type="text" placeholder="Sucursal" ng-model="vm.user.sucursal">
+                    </md-input-container>
+
+
+                    <md-input-container class="md-block">
                         <md-icon md-font-icon="zmdi zmdi-account-box"></md-icon>
-                        <md-select placeholder="Elige el rol" ng-model="vm.user_ini.user.role">
-                            <md-option ng-value="grupo.id" ng-repeat='grupo in vm.grupos'>{{grupo.name}}</md-option>
-                        <!--md-option value="1">UDN_1</md-option>
-                        <md-option value="2">UDN_2</md-option>
-                        <md-option value="3">UDN_3</md-option-->
-                        </md-select>
+                        <input type="text" placeholder="Tipo de usuario" ng-model="vm.user.tipo">
                     </md-input-container>
 
                     <md-card-title>
@@ -105,16 +101,14 @@
                             </div>
                         </md-card-title-media>
                     </md-card-title>
-                    <md-card-actions layout="row" layout-align="center">
-                        <md-button ng-click="vm.guardarUsuario()" class="md-raised md-primary">Guardar</md-button>
-                        <md-button>Cancelar</md-button>
-                    </md-card-actions>
 
                 </md-card-content>
-
             </md-card>
-        </md-input-container>
-
-
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button ng-click="vm.guardarUsuario()" class="md-raised md-primary">Guardar</md-button>
+                <md-button>Cancelar</md-button>
+                </md-card-content>
+            </md-card-actions>
+        </div>
     </div>
 </div>

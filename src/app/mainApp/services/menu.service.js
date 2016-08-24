@@ -40,8 +40,9 @@
                     loadTecnicoMenu();
                     break;
                 case "Tecnico E":
-                    loadTecnicoMenu();break;
+                    loadTecnicoMenu();
                 default:
+                    triMenu.menu=[];
             }
         }
 
@@ -63,7 +64,7 @@
                 },
                 {
                     name: 'Gestion de Usuarios',
-                    icon: 'zmdi zmdi-user',
+                    icon: 'zmdi zmdi-account',
                     type: 'dropdown',
                     priority:2,
                     children:[

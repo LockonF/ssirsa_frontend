@@ -1,11 +1,27 @@
 <div layout="column">
-    <md-card class="md-padding card1" flex="100">
+    <md-card class="md-padding card" flex="100">
         <img src="assets/images/backgrounds/material-backgrounds/mb-bg-01-narrow.jpg" alt="Card Image">
         <md-card-title>
             <md-card-title-text>
                 <span class="md-headline">Validar Etapa de Servicio</span>
             </md-card-title-text>
         </md-card-title>
+        <div layout="row">
+            <md-input-container flex="80">
+                <label>Id Cabinet</label>
+                <input type="text">
+            </md-input-container>
+
+            <md-input-container flex>
+                <md-button class="md-fab" class="md-warn" aria-label="fab button" ng-click="vm.buscar()">
+                    <md-icon md-font-icon="zmdi zmdi-zoom-in"></md-icon>
+                </md-button>
+            </md-input-container>
+        </div>
+    </md-card>
+
+    <md-card class="md-padding card1" flex="100">
+
         <md-card-content layout="column">
             <div flex="100" layout="row">
                 <div layout="column" flex="60">
@@ -28,15 +44,11 @@
                     </md-input-container>
                     <md-input-container>
                         <label>No. de Servicio</label>
-                        <input type="text" ng-model="vm.etapa.noServicio" ng-disabled="true"/>
+                        <input type="text" ng-model="vm.etapa.noServicio" ng-disabled="false"/>
                     </md-input-container>
                 </div>
                 <div layout="column" flex="10">
-                    <md-input-container flex>
-                        <md-button class="md-fab" class="md-warn" aria-label="fab button" ng-click="vm.buscar()">
-                            <md-icon md-font-icon="zmdi zmdi-zoom-in"></md-icon>
-                        </md-button>
-                    </md-input-container>
+
                 </div>
                 <div layout="column" flex="30">
                     <md-input-container flex="15">
