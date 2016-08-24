@@ -22,7 +22,8 @@
             verEtapaNoValidada:verEtapaNoValidada,
             verEtapaValidada:verEtapaValidada,
             etapasValidablesByPerson:etapasValidablesByPerson,
-            consultarInsumosEtapa:consultarInsumosEtapa
+            consultarInsumosEtapa:consultarInsumosEtapa,
+            consultarAllInsumosCabinetEtapa:consultarAllInsumosCabinetEtapa
         };
 
 
@@ -79,10 +80,11 @@
 
             return deferred.promise;
         }
-        function consultarEtapaServicioDiagnostico(etapa) {
+
+        function consultarEtapaServicioDiagnostico(diagnostico) {
             var deferred = $q.defer();
             //checar rutas :D
-            Restangular.all('etapa_servicio').all('diagnostic').one('latest', etapa.id).customGET(etapa).then(function (res) {
+            Restangular.all('etapa_servicio').all('diagnostic').one('latest', diagnostico.id).customGET(etapa).then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);
@@ -91,17 +93,7 @@
             return deferred.promise;
         }
 
-        function verEtapaNoValidada(etapa) {
 
-            var deferred = $q.defer();
-
-            Restangular.all('etapa_servicio').all('diagnostic').one('notvalidated', etapa.id).customGET(etapa).then(function (res) {
-                deferred.resolve(res);
-            }).catch(function (err) {
-                deferred.reject(err);
-            })
-            return deferred.promise;
-        }
 
         function verEtapaNoValidada(etapa) {
 
@@ -146,6 +138,19 @@
             }).catch(function (err) {
                 deferred.reject(err);
             });
+
+
+            return deferred.promise;
+        }
+        function consultarAllInsumosCabinetEtapa() {
+            var deferred = $q.defer();
+            //checar rutas :D
+            Restangular.all('etapa_servicio').one('insumos', etapa.id).customGET(etapa.id).then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            });
+
 
 
             return deferred.promise;
