@@ -12,15 +12,33 @@
     function validarEtapaController() {
         var vm = this;
 
-        vm.etapa = {
+        vm.etapatest = {
             idCabinet: "",
             noServicio: "",
             isValidated: false,
             etapaActual: "",
             siguienteEtapa: "",
             insumos: []
-
         };
+
+        vm.etapa = {
+            id: 3,
+            fecha_realizacion: "2016-08-11T04:05:30.111922Z",
+            validado: false,
+            siguiente_etapa: "E5",
+            actual_etapa: "E4",
+            diagnostico: 1,
+            usuario: 1
+        };
+
+        vm.etapas = {
+            "E1":"Etapa 1",
+            "E2":"Etapa 2",
+            "E3":"Etapa 3",
+            "E4":"Etapa 4",
+            "E5":"Etapa 5"
+        };
+
         vm.guardar=guardar;
         vm.buscar=buscar;
 

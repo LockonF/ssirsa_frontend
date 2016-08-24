@@ -1,75 +1,55 @@
 <div flex layout="column">
-    <md-card class="md-padding card1">
+    <md-card class="md-padding card">
         <md-input-container align="center">
             <h1 translate="ADMIN.MANAGE.MANAGEMENT_USER"></h1>
         </md-input-container>
     </md-card>
+
+
     <div flex="100" layout='row'>
+        <div flex="50">
+            <md-card class="md-padding card">
+                <h2>Creación de Usuario</h2>
+                <md-input-container >
+                    <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
+                    <input type="text" placeholder="Usuario" ng-model="vm.user.user">
+                </md-input-container>
 
-        <md-input-container flex="50">
-            <md-card class="md-padding card1">
-                <md-card-content>
-                    <h2>Creación de Usuario</h2>
-                    <md-input-container md-no-float class="md-block">
-                        <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
-                        <input type="text" placeholder="Usuario" ng-model="vm.user.user">
-                    </md-input-container>
+                <md-input-container class="md-block">
+                    <md-icon md-font-icon="zmdi zmdi-key"></md-icon>
+                    <input type="password" placeholder="Contraseña" ng-model="vm.user.password">
+                </md-input-container>
 
-                    <md-input-container class="md-block">
-                        <md-icon md-font-icon="zmdi zmdi-key"></md-icon>
-                        <input type="password" placeholder="Contraseña" ng-model="vm.user.password">
-                    </md-input-container>
+                <md-input-container class="md-block">
+                    <md-icon md-font-icon="zmdi zmdi-key"></md-icon>
+                    <input type="password" placeholder="Confirmación de Contraseña" ng-model="vm.user.confirmacion">
+                </md-input-container>
 
-                    <md-input-container class="md-block">
-                        <md-icon md-font-icon="zmdi zmdi-key"></md-icon>
-                        <input type="password" placeholder="Confirmación de Contraseña" ng-model="vm.user.confirmacion">
-                    </md-input-container>
+                <md-input-container class="md-block">
+                    <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
+                    <input type="text" placeholder="Nombre" ng-model="vm.user.nombre">
+                </md-input-container>
 
-                    <md-input-container class="md-block">
-                        <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
-                        <input type="text" placeholder="Nombre" ng-model="vm.user.nombre">
-                    </md-input-container>
+                <md-input-container class="md-block">
+                    <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
+                    <input type="text" placeholder="Apellido Paterno" ng-model="vm.user.aPaterno">
+                </md-input-container>
 
-                    <md-input-container class="md-block">
-                        <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
-                        <input type="text" placeholder="Apellido Paterno" ng-model="vm.user.aPaterno">
-                    </md-input-container>
+                <md-input-container class="md-block">
+                    <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
+                    <input type="text" placeholder="Apellido Materno" ng-model="vm.user.aPaterno">
+                </md-input-container>
 
-                    <md-input-container class="md-block">
-                        <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
-                        <input type="text" placeholder="Apellido Materno" ng-model="vm.user.aPaterno">
-                    </md-input-container>
-
-                    <md-input-container md-no-float class="md-block">
-                        <md-icon md-font-icon="zmdi zmdi-pin"></md-icon>
-                        <input type="text" placeholder="Correo Electrónico" ng-model="vm.user.mail">
-                    </md-input-container>
-
-
-                    <!--md-input-container class="md-block">
-                        <md-icon md-font-icon="zmdi zmdi-card"></md-icon>
-                        <input type="text" placeholder="INE"  ng-model="vm.user.ine">
-                    </md-input-container-->
-
-
-                </md-card-content>
+                <md-input-container md-no-float class="md-block">
+                    <md-icon md-font-icon="zmdi zmdi-pin"></md-icon>
+                    <input type="text" placeholder="Correo Electrónico" ng-model="vm.user.mail">
+                </md-input-container>
 
             </md-card>
-        </md-input-container>
+        </div>
         <!-- Second part-->
-        <md-input-container flex="50">
-            <!--md-card>
-                <md-input-container md-no-float>
-                    <h3>To:</h3><span>{{vm.correo.to}}</span>
-
-                    <h3>from:</h3>//<span>{{vm.correo.from}}</span>
-
-                    <h3>Mensaje:</h3>//<span>{{vm.correo.content}}</span>
-
-
-                </md-input-container>
-            </md-card-->
-            <md-card class="md-padding card1">
+        <div flex="50">
+            <md-card class="md-padding card">
                 <md-card-content>
 
                     <md-input-container class="md-block">
@@ -123,19 +103,13 @@
                         </md-card-title-media>
                     </md-card-title>
 
-                    <!--md-input-container class="md-block">
-                        <md-icon md-font-icon="zmdi zmdi-card"></md-icon>
-                        <input type="text" placeholder="INE"  ng-model="vm.user.ine">
-                    </md-input-container-->
-
-
+                </md-card-content>
             </md-card>
             <md-card-actions layout="row" layout-align="end center">
                 <md-button ng-click="vm.guardarUsuario()" class="md-raised md-primary">Guardar</md-button>
                 <md-button>Cancelar</md-button>
                 </md-card-content>
             </md-card-actions>
-        </md-input-container>
-
+        </div>
     </div>
 </div>
