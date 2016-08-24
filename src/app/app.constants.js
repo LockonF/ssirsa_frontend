@@ -8,7 +8,8 @@
         .module('app')
         .constant('SERVER',{
             //URL:'http://45.55.239.32/',
-            URL:'http://104.236.203.150/',
+            //URL:'http://104.236.203.150/',
+            URL:'http://45.55.251.215/',
             //clientId:'rBLSap7rJORjfTh80GI4vBgcxSefUHHrKtVXWEaD',
             clientId:'pRKj87ZJd9AIupNbEdk3ZoEhcALnnTUgUPqhHngu',
             //clientSecret:'CofY368VLw4iFkUtTuU5Rcle93NGCx93ec3FFajYdsb3dBPqZrGFsBqMaDqadD8f2oljocjP62LQaJkrZc8XKhcjuaxpUuMTGhJjKH6IfIATdkPBybsi1FxyKsBicYPX'
