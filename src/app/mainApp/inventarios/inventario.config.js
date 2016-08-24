@@ -32,38 +32,7 @@
                 templateUrl: 'app/mainApp/inventarios/enConstruccion.tmpl.html', //Dirección del archivo a usar
 
             })
-
-
-        triMenuProvider.addMenu({
-            name: 'Inventarios',
-            icon: 'fa fa-archive',
-            type: 'dropdown',
-            priority: 6.1,
-            children: [{
-                name: 'Cabinets',
-                state: 'triangular.admin-default.cabinets',
-                type: 'link'
-            }, {
-                name: 'Insumos',
-                state: 'triangular.admin-default.insumo',
-                type: 'link'
-            },{
-                name: 'Catalogo de Insumos',
-                state: 'triangular.admin-default.catalogoInsumo',
-                type: 'link'
-            }, {
-                    name: 'Categoria Insumos',
-                    state: 'triangular.admin-default.construccion',
-                    type: 'link'
-            }, {
-                    name: 'Proveedores',
-                    state: 'triangular.admin-default.construccion',
-                    type: 'link'
-                }
-
-            ]
-        });
-
+        
     }
 
 } )();

@@ -29,16 +29,17 @@
                     <div layout="row" flex="100">
                         <md-input-container flex="50">
                             <label>No. de Servicio</label>
-                            <input type="text" ng-model="vm.etapa.noServicio" ng-disabled="vm.editable"/>
+                            <input type="text" ng-model="vm.etapa.diagnostico" ng-disabled="vm.editable"/>
                         </md-input-container>
                         <md-input-container flex="50">
                             <label translate>Etapa Actual</label>
-                            <md-select ng-model="vm.etapa.etapaActual" name="select" ng-disabled="true">
-                                <md-option ng-repeat="etap in vm.etapas" ng-value="etap.id">{{etap.nombre}}</md-option>
+                            <md-select ng-model="vm.etapa.actual_etapa" name="select" ng-disabled="true">
+                                <md-option ng-repeat="etap in vm.etapas" ng-value="etap.value">{{etap.nombre}}
+                                </md-option>
                             </md-select>
                         </md-input-container>
                         <md-input-container flex="20">
-                            <md-button class="md-primary md-raised"  aria-label="raised button"
+                            <md-button class="md-primary md-raised" aria-label="raised button"
                                        ng-click='vm.guardar()'>
                                 <md-icon md-font-icon="fa fa-save"></md-icon>
                             </md-button>

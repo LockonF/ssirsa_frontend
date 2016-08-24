@@ -8,15 +8,13 @@
         .module('app')
         .run(Run);
     function Run($rootScope, $state, OAuth, OAuthToken, $http, Bienvenida,PersonaLocalService,dynamicMenu){
-        $rootScope.$on()
+        $rootScope.$on();
         //$rootScope.$on('$stateChangeSuccess',function(event,destination){
         $rootScope.$on('$stateChangeStart',function(event,destination){
-            console.log('State change started');
             if(OAuthToken.getToken()!=undefined){
                 $http.defaults.headers.common['Authorization'] = 'Bearer '+OAuthToken.getToken().access_token;
             }
             if(!OAuth.isAuthenticated()){
-                console.log('Not authenticated');
                 OAuth.getRefreshToken().then(
                     function(res){
                         $http.defaults.headers.common['Authorization'] = 'Bearer '+OAuthToken.getToken().access_token;
