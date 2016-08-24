@@ -12,15 +12,16 @@
         .factory('Servicios', Servicios);
 
     /* @ngInject */
-    function Servicios($q, Restangular) {
-        var service = {
+    function Servicios($q, Restangular, toastr) {
+        return {
             crearEtapaServicio: crearEtapaServicio,
             consultarEtapaServicio: consultarEtapaServicio,
             editarEtapaServicio: editarEtapaServicio,
             eliminarEtapaServicio: eliminarEtapaServicio,
-            validarEtapaServicio: validarEtapaServicio,
             consultarInsumosEtapa: consultarInsumosEtapa,
-            getAllEtapasServicio: getAllEtapasServicio
+            getAllEtapasServicio: getAllEtapasServicio,
+            getEtapaValidable: getEtapaValidable,
+            getDiagnosticoFromCabinet: getDiagnosticoFromCabinet
         };
 
 
@@ -50,11 +51,12 @@
             return deferred.promise;
         }
 
+        //etapa_servicio/id
         function editarEtapaServicio(etapa) {
 
             var deferred = $q.defer();
 
-            Restangular.all('etapaServicio').one('Update', etapa.id).customPOST(etapa).then(function (res) {
+            Restangular.one('etapa_servicio', etapa.id).customPOST(etapa).then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);
@@ -77,16 +79,28 @@
             return deferred.promise;
         }
 
-        function validarEtapaServicio(etapa) {
-
-            var deferred = $q.defer();
-
-            Restangular.all('ValidarEtapaServicio').one('Update', etapa.id).customPOST(etapa).then(function (res) {
-                deferred.resolve(res);
-            }).catch(function (err) {
-                deferred.reject(err);
+        //etapa_servicio/diagnostic/latest/can_validate/
+        function getEtapaValidable(idCabinet){
+            var defer = $q.defer();
+            var diagnostico = getDiagnosticoFromCabinet(idCabinet);
+            Restangular.all("etapa_servicio").all("diagnostic").all("latest").one("can_validate",diagnostico.id).customGET().then(function(res){
+                defer.resolve(res);
+            }).catch(function(err){
+                defer.resolve(err);
             })
+            return defer.promise;
+        }
 
+        //diagnostico/latest/id
+        function getDiagnosticoFromCabinet(idCabinet){
+            var defer = $q.defer();
+            Restangular.all("diagnostico").one("latest",idCabinet).customGET().then(function(res){
+                defer.resolve(res);
+            }).catch(function(err){
+                defer.reject(err);
+            })
+            //console.log(defer.promise);
+            return defer.promise;
         }
 
         function consultarInsumosEtapa(etapa) {
