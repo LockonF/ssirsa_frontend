@@ -6,7 +6,7 @@
         .module('app.mainApp.solicitudes')
         .controller('buscarUsuarioController', buscarUsuarioController);
 
-    function buscarUsuarioController() {
+    function buscarUsuarioController(Persona_Admin) {
         var vm = this;
         vm.flag = 0;
         vm.id = null;
@@ -115,6 +115,7 @@
         vm.buscarUsuario = buscarUsuario;
         vm.mostrarUsuario = mostrarUsuario;
         vm.eliminarUsuario = eliminarUsuario;
+        vm.edit=edit;
         vm.Usuarios = [];
 
         function mostrarUsuario() {
@@ -216,31 +217,48 @@
         }
 
         function buscarUsuario(){
-                Solicitudes_Admin.consultaEsp(vm.requisito).then(function (rest){
-                    console.log("Soy admin");
+            Persona_Admin.list().then(function (rest){
                     console.log(vm.requisito);
-                    vm.solicitudes = rest;
-                    console.log(vm.solicitudes);
+                    vm.personas_admin = rest;
+                    console.log(vm.personas_admin);
                 }).catch(function(error){
                     console.log(error);
                 })
-
-
-                Solicitudes.list().then(function (rest) {
-                    console.log("Soy cliente");
-                    vm.solicitudes = rest;
-                    console.log(vm.solicitudes);
-                    //if(vm.solicitudes)
-                    //console.log(vm.udns);
-                }).catch(function (error) {
-                    console.log(error);
-                });
         }
+
+
 
         function editarUsuario(usuario) {
 
 
         }
+
+
+
+        function edit(event,object,field) {
+            var config =
+            {
+                modelValue: object[field],
+                placeholder: 'Edita el campo',
+                save: function (input) {
+
+                    object[field] = input.$modelValue;
+                    updateObject(object);
+                },
+                targetEvent: event,
+                validators: {
+                    'md-maxlength': 30
+                }
+            };
+
+            function updateObject(funcion){
+            }
+
+            $mdEditDialog.small(config).then(function(ctrl){
+            }).catch(function(err){
+            });
+        }
+
 
     }
 
