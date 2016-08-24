@@ -9,62 +9,101 @@
         .module('app.mainApp.tecnico')
         .controller('etapaController', etapaController);
 
-    function etapaController() {
+    function etapaController($scope,$mdDialog,Servicios, toastr, Translate,ROUTES) {
         var vm = this;
-        vm.user = {
-            name: 'Francisco Javier Cerda Martínez',
-            level: 'SU',
-            area: 'Todas'
-        };
+        vm.activate = activate();
+
+        //Inicializando Variables
+
         vm.etapa = {
-            idCabinet: "34124142112443",
-            noServicio: "234567812212",
-            isValidated: true,
-            etapaActual: 1,
-            siguienteEtapa: 2,
-            insumos: []
 
         };
+        vm.insumos=[];//Arreglo que poseera los Insumos que pueden ser usados en cierta etapa
+        vm.insumosEtapaCabinet=[];//Arreglo de Insumos que posee el cabinet en diche etapa
+        vm.cabinet;// Informacion general del cabinet al cual se le asignara una nueva etapa
+        vm.diagnostico; // Informacion del diagnostico que propicio que entrara a un proceso de servicio tecnico
         vm.insumo = {
             id:"",
             nombre:"",
             cantidad: "",
             notas: ""
-        };
+        };// Insumo por agregar al cabinet en cuestion
         vm.etapas = [{
             id: '1',
-            nombre: 'etapa 1',
+            nombre: 'Etapa 1',
         }, {
             id: '2',
-            nombre: 'etapa 2',
+            nombre: 'Etapa 2',
         }, {
             id: '3',
-            nombre: 'etapa 3',
+            nombre: 'Etapa 3',
         }, {
             id: '4',
-            nombre: 'etapa 4',
-        }];
-        vm.insumos = [{
-            id: '1',
-            nombre: 'Carburador',
-        }, {
-            id: '2',
-            nombre: 'aceite',
-        }, {
-            id: '3',
-            nombre: 'tornillos de 1/4"',
-        }, {
-            id: '4',
-            nombre: 'soldadura',
-        }, {
+            nombre: 'Etapa 4',
+        },{
             id: '5',
-            nombre: 'alambre 1/4',
+            nombre: 'Etapa 5',
+        },{
+            id: '6',
+            nombre: 'Etapa Bicicletas (Unica)',
         }
-
-        ];
+        ];//Arreglo de las diferentes etapas que componen el proceso de fabricacion de bicicletas
+        //Declaracion de Funciones
         vm.crearInsumo=crearInsumo;
         vm.eliminarInsumo=eliminarInsumo;
-        // Crear insumo
+        vm.getInsumos=getInsumos;
+        vm.consultarInsumosEtapa=consultarInsumosEtapa;
+        vm.obtenerInformacionCabinet=obtenerInformacionCabinet;
+        vm.obteneretapaValidada=obteneretapaValidada;
+        vm.crearEtapaServicio=crearEtapaServicio;
+        vm.eliminarEtapaServicio=eliminarEtapaServicio;
+        vm.buscarEtapaServicio=buscarEtapaServicio;
+        vm.obtenerEtapaActual=obtenerEtapaActual;
+        vm.cancel =cancel;//Limpiar campos
+        // Funciones
+        //Funcion Activate al iniciar la vista
+        function activate()
+        {
+            //mensajes del toastr
+
+            vm.sureText = Translate.translate('DIALOGS.YOU_SURE');
+            vm.acceptText = Translate.translate('DIALOGS.ACCEPT');
+            vm.cancelText = Translate.translate('DIALOGS.CANCEL');
+            vm.dialogText = Translate.translate('DIALOGS.WARNING');
+            vm.successText = Translate.translate('DIALOGS.SUCCESS');
+            vm.successStoreText = Translate.translate('DIALOGS.SUCCESS_STORE');
+            vm.successUpdateText = Translate.translate('DIALOGS.SUCCESS_UPDATE');
+            vm.successDeleteText = Translate.translate('DIALOGS.SUCCESS_DELETE');
+            vm.failureText = Translate.translate('DIALOGS.FAILURE');
+            vm.failureStoreText = Translate.translate('DIALOGS.FAIL_STORE');
+            vm.failureDeleteText = Translate.translate('DIALOGS.FAIL_DELETE');
+
+
+        }
+        function getEtapa() {
+            var promise = Fondeo.getAllFondeos();
+            promise.then(function (value) {
+                vm.Fondeos=value;
+            });
+        }
+        function cancel() {
+
+            vm.selectedFondeo=null;
+            vm.fondeo = null;
+            vm.isNewFondeo=true;
+            $scope.fondeoInfo.setPristine();
+            $scope.fondeoFondeoDesc.setPristine();
+            $scope.fondeoFondeoDesc.setPristine();
+            $scope.fondeoSupport.setPristine();
+
+        }
+
+        //Funcion conocer etapa
+        function obtenerEtapaActual(){
+
+
+        }
+
 
         function crearInsumo() {
 
