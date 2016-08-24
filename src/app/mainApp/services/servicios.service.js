@@ -23,11 +23,13 @@
             verEtapaValidada:verEtapaValidada,
             etapasValidablesByPerson:etapasValidablesByPerson,
             consultarInsumosEtapa:consultarInsumosEtapa,
-            consultarAllInsumosCabinetEtapa:consultarAllInsumosCabinetEtapa
+            consultarAllInsumosCabinetEtapa:consultarAllInsumosCabinetEtapa,
+            getEtapaValidable:getEtapaValidable,
+            getDiagnosticoFromCabinet:getDiagnosticoFromCabinet
         };
 
 
-        
+
         function crearEtapaServicio(etapa) {
             var deferred = $q.defer();
             //checar rutas :D
@@ -156,6 +158,28 @@
             return deferred.promise;
         }
 
+
+        function getEtapaValidable(idCabinet){
+            var defer = $q.defer();
+            var diagnostico = getDiagnosticoFromCabinet(idCabinet);
+            Restangular.all("etapa_servicio").all("diagnostic").all("latest").one("can_validate",diagnostico.id).customGET().then(function(res){
+                defer.resolve(res);
+            }).catch(function(err){
+                defer.resolve(err);
+            })
+            return defer.promise;
+        }
+        function getDiagnosticoFromCabinet(idCabinet){
+            var defer = $q.defer();
+            Restangular.all("diagnostico").one("latest",idCabinet).customGET().then(function(res){
+                defer.resolve(res);
+            }).catch(function(err){
+                defer.reject(err);
+            })
+            //console.log(defer.promise);
+            return defer.promise;
+        }
+    return service;
 
     }
 

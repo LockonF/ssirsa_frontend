@@ -48,7 +48,7 @@
             controllerAs: 'vm'
         });
 
-        triMenuProvider.addMenu({
+        /*triMenuProvider.addMenu({
             // give the menu a name to show (should be translatable and in the il8n folder json)
             name: 'Calendar',
             // point this menu to the state we created in the $stateProvider above
@@ -59,6 +59,6 @@
             icon: 'zmdi zmdi-calendar-alt',
             // set a proirity for this menu item, menu is sorted by priority
             priority: 2.3
-        });
+        });*/
     }
 })();

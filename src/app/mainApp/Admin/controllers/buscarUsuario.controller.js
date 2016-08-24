@@ -12,6 +12,23 @@
         vm.id = null;
         vm.userName="";
         vm.FechaFin = new Date();
+        vm.users=null;
+        vm.user_ini={
+            "user": {
+                "username": "",
+                "email": "",
+                "cpassword": "",
+                "password": "",
+                "role": ""
+            },
+            "nombre": "",
+            "apellido_paterno": "",
+            "apellido_materno": "",
+            "direccion": "",
+            "telefono": ""
+        };
+
+
         vm.user = {
             id: "",
             user: "",
@@ -25,8 +42,8 @@
             direccion: "",
             sucursal: "",
             ine: "",
-            foto: "",
-            tipo: ""
+            foto: null,
+            tipo: null
 
         };
         vm.solicitud = [
@@ -95,7 +112,7 @@
                 tipo: "Tipo_4"
             }
         ];
-
+        vm.buscarUsuario = buscarUsuario;
         vm.mostrarUsuario = mostrarUsuario;
         vm.eliminarUsuario = eliminarUsuario;
         vm.Usuarios = [];
@@ -196,6 +213,28 @@
 
             }
 
+        }
+
+        function buscarUsuario(){
+                Solicitudes_Admin.consultaEsp(vm.requisito).then(function (rest){
+                    console.log("Soy admin");
+                    console.log(vm.requisito);
+                    vm.solicitudes = rest;
+                    console.log(vm.solicitudes);
+                }).catch(function(error){
+                    console.log(error);
+                })
+
+
+                Solicitudes.list().then(function (rest) {
+                    console.log("Soy cliente");
+                    vm.solicitudes = rest;
+                    console.log(vm.solicitudes);
+                    //if(vm.solicitudes)
+                    //console.log(vm.udns);
+                }).catch(function (error) {
+                    console.log(error);
+                });
         }
 
         function editarUsuario(usuario) {
