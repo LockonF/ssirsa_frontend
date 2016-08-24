@@ -27,18 +27,18 @@
                     </md-autocomplete>-->
                 </md-input-container>
                 <md-input-container flex>
-                    <md-button class="md-fab"  aria-label="fab button" ng-click="vm.searchCabinet">
+                    <md-button class="md-fab"  aria-label="fab button" ng-click="vm.searchCabinet()">
                         <md-icon md-font-icon="zmdi zmdi-zoom-in"></md-icon>
                     </md-button>
                 </md-input-container>
                 <md-input-container flex="15">
-                    <md-switch class="md-primary" ng-model="vm.diagnostico.isSalida" aria-label="Primary Switch"
+                    <md-switch class="md-primary" ng-model="vm.diagnostico.tipo" aria-label="Primary Switch"
                                ng-init="switches.primary = true">
                         Salida
                     </md-switch>
                 </md-input-container>
                 <md-input-container flex="15">
-                    <md-switch class="md-primary" ng-model="vm.diagnostico.isCabinet" aria-label="Es un Cabinet">
+                    <md-switch class="md-primary" ng-model="vm.diagnostico.tipo_insumo" aria-label="Es un Cabinet">
                         Cabinet
                     </md-switch>
                 </md-input-container>
@@ -66,7 +66,7 @@
                 <input type="number" ng-model="vm.diagnostico.rejillas"/>
             </md-input-container>
         </div>
-        <div ng-show="vm.diagnostico.isSalida">
+        <div ng-show="vm.diagnostico.tipo">
             <span class="md-subhead">Validación de Salida</span>
             <div layout="row" flex="flex">
                 <md-input-container flex="15">
@@ -94,7 +94,7 @@
                     </md-switch>
                 </md-input-container>
                 <md-input-container flex="20">
-                    <md-switch class="md-primary" ng-model="vm.diagnostico.listo" aria-label="Listo para Mercado">Listo
+                    <md-switch class="md-primary" ng-model="vm.diagnostico.listo_mercado" aria-label="Listo para Mercado">Listo
                         para Mercado
                     </md-switch>
                 </md-input-container>
@@ -107,19 +107,20 @@
         <md-card-title-text flex="20">
             <span class="md-headline">Evidencia</span>
             <span class="md-subhead">Fotografica</span>
-            <md-button ngf-select="vm.upload($files)" ng-disabled="vm.status != 'idle'" ngf-multiple="false"
+            <md-button ngf-select="vm.selectionFile($files)" accept=".jpg,.jpeg,.png,.bmp" ng-disabled="vm.status != 'idle'" ngf-multiple="false" ng-model="vm.picFile"
                        aria-label="upload">
                 <md-icon md-font-icon
                          ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}"></md-icon>
             </md-button>
-            <md-button>
+            <md-button ng-click="vm.guardar()">
                 <md-icon md-font-icon="fa fa-save">
             </md-button>
 
         </md-card-title-text>
         <md-card-title-media flex="80">
-            <div class="md-media-xl card-media">
-                <img src="{{vm.diagnostico.file}}" alt="Card Image">
+            <div  class="md-media-md card-media">
+
+                <img ngf-src="vm.picFile" class="thumb" width="10px" height="10px">
             </div>
         </md-card-title-media>
     </md-card-title>

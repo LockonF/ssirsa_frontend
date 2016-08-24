@@ -60,8 +60,6 @@
          */
         $translateProvider
         .registerAvailableLanguageKeys(angularTranslateLanguageKeys, {
-            'en_US': 'en',
-            'en_UK': 'en',
             'es_MX': 'es'
         })
         .use('es');
