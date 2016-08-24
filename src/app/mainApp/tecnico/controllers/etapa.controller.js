@@ -67,12 +67,15 @@
         vm.obtenerEtapaActual = obtenerEtapaActual;
         vm.cancel = cancel;//Limpiar campos (Listo)
         vm.buscar = buscar;//Buscar Cabinet (Listo)
-        vm.eliminarEtapaServicio = eliminarEtapaServicio;
-        vm.buscarEtapaServicio = buscarEtapaServicio;
+        vm.eliminarEtapaServicio = eliminarEtapaServicio;//Listo
+        vm.obtenerEtapaActual = obtenerEtapaActual;
+        vm.buscarEtapaServicio = buscarEtapaServicio;//Listo
         vm.getInsumos = getInsumos;
         vm.consultarInsumosEtapa = consultarInsumosEtapa;
         vm.obtenerInformacionCabinet = obtenerInformacionCabinet;
         vm.obteneretapaValidada = obteneretapaValidada;
+        vm.obtenerEtapaActual = obtenerEtapaActual;
+
 
         // Funciones
         //Funcion Activate al iniciar la vista
@@ -93,144 +96,146 @@
 
 
         }
-    }
-
-    function obtenerEtapaActual() {
-
-    }
 
 
-    function cancel() {
-        vm.etapaActual = {};
-        vm.insumos = [];//Arreglo que poseera los Insumos que pueden ser usados en cierta etapa
-        vm.insumosEtapaCabinet = [];//Arreglo de Insumos que posee el cabinet en diche etapa
-        vm.cabinet;// Informacion general del cabinet al cual se le asignara una nueva etapa
-        vm.diagnostico; // Informacion del diagnostico que propicio que entrara a un proceso de servicio tecnico
-        vm.insumo = {
-            id: "",
-            nombre: "",
-            cantidad: "",
-            notas: ""
-        };// Insumo por agregar al cabinet en cuestion
-
-    }
-
-    function buscar() {
-        if (vm.idCabinet != null) {
-            var promise = Diagnostico.lastDiagnosticInput();
-            promise.then(function (res) {
-                vm.diagnostico = res;
-            });
-        }
-        else {
-            toastr.error("Cabinet no Encontrado", "Error: El cabinet que usted esta buscando no se encuentra registrado.");
-        }
-    }
-    function buscar() {
-        if (vm.idCabinet != null) {
-            var promise = Diagnostico.lastDiagnosticInput();
-            promise.then(function (res) {
-                vm.diagnostico = res;
-            });
-        }
-        else {
-            toastr.error("Cabinet no Encontrado", "Error: El cabinet que usted esta buscando no se encuentra registrado.");
-        }
-    }
-
-    function eliminarEtapaServicio() {
-        if (vm.etapaActual != null && vm.etapaActual.validado != true) {
-            var promise = Servicios.eliminarEtapaServicio(vm.etapaActual);
-            promise.then(function (res) {
-                vm.diagnostico = res;
-            });
-        }
-        else {
-            toastr.error("No Es posible eliminar", "El registro que usted pretende afectar no puede ser eliminado");
-        }
-    }
-
-    function crearEtapaServicio() {
-        if (vm.diagnostico.id == null) {
-            console.log("Ya voy a crear");
-            var promise = Servicios.crearEtapaServicio(vm.etapa);
-            promise.then(function (res) {
-                toastr.success(vm.successText, vm.successStoreText);
-                vm.etapaActual = res;
-
-            }).catch(function (err) {
-                toastr.error(vm.failureText, vm.failureStoreText);
-            });
-        }
-        else {
-            var promise = Servicios.editarEtapaServicio(vm.etapa);
-            promise.then(function (res) {
-                toastr.success(vm.successText, vm.successUpdateText);
-                vm.etapaActual = res;
-            }).catch(function (err) {
-                toastr.error(vm.failureText, vm.failureStoreText);
-            });
-
-        }
-
-        //Funcion conocer etapa
         function obtenerEtapaActual() {
 
 
         }
 
 
-        function crearInsumo() {
+        function cancel() {
+            vm.etapaActual = {};
+            vm.insumos = [];//Arreglo que poseera los Insumos que pueden ser usados en cierta etapa
+            vm.insumosEtapaCabinet = [];//Arreglo de Insumos que posee el cabinet en diche etapa
+            vm.cabinet;// Informacion general del cabinet al cual se le asignara una nueva etapa
+            vm.diagnostico; // Informacion del diagnostico que propicio que entrara a un proceso de servicio tecnico
+            vm.insumo = {
+                id: "",
+                nombre: "",
+                cantidad: "",
+                notas: ""
+            };// Insumo por agregar al cabinet en cuestion
 
-            console.log(vm.insumo)
-            if (vm.insumo != null) {
-                console.log("insumos antes de agregarlo");
-                console.log(vm.etapa.insumos);
-                vm.etapa.insumos.push(vm.insumo);
-                console.log("insumos despues de agregarlo");
-                console.log(vm.etapa.insumos);
+        }
 
-                vm.insumo = {
-                    id: "",
-                    nombre: "",
-                    cantidad: 0,
-                    notas: ""
-                };
-
-                console.log("Los insumos son:");
-                console.log(vm.etapa.insumos);
+        function buscarEtapaServicio() {
+            if (vm.etapaActual != null && vm.diagnostico.id != null) {
+                var promise = Servicios.consultarEtapaServicioDiagnostico();
+                promise.then(function (res) {
+                    vm.etapaActual = res;
+                });
+            }
+            else {
+                toastr.error("Cabinet no Encontrado", "Error: El cabinet que usted esta buscando no se encuentra registrado.");
             }
         }
 
-        // Eliminar Insumo
+        function buscar() {
+            if (vm.idCabinet != null) {
+                var promise = Diagnostico.lastDiagnosticInput();
+                promise.then(function (res) {
+                    vm.diagnostico = res;
+                });
+            }
+            else {
+                toastr.error("Cabinet no Encontrado", "Error: El cabinet que usted esta buscando no se encuentra registrado.");
+            }
+        }
+
+        function eliminarEtapaServicio() {
+            if (vm.etapaActual != null && vm.etapaActual.validado != true) {
+                var promise = Servicios.eliminarEtapaServicio(vm.etapaActual);
+                promise.then(function (res) {
+                    vm.diagnostico = res;
+                });
+            }
+            else {
+                toastr.error("No Es posible eliminar", "El registro que usted pretende afectar no puede ser eliminado");
+            }
+        }
+
+        function crearEtapaServicio() {
+            if (vm.diagnostico.id == null) {
+                console.log("Ya voy a crear");
+                var promise = Servicios.crearEtapaServicio(vm.etapa);
+                promise.then(function (res) {
+                    toastr.success(vm.successText, vm.successStoreText);
+                    vm.etapaActual = res;
+
+                }).catch(function (err) {
+                    toastr.error(vm.failureText, vm.failureStoreText);
+                });
+            }
+            else {
+                var promise = Servicios.editarEtapaServicio(vm.etapa);
+                promise.then(function (res) {
+                    toastr.success(vm.successText, vm.successUpdateText);
+                    vm.etapaActual = res;
+                }).catch(function (err) {
+                    toastr.error(vm.failureText, vm.failureStoreText);
+                });
+
+            }
+
+            //Funcion conocer etapa
+            function obtenerEtapaActual() {
+                
+
+            }
 
 
-        function eliminarInsumo(insu) {
+            function crearInsumo() {
 
-            vm.insumocopy = insu;
-            var index = 0;
+                console.log(vm.insumo)
+                if (vm.insumo != null) {
+                    console.log("insumos antes de agregarlo");
+                    console.log(vm.etapa.insumos);
+                    vm.etapa.insumos.push(vm.insumo);
+                    console.log("insumos despues de agregarlo");
+                    console.log(vm.etapa.insumos);
 
-            for (index = 0; index < vm.etapa.insumos.length; ++index) {
+                    vm.insumo = {
+                        id: "",
+                        nombre: "",
+                        cantidad: 0,
+                        notas: ""
+                    };
 
-                console.log(vm.insumocopy);
-                console.log(vm.etapa.insumos[index]);
-                if (vm.etapa.insumos[index].id == vm.insumocopy.id) {
+                    console.log("Los insumos son:");
+                    console.log(vm.etapa.insumos);
+                }
+            }
 
-                    console.log("voy a borrar");
+            // Eliminar Insumo
+
+
+            function eliminarInsumo(insu) {
+
+                vm.insumocopy = insu;
+                var index = 0;
+
+                for (index = 0; index < vm.etapa.insumos.length; ++index) {
+
+                    console.log(vm.insumocopy);
                     console.log(vm.etapa.insumos[index]);
-                    vm.etapa.insumos.splice(index, 1);
+                    if (vm.etapa.insumos[index].id == vm.insumocopy.id) {
 
-                }
-                else {
-                    console.log("Aun no lo encuentro")
+                        console.log("voy a borrar");
+                        console.log(vm.etapa.insumos[index]);
+                        vm.etapa.insumos.splice(index, 1);
+
+                    }
+                    else {
+                        console.log("Aun no lo encuentro")
+                    }
+
                 }
 
             }
 
+
         }
-
-
     }
-
 
 })();
