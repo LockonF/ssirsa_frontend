@@ -69,6 +69,7 @@
 
 
         function validate(){
+            vm.etapa.validado=true;
             Servicios.editarEtapaServicio(vm.etapa).then(function(res){
                 toastr.success('Etapa validada correctamente','Éxito')
             }).catch(function(err){
@@ -79,7 +80,7 @@
         function lookup(){
             Servicios.getEtapaValidable(vm.idCabinet).then(function(res){
                 vm.etapa=res;
-                
+                console.log(res);
             }).catch(function(err){
                 switch (err.status){
                     case 404:
@@ -87,6 +88,13 @@
                         break;
                         toastr.error(err.message,'Error');
                 }
+            });
+
+            Servicios.consultarAllInsumosCabinetEtapa(vm.etapa).then(function(res){
+                vm.insumo=res;
+                console.log(res);
+            }).catch(function(err){
+                
             });
         }
 
