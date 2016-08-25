@@ -161,21 +161,30 @@
 
         function getEtapaValidable(idCabinet){
             var defer = $q.defer();
-            var diagnostico = getDiagnosticoFromCabinet(idCabinet);
-            Restangular.all("etapa_servicio").all("diagnostic").all("latest").one("can_validate",diagnostico.id).customGET().then(function(res){
-                defer.resolve(res);
+            getDiagnosticoFromCabinet(idCabinet).then(function(resp){
+                console.log(resp.id);
+                Restangular.all("etapa_servicio").all("diagnostic").all("latest").one("can_validate",resp.id).customGET().then(function(res){
+                    defer.resolve(res);
+                    console.log("Respuesta");
+                    console.log(res);
+                }).catch(function(err){
+                    defer.resolve(err);
+                })
+                return defer.promise;
             }).catch(function(err){
                 defer.resolve(err);
-            })
+            });
             return defer.promise;
+
         }
+
         function getDiagnosticoFromCabinet(idCabinet){
             var defer = $q.defer();
             Restangular.all("diagnostico").one("latest",idCabinet).customGET().then(function(res){
                 defer.resolve(res);
             }).catch(function(err){
                 defer.reject(err);
-            })
+            });
             //console.log(defer.promise);
             return defer.promise;
         }
