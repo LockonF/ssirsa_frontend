@@ -22,6 +22,7 @@
             siguiente_etapa: ''
 
         };
+        vm.editable=true;
         vm.etapaActual = null;//Objeto donde se almacenara la informacion de la etapa actual
         vm.etapaInsumo=null; //Objeto donde se almacena la etapa sobre la cual se esta trabajando
         vm.idCabinet = null;
@@ -74,9 +75,15 @@
         vm.consultarInsumosEtapa = consultarInsumosEtapa;//Listo
         vm.obtenerInformacionCabinet = obtenerInformacionCabinet;//Listo
         vm.obtenerEtapaActual = obtenerEtapaActual;//Listo
+        vm.editar=editar;
+        
 
 
         // Funciones
+
+        function editar(){
+            vm.editable=!vm.editable;
+        }
         //Funcion Activate al iniciar la vista
         function activate() {
             //mensajes del toastr
@@ -229,10 +236,17 @@
                 console.log(vm.insumo)
                 if (vm.insumo != null) {
                     console.log("insumos antes de agregarlo");
-                    console.log(vm.etapa.insumos);
-                    vm.etapa.insumos.push(vm.insumo);
+                    console.log(vm.insumosEtapaCabinet);
+                    //vm.etapa.insumos.push(vm.insumo);
+                    var promise = Servicios.añadirInsumos(vm.etapa);
+                    promise.then(function (res){
+                        vm.insumo=res;
+                    }).then(function(res){
+                        vm.consultarInsumosEtapa();
+                    })
                     console.log("insumos despues de agregarlo");
-                    console.log(vm.etapa.insumos);
+                    
+                    console.log(vm.insumosEtapaCabinet);
 
                     vm.insumo = {
                         id: "",
@@ -242,7 +256,7 @@
                     };
 
                     console.log("Los insumos son:");
-                    console.log(vm.etapa.insumos);
+                    console.log(vm.insumosEtapaCabinet);
                 }
             }
 

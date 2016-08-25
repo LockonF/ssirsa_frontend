@@ -34,7 +34,7 @@
                         <md-input-container flex="50">
                             <label translate>Etapa Actual</label>
                             <md-select ng-model="vm.etapa.actual_etapa" name="select" ng-disabled="true">
-                                <md-option ng-repeat="etap in vm.etapas" ng-value="etap.value">{{etap.nombre}}
+                                <md-option ng-repeat="etap in vm.etapas" ng-value="etap.value">{{etap.value}}
                                 </md-option>
                             </md-select>
                         </md-input-container>
@@ -99,7 +99,7 @@
                     </thead>
                     <tbody md-body="md-body">
                     <tr md-row="md-row" md-select="insu" md-select-id="{{insu.id}}"
-                        ng-repeat="insu in vm.etapa.insumos | orderBy:vm.query.order">
+                        ng-repeat="insu in vm.insumosEtapaCabinet| orderBy:vm.query.order">
                         <td md-cell="md-cell" flex="25">{{insu.nombre}}</td>
                         <td md-cell="md-cell" flex="15">{{insu.cantidad}}</td>
                         <td md-cell="md-cell" flex="50">{{insu.notas}}</td>
