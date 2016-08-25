@@ -28,8 +28,9 @@
         vm.idCabinet = null;
         vm.insumos = [];//Arreglo que poseera los Insumos que pueden ser usados en cierta etapa
         vm.insumosEtapaCabinet = null;//Arreglo de Insumos que posee el cabinet en diche etapa
-        vm.cabinet;// Informacion general del cabinet al cual se le asignara una nueva etapa
-        vm.diagnostico; // Informacion del diagnostico que propicio que entrara a un proceso de servicio tecnico
+        vm.cabinet=null;// Informacion general del cabinet al cual se le asignara una nueva etapa
+        vm.diagnostico=null;// Informacion del diagnostico que propicio que entrara a un proceso de servicio tecnico
+        vm.zona=0;
         vm.insumo = {
             id: "",
             nombre: "",
@@ -154,9 +155,19 @@
 
 
         function cancel() {
-            vm.etapaActual = {};
+            vm.etapa = {
+                diagnostico: '',
+                validado: false,
+                actual_etapa: '',
+                siguiente_etapa: ''
+
+            };
+            vm.editable=true;
+            vm.etapaActual = null;//Objeto donde se almacenara la informacion de la etapa actual
+            vm.etapaInsumo=null; //Objeto donde se almacena la etapa sobre la cual se esta trabajando
+            vm.idCabinet = null;
             vm.insumos = [];//Arreglo que poseera los Insumos que pueden ser usados en cierta etapa
-            vm.insumosEtapaCabinet = [];//Arreglo de Insumos que posee el cabinet en diche etapa
+            vm.insumosEtapaCabinet = null;//Arreglo de Insumos que posee el cabinet en diche etapa
             vm.cabinet;// Informacion general del cabinet al cual se le asignara una nueva etapa
             vm.diagnostico; // Informacion del diagnostico que propicio que entrara a un proceso de servicio tecnico
             vm.insumo = {
@@ -165,12 +176,13 @@
                 cantidad: "",
                 notas: ""
             };// Insumo por agregar al cabinet en cuestion
+            
 
         }
 
         function buscarEtapaServicio() {
             if (vm.etapaActual != null && vm.diagnostico.id != null) {
-                var promise = Servicios.consultarEtapaServicioDiagnostico();
+                var promise = Servicios.consultarEtapaServicioDiagnostico(vm.diagnostico);
                 promise.then(function (res) {
                     vm.etapaActual = res;
                 });
@@ -182,7 +194,7 @@
 
         function buscar() {
             if (vm.idCabinet != null) {
-                var promise = Diagnostico.lastDiagnosticInput();
+                var promise = Diagnostico.lastDiagnosticInput(vm.idCabinet);
                 promise.then(function (res) {
                     vm.diagnostico = res;
                 });
@@ -190,6 +202,12 @@
             else {
                 console.log("Cabinet no Encontrado", "Error: El cabinet que usted esta buscando no se encuentra registrado.");
             }
+
+            buscarEtapaServicio();
+            obtenerEtapaActual();
+            getInsumos();//Listo
+            consultarInsumosEtapa();
+            
         }
 
         function eliminarEtapaServicio() {
@@ -226,11 +244,37 @@
                 });
 
             }
+            vm.cancel();
         }
 
 
 
+            function transformaetapazona(){
+                if (vm.etapaInsumo != null){
+                    switch(vm.etapaInsumo) {
+                        case "E1":
+                            vm.zona=1;
+                            break;
+                        case "E2":
+                            vm.zona=2;
+                            break;
+                        case "E3":
+                            vm.zona=3;
+                            break;
+                        case "E4":
+                            vm.zona=4;
+                            break;
+                        case "E5":
+                            vm.zona=5;
+                            break;
+                        case "E6":
+                            vm.zona=6;
+                            break;
+                    }
 
+
+                }
+            }
             function crearInsumo() {
 
                 console.log(vm.insumo)
@@ -238,11 +282,11 @@
                     console.log("insumos antes de agregarlo");
                     console.log(vm.insumosEtapaCabinet);
                     //vm.etapa.insumos.push(vm.insumo);
-                    var promise = Servicios.añadirInsumos(vm.etapa);
+                    var promise = Servicios.anadirInsumo(vm.etapa);
                     promise.then(function (res){
                         vm.insumo=res;
                     }).then(function(res){
-                        vm.consultarInsumosEtapa();
+                        vm.consultarInsumosEtapa(vm.etapaActual);
                     })
                     console.log("insumos despues de agregarlo");
                     
@@ -276,7 +320,12 @@
 
                         console.log("voy a borrar");
                         console.log(vm.etapa.insumos[index]);
-                        vm.etapa.insumos.splice(index, 1);
+                        var promise = Servicios.eliminarInsumo(vm.insumo);
+                        promise.then(function (res){
+
+                        }).then(function(res){
+                            vm.consultarInsumosEtapa(vm.etapaActual);
+                        })
 
                     }
                     else {
