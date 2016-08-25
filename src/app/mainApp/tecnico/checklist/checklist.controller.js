@@ -9,16 +9,16 @@
         .module('app.mainApp.tecnico')
         .controller('checklistController', checklistController);
 
-    function checklistController(Cabinet, ModeloCabinet,toastr,Translate,Helper,Upload,SERVER,OAuthToken) {
+    function checklistController(Cabinet, ModeloCabinet,toastr,$scope,Translate,Helper,Upload,SERVER,OAuthToken,MarcaCabinet,EntradaSalida) {
         var vm = this;
         vm.diagnostico = {};
-
+        vm.cabinets=null;
         vm.status = 'idle';  // idle | uploading | complete
         vm.guardar = guardar;
         vm.searchCabinet = searchCabinet;
         vm.selectionFile=selectionFile;
         activate();
-        vm.diagnostico = {
+        var diagnostico = {
             tipo: null,
             rodajas: null,
             canastillas: null,
@@ -33,22 +33,27 @@
             foto: null,
             fecha:moment().format('YYYY-MM-DD'),
             tipo_insumo: null,
-            cabinet_entrada_salida: 4
+            cabinet_entrada_salida: null
         };
+        vm.diagnostico=angular.copy(diagnostico);
 
         function guardar() {
             vm.status = 'uploading';
             vm.diagnostico.foto=vm.picFile;
-            vm.diagnostico.tipo_insumo=vm.diagnostico.tipo_insumo==true?'cabinet':'bicicleta';
-            vm.diagnostico.tipo=vm.diagnostico.tipo==true?'salida':'entrada';
+            vm.diagnostico.tipo_insumo=vm.diagnostico.isCabinet==true?'cabinet':'bicicleta';
+            vm.diagnostico.tipo=vm.diagnostico.isSalida==true?'salida':'entrada';
             Upload.upload({
                 url: SERVER.URL+'diagnostico_cabinet',
                 headers: {'Authorization': OAuthToken.getAuthorizationHeader()},
                 method: 'POST',
                 data: vm.diagnostico
             }).then(function (res) {
-                vm.status = 'complete';
+                vm.status = 'idle';
+                vm.cabinet=null;
+                vm.picFile=null;
+                vm.statusReady=0;
                 toastr.success(vm.successCreateMessage, vm.successTitle);
+                vm.diagnostico=angular.copy(diagnostico);
             }, function (resp) {
                 vm.status = 'idle';
                 toastr.warning(vm.errorMessage, vm.errorTitle);
@@ -76,7 +81,8 @@
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
             vm.successCreateMessage = Translate.translate('MAIN.MSG.SUCCESS_TICKET_MESSAGE');
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
-            vm.notFoundMessage = Translate.translate('MAIN.MSG.NOT_FOUND  ');
+            vm.notFoundMessage = Translate.translate('MAIN.MSG.NOT_FOUND');
+            vm.notFoundInput=Translate.translate('MAIN.MSG.NOT_FOUND_INPUT');
             vm.errorTypeFile = Translate.translate('MAIN.MSG.ERORR_TYPE_FILE');
             vm.errorSize = Translate.translate('MAIN.MSG.FILE_SIZE');
         }
@@ -85,26 +91,39 @@
             Cabinet.get(vm.cabinet).then(function (res) {
                 ModeloCabinet.get(res.modelo).then(function (res) {
                     vm.cabinets=res;
+                    EntradaSalida.getLastEntradaByCabinet(vm.cabinet).then(function (res) {
+                        vm.statusReady=1;
+                        vm.diagnostico.cabinet_entrada_salida=res.id;
+                    }).catch(function (res) {
+
+                        if(res.status==404){
+                            vm.statusReady=0;//NO listo
+                            toastr.info(vm.notFoundInput, vm.errorTitle);
+                        }
+                    });
+                    MarcaCabinet.get(vm.cabinets.marca).then(function (res) {
+                        vm.marca=res.descripcion;
+                    }).catch(function (res) {
+                        notifyError(res.status);
+                    })
+
                 }).catch(function (res) {
-                    switch (res.status) {
-                        case 404:
-                            toastr.info(vm.notFoundMessage, vm.errorTitle);
-                            break;
-                        case 500:
-                            toastr.warning(vm.errorMessage, vm.errorTitle);
-                            break;
-                    }
+                    notifyError(res.status);
                 });
             }).catch(function (res) {
-                switch (res.status) {
-                    case 404:
-                        toastr.info(vm.notFoundMessage, vm.errorTitle);
-                        break;
-                    case 500:
-                        toastr.warning(vm.errorMessage, vm.errorTitle);
-                        break;
-                }
+                 notifyError(res.status);
             });
+        }
+
+        function notifyError(status) {
+            switch (status) {
+                case 404:
+                    toastr.info(vm.notFoundMessage, vm.errorTitle);
+                    break;
+                case 500:
+                    toastr.warning(vm.errorMessage, vm.errorTitle);
+                    break;
+            }
         }
 
 

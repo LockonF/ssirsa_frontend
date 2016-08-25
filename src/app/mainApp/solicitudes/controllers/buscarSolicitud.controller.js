@@ -6,7 +6,7 @@
         .module('app.mainApp.solicitudes')
         .controller('buscarSolicitudController',buscarSolicitudController);
 
-    function buscarSolicitudController($mdEditDialog,Solicitudes,Solicitudes_Admin,PersonaLocalService,udn,tipoEquipo){
+    function buscarSolicitudController($mdEditDialog,Solicitudes,Solicitudes_Admin,PersonaLocalService,udn,tipoEquipo,Solicitud_Servicio){
         var vm = this;
         vm.flag=0;
         vm.id=null;
@@ -63,9 +63,13 @@
         vm.mostrarRequisito=mostrarRequisito;
         vm.eliminarRequisito=eliminarRequisito;
         vm.buscarSolicitudes=buscarSolicitudes;
+        vm.buscarSolicitudesVentas=buscarSolicitudesVentas;
+        vm.busqueda=busqueda;
         vm.edit=edit;
+        vm.tipo_solicitud=null;
         vm.Requisitos = [];
         vm.solicitudes=null;
+        vm.solicitudesVentas=null;
         vm.isClient=true;
         activate();
         function activate(){
@@ -221,7 +225,23 @@
 
         }
 
+        function busqueda(){
+            if(vm.tipo_solicitud=='Envio'||vm.tipo_solicitud=='Recoleccion') {
+                //vm.solicitudesVentas=null;
+                buscarSolicitudes();
+                console.log("solicitudes");
+
+            }
+            else {
+                //vm.solicitudes = null;
+                buscarSolicitudesVentas();
+                console.log("solicitudesVentas");
+            }
+        }
+
         function buscarSolicitudes(){
+            console.log("vm.tipo_solicitud");
+            console.log(vm.tipo_solicitud);
             if(!vm.isClient){
                 Solicitudes_Admin.consultaEsp(vm.requisito).then(function (rest){
                     console.log("Soy admin");
@@ -243,6 +263,20 @@
                     console.log(error);
                 });
             }
+        }
+
+        function buscarSolicitudesVentas(){
+            console.log("vm.tipo_solicitud");
+            console.log(vm.tipo_solicitud);
+
+            Solicitud_Servicio.list().then(function (rest){
+                    vm.solicitudesVentas = rest;
+                    console.log("vm.solicitudesVentas = ");
+                    console.log(vm.solicitudesVentas);
+                }).catch(function(error){
+                    console.log(error);
+                })
+
         }
 
     }
