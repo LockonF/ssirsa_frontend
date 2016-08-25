@@ -13,7 +13,7 @@
 
     /* @ngInject */
     function Servicios($q, Restangular) {
-        var service = {
+        var service = { 
             crearEtapaServicio: crearEtapaServicio,
             editarEtapaServicio: editarEtapaServicio,
             eliminarEtapaServicio: eliminarEtapaServicio,
