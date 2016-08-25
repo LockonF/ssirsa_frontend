@@ -37,7 +37,6 @@
 
 
                     </div>
-                    <p>Pristine: {{searchCabinetForm.$pristine}}</p>
                 </form>
 
                 <div ng-if="vm.cabinets!=null && vm.statusReady==1">
@@ -198,8 +197,7 @@
                                 </div>
                             </div>
 
-                            <span class="md-subhead">Evidencia fotográfica
-                            <p>Pristine: {{registerForm.$pristine}}</p></span>
+                            <span class="md-subhead">Evidencia fotográfica</span>
                             <div layout="row" flex="flex">
                                 <div flex="20">
                                     <md-button ngf-select="vm.selectionFile($files)"

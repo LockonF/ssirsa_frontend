@@ -18,7 +18,7 @@
         vm.searchCabinet = searchCabinet;
         vm.selectionFile=selectionFile;
         activate();
-        vm.diagnostico = {
+        var diagnostico = {
             tipo: null,
             rodajas: null,
             canastillas: null,
@@ -33,8 +33,9 @@
             foto: null,
             fecha:moment().format('YYYY-MM-DD'),
             tipo_insumo: null,
-            cabinet_entrada_salida: 4
+            cabinet_entrada_salida: null
         };
+        vm.diagnostico=angular.copy(diagnostico);
 
         function guardar() {
             vm.status = 'uploading';
@@ -47,13 +48,14 @@
                 method: 'POST',
                 data: vm.diagnostico
             }).then(function (res) {
-                vm.status = 'complete';
-                //$scope.registerForm.$setPristine();
-                //$scope.searchCabinetForm.$setPristine();
+                vm.status = 'idle';
+                vm.cabinet=null;
+                vm.picFile=null;
+                vm.statusReady=0;
                 toastr.success(vm.successCreateMessage, vm.successTitle);
+                vm.diagnostico=angular.copy(diagnostico);
             }, function (resp) {
                 vm.status = 'idle';
-                console.log(resp);
                 toastr.warning(vm.errorMessage, vm.errorTitle);
             });
         }
