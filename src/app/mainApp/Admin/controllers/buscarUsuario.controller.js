@@ -9,6 +9,7 @@
     function buscarUsuarioController(Persona_Admin) {
         var vm = this;
         vm.flag = 0;
+        vm.personaErase=null;
         vm.id = null;
         vm.userName="";
         vm.FechaFin = new Date();
@@ -115,6 +116,7 @@
         vm.buscarUsuario = buscarUsuario;
         vm.mostrarUsuario = mostrarUsuario;
         vm.eliminarUsuario = eliminarUsuario;
+        vm.eliminarPersona = eliminarPersona;
         vm.edit=edit;
         vm.Usuarios = [];
 
@@ -226,7 +228,21 @@
                 })
         }
 
-
+        function eliminarPersona(object){
+            vm.personaErase=object;
+            console.log("personaErase");
+            console.log(vm.personaErase);
+            if(vm.personaErase!=null){
+                var promise = Persona_Admin.deleteData(vm.personaErase).then(function(rest){
+                    vm.personaErase = rest;
+                    console.log("PersonaBorrada");
+                    console.log(vm.personaErase);
+                })
+            }else{
+                console.log("-Error-");
+            }
+            console.log(promise);
+        }
 
         function editarUsuario(usuario) {
 

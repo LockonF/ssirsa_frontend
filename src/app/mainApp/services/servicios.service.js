@@ -207,7 +207,7 @@
                 defer.reject(err);
             })
         }
-    return service;
+        return service;
 
     }
 
