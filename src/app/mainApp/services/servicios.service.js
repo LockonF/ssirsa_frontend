@@ -147,10 +147,9 @@
 
             return deferred.promise;
         }
-        function consultarAllInsumosCabinetEtapa() {
+        function consultarAllInsumosCabinetEtapa(etapa) {
             var deferred = $q.defer();
-            //checar rutas :D
-            Restangular.all('etapa_servicio').one('insumos', etapa.id).customGET().then(function (res) {
+            Restangular.all('etapa_servicio').one('insumos', etapa.id).customGET(etapa.id).then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);
@@ -164,21 +163,27 @@
 
         function getEtapaValidable(idCabinet){
             var defer = $q.defer();
-            var diagnostico = getDiagnosticoFromCabinet(idCabinet);
-            Restangular.all("etapa_servicio").all("diagnostic").all("latest").one("can_validate",diagnostico.id).customGET().then(function(res){
-                defer.resolve(res);
+            getDiagnosticoFromCabinet(idCabinet).then(function(resp){
+                Restangular.all("etapa_servicio").all("diagnostic").all("latest").one("can_validate",resp.id).customGET().then(function(res){
+                    defer.resolve(res);
+                }).catch(function(err){
+                    defer.resolve(err);
+                })
+                return defer.promise;
             }).catch(function(err){
                 defer.resolve(err);
-            })
+            });
             return defer.promise;
+
         }
+
         function getDiagnosticoFromCabinet(idCabinet){
             var defer = $q.defer();
             Restangular.all("diagnostico").all("latest").one(idCabinet).customGET().then(function(res){
                 defer.resolve(res);
             }).catch(function(err){
                 defer.reject(err);
-            })
+            });
             //console.log(defer.promise);
             return defer.promise;
         }

@@ -12,7 +12,7 @@
         .module('app.mainApp.tecnico')
         .controller('validarEtapaController', validarEtapaController);
 
-    function validarEtapaController(Servicios) {
+    function validarEtapaController(Servicios,toastr) {
         var vm = this;
         vm.validate=validate;
         vm.lookup=lookup;
@@ -69,11 +69,33 @@
 
 
         function validate(){
-            Servicios.editarEtapaServicio(vm.etapa);
+            vm.etapa.validado=true;
+            Servicios.editarEtapaServicio(vm.etapa).then(function(res){
+                toastr.success('Etapa validada correctamente','Éxito')
+            }).catch(function(err){
+                toastr.error('Error al validar la etapa','Error')
+            });
         }
         
         function lookup(){
-            Servicios.getEtapaValidable(vm.idCabinet);
+            Servicios.getEtapaValidable(vm.idCabinet).then(function(res){
+                vm.etapa=res;
+                console.log(res);
+            }).catch(function(err){
+                switch (err.status){
+                    case 404:
+                        toastr.error('No puede validar la ultima etapa de este cabinet','Error')
+                        break;
+                        toastr.error(err.message,'Error');
+                }
+            });
+
+            Servicios.consultarAllInsumosCabinetEtapa(vm.etapa).then(function(res){
+                vm.insumo=res;
+                console.log(res);
+            }).catch(function(err){
+                
+            });
         }
 
 
