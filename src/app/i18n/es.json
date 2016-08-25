@@ -10,7 +10,8 @@
             "SUCCESS_TAKE": "El ticket se auto asignó  exitosamente",
             "FILE_SIZE": "Solo se pueden subir un archivo con un peso máximo de 1MB",
             "SUCCESS_DELETE_FOLLOWER": "Se eliminó el seguidor de manera exitosa",
-            "NOT_FOUND": "No se encontró el elemento que se buscaba"
+            "NOT_FOUND": "No se encontró el elemento que se buscaba",
+            "NOT_FOUND_INPUT": "No se puede realizar el diagnostico por que el cabinet no cuenta con una Entrada"
         }
     }
 }
