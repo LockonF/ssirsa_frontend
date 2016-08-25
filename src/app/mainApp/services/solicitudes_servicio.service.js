@@ -6,9 +6,9 @@
 
     angular
         .module('app.mainApp')
-        .factory('Solicitudes',Solicitudes);
+        .factory('Solicitud_Servicio',Solicitud_Servicio);
 
-    function Solicitudes($q, Restangular){
+    function Solicitud_Servicio($q, Restangular){
         return{
             create:create,
             list:list,
@@ -17,25 +17,21 @@
 
         function create(object){
             //Forma canonica
-            var deferred=$q.defer();//Genera la promesa
-            //RestAngular
-            //all solo agrega una /
-
-            Restangular.all('solicitud').customPOST(object).then(function(rest){
+            var deferred=$q.defer();
+            Restangular.all('solicitud_servicio').customPOST(object).then(function(rest){
                 deferred.resolve(rest);
             }).catch(function(error){
                 deferred.reject(error);
             });
-            //Restangular.all('solicitud').customPOST(object) - Es una promesa
             return deferred.promise;
         }
 
         function list(){
-            return Restangular.all('solicitud').customGET();
+            return Restangular.all('solicitud_servicio').customGET();
         }
 
         function modify(object){
-            return Restangular.one('solicitud',object.id).customPUT(object).then(function(resp){
+            return Restangular.one('solicitud_servicio',object.id).customPUT(object).then(function(resp){
                 console.log(resp);
                 return resp;
 

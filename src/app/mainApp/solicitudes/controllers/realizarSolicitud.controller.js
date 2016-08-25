@@ -6,12 +6,13 @@
         .module('app.mainApp.solicitudes')
         .controller('realizarSolicitudController',realizarSolicitudController);
 
-    function realizarSolicitudController(udn,tipoEquipo,$mdDialog,$mdEditDialog,toastr,Solicitudes,PersonaLocalService){
+    function realizarSolicitudController(udn,tipoEquipo,$mdDialog,$mdEditDialog,toastr,Solicitudes,PersonaLocalService,Solicitud_Servicio){
         var vm = this;
         /*vm.selectedDate = moment().startOf('day').format();
         $mdDateLocaleProvider.formatDate = function(date) {
             return moment(date).format('DD/MM/YYYY');
         };*/
+        vm.udn=null;
         vm.id=0;
         vm.requisito = {
             "id":null,
@@ -30,18 +31,44 @@
             "udn":null,
             "fecha_inicio":new Date(),
             "fecha_termino":new Date(),
+            "fecha_atendida":new Date(),
             "descripcion":null,
             "tipo_solicitud": null,
             "status": null,
             "comentario": null,
             "datos":[]
         };
+        vm.requisitoVenta = {
+            "id":null,
+            "razon_social": null,
+            "nombre_negocio": null,
+            "direccion": null,
+            "telefono": null,
+            "contacto_negocio": null,
+            "fecha_atencion":new Date(),
+            "udn":null,
+            "created_at":new Date(),
+            "updated_at":new Date()
+        };
+        vm.requisitoVenta_vacio = {
+            "id":null,
+            "razon_social": null,
+            "nombre_negocio": null,
+            "direccion": null,
+            "telefono": null,
+            "contacto_negocio": null,
+            "fecha_atencion":new Date(),
+            "udn":null,
+            "created_at":new Date(),
+            "updated_at":new Date()
+        }
         vm.crearRequisito=crearRequisito;
         vm.eliminarRequisito=eliminarRequisito;
         vm.showCreateDialog=showCreateDialog;
         vm.edit=edit;
         vm.eliminarDato=eliminarDato;
         vm.guardarSolicitud=guardarSolicitud;
+        vm.guardarSolicitudVenta=guardarSolicitudVenta;
         vm.Requisitos = [];
         vm.udns=null;
         vm.tiposEquipo=null;
@@ -166,9 +193,30 @@
         function guardarSolicitud(){
             vm.requisito.fecha_inicio=moment(vm.requisito.fecha_inicio).format('YYYY-MM-DD');
             vm.requisito.fecha_termino=moment(vm.requisito.fecha_termino).format('YYYY-MM-DD');
+            vm.requisito.fecha_atendida=moment(vm.requisito.fecha_atendida).format('YYYY-MM-DD');
+            vm.requisito.udn=vm.udn;
             Solicitudes.create(vm.requisito).then(function(resp){
                 vm.requisito= _.clone(vm.requisito_vacio);
+                vm.udn=null;
                 toastr.success('exito al guardar','exito');
+                console.log(vm.udn);
+            }).catch(function(err){
+                toastr.error('error al guardar','error');
+                console.log(err);
+            })
+        }
+
+        function guardarSolicitudVenta(){
+            vm.requisitoVenta.fecha_atencion=moment(vm.requisitoVenta.fecha_atencion).format('YYYY-MM-DD');
+            vm.requisitoVenta.created_at=moment(vm.requisitoVenta.created_at).format('YYYY-MM-DD');
+            vm.requisitoVenta.updated_at=moment(vm.requisitoVenta.updated_at).format('YYYY-MM-DD');
+            vm.requisitoVenta.udn=vm.udn;
+            console.log(vm.requisitoVenta);
+            Solicitud_Servicio.create(vm.requisitoVenta).then(function(resp){
+                vm.requisitoVenta= _.clone(vm.requisitoVenta_vacio);
+                vm.udn=null;
+                toastr.success('exito al guardar','exito');
+                console.log(vm.udn);
             }).catch(function(err){
                 toastr.error('error al guardar','error');
                 console.log(err);

@@ -12,7 +12,8 @@
         return{
             create:create,
             list:list,
-            modify:modify
+            modify:modify,
+            deleteData:deleteData
         };
 
         function create(object){
@@ -41,6 +42,15 @@
 
             }).catch(function(err){
                 console.log(err);
+            })
+        }
+
+        function deleteData(object){
+            return Restangular.one("persona_admin",object.id).customDELETE().then(function(resp){
+                console.log(resp);
+                return resp;
+            }).catch(function(error){
+                console.log(error);
             })
         }
 
