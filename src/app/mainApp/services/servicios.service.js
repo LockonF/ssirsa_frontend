@@ -26,7 +26,9 @@
             consultarAllInsumosCabinetEtapa:consultarAllInsumosCabinetEtapa,
             getEtapaValidable:getEtapaValidable,
             getDiagnosticoFromCabinet:getDiagnosticoFromCabinet,
-            añadirInsumo:añadirInsumo;
+            anadirInsumo:anadirInsumo,
+            modificarInsumo:modificarInsumo,
+            eliminarInsumo:eliminarInsumo
         };
 
 
@@ -136,7 +138,7 @@
         function consultarInsumosEtapa(etapa) {
             var deferred = $q.defer();
             //checar rutas :D
-            Restangular.one('Insumos', etapa.NoEtapa).customGET(etapa).then(function (res) {
+            Restangular.one('Insumos', etapa.actual_etapa).customGET(etapa).then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);
@@ -172,7 +174,7 @@
         }
         function getDiagnosticoFromCabinet(idCabinet){
             var defer = $q.defer();
-            Restangular.all("diagnostico").one("latest",idCabinet).customGET().then(function(res){
+            Restangular.all("diagnostico").all("latest").one(idCabinet).customGET().then(function(res){
                 defer.resolve(res);
             }).catch(function(err){
                 defer.reject(err);
@@ -181,17 +183,25 @@
             return defer.promise;
         }
 
-        function añadirInsumo(etapa){
+        function anadirInsumo(insumo){
             var defer =$q.defer();
-            Restangular.all("insumo").one("zone",etapa.id).customPOST(etapa).then(function(res){
+            Restangular.all("insumo_usado").customPOST(insumo).then(function(res){
                 defer.resolve(res);
             }).catch(function(err){
                 defer.reject(err);
             })
         }
-        function modificarInsumo(etapa){
+        function modificarInsumo(insumo){
             var defer =$q.defer();
-            Restangular.all("insumo").one("zone",etapa.id).customPOST(etapa).then(function(res){
+            Restangular.all("insumo_usado").one("",insumo.id).customPUT(insumo).then(function(res){
+                defer.resolve(res);
+            }).catch(function(err){
+                defer.reject(err);
+            })
+        }
+        function eliminarInsumo(insumo){
+            var defer =$q.defer();
+            Restangular.all("insumo_usado").one("",insumo.id).customDELETE().then(function(res){
                 defer.resolve(res);
             }).catch(function(err){
                 defer.reject(err);
