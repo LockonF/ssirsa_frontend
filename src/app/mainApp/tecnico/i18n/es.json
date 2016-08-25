@@ -6,6 +6,12 @@
             "MANAGEMENT_USER": "Administración de Usuarios"
         }
     },
+    "TECNICO":{
+        "FORM":{
+            "LABEL":{
+                "SEARCH":"Búsqueda de Cabinet"
+            }
+        }
+    }
 
-    "String":"Cadena"
 }
