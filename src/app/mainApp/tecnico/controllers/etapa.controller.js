@@ -9,7 +9,7 @@
         .module('app.mainApp.tecnico')
         .controller('etapaController', etapaController);
 
-    function etapaController($mdDialog, Servicios, Diagnostico, Translate) {
+    function etapaController( Servicios, Diagnostico, Translate ) {
         var vm = this;
         vm.activate = activate();
 
@@ -22,10 +22,11 @@
             siguiente_etapa: ''
 
         };
-        vm.etapaActual = null;
+        vm.etapaActual = null;//Objeto donde se almacenara la informacion de la etapa actual
+        vm.etapaInsumo=null; //Objeto donde se almacena la etapa sobre la cual se esta trabajando
         vm.idCabinet = null;
         vm.insumos = [];//Arreglo que poseera los Insumos que pueden ser usados en cierta etapa
-        vm.insumosEtapaCabinet = [];//Arreglo de Insumos que posee el cabinet en diche etapa
+        vm.insumosEtapaCabinet = null;//Arreglo de Insumos que posee el cabinet en diche etapa
         vm.cabinet;// Informacion general del cabinet al cual se le asignara una nueva etapa
         vm.diagnostico; // Informacion del diagnostico que propicio que entrara a un proceso de servicio tecnico
         vm.insumo = {
@@ -64,17 +65,15 @@
         vm.crearInsumo = crearInsumo;
         vm.eliminarInsumo = eliminarInsumo;
         vm.crearEtapaServicio = crearEtapaServicio; //Crea una nueva etapa de servicio (Listo)
-        vm.obtenerEtapaActual = obtenerEtapaActual;
         vm.cancel = cancel;//Limpiar campos (Listo)
         vm.buscar = buscar;//Buscar Cabinet (Listo)
         vm.eliminarEtapaServicio = eliminarEtapaServicio;//Listo
         vm.obtenerEtapaActual = obtenerEtapaActual;
         vm.buscarEtapaServicio = buscarEtapaServicio;//Listo
-        vm.getInsumos = getInsumos;
-        vm.consultarInsumosEtapa = consultarInsumosEtapa;
-        vm.obtenerInformacionCabinet = obtenerInformacionCabinet;
-        vm.obteneretapaValidada = obteneretapaValidada;
-        vm.obtenerEtapaActual = obtenerEtapaActual;
+        vm.getInsumos = getInsumos;//Listo
+        vm.consultarInsumosEtapa = consultarInsumosEtapa;//Listo
+        vm.obtenerInformacionCabinet = obtenerInformacionCabinet;//Listo
+        vm.obtenerEtapaActual = obtenerEtapaActual;//Listo
 
 
         // Funciones
@@ -96,10 +95,53 @@
 
 
         }
+        function consultarInsumosEtapa(){
+            if (vm.etapaActual!=null){
+                var promise = Servicios.consultarAllInsumosCabinetEtapa();
+                promise.then(function(res){
+                    vm.insumosEtapaCabinet=res;
+                    console.log(vm.insumosEtapaCabinet);
 
+                })
+            }
+            else{
+                console.log("No pude consultar los Insumos por etapa");
+            }
+        }
+        function obtenerInformacionCabinet(){
 
+        }
         function obtenerEtapaActual() {
+            if (vm.etapaInsumo == null && vm.diagnostico!=null) {
+                var promise = Servicios.verEtapaValidada();
+                promise.then(function (res) {
+                    vm.etapaActual = res;
+                    vm.etapaInsumo=etapaActual.siguiente_etapa;
 
+                }).catch(function (err) {
+                    console.log(err);
+                    var promise = Servicios.verEtapaNoValidada();
+                    promise.then(function(res){
+                        vm.etapaActual=res;
+                        vm.etapaInsumo=etapaActual.actual_etapa;
+                    }).catch(function (err){
+                        console.log(err);
+                        vm.etapaInsumo="E1"
+                    })
+                });
+            }
+            else {
+                console.log("Error al obtener etapa actual");
+            }
+        }
+
+        function getInsumos(){
+            if(vm.etapaInsumo!=null){
+                var promise = Servicios.consultarInsumosEtapa();
+                promise.then(function(res){
+                    vm.insumos=res;
+                })
+            }
 
         }
 
@@ -127,7 +169,7 @@
                 });
             }
             else {
-                toastr.error("Cabinet no Encontrado", "Error: El cabinet que usted esta buscando no se encuentra registrado.");
+                console.log("Cabinet no Encontrado", "Error: El cabinet que usted esta buscando no se encuentra registrado.");
             }
         }
 
@@ -139,7 +181,7 @@
                 });
             }
             else {
-                toastr.error("Cabinet no Encontrado", "Error: El cabinet que usted esta buscando no se encuentra registrado.");
+                console.log("Cabinet no Encontrado", "Error: El cabinet que usted esta buscando no se encuentra registrado.");
             }
         }
 
@@ -151,7 +193,7 @@
                 });
             }
             else {
-                toastr.error("No Es posible eliminar", "El registro que usted pretende afectar no puede ser eliminado");
+                console.log("No Es posible eliminar", "El registro que usted pretende afectar no puede ser eliminado");
             }
         }
 
@@ -164,25 +206,22 @@
                     vm.etapaActual = res;
 
                 }).catch(function (err) {
-                    toastr.error(vm.failureText, vm.failureStoreText);
+                    console.log(vm.failureText, vm.failureStoreText);
                 });
             }
             else {
                 var promise = Servicios.editarEtapaServicio(vm.etapa);
                 promise.then(function (res) {
-                    toastr.success(vm.successText, vm.successUpdateText);
+                    console.log(vm.successText, vm.successUpdateText);
                     vm.etapaActual = res;
                 }).catch(function (err) {
-                    toastr.error(vm.failureText, vm.failureStoreText);
+                    console.log(vm.failureText, vm.failureStoreText);
                 });
 
             }
+        }
 
-            //Funcion conocer etapa
-            function obtenerEtapaActual() {
-                
 
-            }
 
 
             function crearInsumo() {
@@ -235,7 +274,7 @@
             }
 
 
-        }
+
     }
 
 })();
