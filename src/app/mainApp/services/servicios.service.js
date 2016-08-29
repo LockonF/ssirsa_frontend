@@ -13,7 +13,7 @@
 
     /* @ngInject */
     function Servicios($q, Restangular) {
-        var service = { 
+        var service = {
             crearEtapaServicio: crearEtapaServicio,
             editarEtapaServicio: editarEtapaServicio,
             eliminarEtapaServicio: eliminarEtapaServicio,
@@ -168,7 +168,7 @@
                     defer.resolve(res);
                 }).catch(function(err){
                     defer.resolve(err);
-                })
+                });
                 return defer.promise;
             }).catch(function(err){
                 defer.resolve(err);

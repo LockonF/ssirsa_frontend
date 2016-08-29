@@ -9,7 +9,7 @@
         .module('app.mainApp.tecnico')
         .controller('checklistController', checklistController);
 
-    function checklistController(Cabinet, ModeloCabinet,toastr,$scope,Translate,Helper,Upload,SERVER,OAuthToken,MarcaCabinet,EntradaSalida) {
+    function checklistController(Cabinet, ModeloCabinet,toastr,Translate,Helper,Upload,EnvironmentConfig,OAuthToken,MarcaCabinet,EntradaSalida) {
         var vm = this;
         vm.diagnostico = {};
         vm.cabinets=null;
@@ -43,7 +43,7 @@
             vm.diagnostico.tipo_insumo=vm.diagnostico.isCabinet==true?'cabinet':'bicicleta';
             vm.diagnostico.tipo=vm.diagnostico.isSalida==true?'salida':'entrada';
             Upload.upload({
-                url: SERVER.URL+'diagnostico_cabinet',
+                url: EnvironmentConfig.site.rest.api+'diagnostico_cabinet',
                 headers: {'Authorization': OAuthToken.getAuthorizationHeader()},
                 method: 'POST',
                 data: vm.diagnostico

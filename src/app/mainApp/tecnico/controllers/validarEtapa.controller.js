@@ -73,10 +73,11 @@
             Servicios.editarEtapaServicio(vm.etapa).then(function(res){
                 toastr.success('Etapa validada correctamente','Éxito')
             }).catch(function(err){
+                console.log(err);
                 toastr.error('Error al validar la etapa','Error')
             });
         }
-        
+
         function lookup(){
             Servicios.getEtapaValidable(vm.idCabinet).then(function(res){
                 vm.etapa=res;
@@ -94,7 +95,7 @@
                 vm.insumo=res;
                 console.log(res);
             }).catch(function(err){
-                
+
             });
         }
 
