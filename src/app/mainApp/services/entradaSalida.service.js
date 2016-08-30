@@ -25,12 +25,13 @@
         function postEntrada(data){
             var defer= $q.defer();
 
-            Restangular.all('entrada_salida').customPOST(data).then(function(res){
+            Restangular.all('entrada_salida').withHttpConfig({transformRequest: angular.identity}).customPOST(data,"",{},{'Content-type':undefined}).then(function(res){
                 defer.resolve(res);
                 toastr.success('Entrada registrada correctamente','Éxito');
             }).catch(function(err){
                 defer.resolve(err);
                 toastr.error('Error al registrar entrada', 'Error');
+                console.log(err);
             });
             return defer.promise;
         }

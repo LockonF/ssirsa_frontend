@@ -85,6 +85,8 @@
 
         //Functions
         function guardar() {
+
+            var fr = new FileReader();
             vm.status = 'uploading';
 
             vm.entrada.fecha = getToday();
@@ -95,8 +97,31 @@
             vm.entrada.udn=vm.selectedUdn;
 
             vm.entrada.ife_chofer=vm.picFile;
-            console.log(vm.entrada);
 
+
+            var fd = new FormData();
+            fd.append('accion','entrada');
+            fd.append('cabinets',vm.cabinetes);
+            fd.append('fecha',vm.entrada.fecha);
+            fd.append('pedimento',vm.entrada.pedimento);
+            fd.append('nombre_chofer',vm.entrada.nombre_chofer);
+            fd.append('linea_transporte',vm.entrada.linea_transporte);
+            fd.append('proyecto',vm.entrada.proyecto);
+            fd.append('sucursal',vm.entrada.sucursal);
+            fd.append('tipo_transporte',vm.entrada.tipo_transporte);
+            fd.append('udn',vm.entrada.udn);
+            fd.append('ife_chofer',vm.entrada.ife_chofer);
+
+            console.log(vm.entrada.ife_chofer);
+            EntradaSalida.postEntrada(fd).then(function (res) {
+
+            }).catch(function (err) {
+
+            });
+
+
+            console.log(vm.entrada);
+            /*
             Upload.upload({
                 url: EnvironmentConfig.site.rest.api+'entrada_salida',
                 headers: {'Authorization': OAuthToken.getAuthorizationHeader()},
@@ -113,7 +138,7 @@
                 vm.status = 'idle';
                 console.log(resp);
                 //toastr.warning(vm.errorMessage, vm.errorTitle);
-            });
+            });*/
 
         }
         function selectionFile($files) {
