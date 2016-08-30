@@ -90,10 +90,10 @@
         }
 
         //cabinet/id
-        function cabinetExist(){
+        function cabinetExist(id){
             var defer=$q.defer();
 
-            Restangular.all('udn').customGET().then(function(res){
+            Restangular.one('cabinet',id).customGET().then(function(res){
                 defer.resolve(res);
             }).catch(function(err){
                 defer.resolve(err);
