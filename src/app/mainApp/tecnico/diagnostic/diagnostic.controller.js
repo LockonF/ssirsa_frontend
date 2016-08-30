@@ -7,9 +7,9 @@
 
     angular
         .module('app.mainApp.tecnico')
-        .controller('checklistController', checklistController);
+        .controller('diagnosticController', diagnosticController);
 
-    function checklistController(Cabinet, ModeloCabinet,toastr,Translate,Helper,Upload,EnvironmentConfig,OAuthToken,MarcaCabinet,EntradaSalida) {
+    function diagnosticController(Cabinet, ModeloCabinet,toastr,Translate,Helper,Upload,EnvironmentConfig,OAuthToken,MarcaCabinet,EntradaSalida) {
         var vm = this;
         vm.diagnostico = {};
         vm.cabinets=null;
@@ -18,7 +18,33 @@
         vm.searchCabinet = searchCabinet;
         vm.selectionFile=selectionFile;
         activate();
-        var diagnostico = {
+        vm.statu = [
+            {
+                id:0,
+                value:"Reparacion Mayor"
+            },
+            {
+                id:1,
+                value:"Sistema Tapado"
+            },
+            {
+                id:2,
+                value:"Reparacion Media"
+            },
+            {
+                id:3,
+                value:"Reparacion Menor"
+            },
+            {
+                id:4,
+                value:"Fuga Interna"
+            },
+            {
+                id:5,
+                value:"Obsoleto"
+            }
+        ];
+         /*var diagnosico = {
             tipo: 'entrada',
             rodajas: null,
             canastillas: null,
@@ -34,31 +60,41 @@
             tipo_insumo: 'bicicleta',
             cabinet_entrada_salida: null
         };
-        vm.diagnostico=angular.copy(diagnostico);
+        vm.diagnostico=angular.copy(diagnostico);*/
 
         function guardar() {
             vm.status = 'uploading';
-            if(vm.picFile!=null) {
-                vm.diagnostico.foto = vm.picFile;
+            if(vm.cabinetStatus!=4 || vm.cabinetStatus!=5){
+                vm.picFile=null;
             }
-            vm.diagnostico.tipo_insumo=vm.diagnostico.isCabinet==true?'cabinet':'bicicleta';
-            vm.diagnostico.tipo=vm.diagnostico.isSalida==true?'salida':'entrada';
-            console.log(vm.diagnostico);
+            if(vm.picFile!=null) {
+                vm.cabinets.foto = vm.picFile;
+            }else{
+                delete vm.cabinets.foto;
+            }
+
+            if(!vm.cabinets.capitalizado){
+                vm.cabinets.status="N/A";
+            }else{
+                vm.cabinets.status=vm.statu[vm.cabinetStatus].value;
+            }
+            console.log(vm.cabinets);
+
+
             Upload.upload({
-                url: EnvironmentConfig.site.rest.api+'diagnostico_cabinet',
+                url: EnvironmentConfig.site.rest.api+'cabinet/'+vm.cabinet,
                 headers: {'Authorization': OAuthToken.getAuthorizationHeader()},
-                method: 'POST',
-                data: vm.diagnostico
+                method: 'PUT',
+                data: vm.cabinets
             }).then(function (res) {
                 vm.status = 'idle';
                 vm.cabinet=null;
+                vm.cabinets=null;
                 vm.picFile=null;
-                vm.statusReady=0;
                 toastr.success(vm.successCreateMessage, vm.successTitle);
-                vm.diagnostico=angular.copy(diagnostico);
+                vm.diagnostico=null;
             }, function (resp) {
-                vm.status = 'idle';
-                console.log(resp);
+                vm.status = 'idle'; 
                 toastr.warning(vm.errorMessage, vm.errorTitle);
             });
         }
@@ -82,7 +118,7 @@
         function activate() {
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
-            vm.successCreateMessage = Translate.translate('MAIN.MSG.SUCCESS_TICKET_MESSAGE');
+            vm.successCreateMessage = Translate.translate('MAIN.MSG.SUCCESS_DIAGNOSTIC_MESSAGE');
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
             vm.notFoundMessage = Translate.translate('MAIN.MSG.NOT_FOUND');
             vm.notFoundInput=Translate.translate('MAIN.MSG.NOT_FOUND_INPUT');
@@ -92,29 +128,10 @@
 
         function searchCabinet() {
             Cabinet.get(vm.cabinet).then(function (res) {
-                ModeloCabinet.get(res.modelo).then(function (res) {
-                    vm.cabinets=res;
-                    EntradaSalida.getLastEntradaByCabinet(vm.cabinet).then(function (res) {
-                        vm.statusReady=1;
-                        vm.diagnostico.cabinet_entrada_salida=res.id;
-                    }).catch(function (res) {
+                vm.cabinets=res;
 
-                        if(res.status==404){
-                            vm.statusReady=0;//NO listo
-                            toastr.info(vm.notFoundInput, vm.errorTitle);
-                        }
-                    });
-                    MarcaCabinet.get(vm.cabinets.marca).then(function (res) {
-                        vm.marca=res.descripcion;
-                    }).catch(function (res) {
-                        notifyError(res.status);
-                    })
-
-                }).catch(function (res) {
-                    notifyError(res.status);
-                });
             }).catch(function (res) {
-                 notifyError(res.status);
+                notifyError(res.status);
             });
         }
 

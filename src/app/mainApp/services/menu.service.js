@@ -119,8 +119,12 @@
                             type: 'link'
                         },
                         {
-                            name: 'Checklist',
+                            name: 'Pre-Checklist',
                             state: 'triangular.admin-default.checklist',
+                            type: 'link'
+                        },{
+                            name: 'Diagnostico',
+                            state: 'triangular.admin-default.diagnostic',
                             type: 'link'
                         },
                         {
@@ -160,7 +164,7 @@
                     ]
                 }
 
-            ]
+            ];
 
             //triMenu.menu.unshift(adminMenu);
             triMenu.menu=adminMenu;
@@ -200,7 +204,7 @@
                         }
                     ]
                 }
-            ]
+            ];
 
             triMenu.menu=capturistaMenu;
         }
@@ -240,7 +244,7 @@
                     ]
                 }
 
-            ]
+            ];
 
             //triMenu.menu.unshift(adminMenu);
             triMenu.menu=clienteMenu;
@@ -283,15 +287,19 @@
                             type: 'link'
                         },
                         {
-                            name: 'Checklist',
+                            name: 'Pre-Checklist',
                             state: 'triangular.admin-default.checklist',
+                            type: 'link'
+                        },{
+                            name: 'Diagnostico',
+                            state: 'triangular.admin-default.diagnostic',
                             type: 'link'
                         },
                         {
                             name: 'Asignación de Linea',
                             state: 'triangular.admin-default.asignacionLinea',
                             type: 'link'
-                        },
+                        }
                     ]
                 }
 

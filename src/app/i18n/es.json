@@ -4,14 +4,15 @@
             "SUCCESS_TITLE": "Éxito",
             "ERROR_TITLE": "Ooops",
             "ERROR_MESSAGE": "Ha ocurrido un error, por favor intente de nuevo más tarde",
-            "SUCCESS_TICKET_MESSAGE": "Se creó exitosamente el ticket",
+            "SUCCESS_TICKET_MESSAGE": "Se creó exitosamente el pre-checklist",
+            "SUCCESS_DIAGNOSTIC_MESSAGE": "Se creó exitosamente el diagnóstico",
             "SUCCESS_TICKET_MESSAGES": "Se creó exitosamente el mensaje",
             "ERORR_TYPE_FILE": "No se permiten este tipo de archivo",
             "SUCCESS_TAKE": "El ticket se auto asignó  exitosamente",
             "FILE_SIZE": "Solo se pueden subir un archivo con un peso máximo de 1MB",
             "SUCCESS_DELETE_FOLLOWER": "Se eliminó el seguidor de manera exitosa",
             "NOT_FOUND": "No se encontró el elemento que se buscaba",
-            "NOT_FOUND_INPUT": "No se puede realizar el diagnostico por que el cabinet no cuenta con una Entrada"
+            "NOT_FOUND_INPUT": "No se puede realizar el pre-checklist por que el cabinet no cuenta con una Entrada"
         }
     }
 }
