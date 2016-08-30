@@ -22,7 +22,14 @@
                 "WASHED":"Lavado",
                 "STRETCH_WRAP":"Emplayado",
                 "READY_MARKET":"Listo para mercado",
-                "LUBRICATION":"Lubricación"
+                "LUBRICATION":"Lubricación",
+                "ECONOMIC":"Económico",
+                "SERIE":"No serie",
+                "TYPE_INPUT":"Tipo de Entrada",
+                "YEAR":"Año",
+                "NO_INCIDENTS":"No. de incidencias",
+                "STATUS":"Estado"
+
             },
             "SUBHEAD":{
                 "PIECES":"Número de Piezas",
