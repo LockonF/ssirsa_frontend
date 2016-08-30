@@ -119,7 +119,7 @@
                             type: 'link'
                         },
                         {
-                            name: 'Checklist',
+                            name: 'Pre-Checklist',
                             state: 'triangular.admin-default.checklist',
                             type: 'link'
                         },
@@ -283,7 +283,7 @@
                             type: 'link'
                         },
                         {
-                            name: 'Checklist',
+                            name: 'Pre-Checklist',
                             state: 'triangular.admin-default.checklist',
                             type: 'link'
                         },

@@ -19,7 +19,7 @@
         vm.selectionFile=selectionFile;
         activate();
         var diagnostico = {
-            tipo: null,
+            tipo: 'entrada',
             rodajas: null,
             canastillas: null,
             puertas: null,
@@ -30,18 +30,20 @@
             emplayado: false,
             lubricacion: false,
             listo_mercado: false,
-            foto: null,
             fecha:moment().format('YYYY-MM-DD'),
-            tipo_insumo: null,
+            tipo_insumo: 'bicicleta',
             cabinet_entrada_salida: null
         };
         vm.diagnostico=angular.copy(diagnostico);
 
         function guardar() {
             vm.status = 'uploading';
-            vm.diagnostico.foto=vm.picFile;
+            if(vm.picFile!=null) {
+                vm.diagnostico.foto = vm.picFile;
+            }
             vm.diagnostico.tipo_insumo=vm.diagnostico.isCabinet==true?'cabinet':'bicicleta';
             vm.diagnostico.tipo=vm.diagnostico.isSalida==true?'salida':'entrada';
+            console.log(vm.diagnostico);
             Upload.upload({
                 url: EnvironmentConfig.site.rest.api+'diagnostico_cabinet',
                 headers: {'Authorization': OAuthToken.getAuthorizationHeader()},
@@ -56,6 +58,7 @@
                 vm.diagnostico=angular.copy(diagnostico);
             }, function (resp) {
                 vm.status = 'idle';
+                console.log(resp);
                 toastr.warning(vm.errorMessage, vm.errorTitle);
             });
         }

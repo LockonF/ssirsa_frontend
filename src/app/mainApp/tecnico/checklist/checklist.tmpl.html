@@ -11,7 +11,7 @@
                     <div flex="100" layout="row">
 
                         <md-input-container flex="80">
-                            <label>Id Cabinet</label>
+                            <label>{{'TECNICO.FORM.LABEL.ID_CABINET'|translate}}</label>
                             <input ng-model="vm.cabinet" required minlength="0">
                             <!--<md-autocomplete
                                     class="md-padding card1"
@@ -42,13 +42,13 @@
                 <div ng-if="vm.cabinets!=null && vm.statusReady==1">
                     <div layout="row">
                         <div flex="50">
-                            <h2>Marca</h2>
+                            <h2>{{'TECNICO.FORM.LABEL.MARCA'|translate}}</h2>
                             <div layout="row">
                                 <span>{{vm.marca}}</span>
                             </div>
                         </div>
                         <div flex="50">
-                            <h2>Descripción</h2>
+                            <h2>{{'TECNICO.FORM.LABEL.DESCRIPTION'|translate}}</h2>
                             <div layout="row">
                                 <span>{{vm.cabinets.descripcion}}</span>
                             </div>
@@ -58,6 +58,7 @@
                         <div flex="50">
                             <md-input-container>
                                 <md-switch class="md-primary" ng-model="vm.diagnostico.isSalida"
+
                                            aria-label="Primary Switch"
                                            ng-init="switches.primary = true">
                                     Salida
@@ -77,27 +78,6 @@
 
             </md-card-content>
         </md-card>
-        <!--<md-card class="md-padding card1" flex>
-            <div ng-if="vm.cabinets!=null && vm.status==1">
-                <div flex="100" layout="row">
-                    <p>{{vm.cabinets.marca}}</p>
-                    <p>{{vm.cabinets.descripcion}}</p>
-                </div>
-                <div flex="100" layout="row">
-                    <md-input-container flex>
-                        <md-switch class="md-primary" ng-model="vm.diagnostico.tipo" aria-label="Primary Switch"
-                                   ng-init="switches.primary = true">
-                            Salida
-                        </md-switch>
-                    </md-input-container>
-                    <md-input-container flex>
-                        <md-switch class="md-primary" ng-model="vm.diagnostico.tipo_insumo" aria-label="Es un Cabinet">
-                            Cabinet
-                        </md-switch>
-                    </md-input-container>
-                </div>
-            </div>
-        </md-card>-->
     </div>
 
 
@@ -110,36 +90,41 @@
                 <md-card-content>
                     <div layout="row">
                         <div flex="30" class="md-padding">
-                            <span class="md-subhead">Número de Piezas</span>
+                            <span class="md-subhead">{{'TECNICO.FORM.SUBHEAD.PIECES'|translate}}</span>
                             <div layout="column">
                                 <md-input-container>
-                                    <label>No. de Rodajas</label>
-                                    <input type="text" required='required' name="rodajas" ng-model="vm.diagnostico.rodajas"
-                                           only-digits/>
+                                    <label>{{'TECNICO.FORM.LABEL.SLICED'|translate}}</label>
+                                    <input type="number" required='required' name="rodajas"
+                                           ng-model="vm.diagnostico.rodajas"
+                                           ng-minlength="1" ng-maxlength="1" min="1" max="6"
+                                           />
                                     <div ng-messages="registerForm.rodajas.$error">
                                         <div ng-message='required'>Campo requerido</div>
                                     </div>
                                 </md-input-container>
                                 <md-input-container>
-                                    <label>No. de Canastillas</label>
-                                    <input type="text" required='required' name="canastillas" ng-model="vm.diagnostico.canastillas"
-                                           only-digits/>
+                                    <label>{{'TECNICO.FORM.LABEL.LAYETTES'|translate}}</label>
+                                    <input type="number" required='required' name="canastillas"
+                                           ng-model="vm.diagnostico.canastillas"
+                                           ng-minlength="1" ng-maxlength="1" min="1" max="6"/>
                                     <div ng-messages="registerForm.canastillas.$error">
                                         <div ng-message='required'>Campo requerido</div>
                                     </div>
                                 </md-input-container>
                                 <md-input-container>
-                                    <label>No. de Puertas</label>
-                                    <input type="text" required='required' name="puertas" ng-model="vm.diagnostico.puertas"
-                                           only-digits/>
+                                    <md-switch class="md-primary"  ng-model="vm.diagnostico.puertas" required='required' name="puertas">
+                                        {{'TECNICO.FORM.LABEL.DOORS'|translate}}
+                                    </md-switch>
+
                                     <div ng-messages="registerForm.puertas.$error">
                                         <div ng-message='required'>Campo requerido</div>
                                     </div>
                                 </md-input-container>
                                 <md-input-container>
-                                    <label>No. de Rejillas</label>
-                                    <input type="text" required='required' name="rejillas" ng-model="vm.diagnostico.rejillas"
-                                           only-digits/>
+                                    <label>{{'TECNICO.FORM.LABEL.GRIDS'|translate}}</label>
+                                    <input type="number" required='required' name="rejillas"
+                                           ng-model="vm.diagnostico.rejillas"
+                                           ng-minlength="1" ng-maxlength="1" min="1" max="6"/>
                                     <div ng-messages="registerForm.rejillas.$error">
                                         <div ng-message='required'>Campo requerido</div>
                                     </div>
@@ -148,24 +133,24 @@
                         </div>
                         <div flex="70" class="md-padding">
                             <div ng-show="vm.diagnostico.isSalida">
-                                <span class="md-subhead">Validación de Salida</span>
+                                <span class="md-subhead">{{'TECNICO.FORM.SUBHEAD.VALIDATION'|translate}}</span>
                                 <div layout="row" flex="flex">
                                     <md-input-container flex="33">
                                         <md-switch class="md-primary" ng-model="vm.diagnostico.sticker"
                                                    aria-label="Sticker Correcto">
-                                            Sticker
+                                            {{'TECNICO.FORM.LABEL.STICKER'|translate}}
                                         </md-switch>
                                     </md-input-container>
                                     <md-input-container flex="33">
                                         <md-switch class="md-primary" ng-model="vm.diagnostico.pintura"
                                                    aria-label="Pintura Correcto">
-                                            Pintura
+                                            {{'TECNICO.FORM.LABEL.PAINTING'|translate}}
                                         </md-switch>
                                     </md-input-container>
                                     <md-input-container flex="33">
                                         <md-switch class="md-primary" ng-model="vm.diagnostico.lavado"
                                                    aria-label="Lavado Correcto">
-                                            Lavado
+                                            {{'TECNICO.FORM.LABEL.WASHED'|translate}}
                                         </md-switch>
                                     </md-input-container>
                                 </div>
@@ -173,138 +158,49 @@
                                     <md-input-container flex="33">
                                         <md-switch class="md-primary" ng-model="vm.diagnostico.emplayado"
                                                    aria-label="Emplayado Correcto">
-                                            Emplayado
+                                            {{'TECNICO.FORM.LABEL.STRETCH_WRAP'|translate}}
                                         </md-switch>
                                     </md-input-container>
                                     <md-input-container flex="33">
                                         <md-switch class="md-primary" ng-model="vm.diagnostico.lubricacion"
-                                                   aria-label="Lubricación Correcta">Lubricación
+                                                   aria-label="Lubricación Correcta">{{'TECNICO.FORM.LABEL.LUBRICATION'|translate}}
                                         </md-switch>
                                     </md-input-container>
                                     <md-input-container flex="33">
                                         <md-switch class="md-primary" ng-model="vm.diagnostico.listo_mercado"
-                                                   aria-label="Listo para Mercado">Listo
-                                            para Mercado
+                                                   aria-label="Listo para Mercado">{{'TECNICO.FORM.LABEL.READY_MARKET'|translate}}
                                         </md-switch>
                                     </md-input-container>
                                 </div>
                             </div>
-
-                            <span class="md-subhead">Evidencia fotográfica</span>
+                            <span class="md-subhead">{{'TECNICO.FORM.SUBHEAD.EVIDENCE'|translate}}</span>
                             <div layout="row" flex="flex">
                                 <div flex="20">
                                     <md-button ngf-select="vm.selectionFile($files)"
                                                ngf-accept="'image/*'"
                                                class="md-primary md-raised"
-                                               required="required"
+                                               ng-required="vm.diagnostico.isCabinet"
                                                ng-disabled="vm.status != 'idle'" ngf-multiple="false"
                                                ng-model="vm.picFile"
                                                aria-label="upload">
                                         <md-icon md-font-icon
                                                  ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}"></md-icon>
                                     </md-button>
-                                    <md-button type="submit" ng-disabled='registerForm.$invalid' ng-click="vm.guardar()" class="md-primary md-raised">
+                                    <md-button type="submit" ng-disabled='registerForm.$invalid' ng-click="vm.guardar()"
+                                               class="md-primary md-raised">
                                         <md-icon md-font-icon="fa fa-save">
                                     </md-button>
                                 </div>
                                 <div flex="80">
                                     <div class="md-media-md card-media">
-
                                         <img ngf-src="vm.picFile" class="thumb" width="120px" height="120px">
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </md-card-content>
             </md-card>
         </form>
-        <!--
-        <md-card class="md-padding card1" flex="100">
-            <span class="md-subhead">Número de Piezas</span>
-            <div layout="row" , flex="flex">
-                <md-input-container flex="25">
-                    <label>No. de Rodajas</label>
-                    <input type="number" ng-model="vm.diagnostico.rodajas"/>
-                </md-input-container>
-                <md-input-container flex="25">
-                    <label>No. de Canastillas</label>
-                    <input type="number" ng-model="vm.diagnostico.canastillas"/>
-                </md-input-container>
-                <md-input-container flex="25">
-                    <label>No. de Puertas</label>
-                    <input type="number" ng-model="vm.diagnostico.puertas"/>
-                </md-input-container>
-                <md-input-container flex="25">
-                    <label>No. de Rejillas</label>
-                    <input type="number" ng-model="vm.diagnostico.rejillas"/>
-                </md-input-container>
-            </div>
-            <div ng-show="vm.diagnostico.tipo">
-                <span class="md-subhead">Validación de Salida</span>
-                <div layout="row" flex="flex">
-                    <md-input-container flex="15">
-                        <md-switch class="md-primary" ng-model="vm.diagnostico.sticker" aria-label="Sticker Correcto">
-                            Sticker
-                        </md-switch>
-                    </md-input-container>
-                    <md-input-container flex="15">
-                        <md-switch class="md-primary" ng-model="vm.diagnostico.pintura" aria-label="Pintura Correcto">
-                            Pintura
-                        </md-switch>
-                    </md-input-container>
-                    <md-input-container flex="15">
-                        <md-switch class="md-primary" ng-model="vm.diagnostico.lavado" aria-label="Lavado Correcto">
-                            Lavado
-                        </md-switch>
-                    </md-input-container>
-                    <md-input-container flex="15">
-                        <md-switch class="md-primary" ng-model="vm.diagnostico.emplayado"
-                                   aria-label="Emplayado Correcto">
-                            Emplayado
-                        </md-switch>
-                    </md-input-container>
-                    <md-input-container flex="15">
-                        <md-switch class="md-primary" ng-model="vm.diagnostico.lubricacion"
-                                   aria-label="Lubricación Correcta">Lubricación
-                        </md-switch>
-                    </md-input-container>
-                    <md-input-container flex="20">
-                        <md-switch class="md-primary" ng-model="vm.diagnostico.listo_mercado"
-                                   aria-label="Listo para Mercado">Listo
-                            para Mercado
-                        </md-switch>
-                    </md-input-container>
-                </div>
-            </div>
-        </md-card>
-
-        <md-card class="md-padding card1">
-            <md-card-title>
-                <md-card-title-text flex="20">
-                    <span class="md-headline">Evidencia</span>
-                    <span class="md-subhead">Fotografica</span>
-                    <md-button ngf-select="vm.selectionFile($files)" accept=".jpg,.jpeg,.png,.bmp"
-                               ng-disabled="vm.status != 'idle'" ngf-multiple="false" ng-model="vm.picFile"
-                               aria-label="upload">
-                        <md-icon md-font-icon
-                                 ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}"></md-icon>
-                    </md-button>
-                    <md-button ng-click="vm.guardar()">
-                        <md-icon md-font-icon="fa fa-save">
-                    </md-button>
-
-                </md-card-title-text>
-                <md-card-title-media flex="80">
-                    <div class="md-media-md card-media">
-
-                        <img ngf-src="vm.picFile" class="thumb" width="10px" height="10px">
-                    </div>
-                </md-card-title-media>
-            </md-card-title>
-
-        </md-card>-->
     </div>
 </div>
