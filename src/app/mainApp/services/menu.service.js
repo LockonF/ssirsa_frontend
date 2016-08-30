@@ -95,11 +95,6 @@
                             name: 'Crear Solicitud',
                             state: 'triangular.admin-default.realizarSolicitud',
                             type: 'link'
-                        },
-                        {
-                            name:'Entradas',
-                            state: 'triangular.admin-default.entrada',
-                            type: 'link'
                         }
                     ]
                 },
@@ -113,6 +108,12 @@
                         state: 'triangular.admin-default.tecnico',
                         type: 'link'
                     },
+
+                        {
+                            name:'Entradas',
+                            state: 'triangular.admin-default.entrada',
+                            type: 'link'
+                        },
                         {
                             name: 'Validar Etapa',
                             state: 'triangular.admin-default.validarEtapa',
