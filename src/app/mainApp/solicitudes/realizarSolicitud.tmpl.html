@@ -1,22 +1,35 @@
 <div layout="row" flex layout-padding layout-fill layout-align="center center">
     <div flex="70" flex-xs="100">
+        <form name="objectForm" >
         <md-card>
             <md-card-title>
                 <md-card-title-text>
                     <div>
                         <h2>Crear Solicitud</h2>
-                        <md-select placeholder="Elige la UDN" ng-model="vm.udn">
-                            <md-option ng-value="udn.id" ng-repeat='udn in vm.udns'>{{udn.zona}}</md-option>
-                            <!--md-option value="1">UDN_1</md-option>
-                            <md-option value="2">UDN_2</md-option>
-                            <md-option value="3">UDN_3</md-option-->
-                        </md-select>
 
-                        <md-select placeholder="Elige tipo de solicitud" ng-model="vm.requisito.tipo_solicitud">
-                            <md-option value="Envio">Solicitud de envió</md-option>
-                            <md-option value="Recoleccion">Solicitud de recolección</md-option>
-                            <md-option value="3">Solicitud de punto de venta</md-option>
-                        </md-select>
+                        <md-input-container class="md-block">
+                            <md-select placeholder="Elige la UDN" ng-model="vm.udn" name="udn" required='required'>
+                                <md-option ng-value="udn.id" ng-repeat='udn in vm.udns'>{{udn.zona}}</md-option>
+                                <!--md-option value="1">UDN_1</md-option>
+                                <md-option value="2">UDN_2</md-option>
+                                <md-option value="3">UDN_3</md-option-->
+                            </md-select>
+                            <div ng-messages="objectForm.udn.$error">
+                                <div ng-message="required">El campo es requerido</div>
+                            </div>
+                        </md-input-container>
+
+
+                        <md-input-container class="md-block">
+                            <md-select placeholder="Elige tipo de solicitud" ng-model="vm.requisito.tipo_solicitud" name="tipo_solicitud" required='required'>
+                                <md-option value="Envio">Solicitud de envió</md-option>
+                                <md-option value="Recoleccion">Solicitud de recolección</md-option>
+                                <md-option value="3">Solicitud de punto de venta</md-option>
+                            </md-select>
+                            <div ng-messages="objectForm.tipo_solicitud.$error">
+                                <div ng-message="required">El campo es requerido</div>
+                            </div>
+                        </md-input-container>
 
                         <!-- if estatus es igual a confirmado o cancelado no se puede modificar fecha atendida
 
@@ -31,15 +44,24 @@
                         <!-- opc 1 Solicitud de Envio-->
                         <div ng-show="vm.requisito.tipo_solicitud=='Envio'||vm.requisito.tipo_solicitud=='Recoleccion'">
 
-                            <md-select ng-if="!vm.isClient" placeholder="Elige tipo de estatus" ng-model="vm.requisito.status">
-                                <md-option value="Confirmada">Confirmada</md-option>
-                                <md-option value="No Confirmada">No Confirmada</md-option>
-                                <md-option value="Cancelada">Cancelada</md-option>
-                            </md-select>
+                            <md-input-container class="md-block">
+                                <md-select ng-if="!vm.isClient" placeholder="Elige tipo de estatus" ng-model="vm.requisito.status" name="status" required='required'>
+                                    <md-option value="Confirmada">Confirmada</md-option>
+                                    <md-option value="No Confirmada">No Confirmada</md-option>
+                                    <md-option value="Cancelada">Cancelada</md-option>
+                                </md-select>
+                                <div ng-messages="objectForm.status.$error">
+                                    <div ng-message="required">El campo es requerido</div>
+                                </div>
+                            </md-input-container>
 
                             <md-input-container class="md-block">
                                 <label>Descripción</label>
-                                <textarea ng-model="vm.requisito.descripcion" md-maxlength="100"></textarea>
+                                <textarea ng-model="vm.requisito.descripcion" md-maxlength="100" name="descripcion" required='required' ng-pattern="/^[A-Za-z_][\w\s]*$/"></textarea>
+                                <div ng-messages="objectForm.descripcion.$error">
+                                    <div ng-message="pattern">El Usuario no puede comenzar con un digito y solo puede usar caracteres validos</div>
+                                    <div ng-message="required">El campo es requerido</div>
+                                </div>
                             </md-input-container>
 
                             <div class="margin-bottom-20" layout="row" layout-align="space-around center">
@@ -50,9 +72,9 @@
                                 <p ng-if="!vm.isClient">Fecha atendida</p>
                             </div>
                             <div class="margin-bottom-20" layout="row" layout-align="space-around center">
-                                <md-datepicker ng-model="vm.requisito.fecha_inicio" md-placeholder="Enter date"></md-datepicker>
-                                <md-datepicker ng-model="vm.requisito.fecha_termino" md-placeholder="Enter date"></md-datepicker>
-                                <md-datepicker ng-if="!vm.isClient" ng-model="vm.requisito.fecha_atendida" md-placeholder="Enter date"></md-datepicker>
+                                <md-datepicker ng-model="vm.requisito.fecha_inicio" md-placeholder="Enter date" required='required'></md-datepicker>
+                                <md-datepicker ng-model="vm.requisito.fecha_termino" md-placeholder="Enter date" required='required'></md-datepicker>
+                                <md-datepicker ng-if="!vm.isClient" ng-model="vm.requisito.fecha_atendida" md-placeholder="Enter date" required='required'></md-datepicker>
                             </div>
 
                             <v-accordion class="vAccordion--default" multiple>
@@ -73,7 +95,7 @@
                                                 </md-button>
                                             </div>
                                         </md-toolbar>
-                                        <md-table-container>
+                                        <md-table-container nd-show="vm.requisito.datos!=null">
                                             <table md-table="" md-row-select="" >
                                                 <thead md-head="" md-order="vm.query.order">
                                                 <tr md-row="md-row">
@@ -110,7 +132,11 @@
                             </v-accordion>
                             <md-input-container class="md-block">
                                 <label>Comentario</label>
-                                <textarea ng-model="vm.requisito.comentario" md-maxlength="100"></textarea>
+                                <textarea ng-model="vm.requisito.comentario" md-maxlength="100" name="comentario" required='required' ng-pattern="/^[A-Za-z_][\w\s]*$/"></textarea>
+                                <div ng-messages="objectForm.comentario.$error">
+                                    <div ng-message="pattern">El Usuario no puede comenzar con un digito y solo puede usar caracteres validos</div>
+                                    <div ng-message="required">El campo es requerido</div>
+                                </div>
                             </md-input-container>
 
                             <md-card-actions layout="row" layout-align="end center">
@@ -181,6 +207,7 @@
                 <span>Nutrition</span>
             </div>
         </md-toolbar-->
+            </form>
     </div>
 </div>
 <!-- opc 1-->

@@ -6,7 +6,7 @@
         .module('app.mainApp.admin')
         .controller('gestion_userController',gestion_userController);
 
-    function gestion_userController($translate,groups,PersonaLocalService,Persona_Admin,toastr){
+    function gestion_userController($translate,groups,PersonaLocalService,Persona_Admin,toastr,Helper,Upload,OAuthToken,SERVER){
         var vm = this;
         vm.isClient=true;
         activate();
@@ -30,6 +30,9 @@
         vm.guardarUsuario = guardarUsuario;
         vm.enviar =enviar;
         vm.clean=clean;
+        vm.cancel=cancel;
+        vm.selectionFoto=selectionFoto;
+        vm.selectionIFE=selectionIFE;
         vm.user={
             "mail":""
         }
@@ -45,7 +48,9 @@
             "apellido_paterno": "",
             "apellido_materno": "",
             "direccion": "",
-            "telefono": ""
+            "telefono": "",
+            "ife":null,
+            "foto":null
         };
 
         vm.user_vacio={
@@ -59,7 +64,9 @@
             "apellido_paterno": "",
             "apellido_materno": "",
             "direccion": "",
-            "telefono": ""
+            "telefono": "",
+            "ife":null,
+            "foto":null
         };
         vm.correo={
             to:vm.user.mail,
@@ -130,21 +137,127 @@
             };
         }
 
-        function guardarUsuario(){
-            console.log("vm.user_ini: ");
-            console.log(vm.user_ini);
-            console.log("vm.user_ini.user: ");
-            console.log(vm.user_ini.user);
+        function guardarUsuario2(){
+            vm.user_ini.foto=vm.picFoto;
+            vm.user_ini.ife=vm.picIFE;
             Persona_Admin.create(vm.user_ini).then(function(resp){
                 vm.user_ini= _.clone(vm.user_vacio);
                 toastr.success('exito al guardar','exito');
+                vm.user_ini={
+                    "user": {
+                        "username": "",
+                        "email": "",
+                        "cpassword": "",
+                        "password": "",
+                        "role": ""
+                    },
+                    "nombre": "",
+                    "apellido_paterno": "",
+                    "apellido_materno": "",
+                    "direccion": "",
+                    "telefono": "",
+                    "ife":null,
+                    "foto":null
+                };
             }).catch(function(err){
                 toastr.error('error al guardar','error');
                 console.log(err);
             })
         }
 
+        function guardarUsuario() {
+            vm.user_ini.foto=vm.picFoto;
+            vm.user_ini.ife=vm.picIFE;
+            console.log(vm.user_ini);
+            Upload.upload({
+                url: SERVER.URL+'solicitud_admin',
+                headers: {'Authorization': OAuthToken.getAuthorizationHeader()},
+                method: 'POST',
+                data: vm.user_ini
+            }).then(function (res) {
+                vm.user_ini= _.clone(vm.user_vacio);
+                toastr.success('exito al guardar','exito');
+                vm.user_ini={
+                    "user": {
+                        "username": "",
+                        "email": "",
+                        "cpassword": "",
+                        "password": "",
+                        "role": ""
+                    },
+                    "nombre": "",
+                    "apellido_paterno": "",
+                    "apellido_materno": "",
+                    "direccion": "",
+                    "telefono": "",
+                    "ife":null,
+                    "foto":null
+                };
+            }, function (resp) {
 
+                toastr.error('error al guardar','error');
+                console.log(err);
+            });
+        }
+
+        function cancel(){
+            vm.user_ini= _.clone(vm.user_vacio);
+            vm.picFoto=null;
+            vm.picIFE=null;
+            vm.user_ini={
+                "user": {
+                    "username": null,
+                    "email": "",
+                    "cpassword": "",
+                    "password": "",
+                    "role": ""
+                },
+                "nombre": "",
+                "apellido_paterno": "",
+                "apellido_materno": "",
+                "direccion": "",
+                "telefono": "",
+                "ife":null,
+                "foto":null
+            };
+        }
+
+
+        function selectionFoto($files) {
+            if ($files.length > 0) {
+                var file = $files[0];
+                var extn=file.name.split(".").pop();
+                if(file.size/1000000>1) {
+                    toastr.warning(vm.errorSize, vm.errorTitle);
+                    vm.picFoto = null;
+
+                }else if (!Helper.acceptFile(file.type))  {
+                    if (!Helper.acceptFile(extn))  {
+                        toastr.warning(vm.errorTypeFile, vm.errorTitle);
+                        vm.picFoto = null;
+                    }
+                }
+            }
+
+        }
+
+        function selectionIFE($files) {
+            if ($files.length > 0) {
+                var file = $files[0];
+                var extn=file.name.split(".").pop();
+                if(file.size/1000000>1) {
+                    toastr.warning(vm.errorSize, vm.errorTitle);
+                    vm.picIFE = null;
+
+                }else if (!Helper.acceptFile(file.type))  {
+                    if (!Helper.acceptFile(extn))  {
+                        toastr.warning(vm.errorTypeFile, vm.errorTitle);
+                        vm.picIFE = null;
+                    }
+                }
+            }
+
+        }
 
 
     }
