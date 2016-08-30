@@ -1,13 +1,13 @@
 <div layout="row" flex layout-padding layout-fill layout-align="center center">
-    <div flex="50" flex-xs="100">
+    <div flex="30" flex-xs="50">
         <md-card>
             <md-card-title>
                 <md-card-title-text>
                     <h2>Buscar Usuario</h2>
                     <div layout="row">
                         <md-input-container class="md-block" flex="50">
-                            <label>Nombre de Usuario</label>
-                            <textarea ng-model="vm.userName"></textarea>
+                            <!--label>Nombre de Usuario</label>
+                            <textarea ng-model="vm.userName"></textarea-->
                         </md-input-container>
 
                         <!-- opc 1-->
@@ -30,7 +30,7 @@
 </div>
 <!-- opc 1-->
 <div layout="row" flex layout-padding layout-fill layout-align="center center" ng-show="vm.personas_admin!=null">
-    <div flex="70" flex-xs="100">
+    <div flex="100" flex-xs="100">
         <!-- exact table from live demo ***********************************************************************-->
         <md-card>
             <div layout="row" layout-sm="column" layout-md="column">
@@ -42,9 +42,9 @@
                             </th>
                             <th md-column="md-column" md-order-by="nombre"><span translate="">Nombre</span>
                             </th>
-                            <th md-column="md-column" md-order-by="apellido_paterno"><span translate="">Ap_Paterno</span>
+                            <th md-column="md-column" md-order-by="apellido_paterno"><span translate="">Apellido Paterno</span>
                             </th>
-                            <th md-column="md-column" md-order-by="apellido_materno"><span translate="">Ap_Materno</span>
+                            <th md-column="md-column" md-order-by="apellido_materno"><span translate="">Apellido Materno</span>
                             </th>
                             <th md-column="md-column" md-order-by="direccion"><span translate="">Dirección</span>
                             </th>
@@ -80,9 +80,13 @@
                         </tbody>
                     </table>
                 </md-table-container>
+                <div data-pagination="" data-num-pages="numPages()"
+                     data-current-page="currentPage" data-max-size="maxSize"
+                     data-boundary-links="true"></div>
             </div>
         </md-card>
     </div>
+
 </div>
 
 
