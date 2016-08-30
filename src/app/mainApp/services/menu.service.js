@@ -108,6 +108,12 @@
                         state: 'triangular.admin-default.tecnico',
                         type: 'link'
                     },
+
+                        {
+                            name:'Entradas',
+                            state: 'triangular.admin-default.entrada',
+                            type: 'link'
+                        },
                         {
                             name: 'Validar Etapa',
                             state: 'triangular.admin-default.validarEtapa',
@@ -127,7 +133,7 @@
                             name: 'Asignación de Linea',
                             state: 'triangular.admin-default.asignacionLinea',
                             type: 'link'
-                        },
+                        }
                     ]
                 },
                 {
