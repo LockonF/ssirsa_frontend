@@ -95,6 +95,11 @@
                             name: 'Crear Solicitud',
                             state: 'triangular.admin-default.realizarSolicitud',
                             type: 'link'
+                        },
+                        {
+                            name:'Entradas',
+                            state: 'triangular.admin-default.entrada',
+                            type: 'link'
                         }
                     ]
                 },
@@ -127,7 +132,7 @@
                             name: 'Asignación de Linea',
                             state: 'triangular.admin-default.asignacionLinea',
                             type: 'link'
-                        },
+                        }
                     ]
                 },
                 {
