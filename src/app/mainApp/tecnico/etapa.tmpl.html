@@ -9,38 +9,25 @@
         <md-card-content>
             <div flex="100" layout="row">
                 <div layout="column" flex="100">
-                    <md-input-container flex="100">
-                        <label>Id Cabinet</label>
-                        <md-autocomplete
-                                class="md-padding card1"
-                                ng-disabled="vm.isDisabled"
-                                md-no-cache="vm.noCache"
-                                md-selected-item="selectedItem"
-                                md-search-text-change="vm.searchTextChange(vm.searchText)"
-                                md-search-text="vm.searchText"
-                                md-selected-item-change="vm.selectedItemChange(item)"
-                                md-items="item in vm.querySearch(vm.searchText)"
-                                md-item-text="item.display"
-                                md-min-length="0">
-
-                            <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.display}}</span>
-                        </md-autocomplete>
+                    <md-input-container flex="50">
+                        <label>Id de Cabinet</label>
+                        <input type="text" ng-model="vm.idCabinet"/>
                     </md-input-container>
                     <div layout="row" flex="100">
                         <md-input-container flex="50">
-                            <label>No. de Servicio</label>
-                            <input type="text" ng-model="vm.etapa.diagnostico" ng-disabled="vm.editable"/>
+                            <label>No. de Diagnostico</label>
+                            <input type="text" ng-model="vm.diagnostico.id" ng-disabled="true"/>
                         </md-input-container>
                         <md-input-container flex="50">
                             <label translate>Etapa Actual</label>
-                            <md-select ng-model="vm.etapa.actual_etapa" name="select" ng-disabled="true">
-                                <md-option ng-repeat="etap in vm.etapas" ng-value="etap.value">{{etap.nombre}}
+                            <md-select ng-model="vm.etapaActual." name="select" ng-disabled="true">
+                                <md-option ng-repeat="etap in vm.etapas" ng-value="etap.value">{{etap.value}}
                                 </md-option>
                             </md-select>
                         </md-input-container>
                         <md-input-container flex="20">
                             <md-button class="md-primary md-raised" aria-label="raised button"
-                                       ng-click='vm.guardar()'>
+                                       ng-click='vm.crearEtapaServicio()'>
                                 <md-icon md-font-icon="fa fa-save"></md-icon>
                             </md-button>
                         </md-input-container>
@@ -99,7 +86,7 @@
                     </thead>
                     <tbody md-body="md-body">
                     <tr md-row="md-row" md-select="insu" md-select-id="{{insu.id}}"
-                        ng-repeat="insu in vm.etapa.insumos | orderBy:vm.query.order">
+                        ng-repeat="insu in vm.insumosEtapaCabinet| orderBy:vm.query.order">
                         <td md-cell="md-cell" flex="25">{{insu.nombre}}</td>
                         <td md-cell="md-cell" flex="15">{{insu.cantidad}}</td>
                         <td md-cell="md-cell" flex="50">{{insu.notas}}</td>

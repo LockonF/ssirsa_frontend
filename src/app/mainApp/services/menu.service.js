@@ -108,6 +108,12 @@
                         state: 'triangular.admin-default.tecnico',
                         type: 'link'
                     },
+
+                        {
+                            name:'Entradas',
+                            state: 'triangular.admin-default.entrada',
+                            type: 'link'
+                        },
                         {
                             name: 'Validar Etapa',
                             state: 'triangular.admin-default.validarEtapa',
@@ -119,15 +125,19 @@
                             type: 'link'
                         },
                         {
-                            name: 'Checklist',
+                            name: 'Pre-Checklist',
                             state: 'triangular.admin-default.checklist',
+                            type: 'link'
+                        },{
+                            name: 'Diagnostico',
+                            state: 'triangular.admin-default.diagnostic',
                             type: 'link'
                         },
                         {
                             name: 'Asignación de Linea',
                             state: 'triangular.admin-default.asignacionLinea',
                             type: 'link'
-                        },
+                        }
                     ]
                 },
                 {
@@ -160,7 +170,7 @@
                     ]
                 }
 
-            ]
+            ];
 
             //triMenu.menu.unshift(adminMenu);
             triMenu.menu=adminMenu;
@@ -199,8 +209,37 @@
                             type: 'link'
                         }
                     ]
+                },
+                {
+                    name: 'Inventarios',
+                    icon: 'fa fa-archive',
+                    type: 'dropdown',
+                    priority: 5,
+                    children: [{
+                        name: 'Cabinets',
+                        state: 'triangular.admin-default.cabinets',
+                        type: 'link'
+                    },{
+                        name: 'Insumos',
+                        state: 'triangular.admin-default.insumos',
+                        type: 'link'
+                    },{
+                        name: 'Catalogo de Insumos',
+                        state: 'triangular.admin-default.catalogoInsumos',
+                        type: 'link'
+                    }, {
+                        name: 'Categoria Insumos',
+                        state: 'triangular.admin-default.construccion',
+                        type: 'link'
+                    }, {
+                        name: 'Proveedores',
+                        state: 'triangular.admin-default.construccion',
+                        type: 'link'
+                    }
+
+                    ]
                 }
-            ]
+            ];
 
             triMenu.menu=capturistaMenu;
         }
@@ -240,7 +279,7 @@
                     ]
                 }
 
-            ]
+            ];
 
             //triMenu.menu.unshift(adminMenu);
             triMenu.menu=clienteMenu;
@@ -283,15 +322,19 @@
                             type: 'link'
                         },
                         {
-                            name: 'Checklist',
+                            name: 'Pre-Checklist',
                             state: 'triangular.admin-default.checklist',
+                            type: 'link'
+                        },{
+                            name: 'Diagnostico',
+                            state: 'triangular.admin-default.diagnostic',
                             type: 'link'
                         },
                         {
                             name: 'Asignación de Linea',
                             state: 'triangular.admin-default.asignacionLinea',
                             type: 'link'
-                        },
+                        }
                     ]
                 }
 

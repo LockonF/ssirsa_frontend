@@ -2,8 +2,7 @@
  * Created by franciscojaviercerdamartinez on 6/2/16.
  */
 (function () {
-
-
+    
     angular.module('app.mainApp',[
         'app.mainApp.solicitudes',
         'app.mainApp.login',
@@ -12,7 +11,8 @@
         //'app.examples',
         'app.mainApp.calendar',
         'app.mainApp.tecnico',
-        'app.mainApp.inventario'
+        'app.mainApp.inventario',
+        'app.mainApp.entradaSalida'
     ]);
 
 })();

@@ -50,7 +50,7 @@
                 .cancel(dialog.cancel)
                 .targetEvent($event);
             $mdDialog.show(confirm).then(function(result){
-                $state.go('triangular.admin-default.tecnico');
+                //$state.go('triangular.admin-default.tecnico');
             });
 
         }
