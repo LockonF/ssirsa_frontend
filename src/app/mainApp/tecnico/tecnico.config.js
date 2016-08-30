@@ -21,6 +21,12 @@
                 controller:'checklistController',
                 controllerAs:'vm'
             })
+            .state('triangular.admin-default.diagnostic',{
+                url:'/diagnostic',
+                templateUrl:'app/mainApp/tecnico/diagnostic/diagnostic.tpl.html',
+                controller:'diagnosticController',
+                controllerAs:'vm'
+            })
             .state('triangular.admin-default.etapa',{
                 url:'/etapa',
                 templateUrl:'app/mainApp/tecnico/etapa.tmpl.html',
