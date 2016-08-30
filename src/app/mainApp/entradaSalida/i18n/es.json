@@ -1,0 +1,28 @@
+{
+  "Entrance":"Registrar Entrada",
+  "Output":"Registrar Salida",
+  "Save":"Guardar",
+  "Modify":"Modificar",
+  "Delete":"Borrar",
+  "Date":"Fecha",
+  "Subsidiary":"Sucursal",
+  "Project":"Proyecto",
+  "Upload Image":"Carga de Imagen",
+  "Pediment":"Pedimento",
+
+  "Transport":{
+    "Line":"Linea de transporte",
+    "Kind":"Tipo de transporte"
+  },
+
+  "Driver":{
+    "ID":"Identificación del conductor",
+    "IFE":"Credencial de elector del operador",
+    "Name":"Nombre del operador",
+    "Information":"Información del operador"
+  },
+
+  "Required Field":"Campo Requerido",
+  "Cabinets":"Cabinets",
+  "UDN":"UDN"
+}
