@@ -6,9 +6,9 @@
         .controller('loginController', loginController);
 
     /* @ngInject */
-    function loginController($state, triSettings,$mdDialog,OAuth,toastr,dynamicMenu, Bienvenida, PersonaLocalService) {
+    function loginController($state, triSettings,$mdDialog,OAuth,toastr,Socket) {
         var vm = this;
-        
+
         vm.loginClick = loginClick;
         vm.loginTagClick = loginTagClick;
         vm.newDialog = {
@@ -18,7 +18,7 @@
             ok: 'OK',
             cancel: 'Cancelar'
         };
-        
+
         vm.triSettings = triSettings;
         // create blank user variable for login form
         vm.user = {
@@ -32,12 +32,14 @@
             };
 
             OAuth.getAccessToken(vm.user,options).then(function(res){
+
+                Socket.emit('join', {canal: vm.user.username, username: vm.user.username});
                 $state.go('triangular.admin-default.bienvenida');
             }).catch(function(err){
                 toastr.error('Usuario o Contraseña incorrectos','Error',err.data.error);
                 console.log(err);
             });
-            
+
         }
 
         function loginTagClick($event,dialog){

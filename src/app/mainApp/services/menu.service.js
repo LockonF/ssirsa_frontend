@@ -95,6 +95,12 @@
                             name: 'Crear Solicitud',
                             state: 'triangular.admin-default.realizarSolicitud',
                             type: 'link'
+                        },
+                        {
+                            name:'Calendario',
+                            state:'triangular.admin-default.calendar',
+                            type: 'link'
+
                         }
                     ]
                 },
@@ -207,6 +213,12 @@
                             name: 'Crear Solicitud',
                             state: 'triangular.admin-default.realizarSolicitud',
                             type: 'link'
+                        },
+                        {
+                            name:'Calendario',
+                            state:'triangular.admin-default.calendar',
+                            type: 'link'
+
                         }
                     ]
                 },
@@ -275,6 +287,12 @@
                             name: 'Crear Solicitud',
                             state: 'triangular.admin-default.realizarSolicitud',
                             type: 'link'
+                        },
+                        {
+                            name:'Calendario',
+                            state:'triangular.admin-default.calendar',
+                            type: 'link'
+
                         }
                     ]
                 }

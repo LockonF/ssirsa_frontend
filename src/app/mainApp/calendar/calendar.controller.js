@@ -30,7 +30,7 @@
                 $mdDialog.show({
                     controller: 'EventDialogController',
                     controllerAs: 'vm',
-                    templateUrl: 'app/examples/calendar/event-dialog.tmpl.html',
+                    templateUrl: 'app/mainApp/calendar/event-dialog.tmpl.html',
                     targetEvent: jsEvent,
                     focusOnOpen: false,
                     locals: {
@@ -81,7 +81,7 @@
             $mdDialog.show({
                 controller: 'EventDialogController',
                 controllerAs: 'vm',
-                templateUrl: 'app/examples/calendar/event-dialog.tmpl.html',
+                templateUrl: 'app/mainApp/calendar/event-dialog.tmpl.html',
                 targetEvent: $event,
                 focusOnOpen: false,
                 locals: {
