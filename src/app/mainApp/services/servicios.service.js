@@ -28,7 +28,9 @@
             getDiagnosticoFromCabinet:getDiagnosticoFromCabinet,
             anadirInsumo:anadirInsumo,
             modificarInsumo:modificarInsumo,
-            eliminarInsumo:eliminarInsumo
+            eliminarInsumo:eliminarInsumo,
+            consultarInfoCabinet:consultarInfoCabinet,
+            consultarInsumobyNombre:consultarInsumobyNombre
         };
 
 
@@ -63,7 +65,7 @@
         function eliminarEtapaServicio(etapa) {
             var deferred = $q.defer();
 
-            Restangular.one('etapa', etapa.id).customDELETE().then(function (res) {
+            Restangular.one('etapa_servicio', etapa.id).customDELETE().then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);
@@ -72,6 +74,7 @@
 
             return deferred.promise;
         }
+
         function consultarAllEtapaServicioDiagnostico(etapa) {
             var deferred = $q.defer();
             //checar rutas :D
@@ -98,8 +101,7 @@
             return deferred.promise;
         }
 
-
-
+//Endpoints no utiles desde ek cambio de sssirsa de quitar supervisiones
         function verEtapaNoValidada(etapa) {
 
             var deferred = $q.defer();
@@ -135,6 +137,9 @@
             return deferred.promise;
 
         }
+///Terminan los endpoints No utilizados
+
+
         function consultarInsumosEtapa(etapa) {
             var deferred = $q.defer();
             //checar rutas :D
@@ -212,8 +217,30 @@
                 defer.reject(err);
             })
         }
+
+        function consultarInfoCabinet(idcabinet) {
+            var deferred = $q.defer();
+            //checar rutas :D
+            Restangular.one('cabinet', idcabinet).customGET().then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            });
+
+
+            return deferred.promise;
+        }
+        function consultarInsumobyNombre(cadena){
+            Restangular.all("catalogo_insumos").one("lookup",cadena).customGET().then(function(res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            })
+
+        }
         return service;
 
     }
+   
 
 })();
