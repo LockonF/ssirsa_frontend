@@ -52,7 +52,7 @@
         function activate() {
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
-            vm.successCreateMessage = Translate.translate('MAIN.MSG.SUCCESS_DIAGNOSTIC_MESSAGE');
+            vm.successCreateMessage = Translate.translate('MAIN.MSG.SUCCESS_LINE_MESSAGE');
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
             vm.notFoundMessage = Translate.translate('MAIN.MSG.NOT_FOUND');
             vm.notFoundInput=Translate.translate('MAIN.MSG.NOT_FOUND_INPUT');
@@ -76,7 +76,8 @@
                 var promise = Cabinet.get(vm.idCabinet);
                 promise.then(function(res){
                     vm.cabinet=res;
-                    console.log(vm.cabinet);
+                    //console.log(vm.cabinet);
+
 
                 }).catch(function (res) {
                     notifyError(res.status);
@@ -94,21 +95,26 @@
                 case 404:
                     toastr.info(vm.notFoundMessage, vm.errorTitle);
                     break;
-                case 500:
+                default:
                     toastr.warning(vm.errorMessage, vm.errorTitle);
                     break;
+
             }
         }
 
         function guardar(){
             if (vm.idCabinet!=null){
-                
+
                 vm.cabinet.partial=true;
                 vm.cabinetPartial= _.omit(vm.cabinet,'foto');
                 var promise = Cabinet.modify(vm.cabinetPartial);
                 promise.then(function(res){
                     vm.cabinet=res;
-                    console.log(vm.cabinet);
+                    //console.log(vm.cabinet);
+                    limpiar();
+                    vm.cabinet=null;
+                    vm.cabinetPartial=null;
+                    toastr.success(vm.successCreateMessage, vm.successTitle);
 
                 }).catch(function (res) {
                     notifyError(res.status);
@@ -134,6 +140,7 @@
                 marca:'"'
 
             };
+            vm.idCabinet=null;
 
 
         }

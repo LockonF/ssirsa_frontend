@@ -6,6 +6,7 @@
             "ERROR_MESSAGE": "Ha ocurrido un error, por favor intente de nuevo más tarde",
             "SUCCESS_TICKET_MESSAGE": "Se creó exitosamente el pre-checklist",
             "SUCCESS_DIAGNOSTIC_MESSAGE": "Se creó exitosamente el diagnóstico",
+            "SUCCESS_LINE_MESSAGE":"Se Asigno  exitosamente el Cabinet",
             "SUCCESS_TICKET_MESSAGES": "Se creó exitosamente el mensaje",
             "ERORR_TYPE_FILE": "No se permiten este tipo de archivo",
             "SUCCESS_TAKE": "El ticket se auto asignó  exitosamente",
