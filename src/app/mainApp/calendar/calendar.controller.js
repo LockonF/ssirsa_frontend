@@ -12,7 +12,7 @@
         vm.calendarOptions = {
             contentHeight: 'auto',
             selectable: true,
-            editable: true,
+            editable: false,
             header: false,
             lang: 'es-mx',
             timeFormat: ' ',
@@ -30,7 +30,7 @@
                 vm.currentDay = date;
             },
             eventClick: function (calEvent, jsEvent, view) { //eslint-disable-line
-                
+
                 $mdDialog.show({
                     controller: 'EditarSolicitudDialogController',
                     controllerAs: 'vm',
