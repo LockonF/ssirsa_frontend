@@ -20,7 +20,6 @@
                 // change day
                 vm.currentDay = view.calendar.getDate();
                 vm.currentView = view.name;
-                console.log(view);
                 activate();
                 // update toolbar with new day for month name
                 $rootScope.$broadcast('calendar-changeday', vm.currentDay);
@@ -31,7 +30,7 @@
                 vm.currentDay = date;
             },
             eventClick: function (calEvent, jsEvent, view) { //eslint-disable-line
-                console.log(calEvent);
+                
                 $mdDialog.show({
                     controller: 'EditarSolicitudDialogController',
                     controllerAs: 'vm',
@@ -47,7 +46,7 @@
                         edit: true
                     }
                 }).then(function (event) {
-                    var toastMessage = 'Event Updated';
+                    var toastMessage = 'Se actualizo correctamente la solicitud';
                     uiCalendarConfig.calendars['triangular-calendar'].fullCalendar('updateEvent', event);
                     // pop a toast
                     $mdToast.show(
@@ -83,8 +82,8 @@
                     var mockup = {
                         title: value.descripcion,
                         allDay: false,
-                        start: value.fecha_inicio,
-                        end: value.fecha_termino,
+                        start: moment(value.fecha_inicio,"YYYY-MM-DD"),
+                        end: moment(value.fecha_termino,"YYYY-MM-DD").add(1, 'days'),
                         solicitud: value,
                         backgroundColor: triTheming.rgba(triTheming.palettes[color]['500'].value),
                         borderColor: triTheming.rgba(triTheming.palettes[color]['500'].value),

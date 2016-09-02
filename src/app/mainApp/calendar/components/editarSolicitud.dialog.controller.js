@@ -6,7 +6,7 @@
         .controller('EditarSolicitudDialogController', EditarSolicitudDialogController);
 
     /* @ngInject */
-    function EditarSolicitudDialogController($mdDialog, triTheming, dialogData, event, edit) {
+    function EditarSolicitudDialogController($mdDialog, triTheming, dialogData, event, edit,Solicitudes_Admin) {
 
         var vm = this;
         vm.cancelClick = cancelClick;
@@ -19,13 +19,26 @@
         vm.okClick = okClick;
         vm.selectedColor = null;
         // create start and end date of event
-        vm.start = event.start.toDate();
-        vm.startTime = convertMomentToTime(event.start);
-
-        if(event.end !== null) {
-            vm.end = event.end.toDate();
-            vm.endTime = convertMomentToTime(event.end);
+        vm.start =moment(event.solicitud.fecha_inicio,"YYYY-MM-DD").toDate();
+        console.log(vm.start);
+        //console.log(vm.start.format('YYYY-MM-DD'));
+        if( event.solicitud.fecha_termino !== null) {
+            vm.end = moment(event.solicitud.fecha_termino,"YYYY-MM-DD").toDate();
         }
+        vm.statu = [
+            {
+                id:0,
+                value:"No Confirmada"
+            },
+            {
+                id:1,
+                value:"Confirmada"
+            },
+            {
+                id:2,
+                value:"Cancelada"
+            }
+        ];
 
         ////////////////
 
@@ -37,11 +50,19 @@
         }
 
         function okClick() {
-            vm.event.start = updateEventDateTime(vm.start, vm.startTime);
-            if(vm.event.end !== null) {
-                vm.event.end = updateEventDateTime(vm.end, vm.endTime);
+            vm.event.start = updateEventDateTime(vm.start);
+            if(vm.event.solicitud.fecha_termino !== null) {
+                vm.event.end = updateEventDateTime(vm.end);
             }
-            $mdDialog.hide(vm.event);
+            vm.event.solicitud.fecha_inicio=vm.event.start.format('YYYY-MM-DD');
+            vm.event.solicitud.fecha_termino=vm.event.end.format('YYYY-MM-DD');
+            delete vm.event.solicitud.datos;
+            Solicitudes_Admin.updateSolicitud(vm.event.solicitud).then(function (res) {
+                $mdDialog.hide(vm.event);
+            }).catch(function (res) {
+                console.log(res);
+            });
+
         }
 
         function cancelClick() {
@@ -58,38 +79,10 @@
             }
         }
 
-        function convertMomentToTime(moment) {
-            return {
-                hour: moment.hour(),
-                minute: moment.minute()
-            };
-        }
 
-        function updateEventDateTime(date, time) {
-            var newDate = moment(date);
-            newDate.hour(time.hour);
-            newDate.minute(time.minute);
-            return newDate;
+        function updateEventDateTime(date) {
+            return  moment(date);
         }
-
-        function createDateSelectOptions() {
-            // create options for time select boxes (this will be removed in favor of mdDatetime picker when it becomes available)
-            vm.dateSelectOptions = {
-                hours: [],
-                minutes: []
-            };
-            // hours
-            for(var hour = 0; hour <= 23; hour++) {
-                vm.dateSelectOptions.hours.push(hour);
-            }
-            // minutes
-            for(var minute = 0; minute <= 59; minute++) {
-                vm.dateSelectOptions.minutes.push(minute);
-            }
-        }
-
-        // init
-        createDateSelectOptions();
 
         // create colors
         angular.forEach(triTheming.palettes, function(palette, index) {

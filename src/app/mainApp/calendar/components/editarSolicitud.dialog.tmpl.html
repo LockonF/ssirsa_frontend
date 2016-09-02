@@ -3,7 +3,6 @@
         <div class="md-toolbar-tools">
             <h2>
                 <span translate>{{::vm.dialogData.title}}</span>
-                <span ng-show="vm.event.title"> - {{vm.event.title}}</span>
             </h2>
             <span flex></span>
             <md-button class="md-icon-button" ng-click="vm.cancelClick()" aria-label="cancel">
@@ -17,63 +16,33 @@
     <md-dialog-content class="md-dialog-content">
         <form class="event-dialog-form" name="eventForm">
             <md-input-container class="md-block">
-                <label translate>Title</label>
-                <input ng-model="vm.event.title" required>
+                <label translate>Descripción</label>
+                <input ng-model="vm.event.solicitud.descripcion" required>
             </md-input-container>
-            <md-list>
-                <md-list-item layout="row" layout-align="space-between center">
-                    <p translate>All day</p>
-                    <md-switch class="md-secondary" ng-model="vm.event.allDay" ng-change="vm.allDayChanged()"></md-switch>
-                </md-list-item>
-            </md-list>
             <div class="event-dialog-input-row" layout="row" layout-align="start center">
-                <p flex hide-xs translate>Start</p>
-                <md-datepicker ng-model="vm.start" md-placeholder="Start | triTranslate"></md-datepicker>
+                <p flex hide-xs translate>Fecha de inicio</p>
+                <md-datepicker ng-model="vm.start" md-placeholder="Fecha de inicio | triTranslate"></md-datepicker>
             </div>
-            <div class="event-dialog-input-row" layout="row" layout-align="start center">
-                <p flex translate>Start-TIME</p>
-                <div layout="row" layout-align="end center">
-                    <md-icon class="padding-right-10" md-font-icon="zmdi zmdi-access-time"></md-icon>
-                    <md-select class="padding-right-10" placeholder="{{'Hour' | triTranslate}}" ng-model="vm.startTime.hour">
-                        <md-option ng-repeat="hour in vm.dateSelectOptions.hours" ng-value="hour">{{::hour | padding:2}}</md-option>
-                    </md-select>
-                    <md-select class="padding-right-10" placeholder="{{'Minute' | triTranslate}}" ng-model="vm.startTime.minute">
-                        <md-option ng-repeat="minute in vm.dateSelectOptions.minutes" ng-value="minute">{{::minute | padding:2}}</md-option>
-                    </md-select>
-                </div>
-            </div>
+
             <div class="event-dialog-input-row" layout="row" layout-align="start center" ng-hide="vm.event.allDay">
-                <p translate flex hide-xs>End</p>
-                <md-datepicker ng-model="vm.end" md-placeholder="End | triTranslate"></md-datepicker>
-            </div>
-            <div class="event-dialog-input-row" layout="row" layout-align="start center" ng-hide="vm.event.allDay">
-                <p flex translate>End-TIME</p>
-                <div layout="row" layout-align="end center">
-                    <md-icon class="padding-right-10" md-font-icon="zmdi zmdi-access-time"></md-icon>
-                    <md-select class="padding-right-10" placeholder="{{'Hour' | triTranslate}}" ng-model="vm.endTime.hour">
-                        <md-option ng-repeat="hour in vm.dateSelectOptions.hours" ng-value="hour">{{::hour | padding:2}}</md-option>
-                    </md-select>
-                    <md-select class="padding-right-10" placeholder="{{'Minute' | triTranslate}}" ng-model="vm.endTime.minute">
-                        <md-option ng-repeat="minute in vm.dateSelectOptions.minutes" ng-value="minute">{{::minute | padding:2}}</md-option>
-                    </md-select>
-                </div>
+                <p translate flex hide-xs>Fecha de termino</p>
+                <md-datepicker ng-model="vm.end" md-placeholder="Fecha de termino | triTranslate"></md-datepicker>
             </div>
             <md-input-container class="md-block">
-                <label translate>Location</label>
-                <input type="text" ng-model="vm.event.location">
+                <label translate>Estatus</label>
+                <md-select ng-model="vm.event.solicitud.status"
+                           placeholder="{{'TECNICO.FORM.LABEL.STATUS'|translate}}"
+                           ng-required="vm.cabinets.capitalizado">
+                    <md-option ng-repeat="status in vm.statu" ng-value="status.value">{{status.value}}
+                    </md-option>
+                </md-select>
+
             </md-input-container>
             <md-input-container class="md-block">
-                <label translate>Description</label>
-                <textarea ng-model="vm.event.description"></textarea>
+                <label translate>Tipo de solicitud</label>
+                <textarea ng-model="vm.event.solicitud.tipo_solicitud" readonly></textarea>
             </md-input-container>
-            <md-input-container class="md-block">
-                <div layout="row" layout-align="space-between center">
-                    <p flex translate>Color</p>
-                    <md-select md-container-class="calendar-color-select" placeholder="{{'Color-PICK' | triTranslate}}" ng-model="vm.selectedColor" ng-change="vm.colorChanged()">
-                        <md-option ng-value="color" ng-repeat="color in vm.colors">{{color.name}}</md-option>
-                    </md-select>
-                </div>
-            </md-input-container>
+
         </form>
     </md-dialog-content>
 

@@ -39,7 +39,7 @@
             return m.isValid() ? m.toDate() : new Date(NaN);
         };
         $mdDateLocaleProvider.formatDate = function(date) {
-            return moment(date).format('L');
+            return moment(date).format('DD/MM/YYYY');
         };
         $mdDateLocaleProvider.monthHeaderFormatter = function(date) {
             return myShortMonths[date.getMonth()] + ' ' + date.getFullYear();
