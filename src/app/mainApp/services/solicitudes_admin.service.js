@@ -11,7 +11,8 @@
     function Solicitudes_Admin(Restangular) {
         return {
             list: list,
-            consultaEsp: consultaEsp
+            consultaEsp: consultaEsp,
+            consultaEspUnconfirmed: consultaEspUnconfirmed
         };
 
         function consultaEsp(object) {
@@ -28,6 +29,9 @@
                     break;
             }
             return Restangular.one('solicitud_admin', tipoConsulta).customGET();
+        }
+        function consultaEspUnconfirmed() {
+            return Restangular.one('solicitud_admin', "unconfirmed").customGET();
         }
 
         function list(){

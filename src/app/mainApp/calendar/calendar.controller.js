@@ -6,7 +6,7 @@
         .controller('CalendarController', CalendarController);
 
     /* @ngInject */
-    function CalendarController($scope, $rootScope, $mdDialog, $mdToast, $filter, $element, triTheming, triLayout, uiCalendarConfig) {
+    function CalendarController($scope, $rootScope, $mdDialog, $mdToast, $filter, Solicitudes_Admin, triTheming, triLayout, uiCalendarConfig) {
         var vm = this;
         vm.addEvent = addEvent;
         vm.calendarOptions = {
@@ -14,10 +14,12 @@
             selectable: true,
             editable: true,
             header: false,
+            lang:'es-mx',
             viewRender: function(view) {
                 // change day
                 vm.currentDay = view.calendar.getDate();
                 vm.currentView = view.name;
+                console.log(view);
                 // update toolbar with new day for month name
                 $rootScope.$broadcast('calendar-changeday', vm.currentDay);
                 // update background image for month
@@ -111,54 +113,45 @@
             });
         }
 
-        function createRandomEvents(number, startDate, endDate) {
-            var eventNames = ['Pick up the kids', 'Remember the milk', 'Meeting with Morris', 'Car service',  'Go Surfing', 'Party at Christos house', 'Beer Oclock', 'Festival tickets', 'Laundry!', 'Haircut appointment', 'Walk the dog', 'Dentist :(', 'Board meeting', 'Go fishing'];
-            var locationNames = ['London', 'New York', 'Paris', 'Burnley'];
-            for(var x = 0; x < number; x++) {
-                var randomMonthDate = randomDate(startDate, endDate);
-                var inAnHour = moment(randomMonthDate).add(1, 'h');
-                var randomEvent = Math.floor(Math.random() * (eventNames.length - 0));
-                var randomLocation = Math.floor(Math.random() * (locationNames.length - 0));
-                var randomPalette = pickRandomProperty(triTheming.palettes);
 
+
+        // listeners
+
+        $scope.$on('addEvent', addEvent);
+
+        activate();
+        function activate() {
+            Solicitudes_Admin.consultaEspUnconfirmed().then(function (res) {
+                res.forEach(function (value,index) {
+                    console.log(value);
+                    vm.eventSources[0].events.push({
+                        title: value.descripcion,
+                        allDay: false,
+                        start: value.fecha_inicio,
+                        end: value.fecha_termino,
+                        //description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis, fugiat! Libero ut in nam cum architecto error magnam, quidem beatae deleniti, facilis perspiciatis modi unde nostrum ea explicabo a adipisci!',
+
+                        backgroundColor: triTheming.rgba(triTheming.palettes['orange']['500'].value),
+                        borderColor: triTheming.rgba(triTheming.palettes['orange']['500'].value),
+                        textColor: triTheming.rgba(triTheming.palettes['orange']['500'].contrast),
+                        palette: 'orange'
+                    });
+                });
+                //triTheming.palettes
+                /*
                 vm.eventSources[0].events.push({
                     title: eventNames[randomEvent],
                     allDay: false,
                     start: randomMonthDate,
                     end: inAnHour,
                     description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis, fugiat! Libero ut in nam cum architecto error magnam, quidem beatae deleniti, facilis perspiciatis modi unde nostrum ea explicabo a adipisci!',
-                    location: locationNames[randomLocation],
+
                     backgroundColor: triTheming.rgba(triTheming.palettes[randomPalette]['500'].value),
                     borderColor: triTheming.rgba(triTheming.palettes[randomPalette]['500'].value),
                     textColor: triTheming.rgba(triTheming.palettes[randomPalette]['500'].contrast),
                     palette: randomPalette
-                });
-            }
-        }
-
-        // listeners
-
-        $scope.$on('addEvent', addEvent);
-
-        // create 10 random events for the month
-        createRandomEvents(100, moment().startOf('year'), moment().endOf('year'));
-
-        function randomDate(start, end) {
-            var startNumber = start.toDate().getTime();
-            var endNumber = end.toDate().getTime();
-            var randomTime = Math.random() * (endNumber - startNumber) + startNumber;
-            return moment(randomTime);
-        }
-
-        function pickRandomProperty(obj) {
-            var result;
-            var count = 0;
-            for (var prop in obj) {
-                if (Math.random() < 1/++count) {
-                    result = prop;
-                }
-            }
-            return result;
+                });*/
+            });
         }
     }
 })();

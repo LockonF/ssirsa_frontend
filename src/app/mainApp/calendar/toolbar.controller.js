@@ -6,7 +6,7 @@
         .controller('CalendarToolbarController', CalendarToolbarController);
 
     /* @ngInject */
-    function CalendarToolbarController($scope, $state, $element, $mdUtil, $mdSidenav, triBreadcrumbsService, uiCalendarConfig) {
+    function CalendarToolbarController( $mdUtil, $mdSidenav, triBreadcrumbsService, uiCalendarConfig) {
         var vm = this;
         vm.breadcrumbs = triBreadcrumbsService.breadcrumbs;
         vm.changeMonth = changeMonth;
