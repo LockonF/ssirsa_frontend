@@ -13,10 +13,18 @@
         vm.status="idle";//idle, uploading, complete
         vm.guardar = guardar;
         vm.selectionFile=selectionFile;
+        vm.showMassiveUpload=showMassiveUpload;
+        vm.showManualUpload=showManualUpload;
+        vm.removeImage=removeImage;
+        vm.picFIle=null;
+        vm.excelFIle=null;
         activate();
 
         vm.hideEntrada=false;
         vm.hideSalida=true;
+
+        vm.hideMassiveUpload=true;
+        vm.hideManualUpload=true;
 
         //Selected's
         vm.selectedUdn="";
@@ -86,7 +94,6 @@
         //Functions
         function guardar() {
 
-            var fr = new FileReader();
             vm.status = 'uploading';
 
             vm.entrada.fecha = getToday();
@@ -112,33 +119,11 @@
             fd.append('udn',vm.entrada.udn);
             fd.append('ife_chofer',vm.entrada.ife_chofer);
 
-            console.log(vm.entrada.ife_chofer);
             EntradaSalida.postEntrada(fd).then(function (res) {
 
             }).catch(function (err) {
 
             });
-
-
-            console.log(vm.entrada);
-            /*
-            Upload.upload({
-                url: EnvironmentConfig.site.rest.api+'entrada_salida',
-                headers: {'Authorization': OAuthToken.getAuthorizationHeader()},
-                method: 'POST',
-                data: vm.entrada
-            }).then(function (res) {
-                vm.status = 'idle';
-                //vm.cabinet=null;
-                vm.picFile=null;
-                vm.statusReady=0;
-                //toastr.success(vm.successCreateMessage, vm.successTitle);
-                //vm.diagnostico=angular.copy(diagnostico);
-            }, function (resp) {
-                vm.status = 'idle';
-                console.log(resp);
-                //toastr.warning(vm.errorMessage, vm.errorTitle);
-            });*/
 
         }
         function selectionFile($files) {
@@ -207,7 +192,17 @@
 
             return yyyy+'/'+mm+'/'+dd;
         }
-        
+        function  showMassiveUpload(){
+            vm.hideManualUpload=true;
+            vm.hideMassiveUpload=false;
+        }
+        function showManualUpload(){
+            vm.hideManualUpload=false;
+            vm.hideMassiveUpload=true;
+        }
+        function removeImage() {
+            vm.picfile=null;
+        }
     }
     
 })();

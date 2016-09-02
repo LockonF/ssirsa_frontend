@@ -6,7 +6,7 @@
         .module('app.mainApp')
         .controller('bienvenidaController',bienvenidaController);
 
-    function bienvenidaController(PersonaLocalService, toastr, Bienvenida){
+    function bienvenidaController(PersonaLocalService, toastr){
         var vm = this;
         vm.role={
             name:"Rol de prueba"

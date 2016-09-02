@@ -108,8 +108,8 @@
             </form>
 
             <div layout="row" flex="100" layout-sm="column" layout-align-sm="center stretch" layout-xs="column" layout-align-xs="center stretch">
-                <h3>{{'Driver.IFE'|translate}}</h3>
-                <div flex="50">
+                <p>{{'Driver.IFE'|translate}}</p>
+                <div flex="30" layout="column" layout-align="space-around center">
                     <md-button ngf-select="vm.selectionFile($files)"
                                ngf-accept="'image/*'"
                                class="md-primary md-raised"
@@ -122,20 +122,76 @@
 
                         </md-icon>
                     </md-button>
+
+                        <md-button class="md-warn md-raised" ng-click="removeImage()">
+                            <md-icon md-font-icon ng-class="'fa fa-trash'"></md-icon>
+                        </md-button>
+
                 </div>
-                <!--<div flex layout="column">
+
+                <div flex="80">
+                    <div class="md-media-md card-media">
+                        <img ngf-src="vm.picFile" class="thumb" style="max-width:150px" >
+                    </div>
+                </div>
+            </div>
+
+            <div layout="row" layout-align="space-around center" layout-sm="column" layout-xs="column">
+                <md-button class="md-raised md-primary" ng-click="vm.showMassiveUpload()">{{'Cabinets Massive Upload'|translate}}</md-button>
+                <md-button class="md-raised md-primary" ng-click="vm.showManualUpload()">{{'Cabinets Manual Upload'|translate}}</md-button>
+            </div>
+
+            <!-- Massive Upload -->
+            <div layout="row" flex="100" ng-hide="vm.hideMassiveUpload">
+                <md-input-container flex="80">
+                    <input name="FileName" type="text" ng-model="vm.excelFile.name" ng-disabled="true">
+                </md-input-container>
+                <div flex="20">
+                    <md-button ngf-select="vm.selectionFile($files)"
+                               ngf-accept="'.xlsx'"
+                               class="md-primary md-raised"
+                               required="required"
+                               ng-disabled="vm.status != 'idle'"
+                               ngf-multiple="false"
+                               ng-model="vm.excelFile">{{'Choose File'|translate}}</md-button>
+                </div>
+            </div>
+
+            <div flex layout="column">
+                <p>{{'Registered Cabinets'|translate}}</p>
+                <md-table-container>
+                    <table md-table md-row-select multiple ng-disabled="true">
+                        <thead md-head md-order="query.order" md-on-reorder="getDesserts">
+                        <tr md-row>
+                            <th md-column>{{'TableCabinets.Headers.Economic Num.'|translate}}</th>
+                            <th md-column>{{'TableCabinets.Headers.Serial Num.'|translate}}</th>
+                            <th md-column md-numeric>{{'TableCabinets.Headers.Brand'|translate}}</th>
+                            <th md-column md-numeric>{{'TableCabinets.Headers.Model'|translate}}</th>
+                        </tr>
+                        </thead>
+                        <tbody md-body>
+                        <tr md-row md-select="dessert" md-select-id="name" md-auto-select ng-repeat="dessert in desserts.data">
+                            <td md-cell>{{dessert.name}}</td>
+                            <td md-cell>{{dessert.calories.value}}</td>
+                            <td md-cell>{{dessert.fat.value | number: 1}}</td>
+                            <td md-cell>{{dessert.carbs.value}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </md-table-container>
+            </div>
+
+            <!--Carga Manual-->
+            <div flex layout="column">
+                <p>{{'Unregistered Cabinets'|translate}}</p>
                     <md-table-container>
-                        <table md-table md-row-select multiple ng-model="selected">
+                        <table md-table md-row-select multiple ng-disabled="true">
                             <thead md-head md-order="query.order" md-on-reorder="getDesserts">
                             <tr md-row>
-                                <th md-column md-order-by="nameToLower"><span>No. Serie</span></th>
-                                <th md-column><span>Calories</span></th>
-                                <th md-column md-numeric>Fat (g)</th>
-                                <th md-column md-numeric>Carbs (g)</th>
-                                <th md-column md-numeric>Protein (g)</th>
-                                <th md-column md-numeric>Sodium (mg)</th>
-                                <th md-column md-numeric>Calcium (%)</th>
-                                <th md-column md-numeric>Iron (%)</th>
+                                <th md-column>{{'TableCabinets.Headers.Economic Num.'|translate}}</th>
+                                <th md-column>{{'TableCabinets.Headers.Serial Num.'|translate}}</th>
+                                <th md-column md-numeric>{{'TableCabinets.Headers.Brand'|translate}}</th>
+                                <th md-column md-numeric>{{'TableCabinets.Headers.Model'|translate}}</th>
                             </tr>
                             </thead>
                             <tbody md-body>
@@ -144,21 +200,11 @@
                                 <td md-cell>{{dessert.calories.value}}</td>
                                 <td md-cell>{{dessert.fat.value | number: 1}}</td>
                                 <td md-cell>{{dessert.carbs.value}}</td>
-                                <td md-cell>{{dessert.protein.value | number: 1}}</td>
-                                <td md-cell>{{dessert.sodium.value}}</td>
-                                <td md-cell>{{dessert.calcium.value}}{{dessert.calcium.unit}}</td>
-                                <td md-cell>{{dessert.iron.value}}{{dessert.iron.unit}}</td>
                             </tr>
                             </tbody>
                         </table>
                     </md-table-container>
-                </div>-->
-                <div flex="80">
-                    <div class="md-media-md card-media">
-                        <img ngf-src="vm.picFile" class="thumb" max-height="120px" >
-                    </div>
                 </div>
-            </div>
 
             <div layout="row" layout-align="end center">
                 <md-button class="md-raised md-primary" ng-disabled="entradaForm.$invalid" ng-click="vm.guardar()">{{'Save'|translate}}</md-button>
