@@ -3,16 +3,15 @@
 
     angular
         .module('app.mainApp.calendar')
-        .controller('EventDialogController', EventDialogController);
+        .controller('EditarSolicitudDialogController', EditarSolicitudDialogController);
 
     /* @ngInject */
-    function EventDialogController($scope, $mdDialog, $filter, triTheming, dialogData, event, edit) {
+    function EditarSolicitudDialogController($mdDialog, triTheming, dialogData, event, edit) {
 
         var vm = this;
         vm.cancelClick = cancelClick;
         vm.colors = [];
         vm.colorChanged = colorChanged;
-        vm.deleteClick = deleteClick;
         vm.allDayChanged = allDayChanged;
         vm.dialogData = dialogData;
         vm.edit = edit;
@@ -47,11 +46,6 @@
 
         function cancelClick() {
             $mdDialog.cancel();
-        }
-
-        function deleteClick() {
-            vm.event.deleteMe = true;
-            $mdDialog.hide(vm.event);
         }
 
         function allDayChanged() {

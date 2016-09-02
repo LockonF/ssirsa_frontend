@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -6,63 +6,55 @@
         .controller('CalendarController', CalendarController);
 
     /* @ngInject */
-    function CalendarController($scope, $rootScope, $mdDialog, $mdToast, $filter, Solicitudes_Admin, triTheming, triLayout, uiCalendarConfig) {
+    function CalendarController($rootScope, $mdDialog, $mdToast, $filter, Solicitudes_Admin, triTheming, triLayout, uiCalendarConfig) {
         var vm = this;
-        vm.addEvent = addEvent;
+        vm.changeMonth = changeMonth;
         vm.calendarOptions = {
             contentHeight: 'auto',
             selectable: true,
             editable: true,
             header: false,
-            lang:'es-mx',
-            viewRender: function(view) {
+            lang: 'es-mx',
+            timeFormat: ' ',
+            viewRender: function (view) {
                 // change day
                 vm.currentDay = view.calendar.getDate();
                 vm.currentView = view.name;
                 console.log(view);
+                activate();
                 // update toolbar with new day for month name
                 $rootScope.$broadcast('calendar-changeday', vm.currentDay);
                 // update background image for month
                 triLayout.layout.contentClass = 'calendar-background-image background-overlay-static overlay-gradient-10 calendar-background-month-' + vm.currentDay.month();
             },
-            dayClick: function(date, jsEvent, view) { //eslint-disable-line
+            dayClick: function (date, jsEvent, view) { //eslint-disable-line
                 vm.currentDay = date;
             },
-            eventClick: function(calEvent, jsEvent, view) { //eslint-disable-line
+            eventClick: function (calEvent, jsEvent, view) { //eslint-disable-line
+                console.log(calEvent);
                 $mdDialog.show({
-                    controller: 'EventDialogController',
+                    controller: 'EditarSolicitudDialogController',
                     controllerAs: 'vm',
-                    templateUrl: 'app/mainApp/calendar/event-dialog.tmpl.html',
+                    templateUrl: 'app/mainApp/calendar/components/editarSolicitud.dialog.tmpl.html',
                     targetEvent: jsEvent,
                     focusOnOpen: false,
                     locals: {
                         dialogData: {
-                            title: 'Edit Event',
+                            title: 'Editar Solicitud',
                             confirmButtonText: 'Save'
                         },
                         event: calEvent,
                         edit: true
                     }
-                })
-                .then(function(event) {
+                }).then(function (event) {
                     var toastMessage = 'Event Updated';
-                    if(angular.isDefined(event.deleteMe) && event.deleteMe === true) {
-                        // remove the event from the calendar
-                        uiCalendarConfig.calendars['triangular-calendar'].fullCalendar('removeEvents', event._id);
-                        // change toast message
-                        toastMessage = 'Event Deleted';
-                    }
-                    else {
-                        // update event
-                        uiCalendarConfig.calendars['triangular-calendar'].fullCalendar('updateEvent', event);
-                    }
-
+                    uiCalendarConfig.calendars['triangular-calendar'].fullCalendar('updateEvent', event);
                     // pop a toast
                     $mdToast.show(
                         $mdToast.simple()
-                        .content($filter('triTranslate')(toastMessage))
-                        .position('bottom right')
-                        .hideDelay(2000)
+                            .content($filter('triTranslate')(toastMessage))
+                            .position('bottom right')
+                            .hideDelay(2000)
                     );
                 });
             }
@@ -78,80 +70,41 @@
             events: []
         }];
 
-        function addEvent(event, $event) {
-            var inAnHour = moment(vm.currentDay).add(1, 'h');
-            $mdDialog.show({
-                controller: 'EventDialogController',
-                controllerAs: 'vm',
-                templateUrl: 'app/mainApp/calendar/event-dialog.tmpl.html',
-                targetEvent: $event,
-                focusOnOpen: false,
-                locals: {
-                    dialogData: {
-                        title: 'Add-EVENT',
-                        confirmButtonText: 'Add'
-                    },
-                    event: {
-                        title: $filter('triTranslate')('New Event'),
-                        allDay: false,
-                        start: vm.currentDay,
-                        end: inAnHour,
-                        palette: 'cyan',
-                        stick: true
-                    },
-                    edit: false
-                }
-            })
-            .then(function(event) {
-                vm.eventSources[0].events.push(event);
-                $mdToast.show(
-                    $mdToast.simple()
-                    .content($filter('triTranslate')('Event Created'))
-                    .position('bottom right')
-                    .hideDelay(2000)
-                );
-            });
+        function changeMonth(direction) {
+            uiCalendarConfig.calendars['triangular-calendar'].fullCalendar(direction);
         }
 
 
-
-        // listeners
-
-        $scope.$on('addEvent', addEvent);
-
-        activate();
         function activate() {
+            vm.eventSources[0].events.splice(0, vm.eventSources[0].events.length);
             Solicitudes_Admin.consultaEspUnconfirmed().then(function (res) {
-                res.forEach(function (value,index) {
-                    console.log(value);
-                    vm.eventSources[0].events.push({
+                res.forEach(function (value) {
+                    var color = getBrackground(value.tipo_solicitud);
+                    var mockup = {
                         title: value.descripcion,
                         allDay: false,
                         start: value.fecha_inicio,
                         end: value.fecha_termino,
-                        //description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis, fugiat! Libero ut in nam cum architecto error magnam, quidem beatae deleniti, facilis perspiciatis modi unde nostrum ea explicabo a adipisci!',
-
-                        backgroundColor: triTheming.rgba(triTheming.palettes['orange']['500'].value),
-                        borderColor: triTheming.rgba(triTheming.palettes['orange']['500'].value),
-                        textColor: triTheming.rgba(triTheming.palettes['orange']['500'].contrast),
-                        palette: 'orange'
-                    });
+                        solicitud: value,
+                        backgroundColor: triTheming.rgba(triTheming.palettes[color]['500'].value),
+                        borderColor: triTheming.rgba(triTheming.palettes[color]['500'].value),
+                        textColor: triTheming.rgba(triTheming.palettes[color]['500'].contrast),
+                        palette: color
+                    };
+                    vm.eventSources[0].events.push(mockup);
                 });
-                //triTheming.palettes
-                /*
-                vm.eventSources[0].events.push({
-                    title: eventNames[randomEvent],
-                    allDay: false,
-                    start: randomMonthDate,
-                    end: inAnHour,
-                    description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis, fugiat! Libero ut in nam cum architecto error magnam, quidem beatae deleniti, facilis perspiciatis modi unde nostrum ea explicabo a adipisci!',
-
-                    backgroundColor: triTheming.rgba(triTheming.palettes[randomPalette]['500'].value),
-                    borderColor: triTheming.rgba(triTheming.palettes[randomPalette]['500'].value),
-                    textColor: triTheming.rgba(triTheming.palettes[randomPalette]['500'].contrast),
-                    palette: randomPalette
-                });*/
             });
+        }
+
+        function getBrackground(status) {
+            if (status === 'Envio') {
+                return 'teal';
+            } else if (status === 'Recoleccion') {
+                return 'blue-grey';
+            } else {
+                return 'indigo';
+            }
+
         }
     }
 })();
