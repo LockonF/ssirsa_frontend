@@ -8,7 +8,7 @@
         .module('app.mainApp.entradaSalida')
         .controller('entradaController',entradaController);
     
-    function entradaController (toastr, Helper, Upload, EnvironmentConfig, OAuthToken, EntradaSalida){
+    function entradaController (Helper, EntradaSalida){
         var vm = this;
         vm.status="idle";//idle, uploading, complete
         vm.guardar = guardar;
