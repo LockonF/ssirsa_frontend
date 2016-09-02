@@ -1,0 +1,116 @@
+//
+   Created by Emmanuel on 02/09/2016.
+
+div(layout='column')
+    div(layout='row', flex='', layout-padding='', layout-fill='', layout-align='center center')
+        md-card.md-padding-card1(flex='80', flex-sm='100', flex-xs='100')
+            md-card-title(ng-hide='vm.hideEntrada')
+                md-card-title-text
+                    span.md-headline {{'Entrance'|translate}}
+            md-card-title(ng-hide='vm.hideSalida')
+                md-card-title-text
+                    span.md-headline {{'Output'|translate}}
+            form(name='entradaForm', novalidate='')
+                div(layout='row', layout-sm='column', layout-xs='column', layout-align='center center', layout-align-sm='center stretch', layout-align-xs='center stretch')
+                    md-input-container.md-block(flex='80', flex-sm='100', flex-xs='100')
+                        label {{'Driver.Name'|translate}}
+                        input(name='DriverName', md-no-asterisk='', required='', type='text', ng-model='vm.entrada.nombre_chofer')
+                        div(ng-messages='entradaForm.DriverName.$error')
+                            div(ng-message='required')
+                                | {{'Required Field'|translate}}
+                    md-input-container.md-block(flex='20', flex-sm='100', flex-xs='100')
+                        label {{'Pediment'|translate}}
+                        input(name='Pediment', md-no-asterisk='', required='', type='text', ng-model='vm.entrada.pedimento')
+                        div(ng-messages='entradaForm.Pediment.$error')
+                            div(ng-message='required')
+                                | {{'Required Field'|translate}}
+                div(layout='row', layout-sm='column', layout-xs='column', layout-align='center center', layout-align-sm='center stretch', layout-align-xs='center stretch')
+                    md-input-container.md-block(flex='100')
+                        label {{'UDN'|translate}}
+                        md-select(name='selectUDN', ng-model='vm.selectedUdn', required='')
+                            md-option(ng-repeat='udn in vm.udns', value='{{udn.id}}')
+                                | {{udn.agencia}}
+                        div(ng-messages='entradaForm.selectUDN.$error')
+                            div(ng-message='required')
+                                | {{'Required Field'|translate}}
+                    md-input-container.md-block(flex='100')
+                        label {{'Transport.Line'|translate}}
+                        md-select(name='selectTransportLine', ng-model='vm.selectedTransportLine', required='')
+                            md-option(ng-repeat='linea in vm.lineasTransporte', value='{{linea.id}}')
+                                | {{linea.razon_social}}
+                        div(ng-messages='entradaForm.selectTransportLine.$error')
+                            div(ng-message='required')
+                                | {{'Required Field'|translate}}
+                    md-input-container.md-block(flex='100')
+                        label {{'Transport.Kind'|translate}}
+                        md-select(name='selectTransportKind', ng-model='vm.selectedTransportKind', required='')
+                            md-option(ng-repeat='tipo in vm.tiposTransporte', value='{{tipo.id}}')
+                                | {{tipo.descripcion}}
+                        div(ng-messages='entradaForm.selectTransportLine.$error')
+                            div(ng-message='required')
+                                | {{'Required Field'|translate}}
+                div(layout='row', layout-sm='column', layout-xs='column', layout-align='center center', layout-align-sm='center stretch', layout-align-xs='center stretch')
+                    md-input-container.md-block(flex='100')
+                        label {{'Subsidiary'|translate}}
+                        md-select(name='selectSubsidiary', ng-model='vm.selectedSubsidiary', required='')
+                            md-option(ng-repeat='sucursal in vm.Sucursales', value='{{sucursal.id}}')
+                                | {{sucursal.nombre}}
+                        div(ng-messages='entradaForm.selectSubsidiary.$error')
+                            div(ng-message='required')
+                                | {{'Required Field'|translate}}
+                    md-input-container.md-block(flex='100')
+                        label {{'Project'|translate}}
+                        md-select(name='selectProject', ng-model='vm.selectedProject', required='')
+                            md-option(ng-repeat='proyecto in vm.Proyectos', value='{{proyecto.id}}')
+                                | {{proyecto.descripcion}}
+                        div(ng-messages='entradaForm.selectProject.$error')
+                            div(ng-message='required')
+                                | {{'Required Field'|translate}}
+            div(layout='row', flex='100', layout-sm='column', layout-align-sm='center stretch', layout-xs='column', layout-align-xs='center stretch')
+                p {{'Driver.IFE'|translate}}
+                div(flex='30', layout='column', layout-align='space-around center')
+                    md-button.md-primary.md-raised(ngf-select='vm.selectionFile($files)', ngf-accept="'image/*'", required='required', ng-disabled="vm.status != 'idle'", ngf-multiple='false', ng-model='vm.picFile')
+                        md-icon(md-font-icon='', ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}")
+                    md-button.md-warn.md-raised(ng-click='removeImage()')
+                        md-icon(md-font-icon='', ng-class="'fa fa-trash'")
+                div(flex='80')
+                    .md-media-md.card-media
+                        img.thumb(ngf-src='vm.picFile', style='max-width:150px')
+            div(layout='row', layout-align='space-around center', layout-sm='column', layout-xs='column')
+                md-button.md-raised.md-primary(ng-click='vm.showMassiveUpload()') {{'Cabinets Massive Upload'|translate}}
+                md-button.md-raised.md-primary(ng-click='vm.showManualUpload()') {{'Cabinets Manual Upload'|translate}}
+            // Massive Upload
+            div(layout='row', flex='100', ng-hide='vm.hideMassiveUpload')
+                md-input-container(flex='80')
+                    input(name='FileName', type='text', ng-model='vm.excelFile.name', ng-disabled='true')
+                div(flex='20')
+                    md-button.md-primary.md-raised(ngf-select='vm.selectionFile($files)', ngf-accept="'.xlsx'", required='required', ng-disabled="vm.status != 'idle'", ngf-multiple='false', ng-model='vm.excelFile') {{'Choose File'|translate}}
+            div(flex='', layout='column')
+                p {{'Registered Cabinets'|translate}}
+                md-table-container
+                    table(md-table='', md-row-select='', multiple='', ng-disabled='true')
+                        thead(md-head='', md-order='query.order', md-on-reorder='getDesserts')
+                            tr(md-row='')
+                                th(md-column='') {{'TableCabinets.Headers.Economic Num.'|translate}}
+                                th(md-column='') {{'TableCabinets.Headers.Serial Num.'|translate}}
+                                th(md-column='', md-numeric='') {{'TableCabinets.Headers.Brand'|translate}}
+                                th(md-column='', md-numeric='') {{'TableCabinets.Headers.Model'|translate}}
+                        tbody(md-body='')
+                            tr(md-row='', md-select='dessert', md-select-id='name', md-auto-select='', ng-repeat='dessert in desserts.data')
+                                td(md-cell='') {{dessert.name}}
+                                td(md-cell='') {{dessert.calories.value}}
+                                td(md-cell='') {{dessert.fat.value | number: 1}}
+                                td(md-cell='') {{dessert.carbs.value}}
+            // Carga Manual
+            div(flex='', layout='column')
+                p {{'Unregistered Cabinets'|translate}}
+                md-table-container
+                    table(md-table='', md-row-select='', multiple='', ng-disabled='true')
+                        thead(md-head='', md-order='query.order', md-on-reorder='getDesserts')
+                            tr(md-row='')
+                                th(md-column='') {{'TableCabinets.Headers.Economic Num.'|translate}}
+                        tbody(md-body='')
+                            tr(md-row='', md-select='dessert', md-select-id='name', md-auto-select='', ng-repeat='dessert in desserts.data')
+                                td(md-cell='') {{dessert.name}}
+            div(layout='row', layout-align='end center')
+                md-button.md-raised.md-primary(ng-disabled='entradaForm.$invalid', ng-click='vm.guardar()') {{'Save'|translate}}

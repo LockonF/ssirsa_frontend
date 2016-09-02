@@ -189,17 +189,11 @@
                             <thead md-head md-order="query.order" md-on-reorder="getDesserts">
                             <tr md-row>
                                 <th md-column>{{'TableCabinets.Headers.Economic Num.'|translate}}</th>
-                                <th md-column>{{'TableCabinets.Headers.Serial Num.'|translate}}</th>
-                                <th md-column md-numeric>{{'TableCabinets.Headers.Brand'|translate}}</th>
-                                <th md-column md-numeric>{{'TableCabinets.Headers.Model'|translate}}</th>
                             </tr>
                             </thead>
                             <tbody md-body>
                             <tr md-row md-select="dessert" md-select-id="name" md-auto-select ng-repeat="dessert in desserts.data">
                                 <td md-cell>{{dessert.name}}</td>
-                                <td md-cell>{{dessert.calories.value}}</td>
-                                <td md-cell>{{dessert.fat.value | number: 1}}</td>
-                                <td md-cell>{{dessert.carbs.value}}</td>
                             </tr>
                             </tbody>
                         </table>
