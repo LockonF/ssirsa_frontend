@@ -8,13 +8,27 @@
         .module('app.mainApp')
         .factory('Persona_Admin',Persona_Admin);
 
-    function Persona_Admin($q, Restangular){
+    function Persona_Admin($q, Restangular,toastr){
         return{
             create:create,
+            createObject:createObject,
             list:list,
             modify:modify,
             deleteData:deleteData
         };
+
+        function createObject(data){
+            var defer= $q.defer();
+            Restangular.all('persona_admin').withHttpConfig({transformRequest: angular.identity}).customPOST(data,"",{},{'Content-type':'application/json'}).then(function(res){
+                defer.resolve(res);
+                toastr.success('Entrada registrada correctamente','Éxito');
+            }).catch(function(err){
+                defer.resolve(err);
+                toastr.error('Error al registrar entrada', 'Error');
+                console.log(err);
+            });
+            return defer.promise;
+        }
 
         function create(object){
             //Forma canonica

@@ -7,7 +7,7 @@
             'ngAnimate', 'ngCookies', 'ngSanitize', 'ngMessages', 'ngMaterial',
             'ui.router', 'googlechart', 'chart.js', 'linkify', 'ui.calendar',
             'angularMoment', 'textAngular', 'hljs', 'md.data.table','ngMdIcons',
-            'vAccordion',
+            'vAccordion', 'ngMaterialDatePicker',
             angularDragula(angular), 'ngFileUpload',
 
             // 'seed-module'

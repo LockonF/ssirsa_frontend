@@ -27,6 +27,7 @@
             console.log(vm.isClient);*/
         }
         // Crear requisito
+        vm.cpassword="";
         vm.guardarUsuario = guardarUsuario;
         vm.enviar =enviar;
         vm.clean=clean;
@@ -40,7 +41,6 @@
             "user": {
                 "username": "",
                 "email": "",
-                "cpassword": "",
                 "password": "",
                 "role": ""
             },
@@ -53,11 +53,17 @@
             "foto":null
         };
 
+        vm.userPrueba={
+            "username": "UsuarioPrueba",
+            "password": "12345678",
+            "email": "correo@hotmail.com",
+            "role": "1"
+        }
+
         vm.user_vacio={
             "user": {
                 "username": "",
                 "email": "",
-                "password": "",
                 "role": ""
             },
             "nombre": "",
@@ -137,35 +143,32 @@
             };
         }
 
-        function guardarUsuario2(){
+        function guardarUsuario(){
             vm.user_ini.foto=vm.picFoto;
             vm.user_ini.ife=vm.picIFE;
-            Persona_Admin.create(vm.user_ini).then(function(resp){
-                vm.user_ini= _.clone(vm.user_vacio);
-                toastr.success('exito al guardar','exito');
-                vm.user_ini={
-                    "user": {
-                        "username": "",
-                        "email": "",
-                        "cpassword": "",
-                        "password": "",
-                        "role": ""
-                    },
-                    "nombre": "",
-                    "apellido_paterno": "",
-                    "apellido_materno": "",
-                    "direccion": "",
-                    "telefono": "",
-                    "ife":null,
-                    "foto":null
-                };
-            }).catch(function(err){
-                toastr.error('error al guardar','error');
+            console.log("vm.user_ini:");
+            console.log(vm.user_ini);
+            var fd = new FormData();
+
+            fd.append('user',angular.toJson(vm.userPrueba));
+            fd.append('nombre',vm.user_ini.nombre);
+            fd.append('apellido_paterno',vm.user_ini.apellido_paterno);
+            fd.append('apellido_materno',vm.user_ini.apellido_materno);
+            fd.append('direccion',vm.user_ini.direccion);
+            fd.append('telefono',vm.user_ini.telefono);
+            fd.append('ife',vm.user_ini.ife);
+            fd.append('foto',vm.user_ini.foto);
+
+            console.log(fd);
+            Persona_Admin.createObject(fd).then(function (res) {
+
+            }).catch(function (err) {
                 console.log(err);
-            })
+            });
+
         }
 
-        function guardarUsuario() {
+        function guardarUsuario2() {
             vm.user_ini.foto=vm.picFoto;
             vm.user_ini.ife=vm.picIFE;
             console.log(vm.user_ini);
@@ -181,7 +184,6 @@
                     "user": {
                         "username": "",
                         "email": "",
-                        "cpassword": "",
                         "password": "",
                         "role": ""
                     },
@@ -208,7 +210,6 @@
                 "user": {
                     "username": null,
                     "email": "",
-                    "cpassword": "",
                     "password": "",
                     "role": ""
                 },
