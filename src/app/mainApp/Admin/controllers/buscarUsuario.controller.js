@@ -10,6 +10,7 @@
         var vm = this;
         vm.flag = 0;
         vm.personaErase=null;
+        vm.personas_admin=null;
         vm.id = null;
         vm.userName="";
         vm.FechaFin = new Date();
@@ -43,8 +44,8 @@
             direccion: "",
             sucursal: "",
             ine: "",
-            foto: null,
-            tipo: null
+            foto: "foro.jpg",
+            tipo: "foro.jpg"
 
         };
         vm.solicitud = [
@@ -274,6 +275,11 @@
             }).catch(function(err){
             });
         }
+
+        vm.numPages = function () {
+            return Math.ceil(5);
+        };
+
 
 
     }

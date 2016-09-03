@@ -8,9 +8,9 @@
         .module('app.mainApp.tecnico')
         .controller('asignacionLineaController', asignacionLineaController);
 
-    function asignacionLineaController() {
+    function asignacionLineaController(Cabinet,toastr,Translate,ModeloCabinet, $mdDialog) {
         var vm = this;
-
+        //Inicializacion de variables
         vm.cabinet={
             activo:false,
             status:"",
@@ -21,31 +21,113 @@
             incidencias:"",
             linea_x:"",
             linea_y:"",
-            marca:'"'
+            linea_z:"",
+            modelo:'"'
 
         };
+        vm.ver=false;
+        vm.cabinetPartial={
+            activo:false,
+            status:"",
+            economico:"",
+            tipoEntrada:"",
+            noSerie:"",
+            ano:"",
+            incidencias:"",
+            linea_x:"",
+            linea_y:"",
+            linea_z:"",
+            modelo:'"'
+
+        };
+        vm.modelos;
+        activate();
+
+
+        //Declaracion de funciones
         vm.guardar=guardar;
         vm.buscar=buscar;
+        vm.limpiar=limpiar;
+        vm.buscarModelos=buscarModelos;
+        //Funciones
+        function activate() {
+            vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
+            vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
+            vm.successCreateMessage = Translate.translate('MAIN.MSG.SUCCESS_LINE_MESSAGE');
+            vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
+            vm.notFoundMessage = Translate.translate('MAIN.MSG.NOT_FOUND');
+            vm.notFoundInput=Translate.translate('MAIN.MSG.NOT_FOUND_INPUT');
+            vm.errorTypeFile = Translate.translate('MAIN.MSG.ERORR_TYPE_FILE');
+            vm.errorSize = Translate.translate('MAIN.MSG.FILE_SIZE');
+            buscarModelos();
+        }
+        function buscarModelos(){
+            var promise = ModeloCabinet.getAll();
+            promise.then(function(res){
+                vm.modelos=res;
+               // console.log(vm.modelos);
 
+            }).catch(function (res) {
+                notifyError(res.status);
+            });
+
+        }
         function buscar(){
-            vm.cabinet={
-                activo:true,
-                status:'1',
-                economico:123453575323264,
-                tipoEntrada:"Normal",
-                noSerie:639462927220282323,
-                ano:2014,
-                incidencias:1,
-                linea_x:4,
-                linea_y:10,
-                marca:'2'
+            if (vm.idCabinet!=null){
+                var promise = Cabinet.get(vm.idCabinet);
+                promise.then(function(res){
+                    vm.cabinet=res;
+                    vm.ver=true;
+                    //console.log(vm.cabinet);
 
-            };
+
+                }).catch(function (res) {
+                    notifyError(res.status);
+                });
+            }
+            else{
+                notifyError(400);
+            }
 
 
         }
 
+        function notifyError(status) {
+            switch (status) {
+                case 404:
+                    toastr.info(vm.notFoundMessage, vm.errorTitle);
+                    break;
+                default:
+                    toastr.warning(vm.errorMessage, vm.errorTitle);
+                    break;
+
+            }
+        }
+
         function guardar(){
+            if (vm.idCabinet!=null){
+
+                vm.cabinet.partial=true;
+                vm.cabinetPartial= _.omit(vm.cabinet,'foto');
+                var promise = Cabinet.modify(vm.cabinetPartial);
+                promise.then(function(res){
+                    vm.cabinet=res;
+                    //console.log(vm.cabinet);
+                    limpiar();
+                    vm.cabinet=null;
+                    vm.cabinetPartial=null;
+                    toastr.success(vm.successCreateMessage, vm.successTitle);
+
+                }).catch(function (res) {
+                    notifyError(res.status);
+                });
+            }
+            else{
+                notifyError(400);
+            }
+
+        }
+        function limpiar(){
             vm.cabinet={
                 activo:false,
                 status:"",
@@ -56,44 +138,27 @@
                 incidencias:"",
                 linea_x:"",
                 linea_y:"",
+                linea_z:"",
                 marca:'"'
 
             };
+            vm.idCabinet=null;
+            vm.ver=false;
 
 
         }
-        vm.status = [{
-            id: '1',
-            nombre: 'en reparacion',
-        }, {
-            id: '2',
-            nombre: 'reparado',
-        }, {
-            id: '3',
-            nombre: 'nuevo',
-        }, {
-            id: '4',
-            nombre: 'averiado',
-        },{
-            id: '5',
-            nombre: 'Obsoleto',
-        }];
-        vm.marcas = [{
-            id: '1',
-            nombre: 'General Electric',
-        }, {
-            id: '2',
-            nombre: 'Turmix',
-        }, {
-            id: '3',
-            nombre: 'Westpoint',
-        }, {
-            id: '4',
-            nombre: 'Maytag',
-        },{
-            id: '5',
-            nombre: 'Kenmore',
-        }];
+        vm.verInfo = function(ev) {
+            $mdDialog.show({
+                locals:{parent: vm},
+                controller: function() {this.parent=vm},
+                templateUrl: 'app/mainApp/tecnico/dialogInfoCabinet.tmpl.html',
+                parent: angular.element(document.body),
+                controllerAs:'vm',
+                clickOutsideToClose:true,
+            })
+               
+        };
+
 
 
     }

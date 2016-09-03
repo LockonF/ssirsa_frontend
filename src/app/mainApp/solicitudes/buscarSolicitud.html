@@ -1,5 +1,5 @@
 <div layout="row" flex layout-padding layout-fill layout-align="center center">
-    <div flex="60" flex-xs="100">
+    <div flex="30" flex-xs="30">
         <md-card>
             <md-card-title>
                 <md-card-title-text>
@@ -40,13 +40,27 @@
                     </md-button>
                 </md-card-title-text>
             </md-card-title>
+        </md-card>
 
+        <!--md-toolbar class="md-table-toolbar md-default">
+            <div class="md-toolbar-tools">
+                <span>Nutrition</span>
+            </div>
+        </md-toolbar-->
+
+    </div>
+
+</div>
+<!-- opc 1-->
+<div layout="row" flex layout-padding layout-fill layout-align="center center">
+    <div flex="85" flex-xs="85">
+        <md-card>
 
             <div ng-show="(vm.solicitudes!=null) && (vm.tipo_solicitud=='Envio'||vm.tipo_solicitud=='Recoleccion')">
                 <md-card-title>
-                <md-card-title-text>
-                <h2  ng-show="vm.solicitudes!=null ">Solicitud de {{vm.tipo_solicitud}}</h2>
-                </md-card-title-text>
+                    <md-card-title-text>
+                        <h2  ng-show="vm.solicitudes!=null ">Solicitud de {{vm.tipo_solicitud}}</h2>
+                    </md-card-title-text>
                 </md-card-title>
                 <div layout="row" flex layout-padding layout-fill layout-align="center center" >
                     <div flex="100" flex-xs="100">
@@ -62,15 +76,15 @@
                                             <th md-column="md-column" md-order-by="udn"><span translate="">UDN</span>
                                                 <!--vm.requisito. -->
                                             </th>
-                                            <th md-column="md-column" md-order-by="fecha_inicio"><span translate="">Inicio</span>
+                                            <th md-column="md-column" md-order-by="fecha_inicio"><span translate="">Fecha de Inicio</span>
                                             </th>
-                                            <th md-column="md-column" md-order-by="fecha_termino"><span translate="">Fin</span>
+                                            <th md-column="md-column" md-order-by="fecha_termino"><span translate="">Fecha de Fin</span>
                                             </th>
-                                            <th md-column="md-column" md-order-by="tipo_solicitud"><span translate="">TIPO</span>
+                                            <th md-column="md-column" md-order-by="modelo_cabinet"><span translate="">Tipo</span>
                                             </th>
-                                            <th md-column="md-column" md-order-by="status"><span translate="">ESTATUS</span>
+                                            <th md-column="md-column" md-order-by="status"><span translate="">Estatus</span>
                                             </th>
-                                            <th md-column="md-column" md-order-by="comentario"><span translate="">CANTIDAD</span>
+                                            <th md-column="md-column" md-order-by="comentario"><span translate="">Cantidad</span>
                                             </th>
                                             <!-- Cuerpo de la tabla-->
                                         </tr>
@@ -82,11 +96,11 @@
                                             <td md-cell="md-cell" >{{solicitud.udn}}</td>
                                             <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"fecha_inicio")'>{{solicitud.fecha_inicio}}</td>
                                             <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"fecha_termino")'>{{solicitud.fecha_termino}}</td>
-                                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"tipo_solicitud")'>{{solicitud.tipo_solicitud}}</td>
+                                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"tipo_solicitud")'>{{solicitud.modelo_cabinet}}</td>
                                             <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"status")'>{{solicitud.status}}</td>
                                             <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"comentario")'>{{solicitud.comentario}}</td>
                                             <td md-cell="md-cell" ng-click="$event.stopPropagation()"><!-- -->
-                                                <md-button ng-click="vm.eliminarRequisito(solicitud)" class="md-fab md-warn md-mini">
+                                                <md-button ng-click="vm.borrarSolicitud(solicitud.id)" class="md-fab md-warn md-mini">
                                                     <md-icon md-font-icon="fa fa-times-circle"></md-icon>
                                                 </md-button>
                                             </td>
@@ -169,16 +183,5 @@
                 </md-card-actions>
             </div>
         </md-card>
-
-        <!--md-toolbar class="md-table-toolbar md-default">
-            <div class="md-toolbar-tools">
-                <span>Nutrition</span>
-            </div>
-        </md-toolbar-->
-
     </div>
 </div>
-<!-- opc 1-->
-
-
-

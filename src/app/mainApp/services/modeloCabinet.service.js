@@ -17,7 +17,7 @@
 
         function create(request) {
             var deferred = $q.defer();
-            Restangular.all('cabinet').customPOST(request).then(function (res) {
+            Restangular.all('modelo_cabinet').customPOST(request).then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);
@@ -37,7 +37,7 @@
 
         function getAll() {
             var deferred = $q.defer();
-            Restangular.all('cabinet').customGET().then(function (res) {
+            Restangular.all('modelo_cabinet').customGET().then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);
@@ -48,7 +48,7 @@
         function remove(request) {
             var deferred = $q.defer();
 
-            Restangular.one('cabinet', request.no_serie).customDELETE().then(function (res) {
+            Restangular.one('modelo_cabinet', request.no_serie).customDELETE().then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);

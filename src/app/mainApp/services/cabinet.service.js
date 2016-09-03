@@ -45,10 +45,10 @@
             return deferred.promise;
         }
 
-        function remove(request) {
+        function remove(cabinet) {
             var deferred = $q.defer();
 
-            Restangular.one('cabinet', request.no_serie).customDELETE().then(function (res) {
+            Restangular.one('cabinet', cabinet.economico).customDELETE().then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);
@@ -57,12 +57,13 @@
         }
 
 
-        function modify(request) {
+        function modify(cabinet) {
             var deferred = $q.defer();
-            Restangular.one('cabinet', request.no_serie).customPUT(request).then(function (res) {
+            Restangular.one('cabinet', cabinet.economico).customPUT(cabinet).then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);
+                console.log(err);
             });
             return deferred.promise;
         }

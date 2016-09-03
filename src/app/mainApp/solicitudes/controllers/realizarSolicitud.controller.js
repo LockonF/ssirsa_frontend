@@ -6,13 +6,15 @@
         .module('app.mainApp.solicitudes')
         .controller('realizarSolicitudController',realizarSolicitudController);
 
-    function realizarSolicitudController(udn,tipoEquipo,$mdDialog,$mdEditDialog,toastr,Solicitudes,PersonaLocalService,Solicitud_Servicio){
+    function realizarSolicitudController(udn,modelo_cabinet,$mdDialog,$mdEditDialog,toastr,Solicitudes,Socket,Session,Solicitud_Servicio,Solicitudes_Admin,Persona_Admin){
         var vm = this;
         /*vm.selectedDate = moment().startOf('day').format();
-        $mdDateLocaleProvider.formatDate = function(date) {
-            return moment(date).format('DD/MM/YYYY');
-        };*/
+         $mdDateLocaleProvider.formatDate = function(date) {
+         return moment(date).format('DD/MM/YYYY');
+         };*/
         vm.udn=null;
+        vm.persona=null;
+        vm.time=null;
         vm.id=0;
         vm.requisito = {
             "id":null,
@@ -24,7 +26,9 @@
             "tipo_solicitud": null,
             "status": null,
             "comentario": null,
-            "datos":[]
+            "datos":[],
+            "persona":null,
+            "modelo_cabinet":null
         };
         vm.requisito_vacio = {
             "id":null,
@@ -36,7 +40,9 @@
             "tipo_solicitud": null,
             "status": null,
             "comentario": null,
-            "datos":[]
+            "datos":[],
+            "persona":null,
+            "modelo_cabinet":null
         };
         vm.requisitoVenta = {
             "id":null,
@@ -67,10 +73,11 @@
         vm.showCreateDialog=showCreateDialog;
         vm.edit=edit;
         vm.eliminarDato=eliminarDato;
-        vm.guardarSolicitud=guardarSolicitud;
+        vm.guardarSolicitudAdmin=guardarSolicitudAdmin;
         vm.guardarSolicitudVenta=guardarSolicitudVenta;
         vm.Requisitos = [];
         vm.udns=null;
+        vm.personas=null;
         vm.tiposEquipo=null;
         vm.isClient=true;
         activate();
@@ -83,17 +90,21 @@
 
             });
 
-            tipoEquipo.list().then(function(rest){
+            modelo_cabinet.list().then(function(rest){
                 vm.tiposEquipo=rest;
-                //console.log(vm.tiposEquipo);
+                console.log(vm.tiposEquipo);
             }).catch(function(error){
-
+                console.log(error);
             });
-            if(PersonaLocalService.role.name == 'Cliente'){
-                vm.isClient=true;
-            }else{
-                vm.isClient=false;
-            }
+
+            Persona_Admin.list().then(function(rest){
+                vm.personas=rest;
+                console.log(vm.personas);
+            }).catch(function (error){
+                console.log(error);
+            });
+
+            vm.isClient = Session.userRole == 'Cliente';
             console.log(vm.isClient);
 
         }
@@ -145,9 +156,9 @@
 
                     console.log(index);
                     //if(vm.Requisitos[index].Descripcion==vm.requisitocopy.Descripcion){
-                        console.log("voy a borrar");
-                        console.log(vm.Requisitos[index]);
-                        vm.Requisitos.splice(index, 1);
+                    console.log("voy a borrar");
+                    console.log(vm.Requisitos[index]);
+                    vm.Requisitos.splice(index, 1);
                     //
                 }
                 else{console.log("Aun no lo encuentro")}
@@ -190,16 +201,31 @@
             }
         }
 
-        function guardarSolicitud(){
+        function guardarSolicitudAdmin(){
             vm.requisito.fecha_inicio=moment(vm.requisito.fecha_inicio).format('YYYY-MM-DD');
             vm.requisito.fecha_termino=moment(vm.requisito.fecha_termino).format('YYYY-MM-DD');
-            vm.requisito.fecha_atendida=moment(vm.requisito.fecha_atendida).format('YYYY-MM-DD');
+            vm.requisito.fecha_atendida=moment(vm.requisito.fecha_atendida).format('YYYY-MM-DD HH:mm:ss');
             vm.requisito.udn=vm.udn;
-            Solicitudes.create(vm.requisito).then(function(resp){
+            vm.requisito.persona=vm.persona;
+            console.log(vm.requisito);
+            Solicitudes_Admin.create(vm.requisito).then(function(resp){
+                console.log(resp);
+                var notification = {
+                    id_solicitud: 1,
+                    type_notification: vm.requisito.tipo_solicitud,
+                    updated_at: moment().toDate()
+                };
+                Socket.emit('new:msg', {
+                    canal: 'Administrador',
+                    username:  Session.userInformation.id,
+                    solicitud:vm.requisito,
+                    name:Session.userInformation.nombre,
+                    notification: notification,
+                    type:"normal"
+                });
                 vm.requisito= _.clone(vm.requisito_vacio);
                 vm.udn=null;
                 toastr.success('exito al guardar','exito');
-                console.log(vm.udn);
             }).catch(function(err){
                 toastr.error('error al guardar','error');
                 console.log(err);
@@ -213,6 +239,20 @@
             vm.requisitoVenta.udn=vm.udn;
             console.log(vm.requisitoVenta);
             Solicitud_Servicio.create(vm.requisitoVenta).then(function(resp){
+                console.log(resp);
+                var notification = {
+                    id_solicitud: 1,
+                    type_notification: "Venta",
+                    updated_at: moment().toDate()
+                };
+                Socket.emit('new:msg', {
+                    canal: 'Administrador',
+                    username:  Session.userInformation.id,
+                    name:Session.userInformation.nombre,
+                    solicitud:vm.requisitoVenta,
+                    notification: notification,
+                    type:"normal"
+                });
                 vm.requisitoVenta= _.clone(vm.requisitoVenta_vacio);
                 vm.udn=null;
                 toastr.success('exito al guardar','exito');

@@ -6,9 +6,9 @@
         .controller('DefaultToolbarController', DefaultToolbarController);
 
     /* @ngInject */
-    function DefaultToolbarController($scope, $injector, $rootScope, $mdMedia, $state, $element, $filter,
-                                      $mdUtil, $mdSidenav,$mdToast, $timeout, $document, triBreadcrumbsService,
-                                      triSettings, triLayout, OAuth, toastr, PersonaLocalService) {
+    function DefaultToolbarController($scope, $injector, $rootScope, $mdMedia, $state, AuthService, $filter,
+                                      $mdUtil, $mdSidenav,$mdToast, $document, triBreadcrumbsService,
+                                      triSettings, triLayout, Socket, toastr,Session) {
         var vm = this;
         vm.no_solicitudes=2;
         vm.breadcrumbs = triBreadcrumbsService.breadcrumbs;
@@ -23,14 +23,6 @@
         vm.toggleFullScreen = toggleFullScreen;
         vm.LogOut=LogOut;
 
-
-        initToolbar();
-
-        function initToolbar()
-        {
-            vm.usuario = PersonaLocalService.persona;
-            //console.log(vm.usuario);
-        }
 
         ////////////////
 
@@ -94,7 +86,8 @@
         }
 
         function LogOut(){
-            OAuth.revokeToken().then(function(res){
+            AuthService.logout().then(function(res){
+                Socket.emit('leave', {canal:'Administrador', username: 1});
                 toastr.info('Sesión cerrada','Información');
                 $state.go('login');
             }).catch(function(err){

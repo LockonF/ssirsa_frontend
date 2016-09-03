@@ -8,15 +8,16 @@
         .module('app.mainApp')
         .factory('dynamicMenu',dynamicMenu);
 
-    function dynamicMenu(triMenu,PersonaLocalService){
-        var service={
+    function dynamicMenu(triMenu,Session){
+        return {
           loadMenu:loadMenu
         };
 
 
         function loadMenu(){
             triMenu.menu=[];
-            var role=PersonaLocalService.role.name;
+            var role=Session.userRole;
+
             switch (role){
                 case "Administrador":
                     loadAdminMenu();
@@ -95,6 +96,12 @@
                             name: 'Crear Solicitud',
                             state: 'triangular.admin-default.realizarSolicitud',
                             type: 'link'
+                        },
+                        {
+                            name:'Calendario',
+                            state:'triangular.admin-default.calendar',
+                            type: 'link'
+
                         }
                     ]
                 },
@@ -328,12 +335,11 @@
                     ]
                 }
 
-            ]
+            ];
 
             //triMenu.menu.unshift(adminMenu);
             triMenu.menu=tecnicoMenu;
         }
 
-        return service;
     }
 })();

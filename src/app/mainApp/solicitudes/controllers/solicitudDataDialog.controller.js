@@ -4,7 +4,7 @@
 (function () {
     'use strict';
     angular.module('app.mainApp').controller('solicitudDataDialogController',solicitudDataDialogController);
-    function solicitudDataDialogController($mdDialog,tipoEquipo)
+    function solicitudDataDialogController($mdDialog,modelo_cabinet)
     {
         var vm = this;
 
@@ -18,7 +18,7 @@
         vm.tiposEquipo=null;
         activate();
         function activate(){
-            tipoEquipo.list().then(function(resp){
+            modelo_cabinet.list().then(function(resp){
                 vm.tiposEquipo=resp;
             }).catch(function(err){
 

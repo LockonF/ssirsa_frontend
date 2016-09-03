@@ -9,7 +9,7 @@
         .module('app.mainApp.tecnico')
         .controller('etapaController', etapaController);
 
-    function etapaController( Servicios, Diagnostico, Translate ) {
+    function etapaController( Cabinet, Servicios, Diagnostico, Translate,toastr ) {
         var vm = this;
         vm.activate = activate();
 
@@ -22,15 +22,12 @@
             siguiente_etapa: ''
 
         };
+        vm.etapaBuscada;
         vm.editable=true;
-        vm.etapaActual = null;//Objeto donde se almacenara la informacion de la etapa actual
-        vm.etapaInsumo=null; //Objeto donde se almacena la etapa sobre la cual se esta trabajando
         vm.idCabinet = null;
         vm.insumos = [];//Arreglo que poseera los Insumos que pueden ser usados en cierta etapa
-        vm.insumosEtapaCabinet = null;//Arreglo de Insumos que posee el cabinet en diche etapa
         vm.cabinet=null;// Informacion general del cabinet al cual se le asignara una nueva etapa
         vm.diagnostico=null;// Informacion del diagnostico que propicio que entrara a un proceso de servicio tecnico
-        vm.zona=0;
         vm.insumo = {
             id: "",
             nombre: "",
@@ -38,45 +35,53 @@
             notas: ""
         };// Insumo por agregar al cabinet en cuestion
         vm.etapas = [{
-            id: '1',
-            nombre: 'Etapa 1',
+            nombre: 'Depuración',
             value: 'E1'
         }, {
-            id: '2',
-            nombre: 'Etapa 2',
+            nombre: 'Diagnostico',
             value: 'E2'
         }, {
-            id: '3',
-            nombre: 'Etapa 3',
+            nombre: 'Armado y Reparación',
             value: 'E3'
         }, {
-            id: '4',
-            nombre: 'Etapa 4',
+            nombre: 'Limpieza',
+            value: 'E3.1'
+        }, {
+            nombre: 'Armado',
+            value: 'E3.2'
+        }, {
+            nombre: 'Vacío y Carga de Gas',
+            value: 'E3.3'
+        },{
+            nombre: 'Terminado',
             value: 'E4'
-        }, {
-            id: '5',
-            nombre: 'Etapa 5',
+        },{
+            nombre: 'Bodega',
             value: 'E5'
-        }, {
-            id: '6',
-            nombre: 'Etapa Bicicletas (Unica)',
+        },{
+            nombre: 'Carritos y Bicicletas',
             value: 'E6'
+        },{
+            nombre: 'Servicio en Punto de Venta',
+            value: 'E7'
+        },{
+            nombre: 'Confinamiento',
+            value: 'EC'
+        },{
+            nombre: 'Destrucción',
+            value: 'ED'
         }
         ];//Arreglo de las diferentes etapas que componen el proceso de fabricacion de Cabinets
         //Declaracion de Funciones
         vm.crearInsumo = crearInsumo;
         vm.eliminarInsumo = eliminarInsumo;
-        vm.crearEtapaServicio = crearEtapaServicio; //Crea una nueva etapa de servicio (Listo)
-        vm.cancel = cancel;//Limpiar campos (Listo)
-        vm.buscar = buscar;//Buscar Cabinet (Listo)
-        vm.eliminarEtapaServicio = eliminarEtapaServicio;//Listo
-        vm.obtenerEtapaActual = obtenerEtapaActual;
-        vm.buscarEtapaServicio = buscarEtapaServicio;//Listo
-        vm.getInsumos = getInsumos;//Listo
-        vm.consultarInsumosEtapa = consultarInsumosEtapa;//Listo
-        vm.obtenerInformacionCabinet = obtenerInformacionCabinet;//Listo
-        vm.obtenerEtapaActual = obtenerEtapaActual;//Listo
+        vm.crearEtapaServicio = crearEtapaServicio; //Crea una nueva etapa de servicio
+        vm.cancel = cancel;//Limpiar campos
+        vm.buscar = buscar;//Buscar Cabinet
+        vm.eliminarEtapaServicio = eliminarEtapaServicio;//
+        vm.getInsumos = getInsumos;//
         vm.editar=editar;
+        activate();
         
 
 
@@ -87,69 +92,58 @@
         }
         //Funcion Activate al iniciar la vista
         function activate() {
-            //mensajes del toastr
-
-            vm.sureText = Translate.translate('DIALOGS.YOU_SURE');
-            vm.acceptText = Translate.translate('DIALOGS.ACCEPT');
-            vm.cancelText = Translate.translate('DIALOGS.CANCEL');
-            vm.dialogText = Translate.translate('DIALOGS.WARNING');
-            vm.successText = Translate.translate('DIALOGS.SUCCESS');
-            vm.successStoreText = Translate.translate('DIALOGS.SUCCESS_STORE');
-            vm.successUpdateText = Translate.translate('DIALOGS.SUCCESS_UPDATE');
-            vm.successDeleteText = Translate.translate('DIALOGS.SUCCESS_DELETE');
-            vm.failureText = Translate.translate('DIALOGS.FAILURE');
-            vm.failureStoreText = Translate.translate('DIALOGS.FAIL_STORE');
-            vm.failureDeleteText = Translate.translate('DIALOGS.FAIL_DELETE');
-
+            vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
+            vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
+            vm.successCreateMessage = Translate.translate('MAIN.MSG.SUCCESS_LINE_MESSAGE');
+            vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
+            vm.notFoundMessage = Translate.translate('MAIN.MSG.NOT_FOUND');
+            vm.notFoundInput=Translate.translate('MAIN.MSG.NOT_FOUND_INPUT');
+            vm.errorTypeFile = Translate.translate('MAIN.MSG.ERORR_TYPE_FILE');
+            vm.errorSize = Translate.translate('MAIN.MSG.FILE_SIZE');
 
         }
-        function consultarInsumosEtapa(){
-            if (vm.etapaActual!=null){
-                var promise = Servicios.consultarAllInsumosCabinetEtapa();
+        function buscar(){
+            if (vm.idCabinet!=null){
+                var promise = Cabinet.get(vm.idCabinet);
                 promise.then(function(res){
-                    vm.insumosEtapaCabinet=res;
-                    console.log(vm.insumosEtapaCabinet);
+                    vm.cabinet=res;
+                    promise = Servicios.getDiagnosticoFromCabinet(vm.idCabinet);
+                    promise.then(function(res){
+                        vm.diagnostico=res;
+                        promise = Servicios.consultarEtapaServicioDiagnostico(vm.diagnostico);
+                        promise.then(function(res){
+                            vm.etapaActual=res;
+                        }).catch(function (res) {
+                            notifyError(res.status);
+                        })
+                    }).catch(function (res) {
+                        notifyError(res.status);
+                    })
+                }).catch(function (res) {
+                    notifyError(res.status);
+                });
 
-                })
+
             }
             else{
-                console.log("No pude consultar los Insumos por etapa");
+                notifyError(404);
             }
-        }
-        function obtenerInformacionCabinet(){
 
         }
-        function obtenerEtapaActual() {
-            if (vm.etapaInsumo == null && vm.diagnostico!=null) {
-                var promise = Servicios.verEtapaValidada();
-                promise.then(function (res) {
-                    vm.etapaActual = res;
-                    vm.etapaInsumo=etapaActual.siguiente_etapa;
+        function notifyError(status) {
+            switch (status) {
+                case 404:
+                    toastr.info(vm.notFoundMessage, vm.errorTitle);
+                    break;
+                default:
+                    toastr.warning(vm.errorMessage, vm.errorTitle);
+                    break;
 
-                }).catch(function (err) {
-                    console.log(err);
-                    var promise = Servicios.verEtapaNoValidada();
-                    promise.then(function(res){
-                        vm.etapaActual=res;
-                        vm.etapaInsumo=etapaActual.actual_etapa;
-                    }).catch(function (err){
-                        console.log(err);
-                        vm.etapaInsumo="E1"
-                    })
-                });
-            }
-            else {
-                console.log("Error al obtener etapa actual");
             }
         }
+
 
         function getInsumos(){
-            if(vm.etapaInsumo!=null){
-                var promise = Servicios.consultarInsumosEtapa();
-                promise.then(function(res){
-                    vm.insumos=res;
-                })
-            }
 
         }
 
@@ -162,7 +156,7 @@
                 siguiente_etapa: ''
 
             };
-            vm.editable=true;
+            vm.editable=false;
             vm.etapaActual = null;//Objeto donde se almacenara la informacion de la etapa actual
             vm.etapaInsumo=null; //Objeto donde se almacena la etapa sobre la cual se esta trabajando
             vm.idCabinet = null;
@@ -180,38 +174,9 @@
 
         }
 
-        function buscarEtapaServicio() {
-            if (vm.etapaActual != null && vm.diagnostico.id != null) {
-                var promise = Servicios.consultarEtapaServicioDiagnostico(vm.diagnostico);
-                promise.then(function (res) {
-                    vm.etapaActual = res;
-                });
-            }
-            else {
-                console.log("Cabinet no Encontrado", "Error: El cabinet que usted esta buscando no se encuentra registrado.");
-            }
-        }
-
-        function buscar() {
-            if (vm.idCabinet != null) {
-                var promise = Diagnostico.lastDiagnosticInput(vm.idCabinet);
-                promise.then(function (res) {
-                    vm.diagnostico = res;
-                });
-            }
-            else {
-                console.log("Cabinet no Encontrado", "Error: El cabinet que usted esta buscando no se encuentra registrado.");
-            }
-
-            buscarEtapaServicio();
-            obtenerEtapaActual();
-            getInsumos();//Listo
-            consultarInsumosEtapa();
-            
-        }
 
         function eliminarEtapaServicio() {
-            if (vm.etapaActual != null && vm.etapaActual.validado != true) {
+            if (vm.etapaActual != null) {
                 var promise = Servicios.eliminarEtapaServicio(vm.etapaActual);
                 promise.then(function (res) {
                     vm.diagnostico = res;
@@ -223,7 +188,8 @@
         }
 
         function crearEtapaServicio() {
-            if (vm.diagnostico.id == null) {
+            if (vm.etapaActual!= null) {
+                vm.etapaActual.insumos=vm.insumos;
                 console.log("Ya voy a crear");
                 var promise = Servicios.crearEtapaServicio(vm.etapa);
                 promise.then(function (res) {
@@ -247,61 +213,8 @@
             vm.cancel();
         }
 
-
-
-            function transformaetapazona(){
-                if (vm.etapaInsumo != null){
-                    switch(vm.etapaInsumo) {
-                        case "E1":
-                            vm.zona=1;
-                            break;
-                        case "E2":
-                            vm.zona=2;
-                            break;
-                        case "E3":
-                            vm.zona=3;
-                            break;
-                        case "E4":
-                            vm.zona=4;
-                            break;
-                        case "E5":
-                            vm.zona=5;
-                            break;
-                        case "E6":
-                            vm.zona=6;
-                            break;
-                    }
-
-
-                }
-            }
             function crearInsumo() {
 
-                console.log(vm.insumo)
-                if (vm.insumo != null) {
-                    console.log("insumos antes de agregarlo");
-                    console.log(vm.insumosEtapaCabinet);
-                    //vm.etapa.insumos.push(vm.insumo);
-                    var promise = Servicios.anadirInsumo(vm.etapa);
-                    promise.then(function (res){
-                        vm.insumo=res;
-                    }).then(function(res){
-                        vm.consultarInsumosEtapa(vm.etapaActual);
-                    })
-                    console.log("insumos despues de agregarlo");
-                    
-                    console.log(vm.insumosEtapaCabinet);
-
-                    vm.insumo = {
-                        id: "",
-                        nombre: "",
-                        cantidad: 0,
-                        notas: ""
-                    };
-
-                    console.log("Los insumos son:");
-                    console.log(vm.insumosEtapaCabinet);
-                }
             }
 
             // Eliminar Insumo
@@ -309,30 +222,6 @@
 
             function eliminarInsumo(insu) {
 
-                vm.insumocopy = insu;
-                var index = 0;
-
-                for (index = 0; index < vm.etapa.insumos.length; ++index) {
-
-                    console.log(vm.insumocopy);
-                    console.log(vm.etapa.insumos[index]);
-                    if (vm.etapa.insumos[index].id == vm.insumocopy.id) {
-
-                        console.log("voy a borrar");
-                        console.log(vm.etapa.insumos[index]);
-                        var promise = Servicios.eliminarInsumo(vm.insumo);
-                        promise.then(function (res){
-
-                        }).then(function(res){
-                            vm.consultarInsumosEtapa(vm.etapaActual);
-                        })
-
-                    }
-                    else {
-                        console.log("Aun no lo encuentro")
-                    }
-
-                }
 
             }
 
