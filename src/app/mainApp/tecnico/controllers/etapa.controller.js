@@ -9,7 +9,7 @@
         .module('app.mainApp.tecnico')
         .controller('etapaController', etapaController);
 
-    function etapaController( Cabinet, Servicios, Diagnostico, Translate ) {
+    function etapaController( Cabinet, Servicios, Diagnostico, Translate,toastr ) {
         var vm = this;
         vm.activate = activate();
 
@@ -79,9 +79,7 @@
         vm.cancel = cancel;//Limpiar campos
         vm.buscar = buscar;//Buscar Cabinet
         vm.eliminarEtapaServicio = eliminarEtapaServicio;//
-        vm.obtenerEtapaActual = obtenerEtapaActual;
         vm.getInsumos = getInsumos;//
-        vm.obtenerInformacionCabinet = obtenerInformacionCabinet;//
         vm.editar=editar;
         activate();
         
@@ -109,31 +107,22 @@
                 var promise = Cabinet.get(vm.idCabinet);
                 promise.then(function(res){
                     vm.cabinet=res;
-
-                    //console.log(vm.cabinet);
-
-
+                    promise = Servicios.getDiagnosticoFromCabinet(vm.idCabinet);
+                    promise.then(function(res){
+                        vm.diagnostico=res;
+                        promise = Servicios.consultarEtapaServicioDiagnostico(vm.diagnostico);
+                        promise.then(function(res){
+                            vm.etapaActual=res;
+                        }).catch(function (res) {
+                            notifyError(res.status);
+                        })
+                    }).catch(function (res) {
+                        notifyError(res.status);
+                    })
                 }).catch(function (res) {
                     notifyError(res.status);
                 });
-                promise = Servicios.getDiagnosticoFromCabinet(vm.idCabinet);
-                promise.then(function(res){
-                    vm.diagnostico=res;
-                    //console.log(vm.cabinet);
 
-
-                }).catch(function (res) {
-                    notifyError(res.status);
-                });
-                promise = Servicios.consultarEtapaServicioDiagnostico(vm.diagnostico);
-                promise.then(function(res){
-                    vm.etapaActual=res;
-                    //console.log(vm.cabinet);
-
-
-                }).catch(function (res) {
-                    notifyError(res.status);
-                });
 
             }
             else{
@@ -152,12 +141,7 @@
 
             }
         }
-        function obtenerInformacionCabinet(){
 
-        }
-        function obtenerEtapaActual() {
-
-        }
 
         function getInsumos(){
 

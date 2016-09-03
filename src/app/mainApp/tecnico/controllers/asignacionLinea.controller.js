@@ -8,7 +8,7 @@
         .module('app.mainApp.tecnico')
         .controller('asignacionLineaController', asignacionLineaController);
 
-    function asignacionLineaController(Cabinet,toastr,Translate,ModeloCabinet) {
+    function asignacionLineaController(Cabinet,toastr,Translate,ModeloCabinet, $mdDialog) {
         var vm = this;
         //Inicializacion de variables
         vm.cabinet={
@@ -25,6 +25,7 @@
             modelo:'"'
 
         };
+        vm.ver=false;
         vm.cabinetPartial={
             activo:false,
             status:"",
@@ -76,6 +77,7 @@
                 var promise = Cabinet.get(vm.idCabinet);
                 promise.then(function(res){
                     vm.cabinet=res;
+                    vm.ver=true;
                     //console.log(vm.cabinet);
 
 
@@ -141,9 +143,21 @@
 
             };
             vm.idCabinet=null;
+            vm.ver=false;
 
 
         }
+        vm.verInfo = function(ev) {
+            $mdDialog.show({
+                locals:{parent: vm},
+                controller: function() {this.parent=vm},
+                templateUrl: 'app/mainApp/tecnico/dialogInfoCabinet.tmpl.html',
+                parent: angular.element(document.body),
+                controllerAs:'vm',
+                clickOutsideToClose:true,
+            })
+               
+        };
 
 
 
