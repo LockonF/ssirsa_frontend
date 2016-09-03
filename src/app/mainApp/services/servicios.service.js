@@ -43,6 +43,7 @@
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(false);
+                console.log(err);
             });
 
             return deferred.promise;
