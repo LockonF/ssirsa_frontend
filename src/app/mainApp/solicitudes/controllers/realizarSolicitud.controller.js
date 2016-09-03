@@ -6,7 +6,7 @@
         .module('app.mainApp.solicitudes')
         .controller('realizarSolicitudController',realizarSolicitudController);
 
-    function realizarSolicitudController(udn,modelo_cabinet,$mdDialog,$mdEditDialog,toastr,Solicitudes,Session,Solicitud_Servicio,Solicitudes_Admin,Persona_Admin){
+    function realizarSolicitudController(udn,modelo_cabinet,$mdDialog,$mdEditDialog,toastr,Solicitudes,Socket,Session,Solicitud_Servicio,Solicitudes_Admin,Persona_Admin){
         var vm = this;
         /*vm.selectedDate = moment().startOf('day').format();
          $mdDateLocaleProvider.formatDate = function(date) {
@@ -209,10 +209,23 @@
             vm.requisito.persona=vm.persona;
             console.log(vm.requisito);
             Solicitudes_Admin.create(vm.requisito).then(function(resp){
+                console.log(resp);
+                var notification = {
+                    id_solicitud: 1,
+                    type_notification: vm.requisito.tipo_solicitud,
+                    updated_at: moment().toDate()
+                };
+                Socket.emit('new:msg', {
+                    canal: 'Administrador',
+                    username:  Session.userInformation.id,
+                    solicitud:vm.requisito,
+                    name:Session.userInformation.nombre,
+                    notification: notification,
+                    type:"normal"
+                });
                 vm.requisito= _.clone(vm.requisito_vacio);
                 vm.udn=null;
                 toastr.success('exito al guardar','exito');
-                console.log(vm.udn);
             }).catch(function(err){
                 toastr.error('error al guardar','error');
                 console.log(err);
@@ -226,6 +239,20 @@
             vm.requisitoVenta.udn=vm.udn;
             console.log(vm.requisitoVenta);
             Solicitud_Servicio.create(vm.requisitoVenta).then(function(resp){
+                console.log(resp);
+                var notification = {
+                    id_solicitud: 1,
+                    type_notification: "Venta",
+                    updated_at: moment().toDate()
+                };
+                Socket.emit('new:msg', {
+                    canal: 'Administrador',
+                    username:  Session.userInformation.id,
+                    name:Session.userInformation.nombre,
+                    solicitud:vm.requisitoVenta,
+                    notification: notification,
+                    type:"normal"
+                });
                 vm.requisitoVenta= _.clone(vm.requisitoVenta_vacio);
                 vm.udn=null;
                 toastr.success('exito al guardar','exito');

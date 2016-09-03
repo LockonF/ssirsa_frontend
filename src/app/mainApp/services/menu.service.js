@@ -20,7 +20,6 @@
 
             switch (role){
                 case "Administrador":
-                    console.log("Admin");
                     loadAdminMenu();
                     break;
                 case "Capturista":

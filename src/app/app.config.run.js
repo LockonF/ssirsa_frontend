@@ -7,12 +7,29 @@
     angular
         .module('app')
         .run(Run);
-    function Run($rootScope, $state, OAuth, AuthService,$window){
+    function Run($rootScope, Helper, OAuth, AuthService,$window,Socket,Session,OAuthToken,$http,$state,Solicitudes_Admin,dynamicMenu){
         $rootScope.$on('$stateChangeStart',function(event,rejection){
 
             if(AuthService.isAuthenticated()) {
                 AuthService.getUser();
 
+            }
+            if(OAuthToken.getToken()!=undefined){
+                $http.defaults.headers.common['Authorization'] = 'Bearer '+OAuthToken.getToken().access_token;
+            }
+            if(!OAuth.isAuthenticated()){
+                OAuth.getRefreshToken().then(
+                    function(res){
+                        $http.defaults.headers.common['Authorization'] = 'Bearer '+OAuthToken.getToken().access_token;
+                    }
+                ).catch(
+                    function(err){
+                        //Uncomment for enable user validation
+                        $state.go('login')
+                    }
+                )
+            }else{
+                dynamicMenu.loadMenu();
             }
         });
         $rootScope.$on('oauth:error',function(event, rejection) {
@@ -29,26 +46,22 @@
             }
             return $window.location.href = '/login';
         });
-        /*$rootScope.$on('$stateChangeStart',function(event,destination){
-            if(OAuthToken.getToken()!=undefined){
-                $http.defaults.headers.common['Authorization'] = 'Bearer '+OAuthToken.getToken().access_token;
+
+        Socket.on('send:msg', function (dfs) {
+            if (dfs.username !== Session.userInformation.id) {
+
+                if (dfs.type === "normal" && Session.userRole==='Administrador') {
+                    Helper.showNotification('El usuario ' + dfs.name+ " creo una nueva solicitud de "+ dfs.notification.type_notification);
+                    //Helper.addNotificationGlobal(dfs.notification)
+                }
             }
-            if(!OAuth.isAuthenticated()){
-                OAuth.getRefreshToken().then(
-                    function(res){
-                        $http.defaults.headers.common['Authorization'] = 'Bearer '+OAuthToken.getToken().access_token;
-                    }
-                ).catch(
-                    function(err){
-                        //Uncomment for enable user validation
-                        $state.go('login')
-                    }
-                )
-            }
-            else {
-                dynamicMenu.loadMenu();
-            }
-        });*/
+        });
+
+
+        Solicitudes_Admin.consultaEspUnconfirmed().then(function (res) {
+            $rootScope.notifications =_.sortBy(res, 'fecha_inicio').reverse();
+        });
+
 
 
     }
