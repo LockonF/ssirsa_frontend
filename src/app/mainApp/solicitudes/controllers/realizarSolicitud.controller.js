@@ -6,7 +6,7 @@
         .module('app.mainApp.solicitudes')
         .controller('realizarSolicitudController',realizarSolicitudController);
 
-    function realizarSolicitudController(udn,modelo_cabinet,$mdDialog,$mdEditDialog,toastr,Solicitudes,PersonaLocalService,Solicitud_Servicio,Solicitudes_Admin,Persona_Admin){
+    function realizarSolicitudController(udn,modelo_cabinet,$mdDialog,$mdEditDialog,toastr,Solicitudes,Solicitud_Servicio,Solicitudes_Admin,Persona_Admin, Session, Socket){
         var vm = this;
         /*vm.selectedDate = moment().startOf('day').format();
          $mdDateLocaleProvider.formatDate = function(date) {
