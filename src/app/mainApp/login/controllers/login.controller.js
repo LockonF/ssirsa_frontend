@@ -6,7 +6,7 @@
         .controller('loginController', loginController);
 
     /* @ngInject */
-    function loginController($state, triSettings,$mdDialog,OAuth,toastr,Socket) {
+    function loginController($state, triSettings,$mdDialog,Session,Socket,AuthService) {
         var vm = this;
 
         vm.loginClick = loginClick;
@@ -31,12 +31,12 @@
                 secure:false
             };
 
-            OAuth.getAccessToken(vm.user,options).then(function(res){
-
+            AuthService.login(vm.user).then(function(res){
                 Socket.emit('join', {canal: vm.user.username, username: vm.user.username});
                 $state.go('triangular.admin-default.bienvenida');
             }).catch(function(err){
-                toastr.error('Usuario o Contraseña incorrectos','Error',err.data.error);
+                console.log(err);
+                toastr.error('Usuario o Contraseña incorrectos','Error',err.error);
                 console.log(err);
             });
 

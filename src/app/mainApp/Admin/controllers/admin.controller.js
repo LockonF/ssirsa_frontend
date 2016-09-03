@@ -6,27 +6,27 @@
         .module('app.mainApp.admin')
         .controller('gestion_userController',gestion_userController);
 
-    function gestion_userController($translate,groups,PersonaLocalService,Persona_Admin,toastr,Helper,Upload,OAuthToken,SERVER){
+    function gestion_userController(groups,udn,Persona_Admin,toastr,Helper){
         var vm = this;
         vm.isClient=true;
         activate();
+
+
+
         function activate(){
             groups.list().then(function(rest){
                 vm.grupos=rest;
-                //console.log(vm.udns);
-                //console.log(vm.isClient);
             }).catch(function(error){
 
             });
 
-            /*if(PersonaLocalService.role.name == 'Cliente'){
-                vm.isClient=true;
-            }else{
-                vm.isClient=false;
-            }
-            console.log(vm.isClient);*/
+            udn.list().then(function(res){
+                vm.udns = res;
+            })
+
         }
         // Crear requisito
+        vm.cpassword="";
         vm.guardarUsuario = guardarUsuario;
         vm.enviar =enviar;
         vm.clean=clean;
@@ -35,12 +35,11 @@
         vm.selectionIFE=selectionIFE;
         vm.user={
             "mail":""
-        }
+        };
         vm.user_ini={
             "user": {
                 "username": "",
                 "email": "",
-                "cpassword": "",
                 "password": "",
                 "role": ""
             },
@@ -57,7 +56,6 @@
             "user": {
                 "username": "",
                 "email": "",
-                "password": "",
                 "role": ""
             },
             "nombre": "",
@@ -89,6 +87,7 @@
                 tipo:""
 
             };
+            vm.cpassword = '';
             vm.correo={
                 to:vm.user.mail,
                 from:"sssir@mail.com.mx",
@@ -137,68 +136,20 @@
             };
         }
 
-        function guardarUsuario2(){
+        function guardarUsuario(){
             vm.user_ini.foto=vm.picFoto;
             vm.user_ini.ife=vm.picIFE;
-            Persona_Admin.create(vm.user_ini).then(function(resp){
-                vm.user_ini= _.clone(vm.user_vacio);
-                toastr.success('exito al guardar','exito');
-                vm.user_ini={
-                    "user": {
-                        "username": "",
-                        "email": "",
-                        "cpassword": "",
-                        "password": "",
-                        "role": ""
-                    },
-                    "nombre": "",
-                    "apellido_paterno": "",
-                    "apellido_materno": "",
-                    "direccion": "",
-                    "telefono": "",
-                    "ife":null,
-                    "foto":null
-                };
-            }).catch(function(err){
-                toastr.error('error al guardar','error');
-                console.log(err);
-            })
-        }
+            if(vm.user_ini.udn == null)
+                delete vm.user_ini['udn'];
 
-        function guardarUsuario() {
-            vm.user_ini.foto=vm.picFoto;
-            vm.user_ini.ife=vm.picIFE;
-            console.log(vm.user_ini);
-            Upload.upload({
-                url: SERVER.URL+'solicitud_admin',
-                headers: {'Authorization': OAuthToken.getAuthorizationHeader()},
-                method: 'POST',
-                data: vm.user_ini
-            }).then(function (res) {
-                vm.user_ini= _.clone(vm.user_vacio);
-                toastr.success('exito al guardar','exito');
-                vm.user_ini={
-                    "user": {
-                        "username": "",
-                        "email": "",
-                        "cpassword": "",
-                        "password": "",
-                        "role": ""
-                    },
-                    "nombre": "",
-                    "apellido_paterno": "",
-                    "apellido_materno": "",
-                    "direccion": "",
-                    "telefono": "",
-                    "ife":null,
-                    "foto":null
-                };
-            }, function (resp) {
+            Persona_Admin.createObject(vm.user_ini).then(function (res) {
 
-                toastr.error('error al guardar','error');
+            }).catch(function (err) {
                 console.log(err);
             });
+
         }
+
 
         function cancel(){
             vm.user_ini= _.clone(vm.user_vacio);
@@ -208,7 +159,6 @@
                 "user": {
                     "username": null,
                     "email": "",
-                    "cpassword": "",
                     "password": "",
                     "role": ""
                 },
@@ -220,6 +170,7 @@
                 "ife":null,
                 "foto":null
             };
+            vm.cpassword = ''
         }
 
 

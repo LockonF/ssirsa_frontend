@@ -1,0 +1,120 @@
+div(flex='', layout='column')
+    md-card.md-padding.card1(layout-align='center center')
+        h1(translate='ADMIN.MANAGE.MANAGEMENT_USER')
+    form(name='objectForm')
+        div(flex='', layout-sm='column', layout-gt-md='row')
+            md-card.md-padding.card1(flex)
+                h2.md-display-1 Datos Personales
+                md-input-container.md-block
+                    label Usuario
+                    md-icon(md-font-icon='zmdi zmdi-account')
+                    input(type='text', ng-model='vm.user_ini.user.username', name='username', required='required', ng-pattern='/^[A-Za-z_]+$/')
+                    div(ng-messages='objectForm.username.$error')
+                        div(ng-message='pattern')
+                            | El Usuario no puede comenzar con un digito y solo puede usar
+                            | caracteres validos
+                        div(ng-message='required') El campo es requerido
+
+                md-input-container.md-block
+                    label Contraseña
+                    md-icon(md-font-icon='zmdi zmdi-key')
+                    input(type='password', ng-model='vm.user_ini.user.password', name='password', required='required', ng-pattern='/^[A-Za-z0-9_\.-@]{8,25}$/')
+                    div(ng-messages='objectForm.password.$error')
+                        div(ng-message='pattern')
+                            | El password debe contener al menos 8 elementos y solo simbolos
+                            | validos
+                        div(ng-message='required') El campo es requerido
+                md-input-container.md-block
+                    label Confirmación de Contraseña
+                    md-icon(md-font-icon='zmdi zmdi-key')
+                    input(type='password', ng-model='vm.cpassword', name='cpassword', required='required', ng-pattern='/^[A-Za-z0-9_\.-@]{8,25}$/')
+                    div(ng-messages='objectForm.cpassword.$error')
+                        div(ng-message='pattern')
+                            | El password debe contener al menos 8 elementos y solo simbolos
+                            | validos
+                        div(ng-message='required') El campo es requerido
+                md-input-container.md-block
+                    label Nombre
+                    md-icon(md-font-icon='zmdi zmdi-account')
+                    input(type='text', ng-model='vm.user_ini.nombre', name='nombre', required='required', ng-pattern='/^[A-Za-z\sáéíóúÁÉÍÓÚÑñ ]*$/')
+                    div(ng-messages='objectForm.nombre.$error')
+                        div(ng-message='pattern') El nombre solo puede contener letras
+                        div(ng-message='required') El campo es requerido
+                md-input-container.md-block
+                    label Apellido Paterno
+                    md-icon(md-font-icon='zmdi zmdi-account')
+                    input(type='text', ng-model='vm.user_ini.apellido_paterno', name='apellido_paterno', required='required', ng-pattern='/^[A-Za-z\sáéíóúÁÉÍÓÚÑñ ]*$/')
+                    div(ng-messages='objectForm.apellido_paterno.$error')
+                        div(ng-message='pattern') El apellido paterno solo puede contener letras
+                        div(ng-message='required') El campo es requerido
+                md-input-container.md-block
+                    label Apellido Materno
+                    md-icon(md-font-icon='zmdi zmdi-account')
+                    input(type='text', ng-model='vm.user_ini.apellido_materno', name='apellido_materno', ng-required='true', ng-pattern='/^[A-Za-z\sáéíóúÁÉÍÓÚÑñ ]*$/')
+                    div(ng-messages='objectForm.apellido_materno.$error')
+                        div(ng-message='pattern') El apellido materno solo puede contener letras
+                        div(ng-message='required') El campo es requerido
+                md-input-container.md-block
+                    label Dirección
+                    md-icon(md-font-icon='zmdi zmdi-pin')
+                    input(type='text', ng-model='vm.user_ini.direccion', name='direccion', required='required', ng-pattern='/^[A-Za-z_ 0-9áéíóúÁÉÍÓÚñN#]*$/')
+                    div(ng-messages='objectForm.direccion.$error')
+                        div(ng-message='pattern') La Direccion no puede tener caracteres especiales
+                        div(ng-message='required') El campo es requerido
+
+
+            // Second part
+            md-card.md-padding.card1(flex)
+                h2.md-display-1 Datos de Contacto
+                md-card-content
+                    md-input-container.md-block
+                        label Telefono
+                        md-icon(md-font-icon='zmdi zmdi-phone')
+                        input(type='text', ng-model='vm.user_ini.telefono', only-digits='', name='telefono', minlength=8, maxlength='10', required='required', ng-pattern='/^[0-9]+$/')
+                        div(ng-messages='objectForm.telefono.$error')
+                            div(ng-message='pattern') El telefono solo puede contener digitos
+                            div(ng-message='required') El campo es requerido
+
+                    md-input-container.md-block(md-no-float='')
+                        label Correo Electronico
+                        md-icon(md-font-icon='zmdi zmdi-email')
+                        input(type='email', ng-model='vm.user_ini.user.email', name='email', required='required', ng-pattern='/^.+@.+\..+$/')
+                        div(ng-messages='objectForm.email.$error')
+                            div(ng-message='pattern') Se debe de ingresar un correo electrónico válido
+                            div(ng-message='required') El campo es requerido
+                    md-input-container.md-block
+                        md-icon(md-font-icon='zmdi zmdi-account-box')
+                        md-select(placeholder='Elige el rol', ng-model='vm.user_ini.user.role', name='role', required='required')
+                            md-option(ng-value='grupo.id', ng-repeat='grupo in vm.grupos') {{grupo.name}}
+
+                    md-input-container.md-block
+                        md-icon(md-font-icon='zmdi zmdi-store')
+                        md-select(placeholder='Elige la sucursal', ng-model='vm.user_ini.udn', ng-required='false')
+                            md-option(ng-value='undefined') Ninguna Sucursal
+                            md-option(ng-value='udn.id', ng-repeat='udn in vm.udns') {{udn.zona}} - {{udn.agencia}}
+
+                        div(ng-messages='objectForm.role.$error')
+                            div(ng-message='required') El campo es requerido
+
+                    div(layout='column' layout-align='center center')
+                            span.md-headline Cargar Foto
+                            md-button.md-primary.md-raised(flex, ngf-select='vm.selectionFoto($files)', ngf-accept="'image/*'", required='required', ng-disabled='false', ngf-multiple='false', ng-model='vm.picFoto', aria-label='upload')
+                                md-icon(md-font-icon='zmdi zmdi-cloud-upload')
+                                |                                     Seleccionar archivo
+                                md-icon(md-font-icon='zmdi zmdi-cloud-upload')
+                            img(src='assets/images/dashboards/weather.jpg', alt='Card Image', ng-show='vm.picFoto==null', width='120', height='120' )
+                            img(ngf-src='vm.picFoto', width='120', height='120', ng-show='vm.picFoto!=null')
+
+                    div(layout='column' layout-align='center center')
+                            span.md-headline Cargar INE
+                            md-button.md-primary.md-raised(flex, ngf-select='vm.selectionIFE($files)', ngf-accept="'image/*'", required='required', ng-disabled='false', ngf-multiple='false', ng-model='vm.picIFE', aria-label='upload')
+                                    md-icon(md-font-icon='zmdi zmdi-cloud-upload')
+                                    |                                     Seleccionar archivo
+                                    md-icon(md-font-icon='zmdi zmdi-cloud-upload')
+                            img(src='assets/images/dashboards/weather.jpg', alt='Card Image', ng-show='vm.picIFE==null', width='120', height='120')
+                            img(ngf-src='vm.picIFE', width='120', height='120', ng-show='vm.picIFE!=null')
+                    md-card-actions(layout='row', layout-align='center')
+                        md-button.md-raised.md-primary(ng-disabled='objectForm.$invalid && (vm.cpassword==vm.user_ini.user.password)', ng-click='vm.guardarUsuario()')
+                            | Guardar
+                        md-button.md-primary.md-raised(ng-click='vm.cancel()', style='margin-right:20px;')
+                            | Cancelar

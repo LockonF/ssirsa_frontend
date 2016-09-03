@@ -25,6 +25,7 @@
                 deferred.resolve(rest);
             }).catch(function(error){
                 deferred.reject(error);
+                console.log(error);
             });
             //Restangular.all('solicitud').customPOST(object) - Es una promesa
             return deferred.promise;
