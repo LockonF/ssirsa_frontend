@@ -16,6 +16,9 @@
             vmNode.currentUser.userName = Session.userName;
             vmNode.currentUser.userRole = Session.userRole;
         }
+        $rootScope.$on(AUTH_EVENTS.logoutSuccess, function(event) {
+            vmNode.currentUser={};
+        });
         $rootScope.$on(AUTH_EVENTS.sessionRestore, function(event) {
             vmNode.setCurrentUser();
             dynamicMenu.loadMenu();

@@ -17,11 +17,14 @@
         function loadMenu(){
             triMenu.menu=[];
             var role=Session.userRole;
+            console.log(role);
             switch (role){
                 case "Administrador":
+                    console.log("admin");
                     loadAdminMenu();
                     break;
                 case "Capturista":
+                    console.log("capturista");
                     loadCapturistaMenu();
                     break;
                 case "Cliente":

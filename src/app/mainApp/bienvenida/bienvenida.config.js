@@ -16,7 +16,7 @@
                 controller: 'bienvenidaController',
                 controllerAs: 'vm',
                 resolve:{
-                    promiseObj:function (AuthService) {
+                    promiseObj:function (AuthService,Socket) {
 
                         return AuthService.getUser();
                     }

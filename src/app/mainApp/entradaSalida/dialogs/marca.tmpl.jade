@@ -7,13 +7,13 @@ md-card.md-padding-card1
             md-input-container.md-block()
                 label {{'Dialogs.Brand.Category'|translate}}
                 input(name='BrandCategory', md-no-asterisk='', required='', type='text', ng-model='vm.marca.categoria')
-                    div(ng-messages='brandForm.ModelDescription.$error')
-                        div(ng-message='required') {{'Required Field'|translate}}
+                div(ng-messages='brandForm.ModelDescription.$error')
+                    div(ng-message='required') {{'Required Field'|translate}}
             md-input-container.md-block()
                 label {{'Dialogs.Brand.Description'|translate}}
                 input(name='BrandDescription', md-no-asterisk='', required='', type='text', ng-model='vm.marca.descripcion')
-                    div(ng-messages='brandForm.ModelKeyword.$error')
-                        div(ng-message='required') {{'Required Field'|translate}}
+                div(ng-messages='brandForm.ModelKeyword.$error')
+                    div(ng-message='required') {{'Required Field'|translate}}
 
             div(layout='row', layout-align='space-around center')
                 md-button.md-raised.md-primary(ng-click='vm.save()', ng-disabled='brandForm.$invalid') {{'Save'|translate}}
