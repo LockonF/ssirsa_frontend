@@ -80,7 +80,7 @@
                                             </th>
                                             <th md-column="md-column" md-order-by="fecha_termino"><span translate="">Fecha de Fin</span>
                                             </th>
-                                            <th md-column="md-column" md-order-by="tipo_solicitud"><span translate="">Tipo</span>
+                                            <th md-column="md-column" md-order-by="modelo_cabinet"><span translate="">Tipo</span>
                                             </th>
                                             <th md-column="md-column" md-order-by="status"><span translate="">Estatus</span>
                                             </th>
@@ -96,11 +96,11 @@
                                             <td md-cell="md-cell" >{{solicitud.udn}}</td>
                                             <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"fecha_inicio")'>{{solicitud.fecha_inicio}}</td>
                                             <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"fecha_termino")'>{{solicitud.fecha_termino}}</td>
-                                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"tipo_solicitud")'>{{solicitud.tipo_solicitud}}</td>
+                                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"tipo_solicitud")'>{{solicitud.modelo_cabinet}}</td>
                                             <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"status")'>{{solicitud.status}}</td>
                                             <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"comentario")'>{{solicitud.comentario}}</td>
                                             <td md-cell="md-cell" ng-click="$event.stopPropagation()"><!-- -->
-                                                <md-button ng-click="vm.eliminarRequisito(solicitud)" class="md-fab md-warn md-mini">
+                                                <md-button ng-click="vm.borrarSolicitud(solicitud.id)" class="md-fab md-warn md-mini">
                                                     <md-icon md-font-icon="fa fa-times-circle"></md-icon>
                                                 </md-button>
                                             </td>
