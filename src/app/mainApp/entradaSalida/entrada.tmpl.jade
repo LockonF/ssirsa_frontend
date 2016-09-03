@@ -80,15 +80,19 @@ div(layout='column')
                         div(layout='row', layout-align='space-around center', layout-sm='column', layout-xs='column')
                             md-button.md-raised.md-primary(ng-click='vm.showMassiveUpload()') {{'Cabinets Massive Upload'|translate}}
                             md-button.md-raised.md-primary(ng-click='vm.showManualUpload()') {{'Cabinets Manual Upload'|translate}}
-                        // Massive Upload
-                        div(layout='row', layout-sm='column', layout-xs='column', layout-md='column' flex='100', ng-hide='vm.hideMassiveUpload')
-                            md-input-container(flex='75', flex-sm='100', flex-xs='100', flex-md='100')
-                                input(name='FileName', type='text', ng-model='vm.excelFile.name', ng-disabled='true')
-                            div(flex='25', flex-sm='100', flex-xs='100', flex-md='100', layout='column')
-                                md-button.md-primary.md-raised(ngf-select='vm.selectionFile($files)', ngf-accept="'.xlsx'", required='required', ng-disabled="vm.status != 'idle'", ngf-multiple='false', ng-model='vm.excelFile') {{'Choose File'|translate}}
-                        div(layout='row', flex='100', ng-hide='vm.hideMassiveUpload')
-                            div(flex='20', flex-sm='50', flex-xs='100')
-                                md-button.md-primary.md-raised() {{'Upload File'|translate}}
+                        div(layout='column' ng-hide='vm.hideMassiveUpload')
+                            // Massive Upload
+                            div(layout='row', layout-sm='column', layout-xs='column', layout-md='column' flex='100', ng-hide='vm.hideMassiveUpload')
+                                md-input-container(flex='75', flex-sm='100', flex-xs='100', flex-md='100')
+                                    input(name='FileName', type='text', ng-model='vm.excelFile.name', ng-disabled='true')
+                                div(flex='25', flex-sm='100', flex-xs='100', flex-md='100', layout='column')
+                                    md-button.md-primary.md-raised(ngf-select='vm.selectionFile($files)', ngf-accept="'.xlsx'", required='required', ng-disabled="vm.status != 'idle'", ngf-multiple='false', ng-model='vm.excelFile') {{'Choose File'|translate}}
+                            div(layout='row', flex='100', ng-hide='vm.hideMassiveUpload')
+                                div(flex='20', flex-sm='50', flex-xs='100')
+                                    md-button.md-primary.md-raised(ng-click='vm.uploadFile()') {{'Upload File'|translate}}
+                            div(layout='row', layout-align='space-around center', layout-sm='column', layout-xs='column')
+                                md-button.md-raised.md-primary() {{'Create Brand'|translate}}
+                                md-button.md-raised.md-primary() {{'Create Model'|translate}}
 
                         div(flex='', layout='column', ng-hide='vm.hideRegisteredCabinets')
                             p {{'Registered Cabinets'|translate}}
@@ -102,10 +106,10 @@ div(layout='column')
                                             th(md-column='') {{'TableCabinets.Headers.Model'|translate}}
                                     tbody(md-body='')
                                         tr(md-row='', ng-repeat='registeredCabinet in vm.ResponseMassiveUpload.creados')
-                                            td(md-cell='') {{registeredCabinet.id}}
-                                            td(md-cell='') {{dessert.calories.value}}
-                                            td(md-cell='') {{dessert.fat.value | number: 1}}
-                                            td(md-cell='') {{dessert.carbs.value}}
+                                            td(md-cell='') {{registeredCabinet.economico}}
+                                            td(md-cell='') {{registeredCabinet.no_serie}}
+                                            td(md-cell='') {{registeredCabinet.modelo}}
+                                            td(md-cell='') {{registeredCabinet.marca}}
 
                         div(flex='', layout='column', ng-hide='vm.hideUnregisteredCabinets')
                             p {{'Unregistered Cabinets'|translate}}

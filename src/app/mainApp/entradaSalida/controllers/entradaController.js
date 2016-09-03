@@ -17,6 +17,8 @@
         vm.showManualUpload=showManualUpload;
         vm.removeImage=removeImage;
         vm.nextTab=nextTab;
+        vm.uploadFile=uploadFile;
+
         vm.picFIle=null;
         vm.excelFIle=null;
         activate();
@@ -85,7 +87,9 @@
         vm.responseMassiveUpload={
             "id":"",
             "creados":[{
-
+                "economico":"1",
+                "no_serie":"10010101",
+                "modelo":"Model"
             }
         ],
         "no_creados":[
@@ -220,6 +224,13 @@
         }
         function nextTab(){
             vm.selectedTab=vm.selectedTab+1;
+        }
+        function uploadFile(){
+            EntradaSalida.postEntradaMasiva(vm.responseMassiveUpload).then(function(res){
+                vm.responseMassiveUpload=res;
+            }).catch(function(err){
+                
+            });
         }
     }
     

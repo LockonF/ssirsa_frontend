@@ -2,6 +2,7 @@
   "Entrance":"Registrar Entrada",
   "Output":"Registrar Salida",
   "Save":"Guardar",
+  "Cancel":"Cancelar",
   "Modify":"Modificar",
   "Delete":"Borrar",
   "Date":"Fecha",
@@ -14,6 +15,8 @@
   "Choose File":"Seleccionar Archivo",
   "Upload File":"Cargar Archivo",
   "Next":"Siguiente",
+  "Create Brand":"Registrar marca",
+  "Create Model":"Registrar modelo",
 
   "Transport":{
     "Line":"Linea de transporte",
@@ -35,6 +38,21 @@
       "Model":"Modelo"
     }
   },
+  "Dialogs":{
+    "Model":{
+      "Name":"Nombre",
+      "Description":"Descripcion",
+      "Keyword":"Palabra clave",
+      "Refrigerant type":"Tipo de refrigerante",
+      "Refrigerant quantity":"Cantidad de refrigerante",
+      "Compressor type":"Tipo de compresor",
+      "Brand":"Marca"
+    },
+    "Brand":{
+      "Category":"Categoria",
+      "Description":"Descripción"
+    }
+  }
 
   "Required Field":"Campo Requerido",
   "Cabinets":"Cabinets",
