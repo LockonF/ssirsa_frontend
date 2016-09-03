@@ -4,7 +4,6 @@ bower_components/
 .tmp/
 dist/
 .idea
-src/app/app.constants.js
 config
 .awspublish-genesis-stg.com
 src/app/config.js

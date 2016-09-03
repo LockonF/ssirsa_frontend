@@ -6,7 +6,7 @@
         .module('app.mainApp.solicitudes')
         .controller('realizarSolicitudController',realizarSolicitudController);
 
-    function realizarSolicitudController(udn,modelo_cabinet,$mdDialog,$mdEditDialog,toastr,Solicitudes,PersonaLocalService,Solicitud_Servicio,Solicitudes_Admin,Persona_Admin){
+    function realizarSolicitudController(udn,modelo_cabinet,$mdDialog,$mdEditDialog,toastr,Solicitudes,Session,Solicitud_Servicio,Solicitudes_Admin,Persona_Admin){
         var vm = this;
         /*vm.selectedDate = moment().startOf('day').format();
          $mdDateLocaleProvider.formatDate = function(date) {
@@ -102,13 +102,9 @@
                 console.log(vm.personas);
             }).catch(function (error){
                 console.log(error);
-            })
+            });
 
-            if(PersonaLocalService.role.name == 'Cliente'){
-                vm.isClient=true;
-            }else{
-                vm.isClient=false;
-            }
+            vm.isClient = Session.userRole == 'Cliente';
             console.log(vm.isClient);
 
         }

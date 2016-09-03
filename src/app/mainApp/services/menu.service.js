@@ -8,17 +8,19 @@
         .module('app.mainApp')
         .factory('dynamicMenu',dynamicMenu);
 
-    function dynamicMenu(triMenu,PersonaLocalService){
-        var service={
+    function dynamicMenu(triMenu,Session){
+        return {
           loadMenu:loadMenu
         };
 
 
         function loadMenu(){
             triMenu.menu=[];
-            var role=PersonaLocalService.role.name;
+            var role=Session.userRole;
+
             switch (role){
                 case "Administrador":
+                    console.log("Admin");
                     loadAdminMenu();
                     break;
                 case "Capturista":
@@ -344,12 +346,11 @@
                     ]
                 }
 
-            ]
+            ];
 
             //triMenu.menu.unshift(adminMenu);
             triMenu.menu=tecnicoMenu;
         }
 
-        return service;
     }
 })();

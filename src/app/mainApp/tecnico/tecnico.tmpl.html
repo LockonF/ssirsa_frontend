@@ -2,12 +2,12 @@
      layout-align="start center"
      style="background: url(assets/images/backgrounds/material-backgrounds/mb-bg-02.jpg) no-repeat; background-size: cover;">
     <div class="margin-right-20">
-        <img class="make-round" src="{{vm.persona.foto}}" width="100" height="100"/>
+        <img class="make-round" src="{{vmNode.currentUser.userInformation.foto}}" width="100" height="100"/>
     </div>
     <div class="text-light">
-        <h3 class="font-weight-600 margin-bottom-0 text-light">{{vm.persona.nombre}} {{vm.persona.apellido_paterno}}
-            {{vm.persona.apellido_materno}}</h3>
-        <p class="font-weight-300 margin-top-0 margin-bottom-0">{{vm.role.name}}</p>
+        <h3 class="font-weight-600 margin-bottom-0 text-light">{{vmNode.currentUser.userInformation.nombre}} {{vmNode.currentUser.userInformation.apellido_paterno}}
+            {{vmNode.currentUser.userInformation.apellido_materno}}</h3>
+        <p class="font-weight-300 margin-top-0 margin-bottom-0">{{vmNode.currentUser.userRole}}</p>
 
     </div>
 </div>

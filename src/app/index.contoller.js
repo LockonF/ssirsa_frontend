@@ -6,9 +6,20 @@
         .module('app')
         .controller('homeController',homeController);
 
-    function homeController(PersonaLocalService, toastr, Bienvenida){
+    function homeController(Session,$rootScope,AUTH_EVENTS,dynamicMenu){
+        var vmNode=this;
+        vmNode.currentUser = {};
 
-
+        vmNode.setCurrentUser = setCurrentUser;
+        function setCurrentUser() {
+            vmNode.currentUser.userInformation = Session.userInformation;
+            vmNode.currentUser.userName = Session.userName;
+            vmNode.currentUser.userRole = Session.userRole;
+        }
+        $rootScope.$on(AUTH_EVENTS.sessionRestore, function(event) {
+            vmNode.setCurrentUser();
+            dynamicMenu.loadMenu();
+        });
     }
 
 })();
