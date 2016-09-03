@@ -6,7 +6,7 @@
         .factory('ModeloCabinet', ModeloCabinet);
 
     /* @ngInject */
-    function ModeloCabinet($q, Restangular) {
+    function ModeloCabinet($q, Restangular, toastr) {
         return {
             create: create,
             get: get,
@@ -19,8 +19,10 @@
             var deferred = $q.defer();
             Restangular.all('modelo_cabinet').customPOST(request).then(function (res) {
                 deferred.resolve(res);
+                toastr.succes("Modelo de cabinet creado correctamente","Exito");
             }).catch(function (err) {
                 deferred.reject(err);
+                toastr.error("Error al crear modelo de cabinet","Error");
             });
             return deferred.promise;
         }
@@ -61,6 +63,7 @@
             var deferred = $q.defer();
             Restangular.one('cabinet', request.no_serie).customPUT(request).then(function (res) {
                 deferred.resolve(res);
+                
             }).catch(function (err) {
                 deferred.reject(err);
             });

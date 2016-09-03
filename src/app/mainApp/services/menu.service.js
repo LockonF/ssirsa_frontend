@@ -121,11 +121,6 @@
                             type: 'link'
                         },
                         {
-                            name: 'Validar Etapa',
-                            state: 'triangular.admin-default.validarEtapa',
-                            type: 'link'
-                        },
-                        {
                             name: 'Registro Etapa',
                             state: 'triangular.admin-default.etapa',
                             type: 'link'
@@ -317,11 +312,6 @@
                         state: 'triangular.admin-default.tecnico',
                         type: 'link'
                     },
-                        {
-                            name: 'Validar Etapa',
-                            state: 'triangular.admin-default.validarEtapa',
-                            type: 'link'
-                        },
                         {
                             name: 'Registro Etapa',
                             state: 'triangular.admin-default.etapa',

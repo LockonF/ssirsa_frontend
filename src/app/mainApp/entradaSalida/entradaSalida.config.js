@@ -11,7 +11,7 @@
         $stateProvider
             .state('triangular.admin-default.entrada',{
                 url:'/entrada',
-                templateUrl:'app/mainApp/entradaSalida/entradaSalida.tmpl.html',
+                templateUrl:'app/mainApp/entradaSalida/entrada.tmpl.html',
                 controller:'entradaController',
                 controllerAs:'vm'
             });
