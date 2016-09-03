@@ -4,7 +4,7 @@
         .module('app.mainApp')
         .factory('AuthService', AuthService);
     /* @ngInject */
-    function AuthService(Session, $q, Restangular, OAuth,$rootScope,AUTH_EVENTS) {
+    function AuthService(Session, $q, Restangular, OAuth,$rootScope,AUTH_EVENTS,Socket) {
         var authService = {
             isAuthenticated: isAuthenticated,
             login: login,
@@ -78,6 +78,7 @@
                 user.userInformation=res;
                 getRole().then(function (res) {
                     Session.create(user.userInformation,res[0].name);
+                    Socket.emit('join', {canal: 'Administrador', username: user.userInformation.id});
                     $rootScope.$broadcast(AUTH_EVENTS.sessionRestore);
                 });
             });

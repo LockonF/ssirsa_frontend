@@ -27,12 +27,7 @@
         };
 
         function loginClick() {
-            var options={
-                secure:false
-            };
-
             AuthService.login(vm.user).then(function(res){
-                Socket.emit('join', {canal: vm.user.username, username: vm.user.username});
                 $state.go('triangular.admin-default.bienvenida');
             }).catch(function(err){
                 console.log(err);
