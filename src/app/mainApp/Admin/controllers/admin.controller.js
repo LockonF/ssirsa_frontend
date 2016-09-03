@@ -6,25 +6,24 @@
         .module('app.mainApp.admin')
         .controller('gestion_userController',gestion_userController);
 
-    function gestion_userController($translate,groups,PersonaLocalService,Persona_Admin,toastr,Helper,Upload,OAuthToken,SERVER){
+    function gestion_userController(groups,udn,Persona_Admin,toastr,Helper){
         var vm = this;
         vm.isClient=true;
         activate();
+
+
+
         function activate(){
             groups.list().then(function(rest){
                 vm.grupos=rest;
-                //console.log(vm.udns);
-                //console.log(vm.isClient);
             }).catch(function(error){
 
             });
 
-            /*if(PersonaLocalService.role.name == 'Cliente'){
-                vm.isClient=true;
-            }else{
-                vm.isClient=false;
-            }
-            console.log(vm.isClient);*/
+            udn.list().then(function(res){
+                vm.udns = res;
+            })
+
         }
         // Crear requisito
         vm.cpassword="";
@@ -36,7 +35,7 @@
         vm.selectionIFE=selectionIFE;
         vm.user={
             "mail":""
-        }
+        };
         vm.user_ini={
             "user": {
                 "username": "",
@@ -52,13 +51,6 @@
             "ife":null,
             "foto":null
         };
-
-        vm.userPrueba={
-            "username": "UsuarioPrueba",
-            "password": "12345678",
-            "email": "correo@hotmail.com",
-            "role": "1"
-        }
 
         vm.user_vacio={
             "user": {
@@ -95,6 +87,7 @@
                 tipo:""
 
             };
+            vm.cpassword = '';
             vm.correo={
                 to:vm.user.mail,
                 from:"sssir@mail.com.mx",
@@ -146,21 +139,10 @@
         function guardarUsuario(){
             vm.user_ini.foto=vm.picFoto;
             vm.user_ini.ife=vm.picIFE;
-            console.log("vm.user_ini:");
-            console.log(vm.user_ini);
-            var fd = new FormData();
+            if(vm.user_ini.udn == null)
+                delete vm.user_ini['udn'];
 
-            fd.append('user',angular.toJson(vm.userPrueba));
-            fd.append('nombre',vm.user_ini.nombre);
-            fd.append('apellido_paterno',vm.user_ini.apellido_paterno);
-            fd.append('apellido_materno',vm.user_ini.apellido_materno);
-            fd.append('direccion',vm.user_ini.direccion);
-            fd.append('telefono',vm.user_ini.telefono);
-            fd.append('ife',vm.user_ini.ife);
-            fd.append('foto',vm.user_ini.foto);
-
-            console.log(fd);
-            Persona_Admin.createObject(fd).then(function (res) {
+            Persona_Admin.createObject(vm.user_ini).then(function (res) {
 
             }).catch(function (err) {
                 console.log(err);
@@ -168,39 +150,6 @@
 
         }
 
-        function guardarUsuario2() {
-            vm.user_ini.foto=vm.picFoto;
-            vm.user_ini.ife=vm.picIFE;
-            console.log(vm.user_ini);
-            Upload.upload({
-                url: SERVER.URL+'solicitud_admin',
-                headers: {'Authorization': OAuthToken.getAuthorizationHeader()},
-                method: 'POST',
-                data: vm.user_ini
-            }).then(function (res) {
-                vm.user_ini= _.clone(vm.user_vacio);
-                toastr.success('exito al guardar','exito');
-                vm.user_ini={
-                    "user": {
-                        "username": "",
-                        "email": "",
-                        "password": "",
-                        "role": ""
-                    },
-                    "nombre": "",
-                    "apellido_paterno": "",
-                    "apellido_materno": "",
-                    "direccion": "",
-                    "telefono": "",
-                    "ife":null,
-                    "foto":null
-                };
-            }, function (resp) {
-
-                toastr.error('error al guardar','error');
-                console.log(err);
-            });
-        }
 
         function cancel(){
             vm.user_ini= _.clone(vm.user_vacio);
@@ -221,6 +170,7 @@
                 "ife":null,
                 "foto":null
             };
+            vm.cpassword = ''
         }
 
 

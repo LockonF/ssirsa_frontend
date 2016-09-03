@@ -6,7 +6,7 @@
         .module('app.mainApp.solicitudes')
         .controller('buscarSolicitudController',buscarSolicitudController);
 
-    function buscarSolicitudController($mdEditDialog,Solicitudes,Solicitudes_Admin,PersonaLocalService,udn,modelo_cabinet,Solicitud_Servicio,toastr){
+    function buscarSolicitudController($mdEditDialog,Solicitudes,Solicitudes_Admin,udn,modelo_cabinet,Solicitud_Servicio,Session){
         var vm = this;
         vm.flag=0;
         vm.query={
@@ -103,11 +103,7 @@
             }).catch(function(error){
 
             });
-            if(PersonaLocalService.role.name == 'Cliente'){
-                vm.isClient=true;
-            }else{
-                vm.isClient=false;
-            }
+            vm.isClient = Session.userRole == 'Cliente';
             console.log(vm.isClient);
 
         }

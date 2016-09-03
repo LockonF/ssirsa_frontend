@@ -103,13 +103,9 @@
                 console.log(vm.personas);
             }).catch(function (error){
                 console.log(error);
-            })
+            });
 
-            if(PersonaLocalService.role.name == 'Cliente'){
-                vm.isClient=true;
-            }else{
-                vm.isClient=false;
-            }
+            vm.isClient = Session.userRole == 'Cliente';
             console.log(vm.isClient);
 
         }
@@ -214,6 +210,20 @@
             vm.requisito.persona=vm.persona;
             console.log(vm.requisito);
             Solicitudes_Admin.create(vm.requisito).then(function(resp){
+                console.log(resp);
+                var notification = {
+                    id_solicitud: 1,
+                    type_notification: vm.requisito.tipo_solicitud,
+                    updated_at: moment().toDate()
+                };
+                Socket.emit('new:msg', {
+                    canal: 'Administrador',
+                    username:  Session.userInformation.id,
+                    solicitud:vm.requisito,
+                    name:Session.userInformation.nombre,
+                    notification: notification,
+                    type:"normal"
+                });
                 vm.requisito= _.clone(vm.requisito_vacio);
                 vm.udn=null;
                 toastr.success('exito al guardar','exito');
@@ -253,6 +263,20 @@
             vm.requisitoVenta.udn=vm.udn;
             console.log(vm.requisitoVenta);
             Solicitud_Servicio.create(vm.requisitoVenta).then(function(resp){
+                console.log(resp);
+                var notification = {
+                    id_solicitud: 1,
+                    type_notification: "Venta",
+                    updated_at: moment().toDate()
+                };
+                Socket.emit('new:msg', {
+                    canal: 'Administrador',
+                    username:  Session.userInformation.id,
+                    name:Session.userInformation.nombre,
+                    solicitud:vm.requisitoVenta,
+                    notification: notification,
+                    type:"normal"
+                });
                 vm.requisitoVenta= _.clone(vm.requisitoVenta_vacio);
                 vm.udn=null;
                 toastr.success('exito al guardar','exito');

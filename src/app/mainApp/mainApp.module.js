@@ -13,6 +13,7 @@
         'app.mainApp.tecnico',
         'app.mainApp.inventario',
         'app.mainApp.entradaSalida',
+        'app.mainApp.socket',
         'app.mainApp.profile'
     ]);
 
