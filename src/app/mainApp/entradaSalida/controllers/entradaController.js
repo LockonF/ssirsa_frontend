@@ -22,13 +22,13 @@
         activate();
         
         vm.selectedTab=0;
-
+        
+        //Visualizations
         vm.hideEntrada=false;
         vm.hideSalida=true;
-
         vm.hideMassiveUpload=true;
         vm.hideManualUpload=true;
-        
+        vm.hideRegisteredCabinets=true;
         vm.hideUnregisteredCabinets=true;
 
         //Selected's
@@ -82,6 +82,17 @@
         vm.cabinets=[{
             "economico":"201"
         }];
+        vm.responseMassiveUpload={
+            "id":"",
+            "creados":[{
+
+            }
+        ],
+        "no_creados":[
+
+        ]
+
+        };
         vm.entrada={
             "fecha": "",
             "nombre_chofer": "",
