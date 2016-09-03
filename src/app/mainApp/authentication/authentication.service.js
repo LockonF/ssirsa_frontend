@@ -35,7 +35,6 @@
             var deferred = $q.defer();
 
             OAuth.getAccessToken(credentials).then(function (res) {
-                getUser();
                 deferred.resolve();
             }).catch(function (response) {
                 if (response.status == 401) {
