@@ -17,7 +17,6 @@
         function loadMenu(){
             triMenu.menu=[];
             var role=Session.userRole;
-
             switch (role){
                 case "Administrador":
                     loadAdminMenu();
