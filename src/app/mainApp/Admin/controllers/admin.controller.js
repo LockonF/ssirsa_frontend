@@ -6,10 +6,13 @@
         .module('app.mainApp.admin')
         .controller('gestion_userController',gestion_userController);
 
-    function gestion_userController(groups,Persona_Admin,toastr,Helper){
+    function gestion_userController(groups,udn,Persona_Admin,toastr,Helper){
         var vm = this;
         vm.isClient=true;
         activate();
+
+
+
         function activate(){
             groups.list().then(function(rest){
                 vm.grupos=rest;
@@ -17,12 +20,10 @@
 
             });
 
-            /*if(PersonaLocalService.role.name == 'Cliente'){
-                vm.isClient=true;
-            }else{
-                vm.isClient=false;
-            }
-            console.log(vm.isClient);*/
+            udn.list().then(function(res){
+                vm.udns = res;
+            })
+
         }
         // Crear requisito
         vm.cpassword="";
@@ -138,6 +139,8 @@
         function guardarUsuario(){
             vm.user_ini.foto=vm.picFoto;
             vm.user_ini.ife=vm.picIFE;
+            if(vm.user_ini.udn == null)
+                delete vm.user_ini['udn'];
 
             Persona_Admin.createObject(vm.user_ini).then(function (res) {
 

@@ -4,11 +4,11 @@ div(flex='', layout='column')
     form(name='objectForm')
         div(flex='', layout-sm='column', layout-gt-md='row')
             md-card.md-padding.card1(flex)
-                h2 Creación de Usuario
+                h2.md-display-1 Datos Personales
                 md-input-container.md-block
                     label Usuario
                     md-icon(md-font-icon='zmdi zmdi-account')
-                    input(type='text', ng-model='vm.user_ini.user.username', name='username', required='required', ng-pattern='/^[A-Za-z_]\w*$/')
+                    input(type='text', ng-model='vm.user_ini.user.username', name='username', required='required', ng-pattern='/^[A-Za-z_]+$/')
                     div(ng-messages='objectForm.username.$error')
                         div(ng-message='pattern')
                             | El Usuario no puede comenzar con un digito y solo puede usar
@@ -54,23 +54,27 @@ div(flex='', layout='column')
                     div(ng-messages='objectForm.apellido_materno.$error')
                         div(ng-message='pattern') El apellido materno solo puede contener letras
                         div(ng-message='required') El campo es requerido
+                md-input-container.md-block
+                    label Dirección
+                    md-icon(md-font-icon='zmdi zmdi-pin')
+                    input(type='text', ng-model='vm.user_ini.direccion', name='direccion', required='required', ng-pattern='/^[A-Za-z_ 0-9áéíóúÁÉÍÓÚñN#]*$/')
+                    div(ng-messages='objectForm.direccion.$error')
+                        div(ng-message='pattern') La Direccion no puede tener caracteres especiales
+                        div(ng-message='required') El campo es requerido
+
+
             // Second part
             md-card.md-padding.card1(flex)
+                h2.md-display-1 Datos de Contacto
                 md-card-content
                     md-input-container.md-block
                         label Telefono
                         md-icon(md-font-icon='zmdi zmdi-phone')
-                        input(type='text', ng-model='vm.user_ini.telefono', only-digits='', name='telefono', maxlength='10', required='required', ng-pattern='/^\d+$/')
+                        input(type='text', ng-model='vm.user_ini.telefono', only-digits='', name='telefono', minlength=8, maxlength='10', required='required', ng-pattern='/^[0-9]+$/')
                         div(ng-messages='objectForm.telefono.$error')
                             div(ng-message='pattern') El telefono solo puede contener digitos
                             div(ng-message='required') El campo es requerido
-                    md-input-container.md-block
-                        label Dirección
-                        md-icon(md-font-icon='zmdi zmdi-pin')
-                        input(type='text', ng-model='vm.user_ini.direccion', name='direccion', required='required', ng-pattern='/^[A-Za-z_ 0-9áéíóúÁÉÍÓÚñN#]*$/')
-                        div(ng-messages='objectForm.direccion.$error')
-                            div(ng-message='pattern') La Direccion no puede tener caracteres especiales
-                            div(ng-message='required') El campo es requerido
+
                     md-input-container.md-block(md-no-float='')
                         label Correo Electronico
                         md-icon(md-font-icon='zmdi zmdi-email')
@@ -82,10 +86,13 @@ div(flex='', layout='column')
                         md-icon(md-font-icon='zmdi zmdi-account-box')
                         md-select(placeholder='Elige el rol', ng-model='vm.user_ini.user.role', name='role', required='required')
                             md-option(ng-value='grupo.id', ng-repeat='grupo in vm.grupos') {{grupo.name}}
-                            //
-                              md-option value="1">UDN_1</md-option>
-                              <md-option value="2">UDN_2</md-option>
-                              <md-option value="3">UDN_3</md-option
+
+                    md-input-container.md-block
+                        md-icon(md-font-icon='zmdi zmdi-store')
+                        md-select(placeholder='Elige la sucursal', ng-model='vm.user_ini.udn', ng-required='false')
+                            md-option(ng-value='undefined') Ninguna Sucursal
+                            md-option(ng-value='udn.id', ng-repeat='udn in vm.udns') {{udn.zona}} - {{udn.agencia}}
+
                         div(ng-messages='objectForm.role.$error')
                             div(ng-message='required') El campo es requerido
 

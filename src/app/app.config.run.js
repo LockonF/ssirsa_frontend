@@ -26,6 +26,9 @@
                     }
                 )
             }
+            else {
+                dynamicMenu.loadMenu();
+            }
         });
 
     }
