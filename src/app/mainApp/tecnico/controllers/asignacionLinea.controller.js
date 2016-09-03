@@ -147,14 +147,14 @@
 
 
         }
-        vm.verInfo = function(ev) {
+        vm.verInfo = function() {
             $mdDialog.show({
                 locals:{parent: vm},
                 controller: function() {this.parent=vm},
                 templateUrl: 'app/mainApp/tecnico/dialogInfoCabinet.tmpl.html',
                 parent: angular.element(document.body),
                 controllerAs:'vm',
-                clickOutsideToClose:true,
+                clickOutsideToClose:true
             })
                
         };
