@@ -9,6 +9,11 @@
     function buscarSolicitudController($mdEditDialog,Solicitudes,Solicitudes_Admin,PersonaLocalService,udn,modelo_cabinet,Solicitud_Servicio,toastr){
         var vm = this;
         vm.flag=0;
+        vm.query={
+            order: 'id',
+            limit: 5,
+            page: 1
+        };
         vm.id=null;
         vm.FechaFin=new Date();
         //Filtro de busqueda
@@ -17,6 +22,7 @@
         vm.busqueda_status=null;
         vm.folio=null;
         vm.sol=null;
+        vm.solicitudesArray=[];
         //-------------------
         vm.requisito = {
             "id":null,
@@ -263,6 +269,9 @@
         }
 
         function busqueda() {
+            vm.solicitudes = null;
+            vm.sol=null;
+            vm.solicitudesArray = [];
             console.log("entre a busqueda");
             switch (vm.tipo_solicitud) {
                 case 'Envio':
@@ -275,16 +284,28 @@
                             //Solicitudes_Admin.consultaEsp(vm.requisito).then(function (rest){
                             Solicitudes_Admin.list().then(function (rest){
                                 console.log("Soy admin--");
-                                console.log(vm.requisito);
                                 vm.solicitudes = rest;
                                 console.log(vm.solicitudes);
 
                                 console.log("solicitudes--");
                                 for(var i=0,len = vm.solicitudes.length; i<len;i++)
                                 {
-                                    console.log(vm.solicitudes.length);
-                                    vm.sol=vm.solicitudes[i];
-                                    console.log(vm.sol);
+                                    //console.log(vm.solicitudes.length);
+                                    //console.log(vm.folio);
+                                    if(vm.solicitudes[i].id==vm.folio && vm.solicitudes[i].tipo_solicitud=='Envio')
+                                    {
+                                        vm.sol = vm.solicitudes[i];
+                                        console.log(vm.sol);
+                                    }
+                                }
+                                if(vm.sol!=null) {
+                                    //console.log("si se encontro el folio");
+                                    vm.solicitudes = [];
+                                    vm.solicitudes.push(vm.sol);
+                                }else{
+                                    //console.log("no se encontro el folio");
+                                    toastr.warning('Folio no encontrado','Advertencia');
+                                    vm.solicitudes = null;
                                 }
                             }).catch(function(error){
                                 console.log(error);
@@ -295,8 +316,27 @@
                                 console.log("Soy cliente");
                                 vm.solicitudes = rest;
                                 console.log(vm.solicitudes);
-                                //if(vm.solicitudes)
-                                //console.log(vm.udns);
+
+                                console.log("solicitudes--");
+                                for(var i=0,len = vm.solicitudes.length; i<len;i++)
+                                {
+                                    //console.log(vm.solicitudes.length);
+                                    //console.log(vm.folio);
+                                    if(vm.solicitudes[i].id==vm.folio && vm.solicitudes[i].tipo_solicitud=='Envio')
+                                    {
+                                        vm.sol = vm.solicitudes[i];
+                                        console.log(vm.sol);
+                                    }
+                                }
+                                if(vm.sol!=null) {
+                                    //console.log("si se encontro el folio");
+                                    vm.solicitudes = [];
+                                    vm.solicitudes.push(vm.sol);
+                                }else{
+                                    //console.log("no se encontro el folio");
+                                    toastr.warning('Folio no encontrado','Advertencia');
+                                    vm.solicitudes = null;
+                                }
                             }).catch(function (error) {
                                 console.log(error);
                             });
@@ -304,28 +344,220 @@
 
 
                     }
-                    else//vm.filtro_busqueda == 'Por Estatus'
+                    else//vm.filtro_busqueda == 'Por Estatus' Envio
                     {
-                        switch(vm.busqueda_status)
-                        {
-                            case 'No Confirmada':
+                        if(!vm.isClient){
+                            Solicitudes_Admin.consultaEsp(vm.busqueda_status).then(function (rest) {
+                                console.log(rest.length);
+                                if(rest.length>0) {
+                                    console.log("mayor a 0");
+                                    vm.solicitudes = rest;
+                                    for(var i=0,len = vm.solicitudes.length; i<len;i++)
+                                    {
+                                        //console.log(vm.solicitudes.length);
+                                        //console.log(vm.folio);
+                                        if(vm.solicitudes[i].tipo_solicitud=='Envio')
+                                        {
+                                            vm.sol = vm.solicitudes[i];
+                                            vm.solicitudesArray.push(vm.sol);
+                                            console.log(vm.sol);
+                                        }
+                                    }
+                                    vm.solicitudes = null;
+                                    vm.solicitudes = vm.solicitudesArray;
+                                    vm.solicitudesArray = [];
+                                    console.log("vm.solicitudes::");
+                                    console.log(vm.solicitudes);
+                                    if(vm.solicitudes==null) {
+                                        toastr.warning('Solicitudes ' + vm.busqueda_status + 's no encontradas', 'Advertencia');
+                                    }
 
-                                break;
-                            case 'Confirmada':
-
-                                break;
-                            case 'Cancelada':
-
-                                break;
+                                }else{
+                                    toastr.warning('Solicitudes '+vm.busqueda_status+'s no encontradas','Advertencia');
+                                    vm.solicitudes = null;
+                                }
+                            }).catch(function (error) {
+                                console.log(error);
+                            });
+                        }else{
+                            Solicitudes.consultaEsp(vm.busqueda_status).then(function (rest) {
+                                if(rest.length>0) {
+                                    vm.solicitudes = rest;
+                                    console.log(vm.solicitudes);
+                                    for(var i=0,len = vm.solicitudes.length; i<len;i++)
+                                    {
+                                        //console.log(vm.solicitudes.length);
+                                        //console.log(vm.folio);
+                                        if(vm.solicitudes[i].tipo_solicitud=='Envio')
+                                        {
+                                            vm.sol = vm.solicitudes[i];
+                                            vm.solicitudesArray.push(vm.sol);
+                                            console.log(vm.sol);
+                                        }
+                                    }
+                                    vm.solicitudes = null;
+                                    vm.solicitudes = vm.solicitudesArray;
+                                    vm.solicitudesArray = [];
+                                    console.log(vm.solicitudes);
+                                }else{
+                                    toastr.warning('Solicitudes '+vm.busqueda_status+'s no encontradas','Advertencia');
+                                    vm.solicitudes = null;
+                                }
+                            }).catch(function (error) {
+                                console.log(error);
+                            });
                         }
 
                     }
                     break;
                 case 'Recoleccion':
+                    console.log("entre a Recoleccion");
+                    console.log(vm.filtro_busqueda);
+                    if(vm.filtro_busqueda == 'Por Folio')
+                    {
+                        //vm.solicitudesVentas=null;
+                        if(!vm.isClient){
+                            //Solicitudes_Admin.consultaEsp(vm.requisito).then(function (rest){
+                            Solicitudes_Admin.list().then(function (rest){
+                                console.log("Soy admin--");
+                                vm.solicitudes = rest;
+                                console.log(vm.solicitudes);
+
+                                console.log("solicitudes--");
+                                for(var i=0,len = vm.solicitudes.length; i<len;i++)
+                                {
+                                    //console.log(vm.solicitudes.length);
+                                    //console.log(vm.folio);
+                                    if(vm.solicitudes[i].id==vm.folio && vm.solicitudes[i].tipo_solicitud=='Recoleccion')
+                                    {
+                                        vm.sol = vm.solicitudes[i];
+                                        console.log(vm.sol);
+                                    }
+                                }
+                                if(vm.sol!=null) {
+                                    //console.log("si se encontro el folio");
+                                    vm.solicitudes = [];
+                                    vm.solicitudes.push(vm.sol);
+                                }else{
+                                    //console.log("no se encontro el folio");
+                                    toastr.warning('Folio no encontrado','Advertencia');
+                                    vm.solicitudes = null;
+                                }
+                            }).catch(function(error){
+                                console.log(error);
+                            })
+                        }else {
+
+                            Solicitudes.list().then(function (rest) {
+                                console.log("Soy cliente");
+                                vm.solicitudes = rest;
+                                console.log(vm.solicitudes);
+
+                                console.log("solicitudes--");
+                                for(var i=0,len = vm.solicitudes.length; i<len;i++)
+                                {
+                                    //console.log(vm.solicitudes.length);
+                                    //console.log(vm.folio);
+                                    if(vm.solicitudes[i].id==vm.folio && vm.solicitudes[i].tipo_solicitud=='Recoleccion')
+                                    {
+                                        vm.sol = vm.solicitudes[i];
+                                        console.log(vm.sol);
+                                    }
+                                }
+                                if(vm.sol!=null) {
+                                    //console.log("si se encontro el folio");
+                                    vm.solicitudes = [];
+                                    vm.solicitudes.push(vm.sol);
+                                }else{
+                                    //console.log("no se encontro el folio");
+                                    toastr.warning('Folio no encontrado','Advertencia');
+                                    vm.solicitudes = null;
+                                }
+                            }).catch(function (error) {
+                                console.log(error);
+                            });
+                        }
+
+
+                    }
+                    else//vm.filtro_busqueda == 'Por Estatus' Recoleccion
+                    {
+                        if(!vm.isClient){
+                            Solicitudes_Admin.consultaEsp(vm.busqueda_status).then(function (rest) {
+                                console.log(rest.length);
+                                if(rest.length>0) {
+                                    vm.solicitudes = rest;
+                                    for(var i=0,len = vm.solicitudes.length; i<len;i++)
+                                    {
+                                        //console.log(vm.solicitudes.length);
+                                        //console.log(vm.folio);
+                                        if(vm.solicitudes[i].tipo_solicitud=='Recoleccion')
+                                        {
+                                            vm.sol = vm.solicitudes[i];
+                                            vm.solicitudesArray.push(vm.sol);
+                                            console.log(vm.sol);
+                                        }
+                                    }
+
+                                    vm.solicitudes = null;
+                                    vm.solicitudes = vm.solicitudesArray;
+                                    vm.solicitudesArray = [];
+                                    console.log("vm.solicitudes::");
+                                    console.log(vm.solicitudes);
+                                    if(vm.solicitudes==null) {
+                                        toastr.warning('Solicitudes ' + vm.busqueda_status + 's no encontradas', 'Advertencia');
+                                    }
+                                }else{
+                                    toastr.warning('Solicitudes '+vm.busqueda_status+'s no encontradas','Advertencia');
+                                    vm.solicitudes = null;
+                                }
+                            }).catch(function (error) {
+                                console.log(error);
+                            });
+                        }else{
+                            Solicitudes.consultaEsp(vm.busqueda_status).then(function (rest) {
+                                if(rest.length>0) {
+                                    vm.solicitudes = rest;
+                                    console.log(vm.solicitudes);
+                                    for(var i=0,len = vm.solicitudes.length; i<len;i++)
+                                    {
+                                        //console.log(vm.solicitudes.length);
+                                        //console.log(vm.folio);
+                                        if(vm.solicitudes[i].tipo_solicitud=='Recoleccion')
+                                        {
+                                            vm.sol = vm.solicitudes[i];
+                                            vm.solicitudesArray.push(vm.sol);
+                                            console.log(vm.sol);
+                                        }
+                                    }
+                                    vm.solicitudes = null;
+                                    vm.solicitudes = vm.solicitudesArray;
+                                    vm.solicitudesArray = [];
+                                    console.log(vm.solicitudes);
+                                }else{
+                                    toastr.warning('Solicitudes '+vm.busqueda_status+'s no encontradas','Advertencia');
+                                    vm.solicitudes = null;
+                                }
+                            }).catch(function (error) {
+                                console.log(error);
+                            });
+                        }
+
+                    }
                     break;
                 case 'Venta':
-                    buscarSolicitudesVentas();
-                    console.log("solicitudesVentas");
+                    console.log("solicitudesVentas1");
+                    console.log("vm.tipo_solicitud");
+                    console.log(vm.tipo_solicitud);
+
+                    Solicitud_Servicio.list().then(function (rest){
+                        vm.solicitudesVentas = rest;
+                        console.log("vm.solicitudesVentas = ");
+                        console.log(vm.solicitudesVentas);
+                    }).catch(function(error){
+                        console.log(error);
+                    })
+                    console.log("solicitudesVentas2");
                     break;
             }
         }
@@ -359,6 +591,8 @@
 
                 console.log(err);
             })
+
+            busqueda();
         }
 
     }

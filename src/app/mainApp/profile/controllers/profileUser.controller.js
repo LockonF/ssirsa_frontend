@@ -4,9 +4,9 @@
 (function () {
     angular
         .module('app.mainApp.profile')
-        .controller('Prueba',Prueba);
+        .controller('profileUserController',profileUserController);
 
-    function Prueba($translate,groups,PersonaLocalService,Persona_Admin,toastr,Helper,Upload,OAuthToken,SERVER){
+    function profileUserController($translate,groups,PersonaLocalService,Persona_Admin,toastr,Helper,Upload,OAuthToken,SERVER){
         var vm = this;
 
         vm.isClient=true;
