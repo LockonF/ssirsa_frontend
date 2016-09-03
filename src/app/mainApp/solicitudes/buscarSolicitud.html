@@ -1,16 +1,17 @@
 <div layout="row" flex layout-padding layout-fill layout-align="center center">
-    <div flex="30" flex-xs="30">
+    <div flex="">
         <md-card>
             <md-card-title>
                 <md-card-title-text>
                     <h2>Buscar Solicitud</h2>
                     <div  layout="row">
-                        <md-select placeholder="Elige tipo de solicitud" ng-model="vm.tipo_solicitud">
-                            <md-option value="Envio">Solicitud de envió</md-option>
-                            <md-option value="Recoleccion">Solicitud de recolección</md-option>
-                            <md-option value="Venta">Solicitud de punto de venta</md-option>
-                        </md-select>
-
+                        <md-input-container flex="" class="md-inline-form md-block">
+                            <md-select placeholder="Elige tipo de solicitud" ng-model="vm.tipo_solicitud">
+                                <md-option value="Envio">Solicitud de envió</md-option>
+                                <md-option value="Recoleccion">Solicitud de recolección</md-option>
+                                <md-option value="Venta">Solicitud de punto de venta</md-option>
+                            </md-select>
+                        </md-input-container>
                         <!--md-input-container ng-if="!vm.isClient" class="md-block" flex="50">
                             <label>No de Solicitud</label>
                             <textarea ng-model="vm.id"></textarea>
@@ -24,20 +25,43 @@
                                                md-placeholder="Enter date"></md-datepicker>
                             </div>
                         </div-->
+                        <md-button ng-show="!vm.isClient" ng-click="vm.busqueda()" ng-class="guardar" aria-label="fab button"
+                                   class="md-fab md-primary md-raised" ng-disabled="!vm.tipo_solicitud">
+                            <md-icon md-font-icon="fa fa-search"></md-icon>
+                        </md-button>
                     </div>
-                    <!--md-select ng-if="!vm.isClient" placeholder="Elige tipo de estatus" ng-model="vm.requisito.status">
-                        <md-option value="Confirmada">Confirmada</md-option>
-                        <md-option value="No Confirmada">No Confirmada</md-option>
-                        <md-option value="Cancelada">Cancelada</md-option>
-                    </md-select>
-                    <md-button ng-if="vm.isClient" ng-click="vm.buscarSolicitudes()" ng-class="guardar" aria-label="fab button"
-                               class="md-fab md-primary md-raised">
-                        <md-icon md-font-icon="fa fa-search"></md-icon>
-                    </md-button-->
-                    <md-button ng-if="!vm.isClient" ng-click="vm.busqueda()" ng-class="guardar" aria-label="fab button"
-                               class="md-fab md-primary md-raised" ng-disabled="!vm.tipo_solicitud">
-                        <md-icon md-font-icon="fa fa-search"></md-icon>
-                    </md-button>
+                    <div  layout="row">
+                        <md-input-container flex="" class="md-inline-form md-block" ng-show="(vm.tipo_solicitud=='Envio')||(vm.tipo_solicitud=='Recoleccion')">
+                            <md-select placeholder="Filtrar busqueda" ng-model="vm.filtro_busqueda">
+                                <md-option value="Por Folio">Por Folio</md-option>
+                                <md-option value="Por Estatus">Por Estatus</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container flex="" class="md-inline-form" ng-show="(vm.filtro_busqueda=='Por Folio')&&((vm.tipo_solicitud=='Envio')||(vm.tipo_solicitud=='Recoleccion'))">
+                            <label>Folio</label>
+                            <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
+                            <input type="text" ng-model="vm.folio" name="folio" only-digits required='required'>
+                            <div ng-messages="objectForm.folio.$error">
+                                <div ng-message="required">El campo es requerido</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container flex="" class="md-inline-form md-block">
+                            <md-select placeholder="Estatus a buscar" ng-model="vm.busqueda_status" ng-show="(vm.filtro_busqueda=='Por Estatus')&&((vm.tipo_solicitud=='Envio')||(vm.tipo_solicitud=='Recoleccion'))">
+                                <md-option value="No Confirmada">No Confirmada</md-option>
+                                <md-option value="Confirmada">Confirmada</md-option>
+                                <md-option value="Cancelada">Cancelada</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <!--md-select ng-if="!vm.isClient" placeholder="Elige tipo de estatus" ng-model="vm.requisito.status">
+                            <md-option value="Confirmada">Confirmada</md-option>
+                            <md-option value="No Confirmada">No Confirmada</md-option>
+                            <md-option value="Cancelada">Cancelada</md-option>
+                        </md-select>
+                        <md-button ng-if="vm.isClient" ng-click="vm.buscarSolicitudes()" ng-class="guardar" aria-label="fab button"
+                                   class="md-fab md-primary md-raised">
+                            <md-icon md-font-icon="fa fa-search"></md-icon>
+                        </md-button-->
+                    </div>
                 </md-card-title-text>
             </md-card-title>
         </md-card>

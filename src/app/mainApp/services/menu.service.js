@@ -95,6 +95,11 @@
                             name: 'Crear Solicitud',
                             state: 'triangular.admin-default.realizarSolicitud',
                             type: 'link'
+                        },
+                        {
+                            name: 'Profile',
+                            state: 'triangular.admin-default.Pruebas',
+                            type: 'link'
                         }
                     ]
                 },

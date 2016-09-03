@@ -217,6 +217,9 @@
                 vm.udn=null;
                 toastr.success('exito al guardar','exito');
                 console.log(vm.udn);
+
+
+
             }).catch(function(err){
                 toastr.error('error al guardar','error');
                 console.log(err);

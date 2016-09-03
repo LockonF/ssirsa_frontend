@@ -11,6 +11,13 @@
         vm.flag=0;
         vm.id=null;
         vm.FechaFin=new Date();
+        //Filtro de busqueda
+        vm.tipo_solicitud=null;
+        vm.filtro_busqueda=null;
+        vm.busqueda_status=null;
+        vm.folio=null;
+        vm.sol=null;
+        //-------------------
         vm.requisito = {
             "id":null,
             "udn":null,
@@ -69,7 +76,7 @@
         vm.borrarSolicitudVenta=borrarSolicitudVenta;
         vm.borrarSolicitud=borrarSolicitud;
         vm.edit=edit;
-        vm.tipo_solicitud=null;
+
         vm.Requisitos = [];
         vm.solicitudes=null;
         vm.solicitudesVentas=null;
@@ -228,26 +235,13 @@
 
         }
 
-        function busqueda(){
-            if(vm.tipo_solicitud=='Envio'||vm.tipo_solicitud=='Recoleccion') {
-                //vm.solicitudesVentas=null;
-                buscarSolicitudes();
-                console.log("solicitudes");
-
-            }
-            else {
-                //vm.solicitudes = null;
-                buscarSolicitudesVentas();
-                console.log("solicitudesVentas");
-            }
-        }
-
         function buscarSolicitudes(){
             console.log("vm.tipo_solicitud");
             console.log(vm.tipo_solicitud);
             if(!vm.isClient){
-                Solicitudes_Admin.consultaEsp(vm.requisito).then(function (rest){
-                    console.log("Soy admin");
+                //Solicitudes_Admin.consultaEsp(vm.requisito).then(function (rest){
+                Solicitudes_Admin.list().then(function (rest){
+                    console.log("Soy admin--");
                     console.log(vm.requisito);
                     vm.solicitudes = rest;
                     console.log(vm.solicitudes);
@@ -267,6 +261,76 @@
                 });
             }
         }
+
+        function busqueda() {
+            console.log("entre a busqueda");
+            switch (vm.tipo_solicitud) {
+                case 'Envio':
+                    console.log("entre a envio");
+                    console.log(vm.filtro_busqueda);
+                    if(vm.filtro_busqueda == 'Por Folio')
+                    {
+                        //vm.solicitudesVentas=null;
+                        if(!vm.isClient){
+                            //Solicitudes_Admin.consultaEsp(vm.requisito).then(function (rest){
+                            Solicitudes_Admin.list().then(function (rest){
+                                console.log("Soy admin--");
+                                console.log(vm.requisito);
+                                vm.solicitudes = rest;
+                                console.log(vm.solicitudes);
+
+                                console.log("solicitudes--");
+                                for(var i=0,len = vm.solicitudes.length; i<len;i++)
+                                {
+                                    console.log(vm.solicitudes.length);
+                                    vm.sol=vm.solicitudes[i];
+                                    console.log(vm.sol);
+                                }
+                            }).catch(function(error){
+                                console.log(error);
+                            })
+                        }else {
+
+                            Solicitudes.list().then(function (rest) {
+                                console.log("Soy cliente");
+                                vm.solicitudes = rest;
+                                console.log(vm.solicitudes);
+                                //if(vm.solicitudes)
+                                //console.log(vm.udns);
+                            }).catch(function (error) {
+                                console.log(error);
+                            });
+                        }
+
+
+                    }
+                    else//vm.filtro_busqueda == 'Por Estatus'
+                    {
+                        switch(vm.busqueda_status)
+                        {
+                            case 'No Confirmada':
+
+                                break;
+                            case 'Confirmada':
+
+                                break;
+                            case 'Cancelada':
+
+                                break;
+                        }
+
+                    }
+                    break;
+                case 'Recoleccion':
+                    break;
+                case 'Venta':
+                    buscarSolicitudesVentas();
+                    console.log("solicitudesVentas");
+                    break;
+            }
+        }
+
+
 
         function buscarSolicitudesVentas(){
             console.log("vm.tipo_solicitud");
@@ -289,7 +353,7 @@
         function borrarSolicitud(id){
             Solicitudes_Admin.borrarSol(id).then(function(resp){
                 //console.log(id);
-
+                vm.busqueda();
                 //console.log(resp);
             }).catch(function(err){
 

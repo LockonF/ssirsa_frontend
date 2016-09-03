@@ -49,7 +49,7 @@
         }
 
         function list(){
-            return Restangular.all('solicitud').customGET();
+            return Restangular.all('solicitud_admin').customGET();
         }
 
         function borrarSol(object){//solo el id

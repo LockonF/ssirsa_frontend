@@ -1,9 +1,9 @@
 /**
- * Created by franciscojaviercerdamartinez on 6/2/16.
+ * Created by  on 6/2/16.
  */
 (function () {
     angular
-        .module('app.mainApp.solicitudes')
+        .module('app.mainApp.profile')
         .controller('Prueba',Prueba);
 
     function Prueba($translate,groups,PersonaLocalService,Persona_Admin,toastr,Helper,Upload,OAuthToken,SERVER){
