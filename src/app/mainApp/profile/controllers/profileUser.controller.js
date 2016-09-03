@@ -35,6 +35,8 @@
         vm.cancel=cancel;
         vm.selectionFoto=selectionFoto;
         vm.selectionIFE=selectionIFE;
+
+
         vm.user={
             "mail":""
         }

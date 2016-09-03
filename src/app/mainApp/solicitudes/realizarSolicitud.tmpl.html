@@ -146,7 +146,7 @@
                                                         <th md-column="md-column" md-order-by="status_equipo"><span
                                                                 translate="">Estatus</span>
                                                         </th>
-                                                        <th md-column="md-column" md-order-by="fecha_termino"><span
+                                                        <th md-column="md-column" md-order-by="modelo_cabinet"><span
                                                                 translate="">Tipo</span>
                                                         </th>
                                                         <!-- Cuerpo de la tabla-->
@@ -163,8 +163,8 @@
                                                             {{dato.status_equipo}}
                                                         </td>
                                                         <td md-cell="md-cell"
-                                                            ng-click='vm.edit($event,dato,"tipo_equipo")'>
-                                                            {{dato.tipo_equipo}}
+                                                            ng-click='vm.edit($event,dato,"modelo_cabinet")'>
+                                                            {{dato.modelo_cabinet}}
                                                         </td>
                                                         <!--md-select ng-model="dessert.type" placeholder="Other">
                                                             <md-option ng-value="type" ng-repeat="type in getTypes()">{{type}}</md-option>
@@ -196,8 +196,14 @@
                                     </div>
                                 </md-input-container>
 
-                                <md-card-actions layout="row" layout-align="end center">
+                                <md-card-actions layout="row" layout-align="end center" ng-if="!vm.isClient">
                                     <md-button ng-click="vm.guardarSolicitudAdmin()" class="md-raised md-primary">
+                                        Guardar
+                                    </md-button>
+                                    <md-button>Cancelar</md-button>
+                                </md-card-actions>
+                                <md-card-actions layout="row" layout-align="end center" ng-if="vm.isClient">
+                                    <md-button ng-click="vm.guardarSolicitudCliente()" class="md-raised md-primary">
                                         Guardar
                                     </md-button>
                                     <md-button>Cancelar</md-button>
