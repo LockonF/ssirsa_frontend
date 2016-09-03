@@ -1,28 +1,23 @@
 <div layout="column">
     <md-card class="md-padding card1" flex="100">
-        <img src="assets/images/backgrounds/material-backgrounds/mb-bg-01-narrow.jpg" alt="Card Image">
         <md-card-title>
             <md-card-title-text>
                 <span class="md-headline">Asignación de Linea</span>
             </md-card-title-text>
         </md-card-title>
 
-            <div flex="100" layout="row">
+            <div flex="100" layout="row", layout-sm="column", layout-xs="column" layout-align-sm="center center" layout-align="center center">
                 <md-input-container flex="60">
                     <label>Id de Cabinet</label>
                     <input type="text" ng-model="vm.idCabinet"/>
                 </md-input-container>
+                <div>
                 <md-input-container flex>
                     <md-button class="md-fab" aria-label="fab button" ng-click="vm.buscar()">
                         <md-icon md-font-icon="zmdi zmdi-zoom-in"></md-icon>
                     </md-button>
                 </md-input-container>
-                <md-input-container flex>
-                    <md-switch class="md-primary" ng-model="vm.cabinet.activo" aria-label="Aun es Funcional"
-                               ng-disabled="true">
-                        Funciona
-                    </md-switch>
-                </md-input-container>
+
                 <md-input-container flex>
                     <md-button class="md-primary md-raised" aria-label="raised button"
                                ng-click="vm.guardar()">
@@ -32,13 +27,20 @@
                 <md-input-container flex>
                     <md-button class="md-primary md-raised" aria-label="raised button"
                                ng-click="vm.limpiar()">
-                        <md-icon md-font-icon="fa fa-trash"></md-icon>
+                        <md-icon md-font-icon="fa fa-eraser"></md-icon>
                     </md-button>
                 </md-input-container>
+                <md-input-container flex ng-show="vm.ver">
+                    <md-button class="md-primary md-raised" aria-label="raised button"
+                               ng-click="vm.verInfo()">
+                        <md-icon md-font-icon="fa fa-eye"></md-icon>
+                    </md-button>
+                </md-input-container>
+                </div>
             </div>
 
-    </md-card>
 
+<!--
     <md-card class="md-padding card1" flex="100">
         <span class="md-subhead">Cabinet Seleccionado.</span>
 
@@ -77,15 +79,11 @@
                     <md-option ng-repeat="modelo in vm.modelos" ng-value="modelo.id">{{modelo.descripcion}}</md-option>
                 </md-select>
             </md-input-container>
-
-
         </div>
     </md-card>
+-->
 
-    <md-card class="md-padding card1">
-        <md-card-title-text>
-            <span class="md-subhead">Asignación de Linea</span>
-        </md-card-title-text>
+
         <div layout="row">
             <md-slider-container flex>
                 <md-input-container flex="10">

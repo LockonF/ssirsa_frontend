@@ -1,0 +1,46 @@
+<md-card class="md-padding card1" flex="100">
+    <span class="md-subhead">Cabinet Seleccionado.</span>
+
+    <div layout="row" , flex="flex">
+        <md-input-container flex>
+            <label>Economico</label>
+            <input type="text" ng-model="vm.parent.cabinet.economico" ng-disabled="true"/>
+        </md-input-container>
+        <md-input-container flex>
+            <label translate>Estado Actual</label>
+            <input type="text" ng-model="vm.parent.cabinet.status" ng-disabled="true"/>
+
+        </md-input-container>
+        <md-input-container flex>
+            <label>Incidencias</label>
+            <input type="number" ng-model="vm.parent.cabinet.no_incidencias" ng-disabled="true"/>
+        </md-input-container>
+        <md-input-container flex>
+            <md-switch class="md-primary" ng-model="vm.cabinet.activo" aria-label="Aun es Funcional"
+                       ng-disabled="true">
+                Funciona
+            </md-switch>
+        </md-input-container>
+
+    </div>
+    <div layout="row" , flex="flex">
+        <md-input-container flex="25">
+            <label>tipo Entrada</label>
+            <input type="text" ng-model="vm.parent.cabinet.tipo_entrada" ng-disabled="true"/>
+        </md-input-container>
+        <md-input-container flex="25">
+            <label>No de Serie</label>
+            <input type="text" ng-model="vm.parent.cabinet.no_serie" ng-disabled="true"/>
+        </md-input-container>
+        <md-input-container flex="25">
+            <label>Año</label>
+            <input type="text" ng-model="vm.parent.cabinet.year" ng-disabled="true"/>
+        </md-input-container>
+        <md-input-container flex="25">
+            <label translate>Modelo</label>
+            <md-select ng-model="vm.parent.cabinet.modelo" name="select" ng-disabled="true">
+                <md-option ng-repeat="modelo in vm.parent.modelos" ng-value="modelo.id">{{modelo.descripcion}}</md-option>
+            </md-select>
+        </md-input-container>
+    </div>
+</md-card>
