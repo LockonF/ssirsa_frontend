@@ -6,7 +6,7 @@
         .module('app.mainApp.solicitudes')
         .controller('realizarSolicitudController',realizarSolicitudController);
 
-    function realizarSolicitudController(udn,modelo_cabinet,$mdDialog,$mdEditDialog,toastr,Solicitudes,Socket,Session,Solicitud_Servicio,Solicitudes_Admin,Persona_Admin){
+    function realizarSolicitudController(udn,modelo_cabinet,$mdDialog,$mdEditDialog,toastr,Solicitudes,PersonaLocalService,Solicitud_Servicio,Solicitudes_Admin,Persona_Admin){
         var vm = this;
         /*vm.selectedDate = moment().startOf('day').format();
          $mdDateLocaleProvider.formatDate = function(date) {
@@ -75,6 +75,7 @@
         vm.eliminarDato=eliminarDato;
         vm.guardarSolicitudAdmin=guardarSolicitudAdmin;
         vm.guardarSolicitudVenta=guardarSolicitudVenta;
+        vm.guardarSolicitudCliente=guardarSolicitudCliente;
         vm.Requisitos = [];
         vm.udns=null;
         vm.personas=null;
@@ -226,6 +227,29 @@
                 vm.requisito= _.clone(vm.requisito_vacio);
                 vm.udn=null;
                 toastr.success('exito al guardar','exito');
+                console.log(vm.udn);
+
+
+
+            }).catch(function(err){
+                toastr.error('error al guardar','error');
+                console.log(err);
+            })
+        }
+
+        function guardarSolicitudCliente(){
+            vm.requisito.fecha_inicio=moment(vm.requisito.fecha_inicio).format('YYYY-MM-DD');
+            vm.requisito.fecha_termino=moment(vm.requisito.fecha_termino).format('YYYY-MM-DD');
+            vm.requisito.udn=vm.udn;
+            console.log(vm.requisito);
+            Solicitudes.create(vm.requisito).then(function(resp){
+                vm.requisito= _.clone(vm.requisito_vacio);
+                vm.udn=null;
+                toastr.success('exito al guardar','exito');
+                console.log(vm.udn);
+
+
+
             }).catch(function(err){
                 toastr.error('error al guardar','error');
                 console.log(err);
