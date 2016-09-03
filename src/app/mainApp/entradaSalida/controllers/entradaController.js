@@ -16,15 +16,20 @@
         vm.showMassiveUpload=showMassiveUpload;
         vm.showManualUpload=showManualUpload;
         vm.removeImage=removeImage;
+        vm.nextTab=nextTab;
         vm.picFIle=null;
         vm.excelFIle=null;
         activate();
+        
+        vm.selectedTab=0;
 
         vm.hideEntrada=false;
         vm.hideSalida=true;
 
         vm.hideMassiveUpload=true;
         vm.hideManualUpload=true;
+        
+        vm.hideUnregisteredCabinets=true;
 
         //Selected's
         vm.selectedUdn="";
@@ -74,7 +79,7 @@
                 "descripcion": ""
             }
         ];
-        vm.cabinetes=[{
+        vm.cabinets=[{
             "economico":"201"
         }];
         vm.entrada={
@@ -87,8 +92,7 @@
             "proyecto": "",
             "sucursal": "",
             "tipo_transporte": "",
-            "udn": "",
-            "cabinets":vm.cabinetes
+            "udn": ""
         };
 
         //Functions
@@ -202,6 +206,9 @@
         }
         function removeImage() {
             vm.picfile=null;
+        }
+        function nextTab(){
+            vm.selectedTab=vm.selectedTab+1;
         }
     }
     
