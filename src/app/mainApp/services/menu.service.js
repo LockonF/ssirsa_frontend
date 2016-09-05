@@ -173,7 +173,6 @@
 
             ];
 
-            //triMenu.menu.unshift(adminMenu);
             triMenu.menu=adminMenu;
         }
 
@@ -241,7 +240,7 @@
                     ]
                 }
             ];
-
+            console.log(capturistaMenu);
             triMenu.menu=capturistaMenu;
         }
 

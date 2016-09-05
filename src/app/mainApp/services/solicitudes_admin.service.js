@@ -29,15 +29,15 @@
 
         function consultaEsp(object) {
             var tipoConsulta = null;
-            switch (object.status) {
+            switch (object) {
                 case "No Confirmada":
-                    tipoConsulta = "No Confirmada";
+                    tipoConsulta = "unconfirmed";
                     break;
                 case "Confirmada":
-                    tipoConsulta = "Confirmada";
+                    tipoConsulta = "confirmed";
                     break;
                 case "Cancelada":
-                    tipoConsulta = "Cancelada";
+                    tipoConsulta = "canceled";
                     break;
             }
             return Restangular.one('solicitud_admin', tipoConsulta).customGET();
@@ -64,7 +64,7 @@
         }
 
         function list(){
-            return Restangular.all('solicitud').customGET();
+            return Restangular.all('solicitud_admin').customGET();
         }
 
         function borrarSol(object){//solo el id

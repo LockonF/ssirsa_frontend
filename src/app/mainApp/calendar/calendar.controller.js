@@ -14,7 +14,7 @@
             selectable: true,
             editable: false,
             header: false,
-            lang: 'es-mx',
+            lang: 'es',
             timeFormat: ' ',
             viewRender: function (view) {
                 // change day
@@ -47,7 +47,9 @@
                     }
                 }).then(function (event) {
                     var toastMessage = 'Se actualizo correctamente la solicitud';
-                    uiCalendarConfig.calendars['triangular-calendar'].fullCalendar('updateEvent', event);
+                    //uiCalendarConfig.calendars['triangular-calendar'].fullCalendar('updateEvent', event);
+                    uiCalendarConfig.calendars['triangular-calendar'].fullCalendar('refetchEvents');
+                    activate();
                     // pop a toast
                     $mdToast.show(
                         $mdToast.simple()

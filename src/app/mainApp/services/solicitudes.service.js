@@ -12,7 +12,8 @@
         return{
             create:create,
             list:list,
-            modify:modify
+            modify:modify,
+            consultaEsp:consultaEsp
         };
 
         function create(object){
@@ -43,6 +44,22 @@
             }).catch(function(err){
                 console.log(err);
             })
+        }
+
+        function consultaEsp(object) {
+            var tipoConsulta = null;
+            switch (object) {
+                case "No Confirmada":
+                    tipoConsulta = "unconfirmed";
+                    break;
+                case "Confirmada":
+                    tipoConsulta = "confirmed";
+                    break;
+                case "Cancelada":
+                    tipoConsulta = "canceled";
+                    break;
+            }
+            return Restangular.one('solicitud', tipoConsulta).customGET();
         }
 
     }

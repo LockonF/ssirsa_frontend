@@ -1,12 +1,12 @@
 /**
- * Created by franciscojaviercerdamartinez on 6/2/16.
+ * Created by  on 6/2/16.
  */
 (function () {
     angular
-        .module('app.mainApp.solicitudes')
-        .controller('Prueba',Prueba);
+        .module('app.mainApp.profile')
+        .controller('profileUserController',profileUserController);
 
-    function Prueba($translate,groups,PersonaLocalService,Persona_Admin,toastr,Helper,Upload,OAuthToken,SERVER){
+    function profileUserController($translate,groups,PersonaLocalService,Persona_Admin,toastr,Helper,Upload,OAuthToken,SERVER){
         var vm = this;
 
         vm.isClient=true;
@@ -35,6 +35,8 @@
         vm.cancel=cancel;
         vm.selectionFoto=selectionFoto;
         vm.selectionIFE=selectionIFE;
+
+
         vm.user={
             "mail":""
         }
