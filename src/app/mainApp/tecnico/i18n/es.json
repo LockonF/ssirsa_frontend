@@ -1,0 +1,42 @@
+{
+
+
+    "ADMIN": {
+        "MANAGE": {
+            "MANAGEMENT_USER": "Administración de Usuarios"
+        }
+    },
+    "TECNICO":{
+        "FORM":{
+            "LABEL":{
+                "SEARCH":"Búsqueda de Cabinet",
+                "ID_CABINET":"Id Cabinet",
+                "MARCA":"Marca",
+                "DESCRIPTION":"Descripción",
+                "SLICED":"No. de Rodajas",
+                "LAYETTES":"No. de Canastillas",
+                "DOORS":"Puertas",
+                "GRIDS":"No. de Rejillas",
+                "STICKER":"Sticker",
+                "PAINTING":"Pintura",
+                "WASHED":"Lavado",
+                "STRETCH_WRAP":"Emplayado",
+                "READY_MARKET":"Listo para mercado",
+                "LUBRICATION":"Lubricación",
+                "ECONOMIC":"Económico",
+                "SERIE":"No serie",
+                "TYPE_INPUT":"Tipo de Entrada",
+                "YEAR":"Año",
+                "NO_INCIDENTS":"No. de incidencias",
+                "STATUS":"Estado"
+
+            },
+            "SUBHEAD":{
+                "PIECES":"Número de Piezas",
+                "VALIDATION":"Validación de Salida",
+                "EVIDENCE":"Evidencia fotográfica"
+            }
+        }
+    }
+
+}

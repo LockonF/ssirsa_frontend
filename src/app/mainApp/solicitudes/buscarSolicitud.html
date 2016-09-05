@@ -1,11 +1,18 @@
 <div layout="row" flex layout-padding layout-fill layout-align="center center">
-    <div flex="50" flex-xs="100">
+    <div flex="">
         <md-card>
             <md-card-title>
                 <md-card-title-text>
                     <h2>Buscar Solicitud</h2>
                     <div  layout="row">
-                        <md-input-container ng-if="!vm.isClient" class="md-block" flex="50">
+                        <md-input-container flex="" class="md-inline-form md-block">
+                            <md-select placeholder="Elige tipo de solicitud" ng-model="vm.tipo_solicitud">
+                                <md-option value="Envio">Solicitud de envió</md-option>
+                                <md-option value="Recoleccion">Solicitud de recolección</md-option>
+                                <md-option value="Venta">Solicitud de punto de venta</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <!--md-input-container ng-if="!vm.isClient" class="md-block" flex="50">
                             <label>No de Solicitud</label>
                             <textarea ng-model="vm.id"></textarea>
                         </md-input-container>
@@ -17,33 +24,172 @@
                                 <md-datepicker ng-model="vm.FechaFin"
                                                md-placeholder="Enter date"></md-datepicker>
                             </div>
-                        </div>
-
-                        <!-- opc 1-->
+                        </div-->
+                        <md-button  ng-click="vm.busqueda()" ng-class="guardar" aria-label="fab button"
+                                   class="md-fab md-primary md-raised" ng-disabled="!vm.tipo_solicitud">
+                            <md-icon md-font-icon="fa fa-search"></md-icon>
+                        </md-button>
                     </div>
-                    <md-select ng-if="!vm.isClient" placeholder="Elige tipo de estatus" ng-model="vm.requisito.status">
-                        <md-option value="Confirmada">Confirmada</md-option>
-                        <md-option value="No Confirmada">No Confirmada</md-option>
-                        <md-option value="Cancelada">Cancelada</md-option>
-                    </md-select>
-                    <!--md-button ng-click="vm.mostrarRequisito()" ng-class="guardar" aria-label="fab button"
-                               class="md-fab md-primary md-raised"-->
-                    <md-button ng-if="vm.isClient" ng-click="vm.buscarSolicitudes()" ng-class="guardar" aria-label="fab button"
-                               class="md-fab md-primary md-raised">
-                        <md-icon md-font-icon="fa fa-search"></md-icon>
-                    </md-button>
-                    <md-button ng-if="!vm.isClient" ng-click="vm.buscarSolicitudes()" ng-class="guardar" aria-label="fab button"
-                               class="md-fab md-primary md-raised">
-                        <md-icon md-font-icon="fa fa-search"></md-icon>
-                    </md-button>
+                    <div  layout="row">
+                        <md-input-container flex="" class="md-inline-form md-block" ng-if="(vm.tipo_solicitud=='Envio')||(vm.tipo_solicitud=='Recoleccion')">
+                            <md-select placeholder="Filtrar busqueda" ng-model="vm.filtro_busqueda">
+                                <md-option value="Por Folio">Por Folio</md-option>
+                                <md-option value="Por Estatus">Por Estatus</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container flex="" class="md-inline-form" ng-if="(vm.filtro_busqueda=='Por Folio')&&((vm.tipo_solicitud=='Envio')||(vm.tipo_solicitud=='Recoleccion'))">
+                            <label>Folio</label>
+                            <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
+                            <input type="text" ng-model="vm.folio" name="folio" only-digits required='required'>
+                            <div ng-messages="objectForm.folio.$error">
+                                <div ng-message="required">El campo es requerido</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container flex="" class="md-inline-form md-block">
+                            <md-select placeholder="Estatus a buscar" ng-model="vm.busqueda_status" ng-if="(vm.filtro_busqueda=='Por Estatus')&&((vm.tipo_solicitud=='Envio')||(vm.tipo_solicitud=='Recoleccion'))">
+                                <md-option value="No Confirmada">No Confirmada</md-option>
+                                <md-option value="Confirmada">Confirmada</md-option>
+                                <md-option value="Cancelada">Cancelada</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <!--md-select ng-if="!vm.isClient" placeholder="Elige tipo de estatus" ng-model="vm.requisito.status">
+                            <md-option value="Confirmada">Confirmada</md-option>
+                            <md-option value="No Confirmada">No Confirmada</md-option>
+                            <md-option value="Cancelada">Cancelada</md-option>
+                        </md-select>
+                        <md-button ng-if="vm.isClient" ng-click="vm.buscarSolicitudes()" ng-class="guardar" aria-label="fab button"
+                                   class="md-fab md-primary md-raised">
+                            <md-icon md-font-icon="fa fa-search"></md-icon>
+                        </md-button-->
+                    </div>
                 </md-card-title-text>
-
-
             </md-card-title>
-            <md-card-actions layout="row" layout-align="end center">
-                <md-button>Guardar</md-button>
-                <md-button>Cancelar</md-button>
-            </md-card-actions>
+
+
+            <div ng-if="(vm.solicitudes!=null) && (vm.tipo_solicitud=='Envio'||vm.tipo_solicitud=='Recoleccion')">
+                <md-card-title>
+                    <md-card-title-text>
+                        <h2  ng-if="vm.solicitudes!=null ">Solicitud de {{vm.tipo_solicitud}}</h2>
+                    </md-card-title-text>
+                </md-card-title>
+
+                <div layout="row" flex layout-padding layout-fill layout-align="center center" >
+                    <div flex="">
+                        <!-- exact table from live demo ***********************************************************************-->
+                        <md-card>
+                            <div layout="column" layout-sm="column" layout-md="column">
+                                <md-table-container>
+                                    <table flex="" md-table="" md-row-select="" ng-model="vm.solicitudx">
+                                        <thead md-head="" md-order="vm.query.order">
+                                        <tr md-row="md-row">
+                                            <th md-column="md-column" md-order-by="id"><span translate="">No. Solicitud</span>
+                                            </th>
+                                            <th md-column="md-column" md-order-by="udn"><span translate="">UDN</span>
+                                                <!--vm.requisito. -->
+                                            </th>
+                                            <th md-column="md-column" md-order-by="fecha_inicio"><span translate="">Fecha de Inicio</span>
+                                            </th>
+                                            <th md-column="md-column" md-order-by="fecha_termino"><span translate="">Fecha de Fin</span>
+                                            </th>
+                                            <th md-column="md-column" md-order-by="tipo_solicitud"><span translate="">Tipo</span>
+                                            </th>
+                                            <th md-column="md-column" md-order-by="status"><span translate="">Estatus</span>
+                                            </th>
+                                            <th md-column="md-column" md-order-by="comentario"><span translate="">Cantidad</span>
+                                            </th>
+                                            <!-- Cuerpo de la tabla-->
+                                        </tr>
+                                        </thead>
+                                        <tbody md-body="md-body" flex="">
+                                        <tr md-row="md-row" flex=""
+                                            ng-repeat="solicitud in vm.solicitudes | orderBy:vm.query.order | offset: (vm.query.page-1)*vm.query.limit | limitTo: vm.query.limit">
+                                            <td md-cell="md-cell" >{{solicitud.id}}</td>
+                                            <td md-cell="md-cell" >{{solicitud.udn}}</td>
+                                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"fecha_inicio")'>{{solicitud.fecha_inicio}}</td>
+                                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"fecha_termino")'>{{solicitud.fecha_termino}}</td>
+                                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"tipo_solicitud")'>{{solicitud.tipo_solicitud}}</td>
+                                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"status")'>{{solicitud.status}}</td>
+                                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"comentario")'>{{solicitud.comentario}}</td>
+                                            <td md-cell="md-cell" ng-click="$event.stopPropagation()"><!-- -->
+                                                <md-button ng-click="vm.borrarSolicitud(solicitud.id)" class="md-fab md-warn md-mini">
+                                                    <md-icon md-font-icon="fa fa-times-circle"></md-icon>
+                                                </md-button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </md-table-container>
+                                <md-table-pagination label="textoprub" md-limit="vm.query.limit" md-page="vm.query.page" md-total="{{vm.solicitudes.length}}" md-on-paginate="onPaginate" md-page-select="md-page-select"></md-table-pagination>
+                            </div>
+                        </md-card>
+                    </div>
+                </div>
+                <!--md-card-actions layout="row" layout-align="end center">
+                    <md-button ng-click="" class="md-raised md-primary">Guardar</md-button>
+                    <md-button>Cancelar</md-button>
+                </md-card-actions-->
+            </div>
+
+            <div ng-if="(vm.solicitudesVentas!=null) && (vm.tipo_solicitud=='Venta')">
+                        <h2  ng-if="vm.solicitudesVentas!=null ">Solicitud de {{vm.tipo_solicitud}}</h2>
+                <div layout="row" flex="" layout-padding layout-fill layout-align="center center" >
+                    <div flex="">
+                        <!-- exact table from live demo ***********************************************************************-->
+                        <md-card>
+                            <div layout="column" layout-sm="column" layout-md="column">
+                                <md-table-container>
+                                    <table flex="" md-table="" md-row-select="" ng-model="vm.solicitudx">
+                                        <thead md-head="" md-order="vm.query.order">
+                                        <tr md-row="md-row">
+                                            <th md-column="md-column" md-order-by="id"><span translate="">No. Solicitud</span>
+                                            </th>
+                                            <th md-column="md-column" md-order-by="udn"><span translate="">UDN</span>
+                                            </th>
+                                            <th md-column="md-column" md-order-by="razon_social"><span translate="">RAZON_SOCIAL</span>
+                                            </th>
+                                            <th md-column="md-column" md-order-by="nombre_negocio"><span translate="">NOMBRE_NEGOCIO</span>
+                                            </th>
+                                            <th md-column="md-column" md-order-by="direccion"><span translate="">DIRECCIÓN</span>
+                                            </th>
+                                            <th md-column="md-column" md-order-by="telefono"><span translate="">TELEFONO</span>
+                                            </th>
+                                            <th md-column="md-column" md-order-by="contacto_negocio"><span translate="">CONTACTO_NEGOCIO</span>
+                                            </th>
+                                            <th md-column="md-column" md-order-by="fecha_atencion"><span translate="">FECHA_ATENCIÓN</span>
+                                            </th>
+                                            <!-- Cuerpo de la tabla-->
+                                        </tr>
+                                        </thead>
+                                        <tbody md-body="md-body">
+                                        <tr md-row="md-row"
+                                            ng-repeat="solicitudVenta in vm.solicitudesVentas | orderBy:vm.query.order | offset: (vm.query.page-1)*vm.query.limit | limitTo: vm.query.limit">
+                                            <td md-cell="md-cell" >{{solicitudVenta.id}}</td>
+                                            <td md-cell="md-cell" >{{solicitudVenta.udn}}</td>
+                                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitudVenta,"razon_social")'>{{solicitudVenta.razon_social}}</td>
+                                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitudVenta,"nombre_negocio")'>{{solicitudVenta.nombre_negocio}}</td>
+                                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitudVenta,"direccion")'>{{solicitudVenta.direccion}}</td>
+                                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitudVenta,"telefono")'>{{solicitudVenta.telefono}}</td>
+                                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitudVenta,"contacto_negocio")'>{{solicitudVenta.contacto_negocio}}</td>
+                                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitudVenta,"fecha_atencion")'>{{solicitudVenta.fecha_atencion}}</td>
+                                            <td md-cell="md-cell" ng-click="$event.stopPropagation()"><!-- -->
+                                                <md-button ng-click="vm.eliminarRequisito(solicitud)" class="md-fab md-warn md-mini">
+                                                    <md-icon md-font-icon="fa fa-times-circle"></md-icon>
+                                                </md-button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </md-table-container>
+                                <md-table-pagination label="textoprub" md-limit="vm.query.limit" md-page="vm.query.page" md-total="{{vm.solicitudVenta.length}}" md-on-paginate="onPaginate" md-page-select="md-page-select"></md-table-pagination>
+                            </div>
+                        </md-card>
+                    </div>
+                </div>
+                <!--md-card-actions layout="row" layout-align="end center">
+                    <md-button ng-click="" class="md-raised md-primary">Guardar</md-button>
+                    <md-button>Cancelar</md-button>
+                </md-card-actions-->
+            </div>
         </md-card>
 
         <!--md-toolbar class="md-table-toolbar md-default">
@@ -51,58 +197,16 @@
                 <span>Nutrition</span>
             </div>
         </md-toolbar-->
+
     </div>
+
 </div>
 <!-- opc 1-->
-<div layout="row" flex layout-padding layout-fill layout-align="center center" ng-show="vm.solicitudes!=null">
-    <div flex="70" flex-xs="100">
-        <!-- exact table from live demo ***********************************************************************-->
+<div layout="row" flex layout-padding layout-fill layout-align="center center">
+    <div flex="">
         <md-card>
-            <div layout="row" layout-sm="column" layout-md="column">
-                <md-table-container>
-                    <table md-table="" md-row-select="" ng-model="vm.solicitudx">
-                        <thead md-head="" md-order="vm.query.order">
-                        <tr md-row="md-row">
-                            <th md-column="md-column" md-order-by="id"><span translate="">No. Solicitud</span>
-                            </th>
-                            <th md-column="md-column" md-order-by="udn"><span translate="">UDN</span>
-                                <!--vm.requisito. -->
-                            </th>
-                            <th md-column="md-column" md-order-by="fecha_inicio"><span translate="">Inicio</span>
-                            </th>
-                            <th md-column="md-column" md-order-by="fecha_termino"><span translate="">Fin</span>
-                            </th>
-                            <th md-column="md-column" md-order-by="tipo_solicitud"><span translate="">TIPO</span>
-                            </th>
-                            <th md-column="md-column" md-order-by="status"><span translate="">ESTATUS</span>
-                            </th>
-                            <th md-column="md-column" md-order-by="comentario"><span translate="">CANTIDAD</span>
-                            </th>
-                            <!-- Cuerpo de la tabla-->
-                        </tr>
-                        </thead>
-                        <tbody md-body="md-body">
-                        <tr md-row="md-row" md-select="requisito" md-select-id="{{solicitud.id}}"
-                            ng-repeat="solicitud in vm.solicitudes | orderBy:vm.query.order">
-                            <td md-cell="md-cell" >{{solicitud.id}}</td>
-                            <td md-cell="md-cell" >{{solicitud.udn}}</td>
-                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"fecha_inicio")'>{{solicitud.fecha_inicio}}</td>
-                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"fecha_termino")'>{{solicitud.fecha_termino}}</td>
-                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"tipo_solicitud")'>{{solicitud.tipo_solicitud}}</td>
-                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"status")'>{{solicitud.status}}</td>
-                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"comentario")'>{{solicitud.comentario}}</td>
-                            <td md-cell="md-cell" ng-click="$event.stopPropagation()"><!-- -->
-                                <md-button ng-click="vm.eliminarRequisito(solicitud)" class="md-fab md-warn md-mini">
-                                    <md-icon md-font-icon="fa fa-times-circle"></md-icon>
-                                </md-button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </md-table-container>
-            </div>
+
+
         </md-card>
     </div>
 </div>
-
-

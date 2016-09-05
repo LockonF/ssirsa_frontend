@@ -1,16 +1,13 @@
 <div layout="row" flex layout-padding layout-fill layout-align="center center">
-    <div flex="50" flex-xs="100">
+    <div flex="30" flex-xs="50">
         <md-card>
             <md-card-title>
                 <md-card-title-text>
                     <h2>Buscar Usuario</h2>
                     <div layout="row">
-                        <md-input-container class="md-block" flex="50">
-                            <label>Nombre de Usuario</label>
-                            <textarea ng-model="vm.userName"></textarea>
-                        </md-input-container>
+
                     </div>
-                    <md-button ng-click="vm.mostrarUsuario()" ng-class="guardar" aria-label="fab button"
+                    <md-button ng-click="vm.buscarUsuario()" ng-class="guardar" aria-label="fab button"
                                class="md-fab md-primary md-raised">
                         <md-icon md-font-icon="fa fa-search"></md-icon>
                     </md-button>
@@ -26,8 +23,14 @@
     </div>
 </div>
 <!-- opc 1-->
+<<<<<<< HEAD
 <div layout="row" flex layout-padding layout-fill layout-align="center center" ng-show="vm.flag==1">
     <div flex="70" flex-xs="100">
+=======
+<div layout="row" flex layout-padding layout-fill layout-align="center center" ng-show="vm.personas_admin!=null">
+    <div flex="100" flex-xs="100">
+        <!-- exact table from live demo ***********************************************************************-->
+>>>>>>> origin/development
         <md-card>
             <div layout="row" layout-sm="column" layout-md="column">
                 <md-table-container>
@@ -36,48 +39,45 @@
                         <tr md-row="md-row">
                             <th md-column="md-column" md-order-by="id"><span translate="">ID</span>
                             </th>
+<<<<<<< HEAD
                             <th md-column="md-column" md-order-by="user"><span translate="">UserName</span>
                             </th>
                             <th md-column="md-column" md-order-by="password"><span translate="">Password</span>
+=======
+                            <th md-column="md-column" md-order-by="nombre"><span translate="">Nombre</span>
+>>>>>>> origin/development
                             </th>
-                            <th md-column="md-column" md-order-by="aMaterno"><span translate="">AMaterno</span>
+                            <th md-column="md-column" md-order-by="apellido_paterno"><span translate="">Apellido Paterno</span>
                             </th>
-                            <th md-column="md-column" md-order-by="mail"><span translate="">Mail</span>
-                            </th>
-                            <th md-column="md-column" md-order-by="telefono"><span translate="">Telefono</span>
+                            <th md-column="md-column" md-order-by="apellido_materno"><span translate="">Apellido Materno</span>
                             </th>
                             <th md-column="md-column" md-order-by="direccion"><span translate="">Dirección</span>
                             </th>
-                            <th md-column="md-column" md-order-by="sucursal"><span translate="">Sucursal</span>
+                            <th md-column="md-column" md-order-by="telefono"><span translate="">Telefono</span>
                             </th>
-                            <th md-column="md-column" md-order-by="ine"><span translate="">INE</span>
+                            <th md-column="md-column" md-order-by="user.username"><span translate="">UserName</span>
                             </th>
-                            <th md-column="md-column" md-order-by="foto"><span translate="">Foto</span>
+                            <th md-column="md-column" md-order-by="user.email"><span translate="">Email</span>
                             </th>
-                            <th md-column="md-column" md-order-by="tipo"><span translate="">Tipo</span>
-                            </th>
+
 
                             <!-- Cuerpo de la tabla-->
                         </tr>
                         </thead>
                         <tbody md-body="md-body">
-                        <tr md-row="md-row" md-select="usuario" md-select-id="{{usuario.id}}"
-                            ng-repeat="usuario in vm.Usuarios | orderBy:vm.query.order">
-                            <td md-cell="md-cell">{{usuario.id}}</td>
-                            <td md-cell="md-cell">{{usuario.user}}</td>
-                            <td md-cell="md-cell">{{usuario.password}}</td>
-                            <td md-cell="md-cell">{{usuario.aMaterno}}</td>
-                            <td md-cell="md-cell">{{usuario.aPaterno}}</td>
-                            <td md-cell="md-cell">{{usuario.mail}}</td>
-                            <td md-cell="md-cell">{{usuario.telefono}}</td>
-                            <td md-cell="md-cell">{{usuario.direccion}}</td>
-                            <td md-cell="md-cell">{{usuario.sucursal}}</td>
-                            <td md-cell="md-cell">{{usuario.ine}}</td>
-                            <td md-cell="md-cell">{{usuario.foto}}</td>
-                            <td md-cell="md-cell">{{usuario.tipo}}</td>
+                        <tr md-row="md-row" md-select="usuario" md-select-id="{{person.id}}"
+                            ng-repeat="person in vm.personas_admin | orderBy:vm.query.order">
+                            <td md-cell="md-cell">{{person.id}}</td>
+                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"person.nombre")'>{{person.nombre}}</td>
+                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"person.apellido_paterno")'>{{person.apellido_paterno}}</td>
+                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"person.apellido_materno")'>{{person.apellido_materno}}</td>
+                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"person.direccion")'>{{person.direccion}}</td>
+                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"person.telefono")'>{{person.telefono}}</td>
+                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"person.user.username")'>{{person.user.username}}</td>
+                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"person.user.email")'>{{person.user.email}}</td>
 
-                            <td md-cell="md-cell" ng-click="$event.stopPropagation()">
-                                <md-button ng-click="vm.eliminarUsuario(usuario)" class="md-fab md-warn md-mini">
+                            <td md-cell="md-cell" ng-click="$event.stopPropagation()"><!-- -->
+                                <md-button ng-click="vm.eliminarPersona(person)" class="md-fab md-warn md-mini">
                                     <md-icon md-font-icon="fa fa-times-circle"></md-icon>
                                 </md-button>
                             </td>
@@ -85,9 +85,13 @@
                         </tbody>
                     </table>
                 </md-table-container>
+                <div data-pagination="" data-num-pages="numPages()"
+                     data-current-page="currentPage" data-max-size="maxSize"
+                     data-boundary-links="true"></div>
             </div>
         </md-card>
     </div>
+
 </div>
 
 

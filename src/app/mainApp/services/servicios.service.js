@@ -1,6 +1,9 @@
 /**
  * Created by franciscojaviercerdamartinez on 17/07/16.
  */
+/**
+ * Created by franciscojaviercerdamartinez on 16/07/16.
+ */
 (function() {
     'use strict';
 
@@ -8,22 +11,34 @@
         .module('app')
         .factory('Servicios', Servicios);
 
+    /* @ngInject */
     function Servicios($q, Restangular) {
         var service = {
             crearEtapaServicio: crearEtapaServicio,
-            consultarEtapaServicio: consultarEtapaServicio,
             editarEtapaServicio: editarEtapaServicio,
             eliminarEtapaServicio: eliminarEtapaServicio,
-            validarEtapaServicio: validarEtapaServicio,
-            consultarInsumosEtapa: consultarInsumosEtapa,
-            getAllEtapasServicio: getAllEtapasServicio
+            consultarAllEtapaServicioDiagnostico: consultarAllEtapaServicioDiagnostico,
+            consultarEtapaServicioDiagnostico:consultarEtapaServicioDiagnostico,
+            verEtapaNoValidada:verEtapaNoValidada,
+            verEtapaValidada:verEtapaValidada,
+            etapasValidablesByPerson:etapasValidablesByPerson,
+            consultarInsumosEtapa:consultarInsumosEtapa,
+            consultarAllInsumosCabinetEtapa:consultarAllInsumosCabinetEtapa,
+            getEtapaValidable:getEtapaValidable,
+            getDiagnosticoFromCabinet:getDiagnosticoFromCabinet,
+            anadirInsumo:anadirInsumo,
+            modificarInsumo:modificarInsumo,
+            eliminarInsumo:eliminarInsumo,
+            consultarInfoCabinet:consultarInfoCabinet,
+            consultarInsumobyNombre:consultarInsumobyNombre
         };
 
 
-        
+
         function crearEtapaServicio(etapa) {
             var deferred = $q.defer();
-            Restangular.all('').customPOST(etapa).then(function (res) {
+            //checar rutas :D
+            Restangular.all('etapa_servicio').customPOST(etapa).then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(false);
@@ -32,23 +47,12 @@
             return deferred.promise;
         }
 
-        function consultarEtapaServicio(etapa) {
-            var deferred = $q.defer();
-            Restangular.one('Etapa', etapa.id).customGET(etapa).then(function (res) {
-                deferred.resolve(res);
-            }).catch(function (err) {
-                deferred.reject(err);
-            });
-
-
-            return deferred.promise;
-        }
 
         function editarEtapaServicio(etapa) {
 
             var deferred = $q.defer();
 
-            Restangular.all('etapaServicio').one('Update', etapa.id).customPOST(etapa).then(function (res) {
+            Restangular.one('etapa_servicio', etapa.id).customPUT(etapa).then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);
@@ -61,7 +65,7 @@
         function eliminarEtapaServicio(etapa) {
             var deferred = $q.defer();
 
-            Restangular.one('etapa', etapa.id).customDELETE().then(function (res) {
+            Restangular.one('etapa_servicio', etapa.id).customDELETE().then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);
@@ -71,41 +75,172 @@
             return deferred.promise;
         }
 
-        function validarEtapaServicio(etapa) {
+        function consultarAllEtapaServicioDiagnostico(etapa) {
+            var deferred = $q.defer();
+            //checar rutas :D
+            Restangular.all('etapa_servicio').one('diagnostic', etapa.id).customGET().then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            });
+
+
+
+            return deferred.promise;
+        }
+
+        function consultarEtapaServicioDiagnostico(diagnostico) {
+            var deferred = $q.defer();
+            //checar rutas :D
+            Restangular.all('etapa_servicio').all('diagnostic').one('latest', diagnostico.id).customGET().then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            });
+
+            return deferred.promise;
+        }
+
+//Endpoints no utiles desde ek cambio de sssirsa de quitar supervisiones
+        function verEtapaNoValidada(etapa) {
 
             var deferred = $q.defer();
 
-            Restangular.all('ValidarEtapaServicio').one('Update', etapa.id).customPOST(etapa).then(function (res) {
+            Restangular.all('etapa_servicio').all('diagnostic').one('notvalidated', etapa.id).customGET().then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            })
+            return deferred.promise;
+        }
+        function verEtapaValidada(etapa) {
+
+            var deferred = $q.defer();
+
+            Restangular.all('etapa_servicio').all('diagnostic').one('validated', etapa.id).customGET().then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            })
+            return deferred.promise;
+
+        }
+        function etapasValidablesByPerson(etapa) {
+
+            var deferred = $q.defer();
+
+            Restangular.all('etapa_servicio').all('user').one('stage', etapa.id).customGET().then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            })
+            return deferred.promise;
+
+        }
+///Terminan los endpoints No utilizados
+
+
+        function consultarInsumosEtapa(etapa) {
+            var deferred = $q.defer();
+            //checar rutas :D
+            Restangular.one('Insumos', etapa.actual_etapa).customGET(etapa).then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            });
+
+
+            return deferred.promise;
+        }
+        function consultarAllInsumosCabinetEtapa(etapa) {
+            var deferred = $q.defer();
+            Restangular.all('etapa_servicio').one('insumos', etapa.id).customGET(etapa.id).then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            });
+
+
+
+            return deferred.promise;
+        }
+
+
+        function getEtapaValidable(idCabinet){
+            var defer = $q.defer();
+            getDiagnosticoFromCabinet(idCabinet).then(function(resp){
+                Restangular.all("etapa_servicio").all("diagnostic").all("latest").one("can_validate",resp.id).customGET().then(function(res){
+                    defer.resolve(res);
+                }).catch(function(err){
+                    defer.resolve(err);
+                });
+                return defer.promise;
+            }).catch(function(err){
+                defer.resolve(err);
+            });
+            return defer.promise;
+
+        }
+
+        function getDiagnosticoFromCabinet(idCabinet){
+            var defer = $q.defer();
+            Restangular.all("diagnostico").all("latest").one(idCabinet).customGET().then(function(res){
+                defer.resolve(res);
+            }).catch(function(err){
+                defer.reject(err);
+            });
+            //console.log(defer.promise);
+            return defer.promise;
+        }
+
+        function anadirInsumo(insumo){
+            var defer =$q.defer();
+            Restangular.all("insumo_usado").customPOST(insumo).then(function(res){
+                defer.resolve(res);
+            }).catch(function(err){
+                defer.reject(err);
+            })
+        }
+        function modificarInsumo(insumo){
+            var defer =$q.defer();
+            Restangular.all("insumo_usado").one("",insumo.id).customPUT(insumo).then(function(res){
+                defer.resolve(res);
+            }).catch(function(err){
+                defer.reject(err);
+            })
+        }
+        function eliminarInsumo(insumo){
+            var defer =$q.defer();
+            Restangular.all("insumo_usado").one("",insumo.id).customDELETE().then(function(res){
+                defer.resolve(res);
+            }).catch(function(err){
+                defer.reject(err);
+            })
+        }
+
+        function consultarInfoCabinet(idcabinet) {
+            var deferred = $q.defer();
+            //checar rutas :D
+            Restangular.one('cabinet', idcabinet).customGET().then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            });
+
+
+            return deferred.promise;
+        }
+        function consultarInsumobyNombre(cadena){
+            Restangular.all("catalogo_insumos").one("lookup",cadena).customGET().then(function(res) {
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);
             })
 
         }
-
-        function consultarInsumosEtapa(etapa) {
-            var deferred = $q.defer();
-            Restangular.one('Insumos', etapa.NoEtapa).customGET(etapa).then(function (res) {
-                deferred.resolve(res);
-            }).catch(function (err) {
-                deferred.reject(err);
-            });
-
-
-            return deferred.promise;
-        }
-        function getAllEtapasServicio(etapa) {
-            var deferred = $q.defer();
-            Restangular.one('Etapas', etapa.idCabinet).customGET(etapa).then(function (res) {
-                deferred.resolve(res);
-            }).catch(function (err) {
-                deferred.reject(err);
-            });
-
-
-            return deferred.promise;
-        }
+        return service;
 
     }
+
 
 })();

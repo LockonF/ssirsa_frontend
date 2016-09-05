@@ -4,335 +4,263 @@
 (function () {
     angular
         .module('app.mainApp.solicitudes')
-        .controller('Prueba',buscarSolicitudController);
+        .controller('Prueba',Prueba);
 
-    function buscarSolicitudController(){
+    function Prueba($translate,groups,PersonaLocalService,Persona_Admin,toastr,Helper,Upload,OAuthToken,SERVER){
         var vm = this;
 
-        vm.desserts = {
-            "count": 9,
-            "data": [
-                {
-                    "name": "Frozen yogurt",
-                    "type": "Ice cream",
-                    "calories": { "value": 159.0 },
-                    "fat": { "value": 6.0 },
-                    "carbs": { "value": 24.0 },
-                    "protein": { "value": 4.0 },
-                    "sodium": { "value": 87.0 },
-                    "calcium": { "value": 14.0 },
-                    "iron": { "value": 1.0 }
-                }, {
-                    "name": "Ice cream sandwich",
-                    "type": "Ice cream",
-                    "calories": { "value": 237.0 },
-                    "fat": { "value": 9.0 },
-                    "carbs": { "value": 37.0 },
-                    "protein": { "value": 4.3 },
-                    "sodium": { "value": 129.0 },
-                    "calcium": { "value": 8.0 },
-                    "iron": { "value": 1.0 }
-                }, {
-                    "name": "Eclair",
-                    "type": "Pastry",
-                    "calories": { "value":  262.0 },
-                    "fat": { "value": 16.0 },
-                    "carbs": { "value": 24.0 },
-                    "protein": { "value":  6.0 },
-                    "sodium": { "value": 337.0 },
-                    "calcium": { "value":  6.0 },
-                    "iron": { "value": 7.0 }
-                }, {
-                    "name": "Cupcake",
-                    "type": "Pastry",
-                    "calories": { "value":  305.0 },
-                    "fat": { "value": 3.7 },
-                    "carbs": { "value": 67.0 },
-                    "protein": { "value": 4.3 },
-                    "sodium": { "value": 413.0 },
-                    "calcium": { "value": 3.0 },
-                    "iron": { "value": 8.0 }
-                }, {
-                    "name": "Jelly bean",
-                    "type": "Candy",
-                    "calories": { "value":  375.0 },
-                    "fat": { "value": 0.0 },
-                    "carbs": { "value": 94.0 },
-                    "protein": { "value": 0.0 },
-                    "sodium": { "value": 50.0 },
-                    "calcium": { "value": 0.0 },
-                    "iron": { "value": 0.0 }
-                }, {
-                    "name": "Lollipop",
-                    "type": "Candy",
-                    "calories": { "value": 392.0 },
-                    "fat": { "value": 0.2 },
-                    "carbs": { "value": 98.0 },
-                    "protein": { "value": 0.0 },
-                    "sodium": { "value": 38.0 },
-                    "calcium": { "value": 0.0 },
-                    "iron": { "value": 2.0 }
-                }, {
-                    "name": "Honeycomb",
-                    "type": "Other",
-                    "calories": { "value": 408.0 },
-                    "fat": { "value": 3.2 },
-                    "carbs": { "value": 87.0 },
-                    "protein": { "value": 6.5 },
-                    "sodium": { "value": 562.0 },
-                    "calcium": { "value": 0.0 },
-                    "iron": { "value": 45.0 }
-                }, {
-                    "name": "Donut",
-                    "type": "Pastry",
-                    "calories": { "value": 452.0 },
-                    "fat": { "value": 25.0 },
-                    "carbs": { "value": 51.0 },
-                    "protein": { "value": 4.9 },
-                    "sodium": { "value": 326.0 },
-                    "calcium": { "value": 2.0 },
-                    "iron": { "value": 22.0 }
-                }, {
-                    "name": "KitKat",
-                    "type": "Candy",
-                    "calories": { "value": 518.0 },
-                    "fat": { "value": 26.0 },
-                    "carbs": { "value": 65.0 },
-                    "protein": { "value": 7.0 },
-                    "sodium": { "value": 54.0 },
-                    "calcium": { "value": 12.0 },
-                    "iron": { "value": 6.0 }
-                }
-            ]
-        };
-
-        vm.editComment = function (event, dessert) {
-            event.stopPropagation(); // in case autoselect is enabled
-
-            var editDialog = {
-                modelValue: dessert.comment,
-                placeholder: 'Add a comment',
-                save: function (input) {
-                    if(input.$modelValue === 'Donald Trump') {
-                        input.$invalid = true;
-                        return $q.reject();
-                    }
-                    if(input.$modelValue === 'Bernie Sanders') {
-                        return dessert.comment = 'FEEL THE BERN!'
-                    }
-                    dessert.comment = input.$modelValue;
-                },
-                targetEvent: event,
-                title: 'Add a comment',
-                validators: {
-                    'md-maxlength': 30
-                }
-            };
-
-            var promise;
-
-            if(vm.options.largeEditDialog) {
-                promise = $mdEditDialog.large(editDialog);
-            } else {
-                promise = $mdEditDialog.small(editDialog);
-            }
-
-            promise.then(function (ctrl) {
-                var input = ctrl.getInput();
-
-                input.$viewChangeListeners.push(function () {
-                    input.$setValidity('test', input.$modelValue !== 'test');
-                });
-            });
-        };
-
-
-        vm.flag=0;
-        vm.id=null;
-        vm.FechaFin=new Date();
-        vm.requisito = {
-            "id":null,
-            "rUDN":null,
-            "rFechaIni":null,
-            "rFechaFin":null,
-            "rDesc":null,
-            "rTipo": null,
-            "rEstatus": null,
-            "rCantidad": null
-        };
-        vm.solicitud = [
-            {
-                "id":123,
-                "rUDN": "UDN_2",
-                "rFechaIni": "6/12/2016",
-                "rFechaFin": "7/12/2016",
-                "rTipo": "UDN_3",
-                "rEstatus": "Dañado",
-                "rCantidad": "10"
-            },
-            {
-                "id":124,
-                "rUDN": "UDN_2",
-                "rFechaIni": "6/12/2016",
-                "rFechaFin": "7/12/2016",
-                "rTipo": "UDN_1",
-                "rEstatus": "Dañado",
-                "rCantidad": "1"
-            },
-            {
-                "id":125,
-                "rTipo": "UDN_2",
-                "rEstatus": "Dañado",
-                "rCantidad": "5"
-            },
-            {
-                "id": 126,
-                "rUDN": "UDN_2",
-                "rFechaIni": "6/12/2016",
-                "rFechaFin": "7/12/2016",
-                //"rDesc": null,
-                "rTipo": "UDN_3",
-                "rEstatus": "Dañado",
-                "rCantidad": "8"
-            }
-        ];
-
-        vm.mostrarRequisito=mostrarRequisito;
-        vm.eliminarRequisito=eliminarRequisito;
-        vm.edit=edit;
-        vm.Requisitos = [];
-
-        function edit(event,object,field,model) {
-            var config =
-            {
-                modelValue: object[field],
-                placeholder: 'Edita el campo',
-                save: function (input) {
-
-                    object[field] = input.$modelValue;
-                    updateObject(object,model);
-
-                },
-                targetEvent: event,
-                validators: {
-                    'md-maxlength': 30
-                }
-
-            };
-            $mdEditDialog.small(config).then(function(ctrl){
-
-            }).catch(function(err){
+        vm.isClient=true;
+        activate();
+        function activate(){
+            groups.list().then(function(rest){
+                vm.grupos=rest;
+                //console.log(vm.udns);
+                //console.log(vm.isClient);
+            }).catch(function(error){
 
             });
 
+            /*if(PersonaLocalService.role.name == 'Cliente'){
+             vm.isClient=true;
+             }else{
+             vm.isClient=false;
+             }
+             console.log(vm.isClient);*/
+        }
+        // Crear requisito
+        vm.cpassword="";
+        vm.guardarUsuario = guardarUsuario;
+        vm.enviar =enviar;
+        vm.clean=clean;
+        vm.cancel=cancel;
+        vm.selectionFoto=selectionFoto;
+        vm.selectionIFE=selectionIFE;
+        vm.user={
+            "mail":""
+        }
+        vm.user_ini={
+            "user": {
+                "username": "",
+                "email": "",
+                "password": "",
+                "role": ""
+            },
+            "nombre": "",
+            "apellido_paterno": "",
+            "apellido_materno": "",
+            "direccion": "",
+            "telefono": "",
+            "ife":null,
+            "foto":null
+        };
+
+        vm.userPrueba={
+            "username": "UsuarioPrueba",
+            "password": "12345678",
+            "email": "correo@hotmail.com",
+            "role": "1"
+        }
+
+        vm.user_vacio={
+            "user": {
+                "username": "",
+                "email": "",
+                "role": ""
+            },
+            "nombre": "",
+            "apellido_paterno": "",
+            "apellido_materno": "",
+            "direccion": "",
+            "telefono": "",
+            "ife":null,
+            "foto":null
+        };
+        vm.correo={
+            to:vm.user.mail,
+            from:"sssir@mail.com.mx",
+            content: "Buen día, el motivo del presente correo es informarle que" +
+            "ya cuenta con una cuenta del tipo" +vm.user.tipo+
+            " para hacer uso de SSIR, a continuación se le dará su usuario:" +vm.user.user+
+            ", y contraseña:" +vm.user.password+
+            ", sin más por el momento esperamos disfrute del sistema y le recordamos que en su primer acceso" +
+            "ingrese su Información Personal"
+        };
+
+
+        function clean() {
+            vm.user={
+                user:"",
+                password:"",
+                confirm:"",
+                mail:"" ,
+                tipo:""
+
+            };
+            vm.correo={
+                to:vm.user.mail,
+                from:"sssir@mail.com.mx",
+                content: "Buen día, el motivo del presente correo es informarle que" +
+                "ya cuenta con una cuenta del tipo" +vm.user.tipo+
+                " para hacer uso de SSIR, a continuación se le dará su usuario:" +vm.user.user+
+                ", y contraseña:" +vm.user.password+
+                ", sin más por el momento esperamos disfrute del sistema y le recordamos que en su primer acceso" +
+                "ingrese su Información Personal"
+            };
+        }
+        function enviar() {
+
+            console.log(vm.user);
+
+            vm.correo={
+                to:vm.user.mail,
+                from:"sssir@mail.com.mx",
+                content: "Buen día, el motivo del presente correo es informarle que" +
+                "ya cuenta con una cuenta del tipo" +vm.user.tipo+
+                " para hacer uso de SSIR, a continuación se le dará su usuario:" +vm.user.user+
+                ", y contraseña:" +vm.user.password+
+                ", sin más por el momento esperamos disfrute del sistema y le recordamos que en su primer acceso" +
+                "ingrese su Información Personal"
+            };
+            console.log(vm.correo);
+
+            vm.user={
+                user:"",
+                password:"",
+                confirm:"",
+                mail:"" ,
+                tipo:""
+
+            };
+
+            vm.correo={
+                to:vm.user.mail,
+                from:"sssir@mail.com.mx",
+                content: "Buen día, el motivo del presente correo es informarle que" +
+                "ya cuenta con una cuenta del tipo" +vm.user.tipo+
+                " para hacer uso de SSIR, a continuación se le dará su usuario:" +vm.user.user+
+                ", y contraseña:" +vm.user.password+
+                ", sin más por el momento esperamos disfrute del sistema y le recordamos que en su primer acceso" +
+                "ingrese su Información Personal"
+            };
+        }
+
+        function guardarUsuario(){
+            vm.user_ini.foto=vm.picFoto;
+            vm.user_ini.ife=vm.picIFE;
+            console.log("vm.user_ini:");
+            console.log(vm.user_ini);
+            var fd = new FormData();
+
+            fd.append('user',angular.toJson(vm.userPrueba));
+            fd.append('nombre',vm.user_ini.nombre);
+            fd.append('apellido_paterno',vm.user_ini.apellido_paterno);
+            fd.append('apellido_materno',vm.user_ini.apellido_materno);
+            fd.append('direccion',vm.user_ini.direccion);
+            fd.append('telefono',vm.user_ini.telefono);
+            fd.append('ife',vm.user_ini.ife);
+            fd.append('foto',vm.user_ini.foto);
+
+            console.log(fd);
+            Persona_Admin.createObject(fd).then(function (res) {
+
+            }).catch(function (err) {
+                console.log(err);
+            });
 
         }
 
+        function guardarUsuario2() {
+            vm.user_ini.foto=vm.picFoto;
+            vm.user_ini.ife=vm.picIFE;
+            console.log(vm.user_ini);
+            Upload.upload({
+                url: SERVER.URL+'solicitud_admin',
+                headers: {'Authorization': OAuthToken.getAuthorizationHeader()},
+                method: 'POST',
+                data: vm.user_ini
+            }).then(function (res) {
+                vm.user_ini= _.clone(vm.user_vacio);
+                toastr.success('exito al guardar','exito');
+                vm.user_ini={
+                    "user": {
+                        "username": "",
+                        "email": "",
+                        "password": "",
+                        "role": ""
+                    },
+                    "nombre": "",
+                    "apellido_paterno": "",
+                    "apellido_materno": "",
+                    "direccion": "",
+                    "telefono": "",
+                    "ife":null,
+                    "foto":null
+                };
+            }, function (resp) {
 
-        function mostrarRequisito() {
-            if (vm.flag==0) {
-                vm.flag = 1;
-                //console.log(vm.flag);
-            }
-            console.log("Entre al flag: "+vm.flag);
-            for(var k in vm.solicitud) {
-                console.log("Entre al for ");
-                console.log("vm.solicitud[k].id: "+vm.solicitud[k].id);
-                console.log("vm.id: "+vm.id);
-                console.log("k: "+k);
-                if (vm.solicitud[k].id==vm.id)
-                {
-                    console.log("Entre al if- k: "+k);
-                    console.log("vm.solicitud[k].id: "+vm.solicitud[k].id)
-                    console.log("vm.solicitud[k].rUDN: "+vm.solicitud[k].rUDN);
-                    console.log("vm.solicitud[k].rFechaIni: "+vm.solicitud[k].rFechaIni);
-                    console.log("vm.solicitud[k].rFechaFin: "+vm.solicitud[k].rFechaFin);
-                    console.log("vm.solicitud[k].rTipo: "+vm.solicitud[k].rTipo);
-                    console.log("vm.solicitud[k].rEstatus: "+vm.solicitud[k].rEstatus);
-                    vm.requisito = {
-                        "id":vm.solicitud[k].id,
-                        "rUDN":vm.solicitud[k].rUDN,
-                        "rFechaIni":vm.solicitud[k].rFechaIni,
-                        "rFechaFin":vm.solicitud[k].rFechaFin,
-                        //"rDesc":vm.solicitud[k],
-                        "rTipo": vm.solicitud[k].rTipo,
-                        "rEstatus": vm.solicitud[k].rEstatus,
-                        "rCantidad": vm.solicitud[k].rCantidad
-                    };
+                toastr.error('error al guardar','error');
+                console.log(err);
+            });
+        }
 
-                    // console.log("Objeto: "+vm.requisito);
-                    // console.log("Tipo: "+vm.requisito.rTipo);
-                    console.log("el requisito es:"+vm.requisito.id);
-                    console.log("vm.requisito.id: "+vm.requisito.id)
-                    console.log("vm.requisito.rUDN: "+vm.requisito.rUDN);
-                    console.log("vm.requisito.rFechaFin: "+vm.requisito.rFechaFin);
-                    console.log("vm.requisito.rFechaIni: "+vm.requisito.rFechaIni);
-                    console.log("vm.requisito.rTipo: "+vm.requisito.rTipo);
-                    console.log("vm.requisito.rEstatus: "+vm.requisito.rEstatus);
-                    console.log("requisito:");
-                    console.log(vm.requisito);
-                    vm.Requisitos.push(vm.requisito);
-                    console.log("el arreglo tiene:",vm.Requisitos[0].id);
-                    console.log(vm.Requisitos);
+        function cancel(){
+            vm.user_ini= _.clone(vm.user_vacio);
+            vm.picFoto=null;
+            vm.picIFE=null;
+            vm.user_ini={
+                "user": {
+                    "username": null,
+                    "email": "",
+                    "password": "",
+                    "role": ""
+                },
+                "nombre": "",
+                "apellido_paterno": "",
+                "apellido_materno": "",
+                "direccion": "",
+                "telefono": "",
+                "ife":null,
+                "foto":null
+            };
+        }
+
+
+        function selectionFoto($files) {
+            if ($files.length > 0) {
+                var file = $files[0];
+                var extn=file.name.split(".").pop();
+                if(file.size/1000000>1) {
+                    toastr.warning(vm.errorSize, vm.errorTitle);
+                    vm.picFoto = null;
+
+                }else if (!Helper.acceptFile(file.type))  {
+                    if (!Helper.acceptFile(extn))  {
+                        toastr.warning(vm.errorTypeFile, vm.errorTitle);
+                        vm.picFoto = null;
+                    }
                 }
             }
-            /*if (vm.requisito != null) {
-             console.log("requisitos antes de agregarlo");
-             console.log(vm.Requisitos);
-             vm.id=vm.id+1;//ID
-             console.log("El id es:"+vm.id);
-             //vm.Requisitos.id=vm.id;
-             vm.Requisitos.push(vm.requisito);
-             console.log("requisitos despues de agregarlo");
-             console.log(vm.Requisitos);
 
-             vm.requisito = {
-             "id":vm.id,
-             "rUDN":null,
-             "rFechaIni":new Date(),
-             "rFechaFin":new Date(),
-             "rDesc":null,
-             "rTipo": tipo,
-             "rEstatus": null,
-             "rCantidad": null
-             };
-
-             console.log("Los requisitos son:");
-             console.log(vm.Requisitos);
-             }*/
         }
 
-        // Eliminar Requisito
+        function selectionIFE($files) {
+            if ($files.length > 0) {
+                var file = $files[0];
+                var extn=file.name.split(".").pop();
+                if(file.size/1000000>1) {
+                    toastr.warning(vm.errorSize, vm.errorTitle);
+                    vm.picIFE = null;
 
-
-        function eliminarRequisito(requisito) {
-
-            vm.requisitocopy=requisito;
-            var index=0;
-
-            for (index = 0; index < vm.Requisitos.length; ++index) {//Cambiar a un for each
-
-                console.log("El requisito a borrar es:"+vm.requisitocopy.rTipo);
-                console.log(vm.Requisitos[index]);
-                if (vm.Requisitos[index].id == vm.requisitocopy.id) {
-
-                    console.log(index);
-                    //if(vm.Requisitos[index].Descripcion==vm.requisitocopy.Descripcion){
-                    console.log("voy a borrar");
-                    console.log(vm.Requisitos[index]);
-                    vm.Requisitos.splice(index, 1);
-                    //
+                }else if (!Helper.acceptFile(file.type))  {
+                    if (!Helper.acceptFile(extn))  {
+                        toastr.warning(vm.errorTypeFile, vm.errorTitle);
+                        vm.picIFE = null;
+                    }
                 }
-                else{console.log("Aun no lo encuentro")}
-
             }
 
         }
 
-        function editarRequisito(requisito) {
-
-
-        }
 
     }
 

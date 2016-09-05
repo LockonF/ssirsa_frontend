@@ -60,10 +60,9 @@
          */
         $translateProvider
         .registerAvailableLanguageKeys(angularTranslateLanguageKeys, {
-            'en_US': 'en',
-            'en_UK': 'en'
+            'es_MX': 'es'
         })
-        .use('en');
+        .use('es');
 
         // store the users language preference in a cookie
         $translateProvider.useLocalStorage();

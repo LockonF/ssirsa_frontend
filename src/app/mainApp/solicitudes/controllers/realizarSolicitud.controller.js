@@ -6,8 +6,15 @@
         .module('app.mainApp.solicitudes')
         .controller('realizarSolicitudController',realizarSolicitudController);
 
-    function realizarSolicitudController(udn,tipoEquipo,$mdDialog,$mdEditDialog,toastr,Solicitudes,PersonaLocalService){
-        var vm = this;
+    function realizarSolicitudController(udn,modelo_cabinet,$mdDialog,$mdEditDialog,toastr,Solicitudes,Solicitud_Servicio,Solicitudes_Admin,Persona_Admin, Session, Socket){
+        var vm = this; 
+        /*vm.selectedDate = moment().startOf('day').format();
+         $mdDateLocaleProvider.formatDate = function(date) {
+         return moment(date).format('DD/MM/YYYY');
+         };*/
+        vm.udn=null;
+        vm.persona=null;
+        vm.time=null;
         vm.id=0;
         vm.requisito = {
             "id":null,
@@ -19,27 +26,59 @@
             "tipo_solicitud": null,
             "status": null,
             "comentario": null,
-            "datos":[]
+            "datos":[],
+            "persona":null,
+            "modelo_cabinet":null
         };
         vm.requisito_vacio = {
             "id":null,
             "udn":null,
             "fecha_inicio":new Date(),
             "fecha_termino":new Date(),
+            "fecha_atendida":new Date(),
             "descripcion":null,
             "tipo_solicitud": null,
             "status": null,
             "comentario": null,
-            "datos":[]
+            "datos":[],
+            "persona":null,
+            "modelo_cabinet":null
         };
+        vm.requisitoVenta = {
+            "id":null,
+            "razon_social": null,
+            "nombre_negocio": null,
+            "direccion": null,
+            "telefono": null,
+            "contacto_negocio": null,
+            "fecha_atencion":new Date(),
+            "udn":null,
+            "created_at":new Date(),
+            "updated_at":new Date()
+        };
+        vm.requisitoVenta_vacio = {
+            "id":null,
+            "razon_social": null,
+            "nombre_negocio": null,
+            "direccion": null,
+            "telefono": null,
+            "contacto_negocio": null,
+            "fecha_atencion":new Date(),
+            "udn":null,
+            "created_at":new Date(),
+            "updated_at":new Date()
+        }
         vm.crearRequisito=crearRequisito;
         vm.eliminarRequisito=eliminarRequisito;
         vm.showCreateDialog=showCreateDialog;
         vm.edit=edit;
         vm.eliminarDato=eliminarDato;
-        vm.guardarSolicitud=guardarSolicitud;
+        vm.guardarSolicitudAdmin=guardarSolicitudAdmin;
+        vm.guardarSolicitudVenta=guardarSolicitudVenta;
+        vm.guardarSolicitudCliente=guardarSolicitudCliente;
         vm.Requisitos = [];
         vm.udns=null;
+        vm.personas=null;
         vm.tiposEquipo=null;
         vm.isClient=true;
         activate();
@@ -51,16 +90,20 @@
 
             });
 
-            tipoEquipo.list().then(function(rest){
+            modelo_cabinet.list().then(function(rest){
                 vm.tiposEquipo=rest;
             }).catch(function(error){
-
+                console.log(error);
             });
-            if(PersonaLocalService.role.name == 'Cliente'){
-                vm.isClient=true;
-            }else{
-                vm.isClient=false;
-            }
+
+            Persona_Admin.list().then(function(rest){
+                vm.personas=rest;
+                console.log(vm.personas);
+            }).catch(function (error){
+                console.log(error);
+            });
+
+            vm.isClient = Session.userRole == 'Cliente';
             console.log(vm.isClient);
 
         }
@@ -112,9 +155,9 @@
 
                     console.log(index);
                     //if(vm.Requisitos[index].Descripcion==vm.requisitocopy.Descripcion){
-                        console.log("voy a borrar");
-                        console.log(vm.Requisitos[index]);
-                        vm.Requisitos.splice(index, 1);
+                    console.log("voy a borrar");
+                    console.log(vm.Requisitos[index]);
+                    vm.Requisitos.splice(index, 1);
                     //
                 }
                 else{console.log("Aun no lo encuentro")}
@@ -157,12 +200,85 @@
             }
         }
 
-        function guardarSolicitud(){
+        function guardarSolicitudAdmin(){
             vm.requisito.fecha_inicio=moment(vm.requisito.fecha_inicio).format('YYYY-MM-DD');
             vm.requisito.fecha_termino=moment(vm.requisito.fecha_termino).format('YYYY-MM-DD');
+            vm.requisito.fecha_atendida=moment(vm.requisito.fecha_atendida).format('YYYY-MM-DD HH:mm:ss');
+            vm.requisito.udn=vm.udn;
+            vm.requisito.persona=vm.persona;
+            console.log(vm.requisito);
+            Solicitudes_Admin.create(vm.requisito).then(function(resp){
+                console.log(resp);
+                var notification = {
+                    id_solicitud: 1,
+                    type_notification: vm.requisito.tipo_solicitud,
+                    updated_at: moment().toDate()
+                };
+                Socket.emit('new:msg', {
+                    canal: 'Administrador',
+                    username:  Session.userInformation.id,
+                    solicitud:vm.requisito,
+                    name:Session.userInformation.nombre,
+                    notification: notification,
+                    type:"normal"
+                });
+                vm.requisito= _.clone(vm.requisito_vacio);
+                vm.udn=null;
+                toastr.success('exito al guardar','exito');
+                console.log(vm.udn);
+
+
+
+            }).catch(function(err){
+                toastr.error('error al guardar','error');
+                console.log(err);
+            })
+        }
+
+        function guardarSolicitudCliente(){
+            vm.requisito.fecha_inicio=moment(vm.requisito.fecha_inicio).format('YYYY-MM-DD');
+            vm.requisito.fecha_termino=moment(vm.requisito.fecha_termino).format('YYYY-MM-DD');
+            vm.requisito.udn=vm.udn;
+            console.log(vm.requisito);
             Solicitudes.create(vm.requisito).then(function(resp){
                 vm.requisito= _.clone(vm.requisito_vacio);
+                vm.udn=null;
                 toastr.success('exito al guardar','exito');
+                console.log(vm.udn);
+
+
+
+            }).catch(function(err){
+                toastr.error('error al guardar','error');
+                console.log(err);
+            })
+        }
+
+        function guardarSolicitudVenta(){
+            vm.requisitoVenta.fecha_atencion=moment(vm.requisitoVenta.fecha_atencion).format('YYYY-MM-DD');
+            vm.requisitoVenta.created_at=moment(vm.requisitoVenta.created_at).format('YYYY-MM-DD');
+            vm.requisitoVenta.updated_at=moment(vm.requisitoVenta.updated_at).format('YYYY-MM-DD');
+            vm.requisitoVenta.udn=vm.udn;
+            console.log(vm.requisitoVenta);
+            Solicitud_Servicio.create(vm.requisitoVenta).then(function(resp){
+                console.log(resp);
+                var notification = {
+                    id_solicitud: 1,
+                    type_notification: "Venta",
+                    updated_at: moment().toDate()
+                };
+                Socket.emit('new:msg', {
+                    canal: 'Administrador',
+                    username:  Session.userInformation.id,
+                    name:Session.userInformation.nombre,
+                    solicitud:vm.requisitoVenta,
+                    notification: notification,
+                    type:"normal"
+                });
+                vm.requisitoVenta= _.clone(vm.requisitoVenta_vacio);
+                vm.udn=null;
+                toastr.success('exito al guardar','exito');
+                console.log(vm.udn);
             }).catch(function(err){
                 toastr.error('error al guardar','error');
                 console.log(err);

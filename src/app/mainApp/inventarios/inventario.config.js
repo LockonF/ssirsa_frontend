@@ -31,8 +31,7 @@
                 url: '/construccion', //Nombre que quiero en mi url
                 templateUrl: 'app/mainApp/inventarios/enConstruccion.tmpl.html', //Dirección del archivo a usar
 
-            })
-
+            });
     }
 
 } )();

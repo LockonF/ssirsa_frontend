@@ -8,55 +8,85 @@
         </md-card-title>
         <md-card-content>
             <div flex="100" layout="row">
-                <div layout="column" flex="100">
-                    <md-input-container flex="100">
-                        <label>Id Cabinet</label>
-                        <md-autocomplete
-                                class="md-padding card1"
-                                ng-disabled="vm.isDisabled"
-                                md-no-cache="vm.noCache"
-                                md-selected-item="selectedItem"
-                                md-search-text-change="vm.searchTextChange(vm.searchText)"
-                                md-search-text="vm.searchText"
-                                md-selected-item-change="vm.selectedItemChange(item)"
-                                md-items="item in vm.querySearch(vm.searchText)"
-                                md-item-text="item.display"
-                                md-min-length="0">
-
-                            <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.display}}</span>
-                        </md-autocomplete>
+                <div layout="column" flex="80">
+                    <md-input-container flex="50">
+                        <label>Id de Cabinet</label>
+                        <input type="text" ng-model="vm.idCabinet"/>
                     </md-input-container>
-                    <div layout="row" flex="100">
-                        <md-input-container flex="50">
-                            <label>No. de Servicio</label>
-                            <input type="text" ng-model="vm.etapa.noServicio" ng-disabled="vm.editable"/>
+                    <div layout="row" >
+                        <md-input-container flex="30">
+                            <label>No. de Diagnostico</label>
+                            <input type="text" ng-model="vm.diagnostico.id" ng-disabled="true"/>
                         </md-input-container>
-                        <md-input-container flex="50">
+                        <md-input-container flex="35">
                             <label translate>Etapa Actual</label>
-                            <md-select ng-model="vm.etapa.etapaActual" name="select" ng-disabled="true">
-                                <md-option ng-repeat="etap in vm.etapas" ng-value="etap.id">{{etap.nombre}}</md-option>
+                            <md-select ng-model="vm.etapaActual.actual_etapa" name="select" ng-disabled="true">
+                                <md-option ng-repeat="etap in vm.etapas" ng-value="etap.value">{{etap.nombre}}
+                                </md-option>
                             </md-select>
                         </md-input-container>
-                        <md-input-container flex="20">
-                            <md-button class="md-primary md-raised"  aria-label="raised button"
-                                       ng-click='vm.guardar()'>
-                                <md-icon md-font-icon="fa fa-save"></md-icon>
-                            </md-button>
+                        <md-input-container flex="35">
+                            <label translate>Etapa Siguiente</label>
+                            <md-select ng-model="vm.etapaActual.siguiente_etapa" name="select"
+                                       ng-disabled="vm.editable">
+                                <md-option ng-repeat="etap in vm.etapas" ng-value="etap.value">{{etap.nombre}}
+                                </md-option>
+                            </md-select>
                         </md-input-container>
                     </div>
+                    <div layout="row">
+                        <md-input-container flex>
+                            <label>Economico</label>
+                            <input type="text" ng-model="vm.cabinet.economico" ng-disabled="true"/>
+                        </md-input-container>
+                        <md-input-container flex>
+                            <label translate>Estado Actual</label>
+                            <input type="text" ng-model="vm.cabinet.status" ng-disabled="true"/>
+
+                        </md-input-container>
+                        <md-input-container flex>
+                            <label>Incidencias</label>
+                            <input type="number" ng-model="vm.cabinet.no_incidencias" ng-disabled="true"/>
+                        </md-input-container>
+                    </div>
+
                 </div>
                 <div layout="row" flex="20">
-                    <md-input-container flex>
-                        <md-button class="md-fab" class="md-primary" aria-label="fab button" ng-click="vm.buscar()">
-                            <md-icon md-font-icon="zmdi zmdi-zoom-in"></md-icon>
-                        </md-button>
-                    </md-input-container>
-                    <md-input-container flex>
-                        <md-button class="md-fab" class="md-primary" aria-label="fab button" ng-click="vm.editar()">
-                            <md-icon md-font-icon="fa fa-pencil"></md-icon>
-                        </md-button>
-                    </md-input-container>
+                    <div layout="column">
+                        <div layout="row">
+                            <md-input-container flex>
+                                <md-button class="md-fab" class="md-primary" aria-label="fab button"
+                                           ng-click="vm.buscar()">
+                                    <md-icon md-font-icon="zmdi zmdi-zoom-in"></md-icon>
+                                </md-button>
+                            </md-input-container>
+                            <md-input-container flex>
+                                <md-button class="md-fab" class="md-primary" aria-label="fab button"
+                                           ng-click="vm.editar()">
+                                    <md-icon md-font-icon="fa fa-pencil"></md-icon>
+                                </md-button>
+                            </md-input-container>
+                        </div>
+                        <div layout="row">
+                            <md-input-container flex="100">
+                                <md-button class="md-primary md-raised" aria-label="raised button"
+                                           ng-click='vm.crearEtapaServicio()'>
+                                    <md-icon md-font-icon="fa fa-save"></md-icon>
+                                </md-button>
+                            </md-input-container>
+                        </div>
+                        <div layout="row">
+                            <md-input-container flex="100">
+                                <md-button class="md-primary md-raised" aria-label="raised button"
+                                           ng-click="vm.limpiar()">
+                                    <md-icon md-font-icon="fa fa-trash"></md-icon>
+                                </md-button>
+                            </md-input-container>
+                        </div>
+
+                    </div>
                 </div>
+
 
             </div>
         </md-card-content>
@@ -98,7 +128,7 @@
                     </thead>
                     <tbody md-body="md-body">
                     <tr md-row="md-row" md-select="insu" md-select-id="{{insu.id}}"
-                        ng-repeat="insu in vm.etapa.insumos | orderBy:vm.query.order">
+                        ng-repeat="insu in vm.insumosEtapaCabinet| orderBy:vm.query.order">
                         <td md-cell="md-cell" flex="25">{{insu.nombre}}</td>
                         <td md-cell="md-cell" flex="15">{{insu.cantidad}}</td>
                         <td md-cell="md-cell" flex="50">{{insu.notas}}</td>

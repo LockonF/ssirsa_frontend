@@ -9,11 +9,11 @@
         .config(OauthConfig)
         .config(tokenConfig);
 
-    function OauthConfig(OAuthProvider,SERVER){
+    function OauthConfig(OAuthProvider,EnvironmentConfig){
         OAuthProvider.configure({
-            baseUrl: SERVER.URL+'oauth/',
-            clientId: SERVER.clientId,
-            clientSecret: SERVER.clientSecret,
+            baseUrl: EnvironmentConfig.site.rest.api+'oauth/',
+            clientId: EnvironmentConfig.site.oauth.clientId,
+            clientSecret: EnvironmentConfig.site.oauth.clientSecret,
             grantPath: 'token/',
             revokePath: 'revoke_token/'
         });

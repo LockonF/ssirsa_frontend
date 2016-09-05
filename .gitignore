@@ -3,3 +3,8 @@ bower_components/
 .sass-cache/
 .tmp/
 dist/
+.idea
+config
+.awspublish-genesis-stg.com
+src/app/config.js
+gulp/deploy.js

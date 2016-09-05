@@ -1,8 +1,5 @@
 /**
- * Created by Emmanuel on 17/07/2016.
- */
-/**
- * Modify by Luis Olvera on 19/07/2016.
+ * Created by Luis Olvera on 19/07/2016.
  */
 (function(){
     'use_strict';
@@ -15,7 +12,8 @@
         return{
             create:create,
             list:list,
-            modify:modify
+            modify:modify,
+            consultaEsp:consultaEsp
         };
 
         function create(object){
@@ -25,6 +23,7 @@
                 deferred.resolve(rest);
             }).catch(function(error){
                 deferred.reject(error);
+                console.log(error);
             });
             return deferred.promise;
         }
@@ -41,6 +40,22 @@
             }).catch(function(err){
                 console.log(err);
             })
+        }
+
+        function consultaEsp(object) {
+            var tipoConsulta = null;
+            switch (object) {
+                case "No Confirmada":
+                    tipoConsulta = "unconfirmed";
+                    break;
+                case "Confirmada":
+                    tipoConsulta = "confirmed";
+                    break;
+                case "Cancelada":
+                    tipoConsulta = "canceled";
+                    break;
+            }
+            return Restangular.one('solicitud', tipoConsulta).customGET();
         }
 
     }

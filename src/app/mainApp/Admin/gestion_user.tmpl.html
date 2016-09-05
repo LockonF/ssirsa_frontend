@@ -1,115 +1,140 @@
-<div flex layout="column">
-    <md-card class="md-padding card1">
-        <md-input-container align="center">
-            <h1 translate="ADMIN.MANAGE.MANAGEMENT_USER"></h1>
-        </md-input-container>
+<div flex="" layout="column">
+    <md-card layout-align="center center" class="md-padding card1">
+        <h1 translate="ADMIN.MANAGE.MANAGEMENT_USER"></h1>
     </md-card>
-    <div flex="100" layout='row'>
-
-        <md-input-container flex="50">
-            <md-card class="md-padding card1">
-                <md-card-content>
-                    <h2>Creación de Usuario</h2>
-                    <md-input-container md-no-float class="md-block">
-                        <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
-                        <input type="text" placeholder="Usuario" ng-model="vm.user.user">
-                    </md-input-container>
-
-                    <md-input-container class="md-block">
-                        <md-icon md-font-icon="zmdi zmdi-key"></md-icon>
-                        <input type="password" placeholder="Contraseña" ng-model="vm.user.password">
-                    </md-input-container>
-
-                    <md-input-container class="md-block">
-                        <md-icon md-font-icon="zmdi zmdi-key"></md-icon>
-                        <input type="password" placeholder="Confirmación de Contraseña" ng-model="vm.user.confirmacion">
-                    </md-input-container>
-
-                    <md-input-container class="md-block">
-                        <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
-                        <input type="text" placeholder="Nombre" ng-model="vm.user.nombre">
-                    </md-input-container>
-
-                    <md-input-container class="md-block">
-                        <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
-                        <input type="text" placeholder="Apellido Paterno" ng-model="vm.user.aPaterno">
-                    </md-input-container>
-
-                    <md-input-container class="md-block">
-                        <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
-                        <input type="text" placeholder="Apellido Materno" ng-model="vm.user.aPaterno">
-                    </md-input-container>
-
-                    <md-input-container md-no-float class="md-block">
-                        <md-icon md-font-icon="zmdi zmdi-pin"></md-icon>
-                        <input type="text" placeholder="Correo Electrónico" ng-model="vm.user.mail">
-                    </md-input-container>
-                </md-card-content>
-
+    <form name="objectForm">
+        <div flex="" layout-sm="column" layout-gt-md="row">
+            <md-card flex="flex" class="md-padding card1">
+                <h2 class="md-display-1">Datos Personales</h2>
+                <md-input-container class="md-block">
+                    <label>Usuario</label>
+                    <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
+                    <input type="text" ng-model="vm.user_ini.user.username" name="username" required="required" ng-pattern="/^[A-Za-z_]+$/"/>
+                    <div ng-messages="objectForm.username.$error">
+                        <div ng-message="pattern">
+                            El Usuario no puede comenzar con un digito y solo puede usar
+                            caracteres validos
+                        </div>
+                        <div ng-message="required">El campo es requerido</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Contraseña</label>
+                    <md-icon md-font-icon="zmdi zmdi-key"></md-icon>
+                    <input type="password" ng-model="vm.user_ini.user.password" name="password" required="required" ng-pattern="/^[A-Za-z0-9_.-@]{8,25}$/"/>
+                    <div ng-messages="objectForm.password.$error">
+                        <div ng-message="pattern">
+                            El password debe contener al menos 8 elementos y solo simbolos
+                            validos
+                        </div>
+                        <div ng-message="required">El campo es requerido</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Confirmación de Contraseña</label>
+                    <md-icon md-font-icon="zmdi zmdi-key"></md-icon>
+                    <input type="password" ng-model="vm.cpassword" name="cpassword" required="required" ng-pattern="/^[A-Za-z0-9_.-@]{8,25}$/"/>
+                    <div ng-messages="objectForm.cpassword.$error">
+                        <div ng-message="pattern">
+                            El password debe contener al menos 8 elementos y solo simbolos
+                            validos
+                        </div>
+                        <div ng-message="required">El campo es requerido</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Nombre</label>
+                    <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
+                    <input type="text" ng-model="vm.user_ini.nombre" name="nombre" required="required" ng-pattern="/^[A-Za-zsáéíóúÁÉÍÓÚÑñ ]*$/"/>
+                    <div ng-messages="objectForm.nombre.$error">
+                        <div ng-message="pattern">El nombre solo puede contener letras</div>
+                        <div ng-message="required">El campo es requerido</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Apellido Paterno</label>
+                    <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
+                    <input type="text" ng-model="vm.user_ini.apellido_paterno" name="apellido_paterno" required="required" ng-pattern="/^[A-Za-zsáéíóúÁÉÍÓÚÑñ ]*$/"/>
+                    <div ng-messages="objectForm.apellido_paterno.$error">
+                        <div ng-message="pattern">El apellido paterno solo puede contener letras</div>
+                        <div ng-message="required">El campo es requerido</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Apellido Materno</label>
+                    <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
+                    <input type="text" ng-model="vm.user_ini.apellido_materno" name="apellido_materno" ng-required="true" ng-pattern="/^[A-Za-zsáéíóúÁÉÍÓÚÑñ ]*$/"/>
+                    <div ng-messages="objectForm.apellido_materno.$error">
+                        <div ng-message="pattern">El apellido materno solo puede contener letras</div>
+                        <div ng-message="required">El campo es requerido</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Dirección</label>
+                    <md-icon md-font-icon="zmdi zmdi-pin"></md-icon>
+                    <input type="text" ng-model="vm.user_ini.direccion" name="direccion" required="required" ng-pattern="/^[A-Za-z_ 0-9áéíóúÁÉÍÓÚñN#]*$/"/>
+                    <div ng-messages="objectForm.direccion.$error">
+                        <div ng-message="pattern">La Direccion no puede tener caracteres especiales</div>
+                        <div ng-message="required">El campo es requerido</div>
+                    </div>
+                </md-input-container>
             </md-card>
-        </md-input-container>
-        <!-- Second part-->
-        <md-input-container flex="50">
-            <md-card class="md-padding card1">
+            <!-- Second part-->
+            <md-card flex="flex" class="md-padding card1">
+                <h2 class="md-display-1">Datos de Contacto</h2>
                 <md-card-content>
-
                     <md-input-container class="md-block">
+                        <label>Telefono</label>
                         <md-icon md-font-icon="zmdi zmdi-phone"></md-icon>
-                        <input type="text" placeholder="Telefono" ng-model="vm.user.telefono">
+                        <input type="text" ng-model="vm.user_ini.telefono" only-digits="" name="telefono" minlength="8" maxlength="10" required="required" ng-pattern="/^[0-9]+$/"/>
+                        <div ng-messages="objectForm.telefono.$error">
+                            <div ng-message="pattern">El telefono solo puede contener digitos</div>
+                            <div ng-message="required">El campo es requerido</div>
+                        </div>
                     </md-input-container>
-
-                    <md-input-container class="md-block">
-                        <md-icon md-font-icon="zmdi zmdi-pin"></md-icon>
-                        <input type="text" placeholder="Dirección" ng-model="vm.user.direccion">
+                    <md-input-container md-no-float="" class="md-block">
+                        <label>Correo Electronico</label>
+                        <md-icon md-font-icon="zmdi zmdi-email"></md-icon>
+                        <input type="email" ng-model="vm.user_ini.user.email" name="email" required="required" ng-pattern="/^.+@.+..+$/"/>
+                        <div ng-messages="objectForm.email.$error">
+                            <div ng-message="pattern">Se debe de ingresar un correo electrónico válido</div>
+                            <div ng-message="required">El campo es requerido</div>
+                        </div>
                     </md-input-container>
-
-                    <md-input-container class="md-block">
-                        <md-icon md-font-icon="zmdi zmdi-city"></md-icon>
-                        <input type="text" placeholder="Sucursal" ng-model="vm.user.sucursal">
-                    </md-input-container>
-
-
                     <md-input-container class="md-block">
                         <md-icon md-font-icon="zmdi zmdi-account-box"></md-icon>
-                        <input type="text" placeholder="Tipo de usuario" ng-model="vm.user.tipo">
+                        <md-select placeholder="Elige el rol" ng-model="vm.user_ini.user.role" name="role" required="required">
+                            <md-option ng-value="grupo.id" ng-repeat="grupo in vm.grupos">{{grupo.name}}</md-option>
+                        </md-select>
                     </md-input-container>
-
-                    <md-card-title>
-                        <md-card-title-text>
-                            <span class="md-headline">Cargar Foto</span>
-                            <md-button class="md-primary md-raised" ngf-select="vm.upload($files)" ngf-multiple="true"
-                                       aria-label="Foto">
-                                Seleccionar archivo
-                            </md-button>
-                        </md-card-title-text>
-                        <md-card-title-media>
-                            <div class="md-media-md card-media">
-                                <img src="assets/images/dashboards/weather.jpg" alt="Card Image">
-                            </div>
-                        </md-card-title-media>
-                    </md-card-title>
-
-                    <md-card-title>
-                        <md-card-title-text>
-                            <span class="md-headline">Cargar INE</span>
-                            <md-button class="md-primary md-raised" ngf-select="vm.upload($files)" ngf-multiple="true"
-                                       aria-label="Foto">
-                                Seleccionar archivo
-                            </md-button>
-                        </md-card-title-text>
-                        <md-card-title-media>
-                            <div class="md-media-md card-media">
-                                <img src="assets/images/dashboards/weather.jpg" alt="Card Image">
-                            </div>
-                        </md-card-title-media>
-                    </md-card-title>
-            </md-card>
-            <md-card-actions layout="row" layout-align="end center">
-                <md-button ng-click="vm.guardarUsuario()" class="md-raised md-primary">Guardar</md-button>
-                <md-button>Cancelar</md-button>
+                    <md-input-container class="md-block">
+                        <md-icon md-font-icon="zmdi zmdi-store"></md-icon>
+                        <md-select placeholder="Elige la sucursal" ng-model="vm.user_ini.udn" ng-required="false">
+                            <md-option ng-value="undefined">Ninguna Sucursal</md-option>
+                            <md-option ng-value="udn.id" ng-repeat="udn in vm.udns">{{udn.zona}} - {{udn.agencia}}</md-option>
+                        </md-select>
+                        <div ng-messages="objectForm.role.$error">
+                            <div ng-message="required">El campo es requerido</div>
+                        </div>
+                    </md-input-container>
+                    <div layout="column" layout-align="center center"><span class="md-headline">Cargar Foto</span>
+                        <md-button flex="flex" ngf-select="vm.selectionFoto($files)" ngf-accept="'image/*'" required="required" ng-disabled="false" ngf-multiple="false" ng-model="vm.picFoto" aria-label="upload" class="md-primary md-raised">
+                            <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>                                    Seleccionar archivo
+                            <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>
+                        </md-button><img src="assets/images/dashboards/weather.jpg" alt="Card Image" ng-show="vm.picFoto==null" width="120" height="120"/><img ngf-src="vm.picFoto" width="120" height="120" ng-show="vm.picFoto!=null"/>
+                    </div>
+                    <div layout="column" layout-align="center center"><span class="md-headline">Cargar INE</span>
+                        <md-button flex="flex" ngf-select="vm.selectionIFE($files)" ngf-accept="'image/*'" required="required" ng-disabled="false" ngf-multiple="false" ng-model="vm.picIFE" aria-label="upload" class="md-primary md-raised">
+                            <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>                                    Seleccionar archivo
+                            <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>
+                        </md-button><img src="assets/images/dashboards/weather.jpg" alt="Card Image" ng-show="vm.picIFE==null" width="120" height="120"/><img ngf-src="vm.picIFE" width="120" height="120" ng-show="vm.picIFE!=null"/>
+                    </div>
+                    <md-card-actions layout="row" layout-align="center">
+                        <md-button ng-disabled="objectForm.$invalid &amp;&amp; (vm.cpassword==vm.user_ini.user.password)" ng-click="vm.guardarUsuario()" class="md-raised md-primary">Guardar</md-button>
+                        <md-button ng-click="vm.cancel()" style="margin-right:20px;" class="md-primary md-raised">Cancelar</md-button>
+                    </md-card-actions>
                 </md-card-content>
-            </md-card-actions>
-        </md-input-container>
-
-    </div>
+            </md-card>
+        </div>
+    </form>
 </div>

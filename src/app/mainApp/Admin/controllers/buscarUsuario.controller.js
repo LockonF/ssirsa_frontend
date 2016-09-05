@@ -6,12 +6,31 @@
         .module('app.mainApp.solicitudes')
         .controller('buscarUsuarioController', buscarUsuarioController);
 
-    function buscarUsuarioController() {
+    function buscarUsuarioController(Persona_Admin) {
         var vm = this;
         vm.flag = 0;
+        vm.personaErase=null;
+        vm.personas_admin=null;
         vm.id = null;
         vm.userName="";
         vm.FechaFin = new Date();
+        vm.users=null;
+        vm.user_ini={
+            "user": {
+                "username": "",
+                "email": "",
+                "cpassword": "",
+                "password": "",
+                "role": ""
+            },
+            "nombre": "",
+            "apellido_paterno": "",
+            "apellido_materno": "",
+            "direccion": "",
+            "telefono": ""
+        };
+
+
         vm.user = {
             id: "",
             user: "",
@@ -25,8 +44,8 @@
             direccion: "",
             sucursal: "",
             ine: "",
-            foto: "",
-            tipo: ""
+            foto: "foro.jpg",
+            tipo: "foro.jpg"
 
         };
         vm.solicitud = [
@@ -95,9 +114,11 @@
                 tipo: "Tipo_4"
             }
         ];
-
+        vm.buscarUsuario = buscarUsuario;
         vm.mostrarUsuario = mostrarUsuario;
         vm.eliminarUsuario = eliminarUsuario;
+        vm.eliminarPersona = eliminarPersona;
+        vm.edit=edit;
         vm.Usuarios = [];
 
         function mostrarUsuario() {
@@ -165,6 +186,68 @@
             }
 
         }
+
+        function buscarUsuario(){
+            Persona_Admin.list().then(function (rest){
+                    console.log(vm.requisito);
+                    vm.personas_admin = rest;
+                    console.log(vm.personas_admin);
+                }).catch(function(error){
+                    console.log(error);
+                })
+        }
+
+        function eliminarPersona(object){
+            vm.personaErase=object;
+            console.log("personaErase");
+            console.log(vm.personaErase);
+            if(vm.personaErase!=null){
+                var promise = Persona_Admin.deleteData(vm.personaErase).then(function(rest){
+                    vm.personaErase = rest;
+                    console.log("PersonaBorrada");
+                    console.log(vm.personaErase);
+                })
+            }else{
+                console.log("-Error-");
+            }
+            console.log(promise);
+        }
+
+        function editarUsuario(usuario) {
+
+
+        }
+
+
+
+        function edit(event,object,field) {
+            var config =
+            {
+                modelValue: object[field],
+                placeholder: 'Edita el campo',
+                save: function (input) {
+
+                    object[field] = input.$modelValue;
+                    updateObject(object);
+                },
+                targetEvent: event,
+                validators: {
+                    'md-maxlength': 30
+                }
+            };
+
+            function updateObject(funcion){
+            }
+
+            $mdEditDialog.small(config).then(function(ctrl){
+            }).catch(function(err){
+            });
+        }
+
+        vm.numPages = function () {
+            return Math.ceil(5);
+        };
+
 
     }
 

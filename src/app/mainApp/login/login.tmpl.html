@@ -1,5 +1,5 @@
 <div class="full-height full-image-background mb-bg-14" layout="row" flex layout-padding layout-fill layout-align="center center">
-    <div flex="40" flex-lg="50" flex-md="70" flex-xs="100">
+    <div flex="40" flex-lg="50" flex-md="70" flex-sm="100" flex-xs="100">
         <md-card>
             <md-toolbar class="padding-20">
                 <div flex layout="row" layout-align="center center">
@@ -11,7 +11,7 @@
             </md-toolbar>
 
             <md-content class="md-padding">
-                <form name="login">
+                <form name="login" ng-submit="vm.loginClick()">
                     <md-input-container class="md-block">
                         <label for="user">Usuario</label>
                         <input id="user" name="user" type="text" ng-model="vm.user.username" required/>
@@ -28,7 +28,7 @@
                         </div>
                     </md-input-container>
 
-                    <md-button class="md-raised md-primary full-width margin-left-0 margin-right-0 margin-top-10 margin-bottom-10"  ng-click="vm.loginClick()" ng-disabled="login.$invalid">Aceptar</md-button>
+                    <md-button class="md-raised md-primary full-width margin-left-0 margin-right-0 margin-top-10 margin-bottom-10"  type="submit" ng-disabled="login.$invalid">Aceptar</md-button>
                     <md-button class="md-raised md-primary full-width margin-left-0 margin-right-0 margin-top-10 margin-bottom-10 padding-top-20 padding-bottom-20" ng-click="vm.loginTagClick($event,vm.newDialog)">Inicio con TAG</md-button>
                     <!--
                     <md-button class="md-primary full-width margin-left-0 margin-right-0 margin-top-10 margin-bottom-10" href="#/signup" translate="Don't have an account? Create one now" aria-label="{{'Don\'t have an account? Create one now' | triTranslate}}"></md-button>

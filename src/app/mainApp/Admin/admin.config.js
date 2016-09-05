@@ -21,8 +21,7 @@
                 templateUrl:'app/mainApp/Admin/buscarUsuario.html',
                 controller:'buscarUsuarioController',
                 controllerAs:'vm'
-            })
-        
+            }) ;
     }
-    
+
 } )();
