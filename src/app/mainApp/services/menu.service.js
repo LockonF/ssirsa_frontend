@@ -17,7 +17,6 @@
         function loadMenu(){
             triMenu.menu=[];
             var role=Session.userRole;
-
             switch (role){
                 case "Administrador":
                     loadAdminMenu();
@@ -122,11 +121,6 @@
                             type: 'link'
                         },
                         {
-                            name: 'Validar Etapa',
-                            state: 'triangular.admin-default.validarEtapa',
-                            type: 'link'
-                        },
-                        {
                             name: 'Registro Etapa',
                             state: 'triangular.admin-default.etapa',
                             type: 'link'
@@ -179,7 +173,6 @@
 
             ];
 
-            //triMenu.menu.unshift(adminMenu);
             triMenu.menu=adminMenu;
         }
 
@@ -247,7 +240,7 @@
                     ]
                 }
             ];
-
+            console.log(capturistaMenu);
             triMenu.menu=capturistaMenu;
         }
 
@@ -318,11 +311,6 @@
                         state: 'triangular.admin-default.tecnico',
                         type: 'link'
                     },
-                        {
-                            name: 'Validar Etapa',
-                            state: 'triangular.admin-default.validarEtapa',
-                            type: 'link'
-                        },
                         {
                             name: 'Registro Etapa',
                             state: 'triangular.admin-default.etapa',

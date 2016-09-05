@@ -28,8 +28,6 @@
                         $state.go('login')
                     }
                 )
-            }else{
-                dynamicMenu.loadMenu();
             }
         });
         $rootScope.$on('oauth:error',function(event, rejection) {

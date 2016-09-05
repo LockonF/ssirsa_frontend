@@ -35,7 +35,6 @@
             var deferred = $q.defer();
 
             OAuth.getAccessToken(credentials).then(function (res) {
-                getUser();
                 deferred.resolve();
             }).catch(function (response) {
                 if (response.status == 401) {
@@ -64,6 +63,7 @@
             var deferred = $q.defer();
             OAuth.revokeToken().then(function (res) {
                 Session.destroy();
+                $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
                 deferred.resolve();
 
             }).catch(function (response) {
@@ -78,7 +78,7 @@
                 user.userInformation=res;
                 getRole().then(function (res) {
                     Session.create(user.userInformation,res[0].name);
-                    Socket.emit('join', {canal: 'Administrador', username: user.userInformation.id});
+                    Socket.emit('join', {canal: 'Administrador', username: Session.userInformation.id});
                     $rootScope.$broadcast(AUTH_EVENTS.sessionRestore);
                 });
             });

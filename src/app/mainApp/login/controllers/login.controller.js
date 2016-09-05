@@ -6,7 +6,7 @@
         .controller('loginController', loginController);
 
     /* @ngInject */
-    function loginController($state, triSettings,$mdDialog,Session,Socket,AuthService) {
+    function loginController($state, toastr, triSettings,$mdDialog,Session,Socket,AuthService) {
         var vm = this;
 
         vm.loginClick = loginClick;
@@ -30,9 +30,7 @@
             AuthService.login(vm.user).then(function(res){
                 $state.go('triangular.admin-default.bienvenida');
             }).catch(function(err){
-                console.log(err);
                 toastr.error('Usuario o Contraseña incorrectos','Error',err.error);
-                console.log(err);
             });
 
         }

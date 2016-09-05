@@ -14,7 +14,13 @@
                 url: '/bienvenida',
                 templateUrl: 'app/mainApp/bienvenida/index.tmpl.html',
                 controller: 'bienvenidaController',
-                controllerAs: 'vm'
+                controllerAs: 'vm',
+                resolve:{
+                    promiseObj:function (AuthService,Socket) {
+
+                        return AuthService.getUser();
+                    }
+                }
             })
     }
 

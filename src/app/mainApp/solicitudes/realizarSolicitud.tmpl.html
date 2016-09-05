@@ -43,7 +43,7 @@
                             <!-- opc 1 Solicitud de Envio-->
                             <div ng-show="vm.requisito.tipo_solicitud=='Envio'||vm.requisito.tipo_solicitud=='Recoleccion'">
 
-                                <md-input-container class="md-block">
+                                <md-input-container class="md-block" ng-if="!vm.isClient">
                                     <md-select placeholder="Elige una persona" ng-model="vm.persona" name="persona"
                                                required='required'>
                                         <md-option ng-value="persona.id" ng-repeat='persona in vm.personas'>
@@ -58,8 +58,8 @@
                                     </div>
                                 </md-input-container>
 
-                                <md-input-container class="md-block">
-                                    <md-select ng-if="!vm.isClient" placeholder="Elige tipo de estatus"
+                                <md-input-container class="md-block" ng-if="!vm.isClient">
+                                    <md-select  placeholder="Elige tipo de estatus"
                                                ng-model="vm.requisito.status" name="status" required='required'>
                                         <md-option value="Confirmada">Confirmada</md-option>
                                         <md-option value="No Confirmada">No Confirmada</md-option>
@@ -82,32 +82,38 @@
                                     </div>
                                 </md-input-container>
 
-                                <div class="margin-bottom-20" layout="row" layout-align="space-around center">
+                                <!--div class="margin-bottom-20" layout="row" layout-align="space-around center">
                                     <p>Fecha de inicio</p>
 
-                                    <!--p>Fecha de Termino</p>
+                                    <p>Fecha de Termino</p>
 
-                                    <p ng-if="!vm.isClient">Fecha atendida</p-->
-                                </div>
+                                    <p ng-if="!vm.isClient">Fecha atendida</p>
+                                </div-->
                                 <div class="margin-bottom-20" layout="row" layout-align="space-around center">
-                                    <md-datepicker ng-model="vm.requisito.fecha_inicio" md-placeholder="Enter date"
+                                    <!--md-datepicker ng-model="vm.requisito.fecha_inicio" md-placeholder="Enter date"
                                                    required='required'></md-datepicker>
                                     <!--md-datepicker ng-model="vm.requisito.fecha_termino" md-placeholder="Enter date"
                                                    required='required'></md-datepicker>
                                     <md-datepicker ng-if="!vm.isClient" ng-model="vm.requisito.fecha_atendida"
                                                    md-placeholder="Enter date" required='required'></md-datepicker-->
                                     <md-input-container flex-gt-md="30">
-                                        <label>Timepicker Only</label>
+                                        <label>Fecha de inicio</label>
                                         <md-icon md-font-icon="zmdi zmdi-calendar"></md-icon>
-                                        <input time="false" date="true" mdc-datetime-picker="" type="text" id="date" placeholder="Date"
+                                        <input time="false" date="true" mdc-datetime-picker="" type="text" id="date1" placeholder="Fecha inicio"
+                                               ng-model="vm.requisito.fecha_inicio" min-date="minDate" max-date="maxDate" class=" md-input">
+                                    </md-input-container>
+                                    <md-input-container flex-gt-md="30">
+                                        <label>Fecha de Termino</label>
+                                        <md-icon md-font-icon="zmdi zmdi-calendar"></md-icon>
+                                        <input time="false" date="true" mdc-datetime-picker="" type="text" id="date2" placeholder="Fecha termino"
                                                ng-model="vm.requisito.fecha_termino" min-date="minDate" max-date="maxDate" class=" md-input">
                                     </md-input-container>
 
                                     <md-input-container flex-gt-md="30" ng-if="!vm.isClient">
-                                        <label>Timepicker Only</label>
+                                        <label>Fecha atendida</label>
                                         <md-icon md-font-icon="zmdi zmdi-calendar"></md-icon>
                                         <input mdc-datetime-picker="" date="true" time="true" type="text" id="datetime"
-                                               placeholder="Date" min-date="date" ng-model="vm.requisito.fecha_atendida" class=" md-input">
+                                               placeholder="Fecha atendida" min-date="date" ng-model="vm.requisito.fecha_atendida" class=" md-input">
                                     </md-input-container>
                                 </div>
 
@@ -140,7 +146,7 @@
                                                         <th md-column="md-column" md-order-by="status_equipo"><span
                                                                 translate="">Estatus</span>
                                                         </th>
-                                                        <th md-column="md-column" md-order-by="fecha_termino"><span
+                                                        <th md-column="md-column" md-order-by="modelo_cabinet"><span
                                                                 translate="">Tipo</span>
                                                         </th>
                                                         <!-- Cuerpo de la tabla-->
@@ -157,8 +163,8 @@
                                                             {{dato.status_equipo}}
                                                         </td>
                                                         <td md-cell="md-cell"
-                                                            ng-click='vm.edit($event,dato,"tipo_equipo")'>
-                                                            {{dato.tipo_equipo}}
+                                                            ng-click='vm.edit($event,dato,"modelo_cabinet")'>
+                                                            {{dato.modelo_cabinet}}
                                                         </td>
                                                         <!--md-select ng-model="dessert.type" placeholder="Other">
                                                             <md-option ng-value="type" ng-repeat="type in getTypes()">{{type}}</md-option>
@@ -190,8 +196,14 @@
                                     </div>
                                 </md-input-container>
 
-                                <md-card-actions layout="row" layout-align="end center">
+                                <md-card-actions layout="row" layout-align="end center" ng-if="!vm.isClient">
                                     <md-button ng-click="vm.guardarSolicitudAdmin()" class="md-raised md-primary">
+                                        Guardar
+                                    </md-button>
+                                    <md-button>Cancelar</md-button>
+                                </md-card-actions>
+                                <md-card-actions layout="row" layout-align="end center" ng-if="vm.isClient">
+                                    <md-button ng-click="vm.guardarSolicitudCliente()" class="md-raised md-primary">
                                         Guardar
                                     </md-button>
                                     <md-button>Cancelar</md-button>
