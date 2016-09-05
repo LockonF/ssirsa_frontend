@@ -28,7 +28,7 @@
                         $state.go('login')
                     }
                 )
-            } 
+            }
         });
         $rootScope.$on('oauth:error',function(event, rejection) {
             console.log("Error");

@@ -21,7 +21,7 @@
         });
         $rootScope.$on(AUTH_EVENTS.sessionRestore, function(event) {
             vmNode.setCurrentUser();
-            dynamicMenu.loadMenu();
+
         });
     }
 
