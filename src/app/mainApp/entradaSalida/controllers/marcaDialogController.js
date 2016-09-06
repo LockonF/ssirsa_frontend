@@ -5,7 +5,7 @@
     'use_strict'
     angular
         .module('app.mainApp.entradaSalida')
-        .controller('marcaDialogcontroller',marcaDialogController);
+        .controller('marcaDialogController',marcaDialogController);
 
     function marcaDialogController(MarcaCabinet){
 

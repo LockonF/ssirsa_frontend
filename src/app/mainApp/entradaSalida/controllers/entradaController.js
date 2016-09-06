@@ -8,19 +8,21 @@
         .module('app.mainApp.entradaSalida')
         .controller('entradaController',entradaController);
     
-    function entradaController (Helper, EntradaSalida){
+    function entradaController (Helper, EntradaSalida, toastr, Upload){
         var vm = this;
-        vm.status="idle";//idle, uploading, complete
+        //vm.status="idle";//idle, uploading, complete
         vm.guardar = guardar;
         vm.selectionFile=selectionFile;
+        vm.selectionImage=selectionImage;
         vm.showMassiveUpload=showMassiveUpload;
         vm.showManualUpload=showManualUpload;
         vm.removeImage=removeImage;
         vm.nextTab=nextTab;
         vm.uploadFile=uploadFile;
+        vm.showMarcaDialog=showMarcaDialog;
 
-        vm.picFIle=null;
-        vm.excelFIle=null;
+        //vm.picFIle=null;
+        //vm.excelFIle=null;
         activate();
         
         vm.selectedTab=0;
@@ -32,13 +34,6 @@
         vm.hideManualUpload=true;
         vm.hideRegisteredCabinets=true;
         vm.hideUnregisteredCabinets=true;
-
-        //Selected's
-        vm.selectedUdn="";
-        vm.selectedTransportLine="";
-        vm.selectedTransportKind="";
-        vm.selectedSubsidiary="";
-        vm.selectedProject="";
 
         //Models
         vm.lineasTransporte=[
@@ -107,27 +102,20 @@
             "proyecto": "",
             "sucursal": "",
             "tipo_transporte": "",
-            "udn": ""
+            "udn": null,
+            "file":null
         };
 
         //Functions
         function guardar() {
 
-            vm.status = 'uploading';
+            //vm.status = 'uploading';
 
             vm.entrada.fecha = getToday();
-            vm.entrada.linea_transporte=vm.selectedTransportLine;
-            vm.entrada.proyecto=vm.selectedProject;
-            vm.entrada.sucursal=vm.selectedSubsidiary;
-            vm.entrada.tipo_transporte=vm.selectedTransportKind;
-            vm.entrada.udn=vm.selectedUdn;
-
-            vm.entrada.ife_chofer=vm.picFile;
-
 
             var fd = new FormData();
             fd.append('accion','entrada');
-            fd.append('cabinets',vm.cabinetes);
+            fd.append('cabinets',vm.cabinets);
             fd.append('fecha',vm.entrada.fecha);
             fd.append('pedimento',vm.entrada.pedimento);
             fd.append('nombre_chofer',vm.entrada.nombre_chofer);
@@ -136,30 +124,55 @@
             fd.append('sucursal',vm.entrada.sucursal);
             fd.append('tipo_transporte',vm.entrada.tipo_transporte);
             fd.append('udn',vm.entrada.udn);
-            fd.append('ife_chofer',vm.entrada.ife_chofer);
-
-            EntradaSalida.postEntrada(fd).then(function (res) {
-
-            }).catch(function (err) {
-
-            });
+            if(vm.entrada.ife_chofer!=null)
+                fd.append('ife_chofer',vm.entrada.ife_chofer);
+            if(vm.entrada.file!=null) {
+                fd.append('file', vm.entrada.file);
+                EntradaSalida.postEntradaMasiva(fd).then(function (res) {
+                }).catch(function (err) {
+                });
+            }
+            else {
+                EntradaSalida.postEntrada(fd).then(function (res) {
+                }).catch(function (err) {
+                });
+            }
 
         }
-        function selectionFile($files) {
-            if ($files.length > 0) {
-                var file = $files[0];
-                var extn=file.name.split(".").pop();
-                if(file.size/1000000>1) {
-                    //toastr.warning(vm.errorSize, vm.errorTitle);
-                    vm.picFile = null
+        function selectionImage($file) {
+            // if ($files.length > 0) {
+            //     var file = $files[0];
+            //     var extn=file.name.split(".").pop();
+            //     if(file.size/1000000>1) {
+            //         toastr.warning("La imagen excede el tamaño máximo permitido de 1MB", "Advertencia");
+            //         vm.entrada.ife_chofer = null;
+            //
+            //     }else if (!Helper.acceptFile(file.type))  {
+            //         if (!Helper.acceptFile(extn))  {
+            //             toastr.warning("Error al cargar el archivo", "Error");
+            //             vm.entrada.ife_chofer = null;
+            //         }
+            //     }
+            // }
+            vm.entrada.ife_chofer=$file;
 
-                }else if (!Helper.acceptFile(file.type))  {
-                    if (!Helper.acceptFile(extn))  {
-                        //toastr.warning(vm.errorTypeFile, vm.errorTitle);
-                        vm.picFile = null;
-                    }
-                }
-            }
+        }
+        function selectionFile($file) {
+            // if ($files.length > 0) {
+            //     var file = $files[0];
+            //     var extn=file.name.split(".").pop();
+            //     if(file.size/10000000>1) {
+            //         toastr.warning("El archivo excede el tamaño máximo permitido de 10MB", "Advertencia");
+            //         vm.entrada.file = null;
+            //
+            //     }else if (!Helper.acceptFile(file.type))  {
+            //         if (!Helper.acceptFile(extn))  {
+            //             toastr.warning("Error al cargar el archivo", "Error");
+            //             vm.entrada.file = null;
+            //         }
+            //     }
+            // }
+            vm.entrada.file=$file;
 
         }
         function activate() {
@@ -220,18 +233,29 @@
             vm.hideMassiveUpload=true;
         }
         function removeImage() {
-            vm.picfile=null;
+            vm.entrada.ife_chofer=null;
         }
         function nextTab(){
             vm.selectedTab=vm.selectedTab+1;
         }
         function uploadFile(){
-            EntradaSalida.postEntradaMasiva(vm.responseMassiveUpload).then(function(res){
+            EntradaSalida.postEntradaMasiva(vm.entrada).then(function(res){
                 vm.responseMassiveUpload=res;
             }).catch(function(err){
                 
             });
         }
+        function showMarcaDialog() {
+            $mdDialog.show({
+                controller: marcaDialogController,
+                templateUrl: 'app/mainApp/entradaSalida/dialogs/marca.tmpl.html',
+                controllerAs:'vm',
+                clickOutsideToClose:true
+            })
+
+        }
+
+
     }
     
 })();

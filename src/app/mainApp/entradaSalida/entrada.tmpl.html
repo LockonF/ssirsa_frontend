@@ -31,7 +31,7 @@
                             <div layout="row" layout-sm="column" layout-xs="column" layout-align="center center" layout-align-sm="center stretch" layout-align-xs="center stretch">
                                 <md-input-container flex="100" class="md-block">
                                     <label>{{'UDN'|translate}}</label>
-                                    <md-select name="selectUDN" ng-model="vm.selectedUdn" required="" md-no-asterisk="">
+                                    <md-select name="selectUDN" ng-model="vm.entrada.udn" required="" md-no-asterisk="">
                                         <md-option ng-repeat="udn in vm.udns" value="{{udn.id}}">{{udn.agencia}}</md-option>
                                     </md-select>
                                     <div ng-messages="entradaForm.selectUDN.$error">
@@ -40,7 +40,7 @@
                                 </md-input-container>
                                 <md-input-container flex="100" class="md-block">
                                     <label>{{'Transport.Line'|translate}}</label>
-                                    <md-select name="selectTransportLine" ng-model="vm.selectedTransportLine" required="" md-no-asterisk="">
+                                    <md-select name="selectTransportLine" ng-model="vm.entrada.linea_transporte" required="" md-no-asterisk="">
                                         <md-option ng-repeat="linea in vm.lineasTransporte" value="{{linea.id}}">{{linea.razon_social}}</md-option>
                                     </md-select>
                                     <div ng-messages="entradaForm.selectTransportLine.$error">
@@ -49,10 +49,10 @@
                                 </md-input-container>
                                 <md-input-container flex="100" class="md-block">
                                     <label>{{'Transport.Kind'|translate}}</label>
-                                    <md-select name="selectTransportKind" ng-model="vm.selectedTransportKind" required="" md-no-asterisk="">
+                                    <md-select name="selectTransportKind" ng-model="vm.entrada.tipo_transporte" required="" md-no-asterisk="">
                                         <md-option ng-repeat="tipo in vm.tiposTransporte" value="{{tipo.id}}">{{tipo.descripcion}}</md-option>
                                     </md-select>
-                                    <div ng-messages="entradaForm.selectTransportLine.$error">
+                                    <div ng-messages="entradaForm.selectTransportKind.$error">
                                         <div ng-message="required">{{'Required Field'|translate}}</div>
                                     </div>
                                 </md-input-container>
@@ -60,7 +60,7 @@
                             <div layout="row" layout-sm="column" layout-xs="column" layout-align="center center" layout-align-sm="center stretch" layout-align-xs="center stretch">
                                 <md-input-container flex="100" class="md-block">
                                     <label>{{'Subsidiary'|translate}}</label>
-                                    <md-select name="selectSubsidiary" ng-model="vm.selectedSubsidiary" required="" md-no-asterisk="">
+                                    <md-select name="selectSubsidiary" ng-model="vm.entrada.sucursal" required="" md-no-asterisk="">
                                         <md-option ng-repeat="sucursal in vm.Sucursales" value="{{sucursal.id}}">{{sucursal.nombre}}</md-option>
                                     </md-select>
                                     <div ng-messages="entradaForm.selectSubsidiary.$error">
@@ -69,7 +69,7 @@
                                 </md-input-container>
                                 <md-input-container flex="100" class="md-block">
                                     <label>{{'Project'|translate}}</label>
-                                    <md-select name="selectProject" ng-model="vm.selectedProject" required="" md-no-asterisk="">
+                                    <md-select name="selectProject" ng-model="vm.entrada.proyecto" required="" md-no-asterisk="">
                                         <md-option ng-repeat="proyecto in vm.Proyectos" value="{{proyecto.id}}">{{proyecto.descripcion}}</md-option>
                                     </md-select>
                                     <div ng-messages="entradaForm.selectProject.$error">
@@ -81,16 +81,23 @@
                         <div layout="row" flex="100" layout-sm="column" layout-align-sm="center stretch" layout-xs="column" layout-align-xs="center stretch">
                             <p>{{'Driver.IFE'|translate}}</p>
                             <div flex="30" layout="column" layout-align="space-around center">
-                                <md-button ngf-select="vm.selectionFile($files)" ngf-accept="'image/*'" required="required" ng-disabled="vm.status != 'idle'" ngf-multiple="false" ng-model="vm.picFile" class="md-primary md-raised">
+                                <!--<md-button ngf-select="vm.selectionImage($files)" ngf-accept="'image/*'" required="required" ng-disabled="vm.status != 'idle'" ngf-multiple="false" ng-model="vm.entrada.ife_chofer" class="md-primary md-raised">
                                     <md-icon md-font-icon="" ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}"></md-icon>
                                 </md-button>
                                 <md-button ng-click="removeImage()" class="md-warn md-raised">
                                     <md-icon md-font-icon="" ng-class="'fa fa-trash'"></md-icon>
-                                </md-button>
+                                </md-button>-->
+
+                                <!--<md-button type="image"
+                                           ngf-select="selectionImage($image)"
+                                           ngf-accept="image/*"
+                                           ngf-max-size="1MB"
+                                           ng-model="vm.entrada.ife_chofer"
+                                           class="md-primary md-raised">{{'Choose Image'|translate}}</md-button>-->
                             </div>
                         </div>
                         <div flex="80">
-                            <div class="md-media-md card-media"><img ngf-src="vm.picFile" style="max-width:150px" class="thumb"/></div>
+                            <div class="md-media-md card-media"><img ngf-src="vm.entrada.ife_chofer" style="max-width:150px" class="thumb"/></div>
                         </div>
                         <div layout="row" layout-align="end center">
                             <md-button ng-click="vm.nextTab()" ng-disabled="entradaForm.$invalid" class="md-raised md-primary">{{'Next'|translate}}</md-button>
@@ -108,19 +115,26 @@
                             <!-- Massive Upload-->
                             <div layout="row" layout-sm="column" layout-xs="column" layout-md="column" flex="100" ng-hide="vm.hideMassiveUpload">
                                 <md-input-container flex="75" flex-sm="100" flex-xs="100" flex-md="100">
-                                    <input name="FileName" type="text" ng-model="vm.excelFile.name" ng-disabled="true"/>
+                                    <input name="FileName" type="text" ng-model="vm.entrada.file.name" ng-disabled="true"/>
                                 </md-input-container>
                                 <div flex="25" flex-sm="100" flex-xs="100" flex-md="100" layout="column">
-                                    <md-button ngf-select="vm.selectionFile($files)" ngf-accept="'.xlsx'" required="required" ng-disabled="vm.status != 'idle'" ngf-multiple="false" ng-model="vm.excelFile" class="md-primary md-raised">{{'Choose File'|translate}}</md-button>
+                                    <!--<md-button ngf-select="vm.selectionFile($files)" ngf-accept="'.xlsx'" required="required" ng-disabled="vm.status != 'idle'" ngf-multiple="false" ng-model="vm.entrada.file" class="md-primary md-raised">{{'Choose File'|translate}}</md-button>-->
+                                    <md-button type="file"
+                                               ng-disabled="false"
+                                               ngf-select="selectionFile($file)"
+                                               ngf-accept="'.xlsx'"
+                                               ngf-max-size="10MB"
+                                               ng-model="vm.entrada.file"
+                                               class="md-primary md-raised">{{'Choose File'|translate}}</md-button>
                                 </div>
                             </div>
                             <div layout="row" flex="100" ng-hide="vm.hideMassiveUpload">
                                 <div flex="20" flex-sm="50" flex-xs="100">
-                                    <md-button ng-click="vm.uploadFile()" class="md-primary md-raised">{{'Upload File'|translate}}</md-button>
+                                    <md-button ng-click="vm.guardar()" class="md-primary md-raised">{{'Upload File'|translate}}</md-button>
                                 </div>
                             </div>
-                            <div layout="row" layout-align="space-around center" layout-sm="column" layout-xs="column">
-                                <md-button class="md-raised md-primary">{{'Create Brand'|translate}}</md-button>
+                            <div layout="row" layout-align="space-around center" layout-sm="column" layout-xs="column" ng-show="vm.responseMassiveUpload.no_creados.length!=null">
+                                <md-button class="md-raised md-primary" ng-click="showMarcaDialog()">{{'Create Brand'|translate}}</md-button>
                                 <md-button class="md-raised md-primary">{{'Create Model'|translate}}</md-button>
                             </div>
                         </div>
