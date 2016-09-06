@@ -124,17 +124,22 @@
             fd.append('sucursal',vm.entrada.sucursal);
             fd.append('tipo_transporte',vm.entrada.tipo_transporte);
             fd.append('udn',vm.entrada.udn);
+            console.log(vm.entrada);
             if(vm.entrada.ife_chofer!=null)
                 fd.append('ife_chofer',vm.entrada.ife_chofer);
             if(vm.entrada.file!=null) {
                 fd.append('file', vm.entrada.file);
                 EntradaSalida.postEntradaMasiva(fd).then(function (res) {
+
                 }).catch(function (err) {
+
                 });
             }
             else {
                 EntradaSalida.postEntrada(fd).then(function (res) {
+
                 }).catch(function (err) {
+
                 });
             }
 
@@ -155,7 +160,6 @@
             //     }
             // }
             vm.entrada.ife_chofer=$file;
-
         }
         function selectionFile($file) {
             // if ($files.length > 0) {

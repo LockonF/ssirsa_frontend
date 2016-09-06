@@ -40,14 +40,14 @@
         //entrada_salida/mass_upload
         function postEntradaMasiva(data){
             var defer= $q.defer();
-            console.log("Datos de entrada masiva");
+            console.log("Entrada masiva de datos");
             console.log(data);
             Restangular.one('entrada_salida','mass_upload').withHttpConfig({transformRequest: angular.identity}).customPOST(data,"",{},{'Content-type':undefined}).then(function(res){
                 defer.resolve(res);
-                toastr.success('Entrada registrada correctamente','Éxito');
+                toastr.success('Entrada masiva registrada correctamente','Éxito');
             }).catch(function(err){
                 defer.resolve(err);
-                toastr.error('Error al registrar entrada', 'Error');
+                toastr.error('Error al registrar entrada masiva', 'Error');
                 console.log(err);
             });
             return defer.promise;
