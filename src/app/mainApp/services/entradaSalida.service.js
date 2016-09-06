@@ -25,7 +25,6 @@
         //entrada_salida
         function postEntrada(data){
             var defer= $q.defer();
-            console.log("Entrada normal de datos");
             Restangular.all('entrada_salida').withHttpConfig({transformRequest: angular.identity}).customPOST(data,"",{},{'Content-type':undefined}).then(function(res){
                 defer.resolve(res);
                 toastr.success('Entrada registrada correctamente','Éxito');
@@ -40,8 +39,6 @@
         //entrada_salida/mass_upload
         function postEntradaMasiva(data){
             var defer= $q.defer();
-            console.log("Entrada masiva de datos");
-            console.log(data);
             Restangular.one('entrada_salida','mass_upload').withHttpConfig({transformRequest: angular.identity}).customPOST(data,"",{},{'Content-type':undefined}).then(function(res){
                 defer.resolve(res);
                 toastr.success('Entrada masiva registrada correctamente','Éxito');

@@ -10,7 +10,7 @@
         return {
             get: get,
             getAll:getAll,
-            post:post
+            create:create
         };
 
 
@@ -35,9 +35,9 @@
             return deferred.promise;
         }
 
-        function post(data){
+        function create(data){
             var deferred=$q.defer();
-            Restangular.all(marca_cabinet).customPOST(data).then(function(res){
+            Restangular.all('marca_cabinet').customPOST(data).then(function(res){
                 deferred.resolve(res);
                 toastr.success("Marca registrada correctamente","Éxito");
             }).catch(function(err){

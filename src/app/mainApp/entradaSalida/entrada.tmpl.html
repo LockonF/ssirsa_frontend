@@ -115,8 +115,8 @@
                                 </div>
                             </div>-->
                             <div layout="row" layout-align="space-around center" layout-sm="column" layout-xs="column" ng-show="vm.responseMassiveUpload.no_creados.length!=null">
-                                <md-button class="md-raised md-primary" ng-click="showMarcaDialog()">{{'Create Brand'|translate}}</md-button>
-                                <md-button class="md-raised md-primary">{{'Create Model'|translate}}</md-button>
+                                <md-button class="md-raised md-primary" ng-click="vm.showMarcaDialog(ev)">{{'Create Brand'|translate}}</md-button>
+                                <md-button class="md-raised md-primary" ng-click="vm.showModeloDialog(ev)">{{'Create Model'|translate}}</md-button>
                             </div>
                         </div>
                         <div flex="" layout="column" ng-hide="vm.hideRegisteredCabinets">
@@ -132,11 +132,11 @@
                                     </tr>
                                     </thead>
                                     <tbody md-body="">
-                                    <tr md-row="" ng-repeat="registeredCabinet in vm.ResponseMassiveUpload.creados">
+                                    <tr md-row="" ng-repeat="registeredCabinet in vm.entrada.creados">
                                         <td md-cell="">{{registeredCabinet.economico}}</td>
                                         <td md-cell="">{{registeredCabinet.no_serie}}</td>
-                                        <td md-cell="">{{registeredCabinet.modelo}}</td>
-                                        <td md-cell="">{{registeredCabinet.marca}}</td>
+                                        <td md-cell="">{{registeredCabinet.modelo.marca.descripcion}}</td>
+                                        <td md-cell="">{{registeredCabinet.modelo.nombre}}</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -152,7 +152,7 @@
                                     </tr>
                                     </thead>
                                     <tbody md-body="">
-                                    <tr md-row="" ng-repeat="unregisteredCabinet in vm.responseMassiveUpload.no_creados">
+                                    <tr md-row="" ng-repeat="unregisteredCabinet in vm.entrada.no_creados">
                                         <td md-cell="">{{unregisteredCabinet}}</td>
                                     </tr>
                                     </tbody>

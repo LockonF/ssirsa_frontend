@@ -45,7 +45,14 @@
                 .cancel(dialog.cancel)
                 .targetEvent($event);
             $mdDialog.show(confirm).then(function(result){
-                //$state.go('triangular.admin-default.tecnico');
+                var resp=result.split("$");
+                vm.user.username=resp[0];
+                vm.user.password=resp[1];
+                AuthService.login(vm.user).then(function(res){
+                    $state.go('triangular.admin-default.bienvenida');
+                }).catch(function(err){
+                    toastr.error('Usuario o Contraseña incorrectos','Error',err.error);
+                });
             });
 
         }
