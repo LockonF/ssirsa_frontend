@@ -1,3 +1,21 @@
 {
-
+    "TRANSPORT_LINE": {
+        "FORM": {
+            "LABEL": {
+                "TRANSPORT_LINE": "Linea de Transporte",
+                "BUSINESS_NAME": "Razón social",
+                "ADDRESS": "Dirección",
+                "PHONE": "Telefonos",
+                "RESPONSABLE": "Responsable",
+                "INFO_TRANSPORT_LINE": "Información de Linea de Transporte",
+                "NEW_REGISTER": "Registro de Linea de Transporte",
+                "PLUS-PHONE": "+Teléfono"
+            },
+            "PLACEHOLDER": {
+                "SEARCH_TRANSPORT_LINE": "Busca tu linea de transporte",
+                "NOT_FOUND": "No se encontró la linea de transporte",
+                "ENTER-PHONE":"Ingrese los teléfonos"
+            }
+        }
+    }
 }

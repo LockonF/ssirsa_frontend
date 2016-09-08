@@ -1,55 +1,47 @@
-<div layout="column" layout-align="center center" class="full-image-background mb-bg-fb-07 overlay-40">
+<div layout="column" layout-align="center center"  class="overlay-40">
     <div layout="row" layout-align="center center">
-        <p flex="70" flex-sm="90" translate="" class="md-headline font-weight-300 text-center text-light">PROJECT.INSCRIPTION.SOLICITUD</p>
+        <p flex="70" flex-sm="100" flex-gt-xs="100" translate="" class="md-headline font-weight-300 text-center text-light">TRANSPORT_LINE.FORM.LABEL.TRANSPORT_LINE</p>
     </div>
-    <div flex="" layout="row" layout-align="center center" layout-fill="">
-        <div flex="80" layout="column" tri-wizard="" class="md-whiteframe-z1 margin-bottom-100">
-            <div flex="flex" layout="row">
-                <md-sidenav layout="column" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left" class="md-sidenav-left md-whiteframe-z2">
-                    <md-autocomplete ng-disabled="vm.isDisabled" md-no-cache="vm.noCache" md-selected-item="vm.selectedItem" md-search-text-change="vm.searchTextChange(vm.searchText)" md-search-text="vm.searchText" md-selected-item-change="vm.selectedItemChange(item)" md-items="item in vm.querySearch(vm.searchText)" md-item-text="item.Titulo" md-min-length="0" md-floating-label="{{ 'PROJECT.INSCRIPTION.PLACEHOLDER.SEARCH_PROJECT' | translate }}" md-menu-class="autocomplete-custom-template" class="margin-top-20"><span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.Titulo}}</span>
+    <div flex="" layout="row" layout-align="center center" layout-xs="column" layout-fill="">
+        <div flex="80" layout="column"   class="md-whiteframe-z1 margin-bottom-100">
+            <div flex="flex" layout="row" layout-xs="column" class="background">
+                <div layout="column" flex-lg="35"   flex-gt-sm="100" layout-fill>
+                    <md-autocomplete ng-disabled="vm.isDisabled" md-no-cache="vm.noCache" md-selected-item="vm.selectedItem" md-search-text-change="vm.searchTextChange(vm.searchText)" md-search-text="vm.searchText" md-selected-item-change="vm.selectedItemChange(item)" md-items="item in vm.querySearch(vm.searchText)" md-item-text="item.razon_social" md-min-length="0" md-floating-label="{{ 'TRANSPORT_LINE.FORM.PLACEHOLDER.SEARCH_TRANSPORT_LINE' | translate }}" md-menu-class="autocomplete-custom-template" class="margin-top-20"><span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.razon_social}}</span>
                         <md-item-template><span class="item-title">
-                <md-icon md-font-icon="fa fa-briefcase"></md-icon><span>&nbsp; {{item.Titulo}}</span></span><span class="item-metadata"><span class="item-metastat"><strong>{{item.Descripcion | cut:false:50:'...'}}</strong></span></span></md-item-template>
-                        <md-not-found><span translate="PROJECT.INSCRIPTION.PLACEHOLDER.NOT_FOUND"></span></md-not-found>
+                        <md-icon md-font-icon="fa fa-briefcase"></md-icon>
+                        <span>&nbsp; {{item.razon_social}}</span>
+                        </span><span class="item-metadata">
+                            <span class="item-metastat">
+                                <strong>{{item.responsable }}</strong>
+                            </span>
+                        </span>
+                        </md-item-template>
+                        <md-not-found><span translate="TRANSPORT_LINE.FORM.PLACEHOLDER.NOT_FOUND"></span></md-not-found>
                     </md-autocomplete>
-                    <md-virtual-repeat-container class="vertical-container">
+                    <md-virtual-repeat-container class="vertical-container" >
                         <md-list>
-                            <md-item ng-repeat="proyecto in vm.proyectos | custom:vm.searchText">
-                                <md-button ng-click="vm.selectedProjects(proyecto)" ng-class="{'selected' : proyecto === vm.selectedProject }">
-                                    <md-icon md-svg-icon="assets/images/app/project.svg" class="avatar"></md-icon><span flex="flex">{{proyecto.Titulo | cut:false:20:'...'}}</span>
+                            <md-item ng-repeat="linea in vm.lineas | custom:vm.searchText">
+                                <md-button ng-click="vm.selectedLineas(linea)" ng-class="{'selected' : linea === vm.selectedLinea }">
+                                    <md-icon md-svg-icon="assets/images/transport.svg" class="avatar"></md-icon><span flex="flex">{{linea.razon_social }}</span>
                                 </md-button>
                             </md-item>
                         </md-list>
                     </md-virtual-repeat-container>
-                </md-sidenav>
-                <div layout="column" flex="flex" id="background">
-                    <md-fab-speed-dial ng-hide="vm.hidden" md-open="vm.isOpen" md-direction="down" ng-class="{ 'md-hover-full': vm.hover }" ng-mouseover="vm.isOpen=true" ng-mouseleave="vm.isOpen=false" class="md-scale md-fab-top-right">
-                        <md-fab-trigger>
-                            <md-button aria-label="menu" class="md-fab md-warn">
-                                <md-icon md-font-icon="fa fa-bars"></md-icon>
-                            </md-button>
-                        </md-fab-trigger>
-                        <md-fab-actions>
-                            <md-button aria-label="add" ng-click="vm.showRegister($event,1)" class="md-fab md-raised md-mini">
-                                <md-icon md-font-icon="fa fa-plus" style="color:white;">
-                                    <md-tooltip md-direction="left" md-autohide="false" md-visible="vm.tooltipVisible ">Inscribir resultado</md-tooltip>
-                                </md-icon>
-                            </md-button>
-                            <md-button aria-label="Facebook" ng-click="vm.showRegister($event,2)" class="md-fab md-raised md-mini">
-                                <md-icon md-font-icon="fa fa-table" style="color:white;">
-                                    <md-tooltip md-direction="left" md-autohide="false" md-visible="vm.tooltipVisible">Ver solicitudes</md-tooltip>
-                                </md-icon>
-                            </md-button>
-                        </md-fab-actions>
-                    </md-fab-speed-dial>
+                </div>
+                <div layout="column"  flex-lg="65"  flex-gt-sm="100" id="register" layout-fill>
+                    <md-button class="md-fab md-scale md-fab-top-right" ng-click="vm.showRegister($event)">
+                        <md-icon md-font-icon="fa fa-plus" style="color:white;">
+                            <md-tooltip md-direction="left" md-autohide="false" md-visible="vm.tooltipVisible ">Inscribir resultado</md-tooltip>
+                        </md-icon>
+                    </md-button>
+
                     <md-content ui-view="ui-view" id="content">
-                        <div layout="column" flex="flex" ng-show="vm.selectedProject!=null">
-                            <h2 translate="" class="md-headline-1 text-center">PROJECT.INSCRIPTION.INFOPROJECT</h2>
-                            <h2 class="md-subhead"><span translate="PROJECT.INSCRIPTION.VIEWS.TITLE" class="bold"></span><span>:&nbsp; {{vm.selectedProject.Titulo|htmlToString}}</span></h2>
-                            <h2 class="md-subhead"><span translate="PROJECT.INSCRIPTION.VIEWS.DESCRIPTION" class="bold"></span><span>:&nbsp; {{vm.selectedProject.Descripcion|htmlToString}}</span></h2>
-                            <h2 class="md-subhead"><span translate="PROJECT.INSCRIPTION.VIEWS.BACKGROUND" class="bold"></span><span>:&nbsp; {{vm.selectedProject.Antecedentes|htmlToString}}</span></h2>
-                            <h2 class="md-subhead"><span translate="PROJECT.INSCRIPTION.VIEWS.OBJECTIVES" class="bold"></span><span>:&nbsp; {{vm.selectedProject.Objetivos|htmlToString}}</span></h2>
-                            <h2 class="md-subhead"><span translate="PROJECT.INSCRIPTION.VIEWS.JUSTIFICATION" class="bold"></span><span>:&nbsp; {{vm.selectedProject.Justificacion|htmlToString}}</span></h2>
-                            <h2 class="md-subhead"><span translate="PROJECT.INSCRIPTION.VIEWS.REACH" class="bold"></span><span>:&nbsp; {{vm.selectedProject.Alcances|htmlToString}}</span></h2>
+                        <div layout="column" flex="flex" ng-show="vm.selectedLinea!=null">
+                            <h2 translate="" class="md-headline-1 text-center">TRANSPORT_LINE.FORM.LABEL.INFO_TRANSPORT_LINE</h2>
+                            <h2 class="md-subhead"><span translate="TRANSPORT_LINE.FORM.LABEL.BUSINESS_NAME" class="bold"></span><span>:&nbsp; {{vm.selectedLinea.razon_social}}</span></h2>
+                            <h2 class="md-subhead"><span translate="TRANSPORT_LINE.FORM.LABEL.ADDRESS" class="bold"></span><span>:&nbsp; {{vm.selectedLinea.direccion}}</span></h2>
+                            <h2 class="md-subhead"><span translate="TRANSPORT_LINE.FORM.LABEL.PHONE" class="bold"></span><span ng-repeat="telefono in vm.selectedLinea.telefonos">:&nbsp; {{telefono}}</span></h2>
+                            <h2 class="md-subhead"><span translate="TRANSPORT_LINE.FORM.LABEL.RESPONSABLE" class="bold"></span><span>:&nbsp; {{vm.selectedLinea.responsable}}</span></h2>
                         </div>
                     </md-content>
                 </div>
