@@ -8,22 +8,24 @@
         .module('app.mainApp.entradaSalida')
         .controller('entradaController',entradaController);
     
-    function entradaController (Helper, EntradaSalida){
+    function entradaController (EntradaSalida, toastr, $mdDialog, MarcaCabinet, ModeloCabinet){
         var vm = this;
-        vm.status="idle";//idle, uploading, complete
+        //vm.status="idle";//idle, uploading, complete
         vm.guardar = guardar;
         vm.selectionFile=selectionFile;
+        vm.selectionImage=selectionImage;
         vm.showMassiveUpload=showMassiveUpload;
         vm.showManualUpload=showManualUpload;
         vm.removeImage=removeImage;
         vm.nextTab=nextTab;
         vm.uploadFile=uploadFile;
+        vm.showMarcaDialog=showMarcaDialog;
+        vm.showModeloDialog=showModeloDialog;
 
-        vm.picFIle=null;
-        vm.excelFIle=null;
         activate();
         
         vm.selectedTab=0;
+        vm.idEntrada=null;
         
         //Visualizations
         vm.hideEntrada=false;
@@ -32,13 +34,6 @@
         vm.hideManualUpload=true;
         vm.hideRegisteredCabinets=true;
         vm.hideUnregisteredCabinets=true;
-
-        //Selected's
-        vm.selectedUdn="";
-        vm.selectedTransportLine="";
-        vm.selectedTransportKind="";
-        vm.selectedSubsidiary="";
-        vm.selectedProject="";
 
         //Models
         vm.lineasTransporte=[
@@ -81,23 +76,23 @@
                 "descripcion": ""
             }
         ];
-        vm.cabinets=[{
-            "economico":"201"
-        }];
+        vm.cabinets=null;
         vm.responseMassiveUpload={
             "id":"",
-            "creados":[{
-                "economico":"1",
-                "no_serie":"10010101",
-                "modelo":"Model"
-            }
-        ],
-        "no_creados":[
+            "creados":[
 
-        ]
+            ],
+            "no_creados":[
+
+            ],
+            "modelos_no_existentes":[
+
+            ]
 
         };
+
         vm.entrada={
+            "id":null,
             "fecha": "",
             "nombre_chofer": "",
             "ife_chofer":"",
@@ -107,27 +102,22 @@
             "proyecto": "",
             "sucursal": "",
             "tipo_transporte": "",
-            "udn": ""
+            "udn": null,
+            "file":null,
+
+            "creados":null,
+            "no_creados":null,
+            "modelos_no_existentes":null
+
         };
 
         //Functions
         function guardar() {
-
-            vm.status = 'uploading';
-
             vm.entrada.fecha = getToday();
-            vm.entrada.linea_transporte=vm.selectedTransportLine;
-            vm.entrada.proyecto=vm.selectedProject;
-            vm.entrada.sucursal=vm.selectedSubsidiary;
-            vm.entrada.tipo_transporte=vm.selectedTransportKind;
-            vm.entrada.udn=vm.selectedUdn;
-
-            vm.entrada.ife_chofer=vm.picFile;
-
 
             var fd = new FormData();
+
             fd.append('accion','entrada');
-            fd.append('cabinets',vm.cabinetes);
             fd.append('fecha',vm.entrada.fecha);
             fd.append('pedimento',vm.entrada.pedimento);
             fd.append('nombre_chofer',vm.entrada.nombre_chofer);
@@ -136,31 +126,38 @@
             fd.append('sucursal',vm.entrada.sucursal);
             fd.append('tipo_transporte',vm.entrada.tipo_transporte);
             fd.append('udn',vm.entrada.udn);
-            fd.append('ife_chofer',vm.entrada.ife_chofer);
 
-            EntradaSalida.postEntrada(fd).then(function (res) {
+            if(vm.entrada.id!=null)
+                fd.append("id",vm.entrada.id);
+            if(vm.cabinets!=null)
+                fd.append('cabinets',vm.cabinets);
+            if(vm.entrada.ife_chofer!=null)
+                fd.append('ife_chofer',vm.entrada.ife_chofer);
+            //Is massive upload
+            if(vm.entrada.file!=null) {
+                fd.append('file', vm.entrada.file);
+                EntradaSalida.postEntradaMasiva(fd).then(function (res) {
+                    vm.entrada=res;
+                    vm.hideRegisteredCabinets=false;
+                    vm.hideUnregisteredCabinets=false;
+                }).catch(function (err) {
 
-            }).catch(function (err) {
+                });
+            }
+            else {
+                EntradaSalida.postEntrada(fd).then(function (res) {
 
-            });
+                }).catch(function (err) {
 
-        }
-        function selectionFile($files) {
-            if ($files.length > 0) {
-                var file = $files[0];
-                var extn=file.name.split(".").pop();
-                if(file.size/1000000>1) {
-                    //toastr.warning(vm.errorSize, vm.errorTitle);
-                    vm.picFile = null
-
-                }else if (!Helper.acceptFile(file.type))  {
-                    if (!Helper.acceptFile(extn))  {
-                        //toastr.warning(vm.errorTypeFile, vm.errorTitle);
-                        vm.picFile = null;
-                    }
-                }
+                });
             }
 
+        }
+        function selectionImage($file) {
+            vm.entrada.ife_chofer=$file;
+        }
+        function selectionFile($file) {
+            vm.entrada.file=$file;
         }
         function activate() {
 
@@ -220,18 +217,75 @@
             vm.hideMassiveUpload=true;
         }
         function removeImage() {
-            vm.picfile=null;
+            vm.entrada.ife_chofer=null;
         }
         function nextTab(){
             vm.selectedTab=vm.selectedTab+1;
         }
         function uploadFile(){
-            EntradaSalida.postEntradaMasiva(vm.responseMassiveUpload).then(function(res){
+            EntradaSalida.postEntradaMasiva(vm.entrada).then(function(res){
                 vm.responseMassiveUpload=res;
             }).catch(function(err){
                 
             });
         }
+        function showMarcaDialog(ev) {
+            $mdDialog.show({
+                controller: dialogController,
+                templateUrl: 'app/mainApp/entradaSalida/dialogs/marca.tmpl.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose:true
+            }).then(function(answer) {
+                //Accepted
+                $mdDialog.hide();
+                }, function() {
+                    //Cancelled
+                $mdDialog.cancel();
+                });
+
+        }
+        function showModeloDialog(ev) {
+            $mdDialog.show({
+                controller: dialogController,
+                templateUrl: 'app/mainApp/entradaSalida/dialogs/modelo.tmpl.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose:true
+            }).then(function(answer) {
+                //Accepted
+                $mdDialog.hide();
+            }, function() {
+                //Cancelled
+                $mdDialog.cancel();
+            });
+
+        }
+
+        function dialogController($scope,$mdDialog){
+            $scope.marcas=null;
+            MarcaCabinet.getAll().then(function(res){
+                $scope.marcas=res;
+            }).catch(function(err){
+
+            });
+            $scope.marca=null;
+            $scope.modelo=null;
+            $scope.hide=function(){
+                $mdDialog.hide();
+            };
+            $scope.registrarMarca=function(){
+                MarcaCabinet.create($scope.marca);
+            };
+            $scope.registrarModelo=function(){
+                ModeloCabinet.create($scope.modelo);
+            };
+            $scope.cancel = function() {
+                $mdDialog.cancel();
+            };
+        }
+
+
     }
     
 })();

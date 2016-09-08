@@ -25,7 +25,6 @@
         //entrada_salida
         function postEntrada(data){
             var defer= $q.defer();
-
             Restangular.all('entrada_salida').withHttpConfig({transformRequest: angular.identity}).customPOST(data,"",{},{'Content-type':undefined}).then(function(res){
                 defer.resolve(res);
                 toastr.success('Entrada registrada correctamente','Éxito');
@@ -40,13 +39,12 @@
         //entrada_salida/mass_upload
         function postEntradaMasiva(data){
             var defer= $q.defer();
-
             Restangular.one('entrada_salida','mass_upload').withHttpConfig({transformRequest: angular.identity}).customPOST(data,"",{},{'Content-type':undefined}).then(function(res){
                 defer.resolve(res);
-                toastr.success('Entrada registrada correctamente','Éxito');
+                toastr.success('Entrada masiva registrada correctamente','Éxito');
             }).catch(function(err){
                 defer.resolve(err);
-                toastr.error('Error al registrar entrada', 'Error');
+                toastr.error('Error al registrar entrada masiva', 'Error');
                 console.log(err);
             });
             return defer.promise;

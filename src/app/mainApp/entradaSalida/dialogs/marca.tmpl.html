@@ -1,23 +1,24 @@
 <md-card class="md-padding-card1">
     <div layout="column" flex="100" layout-align="center center">
+        <h2>{{'Create Brand'|translate}}</h2>
         <form name="brandForm" novalidate="">
             <md-input-container class="md-block">
                 <label>{{'Dialogs.Brand.Category'|translate}}</label>
-                <input name="BrandCategory" md-no-asterisk="" required="" type="text" ng-model="vm.marca.categoria"/>
+                <input name="BrandCategory" md-no-asterisk="" required="" type="text" ng-model="marca.categoria"/>
                 <div ng-messages="brandForm.ModelDescription.$error">
                     <div ng-message="required">{{'Required Field'|translate}}</div>
                 </div>
             </md-input-container>
             <md-input-container class="md-block">
                 <label>{{'Dialogs.Brand.Description'|translate}}</label>
-                <input name="BrandDescription" md-no-asterisk="" required="" type="text" ng-model="vm.marca.descripcion"/>
+                <input name="BrandDescription" md-no-asterisk="" required="" type="text" ng-model="marca.descripcion"/>
                 <div ng-messages="brandForm.ModelKeyword.$error">
                     <div ng-message="required">{{'Required Field'|translate}}</div>
                 </div>
             </md-input-container>
             <div layout="row" layout-align="space-around center">
-                <md-button ng-click="vm.save()" ng-disabled="brandForm.$invalid" class="md-raised md-primary">{{'Save'|translate}}</md-button>
-                <md-button ng-click="vm.cancel()" class="md-raised md-primary">{{'Cancel'|translate}}</md-button>
+                <md-button ng-click="registrarMarca()" ng-disabled="brandForm.$invalid" class="md-raised md-primary">{{'Save'|translate}}</md-button>
+                <md-button ng-click="cancel()" class="md-raised md-primary">{{'Cancel'|translate}}</md-button>
             </div>
         </form>
     </div>

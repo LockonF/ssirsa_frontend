@@ -3,61 +3,62 @@ Created by Emmanuel on 03/09/2016.
 -->
 <md-card class="md-padding-card1">
     <div layout="column" flex="100" layout-align="center center">
+        <h2>{{'Create Model'|translate}}</h2>
         <form name="modelForm" novalidate="">
             <md-input-container class="md-block">
                 <label>{{'Dialogs.Model.Name'|translate}}</label>
-                <input name="ModelName" md-no-asterisk="" required="" type="text" ng-model="vm.modelo.nombre"/>
+                <input name="ModelName" md-no-asterisk="" required="" type="text" ng-model="modelo.nombre"/>
                 <div ng-messages="modelForm.ModelName.$error">
                     <div ng-message="required">{{'Required Field'|translate}}</div>
                 </div>
             </md-input-container>
             <md-input-container class="md-block">
                 <label>{{'Dialogs.Model.Description'|translate}}</label>
-                <input name="ModelDescription" md-no-asterisk="" required="" type="text" ng-model="vm.modelo.descripcion"/>
+                <input name="ModelDescription" md-no-asterisk="" required="" type="text" ng-model="modelo.descripcion"/>
                 <div ng-messages="modelForm.ModelDescription.$error">
                     <div ng-message="required">{{'Required Field'|translate}}</div>
                 </div>
             </md-input-container>
             <md-input-container class="md-block">
                 <label>{{'Dialogs.Model.Keyword'|translate}}</label>
-                <input name="ModelKeyword" md-no-asterisk="" required="" type="text" ng-model="vm.modelo.palabra_clave"/>
+                <input name="ModelKeyword" md-no-asterisk="" required="" type="text" ng-model="modelo.palabra_clave"/>
                 <div ng-messages="modelForm.ModelKeyword.$error">
                     <div ng-message="required">{{'Required Field'|translate}}</div>
                 </div>
             </md-input-container>
             <md-input-container class="md-block">
                 <label>{{'Dialogs.Model.Refrigerant type'|translate}}</label>
-                <input name="ModelRefrigerantType" md-no-asterisk="" required="" type="text" ng-model="vm.modelo.tipo_refrigerante"/>
+                <input name="ModelRefrigerantType" md-no-asterisk="" required="" type="text" ng-model="modelo.tipo_refrigerante"/>
                 <div ng-messages="modelForm.ModelRefrigerantType.$error">
                     <div ng-message="required">{{'Required Field'|translate}}</div>
                 </div>
             </md-input-container>
             <md-input-container class="md-block">
                 <label>{{'Dialogs.Model.Refrigerant quantity'|translate}}</label>
-                <input name="ModelRefrigerantQuantity" md-no-asterisk="" required="" type="text" ng-model="vm.modelo.cantidad"/>
+                <input name="ModelRefrigerantQuantity" md-no-asterisk="" required="" type="text" ng-model="modelo.cantidad"/>
                 <div ng-messages="modelForm.ModelRefrigerantQuantity.$error">
                     <div ng-message="required">{{'Required Field'|translate}}</div>
                 </div>
             </md-input-container>
             <md-input-container class="md-block">
                 <label>{{'Dialogs.Model.Compressor type'|translate}}</label>
-                <input name="ModelCompressorType" md-no-asterisk="" required="" type="text" ng-model="vm.modelo.tipo_compresor"/>
+                <input name="ModelCompressorType" md-no-asterisk="" required="" type="text" ng-model="modelo.tipo_compresor"/>
                 <div ng-messages="modelForm.ModelCompressorType.$error">
                     <div ng-message="required">{{'Required Field'|translate}}</div>
                 </div>
             </md-input-container>
             <md-input-container flex="100" class="md-block">
                 <label>{{'Dialogs.Model.Brand'|translate}}</label>
-                <md-select name="selectBrand" ng-model="vm.modelo.marca" required="" md-no-asterisk="">
-                    <md-option ng-repeat="marca in vm.marcas" value="{{marca.id}}">{{marca.descripcion}}</md-option>
+                <md-select name="selectBrand" ng-model="modelo.marca" required="" md-no-asterisk="">
+                    <md-option ng-repeat="marca in marcas" value="{{marca.id}}">{{marca.descripcion}}</md-option>
                 </md-select>
                 <div ng-messages="entradaForm.selectUDN.$error">
                     <div ng-message="required">{{'Required Field'|translate}}</div>
                 </div>
             </md-input-container>
             <div layout="row" layout-align="space-around center">
-                <md-button ng-click="vm.save()" ng-disabled="modelForm.$invalid" class="md-raised md-primary">{{'Save'|translate}}</md-button>
-                <md-button ng-click="vm.cancel()" class="md-raised md-primary">{{'Cancel'|translate}}</md-button>
+                <md-button ng-click="registrarModelo()" ng-disabled="modelForm.$invalid" class="md-raised md-primary">{{'Save'|translate}}</md-button>
+                <md-button ng-click="cancel()" class="md-raised md-primary">{{'Cancel'|translate}}</md-button>
             </div>
         </form>
     </div>

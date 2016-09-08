@@ -140,12 +140,22 @@
                             type: 'link'
                         }
                     ]
+                },{
+                    name: 'Catalogos',
+                    icon: 'fa fa-book',
+                    type: 'dropdown',
+                    priority: 5,
+                    children: [{
+                        name: 'Linea de transporte',
+                        state: 'triangular.admin-default.linea-transporte',
+                        type: 'link'
+                    }]
                 },
                 {
                     name: 'Inventarios',
                     icon: 'fa fa-archive',
                     type: 'dropdown',
-                    priority: 5,
+                    priority: 6,
                     children: [{
                         name: 'Cabinets',
                         state: 'triangular.admin-default.cabinets',
