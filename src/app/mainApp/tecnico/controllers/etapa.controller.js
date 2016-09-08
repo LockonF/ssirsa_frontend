@@ -28,6 +28,7 @@
         vm.insumos = [];//Arreglo que poseera los Insumos que pueden ser usados en cierta etapa
         vm.cabinet=null;// Informacion general del cabinet al cual se le asignara una nueva etapa
         vm.diagnostico=null;// Informacion del diagnostico que propicio que entrara a un proceso de servicio tecnico
+        vm.etapa;
         vm.insumo = {
             id: "",
             nombre: "",
@@ -112,7 +113,25 @@
                         vm.diagnostico=res;
                         promise = Servicios.consultarEtapaServicioDiagnostico(vm.diagnostico);
                         promise.then(function(res){
-                            vm.etapaActual=res;
+                            vm.etapa=res;
+
+                            console.log("De la Busqueda")
+                            console.log(vm.etapa)
+                            console.log("Despues de las condiciones")
+                            if(vm.etapa.validado==false){
+                                console.log("Soy una etapa no validada");
+                                vm.etapaActual=vm.etapa;
+                                vm.insumos=vm.etapaActual.insumos;
+                            }
+                            else{
+                                console.log("Soy una etapa validada");
+                                vm.etapaActual=vm.etapa;
+                                vm.etapaActual.id=null;
+                                vm.etapaActual.actual_etapa=vm.etapa.siguiente_etapa;
+                                vm.etapaActual.siguiente_etapa=null;
+                                vm.etapaActual.insumos=null;
+                            }
+                            console.log(vm.etapaActual);
                         }).catch(function (res) {
                             notifyError(res.status);
                         })
@@ -161,7 +180,6 @@
             vm.etapaInsumo=null; //Objeto donde se almacena la etapa sobre la cual se esta trabajando
             vm.idCabinet = null;
             vm.insumos = [];//Arreglo que poseera los Insumos que pueden ser usados en cierta etapa
-            vm.insumosEtapaCabinet = null;//Arreglo de Insumos que posee el cabinet en diche etapa
             vm.cabinet;// Informacion general del cabinet al cual se le asignara una nueva etapa
             vm.diagnostico; // Informacion del diagnostico que propicio que entrara a un proceso de servicio tecnico
             vm.insumo = {
@@ -188,29 +206,51 @@
         }
 
         function crearEtapaServicio() {
-            if (vm.etapaActual!= null) {
+            vm.etapaActual.insumos=[];
+            console.log(vm.etapaActual)
+
+            if (vm.etapaActual.id==null) {
+                console.log("voy a crear uno nuevo")
                 vm.etapaActual.insumos=vm.insumos;
+                console.log("Al editar/crear");
+                console.log(vm.etapaActual);
                 console.log("Ya voy a crear");
-                var promise = Servicios.crearEtapaServicio(vm.etapa);
+                var promise = Servicios.crearEtapaServicio(vm.etapaActual);
                 promise.then(function (res) {
                     toastr.success(vm.successText, vm.successStoreText);
                     vm.etapaActual = res;
 
-                }).catch(function (err) {
-                    console.log(vm.failureText, vm.failureStoreText);
+                }).catch(function (res) {
+
+                    console.log(res);
+                    notifyError(res.status);
                 });
             }
             else {
-                var promise = Servicios.editarEtapaServicio(vm.etapa);
+                console.log("Voy a editar")
+                var promise = Servicios.editarEtapaServicio(vm.etapaActual);
                 promise.then(function (res) {
                     console.log(vm.successText, vm.successUpdateText);
                     vm.etapaActual = res;
-                }).catch(function (err) {
-                    console.log(vm.failureText, vm.failureStoreText);
+                }).catch(function (res) {
+
+                    console.log(res);
+                    notifyError(res.status);
                 });
 
             }
             vm.cancel();
+        }
+        function notifyError(status) {
+            switch (status) {
+                case 404:
+                    toastr.info(vm.notFoundMessage, vm.errorTitle);
+                    break;
+                default:
+                    toastr.warning(vm.errorMessage, vm.errorTitle);
+                    break;
+
+            }
         }
 
             function crearInsumo() {
