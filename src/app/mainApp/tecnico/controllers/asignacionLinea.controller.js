@@ -65,7 +65,7 @@
             var promise = ModeloCabinet.getAll();
             promise.then(function(res){
                 vm.modelos=res;
-               // console.log(vm.modelos);
+
 
             }).catch(function (res) {
                 notifyError(res.status);
@@ -78,8 +78,8 @@
                 promise.then(function(res){
                     vm.cabinet=res;
                     vm.ver=true;
-                    //console.log(vm.cabinet);
 
+                   
 
                 }).catch(function (res) {
                     notifyError(res.status);
