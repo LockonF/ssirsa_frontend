@@ -134,7 +134,7 @@
                                 </thead>
                                 <tbody md-body="md-body">
                                 <tr md-row="md-row" md-select="insu" md-select-id="{{insu.id}}"
-                                    ng-repeat="insu in vm.insumosEtapaCabinet| orderBy:vm.query.order">
+                                    ng-repeat="insu in vm.insumos| orderBy:vm.query.order">
                                     <td md-cell="md-cell" flex="25">{{insu.nombre}}</td>
                                     <td md-cell="md-cell" flex="15">{{insu.cantidad}}</td>
                                     <td md-cell="md-cell" flex="50">{{insu.notas}}</td>

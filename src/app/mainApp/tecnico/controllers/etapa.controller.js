@@ -180,7 +180,6 @@
             vm.etapaInsumo=null; //Objeto donde se almacena la etapa sobre la cual se esta trabajando
             vm.idCabinet = null;
             vm.insumos = [];//Arreglo que poseera los Insumos que pueden ser usados en cierta etapa
-            vm.insumosEtapaCabinet = null;//Arreglo de Insumos que posee el cabinet en diche etapa
             vm.cabinet;// Informacion general del cabinet al cual se le asignara una nueva etapa
             vm.diagnostico; // Informacion del diagnostico que propicio que entrara a un proceso de servicio tecnico
             vm.insumo = {
@@ -207,7 +206,9 @@
         }
 
         function crearEtapaServicio() {
-            consol.log(vm.etapaActual.prprops)
+            vm.etapaActual.insumos=[];
+            console.log(vm.etapaActual)
+
             if (vm.etapaActual.id==null) {
                 console.log("voy a crear uno nuevo")
                 vm.etapaActual.insumos=vm.insumos;
@@ -219,9 +220,9 @@
                     toastr.success(vm.successText, vm.successStoreText);
                     vm.etapaActual = res;
 
-                }).catch(function (err) {
-                    console.log(vm.failureText, vm.failureStoreText);
-                    console.log.err;
+                }).catch(function (res) {
+
+                    console.log(res);
                     notifyError(res.status);
                 });
             }
@@ -231,9 +232,9 @@
                 promise.then(function (res) {
                     console.log(vm.successText, vm.successUpdateText);
                     vm.etapaActual = res;
-                }).catch(function (err) {
-                    console.log(vm.failureText, vm.failureStoreText);
-                    console.log(err)
+                }).catch(function (res) {
+
+                    console.log(res);
                     notifyError(res.status);
                 });
 
