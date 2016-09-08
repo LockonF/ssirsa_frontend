@@ -1,5 +1,9 @@
 {
     "MAIN": {
+        "COMPONENTS":{
+            "PROFILE": "Perfil",
+            "LOGOUT": "Cerrar Sesión"
+        },
         "MSG": {
             "SUCCESS_TITLE": "Éxito",
             "ERROR_TITLE": "Ooops",
