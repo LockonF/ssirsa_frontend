@@ -6,7 +6,7 @@
         .module('app.mainApp')
         .controller('bienvenidaController',bienvenidaController);
 
-    function bienvenidaController(Session, $scope,$rootScope,AUTH_EVENTS){
+    function bienvenidaController( $scope,$rootScope,AUTH_EVENTS){
         var vm = this;
 
         vm.capturista=false;
