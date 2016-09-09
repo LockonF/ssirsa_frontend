@@ -33,7 +33,7 @@
 
         });
         function showButtons(){
-            if (vm.role==="Tecnico A"){
+            if (vm.role==="Tecnico A"|| vm.role==="Administrador"){
                 vm.tecnicoAVisibility = true;
                 vm.tecnicoBVisibility = true;
                 vm.tecnicoCVisibility = true;
