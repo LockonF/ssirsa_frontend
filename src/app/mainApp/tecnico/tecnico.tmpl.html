@@ -5,7 +5,8 @@
         <img class="make-round" src="{{vmNode.currentUser.userInformation.foto}}" width="100" height="100"/>
     </div>
     <div class="text-light">
-        <h3 class="font-weight-600 margin-bottom-0 text-light">{{vmNode.currentUser.userInformation.nombre}} {{vmNode.currentUser.userInformation.apellido_paterno}}
+        <h3 class="font-weight-600 margin-bottom-0 text-light">{{vmNode.currentUser.userInformation.nombre}}
+            {{vmNode.currentUser.userInformation.apellido_paterno}}
             {{vmNode.currentUser.userInformation.apellido_materno}}</h3>
         <p class="font-weight-300 margin-top-0 margin-bottom-0">{{vmNode.currentUser.userRole}}</p>
 
@@ -17,33 +18,48 @@
         <!-- Tecnico A Section -->
         <label>Técnico A</label>
         <!-- In order to allow position changes, add dragula='"drag-analytics-container"' to the main div of each section -->
-        <div class="drag-container" layout="row" layout-xs="column" layout-margin dragula='"drag-analytics-container"'
-             ng-show="vm.tecnicoAVisibility">
+        <div class="drag-container" layout="row" layout-xs="column" layout-margin
+             ng-show=vm.tecnicoAVisibility>
 
-            <tri-widget palette-background="brown:800" content-layout="row"
-                        content-layout-align="space-between center" content-padding flex>
+            <tri-widget palette-background="cyan:700" content-layout="row"
+                        content-layout-align="center center" content-padding flex>
+                <a ng-href="#/entrada">
+                    <div layout="column" layout-align="center center">
+                        <div layout-align="center center">
+                            <md-icon class="font-size-5 opacity-50 margin-left-10"
+                                     md-font-icon="zmdi zmdi-check"></md-icon>
+                        </div>
+                        <div layout="column" layout-align="center center">
+                            <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Entrada</p>
+                        </div>
+                    </div>
+                </a>
+            </tri-widget>
+            <tri-widget palette-background="cyan:400" content-layout="row"
+                        content-layout-align="center center" content-padding flex>
                 <a ng-href="#/checklist">
                     <div layout="column" layout-align="center center">
-                    <div>
-                        <md-icon class="font-size-5 opacity-50 margin-left-10" md-font-icon="zmdi zmdi-check"></md-icon>
-                    </div>
-                    <div layout="column" layout-align="center end">
-                        <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Checklist Entrada</p>
-                    </div>
+                        <div layout-align="center center">
+                            <md-icon class="font-size-5 opacity-50 margin-left-10"
+                                     md-font-icon="zmdi zmdi-check"></md-icon>
+                        </div>
+                        <div layout="column" layout-align="center center">
+                            <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Pre Checklist
+                                Entrada</p>
+                        </div>
                     </div>
                 </a>
             </tri-widget>
 
-
-            <tri-widget palette-background="brown:200" content-layout="row"
+            <tri-widget palette-background="cyan:200" content-layout="row"
                         content-layout-align="space-between center"
                         content-padding flex l>
-                <a ng-href="#/salidas">
-                    <div>
+                <a ng-href="#/salida">
+                    <div layout-align="center center">
                         <md-icon class="font-size-5 opacity-50 margin-left-10" md-font-icon="fa fa-road"></md-icon>
                     </div>
-                    <div layout="column" layout-align="center end">
-                        <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Generar Salidas</p>
+                    <div layout="column" layout-align="center center">
+                        <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Salidas</p>
                     </div>
                 </a>
             </tri-widget>
@@ -51,49 +67,20 @@
         </div>
         <!-- Tecnico B Section -->
         <label>Técnico B</label>
-        <div class="drag-container" layout="row" layout-xs="column" layout-margin dragula='"drag-analytics-container"'
+        <div class="drag-container" layout="row" layout-xs="column" layout-margin
              ng-show="vm.tecnicoBVisibility">
 
-            <tri-widget palette-background="amber:900" content-layout="row"
-                        content-layout-align="space-between center"
-                        content-padding>
-                <a ng-href="#/etapa">
-                    <div>
-                        <md-icon class="font-size-5 opacity-50 margin-left-10" md-font-icon="fa fa-wrench"></md-icon>
-                    </div>
-                    <div layout="column" layout-align="center end">
-                        <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Registrar Servicio</p>
-                    </div>
-                </a>
-            </tri-widget>
-
-
-            <tri-widget palette-background="amber:700" content-layout="row"
-                        content-layout-align="space-between center"
-                        content-padding>
-                <a ng-href="#/salida">
-                    <div>
-                        <md-icon class="font-size-5 opacity-50 margin-left-10" md-font-icon="fa fa-sign-out"></md-icon>
-                    </div>
-                    <div layout="column" layout-align="center end">
-                        <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Salida de
-                            Inventarios</p>
-                    </div>
-                </a>
-            </tri-widget>
-
-
-            <tri-widget palette-background="amber:300" content-layout="row"
-                        content-layout-align="space-between center"
-                        content-padding>
-                <a ng-href="#/validarEtapa">
-                    <div>
-                        <md-icon class="font-size-5 opacity-50 margin-left-10"
-                                 md-font-icon="zmdi zmdi-assignment-check"></md-icon>
-                    </div>
-                    <div layout="column" layout-align="center end">
-                        <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Validar
-                            procedimientos</p>
+            <tri-widget palette-background="brown:800" content-layout="row"
+                        content-layout-align="center center" content-padding flex>
+                <a ng-href="#/diagnostic">
+                    <div layout="column" layout-align="center center">
+                        <div layout-align="center center">
+                            <md-icon class="font-size-5 opacity-50 margin-left-10"
+                                     md-font-icon="zmdi zmdi-check"></md-icon>
+                        </div>
+                        <div layout="column" layout-align="center center">
+                            <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Diagnostico</p>
+                        </div>
                     </div>
                 </a>
             </tri-widget>
@@ -101,65 +88,50 @@
         </div>
         <!-- Tecnico C Section -->
         <label>Técnico C</label>
-        <div class="drag-container" layout="row" layout-xs="column" layout-margin dragula='"drag-analytics-container"'
+        <div class="drag-container" layout="row" layout-xs="column" layout-margin
              ng-show="vm.tecnicoCVisibility">
-
-            <tri-widget palette-background="red:900" content-layout="row"
-                        content-layout-align="space-between center"
+            <tri-widget palette-background="amber:900" content-layout="row"
+                        content-layout-align="center center"
                         content-padding>
-                <a ng-href="#/salida">
-                    <div>
-                        <md-icon class="font-size-5 opacity-50 margin-left-10" md-font-icon="fa fa-sign-out"></md-icon>
+                <a ng-href="#/etapa">
+                    <div layout-align="center center">
+                        <md-icon class="font-size-5 opacity-50 margin-left-10" md-font-icon="fa fa-wrench"></md-icon>
                     </div>
-                    <div layout="column" layout-align="center end">
-                        <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Salida Stickers</p>
+                    <div layout="column" layout-align="center center">
+                        <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Registrar Servicio</p>
                     </div>
                 </a>
             </tri-widget>
 
-
-            <tri-widget palette-background="red:600" content-layout="row"
-                        content-layout-align="space-between center"
-                        content-padding>
-                <a ng-href="#/salida">
-                    <div>
-                        <md-icon class="font-size-5 opacity-50 margin-left-10" md-font-icon="fa fa-sign-out"></md-icon>
-                    </div>
-                    <div layout="column" layout-align="center end">
-                        <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Salida Accesorios</p>
-                    </div>
-                </a>
-
-            </tri-widget>
-
-            <tri-widget palette-background="red:300" content-layout="row"
-                        content-layout-align="space-between center"
-                        content-padding>
-                <a ng-href="#/checklist">
-                    <div>
-                        <md-icon class="font-size-5 opacity-50 margin-left-10"
-                                 md-font-icon="zmdi zmdi-storage"></md-icon>
-                    </div>
-                    <div layout="column" layout-align="center end">
-                        <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate> Checklist Salida</p>
-                    </div>
-                </a>
-            </tri-widget>
-            </a>
         </div>
         <!-- Tecnico D Section -->
         <label>Técnico D</label>
-        <div class="drag-container" layout="row" layout-xs="column" layout-margin dragula='"drag-analytics-container"'
+        <div class="drag-container" layout="row" layout-xs="column" layout-margin
              ng-show="vm.tecnicoDVisibility">
-            <tri-widget palette-background="green:500" content-layout="row" content-layout-align=" center"
+            <tri-widget palette-background="green:500" content-layout="row" content-layout-align="center center"
                         content-padding>
                 <a ng-href="#/asignacionLinea">
-                    <div>
+                    <div layout-align="center center">
                         <md-icon class="font-size-5 opacity-50 margin-left-10"
                                  md-font-icon="fa fa-hand-o-down"></md-icon>
                     </div>
-                    <div layout="column" layout-align="center end">
+                    <div layout="column" layout-align="center center">
                         <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Asignar linea</p>
+                    </div>
+                </a>
+            </tri-widget>
+            <tri-widget palette-background="green:800" content-layout="row"
+                        content-layout-align="center center" content-padding flex>
+                <a ng-href="#/checklist">
+                    <div layout="column" layout-align="center center">
+                        <div layout-align="center center">
+                            <md-icon class="font-size-5 opacity-50 margin-left-10"
+                                     md-font-icon="zmdi zmdi-check"></md-icon>
+                        </div>
+                        <div layout="column" layout-align="center center">
+                            <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Pre Checklist
+                                Salida</p>
+                        </div>
                     </div>
                 </a>
             </tri-widget>
@@ -168,13 +140,13 @@
         <label>Técnico E</label>
         <div class="drag-container" layout="row" layout-xs="column" layout-margin dragula='"drag-analytics-container"'
              ng-show="vm.tecnicoDVisibility">
-            <tri-widget palette-background="lime:900" content-layout="row" content-layout-align="space-between center"
+            <tri-widget palette-background="lime:900" content-layout="row" content-layout-align="center center"
                         content-padding>
                 <a ng-href="#/checklist">
-                    <div>
+                    <div layout-align="center center">
                         <md-icon class="font-size-5 opacity-50 margin-left-10" md-font-icon="zmdi zmdi-bike"></md-icon>
                     </div>
-                    <div layout="column" layout-align="center end">
+                    <div layout="column" layout-align="center center">
                         <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Entrada</p>
                     </div>
                 </a>
@@ -182,10 +154,10 @@
             <tri-widget palette-background="lime:600" content-layout="row" content-layout-align="space-between center"
                         content-padding>
                 <a ng-href="#/etapa">
-                    <div>
+                    <div layout-align="center center">
                         <md-icon class="font-size-5 opacity-50 margin-left-10" md-font-icon="zmdi zmdi-bike"></md-icon>
                     </div>
-                    <div layout="column" layout-align="center end">
+                    <div layout="column" layout-align="center center">
                         <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Reporte de servicio</p>
                     </div>
                 </a>
@@ -193,10 +165,10 @@
             <tri-widget palette-background="lime:300" content-layout="row" content-layout-align="space-between center"
                         content-padding>
                 <a ng-href="#/checklist">
-                    <div>
+                    <div layout-align="center center">
                         <md-icon class="font-size-5 opacity-50 margin-left-10" md-font-icon="zmdi zmdi-bike"></md-icon>
                     </div>
-                    <div layout="column" layout-align="center end">
+                    <div layout="column" layout-align="center center">
                         <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Checklist de salida</p>
                     </div>
                 </a>
