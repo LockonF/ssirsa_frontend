@@ -18,6 +18,13 @@
             "SUCCESS_DELETE_FOLLOWER": "Se eliminó el seguidor de manera exitosa",
             "NOT_FOUND": "No se encontró el elemento que se buscaba",
             "NOT_FOUND_INPUT": "No se puede realizar el pre-checklist por que el cabinet no cuenta con una Entrada"
+        },
+        "BUTTONS":{
+            "SUBMIT":"Enviar",
+            "UPDATE":"Actualizar",
+            "CANCEL":"Cancelar",
+            "DELETE":"Eliminar",
+            "CLEAR_FIELDS":"Limpiar campos"
         }
     }
 }
