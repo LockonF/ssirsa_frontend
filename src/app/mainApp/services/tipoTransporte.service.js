@@ -21,7 +21,7 @@
 
 
         function list(){
-            return baseTipoTransporte.getList();
+            return baseTipoTransporte.getList().$object;
         }
 
         function update(object)
@@ -34,7 +34,7 @@
         }
 
         function remove(object) {
-            return object.customDELETE(null,null,{'Content-Type':'Application/JSON'});
+            return object.remove();
         }
 
 

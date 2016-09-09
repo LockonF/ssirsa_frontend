@@ -27,7 +27,7 @@ md-card(flex)
                 md-virtual-repeat-container(flex id='vertical_container')
                     div(flex md-virtual-repeat='tipo in vm.tipo_transporte_list')
                         md-list(flex)
-                            div(flex ng-click='vm.tipo_transporte = tipo')
+                            div(flex ng-click='vm.clickRepeater(tipo)')
                                 md-list-item(flex md-ink-ripple)
                                     md-icon(md-font-icon="zmdi zmdi-boat")
                                     span {{tipo.descripcion}}

@@ -28,6 +28,7 @@
         vm.update = update;
         vm.create = create;
         vm.remove = remove;
+        vm.clickRepeater = clickRepeater;
 
         activate();
 
@@ -49,12 +50,7 @@
 
         function listTipos()
         {
-
-            TipoTransporte.list().then(function(res){
-                vm.tipo_transporte_list  = res;
-            }).catch(function(err){
-
-            });
+            vm.tipo_transporte_list  = TipoTransporte.list();
         }
 
         function lookup(search_text){
@@ -64,8 +60,13 @@
             return vm.search_items;
         }
 
-        function selectedItemChange(tipo_transporte){
+        function selectedItemChange(item)
+        {
 
+        }
+
+        function clickRepeater(tipo_transporte){
+            vm.tipo_transporte = tipo_transporte.clone();
         }
 
         function  cancel(){
