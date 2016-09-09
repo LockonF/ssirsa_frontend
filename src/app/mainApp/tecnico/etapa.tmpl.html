@@ -1,25 +1,29 @@
 <div ng-cloak>
-    <md-toolbar>
-        <div class="md-toolbar-tools">
-            <h2>
-                <span>Etapa de Servicio</span>
-            </h2>
-            <span flex></span>
-            <md-button class="md-raised" aria-label="Guardar"
-                       ng-click='vm.crearEtapaServicio()'>
-                <md-icon md-font-icon="fa fa-save"></md-icon>
+    <md-toolbar class="md-medium-tall">
+        <div class="md-toolbar-tools" layout="row" layout-sm="column" layout-xs="column" layout-align="space-between end">
+            <div>
+                <h2>
+                    <span>Etapa de Servicio</span>
+                </h2>
+            </div>
 
-            </md-button>
-            <md-button class="md-raised" aria-label="Guardar"
-                       ng-click="vm.limpiar()">
-                <md-icon md-font-icon="fa fa-eraser"></md-icon>
+            <div layout="row">
+                <md-button class="md-raised" aria-label="Guardar"
+                           ng-click='vm.crearEtapaServicio()'>
+                    <md-icon md-font-icon="fa fa-save"></md-icon>
 
-            </md-button>
-            <md-button class="md-raised" aria-label="Guardar"
-                       ng-click="vm.eliminar()">
-                <md-icon md-font-icon="fa fa-trash"></md-icon>
+                </md-button>
+                <md-button class="md-raised" aria-label="Guardar"
+                           ng-click="vm.limpiar()">
+                    <md-icon md-font-icon="fa fa-eraser"></md-icon>
 
-            </md-button>
+                </md-button>
+                <md-button class="md-raised" aria-label="Guardar"
+                           ng-click="vm.eliminar()">
+                    <md-icon md-font-icon="fa fa-trash"></md-icon>
+
+                </md-button>
+            </div>
         </div>
     </md-toolbar>
     <md-content>
@@ -72,7 +76,7 @@
                         </div>
                         <div layout="row" flex="20">
                             <div layout="column">
-                                <div layout="row">
+                                <div layout="row" layout-sm="column" layout-xs="column">
                                     <md-input-container flex>
                                         <md-button class="md-fab" class="md-primary" aria-label="fab button"
                                                    ng-click="vm.buscar()">
