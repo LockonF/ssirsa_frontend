@@ -23,7 +23,6 @@
         vm.solicitudes = null;
         vm.proyectos = null;
         vm.showSolicitudes = false;
-        vm.hidden = true;
         vm.hover = false;
         activate();
         function activate() {
@@ -53,8 +52,6 @@
 
         function selectedLineas(project) {
             vm.selectedLinea = project;
-            vm.hidden=false;
-            toggleUsersList();
         }
 
 

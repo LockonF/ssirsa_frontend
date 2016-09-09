@@ -2,10 +2,10 @@
     <div layout="row" layout-align="center center">
         <p flex="70" flex-sm="100" flex-gt-xs="100" translate="" class="md-headline font-weight-300 text-center text-light">TRANSPORT_LINE.FORM.LABEL.TRANSPORT_LINE</p>
     </div>
-    <div flex="" layout="row" layout-align="center center" layout-xs="column" layout-fill="">
+    <div flex="" layout="row" layout-align="center center" layout-xs="column"    layout-fill="">
         <div flex="80" layout="column"   class="md-whiteframe-z1 margin-bottom-100">
-            <div flex="flex" layout="row" layout-xs="column" class="background">
-                <div layout="column" flex-lg="35"   flex-gt-sm="100" layout-fill>
+            <div flex="flex" layout="row" layout-xs="column" layout-sm="column"   class="background" >
+                <div layout="column" flex-lg="35"  flex-gt-lg="35" flex-xl="35"  flex-gt-sm="100" flex-md="100" flex-sm="100" flex-gt-xs="100" flex-xs="100">
                     <md-autocomplete ng-disabled="vm.isDisabled" md-no-cache="vm.noCache" md-selected-item="vm.selectedItem" md-search-text-change="vm.searchTextChange(vm.searchText)" md-search-text="vm.searchText" md-selected-item-change="vm.selectedItemChange(item)" md-items="item in vm.querySearch(vm.searchText)" md-item-text="item.razon_social" md-min-length="0" md-floating-label="{{ 'TRANSPORT_LINE.FORM.PLACEHOLDER.SEARCH_TRANSPORT_LINE' | translate }}" md-menu-class="autocomplete-custom-template" class="margin-top-20"><span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.razon_social}}</span>
                         <md-item-template><span class="item-title">
                         <md-icon md-font-icon="fa fa-briefcase"></md-icon>
@@ -28,14 +28,14 @@
                         </md-list>
                     </md-virtual-repeat-container>
                 </div>
-                <div layout="column"  flex-lg="65"  flex-gt-sm="100" id="register" layout-fill>
+                <div layout="column"  flex-lg="65"  flex-gt-lg="65" flex-xl="65"  flex-gt-sm="100" flex-md="100" flex-sm="100" flex-gt-xs="100" flex-xs="100" id="register" >
                     <md-button class="md-fab md-scale md-fab-top-right" ng-click="vm.showRegister($event)">
                         <md-icon md-font-icon="fa fa-plus" style="color:white;">
                             <md-tooltip md-direction="left" md-autohide="false" md-visible="vm.tooltipVisible ">Inscribir resultado</md-tooltip>
                         </md-icon>
                     </md-button>
 
-                    <md-content ui-view="ui-view" id="content">
+                    <md-content id="content"  >
                         <div layout="column" flex="flex" ng-show="vm.selectedLinea!=null">
                             <h2 translate="" class="md-headline-1 text-center">TRANSPORT_LINE.FORM.LABEL.INFO_TRANSPORT_LINE</h2>
                             <h2 class="md-subhead"><span translate="TRANSPORT_LINE.FORM.LABEL.BUSINESS_NAME" class="bold"></span><span>:&nbsp; {{vm.selectedLinea.razon_social}}</span></h2>
