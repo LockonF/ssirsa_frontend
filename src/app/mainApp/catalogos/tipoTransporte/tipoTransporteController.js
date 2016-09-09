@@ -9,7 +9,7 @@
         .module('app.mainApp.catalogos')
         .controller('TipoTransporteController',TipoTransporteController);
 
-    function TipoTransporteController(TipoTransporte, toastr, Translate)
+    function TipoTransporteController(TipoTransporte, toastr, Translate, $scope)
     {
         var vm = this;
 
@@ -69,6 +69,7 @@
         }
 
         function  cancel(){
+            $scope.inputForm.$setPristine();
             vm.tipo_transporte = null;
         }
 

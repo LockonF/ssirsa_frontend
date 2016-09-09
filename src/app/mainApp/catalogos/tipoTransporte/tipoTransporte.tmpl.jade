@@ -35,10 +35,14 @@ md-card(flex)
 
             div(flex layout-align='start stretch' layout='column')
                 h3.md-display-1() {{'Transport_Kind.info' | translate}}
-                md-input-container.md-block
-                    label {{ 'Transport_Kind.description' | translate }}
-                    input(type='text' ng-model='vm.tipo_transporte.descripcion')
-                md-button.md-raised.md-primary(ng-if='vm.tipo_transporte.id!=null && vm.tipo_transporte.id!=undefined' ng-click='vm.update()') {{ "MAIN.BUTTONS.UPDATE" | translate}}
-                md-button.md-raised.md-primary(ng-if='vm.tipo_transporte.id==null || vm.tipo_transporte.id==undefined' ng-click='vm.create()') {{ "MAIN.BUTTONS.SUBMIT" | translate}}
+                form(name='inputForm')
+                    md-input-container.md-block
+                        label {{ 'Transport_Kind.description' | translate }}
+                        input(type='text' name='descripcion' ng-model='vm.tipo_transporte.descripcion' ng-required='true')
+                        div(ng-messages='inputForm.descripcion.$error')
+                            div(ng-message='required') {{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}
+
+                md-button.md-raised.md-primary(ng-if='vm.tipo_transporte.id!=null && vm.tipo_transporte.id!=undefined' ng-disabled='inputForm.$invalid' ng-click='vm.update()') {{ "MAIN.BUTTONS.UPDATE" | translate}}
+                md-button.md-raised.md-primary(ng-if='vm.tipo_transporte.id==null || vm.tipo_transporte.id==undefined' ng-disabled='inputForm.$invalid' ng-click='vm.create()') {{ "MAIN.BUTTONS.SUBMIT" | translate}}
                 md-button.md-raised.md-primary(ng-click='vm.cancel()') {{'MAIN.BUTTONS.CLEAR_FIELDS' | translate}}
                 md-button.md-raised.md-warn(ng-if='vm.tipo_transporte.id!=null && vm.tipo_transporte.id!=undefined' ng-click='vm.remove()') {{'MAIN.BUTTONS.DELETE' | translate}}

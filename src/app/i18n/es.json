@@ -29,6 +29,10 @@
             "CANCEL":"Cancelar",
             "DELETE":"Eliminar",
             "CLEAR_FIELDS":"Limpiar campos"
+        },
+        "GENERAL":{
+            "REQUIRED_FIELD":"Campo Requerido"
+
         }
     }
 }
