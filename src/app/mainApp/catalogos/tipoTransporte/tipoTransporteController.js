@@ -9,7 +9,7 @@
         .module('app.mainApp.catalogos')
         .controller('TipoTransporteController',TipoTransporteController);
 
-    function TipoTransporteController(TipoTransporte)
+    function TipoTransporteController(TipoTransporte, toastr, Translate)
     {
         var vm = this;
 
@@ -25,18 +25,36 @@
         vm.lookup = lookup;
         vm.selectedItemChange = selectedItemChange;
         vm.cancel = cancel;
+        vm.update = update;
+        vm.create = create;
+        vm.remove = remove;
 
         activate();
 
 
         function activate(){
+
+            vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
+            vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
+            vm.successCreateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_CREATE');
+            vm.successUpdateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_UPDATE');
+            vm.successDeleteMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_DELETE');
+            vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
+            vm.notFoundMessage = Translate.translate('MAIN.MSG.NOT_FOUND');
+            vm.notFoundInput=Translate.translate('MAIN.MSG.NOT_FOUND_INPUT');
+            vm.errorTypeFile = Translate.translate('MAIN.MSG.ERORR_TYPE_FILE');
+            vm.errorSize = Translate.translate('MAIN.MSG.FILE_SIZE');
+            listTipos();
+        }
+
+        function listTipos()
+        {
+
             TipoTransporte.list().then(function(res){
                 vm.tipo_transporte_list  = res;
-                console.log(vm.tipo_transporte_list);
             }).catch(function(err){
 
             });
-
         }
 
         function lookup(search_text){
@@ -52,6 +70,35 @@
 
         function  cancel(){
             vm.tipo_transporte = null;
+        }
+
+        function update(){
+            TipoTransporte.update(vm.tipo_transporte).then(function(res){
+                toastr.success(vm.successUpdateMessage,vm.successTitle);
+                listTipos();
+            }).catch(function(err){
+                toastr.error(vm.errorMessage,vm.errorTitle);
+            });
+        }
+
+        function create()
+        {
+            TipoTransporte.create(vm.tipo_transporte).then(function(res){
+                listTipos();
+                toastr.success(vm.successCreateMessage,vm.successTitle);
+            }).catch(function(err){
+                toastr.error(vm.errorMessage,vm.errorTitle);
+            });
+        }
+
+        function remove()
+        {
+            TipoTransporte.remove(vm.tipo_transporte).then(function(res){
+                listTipos();
+                toastr.success(vm.successDeleteMessage,vm.successTitle)
+            }).catch(function(err){
+                toastr.error(vm.errorMessage,vm.errorTitle);
+            });
         }
 
     }

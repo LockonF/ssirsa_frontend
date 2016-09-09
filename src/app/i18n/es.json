@@ -8,6 +8,10 @@
             "SUCCESS_TITLE": "Éxito",
             "ERROR_TITLE": "Ooops",
             "ERROR_MESSAGE": "Ha ocurrido un error, por favor intente de nuevo más tarde",
+            "GENERIC_SUCCESS_CREATE": "El elemento se ha creado exitosamente",
+            "GENERIC_SUCCESS_UPDATE": "El elemento se ha actualizado exitosamente",
+            "GENERIC_SUCCESS_DELETE": "El elemento se ha eliminado exitosamente",
+
             "SUCCESS_TICKET_MESSAGE": "Se creó exitosamente el pre-checklist",
             "SUCCESS_DIAGNOSTIC_MESSAGE": "Se creó exitosamente el diagnóstico",
             "SUCCESS_LINE_MESSAGE":"Se Asigno  exitosamente el Cabinet",

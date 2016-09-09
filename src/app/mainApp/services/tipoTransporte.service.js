@@ -10,14 +10,33 @@
 
     function TipoTransporte(Restangular)
     {
+        var baseTipoTransporte = Restangular.all('tipo_transporte');
+
         var service = {
-            list:list
+            list:list,
+            update:update,
+            create:create,
+            remove:remove
         };
 
 
         function list(){
-            return Restangular.all('tipo_transporte').getList();
+            return baseTipoTransporte.getList();
         }
+
+        function update(object)
+        {
+            return object.put();
+        }
+
+        function create(object){
+            return baseTipoTransporte.post(object);
+        }
+
+        function remove(object) {
+            return object.customDELETE(null,null,{'Content-Type':'Application/JSON'});
+        }
+
 
 
 
