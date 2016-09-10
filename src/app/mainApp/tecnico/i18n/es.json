@@ -37,6 +37,22 @@
                 "EVIDENCE":"Evidencia fotográfica"
             }
         }
+    },
+    "ETAPA_SERVICIO":{
+        "TITLE":"Registro de Servicio",
+        "ID_CABINET":"Id de Cabinet",
+        "ETAPA_INFO":"Información de Etapa",
+        "ETAPA_INSUMOS":"Insumos de la Etapa",
+        "NO_DIAGNOSTIC":"No. de Diagnostico",
+        "ETAPA_ACTUAL":"Etapa Actual",
+        "NEXT_ETAPA":"Siguiente Etapa",
+        "ECONOMIC":"Económico",
+        "ACTUAL_STATE":"Status Actual",
+        "INCIDENTS":"Incidencias",
+        "INSUM":"Insumo",
+        "CANTITY":"Cantidad",
+        "NOTES":"Notas",
+        "NAME":"Nombre"
     }
 
 }
