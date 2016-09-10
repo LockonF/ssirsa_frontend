@@ -71,6 +71,20 @@
         "SELECTED_CABINET":"Cabinet Seleccionado",
         "AGE":"ANTIGÜEDAD"
 
+    },
+    "TEC":{
+        "TECNICIANA":"Técnico A",
+        "TECNICIANB":"Técnico B",
+        "TECNICIANC":"Técnico C",
+        "TECNICIAND":"Técnico D",
+        "TECNICIANE":"Técnico E",
+        "IN":"Entradas",
+        "PRECHEK_IN":"Pre Checklist Entrada",
+        "OUT":"Salidas",
+        "DIAGNOSTIC":"Diagnostico",
+        "SERVICE":"Registrar Servicio",
+        "LINE":"Asignar Linea",
+        "PRECHECKOUT":"Pre Checklist Salida"
     }
 
 }
