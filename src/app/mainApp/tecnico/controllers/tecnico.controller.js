@@ -46,22 +46,26 @@
                     vm.tecnicoBVisibility = true;
                     vm.tecnicoCVisibility = true;
                     vm.tecnicoDVisibility = true;
+                    vm.tecnicoEVisibility = false;
 
                 }
                 else{
                     if(vm.role==="Tecnico C"){
                         vm.tecnicoCVisibility = true;
                         vm.tecnicoDVisibility = true;
+                        vm.tecnicoEVisibility = false;
 
                     }
                     else{
                         if(vm.role==="Tecnico D"){
 
                             vm.tecnicoDVisibility = true;
+                            vm.tecnicoEVisibility = false;
 
 
                         }
                         else{
+                            if(vm.role==="Tecnico E")
                             vm.tecnicoEVisibility = true;
                         }
                     }
