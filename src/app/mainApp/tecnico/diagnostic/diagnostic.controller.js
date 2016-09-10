@@ -7,9 +7,9 @@
 
     angular
         .module('app.mainApp.tecnico')
-        .controller('diagnosticController', diagnosticController);
+        .controller('DiagnosticController', DiagnosticController);
 
-    function diagnosticController(Cabinet, ModeloCabinet,toastr,Translate,Helper,Upload,EnvironmentConfig,OAuthToken,MarcaCabinet,EntradaSalida) {
+    function DiagnosticController(Cabinet, toastr,Translate,Helper,Upload,EnvironmentConfig,OAuthToken) {
         var vm = this;
         vm.diagnostico = {};
         vm.cabinets=null;
@@ -78,23 +78,21 @@
             }else{
                 vm.cabinets.status=vm.statu[vm.cabinetStatus].value;
             }
-            console.log(vm.cabinets);
-
 
             Upload.upload({
                 url: EnvironmentConfig.site.rest.api+'cabinet/'+vm.cabinet,
                 headers: {'Authorization': OAuthToken.getAuthorizationHeader()},
                 method: 'PUT',
                 data: vm.cabinets
-            }).then(function (res) {
+            }).then(function () {
                 vm.status = 'idle';
                 vm.cabinet=null;
                 vm.cabinets=null;
                 vm.picFile=null;
                 toastr.success(vm.successCreateMessage, vm.successTitle);
                 vm.diagnostico=null;
-            }, function (resp) {
-                vm.status = 'idle'; 
+            }, function () {
+                vm.status = 'idle';
                 toastr.warning(vm.errorMessage, vm.errorTitle);
             });
         }
@@ -104,7 +102,7 @@
                 var extn=file.name.split(".").pop();
                 if(file.size/1000000>1) {
                     toastr.warning(vm.errorSize, vm.errorTitle);
-                    vm.picFile = null
+                    vm.picFile = null;
 
                 }else if (!Helper.acceptFile(file.type))  {
                     if (!Helper.acceptFile(extn))  {

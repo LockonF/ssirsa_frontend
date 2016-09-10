@@ -19,9 +19,18 @@
             getSucursales:getSucursales,
             getProyectos:getProyectos,
             getUDN:getUDN,
-            cabinetExist:cabinetExist
+            cabinetExist:cabinetExist,
+            getLastEntradaByCabinet:getLastEntradaByCabinet
         };
-
+        function getLastEntradaByCabinet(idCabinet) {
+            var defer=$q.defer();
+            Restangular.one('entrada_salida').all('cabinet',idCabinet).customGET().then(function(res){
+                defer.resolve(res);
+            }).catch(function(err){
+                defer.resolve(err);
+            });
+            return defer.promise;
+        }
         //entrada_salida
         function postEntrada(data){
             var defer= $q.defer();

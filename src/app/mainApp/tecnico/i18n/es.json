@@ -28,7 +28,9 @@
                 "TYPE_INPUT":"Tipo de Entrada",
                 "YEAR":"Año",
                 "NO_INCIDENTS":"No. de incidencias",
-                "STATUS":"Estado"
+                "STATUS":"Estado",
+                "OUTPUT":"Salida",
+                "CABINET":"Cabinet"
 
             },
             "SUBHEAD":{

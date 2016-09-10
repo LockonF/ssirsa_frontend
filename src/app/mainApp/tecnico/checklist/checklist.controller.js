@@ -17,6 +17,7 @@
         vm.guardar = guardar;
         vm.searchCabinet = searchCabinet;
         vm.selectionFile=selectionFile;
+        vm.change=change;
         activate();
         var diagnostico = {
             tipo: 'entrada',
@@ -35,7 +36,9 @@
             cabinet_entrada_salida: null
         };
         vm.diagnostico=angular.copy(diagnostico);
-
+        function change() {
+            console.log("gggg");
+        }
         function guardar() {
             vm.status = 'uploading';
             if(vm.picFile!=null) {
