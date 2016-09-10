@@ -3,7 +3,7 @@
         <div class="md-toolbar-tools" layout="row" layout-sm="column" layout-xs="column" layout-align="space-between end">
             <div>
                 <h2>
-                    <span>Etapa de Servicio</span>
+                    <span translate>ETAPA_SERVICIO.TITLE</span>
                 </h2>
             </div>
 
@@ -33,23 +33,23 @@
                     <div flex="100" layout="row">
                         <div layout="column" flex="80">
                             <md-input-container flex="50">
-                                <label>Id de Cabinet</label>
+                                <label translate>ETAPA_SERVICIO.ID_CABINET</label>
                                 <input type="text" ng-model="vm.idCabinet"/>
                             </md-input-container>
                             <div layout="row">
                                 <md-input-container flex="30">
-                                    <label>No. de Diagnostico</label>
+                                    <label translate>ETAPA_SERVICIO.NO_DIAGNOSTIC</label>
                                     <input type="text" ng-model="vm.diagnostico.id" ng-disabled="true"/>
                                 </md-input-container>
                                 <md-input-container flex="35">
-                                    <label translate>Etapa Actual</label>
+                                    <label translate>ETAPA_SERVICIO.ETAPA_ACTUAL</label>
                                     <md-select ng-model="vm.etapaActual.actual_etapa" name="select" ng-disabled="true">
                                         <md-option ng-repeat="etap in vm.etapas" ng-value="etap.value">{{etap.nombre}}
                                         </md-option>
                                     </md-select>
                                 </md-input-container>
                                 <md-input-container flex="35">
-                                    <label translate>Etapa Siguiente</label>
+                                    <label translate>ETAPA_SERVICIO.NEXT_ETAPA</label>
                                     <md-select ng-model="vm.etapaActual.siguiente_etapa" name="select"
                                                ng-disabled="vm.editable">
                                         <md-option ng-repeat="etap in vm.etapas" ng-value="etap.value">{{etap.nombre}}
@@ -63,12 +63,12 @@
                                     <input type="text" ng-model="vm.cabinet.economico" ng-disabled="true"/>
                                 </md-input-container>
                                 <md-input-container flex>
-                                    <label translate>Estado Actual</label>
+                                    <label translate>ETAPA_SERVICIO.ACTUAL_STATE</label>
                                     <input type="text" ng-model="vm.cabinet.status" ng-disabled="true"/>
 
                                 </md-input-container>
                                 <md-input-container flex>
-                                    <label>Incidencias</label>
+                                    <label translate>ETAPA_SERVICIO.INCIDENTS</label>
                                     <input type="number" ng-model="vm.cabinet.no_incidencias" ng-disabled="true"/>
                                 </md-input-container>
                             </div>
@@ -102,17 +102,17 @@
                 <md-content class="md-padding">
                     <div layout="row">
                         <md-input-container flex="25">
-                            <label translate>Insumo</label>
+                            <label translate>ETAPA_SERVICIO.NAME</label>
                             <md-select ng-model="vm.insumo" name="select" ng-disabled="vm.editable">
                                 <md-option ng-repeat="insu in vm.insumos" ng-value="insu">{{insu.nombre}}</md-option>
                             </md-select>
                         </md-input-container>
                         <md-input-container flex="15">
-                            <label>Cantidad</label>
+                            <label translate>ETAPA_SERVICIO.CANTITY</label>
                             <input type="number" ng-model="vm.insumo.cantidad" ng-disabled="vm.editable"/>
                         </md-input-container>
                         <md-input-container flex="50">
-                            <label>Notas</label>
+                            <label>ETAPA_SERVICIO.NOTES</label>
                             <input type="text" ng-model="vm.insumo.notas" ng-disabled="vm.editable"/>
                         </md-input-container>
                         <md-input-container flex="10">
@@ -128,10 +128,10 @@
                                 <thead md-head="" md-order="vm.query.order">
                                 <tr md-row="md-row">
                                     <th md-column="md-column" md-order-by="nombre" flex="25"><span
-                                            translate="">Nombre</span></th>
-                                    <th md-column="md-column" md-order-by="cantidad" flex="15"><span translate="">Cantidad</span>
+                                            translate>ETAPA_SERVICIO.NAME</span></th>
+                                    <th md-column="md-column" md-order-by="cantidad" flex="15"><span translate>ETAPA_SERVICIO.CANTITY</span></th>
                                     <th md-column="md-column" md-order-by="notas" flex="50"><span
-                                            translate="">Notas</span>
+                                            translate>ETAPA_SERVICIO.NOTES</span>
                                         <!-- Cuerpo de la tabla-->
                                     </th>
                                 </tr>
