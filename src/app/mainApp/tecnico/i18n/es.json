@@ -53,6 +53,24 @@
         "CANTITY":"Cantidad",
         "NOTES":"Notas",
         "NAME":"Nombre"
+    },
+    "CABINET":{
+        "LINE_ASSIGMENT":"Asignación de Linea",
+        "ID_CABINET":"Id de Cabinet",
+        "EJEX":"Pasillo",
+        "EJEY":"Nivel",
+        "EJEZ":"Profundidad",
+        "ECONOMIC":"Economico",
+        "STATUS":"Estado Actual",
+        "INCIDENTS":"Incidencias",
+        "FUNCTION":"Funciona",
+        "ID_UNILEVER":"Id de Unilever",
+        "NO_SERIE":"Número de Serie",
+        "YEAR":"Año",
+        "MODEL":"Modelo",
+        "SELECTED_CABINET":"Cabinet Seleccionado",
+        "AGE":"ANTIGÜEDAD"
+
     }
 
 }
