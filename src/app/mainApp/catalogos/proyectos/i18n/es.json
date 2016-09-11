@@ -1,0 +1,8 @@
+{
+  "Headers":{
+    "Project":"Proyecto"
+  },
+  "Errors":{
+    "Required":"El campo es requerido"
+  }
+}
