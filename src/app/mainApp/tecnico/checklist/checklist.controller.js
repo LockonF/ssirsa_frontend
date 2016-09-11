@@ -101,7 +101,6 @@
                         vm.statusReady=1;
                         vm.diagnostico.cabinet_entrada_salida=res.id;
                     }).catch(function (res) {
-
                         if(res.status==404){
                             vm.statusReady=0;//NO listo
                             toastr.info(vm.notFoundInput, vm.errorTitle);

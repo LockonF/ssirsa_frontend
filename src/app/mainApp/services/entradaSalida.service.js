@@ -24,10 +24,10 @@
         };
         function getLastEntradaByCabinet(idCabinet) {
             var defer=$q.defer();
-            Restangular.one('entrada_salida').all('cabinet',idCabinet).customGET().then(function(res){
+            Restangular.one('entrada_salida').one('cabinet').customGET(idCabinet).then(function(res){
                 defer.resolve(res);
             }).catch(function(err){
-                defer.resolve(err);
+                defer.reject(err);
             });
             return defer.promise;
         }

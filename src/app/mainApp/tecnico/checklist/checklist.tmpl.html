@@ -162,10 +162,9 @@
                                     </md-input-container>
                                 </div>
                             </div>
-
-                            <span class="md-subhead">{{'TECNICO.FORM.SUBHEAD.EVIDENCE'|translate}}</span>
-                            <div layout="row" flex="flex">
-                                <div flex="20">
+                            <div layout="row" flex="100" layout-sm="column" layout-align-sm="center center" layout-xs="column" layout-align-xs="center center">
+                                <p>{{'TECNICO.FORM.SUBHEAD.EVIDENCE'|translate}}</p>
+                                <div flex="30" layout="column" layout-align="space-around center">
                                     <md-button ngf-select="vm.selectionFile($files)"
                                                ngf-accept="'image/*'"
                                                class="md-primary md-raised"
@@ -176,18 +175,22 @@
                                         <md-icon md-font-icon
                                                  ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}"></md-icon>
                                     </md-button>
-                                    <md-button type="submit" ng-disabled='registerForm.$invalid' ng-click="vm.guardar()"
-                                               class="md-primary md-raised">
-                                        <md-icon md-font-icon="fa fa-save">
-                                    </md-button>
-                                </div>
-                                <div flex="80">
-                                    <div class="md-media-md card-media">
-                                        <img ngf-src="vm.picFile" class="thumb" width="120px" height="120px">
-                                    </div>
                                 </div>
                             </div>
+                            <div flex="80" layout-sm="column" layout-align-sm="center center" layout-xs="column" layout-align-xs="center center" >
+                                <div class="md-media-md card-media">
+                                    <img ngf-src="vm.picFile" class="thumb" width="120px" height="120px">
+                                </div>
+                            </div>
+
                         </div>
+
+                    </div>
+                    <div layout="row" layout-align="end center">
+                        <md-button type="submit" ng-disabled='registerForm.$invalid' ng-click="vm.guardar()"
+                                   class="md-primary md-raised">
+                            <md-icon md-font-icon="fa fa-save">
+                        </md-button>
                     </div>
                 </md-card-content>
             </md-card>
