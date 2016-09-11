@@ -4,7 +4,6 @@
     angular
         .module('app')
         .config(dateConfig)
-        .config(dateTimeConfig)
         .config(translateConfig);
 
     /* @ngInject */
@@ -53,28 +52,5 @@
         $mdDateLocaleProvider.msgCalendar = 'Calendario';
         $mdDateLocaleProvider.msgOpenCalendar = 'Abrir el Calendario';
     }
-     function dateTimeConfig(pickerProvider) {
-       /* pickerProvider.setOkLabel('Salvar');
-        pickerProvider.setCancelLabel('Cancelar');
-        //  Over ride day names by changing here
-        pickerProvider.setDayHeader('shortName');  //Options 'single','shortName', 'fullName'
-         pickerProvider.setDaysNames([
-             {'single':'D','shortName':'Dom','fullName':'Domingo'},
-             {'single':'L','shortName':'Lun','fullName':'Lunes'},
-             {'single':'M','shortName':'Mar','fullName':'Martes'},
-             {'single':'M','shortName':'Mie','fullName':'Miércoles'},
-             {'single':'J','shortName':'Jue','fullName':'Jueves'},
-             {'single':'V','shortName':'Vie','fullName':'Viernes'},
-             {'single':'S','shortName':'Sab','fullName':'Sábado'}
-         ]);
-         // Range Picker Configuration
-         pickerProvider.setDivider('Para');
-         pickerProvider.setMonthNames(['Enero', 'Febrero', 'Marzo', 'Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']);
-         pickerProvider.setRangeDefaultList(['Hoy',
-             'Últimos 7 Días',
-             'Este Mes',
-             'Último Mes',
-             'Rango personalizado']);
-         pickerProvider.setRangeCustomStartEnd(['Fecha Inicial', 'Fecha Final']);*/
-    }
+
 })();
