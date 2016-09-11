@@ -16,7 +16,7 @@
 <div class="full-height full-image-background mb-bg-fb-27" align="column">
     <div align="row">
         <!-- Tecnico A Section -->
-        <label>Técnico A</label>
+        <label ng-show=vm.tecnicoAVisibility translate>TEC.TECNICIANA</label>
         <!-- In order to allow position changes, add dragula='"drag-analytics-container"' to the main div of each section -->
         <div class="drag-container" layout="row" layout-xs="column" layout-margin
              ng-show=vm.tecnicoAVisibility>
@@ -30,7 +30,7 @@
                                      md-font-icon="zmdi zmdi-check"></md-icon>
                         </div>
                         <div layout="column" layout-align="center center">
-                            <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Entrada</p>
+                            <p class="md-headline opacity-60 margin-top-0 margin-bottom-0" translate>TEC.IN</p>
                         </div>
                     </div>
                 </a>
@@ -44,8 +44,7 @@
                                      md-font-icon="zmdi zmdi-check"></md-icon>
                         </div>
                         <div layout="column" layout-align="center center">
-                            <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Pre Checklist
-                                Entrada</p>
+                            <p class="md-headline opacity-60 margin-top-0 margin-bottom-0" translate>TEC.PRECHEK_IN</p>
                         </div>
                     </div>
                 </a>
@@ -59,14 +58,14 @@
                         <md-icon class="font-size-5 opacity-50 margin-left-10" md-font-icon="fa fa-road"></md-icon>
                     </div>
                     <div layout="column" layout-align="center center">
-                        <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Salidas</p>
+                        <p class="md-headline opacity-60 margin-top-0 margin-bottom-0" translate>TEC.OUT</p>
                     </div>
                 </a>
             </tri-widget>
 
         </div>
         <!-- Tecnico B Section -->
-        <label>Técnico B</label>
+        <label ng-show="vm.tecnicoBVisibility" translate>TEC.TECNICIANB</label>
         <div class="drag-container" layout="row" layout-xs="column" layout-margin
              ng-show="vm.tecnicoBVisibility">
 
@@ -79,7 +78,7 @@
                                      md-font-icon="zmdi zmdi-check"></md-icon>
                         </div>
                         <div layout="column" layout-align="center center">
-                            <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Diagnostico</p>
+                            <p class="md-headline opacity-60 margin-top-0 margin-bottom-0" translate>TEC.DIAGNOSTIC</p>
                         </div>
                     </div>
                 </a>
@@ -87,7 +86,7 @@
 
         </div>
         <!-- Tecnico C Section -->
-        <label>Técnico C</label>
+        <label ng-show="vm.tecnicoCVisibility" translate>TEC.TECNICIANC</label>
         <div class="drag-container" layout="row" layout-xs="column" layout-margin
              ng-show="vm.tecnicoCVisibility">
             <tri-widget palette-background="amber:900" content-layout="row"
@@ -98,17 +97,17 @@
                         <md-icon class="font-size-5 opacity-50 margin-left-10" md-font-icon="fa fa-wrench"></md-icon>
                     </div>
                     <div layout="column" layout-align="center center">
-                        <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Registrar Servicio</p>
+                        <p class="md-headline opacity-60 margin-top-0 margin-bottom-0" translate>TEC.SERVICE</p>
                     </div>
                 </a>
             </tri-widget>
 
         </div>
         <!-- Tecnico D Section -->
-        <label>Técnico D</label>
+        <label ng-show="vm.tecnicoDVisibility" translate>TEC.TECNICIAND</label>
         <div class="drag-container" layout="row" layout-xs="column" layout-margin
              ng-show="vm.tecnicoDVisibility">
-            <tri-widget palette-background="green:500" content-layout="row" content-layout-align="center center"
+            <tri-widget palette-background="green:700" content-layout="row" content-layout-align="center center"
                         content-padding>
                 <a ng-href="#/asignacionLinea">
                     <div layout-align="center center">
@@ -116,11 +115,11 @@
                                  md-font-icon="fa fa-hand-o-down"></md-icon>
                     </div>
                     <div layout="column" layout-align="center center">
-                        <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Asignar linea</p>
+                        <p class="md-headline opacity-60 margin-top-0 margin-bottom-0" translate>TEC.LINE</p>
                     </div>
                 </a>
             </tri-widget>
-            <tri-widget palette-background="green:800" content-layout="row"
+            <tri-widget palette-background="green:500" content-layout="row"
                         content-layout-align="center center" content-padding flex>
                 <a ng-href="#/checklist">
                     <div layout="column" layout-align="center center">
@@ -129,47 +128,69 @@
                                      md-font-icon="zmdi zmdi-check"></md-icon>
                         </div>
                         <div layout="column" layout-align="center center">
-                            <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Pre Checklist
-                                Salida</p>
+                            <p class="md-headline opacity-60 margin-top-0 margin-bottom-0" translate>TEC.PRECHECKOUT</p>
                         </div>
                     </div>
                 </a>
             </tri-widget>
         </div>
         <!-- Tecnico E Section -->
-        <label>Técnico E</label>
+        <label ng-show="vm.tecnicoDVisibility" translate>TEC.TECNICIANE</label>
         <div class="drag-container" layout="row" layout-xs="column" layout-margin
              ng-show="vm.tecnicoDVisibility">
-            <tri-widget palette-background="lime:900" content-layout="row" content-layout-align="center center"
-                        content-padding>
-                <a ng-href="#/checklist">
-                    <div layout-align="center center">
-                        <md-icon class="font-size-5 opacity-50 margin-left-10" md-font-icon="zmdi zmdi-bike"></md-icon>
-                    </div>
+            <tri-widget palette-background="lime:900" content-layout="row"
+                        content-layout-align="center center" content-padding flex>
+                <a ng-href="#/entrada">
                     <div layout="column" layout-align="center center">
-                        <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Entrada</p>
+                        <div layout-align="center center">
+                            <md-icon class="font-size-5 opacity-50 margin-left-10"
+                                     md-font-icon="zmdi zmdi-bike"></md-icon>
+                        </div>
+                        <div layout="column" layout-align="center center">
+                            <p class="md-headline opacity-60 margin-top-0 margin-bottom-0" translate>TEC.IN</p>
+                        </div>
                     </div>
                 </a>
             </tri-widget>
-            <tri-widget palette-background="lime:600" content-layout="row" content-layout-align="center center"
-                        content-padding>
+            <tri-widget palette-background="lime:700" content-layout="row"
+                        content-layout-align="center center" content-padding flex>
+                <a ng-href="#/checklist">
+                    <div layout="column" layout-align="center center">
+                        <div layout-align="center center">
+                            <md-icon class="font-size-5 opacity-50 margin-left-10"
+                                     md-font-icon="zmdi zmdi-bike"></md-icon>
+                        </div>
+                        <div layout="column" layout-align="center center">
+                            <p class="md-headline opacity-60 margin-top-0 margin-bottom-0" translate>TEC.PRECHEK_IN</p>
+                        </div>
+                    </div>
+                </a>
+            </tri-widget>
+            <tri-widget palette-background="lime:500" content-layout="row"
+                        content-layout-align="center center" content-padding flex>
                 <a ng-href="#/etapa">
-                    <div layout-align="center center">
-                        <md-icon class="font-size-5 opacity-50 margin-left-10" md-font-icon="zmdi zmdi-bike"></md-icon>
-                    </div>
                     <div layout="column" layout-align="center center">
-                        <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Reporte de servicio</p>
+                        <div layout-align="center center">
+                            <md-icon class="font-size-5 opacity-50 margin-left-10"
+                                     md-font-icon="zmdi zmdi-bike"></md-icon>
+                        </div>
+                        <div layout="column" layout-align="center center">
+                            <p class="md-headline opacity-60 margin-top-0 margin-bottom-0" translate>TEC.SERVICE</p>
+                        </div>
                     </div>
                 </a>
             </tri-widget>
-            <tri-widget palette-background="lime:300" content-layout="row" content-layout-align="center center"
-                        content-padding>
+            <tri-widget palette-background="lime:300" content-layout="row"
+                        content-layout-align="center center" content-padding flex>
                 <a ng-href="#/checklist">
-                    <div layout-align="center center">
-                        <md-icon class="font-size-5 opacity-50 margin-left-10" md-font-icon="zmdi zmdi-bike"></md-icon>
-                    </div>
                     <div layout="column" layout-align="center center">
-                        <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Checklist de salida</p>
+                        <div layout-align="center center">
+                            <md-icon class="font-size-5 opacity-50 margin-left-10"
+                                     md-font-icon="zmdi zmdi-bike"></md-icon>
+                        </div>
+                        <div layout="column" layout-align="center center">
+                            <p class="md-headline opacity-60 margin-top-0 margin-bottom-0" translate>TEC.PRECHECKOUT</p>
+                        </div>
                     </div>
                 </a>
 

@@ -8,7 +8,7 @@
     /* @ngInject */
     function DefaultToolbarController($scope, $injector, $rootScope, $mdMedia, $state, AuthService, $filter,
                                       $mdUtil, $mdSidenav,$mdToast, $document, triBreadcrumbsService,
-                                      triSettings, triLayout, Socket, toastr,Session) {
+                                      triSettings, triLayout, Socket, toastr) {
         var vm = this;
         vm.no_solicitudes=2;
         vm.breadcrumbs = triBreadcrumbsService.breadcrumbs;
@@ -86,11 +86,11 @@
         }
 
         function LogOut(){
-            AuthService.logout().then(function(res){
+            AuthService.logout().then(function(){
                 Socket.emit('leave', {canal:'Administrador', username: 1});
                 toastr.info('Sesión cerrada','Información');
                 $state.go('login');
-            }).catch(function(err){
+            }).catch(function(){
 
             });
         }

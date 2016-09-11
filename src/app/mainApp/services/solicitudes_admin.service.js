@@ -48,18 +48,12 @@
         }
 
         function create(object){
-            //Forma canonica
-            var deferred=$q.defer();//Genera la promesa
-            //RestAngular
-            //all solo agrega una /
-
+            var deferred=$q.defer();
             Restangular.all('solicitud_admin').customPOST(object).then(function(rest){
                 deferred.resolve(rest);
             }).catch(function(error){
                 deferred.reject(error);
-                console.log(error);
             });
-            //Restangular.all('solicitud').customPOST(object) - Es una promesa
             return deferred.promise;
         }
 
@@ -67,8 +61,7 @@
             return Restangular.all('solicitud_admin').customGET();
         }
 
-        function borrarSol(object){//solo el id
-            console.log(object);//(path,parameters,headers)
+        function borrarSol(object){
             return Restangular.one("solicitud_admin",object).customDELETE(undefined,undefined,{'Content-Type': 'application/json'}).then(function(resp){
                 toastr.success('exito al Borrar','exito');
                 console.log(resp);

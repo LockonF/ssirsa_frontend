@@ -79,7 +79,7 @@
                     vm.cabinet=res;
                     vm.ver=true;
 
-                   
+
 
                 }).catch(function (res) {
                     notifyError(res.status);
@@ -151,12 +151,12 @@
             $mdDialog.show({
                 locals:{parent: vm},
                 controller: function() {this.parent=vm},
-                templateUrl: 'app/mainApp/tecnico/dialogInfoCabinet.tmpl.html',
+                templateUrl: 'app/mainApp/tecnico/asignacion/dialogInfoCabinet.tmpl.html',
                 parent: angular.element(document.body),
                 controllerAs:'vm',
                 clickOutsideToClose:true
             })
-               
+
         };
 
 
