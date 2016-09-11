@@ -265,7 +265,6 @@
             });
 
         }
-
         function modeloDialogController($scope,$mdDialog){
             $scope.marcas=null;
             MarcaCabinet.getAll().then(function(res){
@@ -299,7 +298,6 @@
                 $mdDialog.cancel();
             };
         }
-
 
     }
     
