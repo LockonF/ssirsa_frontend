@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.mainApp.calendar')
+        .module('app.mainApp.solicitudes')
         .controller('CalendarController', CalendarController);
 
     /* @ngInject */
@@ -38,7 +38,7 @@
                 $mdDialog.show({
                     controller: 'EditarSolicitudDialogController',
                     controllerAs: 'vm',
-                    templateUrl: 'app/mainApp/calendar/components/editarSolicitud.dialog.tmpl.html',
+                    templateUrl: 'app/mainApp/solicitudes/calendario/modal/editarSolicitud.dialog.tmpl.html',
                     targetEvent: jsEvent,
                     focusOnOpen: false,
                     locals: {

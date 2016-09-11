@@ -52,4 +52,5 @@
         $mdDateLocaleProvider.msgCalendar = 'Calendario';
         $mdDateLocaleProvider.msgOpenCalendar = 'Abrir el Calendario';
     }
+
 })();
