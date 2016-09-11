@@ -15,12 +15,12 @@
 
                 </md-button>
                 <md-button class="md-raised" aria-label="Guardar"
-                           ng-click="vm.limpiar()">
+                           ng-click="vm.cancel()">
                     <md-icon md-font-icon="fa fa-eraser"></md-icon>
 
                 </md-button>
                 <md-button class="md-raised" aria-label="Guardar"
-                           ng-click="vm.eliminar()">
+                           ng-click="vm.eliminarEtapaServicio()">
                     <md-icon md-font-icon="fa fa-trash"></md-icon>
 
                 </md-button>
@@ -33,7 +33,7 @@
                 <md-content class="md-padding">
                     <div flex="100" layout="row">
                         <div layout="column" flex="80">
-                            <md-input-container flex="50">
+                            <md-input-container flex>
                                 <label translate>ETAPA_SERVICIO.ID_CABINET</label>
                                 <input type="text" ng-model="vm.idCabinet"/>
                             </md-input-container>
@@ -44,7 +44,7 @@
                                 </md-input-container>
                                 <md-input-container flex="35">
                                     <label translate>ETAPA_SERVICIO.ETAPA_ACTUAL</label>
-                                    <md-select ng-model="vm.etapaActual.actual_etapa" name="select" ng-disabled="true">
+                                    <md-select ng-model="vm.etapaActual.actual_etapa" name="select" ng-disabled="vm.editable">
                                         <md-option ng-repeat="etap in vm.etapas" ng-value="etap.value">{{etap.nombre}}
                                         </md-option>
                                     </md-select>
@@ -63,7 +63,7 @@
                                     <label>Economico</label>
                                     <input type="text" ng-model="vm.cabinet.economico" ng-disabled="true"/>
                                 </md-input-container>
-                                <md-input-container flex>
+                                <md-input-container flex="35">
                                     <label translate>ETAPA_SERVICIO.ACTUAL_STATE</label>
                                     <input type="text" ng-model="vm.cabinet.status" ng-disabled="true"/>
 
@@ -71,6 +71,12 @@
                                 <md-input-container flex>
                                     <label translate>ETAPA_SERVICIO.INCIDENTS</label>
                                     <input type="number" ng-model="vm.cabinet.no_incidencias" ng-disabled="true"/>
+                                </md-input-container>
+                                <md-input-container flex>
+                                    <md-switch class="md-primary" ng-model="vm.etapaActual.validado" aria-label="Aun es Funcional"
+                                               ng-disabled="vm.editable">
+                                        <span translate>ETAPA_SERVICIO.VALIDATED</span>
+                                    </md-switch>
                                 </md-input-container>
                             </div>
 
@@ -111,7 +117,7 @@
                             <input type="number" ng-model="vm.insumo.cantidad" ng-disabled="vm.editable"/>
                         </md-input-container>
                         <md-input-container flex="50">
-                            <label>ETAPA_SERVICIO.NOTES</label>
+                            <label translate>ETAPA_SERVICIO.NOTES</label>
                             <input type="text" ng-model="vm.insumo.notas" ng-disabled="vm.editable"/>
                         </md-input-container>
                         <md-input-container flex="10">

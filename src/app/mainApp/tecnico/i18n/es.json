@@ -54,7 +54,8 @@
         "INSUM":"Insumo",
         "CANTITY":"Cantidad",
         "NOTES":"Notas",
-        "NAME":"Nombre"
+        "NAME":"Nombre",
+        "VALIDATED":"Validado"
     },
     "CABINET":{
         "LINE_ASSIGMENT":"Asignación de Linea",

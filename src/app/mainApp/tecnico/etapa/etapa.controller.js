@@ -84,7 +84,15 @@
         vm.getInsumos = getInsumos;//
         vm.editar=editar;
         vm.buscarModelo=buscarModelo;
-        activate();
+        vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
+        vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
+        vm.successCreateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_CREATE');
+        vm.successUpdateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_UPDATE');
+        vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
+        vm.notFoundMessage = Translate.translate('MAIN.MSG.NOT_FOUND');
+        vm.notFoundInput=Translate.translate('MAIN.MSG.NOT_FOUND_INPUT');
+        vm.notAllow=Translate.translate('MAIN.MSG.NOT_ALLOWED');
+        
         
 
 
@@ -95,14 +103,7 @@
         }
         //Funcion Activate al iniciar la vista
         function activate() {
-            vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
-            vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
-            vm.successCreateMessage = Translate.translate('MAIN.MSG.SUCCESS_LINE_MESSAGE');
-            vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
-            vm.notFoundMessage = Translate.translate('MAIN.MSG.NOT_FOUND');
-            vm.notFoundInput=Translate.translate('MAIN.MSG.NOT_FOUND_INPUT');
-            vm.errorTypeFile = Translate.translate('MAIN.MSG.ERORR_TYPE_FILE');
-            vm.errorSize = Translate.translate('MAIN.MSG.FILE_SIZE');
+
 
         }
         function buscar(){
@@ -167,13 +168,15 @@
                 case 404:
                     toastr.info(vm.notFoundMessage, vm.errorTitle);
                     break;
+                case 405:
+                    toastr.warning(vm.notAllow, vm.errorTitle);
                 default:
                     toastr.warning(vm.errorMessage, vm.errorTitle);
                     break;
 
             }
         }
-
+        
 
         function getInsumos(){
 
@@ -188,20 +191,21 @@
                 siguiente_etapa: ''
 
             };
-            vm.editable=false;
-            vm.etapaActual = null;//Objeto donde se almacenara la informacion de la etapa actual
-            vm.etapaInsumo=null; //Objeto donde se almacena la etapa sobre la cual se esta trabajando
+
+            vm.editable=true;
             vm.idCabinet = null;
             vm.insumos = [];//Arreglo que poseera los Insumos que pueden ser usados en cierta etapa
-            vm.cabinet;// Informacion general del cabinet al cual se le asignara una nueva etapa
-            vm.diagnostico; // Informacion del diagnostico que propicio que entrara a un proceso de servicio tecnico
+            vm.cabinet=null;// Informacion general del cabinet al cual se le asignara una nueva etapa
+            vm.diagnostico=null;// Informacion del diagnostico que propicio que entrara a un proceso de servicio tecnico
+            vm.etapa;
+            vm.modelo;
+            vm.etapaActual=null;
             vm.insumo = {
                 id: "",
                 nombre: "",
                 cantidad: "",
                 notas: ""
             };// Insumo por agregar al cabinet en cuestion
-            
 
         }
 
@@ -211,16 +215,18 @@
                 var promise = Servicios.eliminarEtapaServicio(vm.etapaActual);
                 promise.then(function (res) {
                     vm.diagnostico = res;
+                    vm.cancel();
+                }).catch(function (res) {
+                    notifyError(res.status);
                 });
-            }
-            else {
-                console.log("No Es posible eliminar", "El registro que usted pretende afectar no puede ser eliminado");
             }
         }
 
         function crearEtapaServicio() {
             vm.etapaActual.insumos=[];
+            vm.etapaActual.diagnostico=vm.diagnostico.id;
             console.log(vm.etapaActual)
+
 
             if (vm.etapaActual.id==null) {
                 console.log("voy a crear uno nuevo")
@@ -230,8 +236,9 @@
                 console.log("Ya voy a crear");
                 var promise = Servicios.crearEtapaServicio(vm.etapaActual);
                 promise.then(function (res) {
-                    toastr.success(vm.successText, vm.successStoreText);
+                    toastr.success(vm.successTitle, vm.successCreateMessage);
                     vm.etapaActual = res;
+                    vm.cancel();
 
                 }).catch(function (res) {
 
@@ -243,8 +250,10 @@
                 console.log("Voy a editar")
                 var promise = Servicios.editarEtapaServicio(vm.etapaActual);
                 promise.then(function (res) {
-                    console.log(vm.successText, vm.successUpdateText);
+                    console.log(vm.successTitle, vm.successUpdateMessage);
+                    toastr.success(vm.successTitle, vm.successUpdateMessage);
                     vm.etapaActual = res;
+                    vm.cancel();
                 }).catch(function (res) {
 
                     console.log(res);
@@ -253,17 +262,6 @@
 
             }
             vm.cancel();
-        }
-        function notifyError(status) {
-            switch (status) {
-                case 404:
-                    toastr.info(vm.notFoundMessage, vm.errorTitle);
-                    break;
-                default:
-                    toastr.warning(vm.errorMessage, vm.errorTitle);
-                    break;
-
-            }
         }
 
             function crearInsumo() {
