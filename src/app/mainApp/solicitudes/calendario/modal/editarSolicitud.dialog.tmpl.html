@@ -16,20 +16,20 @@
     <md-dialog-content class="md-dialog-content">
         <form class="event-dialog-form" name="eventForm">
             <md-input-container class="md-block">
-                <label translate>Descripción</label>
+                <label translate>{{'CALENDAR.FORM.LABEL.DESCRIPTION'|translate}}</label>
                 <input ng-model="vm.event.solicitud.descripcion" required>
             </md-input-container>
             <div class="event-dialog-input-row" layout="row" layout-align="start center">
-                <p flex hide-xs translate>Fecha de inicio</p>
-                <md-datepicker ng-model="vm.start" md-placeholder="Fecha de inicio | triTranslate"></md-datepicker>
+                <p flex hide-xs translate>{{'CALENDAR.FORM.LABEL.DATE_INITIAL'|translate}}</p>
+                <md-datepicker ng-model="vm.start" md-placeholder="{{'CALENDAR.FORM.LABEL.DATE_INITIAL'|translate}}"></md-datepicker>
             </div>
 
             <div class="event-dialog-input-row" layout="row" layout-align="start center" ng-hide="vm.event.allDay">
-                <p translate flex hide-xs>Fecha de termino</p>
-                <md-datepicker ng-model="vm.end" md-placeholder="Fecha de termino | triTranslate"></md-datepicker>
+                <p translate flex hide-xs>{{'CALENDAR.FORM.LABEL.DATE_END'|translate}}</p>
+                <md-datepicker ng-model="vm.end" md-placeholder="{{'CALENDAR.FORM.LABEL.DATE_END'|translate}}"></md-datepicker>
             </div>
             <md-input-container class="md-block">
-                <label translate>Estatus</label>
+                <label translate>{{'CALENDAR.FORM.LABEL.STATUS'|translate}}</label>
                 <md-select ng-model="vm.event.solicitud.status"
                            placeholder="{{'TECNICO.FORM.LABEL.STATUS'|translate}}"
                            ng-required="vm.cabinets.capitalizado">
@@ -39,7 +39,7 @@
 
             </md-input-container>
             <md-input-container class="md-block">
-                <label translate>Tipo de solicitud</label>
+                <label translate>{{'CALENDAR.FORM.LABEL.TYPE'|translate}}</label>
                 <textarea ng-model="vm.event.solicitud.tipo_solicitud" readonly></textarea>
             </md-input-container>
 

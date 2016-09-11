@@ -1,0 +1,19 @@
+{
+
+
+
+    "CALENDAR":{
+        "FORM":{
+            "LABEL":{
+                "DESCRIPTION":"Descripción",
+
+                "DATE_INITIAL":"Fecha de solicitud",
+                "DATE_END":"Fecha de confirmación",
+                "DATE_TERMINATE":"Fecha de atención",
+                "STATUS":"Estatus",
+                "TYPE":"Tipo de solicitud"
+            }
+        }
+    }
+
+}

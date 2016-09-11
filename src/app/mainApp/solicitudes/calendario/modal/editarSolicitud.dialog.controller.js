@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.mainApp.calendar')
+        .module('app.mainApp.solicitudes')
         .controller('EditarSolicitudDialogController', EditarSolicitudDialogController);
 
     /* @ngInject */
