@@ -17,6 +17,7 @@
         vm.guardar = guardar;
         vm.searchCabinet = searchCabinet;
         vm.selectionFile=selectionFile;
+        vm.selectChanged=selectChanged;
         activate();
         vm.statu = [
             {
@@ -61,7 +62,11 @@
             cabinet_entrada_salida: null
         };
         vm.diagnostico=angular.copy(diagnostico);*/
-
+        function selectChanged() {
+            if(vm.cabinetStatus!=4 && vm.cabinetStatus!=5){
+                vm.picFile=null;
+            }
+        }
         function guardar() {
             vm.status = 'uploading';
             if(vm.cabinetStatus!=4 || vm.cabinetStatus!=5){
@@ -91,8 +96,9 @@
                 vm.picFile=null;
                 toastr.success(vm.successCreateMessage, vm.successTitle);
                 vm.diagnostico=null;
-            }, function () {
+            }, function (err) {
                 vm.status = 'idle';
+                console.log(err);
                 toastr.warning(vm.errorMessage, vm.errorTitle);
             });
         }
