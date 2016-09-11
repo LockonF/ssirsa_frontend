@@ -24,7 +24,7 @@
             .state('triangular.admin-default.diagnostic',{
                 url:'/diagnostic',
                 templateUrl:'app/mainApp/tecnico/diagnostic/diagnostic.tpl.html',
-                controller:'diagnosticController',
+                controller:'DiagnosticController',
                 controllerAs:'vm'
             })
             .state('triangular.admin-default.etapa',{

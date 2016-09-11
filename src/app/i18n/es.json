@@ -4,6 +4,9 @@
             "PROFILE": "Perfil",
             "LOGOUT": "Cerrar Sesión"
         },
+        "LABEL":{
+          "REQUIRED":"Campo requerido"
+        },
         "MSG": {
             "SUCCESS_TITLE": "Éxito",
             "ERROR_TITLE": "Ooops",
