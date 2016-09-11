@@ -11,7 +11,7 @@
                 <md-card-title-text><span class="md-headline">{{'Output'|translate}}</span></md-card-title-text>
             </md-card-title>
             <md-tabs layout-padding="true" md-dynamic-height="100" md-border-bottom="100" md-selected="vm.selectedTab">
-                <md-tab label="Datos generales">
+                <md-tab label={{'Tabs.GeneralData'|translate}}>
                     <md-content layout-padding="">
                         <form name="entradaForm" novalidate="">
                             <div layout="row" layout-sm="column" layout-xs="column" layout-align="center center" layout-align-sm="center stretch" layout-align-xs="center stretch">
@@ -95,7 +95,7 @@
                     </md-content>
                 </md-tab>
                 <!--Registro de cabinets-->
-                <md-tab label="Carga de Cabinets" ng-disabled="entradaForm.$invalid">
+                <md-tab label = {{'Tabs.CabinetsUpload'|translate}} ng-disabled="entradaForm.$invalid">
                     <md-content layout-padding="">
                         <div layout="row" layout-align="space-around center" layout-sm="column" layout-xs="column">
                             <md-button ng-click="vm.showMassiveUpload()" class="md-raised md-primary">{{'Cabinets Massive Upload'|translate}}</md-button>
@@ -108,14 +108,9 @@
                                     <input name="FileName" type="text" ng-model="vm.entrada.file.name" ng-disabled="true"/>
                                 </md-input-container>
                                 <div flex="25" flex-sm="100" flex-xs="100" flex-md="100" layout="column">
-                                    <md-button ngf-select="vm.selectionFile($file)" accept="'.xlsx'" ngf-max-size="10MB" ng-model="vm.entrada.file" class="md-primary md-raised">{{'Choose File'|translate}}</md-button>
+                                    <md-button ngf-select="vm.selectionFile($file)" accept=".xlsx, application/vnd.ms-excel" ngf-max-size="10MB" ng-model="vm.entrada.file" class="md-primary md-raised">{{'Choose File'|translate}}</md-button>
                                 </div>
                             </div>
-                            <!--<div layout="row" flex="100" ng-hide="vm.hideMassiveUpload">
-                                <div flex="20" flex-sm="50" flex-xs="100">
-                                    <md-button ng-click="vm.guardar()" class="md-primary md-raised">{{'Upload File'|translate}}</md-button>
-                                </div>
-                            </div>-->
                             <div layout="row" layout-align="space-around center" layout-sm="column" layout-xs="column" ng-show="vm.responseMassiveUpload.no_creados.length!=null">
                                 <md-button class="md-raised md-primary" ng-click="vm.showMarcaDialog(ev)">{{'Create Brand'|translate}}</md-button>
                                 <md-button class="md-raised md-primary" ng-click="vm.showModeloDialog(ev)">{{'Create Model'|translate}}</md-button>

@@ -54,6 +54,10 @@
       "Description":"Descripción"
     }
   },
+  "Tabs":{
+    "GeneralData":"Datos Generales",
+    "CabinetsUpload":"Carga de Cabinets"
+  },
 
   "Required Field":"Campo Requerido",
   "Cabinets":"Cabinets",
