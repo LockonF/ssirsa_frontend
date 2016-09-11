@@ -181,7 +181,8 @@
 
 
         function getInsumos() {
-
+            var promise = Servicios.consultarInsumosEtapa(vm.etapaActual);
+            promise.then(function (res) {});
         }
 
 

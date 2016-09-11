@@ -144,18 +144,7 @@
 ///Terminan los endpoints No utilizados
 
 
-        function consultarInsumosEtapa(etapa) {
-            var deferred = $q.defer();
-            //checar rutas :D
-            Restangular.one('Insumos', etapa.actual_etapa).customGET(etapa).then(function (res) {
-                deferred.resolve(res);
-            }).catch(function (err) {
-                deferred.reject(err);
-            });
 
-
-            return deferred.promise;
-        }
         function consultarAllInsumosCabinetEtapa(etapa) {
             var deferred = $q.defer();
             Restangular.all('etapa_servicio').one('insumos', etapa.id).customGET(etapa.id).then(function (res) {
@@ -241,6 +230,19 @@
                 deferred.reject(err);
             })
 
+        }
+
+        function consultarInsumosEtapa(etapa) {
+            var deferred = $q.defer();
+            //checar rutas :D
+            Restangular.one('Insumos', etapa.actual_etapa).customGET(etapa).then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            });
+
+
+            return deferred.promise;
         }
         return service;
 
