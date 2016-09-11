@@ -50,11 +50,17 @@
                                 </div>
                             </div>
 
-                            <div flex="100" flex-xs="100" flex-sm="100">
+                            <div flex="50" flex-xs="100" flex-sm="100">
                                 <h3>{{'TECNICO.FORM.LABEL.NO_INCIDENTS'|translate}}</h3>
                                 <div layout="row" layout-xs="column" layout-align-xs="center center" layout-sm="column" layout-align-sm="center center">
                                     <span>{{vm.cabinets.no_incidencias}}</span>
                                 </div>
+                            </div>
+                            <div flex="50" flex-xs="100" flex-sm="100">
+                            <md-input-container>
+                                <label translate>CABINET.AGE</label>
+                                <input type="text" ng-model="vm.cabinets.antiguedad" />
+                            </md-input-container>
                             </div>
                             <div flex="50" flex-xs="100" flex-sm="100">
                                 <md-input-container>
