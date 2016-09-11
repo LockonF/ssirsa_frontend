@@ -10,7 +10,9 @@
     
     function entradaController (EntradaSalida, toastr, $mdDialog, MarcaCabinet, ModeloCabinet){
         var vm = this;
+        
         //vm.status="idle";//idle, uploading, complete
+
         vm.guardar = guardar;
         vm.selectionFile=selectionFile;
         vm.selectionImage=selectionImage;

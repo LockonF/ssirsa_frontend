@@ -5,6 +5,7 @@ bower_components/
 dist/
 .idea
 config
-.awspublish-genesis-stg.com
+.awspublish-genesis-stg.sssirsa.com
+.awspublish-genesis-dev.sssirsa.com
 src/app/config.js
 gulp/deploy.js

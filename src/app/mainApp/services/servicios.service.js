@@ -114,7 +114,7 @@
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);
-            })
+            });
             return deferred.promise;
         }
         function verEtapaValidada(etapa) {
@@ -125,7 +125,7 @@
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);
-            })
+            });
             return deferred.promise;
 
         }
@@ -137,7 +137,7 @@
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);
-            })
+            });
             return deferred.promise;
 
         }
@@ -176,11 +176,11 @@
                 Restangular.all("etapa_servicio").all("diagnostic").all("latest").one("can_validate",resp.id).customGET().then(function(res){
                     defer.resolve(res);
                 }).catch(function(err){
-                    defer.resolve(err);
+                    defer.reject(err);
                 });
                 return defer.promise;
             }).catch(function(err){
-                defer.resolve(err);
+                defer.reject(err);
             });
             return defer.promise;
 
@@ -245,6 +245,6 @@
         return service;
 
     }
-   
+
 
 })();
