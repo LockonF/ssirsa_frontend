@@ -12,6 +12,7 @@
         var vm = this;
         vm.isDisabled = false;
         vm.selectedLineas = selectedLineas;
+        vm.registrarTransporte=registrarTransporte;
         vm.selectedItem = null;
         vm.searchText = null;
         vm.querySearch = querySearch;
@@ -24,6 +25,13 @@
         vm.proyectos = null;
         vm.showSolicitudes = false;
         vm.hover = false;
+        var transport={
+            razon_social:null,
+            direccion:null,
+            telefonos:[],
+            responsable:null
+        };
+        vm.transport=angular.copy(transport);
         activate();
         function activate() {
             LineaTransporte.getAll().then(function (res) {
@@ -66,6 +74,16 @@
             return function filterFn(linea) {
                 return (linea.razon_social.indexOf(query) === 0);
             };
+        }
+        function registrarTransporte() {
+            LineaTransporte.create(vm.transport).then(function (res) {
+                toastr.success(vm.successCreateMessage, vm.successTitle);
+                vm.transport=angular.copy(transport);
+                cancel();
+            }).catch(function (res) {
+                console.log(res);
+                toastr.warning(vm.errorMessage, vm.errorTitle);
+            });
         }
 
     }
