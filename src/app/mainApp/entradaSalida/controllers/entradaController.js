@@ -10,7 +10,9 @@
     
     function entradaController (EntradaSalida, toastr, $mdDialog, MarcaCabinet, ModeloCabinet){
         var vm = this;
+        
         //vm.status="idle";//idle, uploading, complete
+
         vm.guardar = guardar;
         vm.selectionFile=selectionFile;
         vm.selectionImage=selectionImage;
@@ -231,11 +233,12 @@
         }
         function showMarcaDialog(ev) {
             $mdDialog.show({
-                controller: dialogController,
+                controller: marcaDialogController,
                 templateUrl: 'app/mainApp/entradaSalida/dialogs/marca.tmpl.html',
                 parent: angular.element(document.body),
                 targetEvent: ev,
-                clickOutsideToClose:true
+                fullscreen: true,
+                clickOutsideToClose: true
             }).then(function(answer) {
                 //Accepted
                 $mdDialog.hide();
@@ -247,11 +250,12 @@
         }
         function showModeloDialog(ev) {
             $mdDialog.show({
-                controller: dialogController,
+                controller: modeloDialogController,
                 templateUrl: 'app/mainApp/entradaSalida/dialogs/modelo.tmpl.html',
                 parent: angular.element(document.body),
                 targetEvent: ev,
-                clickOutsideToClose:true
+                fullscreen: true,
+                clickOutsideToClose: true
             }).then(function(answer) {
                 //Accepted
                 $mdDialog.hide();
@@ -261,8 +265,7 @@
             });
 
         }
-
-        function dialogController($scope,$mdDialog){
+        function modeloDialogController($scope,$mdDialog){
             $scope.marcas=null;
             MarcaCabinet.getAll().then(function(res){
                 $scope.marcas=res;
@@ -274,17 +277,27 @@
             $scope.hide=function(){
                 $mdDialog.hide();
             };
-            $scope.registrarMarca=function(){
-                MarcaCabinet.create($scope.marca);
-            };
             $scope.registrarModelo=function(){
                 ModeloCabinet.create($scope.modelo);
+                $mdDialog.hide();
             };
             $scope.cancel = function() {
                 $mdDialog.cancel();
             };
         }
-
+        function marcaDialogController($scope,$mdDialog){
+            $scope.marca=null;
+            $scope.hide=function(){
+                $mdDialog.hide();
+            };
+            $scope.registrarMarca=function(){
+                MarcaCabinet.create($scope.marca);
+                $mdDialog.hide();
+            };
+            $scope.cancel = function() {
+                $mdDialog.cancel();
+            };
+        }
 
     }
     

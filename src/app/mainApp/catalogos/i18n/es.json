@@ -14,8 +14,14 @@
             "PLACEHOLDER": {
                 "SEARCH_TRANSPORT_LINE": "Busca tu linea de transporte",
                 "NOT_FOUND": "No se encontró la linea de transporte",
-                "ENTER-PHONE":"Ingrese los teléfonos"
+                "ENTER-PHONE": "Ingrese los teléfonos"
             }
         }
+    },
+    "Transport_Kind": {
+        "title": "Tipo de Transporte",
+        "info": "Información de tipo de transporte",
+        "description": "Descripción",
+        "lookup": "Busca el tipo de transporte"
     }
 }

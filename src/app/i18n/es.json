@@ -4,10 +4,17 @@
             "PROFILE": "Perfil",
             "LOGOUT": "Cerrar Sesión"
         },
+        "LABEL":{
+          "REQUIRED":"Campo requerido"
+        },
         "MSG": {
             "SUCCESS_TITLE": "Éxito",
             "ERROR_TITLE": "Ooops",
             "ERROR_MESSAGE": "Ha ocurrido un error, por favor intente de nuevo más tarde",
+            "GENERIC_SUCCESS_CREATE": "El elemento se ha creado exitosamente",
+            "GENERIC_SUCCESS_UPDATE": "El elemento se ha actualizado exitosamente",
+            "GENERIC_SUCCESS_DELETE": "El elemento se ha eliminado exitosamente",
+
             "SUCCESS_TICKET_MESSAGE": "Se creó exitosamente el pre-checklist",
             "SUCCESS_DIAGNOSTIC_MESSAGE": "Se creó exitosamente el diagnóstico",
             "SUCESSS_TRANSPORTE_MESSAGE":"Se creó exitosamente la linea de transporte",
@@ -19,6 +26,17 @@
             "SUCCESS_DELETE_FOLLOWER": "Se eliminó el seguidor de manera exitosa",
             "NOT_FOUND": "No se encontró el elemento que se buscaba",
             "NOT_FOUND_INPUT": "No se puede realizar el pre-checklist por que el cabinet no cuenta con una Entrada"
+        },
+        "BUTTONS":{
+            "SUBMIT":"Enviar",
+            "UPDATE":"Actualizar",
+            "CANCEL":"Cancelar",
+            "DELETE":"Eliminar",
+            "CLEAR_FIELDS":"Limpiar campos"
+        },
+        "GENERAL":{
+            "REQUIRED_FIELD":"Campo Requerido"
+
         }
     }
 }
