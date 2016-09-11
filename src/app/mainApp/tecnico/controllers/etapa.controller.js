@@ -22,7 +22,7 @@
             siguiente_etapa: ''
 
         };
-        vm.etapaBuscada;
+
         vm.editable=true;
         vm.idCabinet = null;
         vm.insumos = [];//Arreglo que poseera los Insumos que pueden ser usados en cierta etapa
@@ -254,6 +254,12 @@
         }
 
             function crearInsumo() {
+                if(vm.insumo.nombre!=null){
+
+                }
+                else{
+                    notifyError(404);
+                }
 
             }
 
