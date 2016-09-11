@@ -9,7 +9,7 @@
         .module('app.mainApp.tecnico')
         .controller('etapaController', etapaController);
 
-    function etapaController( Cabinet, Servicios, Diagnostico, Translate,toastr ) {
+    function etapaController( Cabinet, Servicios, Diagnostico,ModeloCabinet, Translate,toastr ) {
         var vm = this;
         vm.activate = activate();
 
@@ -29,6 +29,7 @@
         vm.cabinet=null;// Informacion general del cabinet al cual se le asignara una nueva etapa
         vm.diagnostico=null;// Informacion del diagnostico que propicio que entrara a un proceso de servicio tecnico
         vm.etapa;
+        vm.modelo;
         vm.insumo = {
             id: "",
             nombre: "",
@@ -82,6 +83,7 @@
         vm.eliminarEtapaServicio = eliminarEtapaServicio;//
         vm.getInsumos = getInsumos;//
         vm.editar=editar;
+        vm.buscarModelo=buscarModelo;
         activate();
         
 
@@ -147,6 +149,17 @@
             else{
                 notifyError(404);
             }
+
+        }
+        function buscarModelo(){
+            var promise = ModeloCabinet;//AQUI VOY
+            promise.then(function(res){
+                vm.modelos=res;
+
+
+            }).catch(function (res) {
+                notifyError(res.status);
+            });
 
         }
         function notifyError(status) {
