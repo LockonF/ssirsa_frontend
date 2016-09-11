@@ -24,44 +24,39 @@
                 </form>
                 <form name="registerForm" id="registerForm" novalidate>
                     <div ng-if="vm.cabinets!=null">
-                        <div layout="row">
-                            <div flex="50">
+                        <div layout="row" layout-xs="column" layout-align-xs="center center" layout-sm="column" layout-align-sm="center center" layout-wrap>
+                            <div flex="50" flex-xs="100" flex-sm="100">
                                 <h3>{{'TECNICO.FORM.LABEL.ECONOMIC'|translate}}</h3>
-                                <div layout="row">
+                                <div layout="row" layout-xs="column" layout-align-xs="center center" layout-sm="column" layout-align-sm="center center">
                                     <span>{{vm.cabinets.economico}}</span>
                                 </div>
                             </div>
-                            <div flex="50">
+                            <div flex="50" flex-xs="100" flex-sm="100">
                                 <h3>{{'TECNICO.FORM.LABEL.SERIE'|translate}}</h3>
-                                <div layout="row">
+                                <div layout="row" layout-xs="column" layout-align-xs="center center" layout-sm="column" layout-align-sm="center center">
                                     <span>{{vm.cabinets.no_serie}}</span>
                                 </div>
                             </div>
-                        </div>
-                        <div layout="row">
-                            <div flex="50">
+                            <div flex="50" flex-xs="100" flex-sm="100">
                                 <h3>{{'TECNICO.FORM.LABEL.TYPE_INPUT'|translate}}</h3>
-                                <div layout="row">
+                                <div layout="row" layout-xs="column" layout-align-xs="center center" layout-sm="column" layout-align-sm="center center">
                                     <span>{{vm.cabinets.tipo_entrada}}</span>
                                 </div>
                             </div>
-                            <div flex="50">
+                            <div flex="50" flex-xs="100" flex-sm="100">
                                 <h3>{{'TECNICO.FORM.LABEL.YEAR'|translate}}</h3>
-                                <div layout="row">
+                                <div layout="row" layout-xs="column" layout-align-xs="center center" layout-sm="column" layout-align-sm="center center">
                                     <span>{{vm.cabinets.year}}</span>
                                 </div>
                             </div>
-                        </div>
-                        <div layout="row">
-                            <div flex>
+
+                            <div flex="100" flex-xs="100" flex-sm="100">
                                 <h3>{{'TECNICO.FORM.LABEL.NO_INCIDENTS'|translate}}</h3>
-                                <div layout="row">
+                                <div layout="row" layout-xs="column" layout-align-xs="center center" layout-sm="column" layout-align-sm="center center">
                                     <span>{{vm.cabinets.no_incidencias}}</span>
                                 </div>
                             </div>
-                        </div>
-                        <div layout="row">
-                            <div flex="50">
+                            <div flex="50" flex-xs="100" flex-sm="100">
                                 <md-input-container>
                                     <md-switch class="md-primary" ng-model="vm.cabinets.capitalizado"
 
@@ -71,11 +66,12 @@
                                     </md-switch>
                                 </md-input-container>
                             </div>
-                            <div flex="50" ng-show="vm.cabinets.capitalizado">
+                            <div flex="50" flex-xs="100" flex-sm="100" ng-show="vm.cabinets.capitalizado">
                                 <md-input-container class="md-inline-form md-block">
                                     <md-select ng-model="vm.cabinetStatus"
                                                placeholder="{{'TECNICO.FORM.LABEL.STATUS'|translate}}"
-                                               ng-required="vm.cabinets.capitalizado">
+                                               ng-required="vm.cabinets.capitalizado"
+                                               ng-change="vm.selectChanged()">
                                         <md-option ng-repeat="status in vm.statu" ng-value="status.id">{{status.value}}
                                         </md-option>
                                     </md-select>
@@ -83,9 +79,9 @@
                             </div>
                         </div>
 
-                        <div layout="row" flex="flex"
+                        <div layout="row" layout-xs="column" layout-align-xs="center center" layout-sm="column" layout-align-sm="center center"
                              ng-show="vm.cabinets.capitalizado && (vm.cabinetStatus==4 || vm.cabinetStatus==5)">
-                            <div flex="20">
+                            <div flex="50" flex-xs="100" flex-sm="100">
                                 <md-button ngf-select="vm.selectionFile($files)"
                                            ngf-accept="'image/*'"
                                            class="md-primary md-raised"
@@ -98,7 +94,7 @@
                                 </md-button>
 
                             </div>
-                            <div flex="80">
+                            <div flex="50" flex-xs="100" flex-sm="100">
                                 <div class="md-media-md card-media">
                                     <img ngf-src="vm.picFile" class="thumb" width="120px" height="120px">
                                 </div>
