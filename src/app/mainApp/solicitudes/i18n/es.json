@@ -8,8 +8,8 @@
                 "DESCRIPTION":"Descripción",
 
                 "DATE_INITIAL":"Fecha de solicitud",
-                "DATE_END":"Fecha de confirmación",
-                "DATE_TERMINATE":"Fecha de atención",
+                "DATE_END":"Fecha de atención",
+                "DATE_TERMINATE":"Fecha de confirmación",
                 "STATUS":"Estatus",
                 "TYPE":"Tipo de solicitud"
             }

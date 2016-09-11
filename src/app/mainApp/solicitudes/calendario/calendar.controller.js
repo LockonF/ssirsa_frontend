@@ -38,7 +38,7 @@
                 $mdDialog.show({
                     controller: 'EditarSolicitudDialogController',
                     controllerAs: 'vm',
-                    templateUrl: 'app/mainApp/calendar/components/editarSolicitud.dialog.tmpl.html',
+                    templateUrl: 'app/mainApp/solicitudes/calendario/modal/editarSolicitud.dialog.tmpl.html',
                     targetEvent: jsEvent,
                     focusOnOpen: false,
                     locals: {

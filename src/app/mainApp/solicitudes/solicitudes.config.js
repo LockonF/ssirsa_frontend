@@ -6,7 +6,7 @@
         .module('app.mainApp.solicitudes')
         .config(moduleConfig);
 
-    function moduleConfig($stateProvider,$translatePartialLoaderProvider) {
+    function moduleConfig($stateProvider, $translatePartialLoaderProvider) {
         $translatePartialLoaderProvider.addPart('app/mainApp/solicitudes');
         $stateProvider
             .state('triangular.admin-default.solicitudes', {
@@ -34,7 +34,7 @@
                 controllerAs: 'vm'
             }).state('triangular.admin-default.calendar', {
             url: '/calendar',
-            templateUrl: 'app/mainApp/solicitudes/calendar/calendar.tmpl.html',
+            templateUrl: 'app/mainApp/solicitudes/calendario/calendar.tmpl.html',
             controller: 'CalendarController',
             controllerAs: 'vm'
         });
