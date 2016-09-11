@@ -1,3 +1,10 @@
 {
+  "Transport_Kind":{
+    "title": "Tipo de Transporte",
+    "info":"Información de tipo de transporte",
+    "description": "Descripción",
+    "lookup": "Busca el tipo de transporte"
+  }
+
 
 }
