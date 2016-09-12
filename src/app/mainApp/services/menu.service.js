@@ -154,6 +154,10 @@
                             name: 'Tipo de transporte',
                             state: 'triangular.admin-default.tipo-transporte',
                             type: 'link'
+                        }, {
+                            name: 'Sucursal',
+                            state: 'triangular.admin-default.sucursal',
+                            type: 'link'
                         }
 
                     ]

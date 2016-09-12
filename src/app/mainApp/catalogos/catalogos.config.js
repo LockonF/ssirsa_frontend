@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -6,7 +6,7 @@
         .config(moduleConfig);
 
     /* @ngInject */
-    function moduleConfig($stateProvider,$translatePartialLoaderProvider) {
+    function moduleConfig($stateProvider, $translatePartialLoaderProvider) {
         $translatePartialLoaderProvider.addPart('app/mainApp/catalogos');
         $stateProvider
 
@@ -27,7 +27,15 @@
                 // set the controller to load for this page
                 controller: 'TipoTransporteController',
                 controllerAs: 'vm'
-            });
+            }).state('triangular.admin-default.sucursal', {
+            // set the url of this page
+            url: '/sucursal',
+            // set the html template to show on this page
+            templateUrl: 'app/mainApp/catalogos/sucursal/sucursal.tmpl.html',
+            // set the controller to load for this page
+            controller: 'SucursalController',
+            controllerAs: 'vm'
+        });
 
 
     }

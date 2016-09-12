@@ -18,6 +18,25 @@
             }
         }
     },
+    "SUCURSAL":{
+        "FORM": {
+            "LABEL": {
+                "BRANCH": "Sucursal",
+                "NAME": "Nombre",
+                "ADDRESS": "Dirección",
+                "PHONE": "Telefonos",
+                "RESPONSABLE": "Responsable",
+                "INFO_BRANCH": "Información de Sucursal",
+                "NEW_REGISTER": "Registro de Sucursal",
+                "PLUS-PHONE": "+Teléfono"
+            },
+            "PLACEHOLDER": {
+                "SEARCH_BRANCH": "Busca tu sucursal",
+                "NOT_FOUND": "No se encontró la sucursal",
+                "ENTER-PHONE": "Ingrese los teléfonos"
+            }
+        }
+    },
     "Transport_Kind": {
         "title": "Tipo de Transporte",
         "info": "Información de tipo de transporte",
