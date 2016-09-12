@@ -145,7 +145,7 @@
                     notifyError(res.status);
                 });
 
-
+                console.log(etapaActual);
             }
             else {
                 notifyError(404);
