@@ -336,18 +336,6 @@
 
         // Eliminar Insumo
 
-
-        function eliminarInsumo(insu) {
-
-            if (vm.insumo.id != "") {
-                vm.insumos.splice();
-                vm.catalogoSelected=null;
-                vm.insumo=null;
-
-            }
-            else
-                notifyError(404);
-        }
         function eliminarInsumo(insu) {
             var index;
 
@@ -360,6 +348,7 @@
 
                 }
                 else{console.log("Aun no lo encuentro")}
+                notifyError(404);
 
             }
 
