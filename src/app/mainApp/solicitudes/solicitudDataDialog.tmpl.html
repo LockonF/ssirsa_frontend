@@ -28,7 +28,7 @@
             <md-input-container>
                 <label>Tipo de equipo</label>
                 <md-select ng-model="vm.object.modelo_cabinet" ng-required="true">
-                    <md-option ng-repeat="tipoEquipo in vm.tiposEquipo" ng-value="tipoEquipo.id">{{tipoEquipo.categoria}} {{tipoEquipo.tipo}}</md-option>
+                    <md-option ng-repeat="tipoEquipo in vm.tiposEquipo" ng-value="tipoEquipo.id">{{tipoEquipo.nombre}} - {{tipoEquipo.tipo}}</md-option>
                 </md-select>
             </md-input-container>
 
