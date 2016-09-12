@@ -154,6 +154,10 @@
                             name: 'Tipo de transporte',
                             state: 'triangular.admin-default.tipo-transporte',
                             type: 'link'
+                        },{
+                            name: 'Proyectos',
+                            state: 'triangular.admin-default.proyectos',
+                            type: 'link'
                         }
 
                     ]
