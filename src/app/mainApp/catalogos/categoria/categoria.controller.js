@@ -1,5 +1,5 @@
 /**
- * Created by lockonDaniel on 9/8/16.
+ * Created by lockonDaniel on 9/12/16.
  */
 (function()
 {
@@ -7,17 +7,17 @@
 
     angular
         .module('app.mainApp.catalogos')
-        .controller('TipoTransporteController',TipoTransporteController);
+        .controller('CategoriaController',CategoriaController);
 
-    function TipoTransporteController(TipoTransporte, toastr, Translate, $scope)
+    function CategoriaController(Categoria, toastr, Translate, $scope)
     {
         var vm = this;
 
         //Variables
         vm.searchText = '';
         vm.search_items = [];
-        vm.tipo_transporte_list = null;
-        vm.tipo_transporte = null;
+        vm.categoria_list = null;
+        vm.categoria = null;
 
         vm.text = 'Hola';
 
@@ -45,17 +45,17 @@
             vm.notFoundInput=Translate.translate('MAIN.MSG.NOT_FOUND_INPUT');
             vm.errorTypeFile = Translate.translate('MAIN.MSG.ERORR_TYPE_FILE');
             vm.errorSize = Translate.translate('MAIN.MSG.FILE_SIZE');
-            listTipos();
+            listCategorias();
         }
 
-        function listTipos()
+        function listCategorias()
         {
-            vm.tipo_transporte_list  = TipoTransporte.list();
+            vm.categoria_list  = Categoria.list();
         }
 
         function lookup(search_text){
-            vm.search_items = _.filter(vm.tipo_transporte_list,function(item){
-                return item.descripcion.toLowerCase().includes(search_text.toLowerCase());
+            vm.search_items = _.filter(vm.categoria_list,function(item){
+                return item.descripcion.toLowerCase().includes(search_text.toLowerCase()) || item.nombre.toLowerCase().includes(search_text.toLowerCase());
             });
             return vm.search_items;
         }
@@ -65,19 +65,19 @@
 
         }
 
-        function clickRepeater(tipo_transporte){
-            vm.tipo_transporte = tipo_transporte.clone();
+        function clickRepeater(categoria){
+            vm.categoria = categoria.clone();
         }
 
         function  cancel(){
             $scope.inputForm.$setPristine();
-            vm.tipo_transporte = null;
+            vm.categoria = null;
         }
 
         function update(){
-            TipoTransporte.update(vm.tipo_transporte).then(function(res){
+            Categoria.update(vm.categoria).then(function(res){
                 toastr.success(vm.successUpdateMessage,vm.successTitle);
-                listTipos();
+                listCategorias();
             }).catch(function(err){
                 toastr.error(vm.errorMessage,vm.errorTitle);
             });
@@ -85,8 +85,8 @@
 
         function create()
         {
-            TipoTransporte.create(vm.tipo_transporte).then(function(res){
-                listTipos();
+            Categoria.create(vm.categoria).then(function(res){
+                listCategorias();
                 toastr.success(vm.successCreateMessage,vm.successTitle);
             }).catch(function(err){
                 toastr.error(vm.errorMessage,vm.errorTitle);
@@ -95,8 +95,8 @@
 
         function remove()
         {
-            TipoTransporte.remove(vm.tipo_transporte).then(function(res){
-                listTipos();
+            Categoria.remove(vm.categoria).then(function(res){
+                listCategorias();
                 cancel();
                 toastr.success(vm.successDeleteMessage,vm.successTitle)
             }).catch(function(err){

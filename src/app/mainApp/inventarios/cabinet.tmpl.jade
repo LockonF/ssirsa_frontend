@@ -167,13 +167,6 @@ div(flex layout='column')
                                     div(ng-message='pattern') {{'MAIN.GENERAL.JUST_INTEGERS' | translate}}
                                     div(ng-message='required') {{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}
 
-
-
-
-
-
-
-
                     div(layout='row' layout-align='end end')
                         md-button.md-raised.md-warn(ng-if='vm.newCabinet==false && vm.create_update_resolver==true' ng-click='vm.remove()') {{'MAIN.BUTTONS.DELETE' | translate}}
                         md-button.md-raised.md-primary(ng-click='vm.cancel()' ng-if='vm.create_update_resolver==true') {{'MAIN.BUTTONS.CLEAR_FIELDS' | translate}}

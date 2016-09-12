@@ -95,11 +95,8 @@
             });
 
 
-            MarcaCabinet.getAll().then(function(res){
-                vm.marcas_cabinet = res;
-            }).catch(function(err){
 
-            });
+            vm.marcas_cabinet = MarcaCabinet.list();
 
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');

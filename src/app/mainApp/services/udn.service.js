@@ -6,36 +6,38 @@
 
     angular.module('app.mainApp').factory('udn',udn);
     function udn(Restangular){
+
+        var baseUdn = Restangular.all('udn');
+
         return {
-            list:list
+            list:list,
+            newList:newList,
+            update:update,
+            create:create,
+            remove:remove
         };
         function list(){
-            return Restangular.all('udn').customGET();//prueba
+            return baseUdn.customGET();//prueba
         }
-    }
-})();//funcion que se autollama
-/* Forma canonica
-(function(){
-    'use_strickt';//
-
-    angular.module('app.mainApp').factory('udn',udn);
-    function udn(Restangular,$q){
-        return {
-            list:list
-        };
-        function list(){
-            var deferred=$q.defer();//Genera la promesa
-            //RestAngular
-            //all solo agrega una /
-
-            Restangular.all('udn').customGET().then(function(rest){
-                deferred.resolve(rest);
-            }).catch(function(error){
-                deferred.reject(error);
-            });
-            //Restangular.all('solicitud').customPOST(object) - Es una promesa
-            return deferred.promise;
+        function newList()
+        {
+            return baseUdn.getList().$object;
         }
+
+        function update(object)
+        {
+            return baseUdn.all(object.id).customPUT(object);
+        }
+
+        function create(object){
+            return baseUdn.post(object);
+        }
+
+        function remove(object) {
+            return baseUdn.customDELETE(object.id,null,{'content-type':'application/json'});
+        }
+
+
+
     }
-})();//funcion que se autollama
-    */
+})();

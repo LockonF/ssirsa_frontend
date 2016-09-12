@@ -11,12 +11,18 @@
 
     /* @ngInject */
     function CatalogoInsumo($q, Restangular) {
+        var baseCatalogoInsumo = Restangular.all('catalogo_insumos');
+
         return {
 
             getAllCatalogoInsumos:getAllCatalogoInsumos,
             getCatalogoInsumo:getCatalogoInsumo,
             getCatalogoByZone:getCatalogoByZone,
-            getCatalogoByWord:getCatalogoByWord
+            getCatalogoByWord:getCatalogoByWord,
+            list:list,
+            update:update,
+            create:create,
+            remove:remove
         };
 
 
@@ -66,6 +72,29 @@
             });
             return deferred.promise;
         }
+
+        function list(){
+            return baseCatalogoInsumo.getList().$object;
+        }
+
+        function update(object)
+        {
+            return object.put();
+        }
+
+        function create(object){
+            return baseCatalogoInsumo.post(object);
+        }
+
+        function remove(object) {
+            return baseCatalogoInsumo.customDELETE(object.id,null,{'content-type':'application/json'});
+        }
+
+
+
+
+
+
 
 
     }
