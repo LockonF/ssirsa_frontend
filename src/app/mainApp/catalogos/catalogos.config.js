@@ -27,8 +27,13 @@
                 // set the controller to load for this page
                 controller: 'TipoTransporteController',
                 controllerAs: 'vm'
+            })
+            .state('triangular.admin-default.proyectos',{
+                url:'/proyectos',
+                templateUrl:'app/mainApp/catalogos/proyectos/proyectos.tmpl.html',
+                controller:'proyectosController',
+                controllerAs:'vm'
             });
-
 
     }
 })();
