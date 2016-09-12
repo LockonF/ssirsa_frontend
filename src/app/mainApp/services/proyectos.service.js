@@ -23,7 +23,7 @@
         }
 
         function put(object){
-            return object.put();
+            return baseURL.all(object.id).customPUT(object);
         }
 
         function post(object){
@@ -31,7 +31,7 @@
         }
 
         function remove(object){
-           return object.remove();
+           return baseURL.customDELETE(object.id);
         }
 
         return service;
