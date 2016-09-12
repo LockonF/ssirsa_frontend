@@ -114,7 +114,6 @@
                         state: 'triangular.admin-default.tecnico',
                         type: 'link'
                     },
-
                         {
                             name: 'Entradas',
                             state: 'triangular.admin-default.entrada',
@@ -161,6 +160,10 @@
                         }, {
                             name: 'Modelo de Cabinet',
                             state: 'triangular.admin-default.model-cabinet',
+                            type: 'link'
+                        }, {
+                            name: 'Proyectos',
+                            state: 'triangular.admin-default.proyectos',
                             type: 'link'
                         }
 
