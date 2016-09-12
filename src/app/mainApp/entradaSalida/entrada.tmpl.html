@@ -32,7 +32,7 @@
                                 <md-input-container flex="100" class="md-block">
                                     <label>{{'UDN'|translate}}</label>
                                     <md-select name="selectUDN" ng-model="vm.entrada.udn" required="" md-no-asterisk="">
-                                        <md-option ng-repeat="udn in vm.udns" value="{{udn.id}}">{{udn.agencia}}</md-option>
+                                        <md-option ng-repeat="udn in vm.udns" value="{{udn.id}}">{{udn.zona}} - {{udn.agencia}}</md-option>
                                     </md-select>
                                     <div ng-messages="entradaForm.selectUDN.$error">
                                         <div ng-message="required">{{'Required Field'|translate}}</div>
