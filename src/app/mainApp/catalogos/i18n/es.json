@@ -4,6 +4,31 @@
     "info":"Información de tipo de transporte",
     "description": "Descripción",
     "lookup": "Busca el tipo de transporte"
+  },
+
+  "CABINET_CRUD":{
+    "SERIAL_NUMBER":"Número de Serie",
+    "YEAR":"Año",
+    "UNILEVER_ID":"Identificador Unilever",
+    "STATUS":"Estatus actual",
+    "ACTIVE":"Activo",
+    "CAPITALIZED":"Capitalizado",
+    "INFO":"Información de Cabinet",
+    "LOOKUP":"Búsqueda por económico",
+    "TITLE":"Gestión de Cabinets",
+    "PRE_CHECKLIST":"Pre Checklist",
+    "LAYETTES":"Canastillas",
+    "DOORS":"Puertas",
+    "GRIDS":"Rejillas",
+    "ISSUES":"Incidencias",
+    "ENTRY":"Asignar Entrada",
+    "SELECT_UDN": "Seleccionar UDN",
+    "SELECT_ENTRY":"Selecciona la entrada",
+    "SELECT_DATE":"Selecciona la fecha",
+    "OLD":"Antigüedad",
+    "SELECT_BRAND":"Selecciona la marca",
+    "SELECT_MODEL":"Selecciona el modelo",
+    "ECONOMIC_NUMBER":"Número económico"
   }
 
 

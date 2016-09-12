@@ -10,7 +10,8 @@
         return {
             get: get,
             getAll:getAll,
-            create:create
+            create:create,
+            getModels:getModels
         };
 
 
@@ -46,5 +47,10 @@
             });
             return deferred.promise;
         }
+
+        function getModels(id){
+            return Restangular.all('marca_cabinet').one('models',id).getList();
+        }
+
     }
 })();

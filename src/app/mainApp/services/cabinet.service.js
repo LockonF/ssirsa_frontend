@@ -12,7 +12,8 @@
             get: get,
             getAll: getAll,
             remove: remove,
-            modify: modify
+            modify: modify,
+            loadByModel:loadByModel
         };
 
         function create(request) {
@@ -66,6 +67,10 @@
                 console.log(err);
             });
             return deferred.promise;
+        }
+
+        function loadByModel(model){
+            return Restangular.all('cabinet').one('model',model.id).getList().$object;
         }
     }
 })();
