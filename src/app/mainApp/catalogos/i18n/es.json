@@ -1,4 +1,87 @@
 {
+    "TRANSPORT_LINE": {
+        "FORM": {
+            "LABEL": {
+                "TRANSPORT_LINE": "Linea de Transporte",
+                "BUSINESS_NAME": "Razón social",
+                "ADDRESS": "Dirección",
+                "PHONE": "Telefonos",
+                "RESPONSABLE": "Responsable",
+                "INFO_TRANSPORT_LINE": "Información de Linea de Transporte",
+                "NEW_REGISTER": "Registro de Linea de Transporte",
+                "PLUS-PHONE": "+Teléfono"
+            },
+            "PLACEHOLDER": {
+                "SEARCH_TRANSPORT_LINE": "Busca tu linea de transporte",
+                "NOT_FOUND": "No se encontró la linea de transporte",
+                "ENTER-PHONE": "Ingrese los teléfonos"
+            }
+        }
+    },
+    "CABINET_CRUD": {
+        "SERIAL_NUMBER": "Número de Serie",
+        "YEAR": "Año",
+        "UNILEVER_ID": "Identificador Unilever",
+        "STATUS": "Estatus actual",
+        "ACTIVE": "Activo",
+        "CAPITALIZED": "Capitalizado",
+        "INFO": "Información de Cabinet",
+        "LOOKUP": "Búsqueda por económico",
+        "TITLE": "Gestión de Cabinets",
+        "PRE_CHECKLIST": "Pre Checklist",
+        "LAYETTES": "Canastillas",
+        "DOORS": "Puertas",
+        "GRIDS": "Rejillas",
+        "ISSUES": "Incidencias",
+        "ENTRY": "Asignar Entrada",
+        "SELECT_UDN": "Seleccionar UDN",
+        "SELECT_ENTRY": "Selecciona la entrada",
+        "SELECT_DATE": "Selecciona la fecha",
+        "OLD": "Antigüedad",
+        "SELECT_BRAND": "Selecciona la marca",
+        "SELECT_MODEL": "Selecciona el modelo",
+        "ECONOMIC_NUMBER": "Número económico"
+    },
+    "SUCURSAL": {
+        "FORM": {
+            "LABEL": {
+                "BRANCH": "Sucursal",
+                "NAME": "Nombre",
+                "ADDRESS": "Dirección",
+                "PHONE": "Telefonos",
+                "RESPONSABLE": "Responsable",
+                "INFO_BRANCH": "Información de Sucursal",
+                "NEW_REGISTER": "Registro de Sucursal",
+                "PLUS-PHONE": "+Teléfono"
+            },
+            "PLACEHOLDER": {
+                "SEARCH_BRANCH": "Busca tu sucursal",
+                "NOT_FOUND": "No se encontró la sucursal",
+                "ENTER-PHONE": "Ingrese los teléfonos"
+            }
+        }
+    },
+    "MODEL_CABINET": {
+        "FORM": {
+            "LABEL": {
+                "MODEL": "Módelo de Cabinet",
+                "NAME": "Nombre",
+                "TYPE": "Tipo",
+                "DESCRIPTION": "Descripción",
+                "KEYWORD": "Palabra clave",
+                "TYPE_REFRIGERANT": "Tipo de refrigerante",
+                "QUANTITY": "Cantidad",
+                "COMPRESSOR_TYPE": "Tipo de compressor",
+                "BRAND": "Marca",
+                "INFO_MODEL": "Información de Modelo de Cabinet",
+                "NEW_REGISTER": "Registro de Modelo de Cabinet"
+            },
+            "PLACEHOLDER": {
+                "SEARCH_BRANCH": "Busca tu modelo de cabinet",
+                "NOT_FOUND": "No se encontró el modelo"
+            }
+        }
+    },
   "Transport_Kind": {
     "title": "Tipo de Transporte",
     "info": "Información de tipo de transporte",
@@ -38,34 +121,33 @@
       }
     }
   },
-  "Clients": {
-    "Header": "Cliente",
-    "Fields": {
-      "Name": "Nombre del Cliente",
-      "Surname": "Apellido Paterno",
-      "LastName": "Apellido Materno",
-      "Address": "Direccion",
-      "Telephone": "Teléfono",
-      "User": "Usuario",
-      "Password": "Contraseña",
-      "Email": "Correo electrónico",
-      "Search": "Buscar Clientes",
-      "Information": "Información del cliente"
-    },
-    "Notify": {
-      "Error": "Error",
-      "Success": "Éxito",
-      "Warning": "Advertencia",
-      "Messages": {
-        "ERROR_GETTING_CLIENTS": "Error al obtener la lista de clientes",
-        "ERROR_CREATING_CLIENT": "Error al crear el cliente",
-        "SUCCESS_CREATING_CLIENT": "Cliente creado correctamente",
-        "SUCCESS_REMOVING_CLIENT": "Cliente eliminado correctamente",
-        "ERROR_REMOVING_CLIENT": "Error al eliminar cliente",
-        "SUCCESS_UPDATING_CLIENT": "Cliente actualizado correctamente",
-        "ERROR_UPDATING_CLIENT": "Error al eliminar cliente"
-      }
+    "Clients": {
+        "Header": "Cliente",
+        "Fields": {
+            "Name": "Nombre del Cliente",
+            "Surname": "Apellido Paterno",
+            "LastName": "Apellido Materno",
+            "Address": "Direccion",
+            "Telephone": "Teléfono",
+            "User": "Usuario",
+            "Password": "Contraseña",
+            "Email": "Correo electrónico",
+            "Search": "Buscar Clientes",
+            "Information": "Información del cliente"
+        },
+        "Notify": {
+            "Error": "Error",
+            "Success": "Éxito",
+            "Warning": "Advertencia",
+            "Messages": {
+                "ERROR_GETTING_CLIENTS": "Error al obtener la lista de clientes",
+                "ERROR_CREATING_CLIENT": "Error al crear el cliente",
+                "SUCCESS_CREATING_CLIENT": "Cliente creado correctamente",
+                "SUCCESS_REMOVING_CLIENT": "Cliente eliminado correctamente",
+                "ERROR_REMOVING_CLIENT": "Error al eliminar cliente",
+                "SUCCESS_UPDATING_CLIENT": "Cliente actualizado correctamente",
+                "ERROR_UPDATING_CLIENT": "Error al eliminar cliente"
+            }
+        }
     }
-  }
-
 }

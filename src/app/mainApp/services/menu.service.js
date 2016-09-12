@@ -153,7 +153,15 @@
                             name: 'Tipo de transporte',
                             state: 'triangular.admin-default.tipo-transporte',
                             type: 'link'
-                        },{
+                        }, {
+                            name: 'Sucursal',
+                            state: 'triangular.admin-default.sucursal',
+                            type: 'link'
+                        }, {
+                            name: 'Modelo de Cabinet',
+                            state: 'triangular.admin-default.model-cabinet',
+                            type: 'link'
+                        }, {
                             name: 'Proyectos',
                             state: 'triangular.admin-default.proyectos',
                             type: 'link'

@@ -3,16 +3,16 @@
 
     angular
         .module('app.mainApp.catalogos')
-        .controller('LineaTransporteController', LineaTransporteController)
-        .filter('custom', custom);
+        .controller('SucursalController', SucursalController)
+        .filter('sucursalSearch', sucursalSearch);
 
     /* @ngInject */
-    function LineaTransporteController(LineaTransporte, $scope, toastr, Translate,$mdDialog) {
+    function SucursalController(Sucursal, $scope, toastr, Translate,$mdDialog) {
 
         var vm = this;
         vm.isDisabled = false;
-        vm.selectedLineas = selectedLineas;
-        vm.registrarTransporte = registrarTransporte;
+        vm.selectedSucursales = selectedSucursales;
+        vm.registrar = registrar;
         vm.eliminar=eliminar;
         vm.editar = editar;
         vm.selectedItem = null;
@@ -20,41 +20,33 @@
         vm.querySearch = querySearch;
         vm.showRegister = showRegister;
         vm.clearForm = clearForm;
-        vm.selectedLinea = null;
-        vm.selectedSolicitudes = [];
+        vm.selectedSucursal = null;
         vm.tooltipVisible = false;
         vm.hideProject = false;
-        vm.solicitudes = null;
-        vm.proyectos = null;
-        vm.showSolicitudes = false;
         vm.editable=true;
         vm.hover = false;
-        var transport = {
+        var sucursal = {
             razon_social: null,
             direccion: null,
             telefonos: [],
             responsable: null
         };
         vm.operation = 0;//0- View, 1-Register, 2-Update
-        vm.transport = angular.copy(transport);
+        vm.sucursal = angular.copy(sucursal);
         vm.numberBuffer = '';
         activate();
         init();
         function init() {
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
-            vm.successCreateMessage = Translate.translate('MAIN.MSG.SUCESSS_TRANSPORTE_MESSAGE');
+            vm.successCreateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_CREATE');
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
             vm.successUpdateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_UPDATE');
             vm.successDeleteMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_DELETE');
         }
 
         function activate() {
-            LineaTransporte.getAll().then(function (res) {
-                vm.lineas = res;
-            }).catch(function () {
-                toastr.warning(vm.errorMessage, vm.errorTitle);
-            });
+            vm.sucursales=Sucursal.list();
         }
 
         function editar(){
@@ -64,7 +56,7 @@
 
         function showRegister($event) {
             vm.operation = 1;
-            vm.selectedLinea=null;
+            vm.selectedSucursal=null;
             vm.editable=!vm.editable;
             clearForm();
         }
@@ -77,13 +69,14 @@
                 .ok('Aceptar')
                 .cancel('Cancelar');
             $mdDialog.show(confirm).then(function() {
-                LineaTransporte.remove(vm.transport.id).then(function (res) {
+                Sucursal.remove(vm.sucursal).then(function (res) {
                     toastr.success(vm.successDeleteMessage, vm.successTitle);
-                    vm.transport = angular.copy(transport);
+                    vm.sucursal = angular.copy(sucursal);
+                    vm.selectedSucursal=null;
                     clearForm();
                     activate();
-                    vm.selectedLinea=null;
                 }).catch(function (res) {
+                    console.log(res);
                     toastr.warning(vm.errorMessage, vm.errorTitle);
                 });
             }, function() {
@@ -91,23 +84,23 @@
             });
         }
         function clearForm() {
-            $scope.TransportForm.$setPristine();
-            $scope.TransportForm.$setUntouched();
-            vm.transport = angular.copy(transport);
+            $scope.SucursalForm.$setPristine();
+            $scope.SucursalForm.$setUntouched();
+            vm.sucursal = angular.copy(sucursal);
 
-            vm.selectedLinea=null;
+            vm.selectedSucursal=null;
         }
 
-        function selectedLineas(project) {
-            vm.selectedLinea = project;
+        function selectedSucursales(project) {
+            vm.selectedSucursal = project;
             vm.operation = 0;
-            vm.transport = angular.copy(project);
+            vm.sucursal = angular.copy(project);
             vm.editable=true;
         }
 
 
         function querySearch(query) {
-            var results = query ? vm.lineas.filter(createFilterFor(query)) : vm.lineas, deferred;
+            var results = query ? vm.sucursales.filter(createFilterFor(query)) : vm.sucursales, deferred;
             return results;
 
         }
@@ -115,15 +108,15 @@
         function createFilterFor(query) {
 
             return function filterFn(linea) {
-                return (linea.razon_social.indexOf(query) === 0);
+                return (linea.nombre.indexOf(query) === 0);
             };
         }
 
-        function registrarTransporte() {
+        function registrar() {
             if(vm.operation ==1) {
-                LineaTransporte.create(vm.transport).then(function (res) {
+                Sucursal.create(vm.sucursal).then(function (res) {
                     toastr.success(vm.successCreateMessage, vm.successTitle);
-                    vm.transport = angular.copy(transport);
+                    vm.sucursal = angular.copy(sucursal);
                     clearForm();
                     vm.numberBuffer=null;
                     activate();
@@ -131,11 +124,11 @@
                     toastr.warning(vm.errorMessage, vm.errorTitle);
                 });
             }else{
-                LineaTransporte.modify(vm.transport).then(function (res) {
+                Sucursal.update(vm.sucursal).then(function (res) {
                     toastr.success(vm.successUpdateMessage, vm.successTitle);
                     vm.operation=0;
                     vm.editable=true;
-                    vm.selectedLinea=null;
+                    vm.selectedSucursal=null;
                     activate();
                 }).catch(function (res) {
                     toastr.warning(vm.errorMessage, vm.errorTitle);
@@ -145,14 +138,14 @@
 
     }
 
-    function custom() {
+    function sucursalSearch() {
         return function (input, text) {
             if (!angular.isString(text) || text === '') {
                 return input;
             }
 
             return input.filter(function (item) {
-                return (item.razon_social.indexOf(text) > -1);
+                return (item.nombre.indexOf(text) > -1);
             });
         };
 

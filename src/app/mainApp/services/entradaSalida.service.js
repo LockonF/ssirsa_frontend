@@ -20,7 +20,8 @@
             getProyectos:getProyectos,
             getUDN:getUDN,
             cabinetExist:cabinetExist,
-            getLastEntradaByCabinet:getLastEntradaByCabinet
+            getLastEntradaByCabinet:getLastEntradaByCabinet,
+            byUdn:byUdn
         };
         function getLastEntradaByCabinet(idCabinet) {
             var defer=$q.defer();
@@ -125,6 +126,10 @@
             });
 
             return defer.promise;
+        }
+
+        function byUdn(id){
+           return Restangular.all('entrada_salida').one('udn',id).getList().$object;
         }
 
     }

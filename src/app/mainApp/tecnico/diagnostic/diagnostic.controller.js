@@ -83,7 +83,6 @@
             }else{
                 vm.cabinets.status=vm.statu[vm.cabinetStatus].value;
             }
-
             Upload.upload({
                 url: EnvironmentConfig.site.rest.api+'cabinet/'+vm.cabinet,
                 headers: {'Authorization': OAuthToken.getAuthorizationHeader()},
@@ -133,7 +132,6 @@
         function searchCabinet() {
             Cabinet.get(vm.cabinet).then(function (res) {
                 vm.cabinets=res;
-
             }).catch(function (res) {
                 notifyError(res.status);
             });
