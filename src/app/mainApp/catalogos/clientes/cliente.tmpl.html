@@ -2,7 +2,7 @@
     <md-card class="md-padding-card1" flex-gt-md="90" flex="100" layout="column">
         <md-toolbar>
             <div class="md-toolbar-tools">
-                <h1>{{'Projects.Header'|translate}}</h1>
+                <h1>{{'Clients.Header'|translate}}</h1>
             </div>
         </md-toolbar>
         <div layout-gt-md="row" layout="column">
@@ -10,21 +10,21 @@
             <div layout="column" layout-align="space-between stretch" flex-gt-md="30" flex="100">
 
                 <md-autocomplete
-                        md-items="item in vm.filteredProjects"
-                        md-selected-item="vm.project"
+                        md-items="item in vm.filteredClients"
+                        md-selected-item="vm.client"
                         md-selected-item-change="vm.selectedItemChange(item)"
                         md-search-text-change="vm.search(vm.searchParameter)"
                         md-search-text="vm.searchParameter"
-                        md-item-text="item.descripcion"
+                        md-item-text="item.nombre"
                         md-min-length="1"
-                        md-floating-label="{{'Projects.Fields.Search'|translate}}">
+                        md-floating-label="{{'Clients.Fields.Search'|translate}}">
                     <md-item-template>
-                            <span>{{item.descripcion}}</span>
+                        <span>{{item.descripcion}}</span>
                     </md-item-template>
                 </md-autocomplete>
 
                 <md-virtual-repeat-container flex="flex" hide layout-fill show-gt-md style="min-height:350px">
-                    <div flex md-virtual-repeat="item in vm.projects">
+                    <div flex md-virtual-repeat="item in vm.clients">
                         <div flex="flex"
                              ng-click="vm.clickCopy(item)"
                              layout-padding layout="row"
@@ -39,30 +39,30 @@
             </div>
             <!--Content div-->
             <div layout="column" flex-gt-md="70" flex="100">
-                <h2>{{'Projects.Fields.Information'|translate}}</h2>
-                <form name="formProject" novalidate>
+                <h2>{{'Clients.Fields.Information'|translate}}</h2>
+                <form name="formClient" novalidate>
                     <md-input-container class="md-block">
-                        <label>{{'Projects.Fields.ProjectName'|translate}}</label>
-                        <input name="ProjectName" type="text" required="" md-no-asterisk=""
-                               ng-model="vm.project.descripcion">
-                        <div ng-messages="formProject.ProjectName.$error">
-                            <div ng-message="required">{{'Projects.Errors.Required'|translate}}</div>
+                        <label>{{'Clients.Fields.Name'|translate}}</label>
+                        <input name="ClientName" type="text" required="" md-no-asterisk=""
+                               ng-model="vm.client.name">
+                        <div ng-messages="formClient.ClientName.$error">
+                            <div ng-message="required">{{'Clients.Errors.Required'|translate}}</div>
                         </div>
                     </md-input-container>
                 </form>
             </div>
         </div>
         <md-actions layout="row" layout-align="end center">
-            <md-button ng-if="vm.project.id!=null && vm.project.id!=undefined" ng-click="vm.remove()" md-no-ink class="md-primary">
+            <md-button ng-if="vm.client.id!=null && vm.client.id!=undefined" ng-click="vm.remove()" md-no-ink class="md-primary">
                 {{'MAIN.BUTTONS.DELETE'|translate}}
             </md-button>
             <md-button ng-click="vm.clear()" md-no-ink class="md-primary">
                 {{'MAIN.BUTTONS.CLEAR_FIELDS'|translate}}
             </md-button>
-            <md-button ng-if="vm.project.id==null || vm.project.id==undefined" ng-click="vm.create()" md-no-ink class="md-primary" ng-disabled="formClient.$invalid">
+            <md-button ng-if="vm.client.id==null || vm.client.id==undefined" ng-click="vm.create()" md-no-ink class="md-primary" ng-disabled="formClient.$invalid">
                 {{'MAIN.BUTTONS.SUBMIT'|translate}}
             </md-button>
-            <md-button ng-if="vm.project.id!=null && vm.project.id!=undefined" ng-click="vm.update()" md-no-ink class="md-primary" ng-disabled="formClient.$invalid">
+            <md-button ng-if="vm.client.id!=null && vm.client.id!=undefined" ng-click="vm.update()" md-no-ink class="md-primary" ng-disabled="formClient.$invalid">
                 {{'MAIN.BUTTONS.UPDATE'|translate}}
             </md-button>
         </md-actions>

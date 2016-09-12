@@ -37,5 +37,35 @@
         "ERROR_UPDATING_PROJECT":"Error al eliminar proyecto"
       }
     }
+  },
+  "Clients": {
+    "Header": "Cliente",
+    "Fields": {
+      "Name": "Nombre del Cliente",
+      "Surname": "Apellido Paterno",
+      "LastName": "Apellido Materno",
+      "Address": "Direccion",
+      "Telephone": "Teléfono",
+      "User": "Usuario",
+      "Password": "Contraseña",
+      "Email": "Correo electrónico",
+      "Search": "Buscar Clientes",
+      "Information": "Información del cliente"
+    },
+    "Notify": {
+      "Error": "Error",
+      "Success": "Éxito",
+      "Warning": "Advertencia",
+      "Messages": {
+        "ERROR_GETTING_CLIENTS": "Error al obtener la lista de clientes",
+        "ERROR_CREATING_CLIENT": "Error al crear el cliente",
+        "SUCCESS_CREATING_CLIENT": "Cliente creado correctamente",
+        "SUCCESS_REMOVING_CLIENT": "Cliente eliminado correctamente",
+        "ERROR_REMOVING_CLIENT": "Error al eliminar cliente",
+        "SUCCESS_UPDATING_CLIENT": "Cliente actualizado correctamente",
+        "ERROR_UPDATING_CLIENT": "Error al eliminar cliente"
+      }
+    }
   }
+
 }

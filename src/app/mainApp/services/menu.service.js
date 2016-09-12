@@ -157,6 +157,11 @@
                             name: 'Proyectos',
                             state: 'triangular.admin-default.proyectos',
                             type: 'link'
+                        },
+                        {
+                            name:'Cliente',
+                            state: 'triangular.admin-default.clientes',
+                            type:'link'
                         }
 
                     ]

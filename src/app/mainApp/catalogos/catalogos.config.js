@@ -33,6 +33,12 @@
                 templateUrl:'app/mainApp/catalogos/proyectos/proyectos.tmpl.html',
                 controller:'proyectosController',
                 controllerAs:'vm'
+            })
+            .state('triangular.admin-default.clientes',{
+                url:'/clientes',
+                templateUrl:'app/mainApp/catalogos/clientes/cliente.tmpl.html',
+                controller:'clienteController',
+                controllerAs:'vm'
             });
 
     }
