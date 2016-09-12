@@ -200,6 +200,7 @@
                 vm.insumo.nombre=vm.catalogoSelected.descripcion;
                 console.log("El insumo a agregar al arreglo es:");
                 console.log(vm.insumo);
+                add();
 
             }
 
@@ -316,22 +317,26 @@
         }
 
         function crearInsumo() {
-            vm.buscarInsumosByCatalogo().then(function () {
-                if (vm.insumo.id !=null) {
-                    console.log("entre al if")
-                    console.log(vm.insumos);
-                    console.log(vm.insumo);
-                    vm.insumos.push(vm.insumo);
-                    vm.catalogoSelected=null;
-                    vm.insumo=null;
+         vm.buscarInsumosByCatalogo();
 
-                }
-                else
-                    notifyError(404);
+        }
 
-            });
+        function add(){
+            if (vm.insumo.id !=null) {
+
+                console.log("entre al if")
+                console.log(vm.insumos);
+                console.log(vm.insumo);
+                 vm.insumos.push(vm.insumos);
+                console.log(lala);
+                console.log(vm.insumo);
 
 
+            }
+            else
+                notifyError(404);
+            vm.catalogoSelected=null;
+            vm.insumo=null;
         }
 
         // Eliminar Insumo
