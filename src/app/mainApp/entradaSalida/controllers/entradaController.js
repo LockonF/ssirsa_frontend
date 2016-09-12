@@ -142,7 +142,7 @@
                 vm.entrada=res;
                 vm.hideRegisteredCabinets=false;
                 vm.hideUnregisteredCabinets=false;
-                toastr.succes('Exito en la carga masiva','Exito');
+                toastr.success('Exito en la carga masiva','Exito');
             }).catch(function (err) {
                 toastr.error('Error en la carga masiva', 'Error');
                 console.log(err);
@@ -269,11 +269,7 @@
     }
     function modeloDialogController($scope,$mdDialog){
         $scope.marcas=null;
-        MarcaCabinet.getAll().then(function(res){
-            $scope.marcas=res;
-        }).catch(function(err){
-
-        });
+        $scope.marcas=MarcaCabinet.list();
         $scope.marca=null;
         $scope.modelo=null;
         $scope.hide=function(){
