@@ -17,6 +17,7 @@
             "NOTHINGTODELETE":"No hay Ningun Elemento a Eliminar",
             "SUCCESS_TICKET_MESSAGE": "Se creó exitosamente el pre-checklist",
             "SUCCESS_DIAGNOSTIC_MESSAGE": "Se creó exitosamente el diagnóstico",
+            "SUCESSS_TRANSPORTE_MESSAGE":"Se creó exitosamente la linea de transporte",
             "SUCCESS_LINE_MESSAGE":"Se Asigno  exitosamente el Cabinet",
             "SUCCESS_TICKET_MESSAGES": "Se creó exitosamente el mensaje",
             "ERORR_TYPE_FILE": "No se permiten este tipo de archivo",

@@ -38,7 +38,6 @@
             vm.successRemove=Translate.translate('Projects.Notify.Messages.SUCCESS_REMOVING_PROJECT');
             vm.errorUpdate=Translate.translate('Projects.Notify.Messages.ERROR_UPDATING_PROJECT');
             vm.successUpdate=Translate.translate('Projects.Notify.Messages.SUCCESS_UPDATING_PROJECT');
-
             vm.projects=Proyectos.getAll();
             vm.filteredProjects=vm.projects;
         }

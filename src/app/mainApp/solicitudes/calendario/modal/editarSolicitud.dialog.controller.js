@@ -39,6 +39,10 @@
             {
                 id:2,
                 value:"Cancelada"
+            },
+            {
+                id:3,
+                value:"Cerrada"
             }
         ];
 
@@ -61,6 +65,7 @@
             vm.event.solicitud.fecha_inicio=vm.event.start.format('YYYY-MM-DD');
             vm.event.solicitud.fecha_termino=vm.event.end.format('YYYY-MM-DD');
             //vm.event.solicitud.fecha_atendida=vm.event.atendida.format('"YYYY-MM-DD HH:mm:ss"');
+            vm.event.solicitud.fecha_atendida=vm.event.end.toISOString();
             delete vm.event.solicitud.datos;
             Solicitudes_Admin.updateSolicitud(vm.event.solicitud).then(function (res) {
                 $mdDialog.hide(vm.event);

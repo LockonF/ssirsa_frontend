@@ -1,7 +1,7 @@
 <div layout="column" layout-align="center center" class="overlay-40">
     <div layout="row" layout-align="center center">
         <p flex="70" flex-sm="100" flex-gt-xs="100" translate=""
-           class="md-headline font-weight-300 text-center text-light">TRANSPORT_LINE.FORM.LABEL.TRANSPORT_LINE</p>
+           class="md-headline font-weight-300 text-center text-light">SUCURSAL.FORM.LABEL.BRANCH</p>
     </div>
     <div flex="" layout="row" layout-align="center center" layout-xs="column" layout-fill="">
         <div flex="80" layout="column" class="md-whiteframe-z1 margin-bottom-100">
@@ -13,29 +13,29 @@
                                      md-search-text-change="vm.searchTextChange(vm.searchText)"
                                      md-search-text="vm.searchText"
                                      md-selected-item-change="vm.selectedItemChange(item)"
-                                     md-items="item in vm.querySearch(vm.searchText)" md-item-text="item.razon_social"
+                                     md-items="item in vm.querySearch(vm.searchText)" md-item-text="item.nombre"
                                      md-min-length="0"
-                                     md-floating-label="{{ 'TRANSPORT_LINE.FORM.PLACEHOLDER.SEARCH_TRANSPORT_LINE' | translate }}"
+                                     md-floating-label="{{'SUCURSAL.FORM.PLACEHOLDER.SEARCH_BRANCH' | translate }}"
                                      md-menu-class="autocomplete-custom-template" class="margin-top-20"><span
-                        md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.razon_social}}</span>
+                        md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.nombre}}</span>
                         <md-item-template><span class="item-title">
                         <md-icon md-font-icon="fa fa-briefcase"></md-icon>
-                        <span>&nbsp; {{item.razon_social}}</span>
+                        <span>&nbsp; {{item.nombre}}</span>
                         </span><span class="item-metadata">
                             <span class="item-metastat">
                                 <strong>{{item.responsable }}</strong>
                             </span>
                         </span>
                         </md-item-template>
-                        <md-not-found><span translate="TRANSPORT_LINE.FORM.PLACEHOLDER.NOT_FOUND"></span></md-not-found>
+                        <md-not-found><span translate="SUCURSAL.FORM.PLACEHOLDER.NOT_FOUND"></span></md-not-found>
                     </md-autocomplete>
                     <md-virtual-repeat-container class="vertical-container">
                         <md-list>
-                            <md-list-item ng-repeat="linea in vm.lineas | custom:vm.searchText">
-                                <md-button ng-click="vm.selectedLineas(linea)"
-                                           ng-class="{'selected' : linea === vm.selectedLinea }">
-                                    <md-icon md-svg-icon="assets/images/transport.svg" class="avatar"></md-icon>
-                                    <span flex="flex">{{linea.razon_social }}</span>
+                            <md-list-item ng-repeat="sucursal in vm.sucursales | sucursalSearch:vm.searchText">
+                                <md-button ng-click="vm.selectedSucursales(sucursal)"
+                                           ng-class="{'selected' : sucursal === vm.selectedSucursal }">
+                                    <md-icon md-svg-icon="assets/images/sucursal.svg" class="avatar"></md-icon>
+                                    <span flex="flex">{{sucursal.nombre }}</span>
                                 </md-button>
                             </md-list-item>
                         </md-list>
@@ -50,60 +50,46 @@
                     </md-button>
 
                     <md-content id="content">
-                        <div layout="column" flex="flex" ng-show="vm.selectedLinea!=null || vm.operation==1">
+                        <div layout="column" flex="flex" ng-show="vm.selectedSucursal!=null || vm.operation==1">
                             <h2 class="md-headline-1 text-center">
-                                {{vm.operation==0?'TRANSPORT_LINE.FORM.LABEL.INFO_TRANSPORT_LINE':'TRANSPORT_LINE.FORM.LABEL.NEW_REGISTER'|translate}}</h2>
-                            <!--<h2>{{'TRANSPORT_LINE.FORM.LABEL.NEW_REGISTER'|translate}}</h2>-->
-                            <form name="TransportForm">
+                                {{vm.operation==0?'SUCURSAL.FORM.LABEL.INFO_BRANCH':'SUCURSAL.FORM.LABEL.NEW_REGISTER'|translate}}</h2>
+                            <form name="SucursalForm">
                                 <md-input-container class="md-block">
-                                    <label>{{'TRANSPORT_LINE.FORM.LABEL.BUSINESS_NAME'|translate}}</label>
-                                    <input ng-required='true' type="text" name="razon" ng-disabled="vm.editable"
-                                           ng-model="vm.transport.razon_social"/>
-                                    <div ng-messages="TransportForm.razon.$error">
+                                    <label>{{'SUCURSAL.FORM.LABEL.NAME'|translate}}</label>
+                                    <input ng-required='true' type="text" name="nombre" ng-disabled="vm.editable"
+                                           ng-model="vm.sucursal.nombre"/>
+                                    <div ng-messages="SucursalForm.nombre.$error">
                                         <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
                                     </div>
                                 </md-input-container>
                                 <md-input-container class="md-block">
-                                    <label>{{'TRANSPORT_LINE.FORM.LABEL.ADDRESS'|translate}}</label>
+                                    <label>{{'SUCURSAL.FORM.LABEL.ADDRESS'|translate}}</label>
                                     <input md-no-asterisk="" required="" type="text" name="address"
                                            ng-disabled="vm.editable"
-                                           ng-model="vm.transport.direccion"/>
-                                    <div ng-messages="TransportForm.address.$error">
+                                           ng-model="vm.sucursal.direccion"/>
+                                    <div ng-messages="SucursalForm.address.$error">
                                         <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
                                     </div>
                                 </md-input-container>
                                 <div class="chipsdemoCustomInputs">
-                                    <label>{{'TRANSPORT_LINE.FORM.LABEL.PHONE'|translate}}</label>
-                                    <md-chips ng-model="vm.transport.telefonos"
+                                    <label>{{'SUCURSAL.FORM.LABEL.PHONE'|translate}}</label>
+                                    <md-chips ng-model="vm.sucursal.telefonos"
                                               md-removable="vm.removable"
                                               delete-button-label="Remove Tag"
                                               readonly="vm.editable"
                                     >
                                         <input type="text" only-digits ng-model="vm.numberBuffer"
-                                               placeholder="{{'TRANSPORT_LINE.FORM.LABEL.PLUS-PHONE'|translate}}">
+                                               placeholder="{{'SUCURSAL.FORM.LABEL.PLUS-PHONE'|translate}}">
                                     </md-chips>
-
-                                    <!--<md-chips
-                                        ng-model="vm.transport.telefonos"
-                                        readonly="false"
-                                        md-removable="vm.removable"
-                                        delete-button-label="Remove Tag"
-                                        placeholder="{{'TRANSPORT_LINE.FORM.PLACEHOLDER.ENTER-PHONE'|translate}}"
-                                        delete-hint="Press delete to remove tag"
-                                        md-enable-chip-edit="true"
-                                        secondary-placeholder="{{'TRANSPORT_LINE.FORM.LABEL.PLUS-PHONE'|translate}}"
-                                        ng-required="true">
-                                        <input type="text" only-digits placeholder="{{'TRANSPORT_LINE.FORM.PLACEHOLDER.ENTER-PHONE'|translate}}">
-                                    </md-chips>-->
 
 
                                 </div>
                                 <md-input-container class="md-block">
-                                    <label>{{'TRANSPORT_LINE.FORM.LABEL.RESPONSABLE'|translate}}</label>
+                                    <label>{{'SUCURSAL.FORM.LABEL.RESPONSABLE'|translate}}</label>
                                     <input md-no-asterisk="" required="" type="text" name="responsable"
                                            ng-disabled="vm.editable"
-                                           ng-model="vm.transport.responsable"/>
-                                    <div ng-messages="TransportForm.responsable.$error">
+                                           ng-model="vm.sucursal.responsable"/>
+                                    <div ng-messages="SucursalForm.responsable.$error">
                                         <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
                                     </div>
                                 </md-input-container>
@@ -120,9 +106,9 @@
                                         <md-icon md-font-icon="fa fa-pencil"></md-icon>
                                     </md-button>
                                     <md-button
-                                        ng-click="vm.registrarTransporte()"
+                                        ng-click="vm.registrar()"
+                                        ng-disabled="SucursalForm.$invalid"
                                         ng-show="vm.operation==1 || vm.operation==2"
-                                        ng-disabled="TransportForm.$invalid"
                                         class="md-raised md-primary">
                                         <md-icon md-font-icon="fa fa-save"></md-icon>
                                     </md-button>
