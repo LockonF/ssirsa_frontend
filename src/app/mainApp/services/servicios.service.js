@@ -30,7 +30,7 @@
             modificarInsumo:modificarInsumo,
             eliminarInsumo:eliminarInsumo,
             consultarInfoCabinet:consultarInfoCabinet,
-            consultarInsumobyNombre:consultarInsumobyNombre,
+            consultarInsumobyNombre:consultarInsumobyNombre
 
         };
 
@@ -104,7 +104,7 @@
             return deferred.promise;
         }
 
-
+        
 //Endpoints no utiles desde ek cambio de sssirsa de quitar supervisiones
         function verEtapaNoValidada(etapa) {
 

@@ -108,8 +108,8 @@
                     <div layout="row">
                         <md-input-container flex="25">
                             <label translate>ETAPA_SERVICIO.NAME</label>
-                            <md-select ng-model="vm.insumo" name="select" ng-disabled="vm.editable">
-                                <md-option ng-repeat="insu in vm.insumos" ng-value="insu">{{insu.nombre}}</md-option>
+                            <md-select ng-model="vm.catalogoSelected" name="select" ng-disabled="vm.editable">
+                                <md-option ng-repeat="insu in vm.catalogoInsumos" ng-value="insu">{{insu.descripcion}}</md-option>
                             </md-select>
                         </md-input-container>
                         <md-input-container flex="15">

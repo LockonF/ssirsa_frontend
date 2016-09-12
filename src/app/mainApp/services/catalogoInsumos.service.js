@@ -24,21 +24,24 @@
             var deferred = $q.defer();
             Restangular.one('catalogo_insumos', catalogo).customGET().then(function (res) {
                 deferred.resolve(res);
-            }).catch(function (err) {
-                deferred.reject(false);
-                console.log(err);
+            }).catch(function (res) {
+                deferred.reject(res);
+                console.log(res);
             });
             return deferred.promise;
         }
 
+       
         function getCatalogoByZone(etapa) {
             var deferred = $q.defer();
-            Restangular.all('catalogo_insumos').one('zone',etapa).customGET().then(function (res) {
+           
+            Restangular.all('catalogo_insumos').one('zone', etapa).customGET().then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
-                deferred.reject(false);
+                deferred.reject(err);
                 console.log(err);
             });
+
             return deferred.promise;
         }
 
@@ -47,7 +50,7 @@
             Restangular.all('catalogo_insumos').one('lookup',word).customGET().then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
-                deferred.reject(false);
+                deferred.reject(res);
                 console.log(err);
             });
             return deferred.promise;
@@ -58,7 +61,7 @@
             Restangular.all('catalogo_insumos').customGET().then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
-                deferred.reject(false);
+                deferred.reject(res);
                 console.log(err);
             });
             return deferred.promise;
@@ -66,4 +69,4 @@
 
 
     }
-});
+})();

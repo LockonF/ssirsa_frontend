@@ -35,7 +35,7 @@
             Restangular.all('insumo').all('used').customGET().then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
-                deferred.reject(false);
+                deferred.reject(res);
                 console.log(err);
             });
             return deferred.promise;
@@ -46,7 +46,7 @@
             Restangular.all('insumo').all('used').customGET().then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
-                deferred.reject(false);
+                deferred.reject(res);
                 console.log(err);
             });
             return deferred.promise;
@@ -57,7 +57,7 @@
             Restangular.all('insumo').customGET().then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
-                deferred.reject(false);
+                deferred.reject(res);
                 console.log(err);
             });
             return deferred.promise;
@@ -65,4 +65,4 @@
 
 
     }
-});
+})();

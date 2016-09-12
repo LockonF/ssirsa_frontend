@@ -9,7 +9,7 @@
         .module('app.mainApp.tecnico')
         .controller('etapaController', etapaController);
 
-    function etapaController(Cabinet, Servicios, Diagnostico, ModeloCabinet, Translate, toastr) {
+    function etapaController(Cabinet, Servicios, Diagnostico, CatalogoInsumo, Insumo, Translate, toastr) {
         var vm = this;
         vm.activate = activate();
 
@@ -22,18 +22,20 @@
             siguiente_etapa: ''
 
         };
-
+        vm.catalogoInsumos = null;//array con todos los caatalogos de insumo disponibles de la etapa
+        vm.catalogoSelected = null;//Elemento del tipo Catalogo de Insumo del insumo que se deseará agregar
         vm.editable = true;
         vm.idCabinet = null;
         vm.insumos = [];//Arreglo que poseera los Insumos que pueden ser usados en cierta etapa
         vm.cabinet = null;// Informacion general del cabinet al cual se le asignara una nueva etapa
         vm.diagnostico = null;// Informacion del diagnostico que propicio que entrara a un proceso de servicio tecnico
-        vm.etapa;
-        vm.modelo;
+        vm.etapa = null;
+        vm.etapaActual = null;
         vm.insumo = {
             id: "",
             nombre: "",
             cantidad: "",
+            catalogo: "",
             notas: ""
         };// Insumo por agregar al cabinet en cuestion
         vm.etapas = [{
@@ -83,15 +85,9 @@
         vm.eliminarEtapaServicio = eliminarEtapaServicio;//
         vm.getInsumos = getInsumos;//
         vm.editar = editar;
-        vm.buscarModelo = buscarModelo;
-        vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
-        vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
-        vm.successCreateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_CREATE');
-        vm.successUpdateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_UPDATE');
-        vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
-        vm.notFoundMessage = Translate.translate('MAIN.MSG.NOT_FOUND');
-        vm.notFoundInput = Translate.translate('MAIN.MSG.NOT_FOUND_INPUT');
-        vm.notAllow = Translate.translate('MAIN.MSG.NOT_ALLOWED');
+        vm.buscarCatalogoInsumos = buscarCatalogoInsumos;
+        vm.buscarCatalogoInsumosByWord = buscarCatalogoInsumosByWord;
+        vm.buscarInsumosByCatalogo = buscarInsumosByCatalogo;
 
 
         // Funciones
@@ -102,7 +98,14 @@
 
         //Funcion Activate al iniciar la vista
         function activate() {
-
+            vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
+            vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
+            vm.successCreateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_CREATE');
+            vm.successUpdateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_UPDATE');
+            vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
+            vm.notFoundMessage = Translate.translate('MAIN.MSG.NOT_FOUND');
+            vm.notFoundInput = Translate.translate('MAIN.MSG.NOT_FOUND_INPUT');
+            vm.notAllow = Translate.translate('MAIN.MSG.NOT_ALLOWED');
 
         }
 
@@ -118,23 +121,22 @@
                         promise.then(function (res) {
                             vm.etapa = res;
 
-                            console.log("De la Busqueda")
-                            console.log(vm.etapa)
-                            console.log("Despues de las condiciones")
+
                             if (vm.etapa.validado == false) {
-                                console.log("Soy una etapa no validada");
+
                                 vm.etapaActual = vm.etapa;
                                 vm.insumos = vm.etapaActual.insumos;
                             }
                             else {
-                                console.log("Soy una etapa validada");
+
                                 vm.etapaActual = vm.etapa;
                                 vm.etapaActual.id = null;
                                 vm.etapaActual.actual_etapa = vm.etapa.siguiente_etapa;
                                 vm.etapaActual.siguiente_etapa = null;
                                 vm.etapaActual.insumos = null;
                             }
-                            console.log(vm.etapaActual);
+
+                            buscarCatalogoInsumos();
                         }).catch(function (res) {
                             notifyError(res.status);
                         })
@@ -144,8 +146,6 @@
                 }).catch(function (res) {
                     notifyError(res.status);
                 });
-
-                console.log(etapaActual);
             }
             else {
                 notifyError(404);
@@ -153,16 +153,65 @@
 
         }
 
-        function buscarModelo() {
-            var promise = ModeloCabinet;//AQUI VOY
+        function buscarCatalogoInsumos() {
+            var promise = CatalogoInsumo.getCatalogoByZone(vm.etapaActual.actual_etapa);
             promise.then(function (res) {
-                vm.modelos = res;
+                vm.catalogoInsumos = res;
+
+            }).catch(function (res) {
+                notifyError(res.status);
+            });
+
+        }
+
+        function buscarInsumosByCatalogo() {
+            vm.insumostmp = null;
+
+            var promise = Insumo.getInsumosByCatalogo(vm.catalogoSelected.id);
+            promise.then(function (res) {
+                vm.insumotmp = res;
+
+                selectInsumo(vm.insumotmp)
 
 
             }).catch(function (res) {
                 notifyError(res.status);
             });
 
+        }
+
+        function selectInsumo(insumotmp) {
+
+
+            var insumoAUsar = null;
+            if (insumotmp != null) {
+
+                if (vm.catalogoSelected.tipo = "U") {
+
+                    insumoAUsar = _.findWhere(insumotmp, {"usado":false});
+                }
+                if (vm.catalogoSelected.tipo = "L"){
+
+                    insumoAUsar = _.findWhere(insumotmp, {"usado":true});
+                }
+
+                vm.insumo.id=insumoAUsar.id;
+                vm.insumo.catalogo=insumoAUsar.catalogo;
+                vm.insumo.nombre=vm.catalogoSelected.descripcion;
+                console.log("El insumo a agregar al arreglo es:");
+                console.log(vm.insumo);
+
+            }
+
+        }
+
+        function buscarCatalogoInsumosByWord() {
+            var promise = CatalogoInsumo.getCatalogoByWord(vm.word);
+            promise.then(function (res) {
+                vm.catalogoInsumos2 = res;
+            }).catch(function (res) {
+                notifyError(res.status);
+            })
         }
 
         function notifyError(status) {
@@ -181,8 +230,9 @@
 
 
         function getInsumos() {
-            var promise = Servicios.consultarInsumosEtapa(vm.etapaActual);
-            promise.then(function (res) {});
+            var promise = Servicios.consultarInsumosEtapa(vm.diagnostico);
+            promise.then(function (res) {
+            });
         }
 
 
@@ -200,8 +250,8 @@
             vm.insumos = [];//Arreglo que poseera los Insumos que pueden ser usados en cierta etapa
             vm.cabinet = null;// Informacion general del cabinet al cual se le asignara una nueva etapa
             vm.diagnostico = null;// Informacion del diagnostico que propicio que entrara a un proceso de servicio tecnico
-            vm.etapa;
-            vm.modelo;
+            vm.etapa = null;
+            vm.modelo = null;
             vm.etapaActual = null;
             vm.insumo = {
                 id: "",
@@ -228,11 +278,11 @@
         function crearEtapaServicio() {
             vm.etapaActual.insumos = [];
             vm.etapaActual.diagnostico = vm.diagnostico.id;
-            console.log(vm.etapaActual)
+            console.log(vm.etapaActual);
 
 
             if (vm.etapaActual.id == null) {
-                console.log("voy a crear uno nuevo")
+                console.log("voy a crear uno nuevo");
                 vm.etapaActual.insumos = vm.insumos;
                 console.log("Al editar/crear");
                 console.log(vm.etapaActual);
@@ -258,8 +308,6 @@
                     vm.etapaActual = res;
                     vm.cancel();
                 }).catch(function (res) {
-
-                    console.log(res);
                     notifyError(res.status);
                 });
 
@@ -268,19 +316,30 @@
         }
 
         function crearInsumo() {
-            if (vm.insumo.nombre != null) {
+            vm.buscarInsumosByCatalogo();
+                if (vm.insumo.id != "") {
+                    vm.insumos.push(vm.insumo);
+                    vm.catalogoSelected=null;
+                    vm.insumo=null;
 
-            }
-            else {
+                }
+            else
                 notifyError(404);
-            }
-
         }
 
         // Eliminar Insumo
 
 
         function eliminarInsumo(insu) {
+
+            if (vm.insumo.id != "") {
+                vm.insumos.splice();
+                vm.catalogoSelected=null;
+                vm.insumo=null;
+
+            }
+            else
+                notifyError(404);
 
 
         }
