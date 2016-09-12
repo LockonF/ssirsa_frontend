@@ -114,7 +114,6 @@
                         state: 'triangular.admin-default.tecnico',
                         type: 'link'
                     },
-
                         {
                             name: 'Entradas',
                             state: 'triangular.admin-default.entrada',
