@@ -24,6 +24,7 @@
         vm.projects = null;
         vm.filteredProjects = [];
         vm.project = null;
+        vm.selectedProject=null;
         vm.searchParameter='';
         activate();
 
@@ -46,31 +47,42 @@
         function create() {
             Proyectos.post(vm.project).then(function(res){
                 toastr.success(vm.succesCreate,vm.successTitle);
+                vm.selectedProject=null;
+                vm.projects=Proyectos.getAll();
+                vm.filteredProjects=vm.projects;
+                $scope.formProject.$setPristine();
+                $scope.formProject.$setUntouched();
             }).catch(function(err){
                 toastr.error(vm.errorCreate,vm.errorTitle);
-                console.log(err);
             });
         }
 
         function update() {
             Proyectos.put(vm.project).then(function(res){
                 toastr.success(vm.successUpdate,vm.successTitle);
+                vm.selectedProject=null;
+                vm.projects=Proyectos.getAll();
+                vm.filteredProjects=vm.projects;
+                $scope.formProject.$setPristine();
+                $scope.formProject.$setUntouched();
             }).catch(function(err){
                 toastr.error(vm.errorUpdate,vm.errorTitle);
             });
-            vm.projects=Proyectos.getAll();
-            vm.filteredProjects=vm.projects;
         }
 
         function remove() {
-            Proyectos.remove(vm.projects).then(function(res){
-                toastr.succes(vm.successRemove,vm.successTitle);
+            Proyectos.remove(vm.project).then(function(res){
+                toastr.success(vm.successRemove,vm.successTitle);
+                $scope.formProject.$setPristine();
+                $scope.formProject.$setUntouched();
+                vm.projects=Proyectos.getAll();
+                vm.filteredProjects=vm.projects;
+                vm.selectedProject=null;
+                vm.project=null;
             }).catch(function(err){
                 toastr.error(vm.errorRemove,vm.errorTitle);
                 console.log(err);
             });
-            vm.projects=Proyectos.getAll();
-            vm.filteredProjects=vm.projects;
         }
 
         function search(text) {
@@ -82,16 +94,22 @@
 
         function clear() {
             vm.project = null;
+            vm.selectedProject=null;
             $scope.formProject.$setPristine();
+            $scope.formProject.$setUntouched();
+            $scope.formProject.$invalid=true;
         }
 
         function selectedItemChange(item) {
-            vm.project = item;
+            vm.selectedProject = item;
+            vm.project=angular.copy(vm.selectedProject);
             $scope.formProject.$invalid=true;
         }
 
         function clickCopy(item){
-            vm.project=item.clone();
+            vm.project=angular.copy(item);
+            vm.selectedProject=null;
+            console.log(vm.project);
         }
 
     }

@@ -11,7 +11,7 @@
 
                 <md-autocomplete
                         md-items="item in vm.filteredProjects"
-                        md-selected-item="vm.project"
+                        md-selected-item="vm.selectedProject"
                         md-selected-item-change="vm.selectedItemChange(item)"
                         md-search-text-change="vm.search(vm.searchParameter)"
                         md-search-text="vm.searchParameter"
@@ -24,7 +24,7 @@
                 </md-autocomplete>
 
                 <md-virtual-repeat-container flex="flex" hide layout-fill show-gt-md style="min-height:350px">
-                    <div flex md-virtual-repeat="item in vm.projects">
+                    <div flex md-virtual-repeat="item in vm.filteredProjects">
                         <div flex="flex"
                              ng-click="vm.clickCopy(item)"
                              layout-padding layout="row"
