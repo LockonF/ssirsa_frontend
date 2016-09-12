@@ -12,9 +12,10 @@
         return {
             list:list,
             update:update,
-            create:create,
             remove:remove,
-            get:get
+            get: get,
+            create:create,
+            getModels:getModels
         };
         function get(id) {
             return baseMarca.get(id);
@@ -36,6 +37,11 @@
         function remove(object) {
             return baseMarca.customDELETE(object.id);
         }
+
+        function getModels(id){
+            return Restangular.all('marca_cabinet').one('models',id).getList();
+        }
+
     }
 
 })();

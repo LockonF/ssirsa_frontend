@@ -35,7 +35,10 @@
             "CLEAR_FIELDS":"Limpiar campos"
         },
         "GENERAL":{
-            "REQUIRED_FIELD":"Campo Requerido"
+            "JUST_INTEGERS":"Solo se aceptan números enteros",
+            "REQUIRED_FIELD":"Campo Requerido",
+            "MIN_NUMBER": "Se necesita que el número sea al menos ",
+            "MAX_NUMBER": "Se necesita que el número sea a lo más  "
 
         }
     }
