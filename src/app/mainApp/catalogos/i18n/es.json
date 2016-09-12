@@ -30,7 +30,11 @@
       "Messages":{
         "ERROR_GETTING_PROJECTS":"Error al obtener la lista de proyectos",
         "ERROR_CREATING_PROJECT":"Error al crear el proyecto",
-        "SUCCESS_CREATING_PROJECT":"Proyecto creado correctamente"
+        "SUCCESS_CREATING_PROJECT":"Proyecto creado correctamente",
+        "SUCCESS_REMOVING_PROJECT":"Proyecto eliminado correctamente",
+        "ERROR_REMOVING_PROJECT":"Error al eliminar proyecto",
+        "SUCCESS_UPDATING_PROJECT":"Proyecto actualizado correctamente",
+        "ERROR_UPDATING_PROJECT":"Error al eliminar proyecto"
       }
     }
   }

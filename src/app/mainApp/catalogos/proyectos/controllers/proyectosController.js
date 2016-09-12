@@ -32,8 +32,12 @@
             vm.errorTitle=Translate.translate('Projects.Notify.Error');
             vm.warningTitle=Translate.translate('Projects.Notify.Warning');
             vm.listErrorMessage=Translate.translate('Projects.Notify.Messages.ERROR_GETTING_PROJECTS');
-            vm.errorCreate=Translate.translate('Projecs.Notify.Messages.ERROR_CREATING_PROJECT');
+            vm.errorCreate=Translate.translate('Projects.Notify.Messages.ERROR_CREATING_PROJECT');
             vm.succesCreate=Translate.translate('Projects.Notify.Messages.SUCCESS_CREATING_PROJECT');
+            vm.errorRemove=Translate.translate('Projects.Notify.Messages.ERROR_REMOVING_PROJECT');
+            vm.successRemove=Translate.translate('Projects.Notify.Messages.SUCCESS_REMOVING_PROJECT');
+            vm.errorUpdate=Translate.translate('Projects.Notify.Messages.ERROR_UPDATING_PROJECT');
+            vm.successUpdate=Translate.translate('Projects.Notify.Messages.SUCCESS_UPDATING_PROJECT');
 
             vm.projects=Proyectos.getAll();
             vm.filteredProjects=vm.projects;
@@ -49,12 +53,24 @@
         }
 
         function update() {
-            Proyectos.put(vm.project);
-            activate();
+            Proyectos.put(vm.project).then(function(res){
+                toastr.success(vm.successUpdate,vm.successTitle);
+            }).catch(function(err){
+                toastr.error(vm.errorUpdate,vm.errorTitle);
+            });
+            vm.projects=Proyectos.getAll();
+            vm.filteredProjects=vm.projects;
         }
 
         function remove() {
-
+            Proyectos.remove(vm.projects).then(function(res){
+                toastr.succes(vm.successRemove,vm.successTitle);
+            }).catch(function(err){
+                toastr.error(vm.errorRemove,vm.errorTitle);
+                console.log(err);
+            });
+            vm.projects=Proyectos.getAll();
+            vm.filteredProjects=vm.projects;
         }
 
         function search(text) {
