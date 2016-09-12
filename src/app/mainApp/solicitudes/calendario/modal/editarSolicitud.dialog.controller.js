@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.mainApp.calendar')
+        .module('app.mainApp.solicitudes')
         .controller('EditarSolicitudDialogController', EditarSolicitudDialogController);
 
     /* @ngInject */
@@ -19,12 +19,14 @@
         vm.okClick = okClick;
         vm.selectedColor = null;
         // create start and end date of event
+        //vm.atendida=moment();
         vm.start =moment(event.solicitud.fecha_inicio,"YYYY-MM-DD").toDate();
-        console.log(vm.start);
-        //console.log(vm.start.format('YYYY-MM-DD'));
         if( event.solicitud.fecha_termino !== null) {
             vm.end = moment(event.solicitud.fecha_termino,"YYYY-MM-DD").toDate();
         }
+        /*if( event.solicitud.fecha_atendida !== null) {
+            vm.atendida = moment(event.solicitud.fecha_atendida,"YYYY-MM-DD HH:mm:ss").toDate();
+        }*/
         vm.statu = [
             {
                 id:0,
@@ -54,8 +56,11 @@
             if(vm.event.solicitud.fecha_termino !== null) {
                 vm.event.end = updateEventDateTime(vm.end);
             }
+
+            //vm.event.atendida = updateEventDateTime(vm.atendida);
             vm.event.solicitud.fecha_inicio=vm.event.start.format('YYYY-MM-DD');
             vm.event.solicitud.fecha_termino=vm.event.end.format('YYYY-MM-DD');
+            //vm.event.solicitud.fecha_atendida=vm.event.atendida.format('"YYYY-MM-DD HH:mm:ss"');
             delete vm.event.solicitud.datos;
             Solicitudes_Admin.updateSolicitud(vm.event.solicitud).then(function (res) {
                 $mdDialog.hide(vm.event);
