@@ -121,6 +121,7 @@
                                     </md-button>
                                     <md-button
                                         ng-click="vm.registrarTransporte()"
+                                        ng-show="vm.operation==1 || vm.operation==2"
                                         ng-disabled="TransportForm.$invalid"
                                         class="md-raised md-primary">
                                         <md-icon md-font-icon="fa fa-save"></md-icon>

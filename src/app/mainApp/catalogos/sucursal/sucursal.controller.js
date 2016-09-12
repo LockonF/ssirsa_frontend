@@ -72,6 +72,7 @@
                 Sucursal.remove(vm.sucursal).then(function (res) {
                     toastr.success(vm.successDeleteMessage, vm.successTitle);
                     vm.sucursal = angular.copy(sucursal);
+                    vm.selectedSucursal=null;
                     clearForm();
                     activate();
                 }).catch(function (res) {
@@ -127,6 +128,7 @@
                     toastr.success(vm.successUpdateMessage, vm.successTitle);
                     vm.operation=0;
                     vm.editable=true;
+                    vm.selectedSucursal=null;
                     activate();
                 }).catch(function (res) {
                     toastr.warning(vm.errorMessage, vm.errorTitle);

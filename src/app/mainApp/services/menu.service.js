@@ -158,6 +158,10 @@
                             name: 'Sucursal',
                             state: 'triangular.admin-default.sucursal',
                             type: 'link'
+                        }, {
+                            name: 'Modelo de Cabinet',
+                            state: 'triangular.admin-default.model-cabinet',
+                            type: 'link'
                         }
 
                     ]

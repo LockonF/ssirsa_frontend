@@ -36,7 +36,27 @@
                 "ENTER-PHONE": "Ingrese los teléfonos"
             }
         }
-    },
+    },"MODEL_CABINET":{
+    "FORM": {
+        "LABEL": {
+            "MODEL": "Módelo de Cabinet",
+            "NAME": "Nombre",
+            "TYPE":"Tipo",
+            "DESCRIPTION": "Descripción",
+            "KEYWORD": "Palabra clave",
+            "TYPE_REFRIGERANT": "Tipo de refrigerante",
+            "QUANTITY": "Cantidad",
+            "COMPRESSOR_TYPE": "Tipo de compressor",
+            "BRAND": "Marca",
+            "INFO_MODEL": "Información de Modelo de Cabinet",
+            "NEW_REGISTER": "Registro de Modelo de Cabinet"
+        },
+        "PLACEHOLDER": {
+            "SEARCH_BRANCH": "Busca tu modelo de cabinet",
+            "NOT_FOUND": "No se encontró el modelo"
+        }
+    }
+},
     "Transport_Kind": {
         "title": "Tipo de Transporte",
         "info": "Información de tipo de transporte",
