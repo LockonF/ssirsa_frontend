@@ -12,7 +12,8 @@
             get: get,
             getAll: getAll,
             remove: remove,
-            modify: modify
+            modify: modify,
+            marca:marca
         };
 
         function create(request) {
@@ -68,6 +69,10 @@
                 deferred.reject(err);
             });
             return deferred.promise;
+        }
+
+        function marca(id){
+            return Restangular.one('modelo_cabinet').one('marca',id).customGET();
         }
     }
 })();
