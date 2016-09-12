@@ -14,7 +14,7 @@
             "GENERIC_SUCCESS_CREATE": "El elemento se ha creado exitosamente",
             "GENERIC_SUCCESS_UPDATE": "El elemento se ha actualizado exitosamente",
             "GENERIC_SUCCESS_DELETE": "El elemento se ha eliminado exitosamente",
-
+            "NOTHINGTODELETE":"No hay Ningun Elemento a Eliminar",
             "SUCCESS_TICKET_MESSAGE": "Se creó exitosamente el pre-checklist",
             "SUCCESS_DIAGNOSTIC_MESSAGE": "Se creó exitosamente el diagnóstico",
             "SUCCESS_LINE_MESSAGE":"Se Asigno  exitosamente el Cabinet",
@@ -24,6 +24,7 @@
             "FILE_SIZE": "Solo se pueden subir un archivo con un peso máximo de 1MB",
             "SUCCESS_DELETE_FOLLOWER": "Se eliminó el seguidor de manera exitosa",
             "NOT_FOUND": "No se encontró el elemento que se buscaba",
+            "NOT_ALLOWED":"No se posee el permiso para realizar dicha Acción",
             "NOT_FOUND_INPUT": "No se puede realizar el pre-checklist por que el cabinet no cuenta con una Entrada"
         },
         "BUTTONS":{
