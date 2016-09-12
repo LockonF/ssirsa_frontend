@@ -327,8 +327,8 @@
                 console.log("entre al if")
                 console.log(vm.insumos);
                 console.log(vm.insumo);
-                 vm.insumos.push(vm.insumos);
-                console.log(lala);
+                 vm.insumos.push(vm.insumo);
+                console.log(vm.insumos);
                 console.log(vm.insumo);
 
 
