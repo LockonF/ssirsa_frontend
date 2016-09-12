@@ -316,15 +316,22 @@
         }
 
         function crearInsumo() {
-            vm.buscarInsumosByCatalogo();
-                if (vm.insumo.id != "") {
+            vm.buscarInsumosByCatalogo().then(function () {
+                if (vm.insumo.id !=null) {
+                    console.log("entre al if")
+                    console.log(vm.insumos);
+                    console.log(vm.insumo);
                     vm.insumos.push(vm.insumo);
                     vm.catalogoSelected=null;
                     vm.insumo=null;
 
                 }
-            else
-                notifyError(404);
+                else
+                    notifyError(404);
+
+            });
+
+
         }
 
         // Eliminar Insumo
@@ -340,7 +347,21 @@
             }
             else
                 notifyError(404);
+        }
+        function eliminarInsumo(insu) {
+            var index;
 
+            for (index = 0; index < vm.insumos.length; ++index) {
+                if (vm.insumos[index].id == insu.id) {
+                    console.log(index);
+                        console.log("voy a borrar");
+                        console.log(vm.Requisitos[index]);
+                        vm.Requisitos.splice(index, 1);
+
+                }
+                else{console.log("Aun no lo encuentro")}
+
+            }
 
         }
 
