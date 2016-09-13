@@ -166,6 +166,16 @@ div(flex layout='column')
                                     div(ng-message='min') {{'MAIN.GENERAL.MIN_NUMBER' | translate}} 0
                                     div(ng-message='pattern') {{'MAIN.GENERAL.JUST_INTEGERS' | translate}}
                                     div(ng-message='required') {{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}
+                            md-input-container.md-block
+                                label {{ 'CABINET_CRUD.WHEELS' | translate }}
+                                input(type='number' step="any" name='rodajas' ng-model='vm.selected_cabinet.diagnostico.rodajas'
+                                min='0' max='6' ng-required='true' ng-pattern='/^[0-6]{1}/')
+                                div(ng-messages='inputForm.rodajas.$error')
+
+                                    div(ng-message='max') {{'MAIN.GENERAL.MAX_NUMBER' | translate}} 6
+                                    div(ng-message='min') {{'MAIN.GENERAL.MIN_NUMBER' | translate}} 0
+                                    div(ng-message='pattern') {{'MAIN.GENERAL.JUST_INTEGERS' | translate}}
+                                    div(ng-message='required') {{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}
 
                     div(layout='row' layout-align='end end')
                         md-button.md-raised.md-warn(ng-if='vm.newCabinet==false && vm.create_update_resolver==true' ng-click='vm.remove()') {{'MAIN.BUTTONS.DELETE' | translate}}

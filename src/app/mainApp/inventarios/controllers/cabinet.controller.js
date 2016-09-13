@@ -67,7 +67,6 @@
             {display:'B',value:'B'},
             {display:'C',value:'C'},
             {display:'D',value:'D'},
-            {display:'D',value:'D'},
             {display:'E',value:'E'},
             {display:'F',value:'F'}
         ];
