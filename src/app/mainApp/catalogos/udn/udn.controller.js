@@ -7,17 +7,17 @@
 
     angular
         .module('app.mainApp.catalogos')
-        .controller('TipoTransporteController',TipoTransporteController);
+        .controller('UDNController',UDNController);
 
-    function TipoTransporteController(TipoTransporte, toastr, Translate, $scope)
+    function UDNController(udn, toastr, Translate, $scope)
     {
         var vm = this;
 
         //Variables
         vm.searchText = '';
         vm.search_items = [];
-        vm.tipo_transporte_list = null;
-        vm.tipo_transporte = null;
+        vm.udn_list = null;
+        vm.udn = null;
 
         vm.text = 'Hola';
 
@@ -45,17 +45,17 @@
             vm.notFoundInput=Translate.translate('MAIN.MSG.NOT_FOUND_INPUT');
             vm.errorTypeFile = Translate.translate('MAIN.MSG.ERORR_TYPE_FILE');
             vm.errorSize = Translate.translate('MAIN.MSG.FILE_SIZE');
-            listTipos();
+            listUdns();
         }
 
-        function listTipos()
+        function listUdns()
         {
-            vm.tipo_transporte_list  = TipoTransporte.list();
+            vm.udn_list = udn.newList()
         }
 
         function lookup(search_text){
-            vm.search_items = _.filter(vm.tipo_transporte_list,function(item){
-                return item.descripcion.toLowerCase().includes(search_text.toLowerCase());
+            vm.search_items = _.filter(vm.udn_list,function(item){
+                return item.zona.toLowerCase().includes(search_text.toLowerCase()) || item.agencia.toLowerCase().includes(search_text.toLowerCase());
             });
             return vm.search_items;
         }
@@ -65,19 +65,19 @@
 
         }
 
-        function clickRepeater(tipo_transporte){
-            vm.tipo_transporte = tipo_transporte.clone();
+        function clickRepeater(item){
+            vm.udn = item.clone();
         }
 
         function  cancel(){
             $scope.inputForm.$setPristine();
-            vm.tipo_transporte = null;
+            vm.udn = null;
         }
 
         function update(){
-            TipoTransporte.update(vm.tipo_transporte).then(function(res){
+            udn.update(vm.udn).then(function(res){
                 toastr.success(vm.successUpdateMessage,vm.successTitle);
-                listTipos();
+                listUdns();
             }).catch(function(err){
                 toastr.error(vm.errorMessage,vm.errorTitle);
             });
@@ -85,8 +85,8 @@
 
         function create()
         {
-            TipoTransporte.create(vm.tipo_transporte).then(function(res){
-                listTipos();
+            udn.create(vm.udn).then(function(res){
+                listUdns();
                 toastr.success(vm.successCreateMessage,vm.successTitle);
             }).catch(function(err){
                 toastr.error(vm.errorMessage,vm.errorTitle);
@@ -95,8 +95,8 @@
 
         function remove()
         {
-            TipoTransporte.remove(vm.tipo_transporte).then(function(res){
-                listTipos();
+            udn.remove(vm.udn).then(function(res){
+                listUdns();
                 cancel();
                 toastr.success(vm.successDeleteMessage,vm.successTitle)
             }).catch(function(err){

@@ -7,17 +7,17 @@
 
     angular
         .module('app.mainApp.catalogos')
-        .controller('TipoTransporteController',TipoTransporteController);
+        .controller('MarcaCabinetController',MarcaCabinetController);
 
-    function TipoTransporteController(TipoTransporte, toastr, Translate, $scope)
+    function MarcaCabinetController(MarcaCabinet, toastr, Translate, $scope)
     {
         var vm = this;
 
         //Variables
         vm.searchText = '';
         vm.search_items = [];
-        vm.tipo_transporte_list = null;
-        vm.tipo_transporte = null;
+        vm.marca_cabinet_list = null;
+        vm.marca_cabinet = null;
 
         vm.text = 'Hola';
 
@@ -45,16 +45,16 @@
             vm.notFoundInput=Translate.translate('MAIN.MSG.NOT_FOUND_INPUT');
             vm.errorTypeFile = Translate.translate('MAIN.MSG.ERORR_TYPE_FILE');
             vm.errorSize = Translate.translate('MAIN.MSG.FILE_SIZE');
-            listTipos();
+            listMarcas();
         }
 
-        function listTipos()
+        function listMarcas()
         {
-            vm.tipo_transporte_list  = TipoTransporte.list();
+            vm.marca_cabinet_list  = MarcaCabinet.list();
         }
 
         function lookup(search_text){
-            vm.search_items = _.filter(vm.tipo_transporte_list,function(item){
+            vm.search_items = _.filter(vm.marca_cabinet_list,function(item){
                 return item.descripcion.toLowerCase().includes(search_text.toLowerCase());
             });
             return vm.search_items;
@@ -65,19 +65,19 @@
 
         }
 
-        function clickRepeater(tipo_transporte){
-            vm.tipo_transporte = tipo_transporte.clone();
+        function clickRepeater(item){
+            vm.marca_cabinet = item.clone();
         }
 
         function  cancel(){
             $scope.inputForm.$setPristine();
-            vm.tipo_transporte = null;
+            vm.marca_cabinet = null;
         }
 
         function update(){
-            TipoTransporte.update(vm.tipo_transporte).then(function(res){
+            MarcaCabinet.update(vm.marca_cabinet).then(function(res){
                 toastr.success(vm.successUpdateMessage,vm.successTitle);
-                listTipos();
+                listMarcas();
             }).catch(function(err){
                 toastr.error(vm.errorMessage,vm.errorTitle);
             });
@@ -85,8 +85,8 @@
 
         function create()
         {
-            TipoTransporte.create(vm.tipo_transporte).then(function(res){
-                listTipos();
+            MarcaCabinet.create(vm.marca_cabinet).then(function(res){
+                listMarcas();
                 toastr.success(vm.successCreateMessage,vm.successTitle);
             }).catch(function(err){
                 toastr.error(vm.errorMessage,vm.errorTitle);
@@ -95,8 +95,8 @@
 
         function remove()
         {
-            TipoTransporte.remove(vm.tipo_transporte).then(function(res){
-                listTipos();
+            MarcaCabinet.remove(vm.marca_cabinet).then(function(res){
+                listMarcas();
                 cancel();
                 toastr.success(vm.successDeleteMessage,vm.successTitle)
             }).catch(function(err){

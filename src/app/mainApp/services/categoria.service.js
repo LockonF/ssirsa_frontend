@@ -6,11 +6,11 @@
 
     angular
         .module('app.mainApp')
-        .factory('TipoTransporte',TipoTransporte);
+        .factory('Categoria',Categoria);
 
-    function TipoTransporte(Restangular)
+    function Categoria(Restangular)
     {
-        var baseTipoTransporte = Restangular.all('tipo_transporte');
+        var baseCategoria = Restangular.all('categoria');
 
         var service = {
             list:list,
@@ -21,7 +21,7 @@
 
 
         function list(){
-            return baseTipoTransporte.getList().$object;
+            return baseCategoria.getList().$object;
         }
 
         function update(object)
@@ -30,11 +30,11 @@
         }
 
         function create(object){
-            return baseTipoTransporte.post(object);
+            return baseCategoria.post(object);
         }
 
         function remove(object) {
-            return baseTipoTransporte.customDELETE(object.id,null,{'content-type':'application/json'});
+            return baseCategoria.customDELETE(object.id,null,{'content-type':'application/json'});
         }
 
 

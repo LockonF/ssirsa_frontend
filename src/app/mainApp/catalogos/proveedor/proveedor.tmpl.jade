@@ -1,0 +1,81 @@
+//
+   Created by lockonDaniel on 9/12/16.
+md-card(flex)
+    md-card-content
+
+
+        h2.md-display-2 {{'Provider.title' | translate}}
+
+
+        div(flex layout-lt-md='column' layout-gt-md='row')
+            div(flex layout='column' layout-align='space-around stretch')
+                md-autocomplete(
+                md-selected-item='vm.proveedor'
+                md-selected-item-change='vm.selectedItemChange(vm.proveedor)'
+                md-items = 'tipo in vm.search_items'
+                md-item-text='tipo.razon_social'
+                md-min-length=3
+                md-search-text-change='vm.lookup(vm.searchText)'
+                md-search-text='vm.searchText'
+                md-menu-class='autocomplete-custom-template'
+                md-floating-label='{{"Provider.lookup" | translate}}'
+                )
+                    md-item-template
+                        span.item-title()
+                            md-icon(md-font-icon='zmdi zmdi-truck')
+                            span {{tipo.razon_social}}
+                md-virtual-repeat-container(flex id='vertical_container')
+                    div(flex md-virtual-repeat='tipo in vm.proveedor_list')
+                        md-list(flex)
+                            div(flex ng-click='vm.clickRepeater(tipo)')
+                                md-list-item(flex md-ink-ripple)
+                                    md-icon(md-font-icon="zmdi zmdi-boat")
+                                    span {{tipo.razon_social}}
+                                md-divider
+
+            div(flex layout-align='start stretch' layout='column')
+                h3.md-display-1() {{'Provider.info' | translate}}
+                form(name='inputForm')
+                    md-input-container.md-block
+                        label {{ 'Provider.business_name' | translate }}
+                        input(type='text' name='razon_social' ng-model='vm.proveedor.razon_social' ng-required='true')
+                        div(ng-messages='inputForm.razon_social.$error')
+                            div(ng-message='required') {{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}
+                    md-input-container.md-block
+                        label {{ 'Provider.address' | translate }}
+                        input(type='text' name='direccion' ng-model='vm.proveedor.direccion' ng-required='true')
+                        div(ng-messages='inputForm.direccion.$error')
+                            div(ng-message='required') {{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}
+                    md-input-container.md-block
+                        label {{ 'Provider.rfc' | translate }}
+                        input(type='text' name='rfc' ng-model='vm.proveedor.rfc' ng-required='true' ng-pattern='/^[A-Za-z]{3,4}[ |\-]{0,1}[0-9]{6}[ |\-]{0,1}[0-9A-Za-z]{3}$/')
+                        div(ng-messages='inputForm.rfc.$error')
+                            div(ng-message='pattern') {{'MAIN.GENERAL.PATTERN_RFC_FIELD' | translate}}
+                            div(ng-message='required') {{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}
+                    md-input-container.md-block
+                        label {{ 'Provider.phone' | translate }}
+                        input(type='text' name='telefono' ng-model='vm.proveedor.telefono' ng-required='true')
+                        div(ng-messages='inputForm.telefono.$error')
+                            div(ng-message='required') {{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}
+                    md-input-container.md-block
+                        label {{ 'Provider.contact' | translate }}
+                        input(type='text' name='contacto' ng-model='vm.proveedor.contacto' ng-required='true')
+                        div(ng-messages='inputForm.contacto.$error')
+                            div(ng-message='required') {{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}
+                    md-input-container.md-block
+                        label {{ 'Provider.email' | translate }}
+                        input(type='email' name='correo_electronico' ng-model='vm.proveedor.correo_electronico' ng-required='true' ng-pattern="/^.+@.+\..+$/")
+                        div(ng-messages='inputForm.correo_electronico.$error')
+                            div(ng-message='required') {{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}
+                            div(ng-message='pattern') {{'MAIN.GENERAL.PATTERN_EMAIL_FIELD' | translate}}
+                    md-input-container.md-block
+                        label {{ 'Provider.comments' | translate }}
+                        input(type='text' name='comentarios' ng-model='vm.proveedor.comentarios' ng-required='true')
+                        div(ng-messages='inputForm.comentarios.$error')
+                            div(ng-message='required') {{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}
+
+                div(layout='row' layout-align='end center')
+                    md-button.md-raised.md-primary(ng-if='vm.proveedor.id!=null && vm.proveedor.id!=undefined' ng-disabled='inputForm.$invalid' ng-click='vm.update()') {{ "MAIN.BUTTONS.UPDATE" | translate}}
+                    md-button.md-raised.md-primary(ng-if='vm.proveedor.id==null || vm.proveedor.id==undefined' ng-disabled='inputForm.$invalid' ng-click='vm.create()') {{ "MAIN.BUTTONS.SUBMIT" | translate}}
+                    md-button.md-raised.md-primary(ng-click='vm.cancel()') {{'MAIN.BUTTONS.CLEAR_FIELDS' | translate}}
+                    md-button.md-raised.md-warn(ng-if='vm.proveedor.id!=null && vm.proveedor.id!=undefined' ng-click='vm.remove()') {{'MAIN.BUTTONS.DELETE' | translate}}

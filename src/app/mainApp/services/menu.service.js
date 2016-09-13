@@ -140,34 +140,43 @@
                         }
                     ]
                 }, {
-                    name: 'Catalogos',
+                    name: 'MAIN.MENU.CATALOGS.TITLE',
                     icon: 'fa fa-book',
                     type: 'dropdown',
                     priority: 5,
                     children: [
+
                         {
-                            name: 'Linea de transporte',
+                            name: 'MAIN.MENU.CATALOGS.TRANSPORT_LINE',
                             state: 'triangular.admin-default.linea-transporte',
                             type: 'link'
                         }, {
-                            name: 'Tipo de transporte',
+                            name: 'MAIN.MENU.CATALOGS.TRANSPORT_TYPE',
                             state: 'triangular.admin-default.tipo-transporte',
                             type: 'link'
                         }, {
-                            name: 'Sucursal',
+                            name: 'MAIN.MENU.CATALOGS.UDN',
+                            state: 'triangular.admin-default.udn-catalog',
+                            type: 'link'
+                        }, {
+                            name: 'MAIN.MENU.CATALOGS.SUBSIDIARY',
                             state: 'triangular.admin-default.sucursal',
                             type: 'link'
                         }, {
-                            name: 'Modelo de Cabinet',
+                            name: 'MAIN.MENU.CATALOGS.CABINET_BRAND',
+                            state: 'triangular.admin-default.marca-cabinet',
+                            type: 'link'
+                        },{
+                            name: 'MAIN.MENU.CATALOGS.CABINET_MODEL',
                             state: 'triangular.admin-default.model-cabinet',
                             type: 'link'
                         }, {
-                            name: 'Proyectos',
+                            name: 'MAIN.MENU.CATALOGS.PROJECTS',
                             state: 'triangular.admin-default.proyectos',
                             type: 'link'
                         },
                         {
-                            name:'Cliente',
+                            name:'MAIN.MENU.CATALOGS.CLIENT',
                             state: 'triangular.admin-default.clientes',
                             type:'link'
                         }
@@ -175,29 +184,29 @@
                     ]
                 },
                 {
-                    name: 'Inventarios',
+                    name: 'MAIN.MENU.INVENTORY.TITLE',
                     icon: 'fa fa-archive',
                     type: 'dropdown',
                     priority: 6,
                     children: [{
-                        name: 'Cabinets',
+                        name: 'MAIN.MENU.INVENTORY.CABINETS',
                         state: 'triangular.admin-default.cabinets',
                         type: 'link'
                     }, {
-                        name: 'Insumos',
+                        name: 'MAIN.MENU.INVENTORY.CONSUMABLES',
                         state: 'triangular.admin-default.insumos',
                         type: 'link'
                     }, {
-                        name: 'Catalogo de Insumos',
-                        state: 'triangular.admin-default.catalogoInsumos',
+                        name: 'MAIN.MENU.CATALOGS.CONSUMABLE_CATEGORY',
+                        state: 'triangular.admin-default.categoria',
                         type: 'link'
                     }, {
-                        name: 'Categoria Insumos',
-                        state: 'triangular.admin-default.construccion',
+                        name: 'MAIN.MENU.CATALOGS.CONSUMABLE_CATALOG',
+                        state: 'triangular.admin-default.catalogo-insumo',
                         type: 'link'
-                    }, {
-                        name: 'Proveedores',
-                        state: 'triangular.admin-default.construccion',
+                    },{
+                        name: 'MAIN.MENU.CATALOGS.PROVIDER',
+                        state: 'triangular.admin-default.proveedor',
                         type: 'link'
                     }
 

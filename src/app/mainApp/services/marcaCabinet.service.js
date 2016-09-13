@@ -35,7 +35,7 @@
         }
 
         function remove(object) {
-            return baseMarca.customDELETE(object.id);
+            return baseMarca.customDELETE(object.id,null,{'content-type':'application/json'});
         }
 
         function getModels(id){
