@@ -31,6 +31,7 @@
             eliminarInsumo:eliminarInsumo,
             consultarInfoCabinet:consultarInfoCabinet,
             consultarInsumobyNombre:consultarInsumobyNombre
+
         };
 
 
@@ -42,6 +43,7 @@
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(false);
+                console.log(err);
             });
 
             return deferred.promise;
@@ -96,11 +98,13 @@
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);
+                console.log(err);
             });
 
             return deferred.promise;
         }
 
+        
 //Endpoints no utiles desde ek cambio de sssirsa de quitar supervisiones
         function verEtapaNoValidada(etapa) {
 
@@ -110,7 +114,7 @@
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);
-            })
+            });
             return deferred.promise;
         }
         function verEtapaValidada(etapa) {
@@ -121,7 +125,7 @@
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);
-            })
+            });
             return deferred.promise;
 
         }
@@ -133,25 +137,14 @@
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);
-            })
+            });
             return deferred.promise;
 
         }
 ///Terminan los endpoints No utilizados
 
 
-        function consultarInsumosEtapa(etapa) {
-            var deferred = $q.defer();
-            //checar rutas :D
-            Restangular.one('Insumos', etapa.actual_etapa).customGET(etapa).then(function (res) {
-                deferred.resolve(res);
-            }).catch(function (err) {
-                deferred.reject(err);
-            });
 
-
-            return deferred.promise;
-        }
         function consultarAllInsumosCabinetEtapa(etapa) {
             var deferred = $q.defer();
             Restangular.all('etapa_servicio').one('insumos', etapa.id).customGET(etapa.id).then(function (res) {
@@ -172,11 +165,11 @@
                 Restangular.all("etapa_servicio").all("diagnostic").all("latest").one("can_validate",resp.id).customGET().then(function(res){
                     defer.resolve(res);
                 }).catch(function(err){
-                    defer.resolve(err);
+                    defer.reject(err);
                 });
                 return defer.promise;
             }).catch(function(err){
-                defer.resolve(err);
+                defer.reject(err);
             });
             return defer.promise;
 
@@ -237,6 +230,19 @@
                 deferred.reject(err);
             })
 
+        }
+
+        function consultarInsumosEtapa(etapa) {
+            var deferred = $q.defer();
+            //checar rutas :D
+            Restangular.one('Insumos', etapa.actual_etapa).customGET(etapa).then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            });
+
+
+            return deferred.promise;
         }
         return service;
 

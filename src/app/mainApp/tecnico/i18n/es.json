@@ -28,7 +28,9 @@
                 "TYPE_INPUT":"Tipo de Entrada",
                 "YEAR":"Año",
                 "NO_INCIDENTS":"No. de incidencias",
-                "STATUS":"Estado"
+                "STATUS":"Estado",
+                "OUTPUT":"Salida",
+                "CABINET":"Cabinet"
 
             },
             "SUBHEAD":{
@@ -37,6 +39,55 @@
                 "EVIDENCE":"Evidencia fotográfica"
             }
         }
+    },
+    "ETAPA_SERVICIO":{
+        "TITLE":"Registro de Servicio",
+        "ID_CABINET":"Id de Cabinet",
+        "ETAPA_INFO":"Información de Etapa",
+        "ETAPA_INSUMOS":"Insumos de la Etapa",
+        "NO_DIAGNOSTIC":"No. de Diagnostico",
+        "ETAPA_ACTUAL":"Etapa Actual",
+        "NEXT_ETAPA":"Siguiente Etapa",
+        "ECONOMIC":"Económico",
+        "ACTUAL_STATE":"Status Actual",
+        "INCIDENTS":"Incidencias",
+        "INSUM":"Insumo",
+        "CANTITY":"Cantidad",
+        "NOTES":"Notas",
+        "NAME":"Nombre",
+        "VALIDATED":"Validado"
+    },
+    "CABINET":{
+        "LINE_ASSIGMENT":"Asignación de Linea",
+        "ID_CABINET":"Id de Cabinet",
+        "EJEX":"Pasillo",
+        "EJEY":"Nivel",
+        "EJEZ":"Profundidad",
+        "ECONOMIC":"Economico",
+        "STATUS":"Estado Actual",
+        "INCIDENTS":"Incidencias",
+        "FUNCTION":"Funciona",
+        "ID_UNILEVER":"Id de Unilever",
+        "NO_SERIE":"Número de Serie",
+        "YEAR":"Año",
+        "MODEL":"Modelo",
+        "SELECTED_CABINET":"Cabinet Seleccionado",
+        "AGE":"ANTIGÜEDAD"
+
+    },
+    "TEC":{
+        "TECNICIANA":"Técnico A",
+        "TECNICIANB":"Técnico B",
+        "TECNICIANC":"Técnico C",
+        "TECNICIAND":"Técnico D",
+        "TECNICIANE":"Técnico E",
+        "IN":"Entradas",
+        "PRECHEK_IN":"Pre Checklist Entrada",
+        "OUT":"Salidas",
+        "DIAGNOSTIC":"Diagnostico",
+        "SERVICE":"Registrar Servicio",
+        "LINE":"Asignar Linea",
+        "PRECHECKOUT":"Pre Checklist Salida"
     }
 
 }

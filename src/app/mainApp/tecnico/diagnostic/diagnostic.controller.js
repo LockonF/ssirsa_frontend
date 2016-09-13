@@ -7,9 +7,9 @@
 
     angular
         .module('app.mainApp.tecnico')
-        .controller('diagnosticController', diagnosticController);
+        .controller('DiagnosticController', DiagnosticController);
 
-    function diagnosticController(Cabinet, ModeloCabinet,toastr,Translate,Helper,Upload,EnvironmentConfig,OAuthToken,MarcaCabinet,EntradaSalida) {
+    function DiagnosticController(Cabinet, toastr,Translate,Helper,Upload,EnvironmentConfig,OAuthToken) {
         var vm = this;
         vm.diagnostico = {};
         vm.cabinets=null;
@@ -17,6 +17,7 @@
         vm.guardar = guardar;
         vm.searchCabinet = searchCabinet;
         vm.selectionFile=selectionFile;
+        vm.selectChanged=selectChanged;
         activate();
         vm.statu = [
             {
@@ -61,7 +62,11 @@
             cabinet_entrada_salida: null
         };
         vm.diagnostico=angular.copy(diagnostico);*/
-
+        function selectChanged() {
+            if(vm.cabinetStatus!=4 && vm.cabinetStatus!=5){
+                vm.picFile=null;
+            }
+        }
         function guardar() {
             vm.status = 'uploading';
             if(vm.cabinetStatus!=4 || vm.cabinetStatus!=5){
@@ -78,23 +83,21 @@
             }else{
                 vm.cabinets.status=vm.statu[vm.cabinetStatus].value;
             }
-            console.log(vm.cabinets);
-
-
             Upload.upload({
                 url: EnvironmentConfig.site.rest.api+'cabinet/'+vm.cabinet,
                 headers: {'Authorization': OAuthToken.getAuthorizationHeader()},
                 method: 'PUT',
                 data: vm.cabinets
-            }).then(function (res) {
+            }).then(function () {
                 vm.status = 'idle';
                 vm.cabinet=null;
                 vm.cabinets=null;
                 vm.picFile=null;
                 toastr.success(vm.successCreateMessage, vm.successTitle);
                 vm.diagnostico=null;
-            }, function (resp) {
-                vm.status = 'idle'; 
+            }, function (err) {
+                vm.status = 'idle';
+                console.log(err);
                 toastr.warning(vm.errorMessage, vm.errorTitle);
             });
         }
@@ -104,7 +107,7 @@
                 var extn=file.name.split(".").pop();
                 if(file.size/1000000>1) {
                     toastr.warning(vm.errorSize, vm.errorTitle);
-                    vm.picFile = null
+                    vm.picFile = null;
 
                 }else if (!Helper.acceptFile(file.type))  {
                     if (!Helper.acceptFile(extn))  {
@@ -129,7 +132,6 @@
         function searchCabinet() {
             Cabinet.get(vm.cabinet).then(function (res) {
                 vm.cabinets=res;
-
             }).catch(function (res) {
                 notifyError(res.status);
             });

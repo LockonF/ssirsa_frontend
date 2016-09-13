@@ -6,11 +6,35 @@
 
     angular.module('app.mainApp').factory('udn',udn);
     function udn(Restangular){
+
+        var baseUdn = Restangular.all('udn');
+
         return {
-            list:list
+            list:list,
+            newList:newList,
+            update:update,
+            create:create,
+            remove:remove
         };
         function list(){
-            return Restangular.all('udn').customGET();
+            return baseUdn.customGET();//prueba
+        }
+        function newList()
+        {
+            return baseUdn.getList().$object;
+        }
+
+        function update(object)
+        {
+            return baseUdn.all(object.id).customPUT(object);
+        }
+
+        function create(object){
+            return baseUdn.post(object);
+        }
+
+        function remove(object) {
+            return baseUdn.customDELETE(object.id,null,{'content-type':'application/json'});
         }
     }
 })();

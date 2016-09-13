@@ -23,7 +23,6 @@
                 deferred.resolve(rest);
             }).catch(function(error){
                 deferred.reject(error);
-                console.log(error);
             });
             return deferred.promise;
         }
@@ -33,13 +32,13 @@
         }
 
         function modify(object){
-            return Restangular.one('solicitud',object.id).customPUT(object).then(function(resp){
-                console.log(resp);
-                return resp;
-
-            }).catch(function(err){
-                console.log(err);
-            })
+            var deferred=$q.defer();//Genera la promesa
+            Restangular.one('solicitud',object.id).customPUT(object).then(function(resp){
+                deferred.resolve(resp);
+            }).catch(function(error){
+                deferred.reject(error);
+            });
+            return deferred.promise;
         }
 
         function consultaEsp(object) {

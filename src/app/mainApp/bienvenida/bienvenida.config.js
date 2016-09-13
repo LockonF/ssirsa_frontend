@@ -7,7 +7,8 @@
         .module('app.mainApp.bienvenida')
         .config(moduleConfig);
 
-    function moduleConfig($stateProvider){
+    function moduleConfig($stateProvider,$translatePartialLoaderProvider){
+        $translatePartialLoaderProvider.addPart('app/mainApp/bienvenida');
         $stateProvider
 
             .state('triangular.admin-default.bienvenida', {

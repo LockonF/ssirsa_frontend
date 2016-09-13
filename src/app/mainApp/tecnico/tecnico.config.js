@@ -11,7 +11,7 @@
         $stateProvider
             .state('triangular.admin-default.tecnico',{
                 url:'/tecnico',
-                templateUrl:'app/mainApp/tecnico/tecnico.tmpl.html',
+                templateUrl:'app/mainApp/tecnico/inicio/tecnico.tmpl.html',
                 controller:'tecnicoController',
                 controllerAs:'vm'
             })
@@ -24,24 +24,18 @@
             .state('triangular.admin-default.diagnostic',{
                 url:'/diagnostic',
                 templateUrl:'app/mainApp/tecnico/diagnostic/diagnostic.tpl.html',
-                controller:'diagnosticController',
+                controller:'DiagnosticController',
                 controllerAs:'vm'
             })
             .state('triangular.admin-default.etapa',{
                 url:'/etapa',
-                templateUrl:'app/mainApp/tecnico/etapa.tmpl.html',
+                templateUrl:'app/mainApp/tecnico/etapa/etapa.tmpl.html',
                 controller:'etapaController',
-                controllerAs:'vm'
-            })
-            .state('triangular.admin-default.validarEtapa',{
-                url:'/validarEtapa',
-                templateUrl:'app/mainApp/tecnico/validarEtapa.tmpl.html',
-                controller:'validarEtapaController',
                 controllerAs:'vm'
             })
             .state('triangular.admin-default.asignacionLinea',{
                 url:'/asignacionLinea',
-                templateUrl:'app/mainApp/tecnico/asignacionLinea.tmpl.html',
+                templateUrl:'app/mainApp/tecnico/asignacion/asignacionLinea.tmpl.html',
                 controller:'asignacionLineaController',
                 controllerAs:'vm'
             });

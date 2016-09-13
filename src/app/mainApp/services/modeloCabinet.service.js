@@ -6,68 +6,42 @@
         .factory('ModeloCabinet', ModeloCabinet);
 
     /* @ngInject */
-    function ModeloCabinet($q, Restangular, toastr) {
+    function ModeloCabinet( Restangular) {
+
+        var baseModelo = Restangular.all('modelo_cabinet');
+
         return {
-            create: create,
-            get: get,
-            getAll: getAll,
+            list:list,
+            update:update,
+            create:create,
+            get:get,
             remove: remove,
-            modify: modify
+            marca:marca
         };
 
-        function create(request) {
-            var deferred = $q.defer();
-            Restangular.all('modelo_cabinet').customPOST(request).then(function (res) {
-                deferred.resolve(res);
-                toastr.succes("Modelo de cabinet creado correctamente","Exito");
-            }).catch(function (err) {
-                deferred.reject(err);
-                toastr.error("Error al crear modelo de cabinet","Error");
-            });
-            return deferred.promise;
-        }
-
         function get(id) {
-            var deferred = $q.defer();
-            Restangular.one('modelo_cabinet', id).customGET().then(function (res) {
-                deferred.resolve(res);
-            }).catch(function (err) {
-                deferred.reject(err);
-            });
-            return deferred.promise;
+            return baseModelo.get(id);
+        }
+        function list(){
+            return baseModelo.getList().$object;
         }
 
-        function getAll() {
-            var deferred = $q.defer();
-            Restangular.all('modelo_cabinet').customGET().then(function (res) {
-                deferred.resolve(res);
-            }).catch(function (err) {
-                deferred.reject(err);
-            });
-            return deferred.promise;
+        function update(object)
+        {
+            return baseModelo.all(object.id).customPUT(object);
         }
 
-        function remove(request) {
-            var deferred = $q.defer();
-
-            Restangular.one('modelo_cabinet', request.no_serie).customDELETE().then(function (res) {
-                deferred.resolve(res);
-            }).catch(function (err) {
-                deferred.reject(err);
-            });
-            return deferred.promise;
+        function create(object){
+            return baseModelo.post(object);
         }
 
+        function remove(object) {
+            return baseModelo.customDELETE(object.id);
+        }
 
-        function modify(request) {
-            var deferred = $q.defer();
-            Restangular.one('cabinet', request.no_serie).customPUT(request).then(function (res) {
-                deferred.resolve(res);
-                
-            }).catch(function (err) {
-                deferred.reject(err);
-            });
-            return deferred.promise;
+        function marca(id){
+            return Restangular.one('modelo_cabinet').one('marca',id).customGET();
         }
     }
+
 })();

@@ -9,6 +9,7 @@
     function config(RestangularProvider, EnvironmentConfig) {
 
         RestangularProvider.setBaseUrl(EnvironmentConfig.site.rest.api);
+        //RestangularProvider.setDefaultHeaders({'Content-Type': "Application/JSON"});
         //RestangularProvider.setExtraFields(['name']);
 
 

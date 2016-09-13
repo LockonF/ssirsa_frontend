@@ -1,91 +1,125 @@
-    <div flex="100" class="dashboard-social-header padding-20 padding-top-100 overlay-gradient-30" layout="row"
-         layout-align="start center"
-         style="background: url(assets/images/backgrounds/material-backgrounds/mb-bg-02.jpg) no-repeat; background-size: cover;">
-        <div class="margin-right-20">
-            <img class="make-round" src="{{vmNode.currentUser.userInformation.foto}}" width="100" height="100"/>
-        </div>
-        <div class="text-light">
-            <h3 class="font-weight-600 margin-bottom-0 text-light">{{vmNode.currentUser.userInformation.nombre}} {{vmNode.currentUser.userInformation.apellido_paterno}}
-                {{vmNode.currentUser.userInformation.apellido_materno}}</h3>
-            <p class="font-weight-300 margin-top-0 margin-bottom-0">{{vmNode.currentUser.userRole}}</p>
-            <p class="margin-top-0">
-                <md-icon md-font-icon="zmdi zmdi-pin color-inherit"></md-icon>
-                SSSIRS, EDO. MEX.
-            </p>
-        </div>
+<div flex="100" class="dashboard-social-header padding-20 padding-top-100 overlay-gradient-30" layout="row"
+     layout-align="start center"
+     style="background: url(assets/images/backgrounds/material-backgrounds/mb-bg-02.jpg) no-repeat; background-size: cover;">
+    <div class="margin-right-20">
+        <img class="make-round" src="{{vmNode.currentUser.userInformation.foto}}" width="100" height="100"/>
     </div>
-    <div align="column">
+    <div class="text-light">
+        <h3 class="font-weight-600 margin-bottom-0 text-light">{{vmNode.currentUser.userInformation.nombre}}
+            {{vmNode.currentUser.userInformation.apellido_paterno}}
+            {{vmNode.currentUser.userInformation.apellido_materno}}</h3>
+        <p class="font-weight-300 margin-top-0 margin-bottom-0">{{vmNode.currentUser.userRole}}</p>
+        <p class="margin-top-0">
+            <md-icon md-font-icon="zmdi zmdi-pin color-inherit"></md-icon>
+            SSSIRS, EDO. MEX.
+        </p>
+    </div>
+</div>
+<div align="column">
     <div align="row">
-        <div class="drag-container" layout="row" layout-xs="column" layout-margin dragula='"drag-analytics-container"'>
-            <tri-widget palette-background="green:500" content-layout="row" content-layout-align="space-between center" content-padding>
-                <div>
-                    <md-icon class="font-size-5 opacity-50 margin-left-10" md-font-icon="zmdi zmdi-bookmark"></md-icon>
-                </div>
-                <div layout="column" layout-align="center end">
-                    <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Solicitudes</p>
-                </div>
+        <div class="drag-container" layout="row" layout-xs="column" layout-margin>
+            <tri-widget ng-show=vm.cliente palette-background="green:500" content-layout="row"
+                        content-layout-align="center center" content-padding>
+                <a ng-href="#/buscarSolicitud">
+                    <div layout="column" layout-align="center center">
+                        <div layout-align="center center">
+                            <md-icon class="font-size-5 opacity-50 margin-left-10"
+                                     md-font-icon="zmdi zmdi-bookmark"></md-icon>
+                        </div>
+                        <div layout="column" layout-align="center center">
+                            <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>INDEX.SOLI</p>
+                        </div>
+                    </div>
+                </a>
             </tri-widget>
-            <tri-widget palette-background="lime:500" content-layout="row" content-layout-align="space-between center" content-padding>
-                <div>
-                    <md-icon class="font-size-5 opacity-50 margin-left-10" md-font-icon="fa fa-wrench"></md-icon>
-                </div>
-                <div layout="column" layout-align="center end">
-                    <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Servicios</p>
-                </div>
+            <tri-widget ng-show=vm.tecnico palette-background="lime:500" content-layout="row"
+                        content-layout-align="center center" content-padding>
+                <a ng-href="#/tecnico">
+                    <div layout="column" layout-align="center center">
+                        <div layout-align="center center">
+                            <md-icon class="font-size-5 opacity-50 margin-left-10"
+                                     md-font-icon="fa fa-wrench"></md-icon>
+                        </div>
+                        <div layout="column" layout-align="center center">
+                            <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>INDEX.SERVICES</p>
+                        </div>
+                    </div>
+                </a>
             </tri-widget>
-            <tri-widget palette-background="light-green:500" content-layout="row" content-layout-align="space-between center" content-padding>
-                <div>
-                    <md-icon class="font-size-5 opacity-50 margin-left-10" md-font-icon="fa fa-cubes"></md-icon>
-                </div>
-                <div layout="column" layout-align="center end">
-                    <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Inventarios</p>
-                </div>
+            <tri-widget ng-show=vm.admin palette-background="light-green:500" content-layout="row"
+                        content-layout-align="center center" content-padding>
+                <a ng-href="#/cabinets">
+                    <div layout="column" layout-align="center center">
+                        <div layout-align="center center">
+                            <md-icon class="font-size-5 opacity-50 margin-left-10" md-font-icon="fa fa-cubes"></md-icon>
+                        </div>
+                        <div layout="column" layout-align="center center">
+                            <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>INDEX.STOCK</p>
+                        </div>
+                    </div>
+                </a>
             </tri-widget>
-            <tri-widget palette-background="teal:500" content-layout="row" content-layout-align="space-between center" content-padding>
-                <div>
-                    <md-icon class="font-size-5 opacity-50 margin-left-10" md-font-icon="zmdi zmdi-open-in-browser"></md-icon>
-                </div>
-                <div layout="column" layout-align="center end">
-                    <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Salidas</p>
-                </div>
+            <tri-widget ng-show=vm.tecnico palette-background="teal:500" content-layout="row"
+                        content-layout-align="center center" content-padding>
+                <a ng-href="#/salida">
+                    <div layout="column" layout-align="center center">
+                        <div layout-align="center center">
+                            <md-icon class="font-size-5 opacity-50 margin-left-10"
+                                     md-font-icon="zmdi zmdi-open-in-browser"></md-icon>
+                        </div>
+                        <div layout="column" layout-align="center center">
+                            <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>INDEX.OUT</p>
+                        </div>
+                    </div>
+                </a>
             </tri-widget>
         </div>
     </div>
-        <!--Menu de Opciones de Admin -->
-        <div align="row">
-            <div class="drag-container" layout="row" layout-xs="column" layout-margin dragula='"drag-analytics-container"'>
-                <tri-widget palette-background="deep-orange:500" content-layout="row" content-layout-align="space-between center" content-padding>
-                    <div>
-                        <md-icon class="font-size-5 opacity-50 margin-left-10" md-font-icon="fa fa-users"></md-icon>
+    <!--Menu de Opciones de Admin -->
+    <div align="row">
+        <div class="drag-container" layout="row" layout-xs="column" layout-margin>
+            <tri-widget ng-show=vm.admin palette-background="deep-orange:500" content-layout="row"
+                        content-layout-align="center center" content-padding>
+                <a ng-href="#/buscarUsuario">
+                    <div layout="column" layout-align="center center">
+                        <div layout-align="center center">
+                            <md-icon class="font-size-5 opacity-50 margin-left-10" md-font-icon="fa fa-users"></md-icon>
+                        </div>
+                        <div layout="column" layout-align="center center">
+                            <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>INDEX.USERS</p>
+                        </div>
                     </div>
-                    <div layout="column" layout-align="center end">
-                        <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Usuarios</p>
+                </a>
+            </tri-widget>
+
+            <tri-widget ng-show=vm.admin palette-background="amber:500" content-layout="row"
+                        content-layout-align="center center" content-padding>
+                <a ng-href="#/reportes">
+                    <div layout="column" layout-align="center center">
+                        <div layout-align="center center">
+                            <md-icon ng-show=vm.admin class="font-size-5 opacity-50 margin-left-10"
+                                     md-font-icon="fa fa-bar-chart-o"></md-icon>
+                        </div>
+                        <div layout="column" layout-align="center center">
+                            <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>INDEX.REPORTS</p>
+                        </div>
                     </div>
-                </tri-widget>
-                <tri-widget palette-background="orange:500" content-layout="row" content-layout-align="space-between center" content-padding>
-                    <div>
-                        <md-icon class="font-size-5 opacity-50 margin-left-10" md-font-icon="fa fa-envelope"></md-icon>
+                </a>
+            </tri-widget>
+            <tri-widget ng-show=vm.admin palette-background="yellow:500" content-layout="row"
+                        content-layout-align="center center" content-padding>
+                <a ng-href="#/calendar">
+                    <div layout="column" layout-align="center center">
+                        <div layout-align="center center">
+                            <md-icon class="font-size-5 opacity-50 margin-left-10"
+                                     md-font-icon="zmdi zmdi-calendar"></md-icon>
+                        </div>
+                        <div layout="column" layout-align="center center">
+                            <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>INDEX.REPORT</p>
+                        </div>
                     </div>
-                    <div layout="column" layout-align="center end">
-                        <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Correos</p>
-                    </div>
-                </tri-widget>
-                <tri-widget palette-background="amber:500" content-layout="row" content-layout-align="space-between center" content-padding>
-                    <div>
-                        <md-icon class="font-size-5 opacity-50 margin-left-10" md-font-icon="fa fa-bar-chart-o"></md-icon>
-                    </div>
-                    <div layout="column" layout-align="center end">
-                        <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Reportes</p>
-                    </div>
-                </tri-widget>
-                <tri-widget palette-background="yellow:500" content-layout="row" content-layout-align="space-between center" content-padding>
-                    <div>
-                        <md-icon class="font-size-5 opacity-50 margin-left-10" md-font-icon="zmdi zmdi-calendar"></md-icon>
-                    </div>
-                    <div layout="column" layout-align="center end">
-                        <p class="md-headline opacity-60 argin-top-0 margin-bottom-0" translate>Calendario</p>
-                    </div>
-                </tri-widget>
-            </div>
+                </a>
+            </tri-widget>
         </div>
     </div>
+</div>

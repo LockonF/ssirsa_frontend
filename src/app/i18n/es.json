@@ -1,19 +1,73 @@
 {
-    "MAIN": {
-        "MSG": {
-            "SUCCESS_TITLE": "Éxito",
-            "ERROR_TITLE": "Ooops",
-            "ERROR_MESSAGE": "Ha ocurrido un error, por favor intente de nuevo más tarde",
-            "SUCCESS_TICKET_MESSAGE": "Se creó exitosamente el pre-checklist",
-            "SUCCESS_DIAGNOSTIC_MESSAGE": "Se creó exitosamente el diagnóstico",
-            "SUCCESS_LINE_MESSAGE":"Se Asigno  exitosamente el Cabinet",
-            "SUCCESS_TICKET_MESSAGES": "Se creó exitosamente el mensaje",
-            "ERORR_TYPE_FILE": "No se permiten este tipo de archivo",
-            "SUCCESS_TAKE": "El ticket se auto asignó  exitosamente",
-            "FILE_SIZE": "Solo se pueden subir un archivo con un peso máximo de 1MB",
-            "SUCCESS_DELETE_FOLLOWER": "Se eliminó el seguidor de manera exitosa",
-            "NOT_FOUND": "No se encontró el elemento que se buscaba",
-            "NOT_FOUND_INPUT": "No se puede realizar el pre-checklist por que el cabinet no cuenta con una Entrada"
-        }
+  "MAIN": {
+    "MENU": {
+      "CATALOGS": {
+        "TITLE": "Catálogos",
+        "UDN": "UDN",
+        "PROVIDER": "Proveedor",
+        "TRANSPORT_TYPE": "Tipo de Transporte",
+        "TRANSPORT_LINE": "Línea de Transporte",
+        "SUBSIDIARY": "Sucursal",
+        "CABINET_BRAND": "Marca de Cábinet",
+        "CABINET_MODEL": "Modelo de Cábinet",
+        "CONSUMABLE_CATALOG": "Catálogo de Insumos",
+        "PROJECTS": "Proyectos",
+        "CONSUMABLE_CATEGORY": "Categoría de Insumos",
+        "CLIENT": "Cliente"
+      },
+      "INVENTORY":{
+        "TITLE": "Inventarios",
+
+        "CABINETS":"Cabinets",
+        "CONSUMABLES":"Insumos",
+        "CONSUMABLE_CATALOG": "Catálogo de Insumos",
+        "CONSUMABLE_CATEGORY": "Categoría de Insumos",
+        "PROVIDER": "Proveedor"
+      }
+    },
+    "COMPONENTS": {
+      "PROFILE": "Perfil",
+      "LOGOUT": "Cerrar Sesión"
+    },
+    "LABEL": {
+      "REQUIRED": "Campo requerido"
+    },
+    "MSG": {
+      "SUCCESS_TITLE": "Éxito",
+      "ERROR_TITLE": "Ooops",
+      "ERROR_MESSAGE": "Ha ocurrido un error, por favor intente de nuevo más tarde",
+      "GENERIC_SUCCESS_CREATE": "El elemento se ha creado exitosamente",
+      "GENERIC_SUCCESS_UPDATE": "El elemento se ha actualizado exitosamente",
+      "GENERIC_SUCCESS_DELETE": "El elemento se ha eliminado exitosamente",
+      "NOTHINGTODELETE": "No hay Ningun Elemento a Eliminar",
+      "SUCCESS_TICKET_MESSAGE": "Se creó exitosamente el pre-checklist",
+      "SUCCESS_DIAGNOSTIC_MESSAGE": "Se creó exitosamente el diagnóstico",
+      "SUCESSS_TRANSPORTE_MESSAGE": "Se creó exitosamente la linea de transporte",
+      "SUCCESS_LINE_MESSAGE": "Se Asigno  exitosamente el Cabinet",
+      "SUCCESS_TICKET_MESSAGES": "Se creó exitosamente el mensaje",
+      "ERORR_TYPE_FILE": "No se permiten este tipo de archivo",
+      "SUCCESS_TAKE": "El ticket se auto asignó  exitosamente",
+      "FILE_SIZE": "Solo se pueden subir un archivo con un peso máximo de 1MB",
+      "SUCCESS_DELETE_FOLLOWER": "Se eliminó el seguidor de manera exitosa",
+      "NOT_FOUND": "No se encontró el elemento que se buscaba",
+      "NOT_ALLOWED": "No se posee el permiso para realizar dicha Acción",
+      "NOT_FOUND_INPUT": "No se puede realizar el pre-checklist por que el cabinet no cuenta con una Entrada"
+    },
+    "BUTTONS": {
+      "SUBMIT": "Enviar",
+      "UPDATE": "Actualizar",
+      "CANCEL": "Cancelar",
+      "DELETE": "Eliminar",
+      "CLEAR_FIELDS": "Limpiar campos"
+    },
+    "GENERAL": {
+      "JUST_INTEGERS": "Solo se aceptan números enteros",
+      "REQUIRED_FIELD": "Campo Requerido",
+      "MIN_NUMBER": "Se necesita que el número sea al menos ",
+      "MAX_NUMBER": "Se necesita que el número sea a lo más  ",
+      "PHONE_REGEX": "El campo debe tener un formato (xx)xxxxxxxx",
+      "PATTERN_EMAIL_FIELD": "El campo debe ser un correo electrónico",
+      "PATTERN_RFC_FIELD": "El campo debe tener formato RFC"
     }
+  }
 }

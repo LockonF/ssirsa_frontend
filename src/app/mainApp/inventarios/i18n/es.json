@@ -1,0 +1,13 @@
+{
+  "CABINET_CRUD":{
+    "STATUS":"Estatus actual",
+    "ACTIVE":"Activo",
+    "INFO":"Información de Cabinet",
+    "LOOKUP":"Búsqueda por económico",
+    "TITLE":"Gestión de Cabinets",
+    "SELECT_BRAND":"Selecciona la marca",
+    "SELECT_MODEL":"Selecciona el modelo",
+    "ECONOMIC_NUMBER":"Número económico"
+  }
+
+}
