@@ -35,8 +35,8 @@
             return baseModelo.post(object);
         }
 
-        function remove(object) {
-            return baseModelo.customDELETE(object.id);
+        function remove(object)  {
+            return baseModelo.customDELETE(object.id,null,{'content-type':'application/json'});
         }
 
         function marca(id){
