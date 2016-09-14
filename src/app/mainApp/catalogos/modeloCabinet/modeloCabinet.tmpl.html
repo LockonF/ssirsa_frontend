@@ -4,7 +4,7 @@
             <div layout="row" flex="" layout-align="space-around stretch" id="cabecera">
                 <p flex="70" flex-sm="100" flex-gt-xs="100" translate=""
                    class="md-headline font-weight-300 text-center">MODEL_CABINET.FORM.LABEL.MODEL</p>
-                <md-button class="md-fab md-scale md-fab-top-right" ng-click="vm.showRegister($event)">
+                <md-button class="md-fab md-scale md-fab-top-right" ng-click="vm.cancel()">
                     <md-icon md-font-icon="fa fa-plus" ng-style="{color: 'white'}">
 
                     </md-icon>
@@ -36,9 +36,9 @@
                         </md-item-template>
                         <md-not-found><span translate="MODEL_CABINET.FORM.PLACEHOLDER.NOT_FOUND"></span></md-not-found>
                     </md-autocomplete>
-                    <md-virtual-repeat-container class="vertical-container">
-                        <md-list>
-                            <md-list-item ng-repeat="modelo in vm.modelos | modeloSearch:vm.searchText">
+                    <md-virtual-repeat-container class="vertical-container"  layout-fill="">
+                        <md-list  >
+                            <md-list-item  ng-repeat="modelo in vm.modelos | modeloSearch:vm.searchText">
                                 <md-button ng-click="vm.selectedModelos(modelo)"
                                            ng-class="{'selected' : modelo === vm.selectedModeloList }">
                                     <md-icon md-svg-icon="assets/images/modelo.svg" class="avatar"></md-icon>
@@ -53,7 +53,7 @@
                     </md-virtual-repeat-container>
                 </div>
                 <div layout="column" flex-lg="60" flex-gt-lg="65" flex-xl="65" flex-gt-sm="100" flex-md="100"
-                     flex-sm="100" flex-gt-xs="100" flex-xs="100">
+                     flex-sm="100" flex-gt-xs="100" flex-xs="100" layout-align="start stretch">
                     <h2 class="md-headline-1 text-center">
                         {{vm.operation==0?'MODEL_CABINET.FORM.LABEL.INFO_MODEL':'MODEL_CABINET.FORM.LABEL.NEW_REGISTER'|translate}}</h2>
                     <form name="ModelCabinetForm">
@@ -139,10 +139,10 @@
 
                     </form>
                     <div layout="row" layout-align="end end">
-                        <md-button ng-if="vm.modelo.id!=null &amp;&amp; vm.modelo.id!=undefined" ng-disabled="ModelCabinetForm.$invalid" ng-click="vm.update()" class="md-raised md-primary">{{ "MAIN.BUTTONS.UPDATE" | translate}}</md-button>
-                        <md-button ng-if="vm.modelo.id==null || vm.modelo.id==undefined" ng-disabled="ModelCabinetForm.$invalid" ng-click="vm.create()" class="md-raised md-primary">{{ "MAIN.BUTTONS.SUBMIT" | translate}}</md-button>
-                        <md-button ng-click="vm.cancel()" class="md-raised md-primary">{{'MAIN.BUTTONS.CLEAR_FIELDS' | translate}}</md-button>
-                        <md-button ng-if="vm.modelo.id!=null &amp;&amp; vm.modelo.id!=undefined" ng-click="vm.remove()" class="md-raised md-warn">{{'MAIN.BUTTONS.DELETE' | translate}}</md-button>
+                        <!--<md-button ng-click="vm.cancel()" class="md-raised md-primary"><md-icon md-font-icon="fa fa-eraser"></md-icon></md-button>-->
+                        <md-button ng-if="vm.modelo.id!=null &amp;&amp; vm.modelo.id!=undefined" ng-click="vm.remove($event)" class="md-raised md-warn"><md-icon md-font-icon="fa fa-trash"></md-icon></md-button>
+                        <md-button ng-if="vm.modelo.id!=null &amp;&amp; vm.modelo.id!=undefined" ng-disabled="ModelCabinetForm.$invalid" ng-click="vm.update()" class="md-raised md-primary"><md-icon md-font-icon="fa fa-pencil"></md-icon></md-button>
+                        <md-button ng-if="vm.modelo.id==null || vm.modelo.id==undefined" ng-disabled="ModelCabinetForm.$invalid" ng-click="vm.create()" class="md-raised md-primary"><md-icon md-font-icon="fa fa-save"></md-icon></md-button>
                     </div>
                 </div>
             </div>
