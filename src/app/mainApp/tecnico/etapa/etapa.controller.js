@@ -277,7 +277,7 @@
         }
 
         function crearEtapaServicio() {
-            vm.etapaActual.insumos = [];
+            vm.etapaActual.insumos = vm.insumos;
             vm.etapaActual.diagnostico = vm.diagnostico.id;
             console.log(vm.etapaActual);
 
@@ -314,7 +314,7 @@
 
             }
             vm.cancel();
-        }
+         }
 
         function crearInsumo() {
          vm.buscarInsumosByCatalogo();
@@ -327,7 +327,8 @@
                 console.log("entre al if")
                 console.log(vm.insumos);
                 console.log(vm.insumo);
-                 vm.insumos.push(vm.insumo);
+                vm.insumos=_.toArray(vm.insumos);
+                vm.insumos.push(vm.insumo);
                 console.log(vm.insumos);
                 console.log(vm.insumo);
 
