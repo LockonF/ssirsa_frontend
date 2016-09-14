@@ -12,6 +12,26 @@
          $mdDateLocaleProvider.formatDate = function(date) {
          return moment(date).format('DD/MM/YYYY');
          };*/
+        /*$mdDateLocaleProvider.months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+        $mdDateLocaleProvider.datetimepicker({
+        vm.calendarOptions = {
+            stepMinute: 5,
+            hourMin: 6,
+            hourMax: 21,
+            dateFormat: HairpressJS.datetimepicker_date_format,
+            //timeFormat: '',
+            closeText: 'Close',
+            currentText: 'Today',
+            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+            dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+            dayNamesShort: ['Dom','Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+            dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+            dateFormat: 'dd/mm/yy',
+            firstDay: 0,
+            isRTL: false
+        });*/
         vm.udn=null;
         vm.persona=null;
         vm.time=null;
@@ -106,7 +126,9 @@
             });
 
             vm.isClient = Session.userRole == 'Cliente';
-            console.log(vm.isClient);
+            console.log("Session");
+            console.log(Session);
+
 
         }
         // Crear requisito

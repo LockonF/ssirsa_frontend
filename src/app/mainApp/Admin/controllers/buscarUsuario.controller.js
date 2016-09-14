@@ -6,9 +6,14 @@
         .module('app.mainApp.solicitudes')
         .controller('buscarUsuarioController', buscarUsuarioController);
 
-    function buscarUsuarioController(Persona_Admin) {
+    function buscarUsuarioController(Persona_Admin,$mdEditDialog) {
         var vm = this;
         vm.flag = 0;
+        vm.query={
+            order: 'id',
+            limit: 5,
+            page: 1
+        };
         vm.personaErase=null;
         vm.personas_admin=null;
         vm.id = null;
@@ -259,6 +264,7 @@
                 placeholder: 'Edita el campo',
                 save: function (input) {
 
+                    //object[field] = input.$modelValue;
                     object[field] = input.$modelValue;
                     updateObject(object);
                 },
@@ -269,6 +275,7 @@
             };
 
             function updateObject(funcion){
+
             }
 
             $mdEditDialog.small(config).then(function(ctrl){

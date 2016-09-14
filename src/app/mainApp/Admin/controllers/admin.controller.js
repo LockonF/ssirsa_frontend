@@ -139,15 +139,14 @@
         function guardarUsuario(){
             vm.user_ini.foto=vm.picFoto;
             vm.user_ini.ife=vm.picIFE;
+
             if(vm.user_ini.udn == null)
                 delete vm.user_ini['udn'];
-
             Persona_Admin.createObject(vm.user_ini).then(function (res) {
 
             }).catch(function (err) {
                 console.log(err);
             });
-
         }
 
 
