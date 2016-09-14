@@ -1,6 +1,36 @@
 {
   "MAIN": {
     "MENU": {
+      "WELCOME":"Bienvenida",
+      "START":"Inicio",
+      "CRUD_USER":"Gestión de Usuarios",
+      "NEW_USER":"Nuevo Usuario",
+      "SEARCH_USER":"Buscar Usuarios",
+      "SOLICITUD":"Solicitudes",
+      "SEARCH_SOLICITUD":"Buscar Solicitudes",
+      "CREATES_SOLICITUD":"Crear Solicitud",
+      "CALENDAR":"Calendario",
+      "SERVICES":"Servicios",
+      "IN":"Entradas",
+      "REGISTER_STEP":"Registro de Etapa",
+      "PRECHECK":"Pre - Checklist",
+      "DIAGNOSTIC":"Diagnostico",
+      "LINE":"Asignación de Linea",
+      "BOOKS":"Catalogos",
+      "LINE_TRANSPORT":"Linea de Transporte",
+      "TYPE_TRANSPORT":"Tipo de Transporte",
+      "UDN":"UDN",
+      "SUCURSAL":"Sucursal",
+      "CABINET_BRANCH":"Marca de Cabinet",
+      "CABINET_MODEL":"Modelo de Cabinet",
+      "PROJECTS":"Proyectos",
+      "CLIENT":"Cliente",
+      "STOCK":"Inventarios",
+      "CABINETS":"Cabinets",
+      "INSUMS":"Insumos",
+      "CATEGORY_INSUMS":"Categoria de Insumos",
+      "BOOK_INSUMS":"Cátalogo de Insumos",
+      "PROVIDER":"Proveedor",
       "CATALOGS": {
         "TITLE": "Catálogos",
         "UDN": "UDN",
@@ -14,6 +44,7 @@
         "PROJECTS": "Proyectos",
         "CONSUMABLE_CATEGORY": "Categoría de Insumos",
         "CLIENT": "Cliente"
+
       },
       "INVENTORY":{
         "TITLE": "Inventarios",
@@ -70,4 +101,7 @@
       "PATTERN_RFC_FIELD": "El campo debe tener formato RFC"
     }
   }
+
+
+
 }
