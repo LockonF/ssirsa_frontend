@@ -40,7 +40,7 @@
             modelo:'"'
 
         };
-        vm.modelos;
+        vm.modelos=[];
         activate();
 
 
@@ -62,14 +62,8 @@
             buscarModelos();
         }
         function buscarModelos(){
-            var promise = ModeloCabinet.getAll();
-            promise.then(function(res){
-                vm.modelos=res;
 
-
-            }).catch(function (res) {
-                notifyError(res.status);
-            });
+                vm.modelos=ModeloCabinet.list();
 
         }
         function buscar(){

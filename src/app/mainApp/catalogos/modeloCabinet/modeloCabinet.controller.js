@@ -4,20 +4,41 @@
     angular
         .module('app.mainApp.catalogos')
         .controller('ModeloCabinetController', ModeloCabinetController)
-        .filter('modeloSearch', modeloSearch);
+         .filter('modeloSearch', modeloSearch);
 
     /* @ngInject */
     function ModeloCabinetController(ModeloCabinet, $scope, toastr, Translate,$mdDialog,MarcaCabinet) {
 
         var vm = this;
-        vm.isDisabled = false;
+        vm.lookup=lookup;
+        vm.querySearch = querySearch;
+        vm.selectedModelos=selectedModelos;
+        vm.search_items=[];
+        vm.searchText = '';
+        activate();
+        init();
+        function init() {
+            vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
+            vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
+            vm.successCreateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_CREATE');
+            vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
+            vm.successUpdateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_UPDATE');
+            vm.successDeleteMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_DELETE');
+        }
+
+        function activate() {
+            vm.modelos=ModeloCabinet.list();
+            vm.marcas=MarcaCabinet.list();
+        }
+
+        /*vm.isDisabled = false;
         vm.selectedModelos = selectedModelos;
         vm.registrar = registrar;
         vm.eliminar=eliminar;
         vm.editar = editar;
         vm.selectedItem = null;
         vm.searchText = null;
-        vm.querySearch = querySearch;
+
         vm.showRegister = showRegister;
         vm.clearForm = clearForm;
         vm.selectedModelo = null;
@@ -35,24 +56,11 @@
             tipo:null,
             marca: null
         };
+
         vm.operation = 0;//0- View, 1-Register, 2-Update
         vm.modelo = angular.copy(modelo);
         vm.numberBuffer = '';
-        activate();
-        init();
-        function init() {
-            vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
-            vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
-            vm.successCreateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_CREATE');
-            vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
-            vm.successUpdateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_UPDATE');
-            vm.successDeleteMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_DELETE');
-        }
 
-        function activate() {
-            vm.modelos=ModeloCabinet.list();
-            vm.marcas=MarcaCabinet.list();
-        }
 
         function editar(){
             vm.operation=2;
@@ -96,12 +104,7 @@
             vm.selectedModelo=null;
         }
 
-        function selectedModelos(project) {
-            vm.selectedModelo = project;
-            vm.operation = 0;
-            vm.modelo = angular.copy(project);
-            vm.editable=true;
-        }
+
 
 
         function querySearch(query) {
@@ -139,19 +142,37 @@
                     toastr.warning(vm.errorMessage, vm.errorTitle);
                 });
             }
+        }*/
+        function selectedModelos(project) {
+            vm.selectedModeloList = project;
         }
+        function querySearch(query) {
+            console.log(query);
+            var results = query ? lookup(query) : vm.modelos;
+            return results;
+
+        }
+
+        function lookup(search_text){
+            vm.search_items =_.filter(vm.modelos, function(item) {
+                return item.nombre.toLowerCase().indexOf(search_text.toLowerCase()) >= 0;
+            });
+            return vm.search_items;
+        }
+
 
     }
 
-    function modeloSearch() {
+     function modeloSearch() {
         return function (input, text) {
             if (!angular.isString(text) || text === '') {
                 return input;
             }
 
-            return input.filter(function (item) {
-                return (item.nombre.indexOf(text) > -1);
+            return  _.filter(input, function(item) {
+                return item.nombre.toLowerCase().indexOf(text.toLowerCase()) >= 0;
             });
+
         };
 
     }
