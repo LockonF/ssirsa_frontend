@@ -65,7 +65,7 @@
 
         function modify(object){
             return Restangular.one('persona_admin',object.id).customPUT(object).then(function(resp){
-                console.log(resp);
+                console.log(object.id);
                 return resp;
 
             }).catch(function(err){

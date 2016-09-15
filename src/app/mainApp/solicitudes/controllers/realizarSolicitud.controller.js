@@ -34,6 +34,7 @@
         });*/
         vm.udn=null;
         vm.persona=null;
+        vm.length=0;
         vm.time=null;
         vm.id=0;
         vm.requisito = {
@@ -103,6 +104,7 @@
         vm.isClient=true;
         activate();
         function activate(){
+            console.log(vm.requisito.datos.length)
             udn.list().then(function(rest){
                 vm.udns=rest;
                 //console.log(vm.udns);
@@ -212,6 +214,7 @@
             $mdDialog.show(config).then(function(object){
                     //Agregar el objeto al arreglo de datos de la solicitud
                     vm.requisito.datos.push(object);
+                vm.length=vm.requisito.datos.length;
                 },function() {
                 }
             );

@@ -128,7 +128,7 @@
                                         </v-pane-header>
 
                                         <v-pane-content>
-                                            <md-toolbar class="md-table-toolbar md-default">
+                                            <md-toolbar class="md-table-toolbar md-default" >
                                                 <div class="md-toolbar-tools"><span>Información</span>
                                                     <div flex="flex"></div>
                                                     <md-button ng-click="vm.showCreateDialog($event)"
@@ -137,7 +137,7 @@
                                                     </md-button>
                                                 </div>
                                             </md-toolbar>
-                                            <md-table-container nd-show="vm.requisito.datos!=null">
+                                            <md-table-container ng-if="vm.length!=0">
                                                 <table md-table="" md-row-select="">
                                                     <thead md-head="" md-order="vm.query.order">
                                                     <tr md-row="md-row">
