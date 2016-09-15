@@ -1,0 +1,17 @@
+{
+  "PROFILE":{
+    "PERFIL":"Perfil del Usuario",
+    "DATOS_PERSONALES":"Datos Personales",
+    "NOMBRE":"Nombre",
+    "AP_PATERNO":"Apellido Paterno",
+    "AP_MATERNO":"Apellido Materno",
+    "DIRECCION":"Dirección",
+    "TELEFONO":"Telefono",
+    "INE":"Carga INE",
+    "FOTO":"Carga Foto"
+  },
+
+  "PROFILE_ERROR":{
+    "REQUERIDO":"El campo es requeridoo"
+  }
+}

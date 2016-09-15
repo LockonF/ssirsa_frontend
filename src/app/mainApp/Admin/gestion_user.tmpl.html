@@ -9,7 +9,7 @@
                 <md-input-container class="md-block">
                     <label>Usuario</label>
                     <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
-                    <input type="text" ng-model="vm.user_ini.user.username" name="username" required="required" ng-pattern="/^[A-Za-z_]+$/"/>
+                    <input type="text" ng-model="vm.user_ini.user.username" name="username" required="required" ng-pattern="/^[A-Za-z_]\w*$/"/>
                     <div ng-messages="objectForm.username.$error">
                         <div ng-message="pattern">
                             El Usuario no puede comenzar con un digito y solo puede usar
@@ -85,9 +85,8 @@
                     <md-input-container class="md-block">
                         <label>Telefono</label>
                         <md-icon md-font-icon="zmdi zmdi-phone"></md-icon>
-                        <input type="text" ng-model="vm.user_ini.telefono" only-digits="" name="telefono" minlength="8" maxlength="10" required="required" ng-pattern="/^[0-9]+$/"/>
+                        <input type="text" ng-model="vm.user_ini.telefono" only-digits name="telefono" minlength="8" maxlength="10" required="required"/>
                         <div ng-messages="objectForm.telefono.$error">
-                            <div ng-message="pattern">El telefono solo puede contener digitos</div>
                             <div ng-message="required">El campo es requerido</div>
                         </div>
                     </md-input-container>
@@ -116,17 +115,19 @@
                             <div ng-message="required">El campo es requerido</div>
                         </div>
                     </md-input-container>
-                    <div layout="column" layout-align="center center"><span class="md-headline">Cargar Foto</span>
-                        <md-button flex="flex" ngf-select="vm.selectionFoto($files)" ngf-accept="'image/*'" required="required" ng-disabled="false" ngf-multiple="false" ng-model="vm.picFoto" aria-label="upload" class="md-primary md-raised">
-                            <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>                                    Seleccionar archivo
-                            <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>
-                        </md-button><img src="assets/images/dashboards/weather.jpg" alt="Card Image" ng-show="vm.picFoto==null" width="120" height="120"/><img ngf-src="vm.picFoto" width="120" height="120" ng-show="vm.picFoto!=null"/>
-                    </div>
-                    <div layout="column" layout-align="center center"><span class="md-headline">Cargar INE</span>
-                        <md-button flex="flex" ngf-select="vm.selectionIFE($files)" ngf-accept="'image/*'" required="required" ng-disabled="false" ngf-multiple="false" ng-model="vm.picIFE" aria-label="upload" class="md-primary md-raised">
-                            <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>                                    Seleccionar archivo
-                            <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>
-                        </md-button><img src="assets/images/dashboards/weather.jpg" alt="Card Image" ng-show="vm.picIFE==null" width="120" height="120"/><img ngf-src="vm.picIFE" width="120" height="120" ng-show="vm.picIFE!=null"/>
+                    <div layout="column" >
+                        <div layout="column" layout-align="center center"><span class="md-headline">Cargar Foto</span>
+                            <md-button flex="flex" ngf-select="vm.selectionFoto($files)" ngf-accept="'image/*'" required="required" ng-disabled="false" ngf-multiple="false" ng-model="vm.picFoto" aria-label="upload" class="md-primary md-raised">
+                                <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>                                    Seleccionar archivo
+                                <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>
+                            </md-button><img src="assets/images/dashboards/weather.jpg" alt="Card Image" ng-if="vm.picFoto==null" width="120" height="120"/><img ngf-src="vm.picFoto" width="120" height="120" ng-if="vm.picFoto!=null"/>
+                        </div>
+                        <div layout="column" layout-align="center center"><span class="md-headline">Cargar INE</span>
+                            <md-button flex="flex" ngf-select="vm.selectionIFE($files)" ngf-accept="'image/*'" required="required" ng-disabled="false" ngf-multiple="false" ng-model="vm.picIFE" aria-label="upload" class="md-primary md-raised">
+                                <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>                                    Seleccionar archivo
+                                <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>
+                            </md-button><img src="assets/images/dashboards/weather.jpg" alt="Card Image" ng-show="vm.picIFE==null" width="120" height="120"/><img ngf-src="vm.picIFE" width="120" height="120" ng-show="vm.picIFE!=null"/>
+                        </div>
                     </div>
                     <md-card-actions layout="row" layout-align="center">
                         <md-button ng-disabled="objectForm.$invalid &amp;&amp; (vm.cpassword==vm.user_ini.user.password)" ng-click="vm.guardarUsuario()" class="md-raised md-primary">Guardar</md-button>
