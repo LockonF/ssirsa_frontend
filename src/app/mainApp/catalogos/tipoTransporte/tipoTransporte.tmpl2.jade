@@ -1,0 +1,39 @@
+//
+  Created by lockonDaniel on 9/8/16.
+md-card(flex layout='column' layout-padding)
+    md-card-content(flex layout='column')
+        div(flex layout-xs='row')
+            h2.md-display-2(flex) {{'Transport_Kind.title' | translate}}
+            md-button.md-fab.md-primary.md-scale(hide-gt-xs ng-click='vm.cancel()')
+                md-icon(md-font-icon='fa fa-plus', style='color:white;')
+        div(flex='flex', layout-lt-md='column', layout-gt-sm='row')
+            div(flex='flex', layout='column', layout-align='space-around stretch')
+                md-autocomplete(md-selected-item='vm.tipo_transporte', md-selected-item-change='vm.selectedItemChange(vm.tipo_transporte)', md-items='tipo in vm.search_items', md-item-text='tipo.descripcion', md-min-length='0', md-search-text-change='vm.lookup(vm.searchText)', md-search-text='vm.searchText', md-menu-class='autocomplete-custom-template', md-floating-label='{{"Transport_Kind.lookup" | translate}}')
+                    md-item-template
+                        span.item-title
+                            md-icon(md-font-icon='zmdi zmdi-truck')
+                            span {{tipo.descripcion}}
+                md-virtual-repeat-container.vr-min-height(layout-fill hide-xs hide-sm)
+                    md-list(flex='flex')
+                        md-list-itm(flex='flex', ng-repeat='item in vm.tipo_transporte_list')
+                            md-button(ng-click='vm.clickRepeater(item)', ng-class="{'selected':item.id === vm.marca_cabinet.id}")
+                                md-icon.avatar(md-svg-icon='assets/images/cruise.svg')
+                                span {{item.descripcion}}
+                            md-divider
+            div(flex='flex', layout-align='start stretch', layout='column')
+                md-button.md-fab.md-primary.md-scale.md-fab-top-right(hide-xs ng-click='vm.cancel()')
+                    md-icon(md-font-icon='fa fa-plus', style='color:white;')
+                h3.md-display-1 {{'Transport_Kind.info' | translate}}
+                form(name='inputForm')
+                    md-input-container.md-block
+                        label {{ 'Transport_Kind.description' | translate }}
+                        input(type='text', name='descripcion', ng-model='vm.tipo_transporte.descripcion', ng-required='true')
+                        div(ng-messages='inputForm.descripcion.$error')
+                            div(ng-message='required') {{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}
+                div(flex layout='row', layout-align='end end')
+                    md-button.md-raised.md-primary(ng-if='vm.tipo_transporte.id!=null && vm.tipo_transporte.id!=undefined', ng-disabled='inputForm.$invalid', ng-click='vm.update()')
+                        md-icon(md-font-icon='fa fa-pencil')
+                    md-button.md-raised.md-primary(ng-if='vm.tipo_transporte.id==null || vm.tipo_transporte.id==undefined', ng-disabled='inputForm.$invalid', ng-click='vm.create()')
+                        md-icon(md-font-icon='fa fa-save')
+                    md-button.md-raised.md-warn(ng-if='vm.tipo_transporte.id!=null && vm.tipo_transporte.id!=undefined', ng-click='vm.remove()')
+                        md-icon(md-font-icon="fa fa-trash")
