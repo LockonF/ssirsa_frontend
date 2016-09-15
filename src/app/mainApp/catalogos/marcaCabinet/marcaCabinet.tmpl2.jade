@@ -1,0 +1,48 @@
+// Created by lockonDaniel on 9/8/16.
+md-card.md-whiteframe-z1.margin-bottom-100(flex='flex')
+    md-card-content
+        div(layout-xs='row')
+            h2.md-display-2(flex) {{'Cabinet_Brand.title' | translate}}
+            md-button.md-fab.md-primary.md-scale#cabecera(hide-gt-xs ng-click='vm.cancel()')
+                md-icon(md-font-icon='fa fa-plus', style='color:white;')
+        div(flex='flex', layout-lt-md='column', layout-gt-sm='row')
+            div(flex='flex', layout='column', layout-align='space-around stretch')
+                md-autocomplete(md-selected-item='vm.marca_cabinet', md-selected-item-change='vm.selectedItemChange(vm.marca_cabinet)', md-items='item in vm.search_items', md-item-text='item.descripcion', md-min-length='0', md-search-text-change='vm.lookup(vm.searchText)', md-search-text='vm.searchText', md-menu-class='autocomplete-custom-template', md-floating-label='{{"Cabinet_Brand.lookup" | translate}}')
+                    md-item-template
+                        span.item-title
+                            md-icon(md-font-icon='zmdi zmdi-truck')
+                            span {{item.descripcion}}
+
+                md-virtual-repeat-container#vertical_container.vr-min-height(hide-xs layout-fill)
+
+                    md-list(flex='flex')
+                        md-list-itm(flex='flex', ng-repeat='item in vm.marca_cabinet_list')
+                            md-button(ng-click='vm.clickRepeater(item)', ng-class="{'selected':item.id === vm.marca_cabinet.id}")
+                                md-icon.avatar(md-svg-icon='assets/images/modelo.svg')
+                                span {{item.descripcion}}
+                            md-divider
+            div(flex='flex', layout-align='center stretch', layout='column')
+
+
+                md-button.md-fab.md-primary.md-scale.md-fab-top-right#cabecera(hide-xs ng-click='vm.cancel()')
+                    md-icon(md-font-icon='fa fa-plus', style='color:white;')
+                h3.md-display-1 {{'Cabinet_Brand.info' | translate}}
+                form(name='inputForm')
+                    md-input-container.md-block
+                        label {{ 'Cabinet_Brand.description' | translate }}
+                        input(type='text', name='descripcion', ng-model='vm.marca_cabinet.descripcion', ng-required='true')
+                        div(ng-messages='inputForm.descripcion.$error')
+                            div(ng-message='required') {{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}
+                    md-input-container.md-block
+                        label {{ 'Cabinet_Brand.category' | translate }}
+                        input(type='text', name='categoria', ng-model='vm.marca_cabinet.categoria', ng-required='true')
+                        div(ng-messages='inputForm.categoria.$error')
+                            div(ng-message='required') {{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}
+                div(flex layout='row', layout-align='end end')
+                    md-button.md-raised.md-primary(ng-if='vm.marca_cabinet.id!=null && vm.marca_cabinet.id!=undefined', ng-disabled='inputForm.$invalid', ng-click='vm.update()')
+                        md-icon(md-font-icon='fa fa-pencil')
+                    md-button.md-raised.md-primary(ng-if='vm.marca_cabinet.id==null || vm.marca_cabinet.id==undefined', ng-disabled='inputForm.$invalid', ng-click='vm.create()')
+                        md-icon(md-font-icon='fa fa-save')
+                    md-button.md-raised.md-warn(ng-if='vm.marca_cabinet.id!=null && vm.marca_cabinet.id!=undefined', ng-click='vm.remove()')
+                        md-icon(md-font-icon="fa fa-trash")
+

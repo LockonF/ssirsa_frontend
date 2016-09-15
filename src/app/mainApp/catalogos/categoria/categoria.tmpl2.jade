@@ -1,0 +1,46 @@
+//Created by lockonDaniel on 9/8/16.
+md-card(flex='flex')
+    md-card-content
+        div(flex layout-xs='row')
+            h2.md-display-2(flex) {{'Category.title' | translate}}
+            md-button.md-fab.md-primary.md-scale(hide-gt-xs ng-click='vm.cancel()')
+                md-icon(md-font-icon='fa fa-plus', style='color:white;')
+
+
+        div(flex='flex', layout-lt-md='column', layout-gt-md='row')
+            div(flex='flex', layout='column', layout-align='space-around stretch')
+                md-autocomplete(md-selected-item='vm.categoria', md-selected-item-change='vm.selectedItemChange(vm.categoria)', md-items='tipo in vm.search_items', md-item-text='tipo.nombre', md-min-length='3', md-search-text-change='vm.lookup(vm.searchText)', md-search-text='vm.searchText', md-menu-class='autocomplete-custom-template', md-floating-label='{{"Category.lookup" | translate}}')
+                    md-item-template
+                        span.item-title
+                            md-icon(md-font-icon='zmdi zmdi-truck')
+                            span {{tipo.nombre}}
+                md-virtual-repeat-container.vr-min-height(layout-fill hide-xs hide-sm)
+                    md-list(flex='flex')
+                        md-list-itm(flex='flex', ng-repeat='item in vm.categoria_list')
+                            md-button(ng-click='vm.clickRepeater(item)', ng-class="{'selected':item.id === vm.marca_cabinet.id}")
+                                md-icon.avatar(md-svg-icon='assets/images/settings.svg')
+                                span {{item.descripcion}}
+                            md-divider
+            div(flex='flex', layout-align='start stretch', layout='column')
+                md-button.md-fab.md-primary.md-scale.md-fab-top-right#cabecera(hide-xs ng-click='vm.cancel()')
+                    md-icon(md-font-icon='fa fa-plus', style='color:white;')
+
+                h3.md-display-1 {{'Category.info' | translate}}
+                form(name='inputForm')
+                    md-input-container.md-block
+                        label {{ 'Category.name' | translate }}
+                        input(type='text', name='nombre', ng-model='vm.categoria.nombre', ng-required='true')
+                        div(ng-messages='inputForm.nombre.$error')
+                            div(ng-message='required') {{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}
+                    md-input-container.md-block
+                        label {{ 'Category.description' | translate }}
+                        input(type='text', name='descripcion', ng-model='vm.categoria.descripcion', ng-required='true')
+                        div(ng-messages='inputForm.descripcion.$error')
+                            div(ng-message='required') {{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}
+                div(flex layout='row', layout-align='end end')
+                    md-button.md-raised.md-primary(ng-if='vm.categoria.id!=null && vm.categoria.id!=undefined', ng-disabled='inputForm.$invalid', ng-click='vm.update()')
+                        md-icon(md-font-icon='fa fa-pencil')
+                    md-button.md-raised.md-primary(ng-if='vm.categoria.id==null || vm.categoria.id==undefined', ng-disabled='inputForm.$invalid', ng-click='vm.create()')
+                        md-icon(md-font-icon='fa fa-save')
+                    md-button.md-raised.md-warn(ng-if='vm.categoria.id!=null && vm.categoria.id!=undefined', ng-click='vm.remove()')
+                        md-icon(md-font-icon="fa fa-trash")
