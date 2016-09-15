@@ -93,6 +93,7 @@
         vm.eliminarRequisito=eliminarRequisito;
         vm.showCreateDialog=showCreateDialog;
         vm.edit=edit;
+        vm.cancel=cancel;
         vm.eliminarDato=eliminarDato;
         vm.guardarSolicitudAdmin=guardarSolicitudAdmin;
         vm.guardarSolicitudVenta=guardarSolicitudVenta;
@@ -225,6 +226,35 @@
             if(resultado!=-1){
                 vm.requisito.datos.splice(resultado,1);
             }
+        }
+
+        function cancel(){
+            vm.requisito = {
+                "id":null,
+                "udn":null,
+                "fecha_inicio":new Date(),
+                "fecha_termino":new Date(),
+                "fecha_atendida":new Date(),
+                "descripcion":null,
+                "tipo_solicitud": null,
+                "status": null,
+                "comentario": null,
+                "datos":[],
+                "persona":null,
+                "modelo_cabinet":null
+            };
+            vm.requisitoVenta = {
+                "id":null,
+                "razon_social": null,
+                "nombre_negocio": null,
+                "direccion": null,
+                "telefono": null,
+                "contacto_negocio": null,
+                "fecha_atencion":new Date(),
+                "udn":null,
+                "created_at":new Date(),
+                "updated_at":new Date()
+            };
         }
 
         function guardarSolicitudAdmin(){
