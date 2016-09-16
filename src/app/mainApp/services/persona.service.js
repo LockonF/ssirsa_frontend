@@ -8,14 +8,11 @@
         .module('app.mainApp')
         .factory('Persona',Persona);
 
-    function Persona($q, Restangular,toastr){
+    function Persona($q, Restangular){
         return{
             list:list,
             modify:modify
         };
-
-        var baseURL=Restangular.all('persona');
-
 
         function list(){
             return Restangular.all('persona').customGET();
@@ -41,21 +38,11 @@
             var defer= $q.defer();
             Restangular.one('persona',data.id).withHttpConfig({transformRequest: angular.identity}).customPUT(form_data,"",{},{'Content-Type':undefined}).then(function(res){
                 defer.resolve(res);
-                toastr.success('Entrada registrada correctamente','Éxito');
             }).catch(function(err){
                 defer.resolve(err);
-                toastr.error('Error al registrar entrada', 'Error');
-                console.log(err);
             });
-            //return Restangular.one('persona',form_data.id).withHttpConfig({transformRequest: angular.identity}).customPUT(form_data,"",{},{'Content-Type':undefined}).then(function(res){
-            /*return Restangular.one('persona',object.id).customPUT(object).then(function(resp){
-                console.log(resp);
-                return resp;
-            }).catch(function(err){
-                console.log(err);
-            })*/
-             //return baseURL.all(object.id).customPUT(object);
-            //return object.put();
+            return defer.promise;
+
         }
 
 

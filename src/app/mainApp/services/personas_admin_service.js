@@ -64,12 +64,14 @@
         }
 
         function modify(object){
+            var deferred=$q.defer();
             return Restangular.one('persona_admin',object.id).customPUT(object).then(function(resp){
+                deferred.resolve(rest);
                 console.log(object.id);
                 return resp;
 
             }).catch(function(err){
-                console.log(err);
+                deferred.reject(error);
             })
         }
 

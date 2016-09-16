@@ -8,7 +8,11 @@
     "DIRECCION":"Dirección",
     "TELEFONO":"Telefono",
     "INE":"Carga INE",
-    "FOTO":"Carga Foto"
+    "FOTO":"Carga Foto",
+    "MODIFY_EXITO":"Entrada registrada correctamente",
+    "MODIFY_ERROR":"Error al registrar entrada",
+    "ERROR":"Error",
+    "EXITO":"Éxito"
   },
 
   "PROFILE_ERROR":{
