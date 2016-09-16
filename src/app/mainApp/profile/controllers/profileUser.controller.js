@@ -6,7 +6,7 @@
         .module('app.mainApp.profile')
         .controller('profileUserController',profileUserController);
 
-    function profileUserController(groups,udn,Persona,toastr,Helper){
+    function profileUserController(groups,udn,Persona,toastr,Helper,Translate){
         var vm = this;
         vm.picFoto=null;
         vm.picIFE=null;
@@ -33,6 +33,13 @@
         vm.isClient=true;
         activate();
         function activate(){
+
+            vm.errorSize = Translate.translate('MAIN.MSG.FILE_SIZE');
+            vm.exitoUpdate = Translate.translate('PROFILE.MODIFY_EXITO');
+            vm.errorUpdate = Translate.translate('PROFILE.MODIFY_ERROR');
+            vm.exito = Translate.translate('PROFILE.EXITO');
+            vm.error = Translate.translate('PROFILE.ERROR');
+
 
             Persona.list().then(function(rest){
                 vm.user_ini=rest;
@@ -136,15 +143,30 @@
         }
 
         function updatePersona(){
-            vm.user_ini.foto=vm.picFoto;
-            vm.user_ini.ife=vm.picIFE;
+            if(vm.picFoto!=vm.user_ini.foto)
+                vm.user_ini.foto=vm.picFoto;
+            else
+                vm.user_ini.foto=null;
+            if(vm.picIFE!=vm.user_ini.ife)
+                vm.user_ini.ife=vm.picIFE;
+            else
+                vm.user_ini.ife=null;
+
+            //vm.user_ini.foto=vm.picFoto;
+            //vm.user_ini.ife=vm.picIFE;
             Persona.modify(vm.user_ini).then(function (res) {
+                toastr.success(vm.exitoUpdate,vm.exito);
+
             }).catch(function (err) {
+                toastr.error(vm.errorUpdate, vm.error);
+
             });
         }
 
         function guardarUsuario(){
+            if(vm.picFoto!=vm.user_ini2.foto)
             vm.user_ini2.foto=vm.picFoto;
+            if(vm.picIFE!=vm.user_ini2.ife)
             vm.user_ini2.ife=vm.picIFE;
 
             if(vm.user_ini2.udn == null)
