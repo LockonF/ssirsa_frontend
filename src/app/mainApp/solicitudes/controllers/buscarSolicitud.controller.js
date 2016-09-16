@@ -14,6 +14,12 @@
             limit: 5,
             page: 1
         };
+        vm.tipoSol=[
+            "Envio","Recoleccion","Venta"
+        ];
+        vm.estatusSol=[
+            "Confirmada","No Confirmada","Cancelada","Cerrada"
+        ];
         vm.id=null;
         vm.FechaFin=new Date();
         //Filtro de busqueda

@@ -64,17 +64,19 @@
         }
 
         function modify(object){
+            var deferred=$q.defer();
             return Restangular.one('persona_admin',object.id).customPUT(object).then(function(resp){
-                console.log(resp);
+                deferred.resolve(rest);
+                console.log(object.id);
                 return resp;
 
             }).catch(function(err){
-                console.log(err);
+                deferred.reject(error);
             })
         }
 
         function deleteData(object){
-            return Restangular.one("persona_admin",object.id).customDELETE().then(function(resp){
+            return Restangular.one("persona_admin",object.id).customDELETE(undefined,undefined,{'Content-Type': 'application/json'}).then(function(resp){
                 console.log(resp);
                 return resp;
             }).catch(function(error){

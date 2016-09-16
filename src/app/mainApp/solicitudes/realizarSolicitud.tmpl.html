@@ -18,7 +18,7 @@
                                     <div ng-message="required">El campo es requerido</div>
                                 </div>
                             </md-input-container>
-
+                            <!--md-datepicker placeholder="{{&quot;CABINET_CRUD.SELECT_DATE&quot;}}" ng-model="vm.selected_date" ng-change="vm.lookupEntriesByDate()" class="md-block"></md-datepicker-->
                             <md-input-container class="md-block">
                                 <md-select placeholder="Elige tipo de solicitud" ng-model="vm.requisito.tipo_solicitud"
                                            name="tipo_solicitud" required='required'>
@@ -41,7 +41,7 @@
 
 
                             <!-- opc 1 Solicitud de Envio-->
-                            <div ng-show="vm.requisito.tipo_solicitud=='Envio'||vm.requisito.tipo_solicitud=='Recoleccion'">
+                            <div flex="" layout-sm="column" layout-gt-md="column" ng-show="vm.requisito.tipo_solicitud=='Envio'||vm.requisito.tipo_solicitud=='Recoleccion'">
 
                                 <md-input-container class="md-block" ng-if="!vm.isClient">
                                     <md-select placeholder="Elige una persona" ng-model="vm.persona" name="persona"
@@ -83,21 +83,33 @@
                                     </div>
                                 </md-input-container>
 
-                                <!--div class="margin-bottom-20" layout="row" layout-align="space-around center">
-                                    <p>Fecha de inicio</p>
+                                <div class="margin-bottom-20" layout="row" layout-md="column" layout-sm="column" layout-xs="column" layout-align="space-around center" flex="">
+                                    <div class="margin-bottom-20" layout="column" layout-align="space-around center">
+                                        <p>Fecha de inicio</p>
+                                        <md-datepicker ng-model="vm.requisito.fecha_inicio" md-placeholder="Enter date"
+                                                       required='required'></md-datepicker>
+                                    </div>
+                                    <div class="margin-bottom-20" layout="column" layout-align="space-around center">
+                                        <p>Fecha de Termino</p>
+                                        <md-datepicker ng-model="vm.requisito.fecha_termino" md-placeholder="Enter date"
+                                                       required='required'></md-datepicker>
+                                    </div>
+                                    <div class="margin-bottom-20" layout="column" layout-align="space-around center">
+                                        <p ng-if="!vm.isClient">Fecha atendida</p>
+                                        <md-datepicker ng-if="!vm.isClient" ng-model="vm.requisito.fecha_atendida"
+                                                       md-placeholder="Enter date" required='required'></md-datepicker>
+                                    </div>
+                                </div>
 
-                                    <p>Fecha de Termino</p>
+                                <!--div class="margin-bottom-20" layout="row" layout-align="space-around center" flex="">
 
-                                    <p ng-if="!vm.isClient">Fecha atendida</p>
-                                </div-->
-                                <div class="margin-bottom-20" layout="row" layout-align="space-around center">
-                                    <!--md-datepicker ng-model="vm.requisito.fecha_inicio" md-placeholder="Enter date"
+                                    <md-datepicker ng-model="vm.requisito.fecha_inicio" md-placeholder="Enter date"
                                                    required='required'></md-datepicker>
-                                    <!--md-datepicker ng-model="vm.requisito.fecha_termino" md-placeholder="Enter date"
+                                    <md-datepicker ng-model="vm.requisito.fecha_termino" md-placeholder="Enter date"
                                                    required='required'></md-datepicker>
                                     <md-datepicker ng-if="!vm.isClient" ng-model="vm.requisito.fecha_atendida"
-                                                   md-placeholder="Enter date" required='required'></md-datepicker-->
-                                    <md-input-container flex-gt-md="30">
+                                                   md-placeholder="Enter date" required='required'></md-datepicker>
+                                    <!--md-input-container flex-gt-md="30">
                                         <label>Fecha de inicio</label>
                                         <md-icon md-font-icon="zmdi zmdi-calendar"></md-icon>
                                         <input time="false" date="true" mdc-datetime-picker="" type="text" id="date1" placeholder="Fecha inicio"
@@ -116,7 +128,7 @@
                                         <input mdc-datetime-picker="" date="true" time="true" type="text" id="datetime"
                                                placeholder="Fecha atendida" min-date="date" ng-model="vm.requisito.fecha_atendida" class=" md-input">
                                     </md-input-container>
-                                </div>
+                                </div-->
 
                                 <v-accordion class="vAccordion--default" multiple>
 
@@ -128,7 +140,7 @@
                                         </v-pane-header>
 
                                         <v-pane-content>
-                                            <md-toolbar class="md-table-toolbar md-default">
+                                            <md-toolbar class="md-table-toolbar md-default" >
                                                 <div class="md-toolbar-tools"><span>Información</span>
                                                     <div flex="flex"></div>
                                                     <md-button ng-click="vm.showCreateDialog($event)"
@@ -137,7 +149,7 @@
                                                     </md-button>
                                                 </div>
                                             </md-toolbar>
-                                            <md-table-container nd-show="vm.requisito.datos!=null">
+                                            <md-table-container ng-if="vm.length!=0">
                                                 <table md-table="" md-row-select="">
                                                     <thead md-head="" md-order="vm.query.order">
                                                     <tr md-row="md-row">
@@ -197,18 +209,34 @@
                                     </div>
                                 </md-input-container>
 
-                                <md-card-actions layout="row" layout-align="end center" ng-if="!vm.isClient">
-                                    <md-button ng-click="vm.guardarSolicitudAdmin()" class="md-raised md-primary">
-                                        Guardar
+                                <div layout="row" layout-align="end end" ng-if="!vm.isClient">
+
+                                    <md-button class="md-raised md-primary" aria-label="Borrar"
+                                               ng-click="vm.cancel()">
+                                        <md-icon md-font-icon="fa fa-eraser"></md-icon>
+
                                     </md-button>
-                                    <md-button>Cancelar</md-button>
-                                </md-card-actions>
-                                <md-card-actions layout="row" layout-align="end center" ng-if="vm.isClient">
-                                    <md-button ng-click="vm.guardarSolicitudCliente()" class="md-raised md-primary">
-                                        Guardar
+
+                                    <md-button class="md-raised md-primary" aria-label="Guardar" ng-disabled="objectForm.$invalid"
+                                               ng-click='vm.guardarSolicitudAdmin()'>
+                                        <md-icon md-font-icon="fa fa-save"></md-icon>
+
                                     </md-button>
-                                    <md-button>Cancelar</md-button>
-                                </md-card-actions>
+                                </div>
+                                <div layout="row" layout-align="end end" ng-if="vm.isClient">
+
+                                    <md-button class="md-raised md-primary" aria-label="Borrar"
+                                               ng-click="vm.cancel()">
+                                        <md-icon md-font-icon="fa fa-eraser"></md-icon>
+
+                                    </md-button>
+
+                                    <md-button class="md-raised md-primary" aria-label="Guardar" ng-disabled="objectForm.$invalid"
+                                               ng-click='vm.guardarSolicitudCliente()'>
+                                        <md-icon md-font-icon="fa fa-save"></md-icon>
+
+                                    </md-button>
+                                </div>
 
                             </div>
                             <!-- opc 2-->
@@ -253,12 +281,30 @@
                                            class="md-fab md-primary md-raised">
                                     <md-icon md-font-icon="fa fa-save"></md-icon>
                                 </md-button-->
-                                <md-card-actions layout="row" layout-align="end center">
-                                    <md-button ng-click="vm.guardarSolicitudVenta()" class="md-raised md-primary">
-                                        Guardar
+
+                                <div layout="row" layout-align="end end">
+                                    <!--md-button class="md-raised md-primary" aria-label="Guardar"
+                                               ng-click='vm.crearEtapaServicio()'>
+                                        <md-icon md-font-icon="fa fa-save"></md-icon>
+
                                     </md-button>
-                                    <md-button>Cancelar</md-button>
-                                </md-card-actions>
+                                    <md-button class="md-raised md-primary" aria-label="Eliminar"
+                                               ng-click="vm.eliminarEtapaServicio()">
+                                        <md-icon md-font-icon="fa fa-trash"></md-icon>
+
+                                    </md-button-->
+                                    <md-button class="md-raised md-primary" aria-label="Borrar"
+                                               ng-click="vm.cancel()">
+                                        <md-icon md-font-icon="fa fa-eraser"></md-icon>
+
+                                    </md-button>
+
+                                    <md-button class="md-raised md-primary" aria-label="Guardar" ng-disabled="objectForm.$invalid"
+                                               ng-click='vm.guardarSolicitudVenta()'>
+                                        <md-icon md-font-icon="fa fa-save"></md-icon>
+
+                                    </md-button>
+                                </div>
 
                             </div>
 

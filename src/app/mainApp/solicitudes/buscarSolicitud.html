@@ -25,9 +25,8 @@
                                                md-placeholder="Enter date"></md-datepicker>
                             </div>
                         </div-->
-                        <md-button  ng-click="vm.busqueda()" ng-class="guardar" aria-label="fab button"
-                                   class="md-fab md-primary md-raised" ng-disabled="!vm.tipo_solicitud">
-                            <md-icon md-font-icon="fa fa-search"></md-icon>
+                        <md-button class="md-fab"  aria-label="fab button" ng-click="vm.busqueda()" ng-disabled="!vm.tipo_solicitud">
+                            <md-icon md-font-icon="zmdi zmdi-zoom-in"></md-icon>
                         </md-button>
                     </div>
                     <div  layout="row">
@@ -82,20 +81,22 @@
                                     <table flex="" md-table="" md-row-select="" ng-model="vm.solicitudx">
                                         <thead md-head="" md-order="vm.query.order">
                                         <tr md-row="md-row">
-                                            <th md-column="md-column" md-order-by="id"><span translate="">No. Solicitud</span>
+                                            <th md-column="md-column" md-order-by="id"><span translate="">Folio</span>
                                             </th>
-                                            <th md-column="md-column" md-order-by="udn"><span translate="">UDN</span>
+                                            <!--th md-column="md-column" md-order-by="udn"><span translate="">UDN</span-->
                                                 <!--vm.requisito. -->
                                             </th>
                                             <th md-column="md-column" md-order-by="fecha_inicio"><span translate="">Fecha de Inicio</span>
                                             </th>
                                             <th md-column="md-column" md-order-by="fecha_termino"><span translate="">Fecha de Fin</span>
                                             </th>
+                                            <th md-column="md-column" md-order-by="fecha_termino" ng-if="!vm.isClient"><span translate="">Fecha Atendida</span>
+                                            </th>
                                             <th md-column="md-column" md-order-by="tipo_solicitud"><span translate="">Tipo</span>
                                             </th>
                                             <th md-column="md-column" md-order-by="status"><span translate="">Estatus</span>
                                             </th>
-                                            <th md-column="md-column" md-order-by="comentario"><span translate="">Cantidad</span>
+                                            <th md-column="md-column" md-order-by="comentario"><span translate="">Comentario</span>
                                             </th>
                                             <!-- Cuerpo de la tabla-->
                                         </tr>
@@ -104,11 +105,25 @@
                                         <tr md-row="md-row" flex=""
                                             ng-repeat="solicitud in vm.solicitudes | orderBy:vm.query.order | offset: (vm.query.page-1)*vm.query.limit | limitTo: vm.query.limit">
                                             <td md-cell="md-cell" >{{solicitud.id}}</td>
-                                            <td md-cell="md-cell" >{{solicitud.udn}}</td>
+                                            <!--td md-cell="md-cell" >{{solicitud.udnName}}</td-->
+                                            <!--td md-cell="md-cell" ng-click='vm.edit($event,person,"nombre")'>
+                                                <md-select ng-model="person.nombre" placeholder="Other">
+                                                    <md-option ng-value="type" ng-repeat="type in getTypes()">{{person.nombre}}</md-option>
+                                                </md-select>
+                                            </td-->
                                             <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"fecha_inicio")'>{{solicitud.fecha_inicio}}</td>
                                             <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"fecha_termino")'>{{solicitud.fecha_termino}}</td>
-                                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"tipo_solicitud")'>{{solicitud.tipo_solicitud}}</td>
-                                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"status")'>{{solicitud.status}}</td>
+                                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"fecha_termino")' ng-if="!vm.isClient">{{solicitud.fecha_atendida}}</td>
+                                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"tipo_solicitud")'>
+                                                <md-select ng-model=solicitud.tipo_solicitud placeholder="Other">
+                                                    <md-option ng-value="type" ng-repeat="type in vm.tipoSol">{{type}}</md-option>
+                                                </md-select>
+                                            </td>
+                                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"status")'>
+                                                <md-select ng-model=solicitud.status placeholder="Other">
+                                                    <md-option ng-value="estatus" ng-repeat="estatus in vm.estatusSol">{{estatus}}</md-option>
+                                                </md-select>
+                                            </td>
                                             <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"comentario")'>{{solicitud.comentario}}</td>
                                             <td md-cell="md-cell" ng-click="$event.stopPropagation()"><!-- -->
                                                 <md-button ng-click="vm.borrarSolicitud(solicitud.id)" class="md-fab md-warn md-mini">

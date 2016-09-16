@@ -12,8 +12,29 @@
          $mdDateLocaleProvider.formatDate = function(date) {
          return moment(date).format('DD/MM/YYYY');
          };*/
+        /*$mdDateLocaleProvider.months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+        $mdDateLocaleProvider.datetimepicker({
+        vm.calendarOptions = {
+            stepMinute: 5,
+            hourMin: 6,
+            hourMax: 21,
+            dateFormat: HairpressJS.datetimepicker_date_format,
+            //timeFormat: '',
+            closeText: 'Close',
+            currentText: 'Today',
+            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+            dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+            dayNamesShort: ['Dom','Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+            dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+            dateFormat: 'dd/mm/yy',
+            firstDay: 0,
+            isRTL: false
+        });*/
         vm.udn=null;
         vm.persona=null;
+        vm.length=0;
         vm.time=null;
         vm.id=0;
         vm.requisito = {
@@ -72,6 +93,7 @@
         vm.eliminarRequisito=eliminarRequisito;
         vm.showCreateDialog=showCreateDialog;
         vm.edit=edit;
+        vm.cancel=cancel;
         vm.eliminarDato=eliminarDato;
         vm.guardarSolicitudAdmin=guardarSolicitudAdmin;
         vm.guardarSolicitudVenta=guardarSolicitudVenta;
@@ -83,6 +105,7 @@
         vm.isClient=true;
         activate();
         function activate(){
+            console.log(vm.requisito.datos.length)
             udn.list().then(function(rest){
                 vm.udns=rest;
                 //console.log(vm.udns);
@@ -106,7 +129,9 @@
             });
 
             vm.isClient = Session.userRole == 'Cliente';
-            console.log(vm.isClient);
+            console.log("Session");
+            console.log(Session);
+
 
         }
         // Crear requisito
@@ -190,6 +215,7 @@
             $mdDialog.show(config).then(function(object){
                     //Agregar el objeto al arreglo de datos de la solicitud
                     vm.requisito.datos.push(object);
+                vm.length=vm.requisito.datos.length;
                 },function() {
                 }
             );
@@ -200,6 +226,35 @@
             if(resultado!=-1){
                 vm.requisito.datos.splice(resultado,1);
             }
+        }
+
+        function cancel(){
+            vm.requisito = {
+                "id":null,
+                "udn":null,
+                "fecha_inicio":new Date(),
+                "fecha_termino":new Date(),
+                "fecha_atendida":new Date(),
+                "descripcion":null,
+                "tipo_solicitud": null,
+                "status": null,
+                "comentario": null,
+                "datos":[],
+                "persona":null,
+                "modelo_cabinet":null
+            };
+            vm.requisitoVenta = {
+                "id":null,
+                "razon_social": null,
+                "nombre_negocio": null,
+                "direccion": null,
+                "telefono": null,
+                "contacto_negocio": null,
+                "fecha_atencion":new Date(),
+                "udn":null,
+                "created_at":new Date(),
+                "updated_at":new Date()
+            };
         }
 
         function guardarSolicitudAdmin(){
