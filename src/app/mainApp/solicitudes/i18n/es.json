@@ -14,7 +14,33 @@
     },
     "CREATE_REQUEST": {
         "FORM": {
+            "TITLE":{
+              "CREATE":"Crear Solicitud",
+                "TYPE_TEAM":"Tipo de Equipo",
+                "POINT_SALE":"Solicitud de punto de venta"
+            },
             "LABEL": {
+                "DESCRIPTION":"Descripción",
+                "DATE_INITIAL":"Fecha de solicitud",
+                "DATE_END":"Fecha de atención",
+                "DATE_TERMINATE":"Fecha de confirmación",
+                "COMMENT":"Comentario",
+                "RAZON":"Razón social",
+                "BUSINESS_NAME":"Nombre del negocio",
+                "ADDRESS":"Dirección",
+                "PHONE":"Teléfono",
+                "BUSINESS_CONTACT":"Contacto del negocio",
+                "STATUS":"Estatus"
+
+
+
+            },
+            "PLACEHOLDER":{
+                "UDN":"Seleccione la UDN",
+                "REQUEST":"Elige tipo de solicitud",
+                "PERSON":"Elige una persona",
+                "STATUS":"Elige un estatus",
+                "DATE_TERMINATE":"Ingrese la fecha de atención"
             }
         }
     },

@@ -6,7 +6,7 @@
         .controller('EditarSolicitudDialogController', EditarSolicitudDialogController);
 
     /* @ngInject */
-    function EditarSolicitudDialogController($mdDialog, triTheming, dialogData, event, edit,Solicitudes_Admin) {
+    function EditarSolicitudDialogController($mdDialog,OPTIONS, triTheming, dialogData, event, edit,Solicitudes_Admin) {
 
         var vm = this;
         vm.cancelClick = cancelClick;
@@ -27,24 +27,7 @@
         /*if( event.solicitud.fecha_atendida !== null) {
             vm.atendida = moment(event.solicitud.fecha_atendida,"YYYY-MM-DD HH:mm:ss").toDate();
         }*/
-        vm.statu = [
-            {
-                id:0,
-                value:"No Confirmada"
-            },
-            {
-                id:1,
-                value:"Confirmada"
-            },
-            {
-                id:2,
-                value:"Cancelada"
-            },
-            {
-                id:3,
-                value:"Cerrada"
-            }
-        ];
+        vm.statu = OPTIONS.status;
 
         ////////////////
 

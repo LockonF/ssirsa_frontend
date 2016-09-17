@@ -5,75 +5,74 @@
                 <md-card-title>
                     <md-card-title-text>
                         <div>
-                            <h2>Crear Solicitud</h2>
+                            <h2>{{'CREATE_REQUEST.FORM.TITLE.CREATE'|translate}}</h2>
                             <md-input-container class="md-block">
-                                <md-select placeholder="Elige la UDN" ng-model="vm.udn" name="udn" required='required'>
+                                <md-select placeholder="{{'CREATE_REQUEST.FORM.PLACEHOLDER.UDN'|translate}}" ng-model="vm.udn" name="udn" required='required'>
                                     <md-option ng-value="udn.id" ng-repeat='udn in vm.udns'>{{udn.zona}} - {{udn.agencia}}</md-option>
                                 </md-select>
                                 <div ng-messages="objectForm.udn.$error">
-                                    <div ng-message="required">El campo es requerido</div>
+                                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                 </div>
                             </md-input-container>
                             <md-input-container class="md-block">
-                                <md-select placeholder="Elige tipo de solicitud" ng-model="vm.requisito.tipo_solicitud"
-                                           name="tipo_solicitud" required='required'>
-                                    <md-option value="Envio">Solicitud de envió</md-option>
-                                    <md-option value="Recoleccion">Solicitud de recolección</md-option>
-                                    <md-option value="3">Solicitud de punto de venta</md-option>
+                                <md-select ng-model="vm.requisito.tipo_solicitud"
+                                           name="tipo_solicitud"
+                                           placeholder="{{'CREATE_REQUEST.FORM.PLACEHOLDER.REQUEST'|translate}}"
+                                           required='required'>
+                                    <md-option ng-repeat="types in vm.types_request" ng-value="types.id">{{types.value}}
+                                    </md-option>
                                 </md-select>
                                 <div ng-messages="objectForm.tipo_solicitud.$error">
-                                    <div ng-message="required">El campo es requerido</div>
+                                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                 </div>
                             </md-input-container>
                             <!-- opc 1 Solicitud de Envio-->
-                            <div flex="" layout-sm="column" layout-gt-md="column" ng-show="vm.requisito.tipo_solicitud=='Envio'||vm.requisito.tipo_solicitud=='Recoleccion'">
+                            <div flex="" layout-sm="column" layout-gt-md="column" ng-show="vm.requisito.tipo_solicitud==0 ||vm.requisito.tipo_solicitud==1  ">
                                 <md-input-container class="md-block" ng-if="!vm.isClient">
-                                    <md-select placeholder="Elige una persona" ng-model="vm.persona" name="persona"
+                                    <md-select placeholder="{{'CREATE_REQUEST.FORM.PLACEHOLDER.PERSON'|translate}}" ng-model="vm.persona" name="persona"
                                                required='required'>
                                         <md-option ng-value="persona.id" ng-repeat='persona in vm.personas'>
                                             {{persona.user.username}}
                                         </md-option>
                                     </md-select>
                                     <div ng-messages="objectForm.udn.$error">
-                                        <div ng-message="required">El campo es requerido</div>
+                                        <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                     </div>
                                 </md-input-container>
                                 <md-input-container class="md-block" ng-if="!vm.isClient">
-                                    <md-select  placeholder="Elige tipo de estatus"
-                                               ng-model="vm.requisito.status" name="status" required='required'>
-                                        <md-option value="Confirmada">Confirmada</md-option>
-                                        <md-option value="No Confirmada">No Confirmada</md-option>
-                                        <md-option value="Cancelada">Cancelada</md-option>
-                                        <md-option value="Cerrada">Cerrada</md-option>
+                                    <md-select
+                                               placeholder="{{'CREATE_REQUEST.FORM.PLACEHOLDER.STATUS'|translate}}"
+                                               ng-model="vm.requisito.status" name="status" required='required'
+                                               >
+                                        <md-option ng-repeat="status in vm.status" ng-value="status.value">{{status.value}}
+                                        </md-option>
                                     </md-select>
                                     <div ng-messages="objectForm.status.$error">
-                                        <div ng-message="required">El campo es requerido</div>
+                                        <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                     </div>
                                 </md-input-container>
                                 <md-input-container class="md-block">
-                                    <label>Descripción</label>
+                                    <label>{{'CREATE_REQUEST.FORM.LABEL.DESCRIPTION'|translate}}</label>
                                     <textarea ng-model="vm.requisito.descripcion" md-maxlength="100" name="descripcion"
-                                              required='required' ng-pattern="/^[A-Za-z_][\w\s]*$/"></textarea>
+                                              required='required' ></textarea>
                                     <div ng-messages="objectForm.descripcion.$error">
-                                        <div ng-message="pattern">El Usuario no puede comenzar con un digito y solo
-                                            puede usar caracteres validos
-                                        </div>
-                                        <div ng-message="required">El campo es requerido</div>
+
+                                        <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                     </div>
                                 </md-input-container>
                                 <div class="margin-bottom-20" layout="row" layout-md="column" layout-sm="column" layout-xs="column" layout-align="space-around center" flex="">
                                     <div class="margin-bottom-20" layout="column" layout-align="space-around center">
-                                        <p>Fecha de inicio</p>
+                                        <p>{{'CREATE_REQUEST.FORM.LABEL.DATE_INITIAL'|translate}}</p>
                                         <md-datepicker ng-model="vm.requisito.fecha_inicio" md-placeholder="Enter date"
                                                        required='required'></md-datepicker>
                                     </div>
                                     <div class="margin-bottom-20" layout="column" layout-align="space-around center">
-                                        <p>Fecha de Termino</p>
+                                        <p>{{'CREATE_REQUEST.FORM.LABEL.DATE_END'|translate}}</p>
                                         <md-datepicker ng-model="vm.requisito.fecha_termino" md-placeholder="Enter date"
                                                        required='required'></md-datepicker>
                                     </div>
                                     <div class="margin-bottom-20" layout="column" layout-align="space-around center">
-                                        <p ng-if="!vm.isClient">Fecha atendida</p>
+                                        <p ng-if="!vm.isClient">{{'CREATE_REQUEST.FORM.LABEL.DATE_TERMINATE'|translate}}</p>
                                         <md-datepicker ng-if="!vm.isClient" ng-model="vm.requisito.fecha_atendida"
                                                        md-placeholder="Enter date" required='required'></md-datepicker>
                                     </div>
@@ -81,7 +80,8 @@
                                 <v-accordion class="vAccordion--default" multiple>
                                     <v-pane expanded>
                                         <v-pane-header>
-                                            Tipo de Equipo
+                                            {{'CREATE_REQUEST.FORM.TITLE.TYPE_TEAM'|translate}}
+
                                         </v-pane-header>
                                         <v-pane-content>
                                             <md-toolbar class="md-table-toolbar md-default" >
@@ -137,14 +137,11 @@
                                     </v-pane>
                                 </v-accordion>
                                 <md-input-container class="md-block">
-                                    <label>Comentario</label>
+                                    <label>{{'CREATE_REQUEST.FORM.LABEL.COMMENT'|translate}}</label>
                                     <textarea ng-model="vm.requisito.comentario" md-maxlength="100" name="comentario"
-                                              required='required' ng-pattern="/^[A-Za-z_][\w\s]*$/"></textarea>
+                                              required='required' ></textarea>
                                     <div ng-messages="objectForm.comentario.$error">
-                                        <div ng-message="pattern">El Usuario no puede comenzar con un digito y solo
-                                            puede usar caracteres validos
-                                        </div>
-                                        <div ng-message="required">El campo es requerido</div>
+                                        <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                     </div>
                                 </md-input-container>
                                 <div layout="row" layout-align="end end" ng-if="!vm.isClient">
@@ -169,37 +166,37 @@
                                 </div>
                             </div>
                             <!-- opc 3-->
-                            <div ng-show="vm.requisito.tipo_solicitud==3">
-                                <h3>Solicitud de punto de venta</h3>
+                            <div ng-show="vm.requisito.tipo_solicitud==2">
+                                <h3>{{'CREATE_REQUEST.FORM.TITLE.POINT_SALE'|translate}}</h3>
                                 <div class="margin-bottom-20" layout="row" layout-align="space-around center">
-                                    <p>Fecha de Atencion</p>
+                                    <p>{{'CREATE_REQUEST.FORM.LABEL.DATE_END'|translate}}</p>
                                 </div>
                                 <div class="margin-bottom-20" layout="row" layout-align="space-around center">
                                     <md-datepicker ng-model="vm.requisitoVenta.fecha_atencion"
-                                                   md-placeholder="Enter date"></md-datepicker>
+                                                   md-placeholder="{{'CREATE_REQUEST.FORM.PLACEHOLDER.DATE_TERMINATE'|translate}}"></md-datepicker>
                                 </div>
                                 <md-input-container class="md-block">
-                                    <label>Razon social</label>
+                                    <label>{{'CREATE_REQUEST.FORM.LABEL.RAZON'|translate}}</label>
                                     <textarea ng-model="vm.requisitoVenta.razon_social"></textarea>
                                 </md-input-container>
                                 <md-input-container class="md-block">
-                                    <label>Nombre del negocio</label>
+                                    <label>{{'CREATE_REQUEST.FORM.LABEL.BUSINESS_NAME'|translate}}</label>
                                     <textarea ng-model="vm.requisitoVenta.nombre_negocio"></textarea>
                                 </md-input-container>
                                 <md-input-container class="md-block">
-                                    <label>Dirección</label>
+                                    <label>{{'CREATE_REQUEST.FORM.LABEL.ADDRESS'|translate}}</label>
                                     <textarea ng-model="vm.requisitoVenta.direccion"></textarea>
                                 </md-input-container>
                                 <md-input-container class="md-block">
-                                    <label>Telefono</label>
+                                    <label>{{'CREATE_REQUEST.FORM.LABEL.PHONE'|translate}}</label>
                                     <textarea ng-model="vm.requisitoVenta.telefono"></textarea>
                                 </md-input-container>
                                 <md-input-container class="md-block">
-                                    <label>Contacto del negocio</label>
+                                    <label>{{'CREATE_REQUEST.FORM.LABEL.BUSINESS_CONTACT'|translate}}</label>
                                     <textarea ng-model="vm.requisitoVenta.contacto_negocio"></textarea>
                                 </md-input-container>
                                 <md-input-container class="md-block">
-                                    <label>Estatus</label>
+                                    <label>{{'CREATE_REQUEST.FORM.LABEL.STATUS'|translate}}</label>
                                     <textarea ng-model="vm.requisitoVenta.status"></textarea>
                                 </md-input-container>
                                 <div layout="row" layout-align="end end">
