@@ -1,23 +1,31 @@
-<div layout="column" layout-align="center center" class="overlay-40">
-    <div layout="row" layout-align="center center">
-        <p flex="70" flex-sm="100" flex-gt-xs="100" translate=""
-           class="md-headline font-weight-300 text-center text-light">TRANSPORT_LINE.FORM.LABEL.TRANSPORT_LINE</p>
-    </div>
-    <div flex="" layout="row" layout-align="center center" layout-xs="column" layout-fill="">
-        <div flex="80" layout="column" class="md-whiteframe-z1 margin-bottom-100">
-            <div flex="flex" layout="row" layout-xs="column" layout-sm="column" class="background">
-                <div layout="column" flex-lg="40" flex-gt-lg="35" flex-xl="35" flex-gt-sm="100" flex-md="100"
+<div layout="column" flex="100" layout-padding layout-fill>
+    <md-card class="md-padding card1" flex="flex">
+        <md-card-content>
+            <div layout="row" flex="" layout-align="space-around stretch" id="cabecera">
+                <h2 flex="70" flex-sm="100" flex-gt-xs="100" translate=""
+                    class="md-headline-1 text-center">TRANSPORT_LINE.FORM.LABEL.TRANSPORT_LINE</h2>
+                <md-button aria-label="fab button" class="md-fab md-scale md-fab-top-right" ng-click="vm.cancel()">
+                    <md-icon md-font-icon="fa fa-plus" ng-style="{color: 'white'}">
+
+                    </md-icon>
+                </md-button>
+            </div>
+            <div flex="100" layout="row" layout-align="space-around stretch" layout-xs="column" layout-sm="column"
+                 layout-fill="">
+
+                <div layout="column" flex-lg="40" flex-gt-lg="40" flex-xl="40" flex-gt-sm="100" flex-md="100"
                      flex-sm="100" flex-gt-xs="100" flex-xs="100">
-                    <md-autocomplete ng-disabled="vm.isDisabled" md-no-cache="vm.noCache"
-                                     md-selected-item="vm.selectedItem"
-                                     md-search-text-change="vm.searchTextChange(vm.searchText)"
-                                     md-search-text="vm.searchText"
-                                     md-selected-item-change="vm.selectedItemChange(item)"
+                    <md-autocomplete md-selected-item="vm.selectedLinea"
+                                     md-selected-item-change="vm.selectedItemChange(vm.selectedLinea)"
+
                                      md-items="item in vm.querySearch(vm.searchText)" md-item-text="item.razon_social"
-                                     md-min-length="0"
-                                     md-floating-label="{{ 'TRANSPORT_LINE.FORM.PLACEHOLDER.SEARCH_TRANSPORT_LINE' | translate }}"
-                                     md-menu-class="autocomplete-custom-template" class="margin-top-20"><span
-                        md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.razon_social}}</span>
+                                     md-min-length="3"
+                                     md-search-text-change="vm.search(vm.searchText)"
+                                     md-search-text="vm.searchText"
+                                     md-menu-class="autocomplete-custom-template"
+                                     md-floating-label="{{'TRANSPORT_LINE.FORM.PLACEHOLDER.SEARCH_TRANSPORT_LINE'| translate }}">
+                        <span
+                            md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.razon_social}}</span>
                         <md-item-template><span class="item-title">
                         <md-icon md-font-icon="fa fa-briefcase"></md-icon>
                         <span>&nbsp; {{item.razon_social}}</span>
@@ -29,109 +37,94 @@
                         </md-item-template>
                         <md-not-found><span translate="TRANSPORT_LINE.FORM.PLACEHOLDER.NOT_FOUND"></span></md-not-found>
                     </md-autocomplete>
-                    <md-virtual-repeat-container class="vertical-container">
+                    <md-virtual-repeat-container class="vertical-container" flex="flex">
                         <md-list>
-                            <md-list-item ng-repeat="linea in vm.lineas | custom:vm.searchText">
+                            <md-list-item ng-repeat="linea in vm.lineas | lineaSearch:vm.searchText">
                                 <md-button ng-click="vm.selectedLineas(linea)"
-                                           ng-class="{'selected' : linea === vm.selectedLinea }">
+                                           ng-class="{'selected' : linea === vm.selectedLineaList }">
                                     <md-icon md-svg-icon="assets/images/transport.svg" class="avatar"></md-icon>
                                     <span flex="flex">{{linea.razon_social }}</span>
                                 </md-button>
+                                <md-divider></md-divider>
+
                             </md-list-item>
+
                         </md-list>
+
                     </md-virtual-repeat-container>
                 </div>
                 <div layout="column" flex-lg="60" flex-gt-lg="65" flex-xl="65" flex-gt-sm="100" flex-md="100"
-                     flex-sm="100" flex-gt-xs="100" flex-xs="100" id="register">
-                    <md-button class="md-fab md-scale md-fab-top-right" ng-click="vm.showRegister($event)">
-                        <md-icon md-font-icon="fa fa-plus" style="color:white;">
-
-                        </md-icon>
-                    </md-button>
-
-                    <md-content id="content">
-                        <div layout="column" flex="flex" ng-show="vm.selectedLinea!=null || vm.operation==1">
-                            <h2 class="md-headline-1 text-center">
-                                {{vm.operation==0?'TRANSPORT_LINE.FORM.LABEL.INFO_TRANSPORT_LINE':'TRANSPORT_LINE.FORM.LABEL.NEW_REGISTER'|translate}}</h2>
-                            <!--<h2>{{'TRANSPORT_LINE.FORM.LABEL.NEW_REGISTER'|translate}}</h2>-->
-                            <form name="TransportForm">
-                                <md-input-container class="md-block">
-                                    <label>{{'TRANSPORT_LINE.FORM.LABEL.BUSINESS_NAME'|translate}}</label>
-                                    <input ng-required='true' type="text" name="razon" ng-disabled="vm.editable"
-                                           ng-model="vm.transport.razon_social"/>
-                                    <div ng-messages="TransportForm.razon.$error">
-                                        <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
-                                    </div>
-                                </md-input-container>
-                                <md-input-container class="md-block">
-                                    <label>{{'TRANSPORT_LINE.FORM.LABEL.ADDRESS'|translate}}</label>
-                                    <input md-no-asterisk="" required="" type="text" name="address"
-                                           ng-disabled="vm.editable"
-                                           ng-model="vm.transport.direccion"/>
-                                    <div ng-messages="TransportForm.address.$error">
-                                        <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
-                                    </div>
-                                </md-input-container>
-                                <div class="chipsdemoCustomInputs">
-                                    <label>{{'TRANSPORT_LINE.FORM.LABEL.PHONE'|translate}}</label>
-                                    <md-chips ng-model="vm.transport.telefonos"
-                                              md-removable="vm.removable"
-                                              delete-button-label="Remove Tag"
-                                              readonly="vm.editable"
-                                    >
-                                        <input type="text" only-digits ng-model="vm.numberBuffer"
-                                               placeholder="{{'TRANSPORT_LINE.FORM.LABEL.PLUS-PHONE'|translate}}">
-                                    </md-chips>
-
-                                    <!--<md-chips
-                                        ng-model="vm.transport.telefonos"
-                                        readonly="false"
-                                        md-removable="vm.removable"
-                                        delete-button-label="Remove Tag"
-                                        placeholder="{{'TRANSPORT_LINE.FORM.PLACEHOLDER.ENTER-PHONE'|translate}}"
-                                        delete-hint="Press delete to remove tag"
-                                        md-enable-chip-edit="true"
-                                        secondary-placeholder="{{'TRANSPORT_LINE.FORM.LABEL.PLUS-PHONE'|translate}}"
-                                        ng-required="true">
-                                        <input type="text" only-digits placeholder="{{'TRANSPORT_LINE.FORM.PLACEHOLDER.ENTER-PHONE'|translate}}">
-                                    </md-chips>-->
+                     flex-sm="100" flex-gt-xs="100" flex-xs="100" layout-align="start stretch">
+                    <h2 class="md-headline-1 text-center">
+                        {{'TRANSPORT_LINE.FORM.LABEL.INFO_TRANSPORT_LINE'|translate}}</h2>
+                    <form name="TransportForm">
+                        <md-input-container class="md-block">
+                            <label>{{'TRANSPORT_LINE.FORM.LABEL.BUSINESS_NAME'|translate}}</label>
+                            <input ng-required='true' type="text" name="razon" ng-disabled="vm.editable"
+                                   ng-model="vm.transport.razon_social"/>
+                            <div ng-messages="TransportForm.razon.$error">
+                                <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>{{'TRANSPORT_LINE.FORM.LABEL.ADDRESS'|translate}}</label>
+                            <input md-no-asterisk="" required="" type="text" name="address"
+                                   ng-disabled="vm.editable"
+                                   ng-model="vm.transport.direccion"/>
+                            <div ng-messages="TransportForm.address.$error">
+                                <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
+                            </div>
+                        </md-input-container>
+                        <div class="chipsdemoCustomInputs">
+                            <label>{{'TRANSPORT_LINE.FORM.LABEL.PHONE'|translate}}</label>
+                            <md-chips ng-model="vm.transport.telefonos"
+                                      md-removable="vm.removable"
+                                      delete-button-label="Remove Tag"
+                                      readonly="vm.editable"
+                            >
+                                <input type="text" only-digits ng-model="vm.numberBuffer"
+                                       placeholder="{{'TRANSPORT_LINE.FORM.LABEL.PLUS-PHONE'|translate}}">
+                            </md-chips>
 
 
-                                </div>
-                                <md-input-container class="md-block">
-                                    <label>{{'TRANSPORT_LINE.FORM.LABEL.RESPONSABLE'|translate}}</label>
-                                    <input md-no-asterisk="" required="" type="text" name="responsable"
-                                           ng-disabled="vm.editable"
-                                           ng-model="vm.transport.responsable"/>
-                                    <div ng-messages="TransportForm.responsable.$error">
-                                        <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
-                                    </div>
-                                </md-input-container>
-                                <div layout="row" layout-align="end center">
-                                    <md-button class="md-raised md-primary"
-                                               ng-show="vm.operation==0"
-                                               ng-click="vm.eliminar($event)">
-                                        <md-icon md-font-icon="fa fa-trash"></md-icon>
-                                    </md-button>
-                                    <md-button
-                                        ng-show="vm.operation==0"
-                                        ng-click="vm.editar()"
-                                        class="md-raised md-primary">
-                                        <md-icon md-font-icon="fa fa-pencil"></md-icon>
-                                    </md-button>
-                                    <md-button
-                                        ng-click="vm.registrarTransporte()"
-                                        ng-show="vm.operation==1 || vm.operation==2"
-                                        ng-disabled="TransportForm.$invalid"
-                                        class="md-raised md-primary">
-                                        <md-icon md-font-icon="fa fa-save"></md-icon>
-                                    </md-button>
-                                </div>
-                            </form>
                         </div>
-                    </md-content>
+                        <md-input-container class="md-block">
+                            <label>{{'TRANSPORT_LINE.FORM.LABEL.RESPONSABLE'|translate}}</label>
+                            <input md-no-asterisk="" required="" type="text" name="responsable"
+                                   ng-disabled="vm.editable"
+                                   ng-model="vm.transport.responsable"/>
+                            <div ng-messages="TransportForm.responsable.$error">
+                                <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
+                            </div>
+                        </md-input-container>
+                    </form>
+                    <div layout="row" layout-align="end end">
+                        <md-button aria-label="fab button" ng-click="vm.cancel()" class="md-raised md-primary">
+                            <md-icon md-font-icon="fa fa-eraser"></md-icon>
+                        </md-button>
+                        <md-button aria-label="fab button"
+                                   ng-if="vm.transport.id!=null && vm.transport.id!=undefined"
+                                   ng-click="vm.remove($event)" class="md-raised md-warn">
+                            <md-icon md-font-icon="fa fa-trash"></md-icon>
+                        </md-button>
+                        <md-button aria-label="fab button"
+                                   ng-if="vm.transport.id!=null && vm.transport.id!=undefined"
+                                   ng-disabled="TransportForm.$invalid" ng-click="vm.update()"
+                                   class="md-raised md-primary">
+                            <md-icon md-font-icon="fa fa-pencil"></md-icon>
+                        </md-button>
+                        <md-button aria-label="fab button"
+                                   ng-if="vm.transport.id==null || vm.transport.id==undefined"
+                                   ng-disabled="TransportForm.$invalid" ng-click="vm.create()"
+                                   class="md-raised md-primary">
+                            <md-icon md-font-icon="fa fa-save"></md-icon>
+                        </md-button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </md-card-content>
+
+
+    </md-card>
 </div>
+
