@@ -47,6 +47,10 @@
     "MODAL_REQUEST": {
         "FORM": {
             "LABEL": {
+                "CONCEPT":"Agregar Concepto",
+                "QUANTITY":"Cantidad",
+                "STATUS_EQUIPMENT":"Estatus de equipo",
+                "TYPE_EQUIPMENT":"Tipo de equipo"
             }
         }
     },

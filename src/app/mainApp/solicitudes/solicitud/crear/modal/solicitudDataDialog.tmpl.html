@@ -1,32 +1,30 @@
-<md-dialog aria-label="Agregar Concepto" ng-cloak="">
+<div layout="column" flex layout-padding layout-align-gt-md="center center" layout-align="center stretch">
     <md-toolbar>
-        <div class="md-toolbar-tools">
-            <h2>Agregar Concepto</h2><span flex=""></span>
-            <md-button ng-click="vm.cancel()" class="md-icon-button">
-                <ng-md-icon icon="close" aria-label="Close dialog"></ng-md-icon>
-            </md-button>
-        </div>
+        <h2>{{'MODAL_REQUEST.FORM.LABEL.CONCEPT'|translate}}</h2><span flex=""></span>
+        <md-button ng-click="vm.cancel()" class="md-icon-button">
+            <ng-md-icon icon="close" aria-label="Close dialog"></ng-md-icon>
+        </md-button>
     </md-toolbar>
-    <md-dialog-content class="md-dialog-content">
+    <md-dialog-content>
         <form name="objectForm" layout="column">
             <md-input-container>
-                <label>Cantidad</label>
-                <input type="text" ng-required="true" name="cantidad" ng-model="vm.object.cantidad" ng-pattern="/^\d*.?\d+$/"/>
+                <label>{{'MODAL_REQUEST.FORM.LABEL.QUANTITY'|translate}}</label>
+                <input type="text" ng-required="true" name="cantidad" ng-model="vm.object.cantidad" only-digits/>
                 <div ng-messages="objectForm.cantidad.$error">
-                    <div ng-message="pattern">El campo tiene que ser un número positivo</div>
-                    <div ng-message="required">El campo es requerido</div>
+                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                 </div>
             </md-input-container>
             <md-input-container>
-                <label>Estatus del equipo</label>
-                <md-select ng-model="vm.object.status_equipo" ng-required="true">
-                    <!--md-option ng-repeat="option in vm.options" ng-value="option.value">{{option.value}}</md-option-->
-                    <md-option value="Nuevo">Nuevo</md-option>
-                    <md-option value="Reparado">Reparado</md-option>
+                <label>{{'MODAL_REQUEST.FORM.LABEL.STATUS_EQUIPMENT'|translate}}</label>
+
+                <md-select ng-model="vm.object.status_equipo"
+                           required='required'>
+                    <md-option ng-repeat="status in vm.status" ng-value="status.id">{{status.value}}
+                    </md-option>
                 </md-select>
             </md-input-container>
             <md-input-container>
-                <label>Tipo de equipo</label>
+                <label>{{'MODAL_REQUEST.FORM.LABEL.TYPE_EQUIPMENT'|translate}}</label>
                 <md-select ng-model="vm.object.modelo_cabinet" ng-required="true">
                     <md-option ng-repeat="tipoEquipo in vm.tiposEquipo" ng-value="tipoEquipo.id">{{tipoEquipo.nombre}} - {{tipoEquipo.tipo}}</md-option>
                 </md-select>
@@ -35,8 +33,12 @@
 
         </form>
     </md-dialog-content>
-    <md-dialog-actions layout="row">
-        <md-button ng-disabled="objectForm.$invalid" ng-click="vm.submit()" class="md-primary md-raised">Enviar</md-button>
-        <md-button ng-click="vm.cancel()" style="margin-right:20px;" class="md-primary md-raised">Cancelar</md-button>
+    <md-dialog-actions layout="row" layout-align="end center">
+        <md-button ng-click="vm.cancel()" md-no-ink class="md-primary">
+            {{'Cancel'|translate}}
+        </md-button>
+        <md-button ng-click="vm.submit()" ng-disabled="objectForm.$invalid" md-no-ink class="md-primary">
+            {{'Save'|translate}}
+        </md-button>
     </md-dialog-actions>
-</md-dialog>
+</div>

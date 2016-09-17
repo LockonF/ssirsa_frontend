@@ -42,6 +42,14 @@
                     id: 2,
                     value: "Solicitud de punto de venta"
                 }
+            ],
+            status_equipment:[
+                {
+                    value: "Nuevo"
+                },
+                {
+                    value: "Reparado"
+                }
             ]
         })
 })();
