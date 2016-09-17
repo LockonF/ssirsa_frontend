@@ -4,38 +4,29 @@
     angular
         .module('app.mainApp.catalogos')
         .controller('LineaTransporteController', LineaTransporteController)
-        .filter('custom', custom);
+        .filter('lineaSearch', custom);
 
     /* @ngInject */
     function LineaTransporteController(LineaTransporte, $scope, toastr, Translate,$mdDialog) {
 
         var vm = this;
-        vm.isDisabled = false;
-        vm.selectedLineas = selectedLineas;
-        vm.registrarTransporte = registrarTransporte;
-        vm.eliminar=eliminar;
-        vm.editar = editar;
-        vm.selectedItem = null;
-        vm.searchText = null;
+
+        vm.lookup = lookup;
         vm.querySearch = querySearch;
-        vm.showRegister = showRegister;
-        vm.clearForm = clearForm;
-        vm.selectedLinea = null;
-        vm.selectedSolicitudes = [];
-        vm.tooltipVisible = false;
-        vm.hideProject = false;
-        vm.solicitudes = null;
-        vm.proyectos = null;
-        vm.showSolicitudes = false;
-        vm.editable=true;
-        vm.hover = false;
+        vm.selectedLineas = selectedLineas;
+        vm.showRegister=showRegister;
+        vm.cancel = cancel;
+        vm.create = create;
+        vm.remove=remove;
+        vm.update=update;
+        vm.search_items = [];
+        vm.searchText = '';
         var transport = {
             razon_social: null,
             direccion: null,
             telefonos: [],
             responsable: null
         };
-        vm.operation = 0;//0- View, 1-Register, 2-Update
         vm.transport = angular.copy(transport);
         vm.numberBuffer = '';
         activate();
@@ -49,26 +40,14 @@
             vm.successDeleteMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_DELETE');
         }
 
+
         function activate() {
-            LineaTransporte.getAll().then(function (res) {
-                vm.lineas = res;
-            }).catch(function () {
-                toastr.warning(vm.errorMessage, vm.errorTitle);
-            });
+            vm.lineas = LineaTransporte.list();
         }
-
-        function editar(){
-            vm.operation=2;
-            vm.editable=!vm.editable;
-        }
-
         function showRegister($event) {
-            vm.operation = 1;
-            vm.selectedLinea=null;
-            vm.editable=!vm.editable;
             clearForm();
         }
-        function eliminar(ev) {
+        function remove(ev) {
             var confirm = $mdDialog.confirm()
                 .title('Confirmación para eliminar')
                 .textContent('¿Esta seguro de eliminar este elemento?')
@@ -77,12 +56,10 @@
                 .ok('Aceptar')
                 .cancel('Cancelar');
             $mdDialog.show(confirm).then(function() {
-                LineaTransporte.remove(vm.transport.id).then(function (res) {
+                LineaTransporte.remove(vm.transport).then(function (res) {
                     toastr.success(vm.successDeleteMessage, vm.successTitle);
-                    vm.transport = angular.copy(transport);
-                    clearForm();
+                    cancel();
                     activate();
-                    vm.selectedLinea=null;
                 }).catch(function (res) {
                     toastr.warning(vm.errorMessage, vm.errorTitle);
                 });
@@ -90,57 +67,49 @@
 
             });
         }
-        function clearForm() {
+        function update() {
+            LineaTransporte.update(vm.transport).then(function (res) {
+                toastr.success(vm.successUpdateMessage, vm.successTitle);
+                cancel();
+                activate();
+            }).catch(function (res) {
+                toastr.warning(vm.errorMessage, vm.errorTitle);
+            });
+        }
+        function create() {
+            LineaTransporte.create(vm.transport).then(function (res) {
+                toastr.success(vm.successCreateMessage, vm.successTitle);
+                vm.transport = angular.copy(transport);
+                cancel();
+                activate();
+            }).catch(function (res) {
+                toastr.warning(vm.errorMessage, vm.errorTitle);
+            });
+        }
+
+        function cancel() {
             $scope.TransportForm.$setPristine();
             $scope.TransportForm.$setUntouched();
             vm.transport = angular.copy(transport);
-
-            vm.selectedLinea=null;
+            vm.selectedLineaList = null;
         }
 
         function selectedLineas(project) {
-            vm.selectedLinea = project;
-            vm.operation = 0;
+            vm.selectedLineaList = project;
             vm.transport = angular.copy(project);
-            vm.editable=true;
         }
 
-
         function querySearch(query) {
-            var results = query ? vm.lineas.filter(createFilterFor(query)) : vm.lineas, deferred;
+            var results = query ? lookup(query) : vm.lineas;
             return results;
 
         }
 
-        function createFilterFor(query) {
-
-            return function filterFn(linea) {
-                return (linea.razon_social.indexOf(query) === 0);
-            };
-        }
-
-        function registrarTransporte() {
-            if(vm.operation ==1) {
-                LineaTransporte.create(vm.transport).then(function (res) {
-                    toastr.success(vm.successCreateMessage, vm.successTitle);
-                    vm.transport = angular.copy(transport);
-                    clearForm();
-                    vm.numberBuffer=null;
-                    activate();
-                }).catch(function (res) {
-                    toastr.warning(vm.errorMessage, vm.errorTitle);
-                });
-            }else{
-                LineaTransporte.modify(vm.transport).then(function (res) {
-                    toastr.success(vm.successUpdateMessage, vm.successTitle);
-                    vm.operation=0;
-                    vm.editable=true;
-                    vm.selectedLinea=null;
-                    activate();
-                }).catch(function (res) {
-                    toastr.warning(vm.errorMessage, vm.errorTitle);
-                });
-            }
+        function lookup(search_text) {
+            vm.search_items = _.filter(vm.lineas, function (item) {
+                return item.razon_social.toLowerCase().indexOf(search_text.toLowerCase()) >= 0;
+            });
+            return vm.search_items;
         }
 
     }
@@ -151,10 +120,12 @@
                 return input;
             }
 
-            return input.filter(function (item) {
-                return (item.razon_social.indexOf(text) > -1);
+            return _.filter(input, function (item) {
+                return item.razon_social.toLowerCase().indexOf(text.toLowerCase()) >= 0;
             });
+
         };
+
 
     }
 })();
