@@ -1,7 +1,4 @@
 {
-
-
-
     "CALENDAR":{
         "FORM":{
             "LABEL":{
@@ -12,6 +9,24 @@
                 "DATE_TERMINATE":"Fecha de confirmación",
                 "STATUS":"Estatus",
                 "TYPE":"Tipo de solicitud"
+            }
+        }
+    },
+    "CREATE_REQUEST": {
+        "FORM": {
+            "LABEL": {
+            }
+        }
+    },
+    "MODAL_REQUEST": {
+        "FORM": {
+            "LABEL": {
+            }
+        }
+    },
+    "SEARCH_REQUEST": {
+        "FORM": {
+            "LABEL": {
             }
         }
     }

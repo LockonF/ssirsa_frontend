@@ -66,3 +66,26 @@ $i : 0;
     padding: 0px 10px;
   }
 }
+.dtp div.dtp-date, .dtp div.dtp-time {
+  background: darkblue;
+}
+
+.dtp > .dtp-content > .dtp-date-view > header.dtp-header {
+  background: darkblue;
+}
+
+.dtp table.dtp-picker-days tr > td > a.selected {
+  background: darkblue;
+}
+
+.dtp .dtp-actual-meridien a.selected {
+  background: darkblue;
+}
+
+.dtp .dtp-picker-time > a.dtp-select-hour.selected {
+  background: darkblue;
+}
+
+.dtp .dtp-hand.on {
+  background: darkblue;
+}

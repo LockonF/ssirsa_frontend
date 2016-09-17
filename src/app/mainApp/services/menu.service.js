@@ -283,7 +283,6 @@
                     ]
                 }
             ];
-            console.log(capturistaMenu);
             triMenu.menu = capturistaMenu;
         }
 
