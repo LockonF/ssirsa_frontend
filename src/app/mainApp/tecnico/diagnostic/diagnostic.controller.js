@@ -97,7 +97,6 @@
                 vm.diagnostico=null;
             }, function (err) {
                 vm.status = 'idle';
-                console.log(err);
                 toastr.warning(vm.errorMessage, vm.errorTitle);
             });
         }
