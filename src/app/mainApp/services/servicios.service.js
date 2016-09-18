@@ -57,7 +57,9 @@
             Restangular.one('etapa_servicio', etapa.id).customPUT(etapa).then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
+                console.log(err);
                 deferred.reject(err);
+
             });
 
 
