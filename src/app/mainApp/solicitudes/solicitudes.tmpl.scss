@@ -19,7 +19,7 @@
       &:focus {
         outline: none;
       }
-        th, td, hr, thead, tbody, .fc-row, .fc-popover {
+      th, td, hr, thead, tbody, .fc-row, .fc-popover {
         border-color: rgba(100, 100, 100, .075);
       }
       .fc-content-skeleton {
@@ -53,12 +53,12 @@
   list-style: lower-greek;
 }
 
-$i : 0;
+$i: 0;
 @while $i <= 11 {
   .calendar-background-month-#{$i} {
     background-image: url(../assets/images/backgrounds/material-backgrounds/mb-bg-03.jpg);
   }
-  $i : $i + 1;
+  $i: $i + 1;
 }
 
 @media (max-width: $layout-breakpoint-xs) {
@@ -66,6 +66,7 @@ $i : 0;
     padding: 0px 10px;
   }
 }
+/*
 .dtp div.dtp-date, .dtp div.dtp-time {
   background: darkblue;
 }
@@ -88,4 +89,67 @@ $i : 0;
 
 .dtp .dtp-hand.on {
   background: darkblue;
+}*/
+
+::-webkit-scrollbar{
+  width:1px;
+}
+
+::-webkit-scrollbar-thumb{
+  background-color: rgba(255,255,255,1);
+
+}
+.dtp > .dtp-content > .dtp-date-view > header.dtp-header {
+  background: darkblue;
+  color: #fff;
+  text-align: center;
+  padding: 3px;
+}
+
+.dtp div.dtp-date, .dtp div.dtp-time {
+  background: darkblue;
+  text-align: center;
+  color: #fff;
+  padding: 10px;
+}
+.dtp table.dtp-picker-days tr > td > a.selected {
+  background: darkblue;
+  color: #fff;
+}
+.dtp .p10 > a {
+  color: darkblue;
+  text-decoration: none;
+}
+
+.dtp .dtp-actual-meridien a.selected {
+  background: darkblue;
+  color: #fff;
+}
+.dtp .dtp-picker-time > a.dtp-select-minute.selected {
+  background: darkblue;
+  color: #fff;
+}
+.dtp .dtp-picker-time > a.dtp-select-hour.selected {
+  background: darkblue;
+  color: #fff;
+}
+.dtp .dtp-hand.on {
+  background: darkblue;
+}
+.dtp .dtp-buttons {
+  padding: 0 10px 10px 10px;
+  text-align: right;
+  margin: 0 auto;
+}
+.dtp div.dtp-picker {
+  padding: 2px;
+  text-align: center;
+}
+
+md-dialog md-dialog-content {
+  overflow: hidden !important;
+}
+
+#quantity md-input-container .md-errors-spacer {
+  min-height: 0px !important;
 }

@@ -6,7 +6,7 @@
         .module('app.mainApp.solicitudes')
         .controller('realizarSolicitudController', realizarSolicitudController);
 
-    function realizarSolicitudController(OPTIONS, udn, $mdDialog, toastr, Solicitudes, Solicitud_Servicio, Solicitudes_Admin, Persona_Admin, Session, Socket) {
+    function realizarSolicitudController(OPTIONS, udn,ModeloCabinet,$mdEditDialog, $mdDialog, Translate,toastr, Solicitudes, Solicitud_Servicio, Solicitudes_Admin, Persona_Admin, Session, Socket,$scope) {
         var vm = this;
         var requisito = {
             "id": null,
@@ -38,6 +38,7 @@
         vm.persona = null;
         vm.types_request = OPTIONS.type_request;
         vm.status = OPTIONS.status;
+        vm.status_equipment=OPTIONS.status_equipment;
         vm.udns = null;
         vm.personas = null;
         vm.isClient = true;
@@ -46,6 +47,7 @@
         vm.showCreateDialog = showCreateDialog;
         vm.cancel = cancel;
         vm.eliminar = eliminar;
+        vm.edit=edit;
         vm.guardarSolicitudAdmin = guardarSolicitudAdmin;
         vm.guardarSolicitudVenta = guardarSolicitudVenta;
         vm.guardarSolicitudCliente = guardarSolicitudCliente;
@@ -57,6 +59,7 @@
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
             vm.udns = udn.list();
             vm.personas = Persona_Admin.list();
+            vm.tiposEquipo=ModeloCabinet.list();
             vm.isClient = Session.userRole == 'Cliente';
         }
         function showCreateDialog(event) {
@@ -64,7 +67,7 @@
                 controller: 'solicitudDataDialogController',
                 controllerAs: 'vm',
                 bindToController: true,
-                templateUrl: 'app/mainApp/solicitudes/solicitudDataDialog.tmpl.html',
+                templateUrl: 'app/mainApp/solicitudes/solicitud/crear/modal/solicitudDataDialog.tmpl.html',
                 parent: angular.element(document.body),
                 targetEvent: event,
                 clickOutsideToClose: true,
@@ -87,6 +90,11 @@
         function cancel() {
             vm.requisitoVenta = angular.copy(requisitoVenta);
             vm.requisito = angular.copy(requisito);
+
+            $scope.solicitudForm.$setPristine();
+            $scope.solicitudForm.$setUntouched();
+            vm.udn = null;
+            vm.persona = null;
         }
 
         function guardarSolicitudAdmin() {
@@ -114,7 +122,8 @@
                 toastr.success('exito al guardar', 'exito');
 
 
-            }).catch(function () {
+            }).catch(function (res) {
+                console.log(res);
                 toastr.error(vm.errorMessage, vm.errorTitle);
             })
         }
@@ -129,13 +138,28 @@
                 toastr.success('exito al guardar', 'exito');
 
 
-            }).catch(function () {
+            }).catch(function (res) {
+                console.log(res);
                 toastr.error(vm.errorMessage, vm.errorTitle);
             })
         }
-
+        function edit(event,object,field) {
+            var config =
+            {
+                modelValue: object[field],
+                placeholder: 'Edita el campo',
+                save: function (input) {
+                    object[field] = input.$modelValue;
+                },
+                targetEvent: event,
+                type:'number'
+            };
+            $mdEditDialog.small(config).then(function(ctrl){
+            }).catch(function(err){
+            });
+        }
         function guardarSolicitudVenta() {
-            vm.requisitoVenta.fecha_atencion = moment(vm.requisitoVenta.fecha_atencion).format('YYYY-MM-DD');
+            vm.requisitoVenta.fecha_atencion = moment(vm.requisitoVenta.fecha_atencion).toISOString();
             vm.requisitoVenta.created_at = moment(vm.requisitoVenta.created_at).format('YYYY-MM-DD');
             vm.requisitoVenta.updated_at = moment(vm.requisitoVenta.updated_at).format('YYYY-MM-DD');
             vm.requisitoVenta.udn = vm.udn;
@@ -154,10 +178,11 @@
                     type: "normal"
                 });
 
-                vm.requisitoVenta = angular.copy(requisitoVenta);
-                vm.udn = null;
-                toastr.success('exito al guardar', 'exito');
-            }).catch(function () {
+                cancel();
+
+                toastr.success(vm.successCreateMessage, vm.successTitle);
+            }).catch(function (res) {
+                console.log(res);
                 toastr.error(vm.errorMessage, vm.errorTitle);
             })
         }

@@ -45,9 +45,11 @@
             ],
             status_equipment:[
                 {
+                    id: 0,
                     value: "Nuevo"
                 },
                 {
+                    id: 1,
                     value: "Reparado"
                 }
             ]

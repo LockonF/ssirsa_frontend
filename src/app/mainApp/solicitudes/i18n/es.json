@@ -51,6 +51,10 @@
                 "QUANTITY":"Cantidad",
                 "STATUS_EQUIPMENT":"Estatus de equipo",
                 "TYPE_EQUIPMENT":"Tipo de equipo"
+            },
+            "PLACEHOLDER":{
+                "STATUS_EQUIPMENT":"Seleccione un estatus de equipo",
+                "TYPE_EQUIPMENT":"Seleccione un tipo de equipo"
             }
         }
     },

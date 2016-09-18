@@ -1,12 +1,17 @@
-<div layout="column" flex layout-padding layout-align-gt-md="center center" layout-align="center stretch">
+<md-dialog class="mobile-fullwidth-dialog" flex="40" flex-xs="100">
     <md-toolbar>
-        <h2>{{'MODAL_REQUEST.FORM.LABEL.CONCEPT'|translate}}</h2><span flex=""></span>
-        <md-button ng-click="vm.cancel()" class="md-icon-button">
-            <ng-md-icon icon="close" aria-label="Close dialog"></ng-md-icon>
-        </md-button>
+        <div class="md-toolbar-tools">
+            <h2>{{'MODAL_REQUEST.FORM.LABEL.CONCEPT'|translate}}</h2><span flex=""></span>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="vm.cancel()" aria-label="cancel">
+                <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+            </md-button>
+        </div>
     </md-toolbar>
-    <md-dialog-content>
-        <form name="objectForm" layout="column">
+    <md-divider></md-divider>
+
+    <md-dialog-content class="md-dialog-content card1 md-blue-grey-theme">
+        <form name="objectForm" layout="column" >
             <md-input-container>
                 <label>{{'MODAL_REQUEST.FORM.LABEL.QUANTITY'|translate}}</label>
                 <input type="text" ng-required="true" name="cantidad" ng-model="vm.object.cantidad" only-digits/>
@@ -16,18 +21,28 @@
             </md-input-container>
             <md-input-container>
                 <label>{{'MODAL_REQUEST.FORM.LABEL.STATUS_EQUIPMENT'|translate}}</label>
-
                 <md-select ng-model="vm.object.status_equipo"
+                           name="status_equipment"
+                           placeholder="{{'MODAL_REQUEST.FORM.PLACEHOLDER.STATUS_EQUIPMENT'|translate}}"
                            required='required'>
                     <md-option ng-repeat="status in vm.status" ng-value="status.id">{{status.value}}
                     </md-option>
                 </md-select>
+                <div ng-messages="objectForm.status_equipment.$error">
+                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                </div>
             </md-input-container>
             <md-input-container>
                 <label>{{'MODAL_REQUEST.FORM.LABEL.TYPE_EQUIPMENT'|translate}}</label>
-                <md-select ng-model="vm.object.modelo_cabinet" ng-required="true">
-                    <md-option ng-repeat="tipoEquipo in vm.tiposEquipo" ng-value="tipoEquipo.id">{{tipoEquipo.nombre}} - {{tipoEquipo.tipo}}</md-option>
+                <md-select ng-model="vm.object.modelo_cabinet" required="required" name="equipment"
+                           placeholder="{{'MODAL_REQUEST.FORM.PLACEHOLDER.TYPE_EQUIPMENT'|translate}}">
+                    <md-option ng-repeat="tipoEquipo in vm.tiposEquipo" ng-value="tipoEquipo.id">{{tipoEquipo.nombre}} -
+                        {{tipoEquipo.tipo}}
+                    </md-option>
                 </md-select>
+                <div ng-messages="objectForm.equipment.$error">
+                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                </div>
             </md-input-container>
 
 
@@ -41,4 +56,4 @@
             {{'Save'|translate}}
         </md-button>
     </md-dialog-actions>
-</div>
+</md-dialog>
