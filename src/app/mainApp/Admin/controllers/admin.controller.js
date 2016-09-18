@@ -6,7 +6,7 @@
         .module('app.mainApp.admin')
         .controller('gestion_userController',gestion_userController);
 
-    function gestion_userController(groups,udn,Persona_Admin,toastr,Helper){
+    function gestion_userController(groups,udn,Persona_Admin,toastr,Helper,Translate){
         var vm = this;
         vm.isClient=true;
         activate();
@@ -14,6 +14,8 @@
 
 
         function activate(){
+
+            vm.errorSize = Translate.translate('MAIN.MSG.FILE_SIZE');
             groups.list().then(function(rest){
                 vm.grupos=rest;
             }).catch(function(error){
@@ -139,15 +141,14 @@
         function guardarUsuario(){
             vm.user_ini.foto=vm.picFoto;
             vm.user_ini.ife=vm.picIFE;
+
             if(vm.user_ini.udn == null)
                 delete vm.user_ini['udn'];
-
             Persona_Admin.createObject(vm.user_ini).then(function (res) {
 
             }).catch(function (err) {
                 console.log(err);
             });
-
         }
 
 

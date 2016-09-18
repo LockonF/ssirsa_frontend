@@ -75,8 +75,8 @@
                             type: 'link'
                         },
                         {
-                            name: 'MAIN.MENU.SEARCH_USER',
-                            state: 'triangular.admin-default.buscarUsuario',
+                            name: 'MAIN.MENU.ADMIN_USER',
+                            state: 'triangular.admin-default.admin_user',
                             type: 'link'
                         }
                     ]
@@ -283,7 +283,6 @@
                     ]
                 }
             ];
-            console.log(capturistaMenu);
             triMenu.menu = capturistaMenu;
         }
 

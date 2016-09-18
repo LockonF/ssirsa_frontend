@@ -6,66 +6,37 @@
         .factory('LineaTransporte', LineaTransporte);
 
     /* @ngInject */
-    function LineaTransporte($q, Restangular) {
+    function LineaTransporte(Restangular) {
+
+        var baseModelo = Restangular.all('linea_transporte');
+
         return {
-            create: create,
-            get: get,
-            getAll: getAll,
-            remove: remove,
-            modify: modify
+            list:list,
+            update:update,
+            create:create,
+            get:get,
+            remove: remove
         };
 
-        function create(request) {
-            var deferred = $q.defer();
-            Restangular.all('linea_transporte').customPOST(request).then(function (res) {
-                deferred.resolve(res);
-            }).catch(function (err) {
-                deferred.reject(err);
-            });
-            return deferred.promise;
-        }
-
         function get(id) {
-            var deferred = $q.defer();
-            Restangular.one('linea_transporte', id).customGET().then(function (res) {
-                deferred.resolve(res);
-            }).catch(function (err) {
-                deferred.reject(err);
-            });
-            return deferred.promise;
+            return baseModelo.get(id);
+        }
+        function list(){
+            return baseModelo.getList().$object;
         }
 
-        function getAll() {
-            var deferred = $q.defer();
-            Restangular.all('linea_transporte').customGET().then(function (res) {
-                deferred.resolve(res);
-            }).catch(function (err) {
-                deferred.reject(err);
-            });
-            return deferred.promise;
+        function update(object)
+        {
+            return baseModelo.all(object.id).customPUT(object);
         }
 
-        function remove(id) {
-            var deferred = $q.defer();
-
-            Restangular.one('linea_transporte', id).customDELETE().then(function (res) {
-                deferred.resolve(res);
-            }).catch(function (err) {
-                deferred.reject(err);
-            });
-            return deferred.promise;
+        function create(object){
+            return baseModelo.post(object);
         }
 
-
-        function modify(linea_transporte) {
-            var deferred = $q.defer();
-            Restangular.one('linea_transporte', linea_transporte.id).customPUT(linea_transporte).then(function (res) {
-                deferred.resolve(res);
-            }).catch(function (err) {
-                deferred.reject(err);
-                console.log(err);
-            });
-            return deferred.promise;
+        function remove(object)  {
+            return baseModelo.customDELETE(object.id,null,{'content-type':'application/json'});
         }
     }
+
 })();

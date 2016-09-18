@@ -8,15 +8,17 @@
         .module('app.mainApp')
         .factory('Persona_Admin',Persona_Admin);
 
-    function Persona_Admin($q, Restangular,toastr){
-        return{
+    function Persona_Admin($q, Restangular){
+        var baseModelo = Restangular.all('persona_admin');
+
+        return {
+            list:list,
+            update:update,
             create:create,
             createObject:createObject,
-            list:list,
-            modify:modify,
-            deleteData:deleteData
+            get:get,
+            deleteData: remove
         };
-
         function createObject(data){
             var form_data = new FormData();
 
@@ -35,52 +37,31 @@
             var defer= $q.defer();
             Restangular.all('persona_admin').withHttpConfig({transformRequest: angular.identity}).customPOST(form_data,"",{},{'Content-Type':undefined}).then(function(res){
                 defer.resolve(res);
-                toastr.success('Entrada registrada correctamente','Éxito');
             }).catch(function(err){
-                defer.resolve(err);
-                toastr.error('Error al registrar entrada', 'Error');
-                console.log(err);
+                defer.reject(err);
             });
             return defer.promise;
         }
+        function get(id) {
+            return baseModelo.get(id);
+        }
+        function list(){
+            return baseModelo.getList().$object;
+        }
+
+        function update(object)
+        {
+            return baseModelo.all(object.id).customPUT(object);
+        }
 
         function create(object){
-            //Forma canonica
-            var deferred=$q.defer();//Genera la promesa
-            //RestAngular
-            //all solo agrega una /
-
-            Restangular.all('persona_admin').customPOST(object).then(function(rest){
-                deferred.resolve(rest);
-            }).catch(function(error){
-                deferred.reject(error);
-            });
-            //Restangular.all('solicitud').customPOST(object) - Es una promesa
-            return deferred.promise;
+            return baseModelo.post(object);
         }
 
-        function list(){
-            return Restangular.all('persona_admin').customGET();
+        function remove(object)  {
+            return baseModelo.customDELETE(object.id,null,{'content-type':'application/json'});
         }
 
-        function modify(object){
-            return Restangular.one('persona_admin',object.id).customPUT(object).then(function(resp){
-                console.log(resp);
-                return resp;
-
-            }).catch(function(err){
-                console.log(err);
-            })
-        }
-
-        function deleteData(object){
-            return Restangular.one("persona_admin",object.id).customDELETE().then(function(resp){
-                console.log(resp);
-                return resp;
-            }).catch(function(error){
-                console.log(error);
-            })
-        }
 
     }
 })();

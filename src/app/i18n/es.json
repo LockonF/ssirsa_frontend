@@ -4,6 +4,7 @@
       "WELCOME":"Bienvenida",
       "START":"Inicio",
       "CRUD_USER":"Gestión de Usuarios",
+      "ADMIN_USER":"Administración de Usuarios",
       "NEW_USER":"Nuevo Usuario",
       "SEARCH_USER":"Buscar Usuarios",
       "SOLICITUD":"Solicitudes",

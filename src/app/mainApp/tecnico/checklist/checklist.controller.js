@@ -37,7 +37,6 @@
         };
         vm.diagnostico=angular.copy(diagnostico);
         function change() {
-            console.log("gggg");
         }
         function guardar() {
             vm.status = 'uploading';
@@ -46,7 +45,6 @@
             }
             vm.diagnostico.tipo_insumo=vm.diagnostico.isCabinet==true?'cabinet':'bicicleta';
             vm.diagnostico.tipo=vm.diagnostico.isSalida==true?'salida':'entrada';
-            console.log(vm.diagnostico);
             Upload.upload({
                 url: EnvironmentConfig.site.rest.api+'diagnostico_cabinet',
                 headers: {'Authorization': OAuthToken.getAuthorizationHeader()},
@@ -61,7 +59,6 @@
                 vm.diagnostico=angular.copy(diagnostico);
             }, function (resp) {
                 vm.status = 'idle';
-                console.log(resp);
                 toastr.warning(vm.errorMessage, vm.errorTitle);
             });
         }
