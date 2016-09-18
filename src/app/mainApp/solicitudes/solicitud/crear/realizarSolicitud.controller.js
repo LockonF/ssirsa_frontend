@@ -100,9 +100,10 @@
         function guardarSolicitudAdmin() {
             vm.requisito.fecha_inicio = moment(vm.requisito.fecha_inicio).format('YYYY-MM-DD');
             vm.requisito.fecha_termino = moment(vm.requisito.fecha_termino).format('YYYY-MM-DD');
-            vm.requisito.fecha_atendida = moment(vm.requisito.fecha_atendida).format('YYYY-MM-DD HH:mm:ss');
+            vm.requisito.fecha_atendida = moment(vm.requisito.fecha_atendida).toISOString();
             vm.requisito.udn = vm.udn;
             vm.requisito.persona = vm.persona;
+            vm.requisito.tipo_solicitud=OPTIONS.type_request[vm.requisito.tipo_solicitud].value_id;
             Solicitudes_Admin.create(vm.requisito).then(function () {
                 var notification = {
                     id_solicitud: 1,
@@ -117,9 +118,8 @@
                     notification: notification,
                     type: "normal"
                 });
-                vm.requisito = angular.copy(requisito);
-                vm.udn = null;
-                toastr.success('exito al guardar', 'exito');
+                cancel();
+                toastr.success(vm.successCreateMessage, vm.successTitle);
 
 
             }).catch(function (res) {
@@ -132,10 +132,11 @@
             vm.requisito.fecha_inicio = moment(vm.requisito.fecha_inicio).format('YYYY-MM-DD');
             vm.requisito.fecha_termino = moment(vm.requisito.fecha_termino).format('YYYY-MM-DD');
             vm.requisito.udn = vm.udn;
+            vm.requisito.tipo_solicitud=OPTIONS.type_request[vm.requisito.tipo_solicitud].value_id;
             Solicitudes.create(vm.requisito).then(function () {
-                vm.requisito = angular.copy(requisito);
-                vm.udn = null;
-                toastr.success('exito al guardar', 'exito');
+                cancel();
+
+                toastr.success(vm.successCreateMessage, vm.successTitle);
 
 
             }).catch(function (res) {

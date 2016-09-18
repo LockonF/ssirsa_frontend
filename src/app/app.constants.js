@@ -32,11 +32,13 @@
             type_request:[
                 {
                     id: 0,
-                    value: "Solicitud de envío"
+                    value: "Solicitud de envío",
+                    value_id: "Envio"
                 },
                 {
                     id: 1,
-                    value: "Solicitud de recolección"
+                    value: "Solicitud de recolección",
+                    value_id: "Recoleccion"
                 },
                 {
                     id: 2,
