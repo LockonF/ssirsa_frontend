@@ -123,7 +123,6 @@
 
 
             }).catch(function (res) {
-                console.log(res);
                 toastr.error(vm.errorMessage, vm.errorTitle);
             })
         }
@@ -140,7 +139,6 @@
 
 
             }).catch(function (res) {
-                console.log(res);
                 toastr.error(vm.errorMessage, vm.errorTitle);
             })
         }
@@ -183,7 +181,6 @@
 
                 toastr.success(vm.successCreateMessage, vm.successTitle);
             }).catch(function (res) {
-                console.log(res);
                 toastr.error(vm.errorMessage, vm.errorTitle);
             })
         }
