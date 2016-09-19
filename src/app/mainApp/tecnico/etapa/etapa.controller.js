@@ -9,7 +9,7 @@
         .module('app.mainApp.tecnico')
         .controller('etapaController', etapaController);
 
-    function etapaController(Cabinet, Servicios, Diagnostico, CatalogoInsumo, Insumo, Translate, toastr) {
+    function etapaController(Cabinet, Servicios, Diagnostico, CatalogoInsumo, Insumo, Translate, toastr,OPTIONS) {
         var vm = this;
         vm.activate = activate();
 
@@ -38,44 +38,7 @@
             catalogo: "",
             notas: ""
         };// Insumo por agregar al cabinet en cuestion
-        vm.etapas = [{
-            nombre: 'Depuración',
-            value: 'E1'
-        }, {
-            nombre: 'Diagnostico',
-            value: 'E2'
-        }, {
-            nombre: 'Armado y Reparación',
-            value: 'E3'
-        }, {
-            nombre: 'Limpieza',
-            value: 'E3.1'
-        }, {
-            nombre: 'Armado',
-            value: 'E3.2'
-        }, {
-            nombre: 'Vacío y Carga de Gas',
-            value: 'E3.3'
-        }, {
-            nombre: 'Terminado',
-            value: 'E4'
-        }, {
-            nombre: 'Bodega',
-            value: 'E5'
-        }, {
-            nombre: 'Carritos y Bicicletas',
-            value: 'E6'
-        }, {
-            nombre: 'Servicio en Punto de Venta',
-            value: 'E7'
-        }, {
-            nombre: 'Confinamiento',
-            value: 'EC'
-        }, {
-            nombre: 'Destrucción',
-            value: 'ED'
-        }
-        ];//Arreglo de las diferentes etapas que componen el proceso de fabricacion de Cabinets
+        vm.etapas = OPTIONS.steps;//Arreglo de las diferentes etapas que componen el proceso de fabricacion de Cabinets
         //Declaracion de Funciones
         vm.crearInsumo = crearInsumo;
         vm.eliminarInsumo = eliminarInsumo;
