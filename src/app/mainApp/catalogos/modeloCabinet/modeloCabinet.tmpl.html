@@ -36,7 +36,7 @@
                         </md-item-template>
                         <md-not-found><span translate="MODEL_CABINET.FORM.PLACEHOLDER.NOT_FOUND"></span></md-not-found>
                     </md-autocomplete>
-                    <md-virtual-repeat-container class="vertical-container"  layout-fill="">
+                    <md-virtual-repeat-container class="vertical-container"  flex="flex">
                         <md-list  >
                             <md-list-item  ng-repeat="modelo in vm.modelos | modeloSearch:vm.searchText">
                                 <md-button ng-click="vm.selectedModelos(modelo)"
@@ -52,8 +52,7 @@
 
                     </md-virtual-repeat-container>
                 </div>
-                <div layout-xs="column" layout-sm="column"  hide-lg="100" hide-gt-lg="100" hide-xl="100">ssss</div>
-                <div layout="column" flex-lg="60" flex-gt-lg="65" flex-xl="65" flex-gt-sm="100" flex-md="100"
+                 <div layout="column" flex-lg="60" flex-gt-lg="65" flex-xl="65" flex-gt-sm="100" flex-md="100"
                      flex-sm="100" flex-gt-xs="100" flex-xs="100" layout-align="start stretch">
                     <h2 class="md-headline-1 text-center">
                         {{'MODEL_CABINET.FORM.LABEL.INFO_MODEL'|translate}}</h2>
@@ -140,7 +139,7 @@
 
                     </form>
                     <div layout="row" layout-align="end end">
-                        <!--<md-button ng-click="vm.cancel()" class="md-raised md-primary"><md-icon md-font-icon="fa fa-eraser"></md-icon></md-button>-->
+                        <md-button aria-label="fab button" ng-click="vm.cancel()" class="md-raised md-primary"><md-icon md-font-icon="fa fa-eraser"></md-icon></md-button>
                         <md-button aria-label="fab button" ng-if="vm.modelo.id!=null && vm.modelo.id!=undefined" ng-click="vm.remove($event)" class="md-raised md-warn"><md-icon md-font-icon="fa fa-trash"></md-icon></md-button>
                         <md-button aria-label="fab button" ng-if="vm.modelo.id!=null && vm.modelo.id!=undefined" ng-disabled="ModelCabinetForm.$invalid" ng-click="vm.update()" class="md-raised md-primary"><md-icon md-font-icon="fa fa-pencil"></md-icon></md-button>
                         <md-button aria-label="fab button" ng-if="vm.modelo.id==null || vm.modelo.id==undefined" ng-disabled="ModelCabinetForm.$invalid" ng-click="vm.create()" class="md-raised md-primary"><md-icon md-font-icon="fa fa-save"></md-icon></md-button>

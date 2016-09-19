@@ -4,25 +4,16 @@
 (function () {
     'use strict';
     angular.module('app.mainApp').controller('solicitudDataDialogController',solicitudDataDialogController);
-    function solicitudDataDialogController($mdDialog,modelo_cabinet)
+    function solicitudDataDialogController($mdDialog,ModeloCabinet,OPTIONS)
     {
         var vm = this;
-
-        vm.options =[
-            {value:'Energia en Base kWh'},
-            {value:'Energia en Intermedia kWh'},
-            {value:'Energia en Punta kWh'},
-            {value:'Demanda Facturable kW'} ];
+        vm.status=OPTIONS.status_equipment;
         vm.cancel = cancel;
         vm.submit = submit;
         vm.tiposEquipo=null;
         activate();
         function activate(){
-            modelo_cabinet.list().then(function(resp){
-                vm.tiposEquipo=resp;
-            }).catch(function(err){
-
-            })
+            vm.tiposEquipo=ModeloCabinet.list();
         }
         function submit()
         {

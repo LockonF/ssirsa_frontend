@@ -35,7 +35,7 @@
         }
 
         function remove(object) {
-            return baseSucursal.customDELETE(object.id);
+            return baseSucursal.customDELETE(object.id,null,{'content-type':'application/json'});
         }
     }
 
