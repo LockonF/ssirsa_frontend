@@ -27,7 +27,6 @@
             })
 
         }
-        // Crear requisito
         vm.cpassword="";
         vm.guardarUsuario = guardarUsuario;
         vm.enviar =enviar;
