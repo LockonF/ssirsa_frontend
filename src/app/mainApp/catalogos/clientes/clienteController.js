@@ -42,12 +42,12 @@
             vm.errorUpdate=Translate.translate('Clients.Notify.Messages.ERROR_UPDATING_CLIENT');
             vm.successUpdate=Translate.translate('Clients.Notify.Messages.SUCCESS_UPDATING_CLIENT');
 
-            vm.clients=Clientes.getAll();
+            vm.clients=Clientes.list();
             vm.filteredClients=vm.clients;
         }
 
         function create() {
-            Clientes.post(vm.project).then(function(res){
+            Clientes.create(vm.client).then(function(res){
                 toastr.success(vm.succesCreate,vm.successTitle);
             }).catch(function(err){
                 toastr.error(vm.errorCreate,vm.errorTitle);
@@ -56,45 +56,45 @@
         }
 
         function update() {
-            Clientes.put(vm.project).then(function(res){
+            Clientes.modify(vm.client).then(function(res){
                 toastr.success(vm.successUpdate,vm.successTitle);
             }).catch(function(err){
                 toastr.error(vm.errorUpdate,vm.errorTitle);
             });
-            vm.projects=Clientes.getAll();
-            vm.filteredProjects=vm.projects;
+            vm.clients=Clientes.getAll();
+            vm.filteredClients=vm.projects;
         }
 
         function remove() {
-            Clientes.remove(vm.projects).then(function(res){
+            Clientes.remove(vm.clients).then(function(res){
                 toastr.succes(vm.successRemove,vm.successTitle);
             }).catch(function(err){
                 toastr.error(vm.errorRemove,vm.errorTitle);
                 console.log(err);
             });
-            vm.projects=Clientes.getAll();
-            vm.filteredProjects=vm.projects;
+            vm.clients=Clientes.getAll();
+            vm.filteredClients=vm.clients;
         }
 
         function search(text) {
-            vm.filteredProjects = _.filter(vm.projects, function (item) {
+            vm.filteredClients = _.filter(vm.clients, function (item) {
                 return item.descripcion.includes(text);
             });
-            return vm.filteredProjects;
+            return vm.filteredClients;
         }
 
         function clear() {
-            vm.project = null;
-            $scope.formProject.$setPristine();
+            vm.client = null;
+            $scope.formClient.$setPristine();
         }
 
         function selectedItemChange(item) {
-            vm.project = item;
-            $scope.formProject.$invalid=true;
+            vm.client = item;
+            $scope.formClient.$invalid=true;
         }
 
         function clickCopy(item){
-            vm.project=item.clone();
+            vm.client=item.clone();
         }
 
     }

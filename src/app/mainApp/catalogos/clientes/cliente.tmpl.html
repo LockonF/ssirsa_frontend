@@ -19,7 +19,7 @@
                         md-min-length="1"
                         md-floating-label="{{'Clients.Fields.Search'|translate}}">
                     <md-item-template>
-                        <span>{{item.descripcion}}</span>
+                        <span>{{item.nombre}}</span>
                     </md-item-template>
                 </md-autocomplete>
 
@@ -29,8 +29,8 @@
                              ng-click="vm.clickCopy(item)"
                              layout-padding layout="row"
                              layout-align="start center" >
-                            <md-icon md-font-icon="zmdi zmdi-case" flex="20"></md-icon>
-                            <span flex="80">{{item.descripcion}}</span>
+                            <md-icon md-font-icon="zmdi zmdi-case" fcllex="20"></md-icon>
+                            <span flex="80">{{item.nombre}}</span>
                         </div>
                     </div>
                 </md-virtual-repeat-container>
