@@ -91,6 +91,7 @@
             vm.client = null;
             vm.selectedClient=null;
             $scope.formClient.$setPristine();
+            $scope.formClient.$setUntouched();
         }
 
         function selectedItemChange(item) {
