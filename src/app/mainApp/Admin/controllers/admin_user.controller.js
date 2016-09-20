@@ -11,11 +11,9 @@
     function admin_userController(ModeloCabinet, $scope, toastr, Translate, $mdDialog, MarcaCabinet,Persona_Admin) {
 
         var vm = this;
-        vm.querySearch = querySearch;
         vm.lookup2 = lookup2;
         vm.querySearch2 = querySearch2;
         vm.selectedPersonas=selectedPersonas;
-        vm.selectedModelos = selectedModelos;
         vm.showRegister=showRegister;
         vm.cancel = cancel;
         vm.clean=clean;
