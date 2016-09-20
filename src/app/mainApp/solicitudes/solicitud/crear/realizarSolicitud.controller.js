@@ -8,6 +8,7 @@
 
     function realizarSolicitudController(OPTIONS, udn,ModeloCabinet,$mdEditDialog, $mdDialog, Translate,toastr, Solicitudes, Solicitud_Servicio, Solicitudes_Admin, Persona, Session, Socket,$scope) {
         var vm = this;
+        
         var requisito = {
             "id": null,
             "udn": null,
