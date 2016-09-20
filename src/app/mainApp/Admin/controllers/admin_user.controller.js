@@ -19,6 +19,7 @@
         vm.selectedModelos = selectedModelos;
         vm.showRegister=showRegister;
         vm.cancel = cancel;
+        vm.clean=clean;
         vm.create = create;
         vm.remove=remove;
         vm.update=update;
@@ -61,13 +62,7 @@
         }
 
         function activate() {
-            Persona_Admin.list().then(function (rest){
-                console.log(vm.requisito);
-                vm.personas_admin = rest;
-                console.log(vm.personas_admin);
-            }).catch(function(error){
-                console.log(error);
-            })
+            vm.personas_admin = Persona_Admin.list();
             vm.modelos = ModeloCabinet.list();
             vm.marcas = MarcaCabinet.list();
         }
@@ -98,14 +93,15 @@
 
         }
         function update() {
-            Persona_Admin.modify(vm.persona).then(function (res) {
+                Persona_Admin.modify(vm.persona).then(function (res) {
                 toastr.success(vm.successUpdateMessage, vm.successTitle);
                 cancel();
                 activate();
                 console.log(res);
             }).catch(function (err) {
                 toastr.warning(vm.errorMessage, vm.errorTitle);
-                console.log(err);
+                    console.log("err");
+                    console.log(err);
             });
         }
 
@@ -123,8 +119,22 @@
         function cancel() {
             $scope.objectForm.$setPristine();
             $scope.objectForm.$setUntouched();
-            vm.perosna = angular.copy(persona);
+            vm.persona = angular.copy(persona);
+            vm.selectedPersonaList = null;
+        }
+
+        function clean() {
+            $scope.objectForm.$setPristine();
+            $scope.objectForm.$setUntouched();
+            vm.persona.user.username="";
+            vm.persona.user.email="";
+            vm.persona.nombre="";
+            vm.persona.apellido_paterno="";
+            vm.persona.apellido_materno="";
+            vm.persona.direccion="";
+            vm.persona.telefono="";
             vm.selectedModeloList = null;
+
         }
 
         function selectedModelos(project) {
@@ -167,15 +177,6 @@
             vm.persona = angular.copy(project);
         }
 
-        function buscarUsuario(){
-            Persona_Admin.list().then(function (rest){
-                console.log(vm.requisito);
-                vm.personas_admin = rest;
-                console.log(vm.personas_admin);
-            }).catch(function(error){
-                console.log(error);
-            })
-        }
 
     }
 

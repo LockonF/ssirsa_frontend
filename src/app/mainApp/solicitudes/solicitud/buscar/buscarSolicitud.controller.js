@@ -95,13 +95,7 @@
         vm.isClient=true;
         activate();
         function activate(){
-            udn.list().then(function(rest){
-                vm.udns=rest;
-                //console.log(vm.udns);
-                console.log(vm.isClient);
-            }).catch(function(error){
-
-            });
+            vm.udns=udn.list();
 
             modelo_cabinet.list().then(function(rest){
                 vm.tiposEquipo=rest;
