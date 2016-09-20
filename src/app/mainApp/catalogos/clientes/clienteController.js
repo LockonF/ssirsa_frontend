@@ -27,6 +27,7 @@
         vm.clients = null;
         vm.filteredClients = [];
         vm.client = null;
+        vm.selectedClient=null;
         vm.searchParameter='';
         activate();
 
@@ -47,6 +48,7 @@
         }
 
         function create() {
+            vm.client=vm.selectedClient;
             Clientes.create(vm.client).then(function(res){
                 toastr.success(vm.succesCreate,vm.successTitle);
             }).catch(function(err){
@@ -56,6 +58,7 @@
         }
 
         function update() {
+            vm.client=vm.selectedClient;
             Clientes.modify(vm.client).then(function(res){
                 toastr.success(vm.successUpdate,vm.successTitle);
             }).catch(function(err){
@@ -66,7 +69,8 @@
         }
 
         function remove() {
-            Clientes.remove(vm.clients).then(function(res){
+            vm.client=vm.selectedClient;
+            Clientes.remove(vm.client).then(function(res){
                 toastr.succes(vm.successRemove,vm.successTitle);
             }).catch(function(err){
                 toastr.error(vm.errorRemove,vm.errorTitle);
@@ -85,11 +89,12 @@
 
         function clear() {
             vm.client = null;
+            vm.selectedClient=null;
             $scope.formClient.$setPristine();
         }
 
         function selectedItemChange(item) {
-            vm.client = item;
+            vm.selectedClient = item;
             $scope.formClient.$invalid=true;
         }
 
