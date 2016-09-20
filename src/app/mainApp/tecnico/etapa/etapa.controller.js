@@ -9,7 +9,7 @@
         .module('app.mainApp.tecnico')
         .controller('etapaController', etapaController);
 
-    function etapaController(Cabinet, Servicios, Diagnostico, CatalogoInsumo, Insumo, Translate, toastr) {
+    function etapaController(Cabinet, Servicios, Diagnostico, CatalogoInsumo, Insumo, Translate, toastr,OPTIONS) {
         var vm = this;
         vm.activate = activate();
 
@@ -26,7 +26,8 @@
         vm.catalogoSelected = null;//Elemento del tipo Catalogo de Insumo del insumo que se deseará agregar
         vm.editable = true;
         vm.idCabinet = null;
-        vm.insumos = [];//Arreglo que poseera los Insumos que pueden ser usados en cierta etapa
+        vm.insumos = [];//Arreglo que poseera los Insumos que pueden ser usados en cierta etapa para md table
+        vm.insumosToArray=[];
         vm.cabinet = null;// Informacion general del cabinet al cual se le asignara una nueva etapa
         vm.diagnostico = null;// Informacion del diagnostico que propicio que entrara a un proceso de servicio tecnico
         vm.etapa = null;
@@ -38,44 +39,7 @@
             catalogo: "",
             notas: ""
         };// Insumo por agregar al cabinet en cuestion
-        vm.etapas = [{
-            nombre: 'Depuración',
-            value: 'E1'
-        }, {
-            nombre: 'Diagnostico',
-            value: 'E2'
-        }, {
-            nombre: 'Armado y Reparación',
-            value: 'E3'
-        }, {
-            nombre: 'Limpieza',
-            value: 'E3.1'
-        }, {
-            nombre: 'Armado',
-            value: 'E3.2'
-        }, {
-            nombre: 'Vacío y Carga de Gas',
-            value: 'E3.3'
-        }, {
-            nombre: 'Terminado',
-            value: 'E4'
-        }, {
-            nombre: 'Bodega',
-            value: 'E5'
-        }, {
-            nombre: 'Carritos y Bicicletas',
-            value: 'E6'
-        }, {
-            nombre: 'Servicio en Punto de Venta',
-            value: 'E7'
-        }, {
-            nombre: 'Confinamiento',
-            value: 'EC'
-        }, {
-            nombre: 'Destrucción',
-            value: 'ED'
-        }
-        ];//Arreglo de las diferentes etapas que componen el proceso de fabricacion de Cabinets
+        vm.etapas = OPTIONS.steps;//Arreglo de las diferentes etapas que componen el proceso de fabricacion de Cabinets
         //Declaracion de Funciones
         vm.crearInsumo = crearInsumo;
         vm.eliminarInsumo = eliminarInsumo;
@@ -277,7 +241,7 @@
         }
 
         function crearEtapaServicio() {
-            vm.etapaActual.insumos = [];
+            vm.etapaActual.insumos = vm.insumos;
             vm.etapaActual.diagnostico = vm.diagnostico.id;
             console.log(vm.etapaActual);
 
@@ -314,7 +278,7 @@
 
             }
             vm.cancel();
-        }
+         }
 
         function crearInsumo() {
          vm.buscarInsumosByCatalogo();
@@ -322,12 +286,21 @@
         }
 
         function add(){
+            vm.insumoToArray={
+                insumo:''
+            };
             if (vm.insumo.id !=null) {
-
-                console.log("entre al if")
+                vm.insumoToArray.insumo=vm.insumo.id;
+                vm.insumosToArray=_.omit(vm.insumo,'catalogo','nombre');
+                vm.insumoToArray=_.omit(vm.insumosToArray,'id');
+                console.log("entre al if");
                 console.log(vm.insumos);
                 console.log(vm.insumo);
-                 vm.insumos.push(vm.insumo);
+                console.log("Para etapa");
+                vm.insumos=_.toArray(vm.insumos);
+                vm.insumos.push(vm.insumo);
+                vm.insumosToArray=_.toArray(vm.insumosToArray);
+                vm.insumosToArray.push(vm.insumoToArray);
                 console.log(vm.insumos);
                 console.log(vm.insumo);
 

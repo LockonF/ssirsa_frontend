@@ -14,6 +14,12 @@
             limit: 5,
             page: 1
         };
+        vm.tipoSol=[
+            "Envio","Recoleccion","Venta"
+        ];
+        vm.estatusSol=[
+            "Confirmada","No Confirmada","Cancelada","Cerrada"
+        ];
         vm.id=null;
         vm.FechaFin=new Date();
         //Filtro de busqueda
@@ -89,13 +95,7 @@
         vm.isClient=true;
         activate();
         function activate(){
-            udn.list().then(function(rest){
-                vm.udns=rest;
-                //console.log(vm.udns);
-                console.log(vm.isClient);
-            }).catch(function(error){
-
-            });
+            vm.udns=udn.list();
 
             modelo_cabinet.list().then(function(rest){
                 vm.tiposEquipo=rest;

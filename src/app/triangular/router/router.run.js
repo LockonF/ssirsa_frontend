@@ -6,7 +6,7 @@
         .run(runFunction);
 
     /* @ngInject */
-    function runFunction($rootScope, $window, $state, $filter, $timeout, triRoute, triBreadcrumbsService) {
+    function runFunction($rootScope, $window, $state, $filter, $timeout, triRoute, triBreadcrumbsService, $translate) {
         var breadcrumbs = triBreadcrumbsService.breadcrumbs;
 
         // change title when language changes - when a menu item is clicked - on app init
@@ -22,9 +22,15 @@
             $timeout(function(){
                 var title = triRoute.title;
                 angular.forEach(breadcrumbs.crumbs, function(crumb){
-                    title +=' ' + triRoute.separator + ' ' + crumb.name;
+                    var subtitle= $translate(crumb.name).then(function(res){
+                        title +=' ' + triRoute.separator + ' ' +res+' ';
+                        $window.document.title = title;
+
+                    });
+
+
                 });
-                $window.document.title = title;
+
             });
         }
     }

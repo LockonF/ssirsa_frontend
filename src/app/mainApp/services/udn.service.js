@@ -11,16 +11,11 @@
 
         return {
             list:list,
-            newList:newList,
             update:update,
             create:create,
             remove:remove
         };
         function list(){
-            return baseUdn.customGET();//prueba
-        }
-        function newList()
-        {
             return baseUdn.getList().$object;
         }
 

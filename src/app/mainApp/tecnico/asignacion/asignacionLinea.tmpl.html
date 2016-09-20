@@ -8,41 +8,42 @@
 
         <div flex="100" layout="row" , layout-sm="column" , layout-xs="column" layout-align-sm="center center"
              layout-align="center center">
-
-            <md-input-container flex="60">
-                <label translate>CABINET.ID_CABINET</label>
-                <input type="text" ng-model="vm.idCabinet"/>
-            </md-input-container>
-
-
-            <div>
-                <md-input-container flex>
-                    <md-button class="md-fab" aria-label="fab button" ng-click="vm.buscar()">
-                        <md-icon md-font-icon="zmdi zmdi-zoom-in"></md-icon>
-                    </md-button>
+            <form name="Buscar" ng-submit="vm.buscar()">
+                <md-input-container flex="60">
+                    <label translate>CABINET.ID_CABINET</label>
+                    <input type="text" ng-model="vm.idCabinet"/>
                 </md-input-container>
 
-                <md-input-container flex>
-                    <md-button class="md-fab  md-primary" aria-label="fab button"
-                               ng-click="vm.guardar()">
-                        <md-icon md-font-icon="fa fa-save"></md-icon>
-                    </md-button>
-                </md-input-container>
-            </div>
-            <div>
-                <md-input-container flex>
-                    <md-button class="md-fab  md-primary" aria-label="fab button"
-                               ng-click="vm.limpiar()">
-                        <md-icon md-font-icon="fa fa-eraser"></md-icon>
-                    </md-button>
-                </md-input-container>
-                <md-input-container flex, ng-show="vm.ver">
-                    <md-button class="md-fab  md-primary" aria-label="fab button"
-                               ng-click="vm.verInfo()">
-                        <md-icon md-font-icon="fa fa-eye"></md-icon>
-                    </md-button>
-                </md-input-container>
-            </div>
+
+                <div>
+                    <md-input-container flex>
+                        <md-button class="md-fab" aria-label="fab button" ng-click="vm.buscar()">
+                            <md-icon md-font-icon="zmdi zmdi-zoom-in"></md-icon>
+                        </md-button>
+                    </md-input-container>
+
+                    <md-input-container flex>
+                        <md-button class="md-fab  md-primary" aria-label="fab button"
+                                   ng-click="vm.guardar()">
+                            <md-icon md-font-icon="fa fa-save"></md-icon>
+                        </md-button>
+                    </md-input-container>
+                </div>
+                <div>
+                    <md-input-container flex>
+                        <md-button class="md-fab  md-primary" aria-label="fab button"
+                                   ng-click="vm.limpiar()">
+                            <md-icon md-font-icon="fa fa-eraser"></md-icon>
+                        </md-button>
+                    </md-input-container>
+                    <md-input-container flex, ng-show="vm.ver">
+                        <md-button class="md-fab  md-primary" aria-label="fab button"
+                                   ng-click="vm.verInfo()">
+                            <md-icon md-font-icon="fa fa-eye"></md-icon>
+                        </md-button>
+                    </md-input-container>
+                </div>
+            </form>
         </div>
         <div layout="column">
             <md-input-container>

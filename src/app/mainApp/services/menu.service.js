@@ -9,6 +9,7 @@
         .factory('dynamicMenu', dynamicMenu);
 
     function dynamicMenu(triMenu, Session) {
+
         return {
             loadMenu: loadMenu
         };
@@ -51,54 +52,54 @@
             triMenu.menu = [];
             var adminMenu = [
                 {
-                    name: 'Bienvenida',
+                    name: 'MAIN.MENU.WELCOME',
                     icon: 'zmdi zmdi-home',
                     type: 'dropdown',
                     priority: 1,
                     children: [
                         {
-                            name: 'Inicio',
+                            name: 'MAIN.MENU.START',
                             state: 'triangular.admin-default.bienvenida',
                             type: 'link'
                         }
                     ]
                 },
                 {
-                    name: 'Gestion de Usuarios',
+                    name: 'MAIN.MENU.CRUD_USER',
                     icon: 'zmdi zmdi-account',
                     type: 'dropdown',
                     priority: 2,
                     children: [
                         {
-                            name: 'Nuevo usuario',
+                            name: 'MAIN.MENU.NEW_USER',
                             state: 'triangular.admin-default.gestion_user',
                             type: 'link'
                         },
                         {
-                            name: 'Buscar usuarios',
-                            state: 'triangular.admin-default.buscarUsuario',
+                            name: 'MAIN.MENU.ADMIN_USER',
+                            state: 'triangular.admin-default.admin_user',
                             type: 'link'
                         }
                     ]
                 },
                 {
-                    name: 'Solicitudes',
+                    name: 'MAIN.MENU.SOLICITUD',
                     icon: 'zmdi zmdi-bookmark',
                     type: 'dropdown',
                     priority: 3,
                     children: [
                         {
-                            name: 'Buscar Solicitudes',
+                            name: 'MAIN.MENU.SEARCH_SOLICITUD',
                             state: 'triangular.admin-default.buscarSolicitud',
                             type: 'link'
                         },
                         {
-                            name: 'Crear Solicitud',
+                            name: 'MAIN.MENU.CREATES_SOLICITUD',
                             state: 'triangular.admin-default.realizarSolicitud',
                             type: 'link'
                         },
                         {
-                            name: 'Calendario',
+                            name: 'MAIN.MENU.CALENDAR',
                             state: 'triangular.admin-default.calendar',
                             type: 'link'
 
@@ -106,36 +107,36 @@
                     ]
                 },
                 {
-                    name: 'Servicios',
+                    name: 'MAIN.MENU.SERVICES',
                     icon: 'fa fa-wrench',
                     type: 'dropdown',
                     priority: 4,
                     children: [{
-                        name: 'Inicio',
+                        name: 'MAIN.MENU.START',
                         state: 'triangular.admin-default.tecnico',
                         type: 'link'
                     },
                         {
-                            name: 'Entradas',
+                            name: 'MAIN.MENU.IN',
                             state: 'triangular.admin-default.entrada',
                             type: 'link'
                         },
                         {
-                            name: 'Registro Etapa',
+                            name: 'MAIN.MENU.REGISTER_STEP',
                             state: 'triangular.admin-default.etapa',
                             type: 'link'
                         },
                         {
-                            name: 'Pre-Checklist',
+                            name: 'MAIN.MENU.PRECHECK',
                             state: 'triangular.admin-default.checklist',
                             type: 'link'
                         }, {
-                            name: 'Diagnostico',
+                            name: 'MAIN.MENU.DIAGNOSTIC',
                             state: 'triangular.admin-default.diagnostic',
                             type: 'link'
                         },
                         {
-                            name: 'Asignación de Linea',
+                            name: 'MAIN.MENU.LINE',
                             state: 'triangular.admin-default.asignacionLinea',
                             type: 'link'
                         }
@@ -221,67 +222,66 @@
             triMenu.menu = [];
             var capturistaMenu = [
                 {
-                    name: 'Bienvenida',
+                    name: 'MAIN.MENU.WELCOME',
                     icon: 'zmdi zmdi-home',
                     type: 'dropdown',
                     priority: 1,
                     children: [
                         {
-                            name: 'Inicio',
+                            name: 'MAIN.MENU.START',
                             state: 'triangular.admin-default.bienvenida',
                             type: 'link'
                         }
                     ]
                 },
                 {
-                    name: 'Solicitudes',
+                    name: 'MAIN.MENU.SOLICITUD',
                     icon: 'zmdi zmdi-bookmark',
                     type: 'dropdown',
                     priority: 3,
                     children: [
                         {
-                            name: 'Buscar Solicitudes',
+                            name: 'MAIN.MENU.SEARCH_SOLICITUD',
                             state: 'triangular.admin-default.buscarSolicitud',
                             type: 'link'
                         },
                         {
-                            name: 'Crear Solicitud',
+                            name: 'MAIN.MENU.CREATES_SOLICITUD',
                             state: 'triangular.admin-default.realizarSolicitud',
                             type: 'link'
                         }
                     ]
                 },
                 {
-                    name: 'Inventarios',
+                    name: 'MAIN.MENU.STOCK',
                     icon: 'fa fa-archive',
                     type: 'dropdown',
                     priority: 5,
                     children: [{
-                        name: 'Cabinets',
+                        name: 'MAIN.MENU.CABINETS',
                         state: 'triangular.admin-default.cabinets',
                         type: 'link'
                     }, {
-                        name: 'Insumos',
+                        name: 'MAIN.MENU.INVENTORY.CONSUMABLES',
                         state: 'triangular.admin-default.insumos',
                         type: 'link'
                     }, {
-                        name: 'Catalogo de Insumos',
-                        state: 'triangular.admin-default.catalogoInsumos',
+                        name: 'MAIN.MENU.CATALOGS.CONSUMABLE_CATEGORY',
+                        state: 'triangular.admin-default.categoria',
                         type: 'link'
                     }, {
-                        name: 'Categoria Insumos',
-                        state: 'triangular.admin-default.construccion',
+                        name: 'MAIN.MENU.CATALOGS.CONSUMABLE_CATALOG',
+                        state: 'triangular.admin-default.catalogo-insumo',
                         type: 'link'
-                    }, {
-                        name: 'Proveedores',
-                        state: 'triangular.admin-default.construccion',
+                    },{
+                        name: 'MAIN.MENU.CATALOGS.PROVIDER',
+                        state: 'triangular.admin-default.proveedor',
                         type: 'link'
                     }
 
                     ]
                 }
             ];
-            console.log(capturistaMenu);
             triMenu.menu = capturistaMenu;
         }
 
@@ -289,31 +289,31 @@
             triMenu.menu = [];
             var clienteMenu = [
                 {
-                    name: 'Bienvenida',
+                    name: 'MAIN.MENU.WELCOME',
                     icon: 'zmdi zmdi-home',
                     type: 'dropdown',
                     priority: 1,
                     children: [
                         {
-                            name: 'Inicio',
+                            name: 'MAIN.MENU.START',
                             state: 'triangular.admin-default.bienvenida',
                             type: 'link'
                         }
                     ]
                 },
                 {
-                    name: 'Solicitudes',
+                    name: 'MAIN.MENU.SOLICITUD',
                     icon: 'zmdi zmdi-bookmark',
                     type: 'dropdown',
                     priority: 3,
                     children: [
                         {
-                            name: 'Buscar Solicitudes',
+                            name: 'MAIN.MENU.SEARCH_SOLICITUD',
                             state: 'triangular.admin-default.buscarSolicitud',
                             type: 'link'
                         },
                         {
-                            name: 'Crear Solicitud',
+                            name: 'MAIN.MENU.CREATES_SOLICITUD',
                             state: 'triangular.admin-default.realizarSolicitud',
                             type: 'link'
                         }
@@ -327,44 +327,49 @@
             triMenu.menu = [];
             var tecnicoMenu = [
                 {
-                    name: 'Bienvenida',
+                    name: 'MAIN.MENU.WELCOME',
                     icon: 'zmdi zmdi-home',
                     type: 'dropdown',
                     priority: 1,
                     children: [
                         {
-                            name: 'Inicio',
+                            name: 'MAIN.MENU.START',
                             state: 'triangular.admin-default.bienvenida',
                             type: 'link'
                         }
                     ]
                 },
                 {
-                    name: 'Servicios',
+                    name: 'MAIN.MENU.SERVICES',
                     icon: 'fa fa-wrench',
                     type: 'dropdown',
-                    priority: 2,
+                    priority: 4,
                     children: [{
-                        name: 'Inicio',
+                        name: 'MAIN.MENU.START',
                         state: 'triangular.admin-default.tecnico',
                         type: 'link'
                     },
                         {
-                            name: 'Registro Etapa',
+                            name: 'MAIN.MENU.IN',
+                            state: 'triangular.admin-default.entrada',
+                            type: 'link'
+                        },
+                        {
+                            name: 'MAIN.MENU.REGISTER_STEP',
                             state: 'triangular.admin-default.etapa',
                             type: 'link'
                         },
                         {
-                            name: 'Pre-Checklist',
+                            name: 'MAIN.MENU.PRECHECK',
                             state: 'triangular.admin-default.checklist',
                             type: 'link'
                         }, {
-                            name: 'Diagnostico',
+                            name: 'MAIN.MENU.DIAGNOSTIC',
                             state: 'triangular.admin-default.diagnostic',
                             type: 'link'
                         },
                         {
-                            name: 'Asignación de Linea',
+                            name: 'MAIN.MENU.LINE',
                             state: 'triangular.admin-default.asignacionLinea',
                             type: 'link'
                         }

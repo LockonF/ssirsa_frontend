@@ -1,52 +1,26 @@
 /**
- * Created by  on 6/2/16.
+ * Created by Sandra Ivette on 6/09/16.
  */
 (function () {
     angular
         .module('app.mainApp.profile')
         .controller('profileUserController',profileUserController);
 
-    function profileUserController($translate,groups,PersonaLocalService,Persona_Admin,toastr,Helper,Upload,OAuthToken,SERVER){
+    function profileUserController(groups,udn,Persona,toastr,Helper,Translate){
         var vm = this;
-
-        vm.isClient=true;
-        activate();
-        function activate(){
-            groups.list().then(function(rest){
-                vm.grupos=rest;
-                //console.log(vm.udns);
-                //console.log(vm.isClient);
-            }).catch(function(error){
-
-            });
-
-            /*if(PersonaLocalService.role.name == 'Cliente'){
-             vm.isClient=true;
-             }else{
-             vm.isClient=false;
-             }
-             console.log(vm.isClient);*/
-        }
-        // Crear requisito
-        vm.cpassword="";
-        vm.guardarUsuario = guardarUsuario;
-        vm.enviar =enviar;
-        vm.clean=clean;
-        vm.cancel=cancel;
-        vm.selectionFoto=selectionFoto;
-        vm.selectionIFE=selectionIFE;
-
-
-        vm.user={
-            "mail":""
-        }
+        vm.picFoto=null;
+        vm.picIFE=null;
+        vm.persona={
+            "nombre": "",
+            "apellido_paterno": "",
+            "apellido_materno": "",
+            "direccion": "",
+            "telefono": "",
+            "ife":null,
+            "foto":null
+        };
         vm.user_ini={
-            "user": {
-                "username": "",
-                "email": "",
-                "password": "",
-                "role": ""
-            },
+            "id":"",
             "nombre": "",
             "apellido_paterno": "",
             "apellido_materno": "",
@@ -56,13 +30,36 @@
             "foto":null
         };
 
-        vm.userPrueba={
-            "username": "UsuarioPrueba",
-            "password": "12345678",
-            "email": "correo@hotmail.com",
-            "role": "1"
+        vm.isClient=true;
+        activate();
+        function activate(){
+
+            vm.errorSize = Translate.translate('MAIN.MSG.FILE_SIZE');
+            vm.exitoUpdate = Translate.translate('PROFILE.MODIFY_EXITO');
+            vm.errorUpdate = Translate.translate('PROFILE.MODIFY_ERROR');
+            vm.exito = Translate.translate('PROFILE.EXITO');
+            vm.error = Translate.translate('PROFILE.ERROR');
+
+
+            Persona.list().then(function(rest){
+                vm.user_ini=rest;
+                vm.picFoto=vm.user_ini.foto;
+                vm.picIFE=vm.user_ini.ife;
+            }).catch(function (error){
+            });
         }
 
+        vm.cpassword="";
+        vm.guardarUsuario = guardarUsuario;
+        vm.enviar =enviar;
+        vm.clean=clean;
+        vm.cancel=cancel;
+        vm.selectionFoto=selectionFoto;
+        vm.selectionIFE=selectionIFE;
+        vm.updatePersona=updatePersona;
+        vm.user={
+            "mail":""
+        };
         vm.user_vacio={
             "user": {
                 "username": "",
@@ -98,6 +95,7 @@
                 tipo:""
 
             };
+            vm.cpassword = '';
             vm.correo={
                 to:vm.user.mail,
                 from:"sssir@mail.com.mx",
@@ -111,7 +109,6 @@
         }
         function enviar() {
 
-            console.log(vm.user);
 
             vm.correo={
                 to:vm.user.mail,
@@ -123,7 +120,6 @@
                 ", sin más por el momento esperamos disfrute del sistema y le recordamos que en su primer acceso" +
                 "ingrese su Información Personal"
             };
-            console.log(vm.correo);
 
             vm.user={
                 user:"",
@@ -146,76 +142,47 @@
             };
         }
 
-        function guardarUsuario(){
-            vm.user_ini.foto=vm.picFoto;
-            vm.user_ini.ife=vm.picIFE;
-            console.log("vm.user_ini:");
-            console.log(vm.user_ini);
-            var fd = new FormData();
+        function updatePersona(){
+            if(vm.picFoto!=vm.user_ini.foto)
+                vm.user_ini.foto=vm.picFoto;
+            else
+                vm.user_ini.foto=null;
+            if(vm.picIFE!=vm.user_ini.ife)
+                vm.user_ini.ife=vm.picIFE;
+            else
+                vm.user_ini.ife=null;
 
-            fd.append('user',angular.toJson(vm.userPrueba));
-            fd.append('nombre',vm.user_ini.nombre);
-            fd.append('apellido_paterno',vm.user_ini.apellido_paterno);
-            fd.append('apellido_materno',vm.user_ini.apellido_materno);
-            fd.append('direccion',vm.user_ini.direccion);
-            fd.append('telefono',vm.user_ini.telefono);
-            fd.append('ife',vm.user_ini.ife);
-            fd.append('foto',vm.user_ini.foto);
-
-            console.log(fd);
-            Persona_Admin.createObject(fd).then(function (res) {
+            //vm.user_ini.foto=vm.picFoto;
+            //vm.user_ini.ife=vm.picIFE;
+            Persona.modify(vm.user_ini).then(function (res) {
+                toastr.success(vm.exitoUpdate,vm.exito);
 
             }).catch(function (err) {
-                console.log(err);
-            });
+                toastr.error(vm.errorUpdate, vm.error);
 
-        }
-
-        function guardarUsuario2() {
-            vm.user_ini.foto=vm.picFoto;
-            vm.user_ini.ife=vm.picIFE;
-            console.log(vm.user_ini);
-            Upload.upload({
-                url: SERVER.URL+'solicitud_admin',
-                headers: {'Authorization': OAuthToken.getAuthorizationHeader()},
-                method: 'POST',
-                data: vm.user_ini
-            }).then(function (res) {
-                vm.user_ini= _.clone(vm.user_vacio);
-                toastr.success('exito al guardar','exito');
-                vm.user_ini={
-                    "user": {
-                        "username": "",
-                        "email": "",
-                        "password": "",
-                        "role": ""
-                    },
-                    "nombre": "",
-                    "apellido_paterno": "",
-                    "apellido_materno": "",
-                    "direccion": "",
-                    "telefono": "",
-                    "ife":null,
-                    "foto":null
-                };
-            }, function (resp) {
-
-                toastr.error('error al guardar','error');
-                console.log(err);
             });
         }
+
+        function guardarUsuario(){
+            if(vm.picFoto!=vm.user_ini2.foto)
+            vm.user_ini2.foto=vm.picFoto;
+            if(vm.picIFE!=vm.user_ini2.ife)
+            vm.user_ini2.ife=vm.picIFE;
+
+            if(vm.user_ini2.udn == null)
+                delete vm.user_ini2['udn'];
+            Persona_Admin.createObject(vm.user_ini2).then(function (res) {
+
+            }).catch(function (err) {
+            });
+        }
+
 
         function cancel(){
-            vm.user_ini= _.clone(vm.user_vacio);
+            vm.user_ini2= _.clone(vm.user_vacio);
             vm.picFoto=null;
             vm.picIFE=null;
             vm.user_ini={
-                "user": {
-                    "username": null,
-                    "email": "",
-                    "password": "",
-                    "role": ""
-                },
                 "nombre": "",
                 "apellido_paterno": "",
                 "apellido_materno": "",
@@ -224,6 +191,7 @@
                 "ife":null,
                 "foto":null
             };
+            vm.cpassword = ''
         }
 
 
@@ -267,3 +235,4 @@
     }
 
 })();
+

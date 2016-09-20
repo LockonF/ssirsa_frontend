@@ -40,7 +40,8 @@
     "OLD": "Antigüedad",
     "SELECT_BRAND": "Selecciona la marca",
     "SELECT_MODEL": "Selecciona el modelo",
-    "ECONOMIC_NUMBER": "Número económico"
+    "ECONOMIC_NUMBER": "Número económico",
+    "WHEELS":"Rodajas"
   },
   "SUCURSAL": {
     "FORM": {
@@ -115,7 +116,7 @@
   "MODEL_CABINET": {
     "FORM": {
       "LABEL": {
-        "MODEL": "Módelo de Cabinet",
+        "MODEL": "Modelo de Cabinet",
         "NAME": "Nombre",
         "TYPE": "Tipo",
         "DESCRIPTION": "Descripción",

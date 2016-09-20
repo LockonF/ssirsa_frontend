@@ -32,11 +32,16 @@
             <md-tab label="Información de Etapa">
                 <md-content class="md-padding">
                     <div flex="100" layout="row">
+
                         <div layout="column" flex="80">
+
                             <md-input-container flex>
-                                <label translate>ETAPA_SERVICIO.ID_CABINET</label>
-                                <input type="text" ng-model="vm.idCabinet"/>
+                                <form name="Buscar" ng-submit="vm.buscar()">
+                                    <label translate>ETAPA_SERVICIO.ID_CABINET</label>
+                                      <input type="text" ng-model="vm.idCabinet"/>
+                                </form>
                             </md-input-container>
+
                             <div layout="row">
                                 <md-input-container flex="30">
                                     <label translate>ETAPA_SERVICIO.NO_DIAGNOSTIC</label>
@@ -44,7 +49,8 @@
                                 </md-input-container>
                                 <md-input-container flex="35">
                                     <label translate>ETAPA_SERVICIO.ETAPA_ACTUAL</label>
-                                    <md-select ng-model="vm.etapaActual.actual_etapa" name="select" ng-disabled="vm.editable">
+                                    <md-select ng-model="vm.etapaActual.actual_etapa" name="select"
+                                               ng-disabled="vm.editable">
                                         <md-option ng-repeat="etap in vm.etapas" ng-value="etap.value">{{etap.nombre}}
                                         </md-option>
                                     </md-select>
@@ -73,7 +79,8 @@
                                     <input type="number" ng-model="vm.cabinet.no_incidencias" ng-disabled="true"/>
                                 </md-input-container>
                                 <md-input-container flex>
-                                    <md-switch class="md-primary" ng-model="vm.etapaActual.validado" aria-label="Aun es Funcional"
+                                    <md-switch class="md-primary" ng-model="vm.etapaActual.validado"
+                                               aria-label="Aun es Funcional"
                                                ng-disabled="vm.editable">
                                         <span translate>ETAPA_SERVICIO.VALIDATED</span>
                                     </md-switch>
@@ -109,7 +116,8 @@
                         <md-input-container flex="25">
                             <label translate>ETAPA_SERVICIO.NAME</label>
                             <md-select ng-model="vm.catalogoSelected" name="select" ng-disabled="vm.editable">
-                                <md-option ng-repeat="insu in vm.catalogoInsumos" ng-value="insu">{{insu.descripcion}}</md-option>
+                                <md-option ng-repeat="insu in vm.catalogoInsumos" ng-value="insu">{{insu.descripcion}}
+                                </md-option>
                             </md-select>
                         </md-input-container>
                         <md-input-container flex="15">

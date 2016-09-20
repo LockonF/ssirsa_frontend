@@ -154,6 +154,16 @@ Created by lockonDaniel on 9/11/16.
                                     <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                                 </div>
                             </md-input-container>
+                            <md-input-container class="md-block">
+                                <label>{{ 'CABINET_CRUD.WHEELS' | translate }}</label>
+                                <input type="number" step="any" name="rodajas" ng-model="vm.selected_cabinet.diagnostico.rodajas" min="0" max="6" ng-required="true" ng-pattern="/^[0-6]{1}/"/>
+                                <div ng-messages="inputForm.rodajas.$error">
+                                    <div ng-message="max">{{'MAIN.GENERAL.MAX_NUMBER' | translate}} 6</div>
+                                    <div ng-message="min">{{'MAIN.GENERAL.MIN_NUMBER' | translate}} 0</div>
+                                    <div ng-message="pattern">{{'MAIN.GENERAL.JUST_INTEGERS' | translate}}</div>
+                                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
+                                </div>
+                            </md-input-container>
                         </div>
                     </form>
                     <div layout="row" layout-align="end end">

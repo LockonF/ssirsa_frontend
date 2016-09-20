@@ -1,7 +1,44 @@
 {
-"ADMIN": {
+  "ADMIN": {
     "MANAGE": {
-      "MANAGEMENT_USER": "Administración de Usuarios"
+      "MANAGEMENT_USER": "Administración de Usuarios",
+      "BUSQUEDA_USUARIO":"Busqueda de Usuarios",
+      "INFO_USUARIO":"Información del Usuario",
+      "DATAUSER":"Datos de Contacto",
+      "DATAPER":"Datos Personales",
+      "AUTOCOMPLETE":"Busca a un Usuario",
+      "NOTFOUND":"No se encontro el usuario"
+    }
+  },
+  "ADMIN_PERSONA": {
+    "PROPERTY": {
+      "NOMBRE": "Nombre",
+      "AP_PATERNO": "Apellido Paterno",
+      "AP_MATERNO": "Apellido Materno ",
+      "DIRECCION": "Dirección",
+      "TELEFONO": "Telefono",
+      "USERNAME": "Nombre de Usuario",
+      "EMAIL": "Correo Electrónico",
+      "PASSWORD":"Contraseña",
+      "CPASSWORD":"Confirmación de Contraseña",
+      "ARCHIVO":"Seleccionar Archivo",
+      "INE":"Carga INE",
+      "FOTO":"Carga Foto",
+      "SUCURSALDEF":"Ninguna Sucursal"
+    },
+    "PERSONA": {
+
+    },
+    "ERROR_MESSAGE": {
+      "NOMBRE": "El nombre solo puede contener letras",
+      "AP_PATERNO": "El apellido paterno solo puede contener letras",
+      "AP_MATERNO": "El apellido materno solo puede contener letras ",
+      "DIRECCION": "La Direccion no puede tener caracteres especiales",
+      "EMAIL": "Se debe de ingresar un correo electrónico válido",
+      "TELEFONO":"",
+      "USERNAME":"El Usuario no puede comenzar con un digito y solo puede usar caracteres validos"
     }
   }
+
+
 }

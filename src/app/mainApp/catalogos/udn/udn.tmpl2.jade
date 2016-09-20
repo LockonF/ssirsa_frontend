@@ -1,0 +1,63 @@
+// Created by lockonDaniel on 9/8/16.
+md-card(flex='flex')
+    md-card-content
+        div(layout-xs='row')
+            h2.md-display-2(flex) {{'UDN_CATALOG.title' | translate}}
+            md-button.md-fab.md-primary.md-scale(hide-gt-xs ng-click='vm.cancel()')
+                md-icon(md-font-icon='fa fa-plus', style='color:white;')
+        div(flex='flex', layout-lt-md='column', layout-gt-md='row')
+            div(flex='flex', layout='column', layout-align='space-around stretch')
+                md-autocomplete(md-selected-item='vm.udn', md-selected-item-change='vm.selectedItemChange(vm.udn)', md-items='item in vm.search_items', md-item-text='item.agencia', md-min-length='0', md-search-text-change='vm.lookup(vm.searchText)', md-search-text='vm.searchText', md-menu-class='autocomplete-custom-template', md-floating-label='{{"UDN_CATALOG.lookup" | translate}}')
+                    md-item-template
+                        span.item-title
+                            md-icon(md-font-icon='zmdi zmdi-truck')
+                            span {{item.zona}} - {{item.agencia}}
+
+                md-virtual-repeat-container#vertical_container(flex layout-fill)
+
+                    md-list(flex='flex')
+                        md-list-itm(flex='flex', ng-repeat='item in vm.udn_list')
+                            md-button(ng-click='vm.clickRepeater(item)', ng-class="{'selected':item.id == vm.udn.id}")
+                                md-icon.avatar(md-svg-icon='assets/images/industry' +
+                                '.svg')
+                                span {{item.zona}} -{{item.agencia}}
+                            md-divider
+            div(flex='flex', layout-align='center stretch', layout='column')
+                md-button.md-fab.md-primary.md-scale.md-fab-top-right(hide-xs ng-click='vm.cancel()')
+                    md-icon(md-font-icon='fa fa-plus', style='color:white;')
+
+                h3.md-display-1 {{'UDN_CATALOG.info' | translate}}
+                form(name='inputForm')
+                    md-input-container.md-block
+                        label {{ 'UDN_CATALOG.zone' | translate }}
+                        input(type='text', name='zona', ng-model='vm.udn.zona', ng-required='true')
+                        div(ng-messages='inputForm.zona.$error')
+                            div(ng-message='required') {{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}
+                    md-input-container.md-block
+                        label {{ 'UDN_CATALOG.agency' | translate }}
+                        input(type='text', name='agencia', ng-model='vm.udn.agencia', ng-required='true')
+                        div(ng-messages='inputForm.agencia.$error')
+                            div(ng-message='required') {{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}
+                    md-input-container.md-block
+                        label {{ 'UDN_CATALOG.center' | translate }}
+                        input(type='text', name='centro', ng-model='vm.udn.centro', ng-required='true')
+                        div(ng-messages='inputForm.centro.$error')
+                            div(ng-message='required') {{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}
+                    md-input-container.md-block
+                        label {{ 'UDN_CATALOG.address' | translate }}
+                        input(type='text', name='centro', ng-model='vm.udn.direccion', ng-required='true')
+                        div(ng-messages='inputForm.direccion.$error')
+                            div(ng-message='required') {{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}
+                    md-input-container.md-block
+                        label {{ 'UDN_CATALOG.phone' | translate }}
+                        input(type='text', name='telefono', ng-model='vm.udn.telefono', ng-required='true')
+                        div(ng-messages='inputForm.telefono.$error')
+                            div(ng-message='required') {{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}
+                div(flex layout='row', layout-align='end end')
+                    md-button.md-raised.md-primary(ng-if='vm.udn.id!=null && vm.udn.id!=undefined', ng-disabled='inputForm.$invalid', ng-click='vm.update()')
+                        md-icon(md-font-icon='fa fa-pencil')
+                    md-button.md-raised.md-primary(ng-if='vm.udn.id==null || vm.udn.id==undefined', ng-disabled='inputForm.$invalid', ng-click='vm.create()')
+                        md-icon(md-font-icon='fa fa-save')
+                    md-button.md-raised.md-warn(ng-if='vm.udn.id!=null && vm.udn.id!=undefined', ng-click='vm.remove()')
+                        md-icon(md-font-icon="fa fa-trash")
+

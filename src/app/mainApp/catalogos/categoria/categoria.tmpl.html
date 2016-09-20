@@ -1,28 +1,33 @@
-<!--Created by lockonDaniel on 9/8/16.
--->
+<!--Created by lockonDaniel on 9/8/16.-->
 <md-card flex="flex">
     <md-card-content>
-        <h2 class="md-display-2">{{'Category.title' | translate}}</h2>
+        <div flex="flex" layout-xs="row">
+            <h2 flex="flex" class="md-display-2">{{'Category.title' | translate}}</h2>
+            <md-button hide-gt-xs="hide-gt-xs" ng-click="vm.cancel()" class="md-fab md-primary md-scale">
+                <md-icon md-font-icon="fa fa-plus" style="color:white;"></md-icon>
+            </md-button>
+        </div>
         <div flex="flex" layout-lt-md="column" layout-gt-md="row">
             <div flex="flex" layout="column" layout-align="space-around stretch">
                 <md-autocomplete md-selected-item="vm.categoria" md-selected-item-change="vm.selectedItemChange(vm.categoria)" md-items="tipo in vm.search_items" md-item-text="tipo.nombre" md-min-length="3" md-search-text-change="vm.lookup(vm.searchText)" md-search-text="vm.searchText" md-menu-class="autocomplete-custom-template" md-floating-label="{{&quot;Category.lookup&quot; | translate}}">
                     <md-item-template><span class="item-title">
               <md-icon md-font-icon="zmdi zmdi-truck"></md-icon><span>{{tipo.nombre}}</span></span></md-item-template>
                 </md-autocomplete>
-                <md-virtual-repeat-container flex="flex" id="vertical_container">
-                    <div flex="flex" md-virtual-repeat="tipo in vm.categoria_list">
-                        <md-list flex="flex">
-                            <div flex="flex" ng-click="vm.clickRepeater(tipo)">
-                                <md-list-item flex="flex" md-ink-ripple="md-ink-ripple">
-                                    <md-icon md-font-icon="zmdi zmdi-boat"></md-icon><span>{{tipo.nombre}}</span>
-                                </md-list-item>
-                                <md-divider></md-divider>
-                            </div>
-                        </md-list>
-                    </div>
+                <md-virtual-repeat-container layout-fill="layout-fill" hide-xs="hide-xs" hide-sm="hide-sm" class="vr-min-height">
+                    <md-list flex="flex">
+                        <md-list-itm flex="flex" ng-repeat="item in vm.categoria_list">
+                            <md-button ng-click="vm.clickRepeater(item)" ng-class="{'selected':item.id === vm.marca_cabinet.id}">
+                                <md-icon md-svg-icon="assets/images/settings.svg" class="avatar"></md-icon><span>{{item.descripcion}}</span>
+                            </md-button>
+                            <md-divider></md-divider>
+                        </md-list-itm>
+                    </md-list>
                 </md-virtual-repeat-container>
             </div>
             <div flex="flex" layout-align="start stretch" layout="column">
+                <md-button id="cabecera" hide-xs="hide-xs" ng-click="vm.cancel()" class="md-fab md-primary md-scale md-fab-top-right">
+                    <md-icon md-font-icon="fa fa-plus" style="color:white;"></md-icon>
+                </md-button>
                 <h3 class="md-display-1">{{'Category.info' | translate}}</h3>
                 <form name="inputForm">
                     <md-input-container class="md-block">
@@ -40,11 +45,16 @@
                         </div>
                     </md-input-container>
                 </form>
-                <div layout="row" layout-align="end center">
-                    <md-button ng-if="vm.categoria.id!=null &amp;&amp; vm.categoria.id!=undefined" ng-disabled="inputForm.$invalid" ng-click="vm.update()" class="md-raised md-primary">{{ "MAIN.BUTTONS.UPDATE" | translate}}</md-button>
-                    <md-button ng-if="vm.categoria.id==null || vm.categoria.id==undefined" ng-disabled="inputForm.$invalid" ng-click="vm.create()" class="md-raised md-primary">{{ "MAIN.BUTTONS.SUBMIT" | translate}}</md-button>
-                    <md-button ng-click="vm.cancel()" class="md-raised md-primary">{{'MAIN.BUTTONS.CLEAR_FIELDS' | translate}}</md-button>
-                    <md-button ng-if="vm.categoria.id!=null &amp;&amp; vm.categoria.id!=undefined" ng-click="vm.remove()" class="md-raised md-warn">{{'MAIN.BUTTONS.DELETE' | translate}}</md-button>
+                <div flex="flex" layout="row" layout-align="end end">
+                    <md-button ng-if="vm.categoria.id!=null &amp;&amp; vm.categoria.id!=undefined" ng-disabled="inputForm.$invalid" ng-click="vm.update()" class="md-raised md-primary">
+                        <md-icon md-font-icon="fa fa-pencil"></md-icon>
+                    </md-button>
+                    <md-button ng-if="vm.categoria.id==null || vm.categoria.id==undefined" ng-disabled="inputForm.$invalid" ng-click="vm.create()" class="md-raised md-primary">
+                        <md-icon md-font-icon="fa fa-save"></md-icon>
+                    </md-button>
+                    <md-button ng-if="vm.categoria.id!=null &amp;&amp; vm.categoria.id!=undefined" ng-click="vm.remove()" class="md-raised md-warn">
+                        <md-icon md-font-icon="fa fa-trash"></md-icon>
+                    </md-button>
                 </div>
             </div>
         </div>
