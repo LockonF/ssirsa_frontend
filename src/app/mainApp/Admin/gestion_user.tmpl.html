@@ -12,8 +12,7 @@
                     <input type="text" ng-model="vm.user_ini.user.username" name="username" required="required" ng-pattern="/^[A-Za-z_]\w*$/"/>
                     <div ng-messages="objectForm.username.$error">
                         <div ng-message="pattern">
-                            El Usuario no puede comenzar con un digito y solo puede usar
-                            caracteres validos
+                            {{'ADMIN_PERSONA.ERROR_MESSAGE.USERNAME'|translate}}
                         </div>
                         <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
                     </div>
@@ -24,8 +23,7 @@
                     <input type="password" ng-model="vm.user_ini.user.password" name="password" required="required" ng-pattern="/^[A-Za-z0-9_.-@]{8,25}$/"/>
                     <div ng-messages="objectForm.password.$error">
                         <div ng-message="pattern">
-                            El password debe contener al menos 8 elementos y solo simbolos
-                            validos
+                            {{'ADMIN_PERSONA.ERROR_MESSAGE.PASSWORD'|translate}}
                         </div>
                         <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
                     </div>
@@ -36,7 +34,7 @@
                     <input type="password" ng-model="vm.cpassword" name="cpassword" required="required" ng-pattern="\b{{vm.user_ini.user.password}}\b"/>
                     <div ng-messages="objectForm.cpassword.$error">
                         <div ng-message="pattern">
-                            El password no coincide
+                            {{'ADMIN_PERSONA.ERROR_MESSAGE.CPASSWORD'|translate}}
                         </div>
                         <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
                     </div>

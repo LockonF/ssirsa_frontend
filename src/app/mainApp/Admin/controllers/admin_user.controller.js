@@ -11,7 +11,6 @@
     function admin_userController(ModeloCabinet, $scope, toastr, Translate, $mdDialog, MarcaCabinet,Persona_Admin) {
 
         var vm = this;
-        vm.lookup = lookup;
         vm.querySearch = querySearch;
         vm.lookup2 = lookup2;
         vm.querySearch2 = querySearch2;
@@ -97,11 +96,8 @@
                 toastr.success(vm.successUpdateMessage, vm.successTitle);
                 cancel();
                 activate();
-                console.log(res);
             }).catch(function (err) {
                 toastr.warning(vm.errorMessage, vm.errorTitle);
-                    console.log("err");
-                    console.log(err);
             });
         }
 
@@ -137,29 +133,8 @@
 
         }
 
-        function selectedModelos(project) {
-            vm.selectedModeloList = project;
-            vm.modelo = angular.copy(project);
-        }
-
-        function querySearch(query) {
-            console.log(query);
-            var results = query ? lookup(query) : vm.modelos;
-            return results;
-
-        }
-
-        function lookup(search_text) {
-            vm.search_items = _.filter(vm.modelos, function (item) {
-                return item.nombre.toLowerCase().indexOf(search_text.toLowerCase()) >= 0;
-            });
-            return vm.search_items;
-        }
-
-        //***********************
-
+        //**
         function querySearch2(query) {
-            console.log(query);
             var results = query ? lookup2(query) : vm.personas_admin;
             return results;
 

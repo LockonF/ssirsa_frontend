@@ -125,7 +125,6 @@
 
                     </form>
                     <div layout="row" layout-align="end end">
-                        <!--<md-button ng-click="vm.cancel()" class="md-raised md-primary"><md-icon md-font-icon="fa fa-eraser"></md-icon></md-button>-->
                         <md-button aria-label="fab button" ng-if="vm.persona.id!=null && vm.persona.id!=undefined" ng-click="vm.remove($event)" class="md-raised md-warn"><md-icon md-font-icon="fa fa-trash"></md-icon></md-button>
                         <md-button aria-label="fab button" ng-if="vm.persona.id!=null && vm.persona.id!=undefined" ng-disabled="objectForm.$invalid" ng-click="vm.update()" class="md-raised md-primary"><md-icon md-font-icon="fa fa-pencil"></md-icon></md-button>
                         <md-button class="md-raised md-primary" aria-label="Borrar" ng-if="vm.persona.id!=null && vm.persona.id!=undefined"
