@@ -23,7 +23,6 @@
                 var title = triRoute.title;
                 angular.forEach(breadcrumbs.crumbs, function(crumb){
                     var subtitle= $translate(crumb.name).then(function(res){
-                        console.log(res);
                         title +=' ' + triRoute.separator + ' ' +res+' ';
                         $window.document.title = title;
 
