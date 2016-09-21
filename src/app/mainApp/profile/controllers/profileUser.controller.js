@@ -6,7 +6,7 @@
         .module('app.mainApp.profile')
         .controller('profileUserController',profileUserController);
 
-    function profileUserController(groups,udn,Persona,toastr,Helper,Translate){
+    function profileUserController(udn,Persona,toastr,Helper,Translate){
         var vm = this;
         vm.picFoto=null;
         vm.picIFE=null;
@@ -50,7 +50,6 @@
         }
 
         vm.cpassword="";
-        vm.guardarUsuario = guardarUsuario;
         vm.enviar =enviar;
         vm.clean=clean;
         vm.cancel=cancel;
@@ -73,16 +72,6 @@
             "telefono": "",
             "ife":null,
             "foto":null
-        };
-        vm.correo={
-            to:vm.user.mail,
-            from:"sssir@mail.com.mx",
-            content: "Buen día, el motivo del presente correo es informarle que" +
-            "ya cuenta con una cuenta del tipo" +vm.user.tipo+
-            " para hacer uso de SSIR, a continuación se le dará su usuario:" +vm.user.user+
-            ", y contraseña:" +vm.user.password+
-            ", sin más por el momento esperamos disfrute del sistema y le recordamos que en su primer acceso" +
-            "ingrese su Información Personal"
         };
 
 
@@ -163,19 +152,6 @@
             });
         }
 
-        function guardarUsuario(){
-            if(vm.picFoto!=vm.user_ini2.foto)
-            vm.user_ini2.foto=vm.picFoto;
-            if(vm.picIFE!=vm.user_ini2.ife)
-            vm.user_ini2.ife=vm.picIFE;
-
-            if(vm.user_ini2.udn == null)
-                delete vm.user_ini2['udn'];
-            Persona_Admin.createObject(vm.user_ini2).then(function (res) {
-
-            }).catch(function (err) {
-            });
-        }
 
 
         function cancel(){

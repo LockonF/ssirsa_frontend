@@ -55,6 +55,24 @@
                     value: "Reparado"
                 }
             ],
+            tipoSolicitud: [
+                {
+                    id: 0,
+                    value: "Envio"
+                },
+                {
+                    id: 1,
+                    value: "Recoleccion"
+                },
+                {
+                    id: 2,
+                    value: "Venta"
+                },
+                {
+                    id: 3,
+                    value: "Cerrada"
+                }
+            ],
             steps:[{
                 nombre: 'Depuración',
                 value: 'E1'

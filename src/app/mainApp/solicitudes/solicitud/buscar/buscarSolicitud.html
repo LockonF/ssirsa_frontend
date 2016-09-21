@@ -3,7 +3,7 @@
         <md-card>
             <md-card-title>
                 <md-card-title-text>
-                    <h2>Buscar Solicitud</h2>
+                    <h2>{{'SEARCH_REQUEST.FORM.LABEL.TITLE'|translate}}</h2>
                     <div  layout="row">
                         <md-input-container flex="" class="md-inline-form md-block">
                             <md-select placeholder="Elige tipo de solicitud" ng-model="vm.tipo_solicitud">
@@ -12,6 +12,14 @@
                                 <md-option value="Venta">Solicitud de punto de venta</md-option>
                             </md-select>
                         </md-input-container>
+                        <!--md-select ng-model="vm.requisito.tipo_solicitud"
+                                   name="tipo_solicitud"
+                                   placeholder="{{'CREATE_REQUEST.FORM.PLACEHOLDER.REQUEST'|translate}}"
+                                   required='required'>
+                            <md-option ng-repeat="types in vm.types_request" ng-value="types.id">{{types.value}}
+                            </md-option>
+                        </md-select-->
+
                         <!--md-input-container ng-if="!vm.isClient" class="md-block" flex="50">
                             <label>No de Solicitud</label>
                             <textarea ng-model="vm.id"></textarea>
@@ -68,7 +76,7 @@
             <div ng-if="(vm.solicitudes!=null) && (vm.tipo_solicitud=='Envio'||vm.tipo_solicitud=='Recoleccion')">
                 <md-card-title>
                     <md-card-title-text>
-                        <h2  ng-if="vm.solicitudes!=null ">Solicitud de {{vm.tipo_solicitud}}</h2>
+                        <h2  ng-if="vm.solicitudes!=null ">{{'SEARCH_REQUEST.FORM.LABEL.STIPO'|translate}} {{vm.tipo_solicitud}}</h2>
                     </md-card-title-text>
                 </md-card-title>
 
@@ -81,22 +89,22 @@
                                     <table flex="" md-table="" md-row-select="" ng-model="vm.solicitudx">
                                         <thead md-head="" md-order="vm.query.order">
                                         <tr md-row="md-row">
-                                            <th md-column="md-column" md-order-by="id"><span translate="">Folio</span>
+                                            <th md-column="md-column" md-order-by="id"><span translate="SEARCH_REQUEST.FORM.LABEL.FOLIO"></span>
                                             </th>
                                             <!--th md-column="md-column" md-order-by="udn"><span translate="">UDN</span-->
                                                 <!--vm.requisito. -->
                                             </th>
-                                            <th md-column="md-column" md-order-by="fecha_inicio"><span translate="">Fecha de Inicio</span>
+                                            <th md-column="md-column" md-order-by="fecha_inicio"><span translate="SEARCH_REQUEST.FORM.LABEL.FECHAINI"></span>
                                             </th>
-                                            <th md-column="md-column" md-order-by="fecha_termino"><span translate="">Fecha de Fin</span>
+                                            <th md-column="md-column" md-order-by="fecha_termino"><span translate="SEARCH_REQUEST.FORM.LABEL.FECHAFIN"></span>
                                             </th>
-                                            <th md-column="md-column" md-order-by="fecha_termino" ng-if="!vm.isClient"><span translate="">Fecha Atendida</span>
+                                            <th md-column="md-column" md-order-by="fecha_termino" ng-if="!vm.isClient"><span translate="SEARCH_REQUEST.FORM.LABEL.FECHAATE"></span>
                                             </th>
-                                            <th md-column="md-column" md-order-by="tipo_solicitud"><span translate="">Tipo</span>
+                                            <th md-column="md-column" md-order-by="tipo_solicitud"><span translate="SEARCH_REQUEST.FORM.LABEL.TIPO"></span>
                                             </th>
-                                            <th md-column="md-column" md-order-by="status"><span translate="">Estatus</span>
+                                            <th md-column="md-column" md-order-by="status"><span translate="SEARCH_REQUEST.FORM.LABEL.ESTATUS"></span>
                                             </th>
-                                            <th md-column="md-column" md-order-by="comentario"><span translate="">Comentario</span>
+                                            <th md-column="md-column" md-order-by="comentario"><span translate="SEARCH_REQUEST.FORM.LABEL.COMENTARIO"></span>
                                             </th>
                                             <!-- Cuerpo de la tabla-->
                                         </tr>
@@ -156,21 +164,21 @@
                                     <table flex="" md-table="" md-row-select="" ng-model="vm.solicitudx">
                                         <thead md-head="" md-order="vm.query.order">
                                         <tr md-row="md-row">
-                                            <th md-column="md-column" md-order-by="id"><span translate="">No. Solicitud</span>
+                                            <th md-column="md-column" md-order-by="id"><span translate="SEARCH_REQUEST.FORM.LABEL.FOLIO"></span>
                                             </th>
-                                            <th md-column="md-column" md-order-by="udn"><span translate="">UDN</span>
+                                            <th md-column="md-column" md-order-by="udn"><span translate="SEARCH_REQUEST.FORM.LABEL.UDN"></span>
                                             </th>
-                                            <th md-column="md-column" md-order-by="razon_social"><span translate="">RAZON_SOCIAL</span>
+                                            <th md-column="md-column" md-order-by="razon_social"><span translate="SEARCH_REQUEST.FORM.LABEL.RAZON_SOCIAL"></span>
                                             </th>
-                                            <th md-column="md-column" md-order-by="nombre_negocio"><span translate="">NOMBRE_NEGOCIO</span>
+                                            <th md-column="md-column" md-order-by="nombre_negocio"><span translate="SEARCH_REQUEST.FORM.LABEL.NOMBRE_NEGOCIO"></span>
                                             </th>
-                                            <th md-column="md-column" md-order-by="direccion"><span translate="">DIRECCIÓN</span>
+                                            <th md-column="md-column" md-order-by="direccion"><span translate="SEARCH_REQUEST.FORM.LABEL.DIRECCION"></span>
                                             </th>
-                                            <th md-column="md-column" md-order-by="telefono"><span translate="">TELEFONO</span>
+                                            <th md-column="md-column" md-order-by="telefono"><span translate="SEARCH_REQUEST.FORM.LABEL.TELEFONO"></span>
                                             </th>
-                                            <th md-column="md-column" md-order-by="contacto_negocio"><span translate="">CONTACTO_NEGOCIO</span>
+                                            <th md-column="md-column" md-order-by="contacto_negocio"><span translate="SEARCH_REQUEST.FORM.LABEL.CONTACTO_NEGOCIO"></span>
                                             </th>
-                                            <th md-column="md-column" md-order-by="fecha_atencion"><span translate="">FECHA_ATENCIÓN</span>
+                                            <th md-column="md-column" md-order-by="fecha_atencion"><span translate="SEARCH_REQUEST.FORM.LABEL.FECHAATE"></span>
                                             </th>
                                             <!-- Cuerpo de la tabla-->
                                         </tr>

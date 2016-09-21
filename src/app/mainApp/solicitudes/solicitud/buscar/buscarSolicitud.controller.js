@@ -6,7 +6,7 @@
         .module('app.mainApp.solicitudes')
         .controller('buscarSolicitudController',buscarSolicitudController);
 
-    function buscarSolicitudController($mdEditDialog,Solicitudes,Solicitudes_Admin,udn,modelo_cabinet,Solicitud_Servicio,Session){
+    function buscarSolicitudController($mdEditDialog,Solicitudes,Solicitudes_Admin,udn,modelo_cabinet,Solicitud_Servicio,Session,OPTIONS){
         var vm = this;
         vm.flag=0;
         vm.query={
