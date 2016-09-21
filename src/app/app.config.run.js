@@ -11,9 +11,7 @@
         $rootScope.$on('$stateChangeStart',function(event, toState, toStateParams){
 
             if(AuthService.isAuthenticated()) {
-                if (AuthService.isIdentityResolved()) {
                     AuthService.getUser();
-                }
 
             }
             if(!OAuth.isAuthenticated()){

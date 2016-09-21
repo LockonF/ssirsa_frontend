@@ -11,7 +11,7 @@
         $translatePartialLoaderProvider.addPart('app/mainApp/bienvenida');
         $stateProvider
 
-            .state('triangular.admin-default.secure.bienvenida', {
+            .state('triangular.admin-default.bienvenida', {
                 url: '/bienvenida',
                 data: {
                     roles: ['Administrador']

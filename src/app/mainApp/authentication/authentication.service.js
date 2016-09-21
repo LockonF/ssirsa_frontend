@@ -75,14 +75,17 @@
         }
         function getUser() {
             var user={};
+            var deferred = $q.defer();
             getPersona().then(function (res) {
                 user.userInformation=res;
                 getRole().then(function (res) {
                     Session.create(user.userInformation,res[0].name);
                     Socket.emit('join', {canal: 'Administrador', username: Session.userInformation.id});
                     $rootScope.$broadcast(AUTH_EVENTS.sessionRestore);
+                    deferred.resolve(res[0].name);
                 });
             });
+            return deferred.promise;
         }
 
 

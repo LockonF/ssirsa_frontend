@@ -28,7 +28,7 @@
 
         function loginClick() {
             AuthService.login(vm.user).then(function(res){
-                $state.go('triangular.admin-default.secure.bienvenida');
+                $state.go('triangular.admin-default.bienvenida');
             }).catch(function(err){
                 toastr.error('Usuario o Contraseña incorrectos','Error',err.error);
             });
@@ -49,7 +49,7 @@
                 vm.user.username=resp[0];
                 vm.user.password=resp[1];
                 AuthService.login(vm.user).then(function(res){
-                    $state.go('triangular.admin-default.secure.bienvenida');
+                    $state.go('triangular.admin-default.bienvenida');
                 }).catch(function(err){
                     toastr.error('Usuario o Contraseña incorrectos','Error',err.error);
                 });
