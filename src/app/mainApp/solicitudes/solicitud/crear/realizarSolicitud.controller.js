@@ -6,8 +6,9 @@
         .module('app.mainApp.solicitudes')
         .controller('realizarSolicitudController', realizarSolicitudController);
 
-    function realizarSolicitudController(OPTIONS, udn,ModeloCabinet,$mdEditDialog, $mdDialog, Translate,toastr, Solicitudes, Solicitud_Servicio, Solicitudes_Admin, Persona_Admin, Session, Socket,$scope) {
+    function realizarSolicitudController(OPTIONS, udn,ModeloCabinet,$mdEditDialog, $mdDialog, Translate,toastr, Solicitudes, Solicitud_Servicio, Solicitudes_Admin, PersonaCapturista, Session, Socket,$scope) {
         var vm = this;
+
         var requisito = {
             "id": null,
             "udn": null,
@@ -58,7 +59,7 @@
             vm.successCreateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_CREATE');
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
             vm.udns = udn.list();
-            vm.personas = Persona_Admin.list();
+            vm.personas = PersonaCapturista.list();
             vm.tiposEquipo=ModeloCabinet.list();
             vm.isClient = Session.userRole == 'Cliente';
         }
@@ -74,8 +75,8 @@
                 fullscreen: false
             };
             $mdDialog.show(config).then(function (object) {
-                    vm.requisito.datos.push(object);
-                }
+                vm.requisito.datos.push(object);
+            }
             );
         }
 
@@ -182,7 +183,7 @@
                 toastr.success(vm.successCreateMessage, vm.successTitle);
             }).catch(function (res) {
                 toastr.error(vm.errorMessage, vm.errorTitle);
-            })
+            });
         }
     }
 

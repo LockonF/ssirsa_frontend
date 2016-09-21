@@ -16,45 +16,43 @@
             categoria:1,
             tipo:1,
             zona:2,
-            fechaAlta:'18/7/2016',
-
-
+            fechaAlta:'18/7/2016'
         };
         vm.tiposInsumo = [{
             id: '1',
-            nombre: 'Compresor',
+            nombre: 'Compresor'
         }, {
             id: '2',
-            nombre: 'Ventilador',
+            nombre: 'Ventilador'
         }];
         vm.zonas = [{
             id: '1',
-            nombre: 'etapa 1',
+            nombre: 'etapa 1'
         }, {
             id: '2',
-            nombre: 'etapa 2',
+            nombre: 'etapa 2'
         }, {
             id: '3',
-            nombre: 'etapa 3',
+            nombre: 'etapa 3'
         }, {
             id: '4',
-            nombre: 'etapa 4',
+            nombre: 'etapa 4'
         }];
         vm.categorias = [{
             id: '1',
-            nombre: 'Categoria1',
+            nombre: 'Categoria1'
         }, {
             id: '2',
-            nombre: 'Categoria2',
+            nombre: 'Categoria2'
         }, {
             id: '3',
-            nombre: 'Categoria3',
+            nombre: 'Categoria3'
         }, {
             id: '4',
-            nombre: 'Categoria4',
+            nombre: 'Categoria4'
         },{
             id: '5',
-            nombre: 'Categoria5',
+            nombre: 'Categoria5'
         }];
 
 

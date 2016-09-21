@@ -92,5 +92,5 @@
                 nombre: 'Destrucción',
                 value: 'ED'
             }]
-        })
+        });
 })();

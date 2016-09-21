@@ -8,7 +8,7 @@
         .module('app.mainApp')
         .factory('Persona_Admin',Persona_Admin);
 
-    function Persona_Admin($q, Restangular){
+    function Persona_Admin($q, Restangular,toastr){
         var baseModelo = Restangular.all('persona_admin');
 
         return {
@@ -17,8 +17,10 @@
             create:create,
             createObject:createObject,
             get:get,
-            deleteData: remove
+            deleteData: remove,
+            modify:modify
         };
+        
         function createObject(data){
             var form_data = new FormData();
 
@@ -38,10 +40,11 @@
             Restangular.all('persona_admin').withHttpConfig({transformRequest: angular.identity}).customPOST(form_data,"",{},{'Content-Type':undefined}).then(function(res){
                 defer.resolve(res);
             }).catch(function(err){
-                defer.reject(err);
+                defer.resolve(err);
             });
             return defer.promise;
         }
+
         function get(id) {
             return baseModelo.get(id);
         }
@@ -60,6 +63,19 @@
 
         function remove(object)  {
             return baseModelo.customDELETE(object.id,null,{'content-type':'application/json'});
+        }
+
+        function modify(object){
+            var deferred=$q.defer();
+            return Restangular.one('persona_admin',object.id).customPUT(object,null,{'content-type':'application/json'}).then(function(resp){
+                deferred.resolve(rest);
+                console.log(object.id);
+                return resp;
+
+            }).catch(function(err){
+                deferred.reject(err);
+                console.log(err)
+            })
         }
 
 
