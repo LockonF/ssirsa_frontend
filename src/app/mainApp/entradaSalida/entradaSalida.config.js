@@ -11,6 +11,9 @@
         $stateProvider
             .state('triangular.admin-default.entrada',{
                 url:'/entrada',
+                data: {
+                    roles: ['Administrador','Tecnico A','Tecnico B','Tecnico C','Tecnico D','Tecnico E']
+                },
                 templateUrl:'app/mainApp/entradaSalida/entrada.tmpl.html',
                 controller:'entradaController',
                 controllerAs:'vm'

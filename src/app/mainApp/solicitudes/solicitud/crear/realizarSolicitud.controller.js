@@ -8,7 +8,7 @@
 
     function realizarSolicitudController(OPTIONS, udn,ModeloCabinet,$mdEditDialog, $mdDialog, Translate,toastr, Solicitudes, Solicitud_Servicio, Solicitudes_Admin, Persona, Session, Socket,$scope) {
         var vm = this;
-        
+
         var requisito = {
             "id": null,
             "udn": null,
@@ -75,8 +75,8 @@
                 fullscreen: false
             };
             $mdDialog.show(config).then(function (object) {
-                    vm.requisito.datos.push(object);
-                }
+                vm.requisito.datos.push(object);
+            }
             );
         }
 
@@ -183,7 +183,7 @@
                 toastr.success(vm.successCreateMessage, vm.successTitle);
             }).catch(function (res) {
                 toastr.error(vm.errorMessage, vm.errorTitle);
-            })
+            });
         }
     }
 
