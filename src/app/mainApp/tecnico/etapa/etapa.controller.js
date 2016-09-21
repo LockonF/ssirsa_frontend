@@ -26,7 +26,8 @@
         vm.catalogoSelected = null;//Elemento del tipo Catalogo de Insumo del insumo que se deseará agregar
         vm.editable = true;
         vm.idCabinet = null;
-        vm.insumos = [];//Arreglo que poseera los Insumos que pueden ser usados en cierta etapa
+        vm.insumos = [];//Arreglo que poseera los Insumos que pueden ser usados en cierta etapa para md table
+        vm.insumosToArray=[];
         vm.cabinet = null;// Informacion general del cabinet al cual se le asignara una nueva etapa
         vm.diagnostico = null;// Informacion del diagnostico que propicio que entrara a un proceso de servicio tecnico
         vm.etapa = null;
@@ -240,7 +241,7 @@
         }
 
         function crearEtapaServicio() {
-            vm.etapaActual.insumos = [];
+            vm.etapaActual.insumos = vm.insumos;
             vm.etapaActual.diagnostico = vm.diagnostico.id;
             console.log(vm.etapaActual);
 
@@ -277,7 +278,7 @@
 
             }
             vm.cancel();
-        }
+         }
 
         function crearInsumo() {
          vm.buscarInsumosByCatalogo();
@@ -285,12 +286,21 @@
         }
 
         function add(){
+            vm.insumoToArray={
+                insumo:''
+            };
             if (vm.insumo.id !=null) {
-
-                console.log("entre al if")
+                vm.insumoToArray.insumo=vm.insumo.id;
+                vm.insumosToArray=_.omit(vm.insumo,'catalogo','nombre');
+                vm.insumoToArray=_.omit(vm.insumosToArray,'id');
+                console.log("entre al if");
                 console.log(vm.insumos);
                 console.log(vm.insumo);
-                 vm.insumos.push(vm.insumo);
+                console.log("Para etapa");
+                vm.insumos=_.toArray(vm.insumos);
+                vm.insumos.push(vm.insumo);
+                vm.insumosToArray=_.toArray(vm.insumosToArray);
+                vm.insumosToArray.push(vm.insumoToArray);
                 console.log(vm.insumos);
                 console.log(vm.insumo);
 

@@ -9,13 +9,19 @@
         .factory('Persona',Persona);
 
     function Persona($q, Restangular){
+        var baseModelo=Restangular.all('persona_capturista');
+
         return{
             list:list,
-            modify:modify
+            modify:modify,
+            remove:remove,
+            create:create
         };
 
+
+
         function list(){
-            return Restangular.all('persona').customGET();
+            return baseModelo.getList().$object;
         }
 
         function modify(data){
@@ -43,6 +49,14 @@
             });
             return defer.promise;
 
+        }
+
+        function remove(object){
+            return baseModelo.customDELETE(object.id,null,{'content-type':'application/json'});
+        }
+
+        function create(object){
+            return baseModelo.post(object);
         }
 
 

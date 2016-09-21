@@ -40,7 +40,7 @@
                                            ng-model="vm.persona" name="persona"
                                            ng-required="(vm.requisito.tipo_solicitud==0 ||vm.requisito.tipo_solicitud==1) && !vm.isClient">
                                     <md-option ng-value="persona.id" ng-repeat='persona in vm.personas'>
-                                        {{persona.user.username}}
+                                        {{persona.nombre}}
                                     </md-option>
                                 </md-select>
                                 <div ng-messages="solicitudForm.udn.$error">
