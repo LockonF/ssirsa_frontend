@@ -4,11 +4,10 @@
     angular
         .module('app.mainApp.admin')
         .controller('admin_userController', admin_userController)
-        .filter('modeloSearch', modeloSearch)
         .filter('personaSearch', personaSearch);
 
     /* @ngInject */
-    function admin_userController(ModeloCabinet, $scope, toastr, Translate, $mdDialog, MarcaCabinet,Persona_Admin) {
+    function admin_userController( $scope, toastr, Translate, $mdDialog, MarcaCabinet,Persona_Admin) {
 
         var vm = this;
         vm.lookup = lookup;
@@ -17,24 +16,13 @@
         vm.showRegister=showRegister;
         vm.cancel = cancel;
         vm.clean=clean;
-        vm.create = create;
         vm.remove=remove;
         vm.update=update;
 
         vm.picFoto="assets/images/modelo.svg";
         vm.search_items = [];
         vm.searchText = '';
-        var modelo = {
-            nombre: null,
-            descripcion: null,
-            palabra_clave: null,
-            cantidad: null,
-            tipo_compresor: null,
-            tipo_refrigerante: null,
-            tipo: null,
-            marca: null
-        };
-        vm.modelo = angular.copy(modelo);
+
         var persona = {
             "user": {
                 "username": "",
@@ -60,8 +48,6 @@
 
         function activate() {
             vm.personas_admin = Persona_Admin.list();
-            vm.modelos = ModeloCabinet.list();
-            vm.marcas = MarcaCabinet.list();
         }
 
 
@@ -99,16 +85,6 @@
             });
         }
 
-        function create() {
-            ModeloCabinet.create(vm.modelo).then(function (res) {
-                toastr.success(vm.successCreateMessage, vm.successTitle);
-                vm.modelo = angular.copy(modelo);
-                cancel();
-                activate();
-            }).catch(function (res) {
-                toastr.warning(vm.errorMessage, vm.errorTitle);
-            });
-        }
 
         function cancel() {
             $scope.objectForm.$setPristine();
@@ -153,19 +129,6 @@
 
     }
 
-    function modeloSearch() {
-        return function (input, text) {
-            if (!angular.isString(text) || text === '') {
-                return input;
-            }
-
-            return _.filter(input, function (item) {
-                return item.nombre.toLowerCase().indexOf(text.toLowerCase()) >= 0;
-            });
-
-        };
-
-    }
     function personaSearch() {
         return function (input, text) {
             if (!angular.isString(text) || text === '') {
