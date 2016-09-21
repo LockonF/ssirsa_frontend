@@ -9,7 +9,7 @@
         .factory('Persona',Persona);
 
     function Persona($q, Restangular){
-        var baseModelo=Restangular.all('persona_capturista');
+        var baseModelo=Restangular.all('persona');
 
         return{
             list:list,
@@ -45,7 +45,7 @@
             Restangular.one('persona',data.id).withHttpConfig({transformRequest: angular.identity}).customPUT(form_data,"",{},{'Content-Type':undefined}).then(function(res){
                 defer.resolve(res);
             }).catch(function(err){
-                defer.resolve(err);
+                defer.reject(err);
             });
             return defer.promise;
 
