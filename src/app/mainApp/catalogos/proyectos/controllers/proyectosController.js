@@ -108,7 +108,6 @@
         function clickCopy(item){
             vm.project=angular.copy(item);
             vm.selectedProject=null;
-            console.log(vm.project);
         }
 
     }

@@ -100,7 +100,8 @@
         }
 
         function clickCopy(item){
-            vm.client=item.clone();
+            vm.client=angular.copy(item);
+            vm.selectecClient=null;
         }
 
     }

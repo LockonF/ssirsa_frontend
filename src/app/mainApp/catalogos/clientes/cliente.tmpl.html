@@ -1,10 +1,15 @@
 <div layout="column" flex="100" layout-padding layout-fill>
     <md-card class="md-padding-card1" flex-gt-md="90" flex="100" layout="column">
-        <md-toolbar>
-            <div class="md-toolbar-tools">
-                <h1>{{'Clients.Header'|translate}}</h1>
-            </div>
-        </md-toolbar>
+        <div layout="row" flex="" layout-align="space-around stretch">
+            <h2 flex="70" flex-sm="100" flex-gt-xs="100" class="md-headline-1 text-center" translate="">
+                Clients.Header
+            </h2>
+            <md-button  aria-label="fab button" class="md-fab md-scale md-fab-top-right" ng-click="vm.clear()">
+                <md-icon md-font-icon="fa fa-plus" ng-style="{color: 'white'}">
+
+                </md-icon>
+            </md-button>
+        </div>
         <div layout-gt-md="row" layout="column">
             <!--Autocomplete div-->
             <div layout="column" layout-align="space-between stretch" flex-gt-md="30" flex="100">
@@ -21,6 +26,7 @@
                     <md-item-template>
                         <span>{{item.nombre}}</span>
                     </md-item-template>
+                    <md-not-found><span translate="Clients.Errors.Not_Found"></span></md-not-found>
                 </md-autocomplete>
 
                 <md-virtual-repeat-container flex="flex" hide layout-fill show-gt-md style="min-height:350px">
@@ -33,6 +39,7 @@
                             <span flex="80">{{item.nombre}}</span>
                         </div>
                     </div>
+                    <md-divider></md-divider>
                 </md-virtual-repeat-container>
 
 
@@ -44,7 +51,7 @@
                     <md-input-container class="md-block">
                         <label>{{'Clients.Fields.Name'|translate}}</label>
                         <input name="ClientName" type="text" required="" md-no-asterisk=""
-                               ng-model="vm.client.name">
+                               ng-model="vm.client.nombre">
                         <div ng-messages="formClient.ClientName.$error">
                             <div ng-message="required">{{'Clients.Errors.Required'|translate}}</div>
                         </div>
