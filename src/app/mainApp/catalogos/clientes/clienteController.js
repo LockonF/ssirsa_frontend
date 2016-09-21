@@ -82,7 +82,7 @@
 
         function search(text) {
             vm.filteredClients = _.filter(vm.clients, function (item) {
-                return item.descripcion.toLowerCase().includes(text.toLowerCase());
+                return item.nombre.toLowerCase().includes(text.toLowerCase());
             });
             return vm.filteredClients;
         }
