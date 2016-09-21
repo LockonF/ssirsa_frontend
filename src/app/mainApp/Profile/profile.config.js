@@ -1,5 +1,5 @@
 /**
- * Created by lockonDaniel on 6/2/16.
+ * Created by Sandra Ivette on 6/2/16.
  */
 (function () {
     angular

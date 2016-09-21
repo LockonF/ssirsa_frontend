@@ -83,8 +83,9 @@
                     <md-input-container class="md-block">
                         <label>{{'ADMIN_PERSONA.PROPERTY.TELEFONO'|translate}}</label>
                         <md-icon md-font-icon="zmdi zmdi-phone"></md-icon>
-                        <input type="text" ng-model="vm.user_ini.telefono" only-digits name="telefono" minlength="8" maxlength="10" required="required"/>
+                        <input type="text" ng-model="vm.user_ini.telefono" only-digits name="telefono" minlength="8" required="required"/>
                         <div ng-messages="objectForm.telefono.$error">
+                            <div ng-message="minlength">{{'ADMIN_PERSONA.ERROR_MESSAGE.MINLENGTH'|translate}}</div>
                             <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
                         </div>
                     </md-input-container>

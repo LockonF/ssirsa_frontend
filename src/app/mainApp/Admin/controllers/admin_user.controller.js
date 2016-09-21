@@ -11,8 +11,8 @@
     function admin_userController(ModeloCabinet, $scope, toastr, Translate, $mdDialog, MarcaCabinet,Persona_Admin) {
 
         var vm = this;
-        vm.lookup2 = lookup2;
-        vm.querySearch2 = querySearch2;
+        vm.lookup = lookup;
+        vm.querySearch = querySearch;
         vm.selectedPersonas=selectedPersonas;
         vm.showRegister=showRegister;
         vm.cancel = cancel;
@@ -132,13 +132,13 @@
         }
 
         //**
-        function querySearch2(query) {
-            var results = query ? lookup2(query) : vm.personas_admin;
+        function querySearch(query) {
+            var results = query ? lookup(query) : vm.personas_admin;
             return results;
 
         }
 
-        function lookup2(search_text) {
+        function lookup(search_text) {
             vm.search_items = _.filter(vm.personas_admin, function (item) {
                 return item.nombre.toLowerCase().indexOf(search_text.toLowerCase()) >= 0;
             });

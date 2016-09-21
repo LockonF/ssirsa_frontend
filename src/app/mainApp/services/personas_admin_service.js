@@ -8,7 +8,7 @@
         .module('app.mainApp')
         .factory('Persona_Admin',Persona_Admin);
 
-    function Persona_Admin($q, Restangular,toastr){
+    function Persona_Admin($q, Restangular){
         var baseModelo = Restangular.all('persona_admin');
 
         return {
