@@ -10,7 +10,8 @@
             login: login,
             isAuthorized: isAuthorized,
             logout: logout,
-            getUser:getUser
+            getUser:getUser,
+            isIdentityResolved:isIdentityResolved
         };
 
         var error_messages = {
@@ -20,15 +21,15 @@
             return Restangular.all('persona').customGET().then(function (res) {
                 return res;
             }).catch(function (err) {
-                console.log(err);
             });
         }
-
+         function isIdentityResolved() {
+            return angular.isDefined(Session.userInformation);
+        }
         function getRole() {
             return Restangular.all('my_groups').customGET().then(function (res) {
                 return res;
             }).catch(function (err) {
-                console.log(err);
             });
         }
         function login(credentials) {

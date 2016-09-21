@@ -59,6 +59,52 @@
                     template: '<div ui-view="belowContent"></div>'
                 }
             }
+        }).state('triangular.admin-default.secure', {
+            abstract: true,
+            resolve: {
+                authorize: ['authorization',
+                    function(authorization) {
+                        return authorization.authorize();
+                    }
+                ]
+            },
+            views: {
+                sidebarLeft: {
+                    templateProvider: function($templateRequest, triLayout) {
+                        return $templateRequest(triLayout.layout.sidebarLeftTemplateUrl);
+                    },
+                    controllerProvider: function(triLayout) {
+                        return triLayout.layout.sidebarLeftController;
+                    },
+                    controllerAs: 'vm'
+                },
+                sidebarRight: {
+                    templateProvider: function($templateRequest, triLayout) {
+                        return $templateRequest(triLayout.layout.sidebarRightTemplateUrl);
+                    },
+                    controllerProvider: function(triLayout) {
+                        return triLayout.layout.sidebarRightController;
+                    },
+                    controllerAs: 'vm'
+                },
+                toolbar: {
+                    templateProvider: function($templateRequest, triLayout) {
+                        return $templateRequest(triLayout.layout.toolbarTemplateUrl);
+                    },
+                    controllerProvider: function(triLayout) {
+                        return triLayout.layout.toolbarController;
+                    },
+                    controllerAs: 'vm'
+                },
+                content: {
+                    templateProvider: function($templateRequest, triLayout) {
+                        return $templateRequest(triLayout.layout.contentTemplateUrl);
+                    }
+                },
+                belowContent: {
+                    template: '<div ui-view="belowContent"></div>'
+                }
+            }
         })
         .state('triangular.admin-default-no-scroll', {
             abstract: true,

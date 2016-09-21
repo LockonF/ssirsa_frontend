@@ -10,7 +10,7 @@
     function translateConfig(triSettingsProvider, triRouteProvider) {
         var now = new Date();
         // set app name & logo (used in loader, sidemenu, footer, login pages, etc)
-        triSettingsProvider.setName('SSSIR');
+        triSettingsProvider.setName('SSSIRSA');
         triSettingsProvider.setCopyright('&copy;' + now.getFullYear() + ' Solid Solutions Servicios Integrales en Refrigeración');
         triSettingsProvider.setLogo('assets/images/logo.png');
         // set current version of app (shown in footer)

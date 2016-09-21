@@ -58,7 +58,7 @@
                     children: [
                         {
                             name: 'MAIN.MENU.START',
-                            state: 'triangular.admin-default.bienvenida',
+                            state: 'triangular.admin-default.secure.bienvenida',
                             type: 'link'
                         }
                     ]
@@ -230,7 +230,7 @@
                     children: [
                         {
                             name: 'MAIN.MENU.START',
-                            state: 'triangular.admin-default.bienvenida',
+                            state: 'triangular.admin-default.secure.bienvenida',
                             type: 'link'
                         }
                     ]
@@ -297,7 +297,7 @@
                     children: [
                         {
                             name: 'MAIN.MENU.START',
-                            state: 'triangular.admin-default.bienvenida',
+                            state: 'triangular.admin-default.secure.bienvenida',
                             type: 'link'
                         }
                     ]
@@ -338,7 +338,7 @@
                     children: [
                         {
                             name: 'MAIN.MENU.START',
-                            state: 'triangular.admin-default.bienvenida',
+                            state: 'triangular.admin-default.secure.bienvenida',
                             type: 'link'
                         }
                     ]

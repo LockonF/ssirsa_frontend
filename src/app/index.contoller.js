@@ -6,7 +6,7 @@
         .module('app')
         .controller('homeController',homeController);
 
-    function homeController(Session,$rootScope,AUTH_EVENTS,dynamicMenu){
+    function homeController(Session,$rootScope,AUTH_EVENTS){
         var vmNode=this;
         vmNode.currentUser = {};
 

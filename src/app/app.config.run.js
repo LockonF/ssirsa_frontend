@@ -7,15 +7,14 @@
     angular
         .module('app')
         .run(Run);
-    function Run($rootScope, Helper, OAuth, AuthService,$window,Socket,Session,OAuthToken,$http,$state,Solicitudes_Admin){
-        $rootScope.$on('$stateChangeStart',function(){
+    function Run($rootScope, Helper, OAuth, AuthService,authorization, _,$window,Socket,Session,OAuthToken,$http,$state,Solicitudes_Admin){
+        $rootScope.$on('$stateChangeStart',function(event, toState, toStateParams){
 
             if(AuthService.isAuthenticated()) {
-                AuthService.getUser();
+                if (AuthService.isIdentityResolved()) {
+                    AuthService.getUser();
+                }
 
-            }
-            if(angular.isUndefined(OAuthToken.getToken())){
-                $http.defaults.headers.common['Authorization'] = 'Bearer '+OAuthToken.getToken().access_token;
             }
             if(!OAuth.isAuthenticated()){
                 OAuth.getRefreshToken().then(
@@ -28,6 +27,14 @@
                         $state.go('login');
                     }
                 );
+            }
+            $rootScope.toState = toState;
+            $rootScope.toStateParams = toStateParams;
+            if (AuthService.isIdentityResolved()) {
+                authorization.authorize();
+                Solicitudes_Admin.consultaEspUnconfirmed().then(function (res) {
+                    $rootScope.notifications =_.sortBy(res, 'fecha_inicio').reverse();
+                });
             }
         });
         $rootScope.$on('oauth:error',function(event, rejection) {
@@ -53,9 +60,7 @@
         });
 
 
-        Solicitudes_Admin.consultaEspUnconfirmed().then(function (res) {
-            $rootScope.notifications =_.sortBy(res, 'fecha_inicio').reverse();
-        });
+
 
 
 

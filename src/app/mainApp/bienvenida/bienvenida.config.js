@@ -11,16 +11,19 @@
         $translatePartialLoaderProvider.addPart('app/mainApp/bienvenida');
         $stateProvider
 
-            .state('triangular.admin-default.bienvenida', {
+            .state('triangular.admin-default.secure.bienvenida', {
                 url: '/bienvenida',
+                data: {
+                    roles: ['Administrador']
+                },
                 templateUrl: 'app/mainApp/bienvenida/index.tmpl.html',
                 controller: 'bienvenidaController',
                 controllerAs: 'vm',
                 resolve:{
-                    promiseObj:function (AuthService,Socket) {
+                    /*promiseObj:function (AuthService,Socket) {
 
                         return AuthService.getUser();
-                    }
+                    }*/
                 }
             })
     }
