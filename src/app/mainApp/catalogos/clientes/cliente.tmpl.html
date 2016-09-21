@@ -16,7 +16,7 @@
                         md-search-text-change="vm.search(vm.searchParameter)"
                         md-search-text="vm.searchParameter"
                         md-item-text="item.nombre"
-                        md-min-length="1"
+                        md-min-length="0"
                         md-floating-label="{{'Clients.Fields.Search'|translate}}">
                     <md-item-template>
                         <span>{{item.nombre}}</span>
@@ -24,12 +24,12 @@
                 </md-autocomplete>
 
                 <md-virtual-repeat-container flex="flex" hide layout-fill show-gt-md style="min-height:350px">
-                    <div flex md-virtual-repeat="item in vm.clients">
+                    <div flex md-virtual-repeat="item in vm.filteredClients">
                         <div flex="flex"
                              ng-click="vm.clickCopy(item)"
                              layout-padding layout="row"
                              layout-align="start center" >
-                            <md-icon md-font-icon="zmdi zmdi-case" fcllex="20"></md-icon>
+                            <img ng-src="assets/images/client.png"  flex="20" />
                             <span flex="80">{{item.nombre}}</span>
                         </div>
                     </div>
