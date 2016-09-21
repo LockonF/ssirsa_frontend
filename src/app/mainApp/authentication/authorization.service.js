@@ -20,7 +20,7 @@
                         // user is signed in but not
                         // authorized for desired state
                         var errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
-                        var errorAuthorization = Translate.translate('MAIN.MSG.ERROR_AUTHORIZATION');
+                        var errorAuthorization = Translate.translate('MAIN.MSG.ERROR_ERROR_AUTHORIZATION');
                         toastr.error(errorAuthorization, errorTitle);
                         $state.go('login');
                     } else {

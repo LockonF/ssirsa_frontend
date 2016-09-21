@@ -21,7 +21,7 @@
             showButtons();
         });
         $rootScope.$on(AUTH_EVENTS.sessionRestore, function(event) {
-            vm.role=$scope.vmNode.currentUser.userRole; 
+            vm.role=$scope.vmNode.currentUser.userRole;
             showButtons();
 
 
