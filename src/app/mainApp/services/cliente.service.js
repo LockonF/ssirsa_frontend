@@ -13,23 +13,23 @@
 
     function Clientes(Restangular) {
         var service = {
-            getAll: getAll,
-            put: put,
-            post: post,
+            list: list,
+            modify: modify,
+            create: create,
             remove: remove
         };
 
         var baseURL=Restangular.all('persona_capturista');
 
-        function getAll(){
+        function list(){
             return baseURL.getList().$object;
         }
 
-        function put(object){
+        function modify(object){
             return object.put();
         }
 
-        function post(object){
+        function create(object){
             return baseURL.post(object);
         }
 
