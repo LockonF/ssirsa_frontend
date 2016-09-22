@@ -95,7 +95,7 @@
                                             </th>
                                             <th md-column="md-column" md-order-by="fecha_termino"><span translate="SEARCH_REQUEST.FORM.LABEL.FECHAFIN"></span>
                                             </th>
-                                            <th md-column="md-column" md-order-by="fecha_termino" ng-if="!vm.isClient"><span translate="SEARCH_REQUEST.FORM.LABEL.FECHAATE"></span>
+                                            <th md-column="md-column" md-order-by="fecha_atendida" ng-if="!vm.isClient"><span translate="SEARCH_REQUEST.FORM.LABEL.FECHAATE"></span>
                                             </th>
                                             <th md-column="md-column" md-order-by="tipo_solicitud"><span translate="SEARCH_REQUEST.FORM.LABEL.TIPO"></span>
                                             </th>
@@ -116,7 +116,7 @@
                                                     <md-option ng-value="type" ng-repeat="type in getTypes()">{{person.nombre}}</md-option>
                                                 </md-select>
                                             </td-->
-                                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"fecha_inicio")'>
+                                            <td md-cell="md-cell">
                                                 <md-input-container>
                                                     <md-icon md-font-icon="zmdi zmdi-calendar"></md-icon>
 
@@ -125,6 +125,7 @@
                                                              cancel-text="Cancelar"
                                                              ok-text="Aceptar"
                                                              format="YYYY/MM/DD"
+                                                             ng-change='vm.editCalendar(solicitud)'
                                                              name="date_initial"
                                                              ng-required="(vm.requisito.tipo_solicitud==0 ||vm.requisito.tipo_solicitud==1)"
                                                              class=" md-input">
@@ -135,7 +136,25 @@
                                                 </md-input-container>
 
                                             </td>
-                                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"fecha_termino")'>{{solicitud.fecha_termino}}</td>
+                                            <td md-cell="md-cell">
+                                                <md-input-container>
+                                                    <md-icon md-font-icon="zmdi zmdi-calendar"></md-icon>
+
+                                                    <input   type="text"  ng-model="solicitud.fecha_termino" mdc-datetime-picker=""
+                                                             time="false" date="true" min-date="minDate" max-date="maxDate" lang="es-mx"
+                                                             cancel-text="Cancelar"
+                                                             ok-text="Aceptar"
+                                                             format="YYYY/MM/DD"
+                                                             ng-change='vm.editCalendar(solicitud)'
+                                                             name="date_initial"
+                                                             ng-required="(vm.requisito.tipo_solicitud==0 ||vm.requisito.tipo_solicitud==1)"
+                                                             class=" md-input">
+
+                                                    <div ng-messages="solicitudForm.fecha_termino.$error">
+                                                        <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                                    </div>
+                                                </md-input-container>
+                                            </td>
                                             <td md-cell="md-cell" ng-if="!vm.isClient">
                                                 <md-input-container>
                                                     <md-icon md-font-icon="zmdi zmdi-calendar"></md-icon>
@@ -144,31 +163,30 @@
                                                             time="true" date="true" min-date="minDate" max-date="maxDate" lang="es-mx"
                                                             cancel-text="Cancelar"
                                                             ok-text="Aceptar"
-                                                            ng-change='vm.edit($event,solicitud,"fecha_atendida")'
+                                                            ng-change='vm.editCalendar(solicitud)'
                                                             format="YYYY/MM/DD HH:mm"
                                                             name="date_terminate"
-                                                            ng-required="(vm.requisito.tipo_solicitud==0 ||vm.requisito.tipo_solicitud==1) && !vm.isClient"
+                                                            required
                                                             class=" md-input">
                                                     <div ng-messages="solicitudForm.date_terminate.$error">
-
                                                         <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                                     </div>
 
                                                 </md-input-container>
                                             </td>
                                             <td md-cell="md-cell" >
-                                                <md-select ng-change='vm.edit($event,solicitud,"tipo_solicitud")' ng-model=solicitud.tipo_solicitud placeholder="Other">
+                                                <md-select ng-change='vm.editSelect(solicitud)' ng-model=solicitud.tipo_solicitud placeholder="Other">
                                                     <md-option ng-value="type.value" ng-repeat="type in vm.tipoSols">{{type.value}}</md-option>
                                                 </md-select>
                                             </td>
                                             <td md-cell="md-cell">
-                                                <md-select ng-change='vm.edit($event,solicitud,"status")' ng-model=solicitud.status placeholder="Other">
+                                                <md-select ng-change='vm.editSelect(solicitud)' ng-model=solicitud.status placeholder="Other">
                                                     <md-option ng-value="estatus.value" ng-repeat="estatus in vm.estatusSols">{{estatus.value}}</md-option>
                                                 </md-select>
                                             </td>
                                             <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"comentario")'>{{solicitud.comentario}}</td>
                                             <td md-cell="md-cell" ng-click="$event.stopPropagation()"><!-- -->
-                                                <md-button ng-click="vm.borrarSolicitud(solicitud.id)" class="md-fab md-warn md-mini">
+                                                <md-button ng-click="vm.remove($event,solicitud.id)" class="md-fab md-warn md-mini">
                                                     <md-icon md-font-icon="fa fa-times-circle"></md-icon>
                                                 </md-button>
                                             </td>

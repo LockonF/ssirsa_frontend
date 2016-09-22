@@ -6,7 +6,7 @@
         .module('app.mainApp.solicitudes')
         .controller('buscarSolicitudController',buscarSolicitudController);
 
-    function buscarSolicitudController($mdEditDialog,Solicitudes,Solicitudes_Admin,udn,modelo_cabinet,Solicitud_Servicio,Session,OPTIONS,toastr){
+    function buscarSolicitudController(Translate,$mdEditDialog,Solicitudes,Solicitudes_Admin,udn,modelo_cabinet,Solicitud_Servicio,Session,OPTIONS,toastr,$mdDialog){
         var vm = this;
         vm.flag=0;
         vm.query={
@@ -77,6 +77,7 @@
         ];
 
         vm.mostrarRequisito=mostrarRequisito;
+        vm.remove=remove;
         vm.eliminarRequisito=eliminarRequisito;
         vm.buscarSolicitudes=buscarSolicitudes;
         vm.buscarSolicitudesVentas=buscarSolicitudesVentas;
@@ -84,6 +85,8 @@
         vm.borrarSolicitudVenta=borrarSolicitudVenta;
         vm.borrarSolicitud=borrarSolicitud;
         vm.edit=edit;
+        vm.editSelect=editSelect;
+        vm.editCalendar=editCalendar;
 
         vm.Requisitos = [];
         vm.solicitudes=null;
@@ -91,6 +94,7 @@
         vm.isClient=true;
         activate();
         function activate(){
+            vm.successUpdateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_UPDATE');
             vm.udns=udn.list();
 
             modelo_cabinet.list().then(function(rest){
@@ -122,29 +126,30 @@
                     'md-maxlength': 30
                 }
             };
+
 //continuar
-            function updateObject(funcion){
+            function updateObject(obj){
                 console.log("guardar");
-                console.log(funcion);
-                funcion.fecha_inicio = moment(funcion.fecha_inicio).format('YYYY-MM-DD');
-                funcion.fecha_termino = moment(funcion.fecha_termino).format('YYYY-MM-DD');
-                funcion.fecha_atendida = moment(funcion.fecha_atendida).toISOString();
-                Solicitudes_Admin.updateSolicitud(vm.requisito).then(function () {
-                    var notification = {
+                console.log(obj);
+                obj.fecha_inicio = moment(obj.fecha_inicio).format('YYYY-MM-DD');
+                obj.fecha_termino = moment(obj.fecha_termino).format('YYYY-MM-DD');
+                obj.fecha_atendida = moment(obj.fecha_atendida).toISOString();
+                Solicitudes_Admin.updateSolicitud(obj).then(function () {
+                    /*var notification = {
                         id_solicitud: 1,
-                        type_notification: vm.requisito.tipo_solicitud,
+                        type_notification: obj.tipo_solicitud,
                         updated_at: moment().toDate()
                     };
                     Socket.emit('new:msg', {
                         canal: 'Administrador',
                         username: Session.userInformation.id,
-                        solicitud: vm.requisito,
+                        solicitud: obj,
                         name: Session.userInformation.nombre,
                         notification: notification,
                         type: "normal"
                     });
-                    cancel();
-                    toastr.success(vm.successCreateMessage, vm.successTitle);
+                    cancel();*/
+                    toastr.success(vm.successUpdateMessage, vm.successTitle);
 
 
                 }).catch(function (res) {
@@ -155,6 +160,40 @@
             $mdEditDialog.small(config).then(function(ctrl){
             }).catch(function(err){
             });
+        }
+
+        function editCalendar(obj) {
+            console.log("EDITCalendar");
+            console.log("guardar");
+            console.log(obj);
+            obj.fecha_inicio = moment(obj.fecha_inicio).format('YYYY-MM-DD');
+            obj.fecha_termino = moment(obj.fecha_termino).format('YYYY-MM-DD');
+            obj.fecha_atendida = moment(obj.fecha_atendida).toISOString();
+            Solicitudes_Admin.updateSolicitud(obj).then(function () {
+
+                toastr.success(vm.successUpdateMessage, vm.successTitle);
+
+
+            }).catch(function (res) {
+                toastr.error(vm.errorMessage, vm.errorTitle);
+            })
+        }
+
+        function editSelect(obj) {
+            console.log("EDITCalendar");
+            console.log("guardar");
+            console.log(obj);
+            obj.fecha_inicio = moment(obj.fecha_inicio).format('YYYY-MM-DD');
+            obj.fecha_termino = moment(obj.fecha_termino).format('YYYY-MM-DD');
+            obj.fecha_atendida = moment(obj.fecha_atendida).toISOString();
+            Solicitudes_Admin.updateSolicitud(obj).then(function () {
+
+                toastr.success(vm.successUpdateMessage, vm.successTitle);
+
+
+            }).catch(function (res) {
+                toastr.error(vm.errorMessage, vm.errorTitle);
+            })
         }
 
         function mostrarRequisito() {
@@ -232,7 +271,29 @@
 
         // Eliminar Requisito
 
+        function remove(ev,id) {
+            var confirm = $mdDialog.confirm()
+                .title('Confirmación para eliminar')
+                .textContent('¿Esta seguro de eliminar este elemento?')
+                .ariaLabel('Lucky day')
+                .targetEvent(ev)
+                .ok('Aceptar')
+                .cancel('Cancelar');
+            $mdDialog.show(confirm).then(function() {
+                Solicitudes_Admin.borrarSol(id).then(function(resp){
+                    //console.log(id);
+                    vm.busqueda();
+                    toastr.success(vm.successDeleteMessage, vm.successTitle);
+                    //console.log(resp);
+                }).catch(function(err){
 
+                    console.log(err);
+                })
+            }, function() {
+
+            });
+
+        }
         function eliminarRequisito(requisito) {
 
             vm.requisitocopy=requisito;
