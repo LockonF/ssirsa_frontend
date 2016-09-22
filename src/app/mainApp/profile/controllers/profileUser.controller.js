@@ -40,13 +40,7 @@
             vm.exito = Translate.translate('PROFILE.EXITO');
             vm.error = Translate.translate('PROFILE.ERROR');
 
-
-            Persona.list().then(function(rest){
-                vm.user_ini=rest;
-                vm.picFoto=vm.user_ini.foto;
-                vm.picIFE=vm.user_ini.ife;
-            }).catch(function (error){
-            });
+            vm.user_ini=Persona.list();
         }
 
         vm.cpassword="";
@@ -85,30 +79,9 @@
 
             };
             vm.cpassword = '';
-            vm.correo={
-                to:vm.user.mail,
-                from:"sssir@mail.com.mx",
-                content: "Buen día, el motivo del presente correo es informarle que" +
-                "ya cuenta con una cuenta del tipo" +vm.user.tipo+
-                " para hacer uso de SSIR, a continuación se le dará su usuario:" +vm.user.user+
-                ", y contraseña:" +vm.user.password+
-                ", sin más por el momento esperamos disfrute del sistema y le recordamos que en su primer acceso" +
-                "ingrese su Información Personal"
-            };
+
         }
         function enviar() {
-
-
-            vm.correo={
-                to:vm.user.mail,
-                from:"sssir@mail.com.mx",
-                content: "Buen día, el motivo del presente correo es informarle que" +
-                "ya cuenta con una cuenta del tipo" +vm.user.tipo+
-                " para hacer uso de SSIR, a continuación se le dará su usuario:" +vm.user.user+
-                ", y contraseña:" +vm.user.password+
-                ", sin más por el momento esperamos disfrute del sistema y le recordamos que en su primer acceso" +
-                "ingrese su Información Personal"
-            };
 
             vm.user={
                 user:"",
@@ -119,16 +92,6 @@
 
             };
 
-            vm.correo={
-                to:vm.user.mail,
-                from:"sssir@mail.com.mx",
-                content: "Buen día, el motivo del presente correo es informarle que" +
-                "ya cuenta con una cuenta del tipo" +vm.user.tipo+
-                " para hacer uso de SSIR, a continuación se le dará su usuario:" +vm.user.user+
-                ", y contraseña:" +vm.user.password+
-                ", sin más por el momento esperamos disfrute del sistema y le recordamos que en su primer acceso" +
-                "ingrese su Información Personal"
-            };
         }
 
         function updatePersona(){

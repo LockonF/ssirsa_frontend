@@ -9,7 +9,7 @@
         .factory('Persona',Persona);
 
     function Persona($q, Restangular){
-        var baseModelo=Restangular.all('persona_capturista');
+        var baseModelo=Restangular.all('persona');
 
         return{
             list:list,

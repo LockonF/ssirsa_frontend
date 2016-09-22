@@ -6,7 +6,7 @@
         .module('app.mainApp.solicitudes')
         .controller('buscarSolicitudController',buscarSolicitudController);
 
-    function buscarSolicitudController($mdEditDialog,Solicitudes,Solicitudes_Admin,udn,modelo_cabinet,Solicitud_Servicio,Session,OPTIONS){
+    function buscarSolicitudController($mdEditDialog,Solicitudes,Solicitudes_Admin,udn,modelo_cabinet,Solicitud_Servicio,Session,OPTIONS,toastr){
         var vm = this;
         vm.flag=0;
         vm.query={
@@ -14,12 +14,8 @@
             limit: 5,
             page: 1
         };
-        vm.tipoSol=[
-            "Envio","Recoleccion","Venta"
-        ];
-        vm.estatusSol=[
-            "Confirmada","No Confirmada","Cancelada","Cerrada"
-        ];
+        vm.tipoSols=OPTIONS.tipoSolicitud;
+        vm.estatusSols=OPTIONS.estatusSol;
         vm.id=null;
         vm.FechaFin=new Date();
         //Filtro de busqueda
@@ -110,6 +106,7 @@
 
 
         function edit(event,object,field) {
+            console.log("EDIT");
             var config =
             {
                 modelValue: object[field],
@@ -117,6 +114,7 @@
                 save: function (input) {
 
                     object[field] = input.$modelValue;
+                    console.log("Fui activado");
                     updateObject(object);
                 },
                 targetEvent: event,
@@ -124,8 +122,34 @@
                     'md-maxlength': 30
                 }
             };
-
+//continuar
             function updateObject(funcion){
+                console.log("guardar");
+                console.log(funcion);
+                funcion.fecha_inicio = moment(funcion.fecha_inicio).format('YYYY-MM-DD');
+                funcion.fecha_termino = moment(funcion.fecha_termino).format('YYYY-MM-DD');
+                funcion.fecha_atendida = moment(funcion.fecha_atendida).toISOString();
+                Solicitudes_Admin.updateSolicitud(vm.requisito).then(function () {
+                    var notification = {
+                        id_solicitud: 1,
+                        type_notification: vm.requisito.tipo_solicitud,
+                        updated_at: moment().toDate()
+                    };
+                    Socket.emit('new:msg', {
+                        canal: 'Administrador',
+                        username: Session.userInformation.id,
+                        solicitud: vm.requisito,
+                        name: Session.userInformation.nombre,
+                        notification: notification,
+                        type: "normal"
+                    });
+                    cancel();
+                    toastr.success(vm.successCreateMessage, vm.successTitle);
+
+
+                }).catch(function (res) {
+                    toastr.error(vm.errorMessage, vm.errorTitle);
+                })
             }
 
             $mdEditDialog.small(config).then(function(ctrl){

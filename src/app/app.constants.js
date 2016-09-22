@@ -58,18 +58,35 @@
             tipoSolicitud: [
                 {
                     id: 0,
+                    name:"Solicitud de envió",
                     value: "Envio"
                 },
                 {
                     id: 1,
+                    name:"Solicitud de recolección",
                     value: "Recoleccion"
                 },
                 {
                     id: 2,
+                    name:"Solicitud de punto de venta",
                     value: "Venta"
+                }
+            ],
+            estatusSol: [
+                {
+                    name:"Confirmada",
+                    value: "Confirmada"
                 },
                 {
-                    id: 3,
+                    name:"No Confirmada",
+                    value: "No Confirmada"
+                },
+                {
+                    name:"Cancelada",
+                    value: "Cancelada"
+                },
+                {
+                    name:"Cerrada",
                     value: "Cerrada"
                 }
             ],

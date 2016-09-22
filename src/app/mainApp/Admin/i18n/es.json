@@ -24,7 +24,8 @@
       "ARCHIVO":"Seleccionar Archivo",
       "INE":"Carga INE",
       "FOTO":"Carga Foto",
-      "SUCURSALDEF":"Ninguna Sucursal"
+      "SUCURSALDEF":"Elige una sucursal",
+      "ROLDEF":"Elige el rol"
     },
     "PERSONA": {
 
