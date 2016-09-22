@@ -156,7 +156,8 @@
       "Update": "Actualizar"
     },
     "Errors": {
-      "Required": "El campo es requerido"
+      "Required": "El campo es requerido",
+      "Not_Found":"Proyecto no encontrado"
     },
     "Notify": {
       "Error": "Error",
@@ -186,6 +187,10 @@
       "Email": "Correo electrónico",
       "Search": "Buscar Clientes",
       "Information": "Información del cliente"
+    },
+    "Errors": {
+      "Required": "El campo es requerido",
+      "Not_Found":"Cliente no encontrado"
     },
     "Notify": {
       "Error": "Error",

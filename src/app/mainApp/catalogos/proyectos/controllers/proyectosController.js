@@ -86,7 +86,7 @@
 
         function search(text) {
             vm.filteredProjects = _.filter(vm.projects, function (item) {
-                return item.descripcion.includes(text);
+                return item.descripcion.toLowerCase().includes(text.toLowerCase());
             });
             return vm.filteredProjects;
         }
@@ -108,7 +108,6 @@
         function clickCopy(item){
             vm.project=angular.copy(item);
             vm.selectedProject=null;
-            console.log(vm.project);
         }
 
     }
