@@ -8,7 +8,7 @@
         .module('app.mainApp')
         .factory('Solicitudes_Admin', Solicitudes_Admin);
 
-    function Solicitudes_Admin(Restangular,$q,toastr) {
+    function Solicitudes_Admin(Restangular,$q) {
         return {
             list: list,
             consultaEsp: consultaEsp,
@@ -39,6 +39,9 @@
                 case "Cancelada":
                     tipoConsulta = "canceled";
                     break;
+                case "Cerrada":
+                    tipoConsulta = "closed";
+                    break;
             }
             return Restangular.one('solicitud_admin', tipoConsulta).customGET();
         }
@@ -63,11 +66,9 @@
 
         function borrarSol(object){
             return Restangular.one("solicitud_admin",object).customDELETE(undefined,undefined,{'Content-Type': 'application/json'}).then(function(resp){
-                toastr.success('exito al Borrar','exito');
                 console.log(resp);
                 return resp;
             }).catch(function(error){
-                toastr.error('error al Borrar','error');
                 console.log(error);
             })
         }

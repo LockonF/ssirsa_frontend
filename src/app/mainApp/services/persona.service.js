@@ -9,10 +9,11 @@
         .factory('Persona',Persona);
 
     function Persona($q, Restangular){
-        var baseModelo=Restangular.all('persona');
+        var baseModelo=Restangular.one('persona');
 
         return{
             list:list,
+            listProfile:listProfile,
             modify:modify,
             remove:remove,
             create:create
@@ -21,7 +22,11 @@
 
 
         function list(){
-            return baseModelo.getList().$object;
+            return baseModelo.get().$object;
+        }
+
+        function listProfile(){
+            return Restangular.all('persona').customGET();
         }
 
         function modify(data){

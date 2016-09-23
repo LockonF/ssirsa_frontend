@@ -55,6 +55,57 @@
                     value: "Reparado"
                 }
             ],
+            tipoSolicitud: [
+                {
+                    id: 0,
+                    name:"Solicitud de envió",
+                    value: "Envio"
+                },
+                {
+                    id: 1,
+                    name:"Solicitud de recolección",
+                    value: "Recoleccion"
+                },
+                {
+                    id: 2,
+                    name:"Solicitud de punto de venta",
+                    value: "Venta"
+                }
+            ],
+            filtrarSolicitud: [
+                {
+
+                    name:"Todas las solicitudes de esté tipo",
+                    value: "Todas"
+                },
+                {
+
+                    name:"Por Folio",
+                    value: "Por Folio"
+                },
+                {
+                    name:"Por Estatus",
+                    value: "Por Estatus"
+                }
+            ],
+            estatusSol: [
+                {
+                    name:"Confirmada",
+                    value: "Confirmada"
+                },
+                {
+                    name:"No Confirmada",
+                    value: "No Confirmada"
+                },
+                {
+                    name:"Cancelada",
+                    value: "Cancelada"
+                },
+                {
+                    name:"Cerrada",
+                    value: "Cerrada"
+                }
+            ],
             steps:[{
                 nombre: 'Depuración',
                 value: 'E1'

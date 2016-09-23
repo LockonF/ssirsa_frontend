@@ -24,7 +24,8 @@
       "ARCHIVO":"Seleccionar Archivo",
       "INE":"Carga INE",
       "FOTO":"Carga Foto",
-      "SUCURSALDEF":"Ninguna Sucursal"
+      "SUCURSALDEF":"Elige una sucursal",
+      "ROLDEF":"Elige el rol"
     },
     "PERSONA": {
 
@@ -35,7 +36,10 @@
       "AP_MATERNO": "El apellido materno solo puede contener letras ",
       "DIRECCION": "La Direccion no puede tener caracteres especiales",
       "EMAIL": "Se debe de ingresar un correo electrónico válido",
+      "PASSWORD":"El password debe contener al menos 8 elementos y solo símbolos validos",
+      "CPASSWORD":"El password no coincide",
       "TELEFONO":"",
+      "MINLENGTH":"El telefono no tienen un mínimo de 8 números",
       "USERNAME":"El Usuario no puede comenzar con un digito y solo puede usar caracteres validos"
     }
   }

@@ -104,8 +104,6 @@
         }
         function enviar() {
 
-            console.log(vm.user);
-
             vm.correo={
                 to:vm.user.mail,
                 from:"sssir@mail.com.mx",
@@ -116,7 +114,6 @@
                 ", sin más por el momento esperamos disfrute del sistema y le recordamos que en su primer acceso" +
                 "ingrese su Información Personal"
             };
-            console.log(vm.correo);
 
             vm.user={
                 user:"",
@@ -149,12 +146,8 @@
                 toastr.success(vm.successCreateMessage, vm.successTitle);
                 cancel();
                 activate();
-                console.log("ok");
-                console.log(res);
             }).catch(function (err) {
                 toastr.error(vm.errorMessage, vm.errorTitle);
-                console.log("error");
-                console.log(err);
             });
         }
 
