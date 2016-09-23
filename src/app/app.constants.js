@@ -72,6 +72,22 @@
                     value: "Venta"
                 }
             ],
+            filtrarSolicitud: [
+                {
+
+                    name:"Todas las solicitudes de esté tipo",
+                    value: "Todas"
+                },
+                {
+
+                    name:"Por Folio",
+                    value: "Por Folio"
+                },
+                {
+                    name:"Por Estatus",
+                    value: "Por Estatus"
+                }
+            ],
             estatusSol: [
                 {
                     name:"Confirmada",
