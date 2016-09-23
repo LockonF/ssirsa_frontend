@@ -34,6 +34,17 @@
             "direccion": "",
             "telefono": ""
         };
+
+        vm.personaUpdate = {
+            "user": {
+                "email": ""
+            },
+            "nombre": "",
+            "apellido_paterno": "",
+            "apellido_materno": "",
+            "direccion": "",
+            "telefono": ""
+        };
         vm.persona = angular.copy(persona);
         activate();
         init();
@@ -55,28 +66,36 @@
             clearForm();
         }
         function remove(ev) {
-                var confirm = $mdDialog.confirm()
-                    .title('Confirmación para eliminar')
-                    .textContent('¿Esta seguro de eliminar este elemento?')
-                    .ariaLabel('Lucky day')
-                    .targetEvent(ev)
-                    .ok('Aceptar')
-                    .cancel('Cancelar');
-                $mdDialog.show(confirm).then(function() {
-                    Persona_Admin.deleteData(vm.persona).then(function(rest){
-                        toastr.success(vm.successDeleteMessage, vm.successTitle);
-                        cancel();
-                        activate();
-                    }).catch(function (res) {
-                        toastr.warning(vm.errorMessage, vm.errorTitle);
-                    });
-                }, function() {
-
+            var confirm = $mdDialog.confirm()
+                .title('Confirmación para eliminar')
+                .textContent('¿Esta seguro de eliminar este elemento?')
+                .ariaLabel('Lucky day')
+                .targetEvent(ev)
+                .ok('Aceptar')
+                .cancel('Cancelar');
+            $mdDialog.show(confirm).then(function() {
+                Persona_Admin.deleteData(vm.persona).then(function(rest){
+                    toastr.success(vm.successDeleteMessage, vm.successTitle);
+                    cancel();
+                    activate();
+                }).catch(function (res) {
+                    toastr.warning(vm.errorMessage, vm.errorTitle);
                 });
+            }, function() {
+
+            });
 
         }
         function update() {
-                Persona_Admin.modify(vm.persona).then(function (res) {
+            vm.personaUpdate.id = vm.persona.id;
+            vm.personaUpdate.user.email = vm.persona.user.email;
+            vm.personaUpdate.nombre = vm.persona.nombre;
+            vm.personaUpdate.apellido_paterno = vm.persona.apellido_paterno;
+            vm.personaUpdate.apellido_materno = vm.persona.apellido_materno;
+            vm.personaUpdate.direccion = vm.persona.direccion;
+            vm.personaUpdate.telefono = vm.persona.telefono;
+
+            Persona_Admin.modify(vm.personaUpdate).then(function (res) {
                 toastr.success(vm.successUpdateMessage, vm.successTitle);
                 cancel();
                 activate();
