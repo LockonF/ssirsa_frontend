@@ -1,19 +1,19 @@
 /**
- * Created by Luis_Olvera on 23/08/2016.
+ * Created by Emmanuel on 21/09/2016.
  */
+
 (function(){
     'use_strict';
 
     angular
         .module('app.mainApp')
-        .factory('Persona',Persona);
+        .factory('PersonaCapturista',PersonaCapturista);
 
-    function Persona($q, Restangular){
-        var baseModelo=Restangular.one('persona');
+    function PersonaCapturista($q, Restangular){
+        var baseModelo=Restangular.all('persona_capturista');
 
         return{
             list:list,
-            listProfile:listProfile,
             modify:modify,
             remove:remove,
             create:create
@@ -22,11 +22,7 @@
 
 
         function list(){
-            return baseModelo.get().$object;
-        }
-
-        function listProfile(){
-            return Restangular.all('persona').customGET();
+            return baseModelo.getList().$object;
         }
 
         function modify(data){
@@ -41,13 +37,13 @@
             form_data.append('direccion',data.direccion);
             form_data.append('telefono',data.telefono);
             if(data.ife!=null)
-            form_data.append('ife',data.ife);
+                form_data.append('ife',data.ife);
             if(data.foto!=null)
-            form_data.append('foto',data.foto);
+                form_data.append('foto',data.foto);
 
 
             var defer= $q.defer();
-            Restangular.one('persona',data.id).withHttpConfig({transformRequest: angular.identity}).customPUT(form_data,"",{},{'Content-Type':undefined}).then(function(res){
+            Restangular.one('persona_capturista',data.id).withHttpConfig({transformRequest: angular.identity}).customPUT(form_data,"",{},{'Content-Type':undefined}).then(function(res){
                 defer.resolve(res);
             }).catch(function(err){
                 defer.reject(err);

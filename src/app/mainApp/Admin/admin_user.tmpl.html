@@ -12,13 +12,13 @@
                     <md-autocomplete md-selected-item="vm.selectedUsuario"
                                      md-selected-item-change="vm.selectedItemChange(vm.selectedUsuario)"
 
-                                     md-items="item in vm.querySearch2(vm.searchText2)" md-item-text="item.nombre"
+                                     md-items="item in vm.querySearch(vm.searchText)" md-item-text="item.nombre"
                                      md-min-length="3"
-                                     md-search-text-change="vm.search(vm.searchText2)"
-                                     md-search-text="vm.searchText2"
+                                     md-search-text-change="vm.search(vm.searchText)"
+                                     md-search-text="vm.searchText"
                                      md-menu-class="autocomplete-custom-template"
                                      md-floating-label="{{'ADMIN.MANAGE.AUTOCOMPLETE' | translate }}">
-                        <span md-highlight-text="vm.searchText2" md-highlight-flags="^i">{{item.nombre}}</span>
+                        <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.nombre}}</span>
                         <md-item-template>
                             <span class="item-title">
                             <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
@@ -33,7 +33,7 @@
                     </md-autocomplete>
                     <md-virtual-repeat-container class="vertical-container"  layout-fill="">
                         <md-list  >
-                            <md-list-item  ng-repeat="persona in vm.personas_admin | personaSearch:vm.searchText2">
+                            <md-list-item  ng-repeat="persona in vm.personas_admin | personaSearch:vm.searchText">
                                 <md-button ng-click="vm.selectedPersonas(persona)"
                                            ng-class="{'selected' : persona === vm.selectedPersonaList }">
                                     <img  class="avatar" ngf-src="persona.foto" width="60" height="60"/>
@@ -106,8 +106,9 @@
                         <md-input-container class="md-block">
                             <label>{{'ADMIN_PERSONA.PROPERTY.TELEFONO'|translate}}</label>
                             <md-icon md-font-icon="zmdi zmdi-phone"></md-icon>
-                            <input type="text" ng-model="vm.persona.telefono" only-digits name="telefono" minlength="8" maxlength="10" required="required"/>
+                            <input type="text" ng-model="vm.persona.telefono" only-digits name="telefono" minlength="8"  required="required"/>
                             <div ng-messages="objectForm.telefono.$error">
+                                <div ng-message="minlength">{{'ADMIN_PERSONA.ERROR_MESSAGE.MINLENGTH'|translate}}</div>
                                 <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
                             </div>
                         </md-input-container>
@@ -125,13 +126,8 @@
 
                     </form>
                     <div layout="row" layout-align="end end">
-                        <!--<md-button ng-click="vm.cancel()" class="md-raised md-primary"><md-icon md-font-icon="fa fa-eraser"></md-icon></md-button>-->
                         <md-button aria-label="fab button" ng-if="vm.persona.id!=null && vm.persona.id!=undefined" ng-click="vm.remove($event)" class="md-raised md-warn"><md-icon md-font-icon="fa fa-trash"></md-icon></md-button>
                         <md-button aria-label="fab button" ng-if="vm.persona.id!=null && vm.persona.id!=undefined" ng-disabled="objectForm.$invalid" ng-click="vm.update()" class="md-raised md-primary"><md-icon md-font-icon="fa fa-pencil"></md-icon></md-button>
-                        <md-button class="md-raised md-primary" aria-label="Borrar" ng-if="vm.persona.id!=null && vm.persona.id!=undefined"
-                                   ng-click="vm.clean()">
-                            <md-icon md-font-icon="fa fa-eraser"></md-icon>
-                        </md-button>
                     </div>
                 </div>
             </div>

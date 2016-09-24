@@ -1,77 +1,74 @@
 <div flex="" layout="column">
     <md-card layout-align="center center" class="md-padding card1">
-        <h1 translate="PROFILE.PERFIL"></h1>
+        <h1 translate="PROFILE.PROPERTY.PERFIL"></h1>
     </md-card>
     <form name="objectForm">
         <div flex="" layout-sm="column" layout-gt-md="row">
             <md-card flex="flex" class="md-padding card1">
-                <h2 class="md-display-1">{{'PROFILE.DATOS_PERSONALES' | translate}}</h2>
+                <h2 class="md-display-1">{{'PROFILE.PROPERTY.DATOS_PERSONALES' | translate}}</h2>
                 <md-input-container class="md-block">
-                    <label>{{'PROFILE.NOMBRE' | translate}}</label>
+                    <label>{{'PROFILE.PROPERTY.NOMBRE' | translate}}</label>
                     <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
                     <input type="text" ng-model="vm.user_ini.nombre" name="nombre" required="required" ng-pattern="/^[A-Za-zsáéíóúÁÉÍÓÚÑñ ]*$/"/>
                     <div ng-messages="objectForm.nombre.$error">
-                        <div ng-message="pattern">El nombre solo puede contener letras</div>
-                        <div ng-message="required">{{'PROFILE_ERROR.REQUERIDO' | translate}}</div>
+                        <div ng-message="pattern">{{'PROFILE.ERROR_MESSAGE.NOMBRE'|translate}}</div>
+                        <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
                     </div>
                 </md-input-container>
                 <md-input-container class="md-block">
-                    <label>{{'PROFILE.AP_PATERNO' | translate}}</label>
+                    <label>{{'PROFILE.PROPERTY.AP_PATERNO' | translate}}</label>
                     <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
                     <input type="text" ng-model="vm.user_ini.apellido_paterno" name="apellido_paterno" required="required" ng-pattern="/^[A-Za-zsáéíóúÁÉÍÓÚÑñ ]*$/"/>
                     <div ng-messages="objectForm.apellido_paterno.$error">
-                        <div ng-message="pattern">El apellido paterno solo puede contener letras</div>
-                        <div ng-message="required">{{'PROFILE_ERROR.REQUERIDO' | translate}}</div>
+                        <div ng-message="pattern">{{'PROFILE.ERROR_MESSAGE.AP_PATERNO'|translate}}</div>
+                        <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
                     </div>
                 </md-input-container>
                 <md-input-container class="md-block">
-                    <label>{{'PROFILE.AP_MATERNO' | translate}}</label>
+                    <label>{{'PROFILE.PROPERTY.AP_MATERNO' | translate}}</label>
                     <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
                     <input type="text" ng-model="vm.user_ini.apellido_materno" name="apellido_materno" ng-required="true" ng-pattern="/^[A-Za-zsáéíóúÁÉÍÓÚÑñ ]*$/"/>
                     <div ng-messages="objectForm.apellido_materno.$error">
-                        <div ng-message="pattern">El apellido materno solo puede contener letras</div>
-                        <div ng-message="required">{{'PROFILE_ERROR.REQUERIDO' | translate}}</div>
+                        <div ng-message="pattern">{{'PROFILE.ERROR_MESSAGE.AP_MATERNO'|translate}}</div>
+                        <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
                     </div>
                 </md-input-container>
                 <md-input-container class="md-block">
-                    <label>{{'PROFILE.DIRECCION' | translate}}</label>
+                    <label>{{'PROFILE.PROPERTY.DIRECCION' | translate}}</label>
                     <md-icon md-font-icon="zmdi zmdi-pin"></md-icon>
                     <input type="text" ng-model="vm.user_ini.direccion" name="direccion" required="required" ng-pattern="/^[A-Za-z_ 0-9áéíóúÁÉÍÓÚñN#]*$/"/>
                     <div ng-messages="objectForm.direccion.$error">
-                        <div ng-message="pattern">La Direccion no puede tener caracteres especiales</div>
-                        <div ng-message="required">{{'PROFILE_ERROR.REQUERIDO' | translate}}</div>
+                        <div ng-message="pattern">{{'PROFILE.ERROR_MESSAGE.DIRECCION'|translate}}</div>
+                        <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
                     </div>
                 </md-input-container>
                 <md-card-content>
                     <md-input-container class="md-block">
-                        <label>{{'PROFILE.TELEFONO' | translate}}</label>
+                        <label>{{'PROFILE.PROPERTY.TELEFONO' | translate}}</label>
                         <md-icon md-font-icon="zmdi zmdi-phone"></md-icon>
                         <input type="text" ng-model="vm.user_ini.telefono" only-digits="" name="telefono" minlength="8" maxlength="10" required="required" ng-pattern="/^[0-9]+$/"/>
                         <div ng-messages="objectForm.telefono.$error">
-                            <div ng-message="required">{{'PROFILE_ERROR.REQUERIDO' | translate}}</div>
+                            <div ng-message="minlength">{{'PROFILE.ERROR_MESSAGE.MINLENGTH'|translate}}</div>
+                            <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
                         </div>
                     </md-input-container>
 
                     <div layout="row" layout-xs="column" layout-sm="column" layout-md="column" layout-align="center center">
-                        <div layout="column" layout-align="center center"><span class="md-headline">{{'PROFILE.FOTO' | translate}}</span>
+                        <div layout="column" layout-align="center center"><span class="md-headline">{{'PROFILE.PROPERTY.FOTO' | translate}}</span>
                             <md-button flex="flex" ngf-select="vm.selectionFoto($files)" ngf-accept="'image/*'"  ng-disabled="false" ngf-multiple="false" ng-model="vm.picFoto" aria-label="upload" class="md-primary md-raised">
-                                <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>                                    Seleccionar archivo
+                                <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>                                    {{'PROFILE.PROPERTY.ARCHIVO'|translate}}
                                 <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>
                             </md-button><img src="assets/images/dashboards/weather.jpg" alt="Card Image" ng-show="vm.picFoto==null" width="120" height="120"/><img ngf-src="vm.picFoto" width="120" height="120" ng-if="vm.picFoto!=null"/>
                         </div>
-                        <div layout="column" layout-align="center center"><span class="md-headline">{{'PROFILE.INE' | translate}}</span>
+                        <div layout="column" layout-align="center center"><span class="md-headline">{{'PROFILE.PROPERTY.INE' | translate}}</span>
                             <md-button flex="flex" ngf-select="vm.selectionIFE($files)" ngf-accept="'image/*'"  ng-disabled="false" ngf-multiple="false" ng-model="vm.picIFE" aria-label="upload" class="md-primary md-raised">
-                                <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>                                    Seleccionar archivo
+                                <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>                                    {{'PROFILE.PROPERTY.ARCHIVO'|translate}}
                                 <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>
                             </md-button><img src="assets/images/dashboards/weather.jpg" alt="Card Image" ng-show="vm.picIFE==null" width="120" height="120"/><img ngf-src="vm.picIFE" width="120" height="120" ng-if="vm.picIFE!=null"/>
                         </div>
                     </div>
 
                     <div layout="row" layout-align="end end">
-                        <md-button class="md-raised md-primary" aria-label="Borrar"
-                                   ng-click="vm.cancel()">
-                            <md-icon md-font-icon="fa fa-eraser"></md-icon>
-                        </md-button>
 
                         <md-button aria-label="fab button" ng-click="vm.updatePersona()" class="md-raised md-primary" ng-disabled="objectForm.$invalid">
                             <md-icon md-font-icon="fa fa-pencil"></md-icon>

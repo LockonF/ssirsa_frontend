@@ -6,7 +6,7 @@
         .module('app.mainApp.solicitudes')
         .controller('buscarSolicitudController',buscarSolicitudController);
 
-    function buscarSolicitudController($mdEditDialog,Solicitudes,Solicitudes_Admin,udn,modelo_cabinet,Solicitud_Servicio,Session){
+    function buscarSolicitudController(Translate,$mdEditDialog,Solicitudes,Solicitudes_Admin,udn,modelo_cabinet,Solicitud_Servicio,Solicitud_Servicio_Admin,Session,OPTIONS,toastr,$mdDialog){
         var vm = this;
         vm.flag=0;
         vm.query={
@@ -14,12 +14,9 @@
             limit: 5,
             page: 1
         };
-        vm.tipoSol=[
-            "Envio","Recoleccion","Venta"
-        ];
-        vm.estatusSol=[
-            "Confirmada","No Confirmada","Cancelada","Cerrada"
-        ];
+        vm.filtrarSolicitud=OPTIONS.filtrarSolicitud;
+        vm.tipoSols=OPTIONS.tipoSolicitud;
+        vm.estatusSols=OPTIONS.estatusSol;
         vm.id=null;
         vm.FechaFin=new Date();
         //Filtro de busqueda
@@ -80,20 +77,35 @@
             }
         ];
 
-        vm.mostrarRequisito=mostrarRequisito;
-        vm.eliminarRequisito=eliminarRequisito;
+        vm.remove=remove;
+        vm.removeVenta=removeVenta;
+        vm.removeCliente=removeCliente;
+        vm.removeVentaCliente=removeVentaCliente;
         vm.buscarSolicitudes=buscarSolicitudes;
-        vm.buscarSolicitudesVentas=buscarSolicitudesVentas;
         vm.busqueda=busqueda;
         vm.borrarSolicitudVenta=borrarSolicitudVenta;
         vm.borrarSolicitud=borrarSolicitud;
         vm.edit=edit;
+        vm.editVenta=editVenta;
+        vm.editSelect=editSelect;
+        vm.editCalendar=editCalendar;
+        vm.editVentaCalendar=editVentaCalendar;
+
 
         vm.Requisitos = [];
         vm.solicitudes=null;
         vm.solicitudesVentas=null;
         vm.isClient=true;
         activate();
+        init();
+        function init() {
+            vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
+            vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
+            vm.successCreateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_CREATE');
+            vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
+            vm.successUpdateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_UPDATE');
+            vm.successDeleteMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_DELETE');
+        }
         function activate(){
             vm.udns=udn.list();
 
@@ -110,6 +122,7 @@
 
 
         function edit(event,object,field) {
+            console.log("EDIT");
             var config =
             {
                 modelValue: object[field],
@@ -117,6 +130,7 @@
                 save: function (input) {
 
                     object[field] = input.$modelValue;
+                    console.log("Fui activado");
                     updateObject(object);
                 },
                 targetEvent: event,
@@ -125,7 +139,33 @@
                 }
             };
 
-            function updateObject(funcion){
+            function updateObject(obj){
+                console.log("guardar");
+                console.log(obj);
+                obj.fecha_inicio = moment(obj.fecha_inicio).format('YYYY-MM-DD');
+                obj.fecha_termino = moment(obj.fecha_termino).format('YYYY-MM-DD');
+                obj.fecha_atendida = moment(obj.fecha_atendida).toISOString();
+                Solicitudes_Admin.updateSolicitud(obj).then(function () {
+                    /*var notification = {
+                     id_solicitud: 1,
+                     type_notification: obj.tipo_solicitud,
+                     updated_at: moment().toDate()
+                     };
+                     Socket.emit('new:msg', {
+                     canal: 'Administrador',
+                     username: Session.userInformation.id,
+                     solicitud: obj,
+                     name: Session.userInformation.nombre,
+                     notification: notification,
+                     type: "normal"
+                     });
+                     cancel();*/
+                    toastr.success(vm.successUpdateMessage, vm.successTitle);
+
+
+                }).catch(function (res) {
+                    toastr.error(vm.errorMessage, vm.errorTitle);
+                })
             }
 
             $mdEditDialog.small(config).then(function(ctrl){
@@ -133,107 +173,205 @@
             });
         }
 
-        function mostrarRequisito() {
-            if (vm.flag==0) {
-                vm.flag = 1;
-                //console.log(vm.flag);
-            }
-            console.log("Entre al flag: "+vm.flag);
-            for(var k in vm.solicitud) {
-                console.log("Entre al for ");
-                console.log("vm.solicitud[k].id: "+vm.solicitud[k].id);
-                console.log("vm.id: "+vm.id);
-                console.log("k: "+k);
-                if (vm.solicitud[k].id==vm.id)
-                {
-                    console.log("Entre al if- k: "+k);
-                    console.log("vm.solicitud[k].id: "+vm.solicitud[k].id)
-                    console.log("vm.solicitud[k].udn: "+vm.solicitud[k].udn);
-                    console.log("vm.solicitud[k].fecha_inicio: "+vm.solicitud[k].fecha_inicio);
-                    console.log("vm.solicitud[k].fecha_termino: "+vm.solicitud[k].fecha_termino);
-                    console.log("vm.solicitud[k].tipo_solicitud: "+vm.solicitud[k].tipo_solicitud);
-                    console.log("vm.solicitud[k].status: "+vm.solicitud[k].status);
-                    vm.requisito = {
-                        "id":vm.solicitud[k].id,
-                        "udn":vm.solicitud[k].udn,
-                        "fecha_inicio":vm.solicitud[k].fecha_inicio,
-                        "fecha_termino":vm.solicitud[k].fecha_termino,
-                        //"rDesc":vm.solicitud[k],
-                        "tipo_solicitud": vm.solicitud[k].tipo_solicitud,
-                        "status": vm.solicitud[k].status,
-                        "comentario": vm.solicitud[k].comentario
-                    };
+        function editCalendar(obj) {
+            console.log("EDITCalendar");
+            console.log("guardar");
+            console.log(obj);
+            obj.fecha_inicio = moment(obj.fecha_inicio).format('YYYY-MM-DD');
+            obj.fecha_termino = moment(obj.fecha_termino).format('YYYY-MM-DD');
+            obj.fecha_atendida = moment(obj.fecha_atendida).toISOString();
+            Solicitudes_Admin.updateSolicitud(obj).then(function () {
 
-                    // console.log("Objeto: "+vm.requisito);
-                    // console.log("Tipo: "+vm.requisito.tipo_solicitud);
-                    console.log("el requisito es:"+vm.requisito.id);
-                    console.log("vm.requisito.id: "+vm.requisito.id)
-                    console.log("vm.requisito.udn: "+vm.requisito.udn);
-                    console.log("vm.requisito.fecha_termino: "+vm.requisito.fecha_termino);
-                    console.log("vm.requisito.fecha_inicio: "+vm.requisito.fecha_inicio);
-                    console.log("vm.requisito.tipo_solicitud: "+vm.requisito.tipo_solicitud);
-                    console.log("vm.requisito.status: "+vm.requisito.status);
-                    console.log("requisito:");
-                    console.log(vm.requisito);
-                    vm.Requisitos.push(vm.requisito);
-                    console.log("el arreglo tiene:",vm.Requisitos[0].id);
-                    console.log(vm.Requisitos);
-                }
-            }
-            /*if (vm.requisito != null) {
-             console.log("requisitos antes de agregarlo");
-             console.log(vm.Requisitos);
-             vm.id=vm.id+1;//ID
-             console.log("El id es:"+vm.id);
-             //vm.Requisitos.id=vm.id;
-             vm.Requisitos.push(vm.requisito);
-             console.log("requisitos despues de agregarlo");
-             console.log(vm.Requisitos);
+                toastr.success(vm.successUpdateMessage, vm.successTitle);
 
-             vm.requisito = {
-             "id":vm.id,
-             "udn":null,
-             "fecha_inicio":new Date(),
-             "fecha_termino":new Date(),
-             "rDesc":null,
-             "tipo_solicitud": tipo,
-             "status": null,
-             "comentario": null
-             };
 
-             console.log("Los requisitos son:");
-             console.log(vm.Requisitos);
-             }*/
+            }).catch(function (res) {
+                toastr.error(vm.errorMessage, vm.errorTitle);
+            })
         }
 
-        // Eliminar Requisito
+        function editSelect(obj) {
+            console.log("EDITCalendar");
+            console.log("guardar");
+            console.log(obj);
+            obj.fecha_inicio = moment(obj.fecha_inicio).format('YYYY-MM-DD');
+            obj.fecha_termino = moment(obj.fecha_termino).format('YYYY-MM-DD');
+            obj.fecha_atendida = moment(obj.fecha_atendida).toISOString();
+            Solicitudes_Admin.updateSolicitud(obj).then(function () {
+
+                toastr.success(vm.successUpdateMessage, vm.successTitle);
 
 
-        function eliminarRequisito(requisito) {
+            }).catch(function (res) {
+                toastr.error(vm.errorMessage, vm.errorTitle);
+            })
+        }
 
-            vm.requisitocopy=requisito;
-            var index=0;
+        function borrarSolicitudVenta(id){
+            Solicitud_Servicio_Admin.borrarSol(id).then(function(resp){
+                //console.log(id);
+                vm.busqueda();
+                //console.log(resp);
+            }).catch(function(err){
+                console.log(err);
+            })
 
-            for (index = 0; index < vm.Requisitos.length; ++index) {//Cambiar a un for each
+            busqueda();
+        }
 
-                console.log("El requisito a borrar es:"+vm.requisitocopy.tipo_solicitud);
-                console.log(vm.Requisitos[index]);
-                if (vm.Requisitos[index].id == vm.requisitocopy.id) {
+        function borrarSolicitud(id){
+            Solicitudes_Admin.borrarSol(id).then(function(resp){
+                //console.log(id);
+                vm.busqueda();
+                //console.log(resp);
+            }).catch(function(err){
 
-                    console.log(index);
-                    //if(vm.Requisitos[index].Descripcion==vm.requisitocopy.Descripcion){
-                    console.log("voy a borrar");
-                    console.log(vm.Requisitos[index]);
-                    vm.Requisitos.splice(index, 1);
-                    //
+                console.log(err);
+            })
+
+            busqueda();
+        }
+
+        function editVenta(event,object,field) {
+            console.log("EDIT");
+            var config =
+            {
+                modelValue: object[field],
+                placeholder: 'Edita el campo',
+                save: function (input) {
+
+                    object[field] = input.$modelValue;
+                    console.log("Fui activado");
+                    updateObject(object);
+                },
+                targetEvent: event,
+                validators: {
+                    'md-maxlength': 30
                 }
-                else{console.log("Aun no lo encuentro")}
+            };
 
+            function updateObject(obj){
+                console.log("guardar");
+                console.log(obj);
+                Solicitud_Servicio_Admin.updateSolicitud(obj).then(function () {
+                    toastr.success(vm.successUpdateMessage, vm.successTitle);
+                }).catch(function (res) {
+                    toastr.error(vm.errorMessage, vm.errorTitle);
+                })
             }
+
+            $mdEditDialog.small(config).then(function(ctrl){
+            }).catch(function(err){
+            });
+        }
+
+        function editVentaCalendar(obj) {
+            console.log("EDITCalendar");
+            console.log(obj);
+            obj.fecha_atencion = moment(obj.fecha_atencion).format('DD/MM/YYYY HH:mm');
+            Solicitud_Servicio_Admin.updateSolicitud(obj).then(function () {
+
+                toastr.success(vm.successUpdateMessage, vm.successTitle);
+
+
+            }).catch(function (res) {
+                toastr.error(vm.errorMessage, vm.errorTitle);
+            })
+        }
+
+        function removeVenta(ev,id) {
+            var confirm = $mdDialog.confirm()
+                .title('Confirmación para eliminar')
+                .textContent('¿Esta seguro de eliminar este elemento?')
+                .ariaLabel('Lucky day')
+                .targetEvent(ev)
+                .ok('Aceptar')
+                .cancel('Cancelar');
+            $mdDialog.show(confirm).then(function() {
+                Solicitud_Servicio_Admin.borrarSolVenta(id).then(function(resp){
+                    //console.log(id);
+                    vm.busqueda();
+                    toastr.success(vm.successDeleteMessage, vm.successTitle);
+                    //console.log(resp);
+                }).catch(function(err){
+                    toastr.warning(vm.errorMessage, vm.errorTitle);
+                    console.log(err);
+                })
+            }, function() {
+
+            });
 
         }
 
-        function editarRequisito(requisito) {
+        function remove(ev,id) {
+            var confirm = $mdDialog.confirm()
+                .title('Confirmación para eliminar')
+                .textContent('¿Esta seguro de eliminar este elemento?')
+                .ariaLabel('Lucky day')
+                .targetEvent(ev)
+                .ok('Aceptar')
+                .cancel('Cancelar');
+            $mdDialog.show(confirm).then(function() {
+                Solicitudes_Admin.borrarSol(id).then(function(resp){
+                    //console.log(id);
+                    vm.busqueda();
+                    toastr.success(vm.successDeleteMessage, vm.successTitle);
+                    //console.log(resp);
+                }).catch(function(err){
+                    toastr.warning(vm.errorMessage, vm.errorTitle);
+                    console.log(err);
+                })
+            }, function() {
+
+            });
+
+        }
+
+        function removeVentaCliente(ev,id) {
+            var confirm = $mdDialog.confirm()
+                .title('Confirmación para eliminar')
+                .textContent('¿Esta seguro de eliminar este elemento?')
+                .ariaLabel('Lucky day')
+                .targetEvent(ev)
+                .ok('Aceptar')
+                .cancel('Cancelar');
+            $mdDialog.show(confirm).then(function() {
+                Solicitud_Servicio.borrarSolVenta(id).then(function(resp){
+                    //console.log(id);
+                    vm.busqueda();
+                    toastr.success(vm.successDeleteMessage, vm.successTitle);
+                    //console.log(resp);
+                }).catch(function(err){
+                    toastr.warning(vm.errorMessage, vm.errorTitle);
+                    console.log(err);
+                })
+            }, function() {
+
+            });
+
+        }
+
+        function removeCliente(ev,id) {
+            var confirm = $mdDialog.confirm()
+                .title('Confirmación para eliminar')
+                .textContent('¿Esta seguro de eliminar este elemento?')
+                .ariaLabel('Lucky day')
+                .targetEvent(ev)
+                .ok('Aceptar')
+                .cancel('Cancelar');
+            $mdDialog.show(confirm).then(function() {
+                Solicitudes.borrarSol(id).then(function(resp){
+                    //console.log(id);
+                    vm.busqueda();
+                    toastr.success(vm.successDeleteMessage, vm.successTitle);
+                    //console.log(resp);
+                }).catch(function(err){
+                    toastr.warning(vm.errorMessage, vm.errorTitle);
+                    console.log(err);
+                })
+            }, function() {
+
+            });
 
         }
 
@@ -265,6 +403,9 @@
         }
 
         function busqueda() {
+            if(vm.filtro_busqueda=='Todas'){
+                vm.busqueda_status=null;
+            }
             vm.solicitudes = null;
             vm.sol=null;
             vm.solicitudesArray = [];
@@ -546,49 +687,27 @@
                     console.log("vm.tipo_solicitud");
                     console.log(vm.tipo_solicitud);
 
-                    Solicitud_Servicio.list().then(function (rest){
-                        vm.solicitudesVentas = rest;
-                        console.log("vm.solicitudesVentas = ");
-                        console.log(vm.solicitudesVentas);
-                    }).catch(function(error){
-                        console.log(error);
-                    })
-                    console.log("solicitudesVentas2");
+                    if(!vm.isClient) {
+                        Solicitud_Servicio_Admin.list().then(function (rest) {
+                            vm.solicitudesVentas = rest;
+                            console.log("vm.solicitudesVentas = ");
+                            console.log(vm.solicitudesVentas);
+                        }).catch(function (error) {
+                            console.log(error);
+                        })
+                        console.log("solicitudesVentas2");
+                    }else{
+                        Solicitud_Servicio.list().then(function (rest) {
+                            vm.solicitudesVentas = rest;
+                            console.log("vm.solicitudesVentas = ");
+                            console.log(vm.solicitudesVentas);
+                        }).catch(function (error) {
+                            console.log(error);
+                        })
+                        console.log("solicitudesVentas2");
+                    }
                     break;
             }
-        }
-
-
-
-        function buscarSolicitudesVentas(){
-            console.log("vm.tipo_solicitud");
-            console.log(vm.tipo_solicitud);
-
-            Solicitud_Servicio.list().then(function (rest){
-                vm.solicitudesVentas = rest;
-                console.log("vm.solicitudesVentas = ");
-                console.log(vm.solicitudesVentas);
-            }).catch(function(error){
-                console.log(error);
-            })
-
-        }
-
-        function borrarSolicitudVenta(id){
-
-        }
-
-        function borrarSolicitud(id){
-            Solicitudes_Admin.borrarSol(id).then(function(resp){
-                //console.log(id);
-                vm.busqueda();
-                //console.log(resp);
-            }).catch(function(err){
-
-                console.log(err);
-            })
-
-            busqueda();
         }
 
     }

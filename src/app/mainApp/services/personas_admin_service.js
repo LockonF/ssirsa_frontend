@@ -8,7 +8,7 @@
         .module('app.mainApp')
         .factory('Persona_Admin',Persona_Admin);
 
-    function Persona_Admin($q, Restangular,toastr){
+    function Persona_Admin($q, Restangular){
         var baseModelo = Restangular.all('persona_admin');
 
         return {
@@ -66,16 +66,7 @@
         }
 
         function modify(object){
-            var deferred=$q.defer();
-            return Restangular.one('persona_admin',object.id).customPUT(object,null,{'content-type':'application/json'}).then(function(resp){
-                deferred.resolve(rest);
-                console.log(object.id);
-                return resp;
-
-            }).catch(function(err){
-                deferred.reject(err);
-                console.log(err)
-            })
+            return Restangular.one('persona_admin',object.id).customPUT(object,null,{'content-type':'application/json'});
         }
 
 

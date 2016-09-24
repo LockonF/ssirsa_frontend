@@ -1,5 +1,5 @@
 /**
- * Created by lockonDaniel on 6/2/16.
+ * Created by Sandra Ivette on 6/2/16.
  */
 (function () {
     angular
@@ -11,28 +11,15 @@
         $stateProvider
             .state('triangular.admin-default.profile',{
                 url:'/profile',
+                data: {
+                    roles: ['Administrador','Capturista','Cliente','Tecnico A','Tecnico B','Tecnico C','Tecnico D','Tecnico E']
+                },
                 templateUrl:'app/mainApp/profile/profileUser.html',
                 controller:'profileUserController',
                 controllerAs:'vm'
             });
 
-        /*triMenuProvider.addMenu({
-            name: 'Solicitudes',
-            icon: 'zmdi zmdi-bookmark',
-            type: 'dropdown',
-            priority: 4.1,
-            children: [{
-                name: 'Crear Solicitud',
-                state: 'triangular.admin-default.realizarSolicitud',
-                type: 'link'
-            },{
-                name: 'Buscar Solicitud',
-                state: 'triangular.admin-default.buscarSolicitud',
-                type: 'link'
-            }
 
-            ]
-        });*/
     }
 
 

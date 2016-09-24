@@ -61,6 +61,22 @@
     "SEARCH_REQUEST": {
         "FORM": {
             "LABEL": {
+                "TITLE":"Buscar Solicitud",
+                "STIPO":"Solicitud de ",
+                "FOLIO":"Folio",
+                "FECHAINI":"Fecha de Inicio",
+                "FECHAFIN":"Fecha de Fin",
+                "FECHAATE":"Fecha Atendida",
+                "TIPO":"Tipo",
+                "ESTATUS":"Estatus",
+                "COMENTARIO":"Comentario",
+                "UDN":"UDN",
+                "RAZON_SOCIAL":"Razón social",
+                "NOMBRE_NEGOCIO":"Nombre del Negocio",
+                "TELEFONO":"Telefono",
+                "CONTACTO_NEGOCIO":"Contacto del Negocio",
+                "DIRECCION":"Rirección"
+
             }
         }
     }

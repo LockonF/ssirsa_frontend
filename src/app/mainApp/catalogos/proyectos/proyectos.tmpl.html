@@ -1,10 +1,15 @@
 <div layout="column" flex="100" layout-padding layout-fill>
     <md-card class="md-padding-card1" flex-gt-md="90" flex="100" layout="column">
-        <md-toolbar>
-            <div class="md-toolbar-tools">
-                <h1>{{'Projects.Header'|translate}}</h1>
-            </div>
-        </md-toolbar>
+        <div layout="row" flex="" layout-align="space-around stretch">
+            <h2 flex="70" flex-sm="100" flex-gt-xs="100" class="md-headline-1 text-center" translate="">
+                Projects.Header
+            </h2>
+            <md-button  aria-label="fab button" class="md-fab md-scale md-fab-top-right" ng-click="vm.clear()">
+                <md-icon md-font-icon="fa fa-plus" ng-style="{color: 'white'}">
+
+                </md-icon>
+            </md-button>
+        </div>
         <div layout-gt-md="row" layout="column">
             <!--Autocomplete div-->
             <div layout="column" layout-align="space-between stretch" flex-gt-md="30" flex="100">
@@ -16,11 +21,12 @@
                         md-search-text-change="vm.search(vm.searchParameter)"
                         md-search-text="vm.searchParameter"
                         md-item-text="item.descripcion"
-                        md-min-length="1"
+                        md-min-length="0"
                         md-floating-label="{{'Projects.Fields.Search'|translate}}">
                     <md-item-template>
                             <span>{{item.descripcion}}</span>
                     </md-item-template>
+                    <md-not-found><span translate="Projects.Errors.Not_Found"></span></md-not-found>
                 </md-autocomplete>
 
                 <md-virtual-repeat-container flex="flex" hide layout-fill show-gt-md style="min-height:350px">
@@ -29,10 +35,11 @@
                              ng-click="vm.clickCopy(item)"
                              layout-padding layout="row"
                              layout-align="start center" >
-                            <md-icon md-font-icon="zmdi zmdi-case" flex="20"></md-icon>
+                            <img ng-src="assets/images/projects.png"  flex="20" />
                             <span flex="80">{{item.descripcion}}</span>
                         </div>
                     </div>
+                    <md-divider></md-divider>
                 </md-virtual-repeat-container>
 
 
@@ -54,16 +61,16 @@
         </div>
         <md-actions layout="row" layout-align="end center">
             <md-button ng-if="vm.project.id!=null && vm.project.id!=undefined" ng-click="vm.remove()" md-no-ink class="md-primary">
-                {{'MAIN.BUTTONS.DELETE'|translate}}
+                <md-icon md-font-icon="fa fa-eraser"></md-icon>
             </md-button>
             <md-button ng-click="vm.clear()" md-no-ink class="md-primary">
-                {{'MAIN.BUTTONS.CLEAR_FIELDS'|translate}}
+                <md-icon md-font-icon="fa fa-trash"></md-icon>
             </md-button>
             <md-button ng-if="vm.project.id==null || vm.project.id==undefined" ng-click="vm.create()" md-no-ink class="md-primary" ng-disabled="formClient.$invalid">
-                {{'MAIN.BUTTONS.SUBMIT'|translate}}
+                <md-icon md-font-icon="fa fa-save"></md-icon>
             </md-button>
             <md-button ng-if="vm.project.id!=null && vm.project.id!=undefined" ng-click="vm.update()" md-no-ink class="md-primary" ng-disabled="formClient.$invalid">
-                {{'MAIN.BUTTONS.UPDATE'|translate}}
+                <md-icon md-font-icon="fa fa-pencil"></md-icon>
             </md-button>
         </md-actions>
     </md-card>
