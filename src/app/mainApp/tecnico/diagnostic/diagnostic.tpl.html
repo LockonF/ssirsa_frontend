@@ -13,10 +13,13 @@
                         <md-input-container flex="80">
                             <label>{{'TECNICO.FORM.LABEL.ID_CABINET'|translate}}</label>
                             <input ng-model="vm.cabinet" required minlength="0">
+                            <div ng-messages="inputForm.antiguedad.$error">
+                                <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
+                            </div>
 
                         </md-input-container>
                         <md-input-container flex>
-                            <md-button class="md-fab" aria-label="fab button" ng-click="vm.searchCabinet()">
+                            <md-button class="md-fab" aria-label="fab button" ng-disabled="searchCabinetForm.$invalid" ng-click="vm.searchCabinet()">
                                 <md-icon md-font-icon="zmdi zmdi-zoom-in"></md-icon>
                             </md-button>
                         </md-input-container>
@@ -57,9 +60,14 @@
                                 </div>
                             </div>
                             <div flex="50" flex-xs="100" flex-sm="100">
-                            <md-input-container>
+                            <md-input-container class="md-inline-form md-block">
                                 <label translate>CABINET.AGE</label>
-                                <input type="text" ng-model="vm.cabinets.antiguedad" />
+                                <md-select name="status" ng-model="vm.cabinets.antiguedad" ng-required="true">
+                                    <md-option ng-repeat="antiguedad in vm.antiguedad" ng-model="antiguedad.id">{{antiguedad.value}}</md-option>
+                                </md-select>
+                                <div ng-messages="inputForm.antiguedad.$error">
+                                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
+                                </div>
                             </md-input-container>
                             </div>
                             <div flex="50" flex-xs="100" flex-sm="100">
@@ -68,47 +76,48 @@
 
                                                aria-label="Primary Switch"
                                                ng-init="switches.primary = true">
-                                        Capitalizable
+                                        {{'TECNICO.FORM.LABEL.CAPITAL'|translate}}
                                     </md-switch>
                                 </md-input-container>
                             </div>
                             <div flex="50" flex-xs="100" flex-sm="100" ng-show="vm.cabinets.capitalizado">
                                 <md-input-container class="md-inline-form md-block">
-                                    <md-select ng-model="vm.cabinetStatus"
+                                    <md-select ng-model="vm.cabinets.status"
                                                placeholder="{{'TECNICO.FORM.LABEL.STATUS'|translate}}"
-                                               ng-required="vm.cabinets.capitalizado"
-                                               ng-change="vm.selectChanged()">
-                                        <md-option ng-repeat="status in vm.statu" ng-value="status.id">{{status.value}}
+                                               ng-required="vm.cabinets.capitalizado" >
+                                        <md-option ng-repeat="status in vm.statu" ng-value="status.value">{{status.display}}
                                         </md-option>
                                     </md-select>
+                                    <div ng-messages="inputForm.antiguedad.$error">
+                                        <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
+                                    </div>
                                 </md-input-container>
                             </div>
                         </div>
 
                         <div layout="row" layout-xs="column" layout-align-xs="center center" layout-sm="column" layout-align-sm="center center"
-                             ng-show="vm.cabinets.capitalizado && (vm.cabinetStatus==4 || vm.cabinetStatus==5)">
+                             ng-if="vm.cabinets.capitalizado && (vm.cabinets.status=='Fuga Interna' || vm.cabinets.status=='Obsoleto')">
                             <div flex="50" flex-xs="100" flex-sm="100">
-                                <md-button ngf-select="vm.selectionFile($files)"
+                                <md-button  aria-label="fab button" ngf-select="vm.selectionFile($files)"
                                            ngf-accept="'image/*'"
                                            class="md-primary md-raised"
-                                           ng-required="vm.cabinetStatus==4 || vm.cabinetStatus==5"
                                            ng-disabled="vm.status != 'idle'" ngf-multiple="false"
-                                           ng-model="vm.picFile"
+                                           ng-model="vm.cabinets.foto"
                                            aria-label="upload">
                                     <md-icon md-font-icon
                                              ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}"></md-icon>
                                 </md-button>
-
                             </div>
-                            <div flex="50" flex-xs="100" flex-sm="100">
+
+                            <div flex="50" flex-xs="100" flex-sm="100" ng-if="vm.cabinets.foto!=null">
                                 <div class="md-media-md card-media">
-                                    <img ngf-src="vm.picFile" class="thumb" width="120px" height="120px">
+                                    <img ngf-src="vm.cabinets.foto" class="thumb" width="120px" height="120px">
                                 </div>
                             </div>
                         </div>
                         <div class="row" flex="flex">
                             <div class="pull-right">
-                                <md-button type="submit" ng-disabled='registerForm.$invalid' ng-click="vm.guardar()"
+                                <md-button  aria-label="fab button" type="submit" ng-disabled='registerForm.$invalid' ng-click="vm.guardar()"
                                            class="md-primary md-raised">
                                     <md-icon md-font-icon="fa fa-save">
                                 </md-button>

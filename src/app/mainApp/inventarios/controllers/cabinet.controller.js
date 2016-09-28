@@ -8,7 +8,7 @@
         .module('app.mainApp.inventario')
         .controller('cabinetController', cabinetController);
 
-    function cabinetController(Translate,MarcaCabinet,ModeloCabinet,udn,Cabinet,toastr,$scope,EntradaSalida) {
+    function cabinetController(Translate,OPTIONS,MarcaCabinet,ModeloCabinet,udn,Cabinet,toastr,$scope,EntradaSalida) {
         var vm = this;
         vm.newCabinet = true;
         vm.marcas_cabinet = null;
@@ -52,24 +52,9 @@
         vm.modelos_resolver = true;
         vm.modelos_choice_resolver = true;
         vm.create_update_resolver = true;
-        vm.status = [
-            {display:'Obsoleto',value:'Obsoleto'},
-            {display:'Fuga Interna',value:'Fuga Interna'},
-            {display:'Reparación Menor',value:'Reparacion Menor'},
-            {display:'Reparación Media',value:'Reparacion Media'},
-            {display:'Reparación Mayor',value:'Reparacion Mayor'},
-            {display:'Sistema Tapado',value:'Sistema Tapado'},
-            {display:'N/A',value:'N/A'}
-        ];
+        vm.status = OPTIONS.estatus_cabinet;
 
-        vm.antiguedad = [
-            {display:'A',value:'A'},
-            {display:'B',value:'B'},
-            {display:'C',value:'C'},
-            {display:'D',value:'D'},
-            {display:'E',value:'E'},
-            {display:'F',value:'F'}
-        ];
+        vm.antiguedad = OPTIONS.antiguedad;
 
         vm.loadModelos = loadModelos;
         vm.loadCabinets = loadCabinets;
