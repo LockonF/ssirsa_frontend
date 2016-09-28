@@ -28,10 +28,11 @@
                 "TYPE_INPUT":"Tipo de Entrada",
                 "YEAR":"Año",
                 "NO_INCIDENTS":"No. de incidencias",
-                "STATUS":"Estado",
+                "STATUS":"Estatus",
                 "OUTPUT":"Salida",
                 "CABINET":"Cabinet",
-                "CAPITAL":"Capitalizable"
+                "CAPITAL":"Capitalizable",
+                "UNILEVER":"Id de Unilever"
 
             },
             "SUBHEAD":{
