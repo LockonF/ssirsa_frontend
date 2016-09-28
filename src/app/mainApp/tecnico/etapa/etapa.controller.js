@@ -89,6 +89,10 @@
                             if (vm.etapa.validado == false) {
 
                                 vm.etapaActual = vm.etapa;
+                                if(vm.etapaActual.insumos === undefined)
+                                {
+                                    vm.etapaActual.insumos = [];
+                                }
                                 vm.insumos = vm.etapaActual.insumos;
                             }
                             else {
@@ -286,24 +290,12 @@
         }
 
         function add(){
-            vm.insumoToArray={
-                insumo:''
-            };
             if (vm.insumo.id !=null) {
-                vm.insumoToArray.insumo=vm.insumo.id;
-                vm.insumosToArray=_.omit(vm.insumo,'catalogo','nombre');
-                vm.insumoToArray=_.omit(vm.insumosToArray,'id');
-                console.log("entre al if");
-                console.log(vm.insumos);
-                console.log(vm.insumo);
-                console.log("Para etapa");
-                vm.insumos=_.toArray(vm.insumos);
-                vm.insumos.push(vm.insumo);
-                vm.insumosToArray=_.toArray(vm.insumosToArray);
-                vm.insumosToArray.push(vm.insumoToArray);
-                console.log(vm.insumos);
-                console.log(vm.insumo);
-
+                var newInsumo =_.clone(vm.insumo);
+                newInsumo.insumo = newInsumo.id;
+                delete newInsumo['id'];
+                delete newInsumo['catalogo'];
+                vm.insumos.push(newInsumo);
 
             }
             else
