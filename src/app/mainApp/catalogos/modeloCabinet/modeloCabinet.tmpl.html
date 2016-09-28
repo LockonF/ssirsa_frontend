@@ -104,9 +104,8 @@
                         </md-input-container>
                         <md-input-container class="md-block">
                             <label>{{'MODEL_CABINET.FORM.LABEL.QUANTITY'|translate}}</label>
-                            <input md-no-asterisk="" required="" type="text" name="cantidad"
+                            <input md-no-asterisk="" required="" type="number" name="cantidad"
                                    ng-disabled="vm.editable"
-                                   only-digits
                                    ng-model="vm.modelo.cantidad"/>
                             <div ng-messages="ModelCabinetForm.cantidad.$error">
                                 <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
