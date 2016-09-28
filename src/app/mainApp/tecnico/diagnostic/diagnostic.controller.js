@@ -23,13 +23,13 @@
 
         function guardar() {
 
-            if (vm.cabinets.status!='Fuga Interna' || vm.cabinets.status!='Obsoleto' || vm.cabinets.foto==null) {
+            if ((vm.cabinets.status!='Fuga Interna' && vm.cabinets.status!='Obsoleto') || vm.cabinets.foto==null) {
                 delete vm.cabinets.foto;
             }else{
                 vm.status = 'uploading';
             }
-            vm.cabinets.id_unilever=!vm.capitalizado?null:vm.cabinets.id_unilever;
-            vm.cabinets.status = !vm.capitalizado?"N/A":vm.cabinets.status;
+            vm.cabinets.id_unilever=!vm.cabinets.capitalizado?null:vm.cabinets.id_unilever;
+            vm.cabinets.status = !vm.cabinets.capitalizado?"N/A":vm.cabinets.status;
             Upload.upload({
                 url: EnvironmentConfig.site.rest.api + 'cabinet/' + vm.cabinet,
                 headers: {'Authorization': OAuthToken.getAuthorizationHeader()},

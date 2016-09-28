@@ -81,7 +81,7 @@
                             </div>
                             <div flex="50" flex-xs="100" flex-sm="100">
                                 <md-input-container>
-                                    <md-switch class="md-primary" ng-model="vm.capitalizado"
+                                    <md-switch class="md-primary" ng-model="vm.cabinets.capitalizado"
 
                                                aria-label="Primary Switch"
                                                ng-init="switches.primary = true">
@@ -89,11 +89,12 @@
                                     </md-switch>
                                 </md-input-container>
                             </div>
-                            <div flex="50" flex-xs="100" flex-sm="100" ng-if="vm.capitalizado">
+                            <div flex="50" flex-xs="100" flex-sm="100" ng-if="vm.cabinets.capitalizado">
                                 <md-input-container class="md-inline-form md-block">
+                                    <label translate>TECNICO.FORM.LABEL.STATUS</label>
                                     <md-select ng-model="vm.cabinets.status"
                                                placeholder="{{'TECNICO.FORM.LABEL.STATUS'|translate}}"
-                                               ng-required="vm.capitalizado">
+                                               ng-required="vm.cabinets.capitalizado">
                                         <md-option ng-repeat="status in vm.statu" ng-value="status.value">
                                             {{status.display}}
                                         </md-option>
@@ -105,11 +106,11 @@
 
 
                             </div>
-                            <div flex="50" flex-xs="100" flex-sm="100" ng-if="vm.capitalizado">
+                            <div flex="50" flex-xs="100" flex-sm="100" ng-if="vm.cabinets.capitalizado">
                                 <md-input-container class="md-inline-form md-block">
                                     <label translate>TECNICO.FORM.LABEL.UNILEVER</label>
                                     <input aria-label="fab button" ng-model="vm.cabinets.id_unilever"
-                                           ng-required="vm.capitalizado" name="id_unilever">
+                                           ng-required="vm.cabinets.capitalizado" name="id_unilever">
                                     <div ng-messages="inputForm.id_unilever.$error">
                                         <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                                     </div>
@@ -119,7 +120,7 @@
 
                         <div layout="row" layout-xs="column" layout-align-xs="center center" layout-sm="column"
                              layout-align-sm="center center"
-                             ng-if="vm.capitalizado && (vm.cabinets.status=='Fuga Interna' || vm.cabinets.status=='Obsoleto')">
+                             ng-if="vm.cabinets.capitalizado && (vm.cabinets.status=='Fuga Interna' || vm.cabinets.status=='Obsoleto')">
                             <div flex="50" flex-xs="100" flex-sm="100">
                                 <md-button aria-label="fab button" ngf-select="vm.selectionFile($files)"
                                            ngf-accept="'image/*'"
@@ -134,7 +135,7 @@
 
                             <div flex="50" flex-xs="100" flex-sm="100" ng-if="vm.cabinets.foto!=null">
                                 <div class="md-media-md card-media">
-                                    <img ngf-src="vm.cabinets.foto" class="thumb" width="120px" height="120px">
+                                    <img ngf-src="vm.cabinets.foto" class="thumb" width="180px" height="180px">
                                 </div>
                             </div>
                         </div>
