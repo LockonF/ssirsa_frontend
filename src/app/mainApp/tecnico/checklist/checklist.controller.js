@@ -9,7 +9,7 @@
         .module('app.mainApp.tecnico')
         .controller('checklistController', checklistController);
 
-    function checklistController(Cabinet, ModeloCabinet,toastr,Translate,Helper,Upload,EnvironmentConfig,OAuthToken,MarcaCabinet,EntradaSalida) {
+    function checklistController(Cabinet,$scope, ModeloCabinet,toastr,Translate,Helper,Upload,EnvironmentConfig,OAuthToken,MarcaCabinet,EntradaSalida) {
         var vm = this;
         vm.diagnostico = {};
         vm.cabinets=null;
@@ -55,6 +55,7 @@
                 vm.cabinet=null;
                 vm.picFile=null;
                 vm.statusReady=0;
+                clear();
                 toastr.success(vm.successCreateMessage, vm.successTitle);
                 vm.diagnostico=angular.copy(diagnostico);
             }, function (resp) {
@@ -88,6 +89,12 @@
             vm.notFoundInput=Translate.translate('MAIN.MSG.NOT_FOUND_INPUT');
             vm.errorTypeFile = Translate.translate('MAIN.MSG.ERORR_TYPE_FILE');
             vm.errorSize = Translate.translate('MAIN.MSG.FILE_SIZE');
+        }
+        function clear() {
+            $scope.searchCabinetForm.$setPristine();
+            $scope.searchCabinetForm.$setUntouched();
+            $scope.registerForm.$setPristine();
+            $scope.registerForm.$setUntouched();
         }
 
         function searchCabinet() {
