@@ -142,6 +142,23 @@
             }, {
                 nombre: 'Destrucción',
                 value: 'ED'
-            }]
+            }],
+            antiguedad:[
+                {id:'A',value:'A'},
+                {id:'B',value:'B'},
+                {id:'C',value:'C'},
+                {id:'D',value:'D'},
+                {id:'E',value:'E'},
+                {id:'F',value:'F'}
+            ],
+            estatus_cabinet:[
+                {display:'Reparación Mayor',value:'Reparacion Mayor'},
+                {display:'Sistema Tapado',value:'Sistema Tapado'},
+                {display:'Reparación Media',value:'Reparacion Media'},
+                {display:'Reparación Menor',value:'Reparacion Menor'},
+                {display:'Fuga Interna',value:'Fuga Interna'},
+                {display:'Obsoleto',value:'Obsoleto'},
+                {display:'N/A',value:'N/A'}
+            ]
         });
 })();

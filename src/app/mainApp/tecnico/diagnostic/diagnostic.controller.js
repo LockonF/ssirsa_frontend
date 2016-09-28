@@ -9,128 +9,79 @@
         .module('app.mainApp.tecnico')
         .controller('DiagnosticController', DiagnosticController);
 
-    function DiagnosticController(Cabinet, toastr,Translate,Helper,Upload,EnvironmentConfig,OAuthToken) {
+    function DiagnosticController(Cabinet, OPTIONS, toastr,$scope, Translate, Helper, Upload, EnvironmentConfig, OAuthToken) {
         var vm = this;
         vm.diagnostico = {};
-        vm.cabinets=null;
+        vm.cabinets = null;
         vm.status = 'idle';  // idle | uploading | complete
         vm.guardar = guardar;
         vm.searchCabinet = searchCabinet;
-        vm.selectionFile=selectionFile;
-        vm.selectChanged=selectChanged;
+        vm.selectionFile = selectionFile;
         activate();
-        vm.statu = [
-            {
-                id:0,
-                value:"Reparacion Mayor"
-            },
-            {
-                id:1,
-                value:"Sistema Tapado"
-            },
-            {
-                id:2,
-                value:"Reparacion Media"
-            },
-            {
-                id:3,
-                value:"Reparacion Menor"
-            },
-            {
-                id:4,
-                value:"Fuga Interna"
-            },
-            {
-                id:5,
-                value:"Obsoleto"
-            }
-        ];
-         /*var diagnosico = {
-            tipo: 'entrada',
-            rodajas: null,
-            canastillas: null,
-            puertas: null,
-            rejillas: null,
-            sticker: false,
-            pintura: false,
-            lavado: false,
-            emplayado: false,
-            lubricacion: false,
-            listo_mercado: false,
-            fecha:moment().format('YYYY-MM-DD'),
-            tipo_insumo: 'bicicleta',
-            cabinet_entrada_salida: null
-        };
-        vm.diagnostico=angular.copy(diagnostico);*/
-        function selectChanged() {
-            if(vm.cabinetStatus!=4 && vm.cabinetStatus!=5){
-                vm.picFile=null;
-            }
-        }
-        function guardar() {
-            vm.status = 'uploading';
-            if(vm.cabinetStatus!=4 || vm.cabinetStatus!=5){
-                vm.picFile=null;
-            }
-            if(vm.picFile!=null) {
-                vm.cabinets.foto = vm.picFile;
-            }else{
-                delete vm.cabinets.foto;
-            }
+        vm.antiguedad = OPTIONS.antiguedad;
+        vm.statu = OPTIONS.estatus_cabinet;
 
-            if(!vm.cabinets.capitalizado){
-                vm.cabinets.status="N/A";
+        function guardar() {
+
+            if (vm.cabinets.status!='Fuga Interna' || vm.cabinets.status!='Obsoleto' || vm.cabinets.foto==null) {
+                delete vm.cabinets.foto;
             }else{
-                vm.cabinets.status=vm.statu[vm.cabinetStatus].value;
+                vm.status = 'uploading';
             }
+            vm.cabinets.status = !vm.cabinets.capitalizado?"N/A":vm.cabinets.status;
             Upload.upload({
-                url: EnvironmentConfig.site.rest.api+'cabinet/'+vm.cabinet,
+                url: EnvironmentConfig.site.rest.api + 'cabinet/' + vm.cabinet,
                 headers: {'Authorization': OAuthToken.getAuthorizationHeader()},
                 method: 'PUT',
                 data: vm.cabinets
             }).then(function () {
                 vm.status = 'idle';
-                vm.cabinet=null;
-                vm.cabinets=null;
-                vm.picFile=null;
+                clear();
                 toastr.success(vm.successCreateMessage, vm.successTitle);
-                vm.diagnostico=null;
             }, function (err) {
                 vm.status = 'idle';
                 toastr.warning(vm.errorMessage, vm.errorTitle);
             });
         }
+        function clear() {
+            $scope.registerForm.$setPristine();
+            $scope.registerForm.$setUntouched();
+            $scope.searchCabinetForm.$setPristine();
+            $scope.searchCabinetForm.$setUntouched();
+            vm.cabinet = null;
+            vm.cabinets = null;
+            vm.diagnostico = null;
+        }
         function selectionFile($files) {
             if ($files.length > 0) {
                 var file = $files[0];
-                var extn=file.name.split(".").pop();
-                if(file.size/1000000>1) {
+                var extn = file.name.split(".").pop();
+                if (file.size / 1000000 > 1) {
+                    vm.cabinets.foto = null;
                     toastr.warning(vm.errorSize, vm.errorTitle);
-                    vm.picFile = null;
-
-                }else if (!Helper.acceptFile(file.type))  {
-                    if (!Helper.acceptFile(extn))  {
+                } else if (!Helper.acceptFile(file.type)) {
+                    if (!Helper.acceptFile(extn)) {
                         toastr.warning(vm.errorTypeFile, vm.errorTitle);
-                        vm.picFile = null;
+                        vm.cabinets.foto = null;
                     }
                 }
             }
-
         }
+
         function activate() {
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
             vm.successCreateMessage = Translate.translate('MAIN.MSG.SUCCESS_DIAGNOSTIC_MESSAGE');
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
             vm.notFoundMessage = Translate.translate('MAIN.MSG.NOT_FOUND');
-            vm.notFoundInput=Translate.translate('MAIN.MSG.NOT_FOUND_INPUT');
+            vm.notFoundInput = Translate.translate('MAIN.MSG.NOT_FOUND_INPUT');
             vm.errorTypeFile = Translate.translate('MAIN.MSG.ERORR_TYPE_FILE');
             vm.errorSize = Translate.translate('MAIN.MSG.FILE_SIZE');
         }
 
         function searchCabinet() {
             Cabinet.get(vm.cabinet).then(function (res) {
-                vm.cabinets=res;
+                vm.cabinets = res;
             }).catch(function (res) {
                 notifyError(res.status);
             });

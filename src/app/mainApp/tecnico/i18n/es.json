@@ -30,7 +30,8 @@
                 "NO_INCIDENTS":"No. de incidencias",
                 "STATUS":"Estado",
                 "OUTPUT":"Salida",
-                "CABINET":"Cabinet"
+                "CABINET":"Cabinet",
+                "CAPITAL":"Capitalizable"
 
             },
             "SUBHEAD":{
