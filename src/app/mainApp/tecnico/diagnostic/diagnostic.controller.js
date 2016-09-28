@@ -28,7 +28,8 @@
             }else{
                 vm.status = 'uploading';
             }
-            vm.cabinets.status = !vm.cabinets.capitalizado?"N/A":vm.cabinets.status;
+            vm.cabinets.id_unilever=!vm.capitalizado?null:vm.cabinets.id_unilever;
+            vm.cabinets.status = !vm.capitalizado?"N/A":vm.cabinets.status;
             Upload.upload({
                 url: EnvironmentConfig.site.rest.api + 'cabinet/' + vm.cabinet,
                 headers: {'Authorization': OAuthToken.getAuthorizationHeader()},
@@ -39,6 +40,7 @@
                 clear();
                 toastr.success(vm.successCreateMessage, vm.successTitle);
             }, function (err) {
+                console.log(err);
                 vm.status = 'idle';
                 toastr.warning(vm.errorMessage, vm.errorTitle);
             });

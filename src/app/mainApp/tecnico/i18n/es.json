@@ -31,7 +31,8 @@
                 "STATUS":"Estado",
                 "OUTPUT":"Salida",
                 "CABINET":"Cabinet",
-                "CAPITAL":"Capitalizable"
+                "CAPITAL":"Capitalizable",
+                "UNILEVER":"Id de Unilever"
 
             },
             "SUBHEAD":{
