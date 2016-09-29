@@ -9,17 +9,22 @@
             </div>
 
             <div layout="row">
+                <md-button class="md-raised" aria-label="Editar"
+                            ng-click="vm.editar()">
+                    <md-icon md-font-icon="fa fa-pencil"></md-icon>
+
+                </md-button>
                 <md-button class="md-raised" aria-label="Guardar"
                            ng-click='vm.crearEtapaServicio()'>
                     <md-icon md-font-icon="fa fa-save"></md-icon>
 
                 </md-button>
-                <md-button class="md-raised" aria-label="Guardar"
+                <md-button class="md-raised" aria-label="Cancelar"
                            ng-click="vm.cancel()">
                     <md-icon md-font-icon="fa fa-eraser"></md-icon>
 
                 </md-button>
-                <md-button class="md-raised" aria-label="Guardar"
+                <md-button class="md-raised" aria-label="Eliminar"
                            ng-click="vm.eliminarEtapaServicio()">
                     <md-icon md-font-icon="fa fa-trash"></md-icon>
 
@@ -95,12 +100,6 @@
                                         <md-button class="md-fab" class="md-primary" aria-label="fab button"
                                                    ng-click="vm.buscar()">
                                             <md-icon md-font-icon="zmdi zmdi-zoom-in"></md-icon>
-                                        </md-button>
-                                    </md-input-container>
-                                    <md-input-container flex>
-                                        <md-button class="md-fab" class="md-primary" aria-label="fab button"
-                                                   ng-click="vm.editar()">
-                                            <md-icon md-font-icon="fa fa-pencil"></md-icon>
                                         </md-button>
                                     </md-input-container>
                                 </div>
