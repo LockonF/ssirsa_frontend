@@ -57,7 +57,8 @@
         "CANTITY":"Cantidad",
         "NOTES":"Notas",
         "NAME":"Nombre",
-        "VALIDATED":"Validado"
+        "VALIDATED":"Validado",
+        "INSUMO_NOTVALIDATED":"Etapa donde no se permite agregar Insumos"
     },
     "CABINET":{
         "LINE_ASSIGMENT":"Asignación de Linea",

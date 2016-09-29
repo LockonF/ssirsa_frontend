@@ -105,7 +105,8 @@
                                 })
                                 vm.insumos = vm.etapaActual.insumos;
                                 console.log(vm.etapaActual.actual_etapa);
-                                if(vm.etapaActual.actual_etapa==="EC"||vm.etapaActual.actual_etapa==="ED");
+                                console.log(typeof(vm.etapaActual.actual_etapa));
+                                if(vm.etapaActual.actual_etapa === "EC"||vm.etapaActual.actual_etapa === "ED");
                                 {
                                     console.log("Entre al if por confinamiento");
                                     vm.showInsumosSection = false;

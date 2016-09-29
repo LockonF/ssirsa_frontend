@@ -112,6 +112,9 @@
 
             <md-tab label="Insumos de la Etapa" >
                 <md-content class="md-padding">
+                    <div ng-hide="vm.showInsumosSection">
+                        <h1 translate>ETAPA_SERVICIO.INSUMO_NOTVALIDATED</h1>
+                    </div>
                     <div layout="row" ng-show="vm.showInsumosSection">
                         <form  name="insumoForm">
                         <md-input-container flex="25">
