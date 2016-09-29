@@ -9,7 +9,7 @@
         .module('app.mainApp.tecnico')
         .controller('etapaController', etapaController);
 
-    function etapaController(Cabinet, Servicios, Diagnostico, CatalogoInsumo, Insumo, Translate, toastr,OPTIONS) {
+    function etapaController(Cabinet, Servicios, Diagnostico, CatalogoInsumo, Insumo, Translate, toastr, OPTIONS) {
         var vm = this;
         vm.activate = activate();
 
@@ -27,7 +27,7 @@
         vm.editable = true;
         vm.idCabinet = null;
         vm.insumos = [];//Arreglo que poseera los Insumos que pueden ser usados en cierta etapa para md table
-        vm.insumosToArray=[];
+        vm.insumosToArray = [];
         vm.cabinet = null;// Informacion general del cabinet al cual se le asignara una nueva etapa
         vm.diagnostico = null;// Informacion del diagnostico que propicio que entrara a un proceso de servicio tecnico
         vm.etapa = null;
@@ -89,6 +89,9 @@
                             if (vm.etapa.validado == false) {
 
                                 vm.etapaActual = vm.etapa;
+                                if (vm.etapaActual.insumos === undefined) {
+                                    vm.etapaActual.insumos = [];
+                                }
                                 vm.insumos = vm.etapaActual.insumos;
                             }
                             else {
@@ -152,18 +155,17 @@
 
                 if (vm.catalogoSelected.tipo = "U") {
 
-                    insumoAUsar = _.findWhere(insumotmp, {"usado":false});
+                    insumoAUsar = _.findWhere(insumotmp, {"usado": false});
                 }
-                if (vm.catalogoSelected.tipo = "L"){
+                if (vm.catalogoSelected.tipo = "L") {
 
-                    insumoAUsar = _.findWhere(insumotmp, {"usado":true});
+                    insumoAUsar = _.findWhere(insumotmp, {"usado": true});
                 }
 
-                vm.insumo.id=insumoAUsar.id;
-                vm.insumo.catalogo=insumoAUsar.catalogo;
-                vm.insumo.nombre=vm.catalogoSelected.descripcion;
-                console.log("El insumo a agregar al arreglo es:");
-                console.log(vm.insumo);
+                vm.insumo.id = insumoAUsar.id;
+                vm.insumo.catalogo = insumoAUsar.catalogo;
+                vm.insumo.nombre = vm.catalogoSelected.descripcion;
+
                 add();
 
             }
@@ -243,15 +245,12 @@
         function crearEtapaServicio() {
             vm.etapaActual.insumos = vm.insumos;
             vm.etapaActual.diagnostico = vm.diagnostico.id;
-            console.log(vm.etapaActual);
 
 
             if (vm.etapaActual.id == null) {
-                console.log("voy a crear uno nuevo");
+
                 vm.etapaActual.insumos = vm.insumos;
-                console.log("Al editar/crear");
-                console.log(vm.etapaActual);
-                console.log("Ya voy a crear");
+
                 var promise = Servicios.crearEtapaServicio(vm.etapaActual);
                 promise.then(function (res) {
                     toastr.success(vm.successTitle, vm.successCreateMessage);
@@ -260,15 +259,15 @@
 
                 }).catch(function (res) {
 
-                    console.log(res);
+
                     notifyError(res.status);
                 });
             }
             else {
-                console.log("Voy a editar")
+
                 var promise = Servicios.editarEtapaServicio(vm.etapaActual);
                 promise.then(function (res) {
-                    console.log(vm.successTitle, vm.successUpdateMessage);
+
                     toastr.success(vm.successTitle, vm.successUpdateMessage);
                     vm.etapaActual = res;
                     vm.cancel();
@@ -278,38 +277,26 @@
 
             }
             vm.cancel();
-         }
+        }
 
         function crearInsumo() {
-         vm.buscarInsumosByCatalogo();
+            vm.buscarInsumosByCatalogo();
 
         }
 
-        function add(){
-            vm.insumoToArray={
-                insumo:''
-            };
-            if (vm.insumo.id !=null) {
-                vm.insumoToArray.insumo=vm.insumo.id;
-                vm.insumosToArray=_.omit(vm.insumo,'catalogo','nombre');
-                vm.insumoToArray=_.omit(vm.insumosToArray,'id');
-                console.log("entre al if");
-                console.log(vm.insumos);
-                console.log(vm.insumo);
-                console.log("Para etapa");
-                vm.insumos=_.toArray(vm.insumos);
-                vm.insumos.push(vm.insumo);
-                vm.insumosToArray=_.toArray(vm.insumosToArray);
-                vm.insumosToArray.push(vm.insumoToArray);
-                console.log(vm.insumos);
-                console.log(vm.insumo);
-
+        function add() {
+            if (vm.insumo.id != null) {
+                var newInsumo = _.clone(vm.insumo);
+                newInsumo.insumo = newInsumo.id;
+                delete newInsumo['id'];
+                delete newInsumo['catalogo'];
+                vm.insumos.push(newInsumo);
 
             }
             else
                 notifyError(404);
-            vm.catalogoSelected=null;
-            vm.insumo=null;
+            vm.catalogoSelected = null;
+            vm.insumo = null;
         }
 
         // Eliminar Insumo
@@ -319,14 +306,14 @@
 
             for (index = 0; index < vm.insumos.length; ++index) {
                 if (vm.insumos[index].id == insu.id) {
-                    console.log(index);
-                        console.log("voy a borrar");
-                        console.log(vm.Requisitos[index]);
-                        vm.Requisitos.splice(index, 1);
+
+                    vm.Requisitos.splice(index, 1);
 
                 }
-                else{console.log("Aun no lo encuentro")}
-                notifyError(404);
+                else {
+                    notifyError(404);
+                }
+
 
             }
 
