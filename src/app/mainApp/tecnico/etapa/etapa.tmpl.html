@@ -121,12 +121,14 @@
                             <md-select ng-model="vm.catalogoSelected" name="insumo" required='required' ng-disabled="vm.editable">
                                 <md-option ng-repeat="insu in vm.catalogoInsumos" ng-value="insu">{{insu.descripcion}}
                                 </md-option>
+
                             </md-select>
                             <div ng-messages="insumoForm.insumo.$error">
 
                                 <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                             </div>
                         </md-input-container>
+
                         <md-input-container flex="15">
                             <label translate>ETAPA_SERVICIO.CANTITY</label>
                             <input  name="cantidad" type="number" ng-model="vm.insumo.cantidad" ng-disabled="vm.editable" required max="{{vm.catalogoSelected.cantidad}}"/>
