@@ -22,6 +22,7 @@
             siguiente_etapa: ''
 
         };
+        vm.showInsumosSection=true;
         vm.catalogoInsumos = null;//array con todos los caatalogos de insumo disponibles de la etapa
         vm.catalogoSelected = null;//Elemento del tipo Catalogo de Insumo del insumo que se deseará agregar
         vm.editable = true;
@@ -96,13 +97,19 @@
                                 promise.then(function (res) {
 
                                     vm.insumos=res;
-                                    
+
 
 
                                 }).catch(function(res){
                                     notifyError(res.status);
                                 })
                                 vm.insumos = vm.etapaActual.insumos;
+                                console.log(vm.etapaActual.actual_etapa);
+                                if(vm.etapaActual.actual_etapa==="EC"||vm.etapaActual.actual_etapa==="ED");
+                                {
+                                    console.log("Entre al if por confinamiento");
+                                    vm.showInsumosSection = false;
+                                }
                             }
                             else {
 
@@ -221,7 +228,8 @@
                 siguiente_etapa: ''
 
             };
-
+            vm.showInsumosSection=true;
+            vm.catalogoInsumos = null;
             vm.editable = true;
             vm.idCabinet = null;
             vm.insumos = [];//Arreglo que poseera los Insumos que pueden ser usados en cierta etapa
