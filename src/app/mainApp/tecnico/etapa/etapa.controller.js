@@ -9,7 +9,7 @@
         .module('app.mainApp.tecnico')
         .controller('etapaController', etapaController);
 
-    function etapaController(Cabinet, Servicios, Diagnostico, CatalogoInsumo, Insumo, Translate, toastr, OPTIONS) {
+    function etapaController(Cabinet, Servicios, $mdDialog, CatalogoInsumo, Insumo, Translate, toastr, OPTIONS) {
         var vm = this;
         vm.activate = activate();
 
@@ -22,7 +22,7 @@
             siguiente_etapa: ''
 
         };
-        vm.showInsumosSection=true;
+        vm.showInsumosSection = true;
         vm.catalogoInsumos = null;//array con todos los caatalogos de insumo disponibles de la etapa
         vm.catalogoSelected = null;//Elemento del tipo Catalogo de Insumo del insumo que se deseará agregar
         vm.editable = true;
@@ -71,6 +71,10 @@
             vm.notFoundMessage = Translate.translate('MAIN.MSG.NOT_FOUND');
             vm.notFoundInput = Translate.translate('MAIN.MSG.NOT_FOUND_INPUT');
             vm.notAllow = Translate.translate('MAIN.MSG.NOT_ALLOWED');
+            vm.confirmDelete = Translate.translate('ETAPA_SERVICIO.ARE_U_SURE');
+            vm.delete = Translate.translate('ETAPA_SERVICIO.DELETE');
+            vm.cancelar = Translate.translate('ETAPA_SERVICIO.CANCEL');
+            vm.accepted = Translate.translate('ETAPA_SERVICIO.ACCEPT');
 
         }
 
@@ -96,17 +100,16 @@
                                 promise = Servicios.consultarAllInsumosCabinetEtapa(vm.etapaActual);
                                 promise.then(function (res) {
 
-                                    vm.insumos=res;
+                                    vm.insumos = res;
 
 
-
-                                }).catch(function(res){
+                                }).catch(function (res) {
                                     notifyError(res.status);
                                 })
                                 vm.insumos = vm.etapaActual.insumos;
                                 console.log(vm.etapaActual.actual_etapa);
                                 console.log(typeof(vm.etapaActual.actual_etapa));
-                                if(vm.etapaActual.actual_etapa === "EC"||vm.etapaActual.actual_etapa === "ED");
+                                if (vm.etapaActual.actual_etapa === "EC" || vm.etapaActual.actual_etapa === "ED");
                                 {
                                     console.log("Entre al if por confinamiento");
                                     vm.showInsumosSection = false;
@@ -229,7 +232,7 @@
                 siguiente_etapa: ''
 
             };
-            vm.showInsumosSection=true;
+            vm.showInsumosSection = true;
             vm.catalogoInsumos = null;
             vm.editable = true;
             vm.idCabinet = null;
@@ -249,14 +252,25 @@
         }
 
 
-        function eliminarEtapaServicio() {
+        function eliminarEtapaServicio(ev) {
             if (vm.etapaActual != null) {
-                var promise = Servicios.eliminarEtapaServicio(vm.etapaActual);
-                promise.then(function (res) {
-                    vm.diagnostico = res;
-                    vm.cancel();
-                }).catch(function (res) {
-                    notifyError(res.status);
+
+                var confirm = $mdDialog.confirm()
+                    .title(vm.delete)
+                    .textContent(vm.confirmDelete)
+                    .ariaLabel('Lucky day')
+                    .targetEvent(ev)
+                    .ok(vm.accepted)
+                    .cancel(vm.cancelar);
+                $mdDialog.show(confirm).then(function () {
+
+                    var promise = Servicios.eliminarEtapaServicio(vm.etapaActual);
+                    promise.then(function (res) {
+                        vm.diagnostico = res;
+                        vm.cancel();
+                    }).catch(function (res) {
+                        notifyError(res.status);
+                    })
                 });
             }
         }
