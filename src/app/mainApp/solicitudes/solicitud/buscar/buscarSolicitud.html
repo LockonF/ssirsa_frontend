@@ -31,7 +31,7 @@
                                 <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
                                 <input type="text" ng-model="vm.folio" name="folio" only-digits required='required'>
                                 <div ng-messages="objectForm.folio.$error">
-                                    <div ng-message="required">El campo es requerido</div>
+                                    <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
                                 </div>
                             </md-input-container>
                             <md-input-container flex="" class="md-inline-form md-block">
@@ -172,7 +172,7 @@
             </div>
 
             <div ng-if="(vm.solicitudesVentas!=null) && (vm.tipo_solicitud=='Venta')">
-                <h2  ng-if="vm.solicitudesVentas!=null ">Solicitud de {{vm.tipo_solicitud}}</h2>
+                <h2  ng-if="vm.solicitudesVentas!=null ">{{'SEARCH_REQUEST.FORM.LABEL.STIPO'|translate}} {{vm.tipo_solicitud}}</h2>
                 <div layout="row" flex="" layout-padding layout-fill layout-align="center center" >
                     <div flex="">
                         <md-card>
@@ -183,8 +183,6 @@
                                         <tr md-row="md-row">
                                             <th md-column="md-column" md-order-by="id"><span translate="SEARCH_REQUEST.FORM.LABEL.FOLIO"></span>
                                             </th>
-                                            <!--th md-column="md-column" md-order-by="udn"><span translate="SEARCH_REQUEST.FORM.LABEL.UDN"></span>
-                                            </th-->
                                             <th md-column="md-column" md-order-by="razon_social"><span translate="SEARCH_REQUEST.FORM.LABEL.RAZON_SOCIAL"></span>
                                             </th>
                                             <th md-column="md-column" md-order-by="nombre_negocio"><span translate="SEARCH_REQUEST.FORM.LABEL.NOMBRE_NEGOCIO"></span>
@@ -204,7 +202,6 @@
                                         <tr md-row="md-row"
                                             ng-repeat="solicitudVenta in vm.solicitudesVentas | orderBy:vm.query.order | offset: (vm.query.page-1)*vm.query.limit | limitTo: vm.query.limit">
                                             <td md-cell="md-cell" >{{solicitudVenta.id}}</td>
-                                            <!--td md-cell="md-cell" >{{solicitudVenta.udn}}</td-->
                                             <td md-cell="md-cell" ng-click='vm.editVenta($event,solicitudVenta,"razon_social")'>{{solicitudVenta.razon_social}}</td>
                                             <td md-cell="md-cell" ng-click='vm.editVenta($event,solicitudVenta,"nombre_negocio")'>{{solicitudVenta.nombre_negocio}}</td>
                                             <td md-cell="md-cell" ng-click='vm.editVenta($event,solicitudVenta,"direccion")'>{{solicitudVenta.direccion}}</td>
