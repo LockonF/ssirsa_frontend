@@ -125,7 +125,7 @@
                                                     </div>
                                                 </md-input-container>
                                             </td>
-                                            <td md-cell="md-cell" ng-if="!vm.isClient">
+                                            <td md-cell="md-cell" ng-if="!vm.isClient" >
                                                 <md-input-container>
                                                     <md-icon md-font-icon="zmdi zmdi-calendar"></md-icon>
 
@@ -193,7 +193,7 @@
                                             </th>
                                             <th md-column="md-column" md-order-by="contacto_negocio"><span translate="SEARCH_REQUEST.FORM.LABEL.CONTACTO_NEGOCIO"></span>
                                             </th>
-                                            <th md-column="md-column" md-order-by="fecha_atencion"><span translate="SEARCH_REQUEST.FORM.LABEL.FECHAATE"></span>
+                                            <th md-column="md-column" md-order-by="fecha_atencion" ng-if="!vm.isClient"><span translate="SEARCH_REQUEST.FORM.LABEL.FECHAATE"></span>
                                             </th>
                                             <!-- Cuerpo de la tabla-->
                                         </tr>
