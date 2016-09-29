@@ -18,6 +18,8 @@
         vm.event = event;
         vm.okClick = okClick;
         vm.selectedColor = null;
+        vm.minDate=moment();
+        vm.maxDate=moment().add(1,'y');
         // create start and end date of event
         //vm.atendida=moment();
         vm.start =moment(event.solicitud.fecha_inicio,"YYYY-MM-DD").toDate();

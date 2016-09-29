@@ -28,6 +28,14 @@
                 <p translate flex hide-xs>{{'CALENDAR.FORM.LABEL.DATE_END'|translate}}</p>
                 <md-datepicker ng-model="vm.end" md-placeholder="{{'CALENDAR.FORM.LABEL.DATE_END'|translate}}"></md-datepicker>
             </div>
+            <md-input-container class="md-block">
+                <!--<mdpDateTimePikcer-->
+                <mdp-date-picker mdp-open-on-click required name="dateFormat" mdp-placeholder="My date(dd/mm/yyyy)" mdp-format="DD/MM/YYYY" ng-model="currentDate">
+
+                <!--<input type="text" ng-model="test" mdp-date-time-pikcer  datetime-format="DD/MM/YYYY" min-date="vm.minDate" max-date="vm.maxDate"/>-->
+                <!--<mdp-date-picker mdp-open-on-click required name="dateFormat" mdp-placeholder="My date(dd/mm/yyyy)" mdp-format="DD/MM/YYYY" ng-model="currentDate">-->
+            </md-input-container>
+            <md-input-container class="md-block"><mdp-date-picker mdp-open-on-click required name="dateFormat" mdp-placeholder="My date(dd/mm/yyyy)" mdp-format="DD/MM/YYYY" ng-model="currentDate"></md-input-container>
             <!--<div class="event-dialog-input-row" layout="row" layout-align="start center">
                 <p translate flex hide-xs>{{'CALENDAR.FORM.LABEL.DATE_TERMINATE'|translate}}</p>
                 <sm-date-time-picker
