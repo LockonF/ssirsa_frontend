@@ -9,7 +9,7 @@
         .module('app.mainApp.tecnico')
         .controller('etapaController', etapaController);
 
-    function etapaController(Cabinet, Servicios, $mdDialog, CatalogoInsumo, Insumo, Translate, toastr, OPTIONS) {
+    function etapaController(Cabinet, Servicios, $mdDialog, CatalogoInsumo, $scope,Insumo, Translate, toastr, OPTIONS) {
         var vm = this;
         vm.activate = activate();
 
@@ -107,11 +107,10 @@
                                     notifyError(res.status);
                                 })
                                 vm.insumos = vm.etapaActual.insumos;
-                                console.log(vm.etapaActual.actual_etapa);
-                                console.log(typeof(vm.etapaActual.actual_etapa));
-                                if ((vm.etapaActual.actual_etapa == 'EC') || (vm.etapaActual.actual_etapa == 'ED'))
+
+                                if ((vm.etapaActual.actual_etapa == 'EC') || (vm.etapaActual.actual_etapa == 'ED')|| (vm.etapaActual.actual_etapa == 'EO'))
                                 {
-                                   
+
                                     vm.showInsumosSection = false;
                                 }
                                 else
@@ -190,6 +189,8 @@
                 vm.insumo.nombre = vm.catalogoSelected.descripcion;
 
                 add();
+                $scope.insumoFormEtapa.$setPristine();
+                $scope.insumoFormEtapa.$setUntouched();
 
             }
 
@@ -234,6 +235,9 @@
                 siguiente_etapa: ''
 
             };
+            $scope.insumoFormEtapa.$setPristine();
+            $scope.insumoFormEtapa.$setUntouched();
+            
             vm.showInsumosSection = true;
             vm.catalogoInsumos = null;
             vm.editable = true;
