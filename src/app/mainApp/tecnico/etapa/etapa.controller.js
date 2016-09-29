@@ -92,6 +92,16 @@
                                 if (vm.etapaActual.insumos === undefined) {
                                     vm.etapaActual.insumos = [];
                                 }
+                                promise = Servicios.consultarAllInsumosCabinetEtapa(vm.etapaActual);
+                                promise.then(function (res) {
+
+                                    vm.insumos=res;
+                                    
+
+
+                                }).catch(function(res){
+                                    notifyError(res.status);
+                                })
                                 vm.insumos = vm.etapaActual.insumos;
                             }
                             else {
@@ -303,12 +313,11 @@
 
         function eliminarInsumo(insu) {
             var index;
+            //var Insumos=[];
 
             for (index = 0; index < vm.insumos.length; ++index) {
                 if (vm.insumos[index].id == insu.id) {
-
-                    vm.Requisitos.splice(index, 1);
-
+                    vm.insumos.splice(index, 1);
                 }
                 else {
                     notifyError(404);

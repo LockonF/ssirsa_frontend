@@ -110,7 +110,7 @@
                 </md-content>
             </md-tab>
 
-            <md-tab label="Insumos de la Etapa">
+            <md-tab label="Insumos de la Etapa" ng-show="vm.etapa.actual_etapa!=ED">
                 <md-content class="md-padding">
                     <div layout="row">
                         <md-input-container flex="25">
@@ -122,11 +122,11 @@
                         </md-input-container>
                         <md-input-container flex="15">
                             <label translate>ETAPA_SERVICIO.CANTITY</label>
-                            <input type="number" ng-model="vm.insumo.cantidad" ng-disabled="vm.editable"/>
+                            <input type="number" ng-model="vm.insumo.cantidad" ng-disabled="vm.editable" required max="{{vm.catalogoSelected.cantidad}}"/>
                         </md-input-container>
                         <md-input-container flex="50">
                             <label translate>ETAPA_SERVICIO.NOTES</label>
-                            <input type="text" ng-model="vm.insumo.notas" ng-disabled="vm.editable"/>
+                            <input type="text" ng-model="vm.insumo.notas" ng-disabled="vm.editable" required maxlength="45" minlength="2"/>
                         </md-input-container>
                         <md-input-container flex="10">
                             <md-button class="md-primary md-raised" aria-label="raised button"
