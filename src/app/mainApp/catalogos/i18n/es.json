@@ -190,7 +190,8 @@
     },
     "Errors": {
       "Required": "El campo es requerido",
-      "Not_Found":"Cliente no encontrado"
+      "Not_Found":"Cliente no encontrado",
+      "PhoneError":"El campo de teléfono debe contener 10 caracteres numéricos"
     },
     "Notify": {
       "Error": "Error",
@@ -203,7 +204,7 @@
         "SUCCESS_REMOVING_CLIENT": "Cliente eliminado correctamente",
         "ERROR_REMOVING_CLIENT": "Error al eliminar cliente",
         "SUCCESS_UPDATING_CLIENT": "Cliente actualizado correctamente",
-        "ERROR_UPDATING_CLIENT": "Error al eliminar cliente"
+        "ERROR_UPDATING_CLIENT": "Error al actualizar cliente"
       }
     }
   }

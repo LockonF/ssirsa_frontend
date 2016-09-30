@@ -26,7 +26,7 @@
         }
 
         function modify(object){
-            return object.put();
+            return baseURL.all(object.id).customPUT(object);
         }
 
         function create(object){
@@ -34,7 +34,7 @@
         }
 
         function remove(object){
-            return object.remove();
+            return baseURL.customDELETE(object.id,null,{'content-type':'application/json'});
         }
 
         return service;

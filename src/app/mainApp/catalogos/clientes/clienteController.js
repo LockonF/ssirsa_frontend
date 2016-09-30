@@ -24,10 +24,7 @@
         vm.selectedItemChange=selectedItemChange;
         vm.clickCopy=clickCopy;
 
-        vm.clients = null;
-        vm.filteredClients = [];
-        vm.client = null;
-        vm.selectedClient=null;
+        
         vm.searchParameter='';
         activate();
 
@@ -45,12 +42,15 @@
 
             vm.clients=Clientes.list();
             vm.filteredClients=vm.clients;
+            vm.client=null;
+            vm.selectedClient=null;
         }
 
         function create() {
             vm.client=vm.selectedClient;
             Clientes.create(vm.client).then(function(res){
                 toastr.success(vm.succesCreate,vm.successTitle);
+                vm.clear();
             }).catch(function(err){
                 toastr.error(vm.errorCreate,vm.errorTitle);
                 console.log(err);
@@ -61,23 +61,22 @@
             vm.client=vm.selectedClient;
             Clientes.modify(vm.client).then(function(res){
                 toastr.success(vm.successUpdate,vm.successTitle);
+                vm.clear();
             }).catch(function(err){
                 toastr.error(vm.errorUpdate,vm.errorTitle);
+                console.log(err);
             });
-            vm.clients=Clientes.getAll();
-            vm.filteredClients=vm.projects;
         }
 
         function remove() {
             vm.client=vm.selectedClient;
             Clientes.remove(vm.client).then(function(res){
                 toastr.succes(vm.successRemove,vm.successTitle);
+                vm.clear();
             }).catch(function(err){
                 toastr.error(vm.errorRemove,vm.errorTitle);
                 console.log(err);
             });
-            vm.clients=Clientes.getAll();
-            vm.filteredClients=vm.clients;
         }
 
         function search(text) {
@@ -92,16 +91,19 @@
             vm.selectedClient=null;
             $scope.formClient.$setPristine();
             $scope.formClient.$setUntouched();
+            $scope.formClient.$invalid=true;
         }
 
         function selectedItemChange(item) {
             vm.selectedClient = item;
+            vm.client=angular.copy(vm.selectedClient);
             $scope.formClient.$invalid=true;
+            console.log(item);
         }
 
         function clickCopy(item){
             vm.client=angular.copy(item);
-            vm.selectecClient=null;
+            vm.selectedClient=null;
         }
 
     }

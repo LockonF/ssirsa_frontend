@@ -10,28 +10,28 @@
 
     function Proyectos(Restangular) {
         var service = {
-            getAll: getAll,
-            put: put,
-            post: post,
+            list: list,
+            modify: modify,
+            create: create,
             remove: remove
         };
 
         var baseURL=Restangular.all('proyecto');
 
-        function getAll(){
+        function list(){
             return baseURL.getList().$object;
         }
 
-        function put(object){
+        function modify(object){
             return baseURL.all(object.id).customPUT(object);
         }
 
-        function post(object){
+        function create(object){
             return baseURL.post(object);
         }
 
         function remove(object){
-           return baseURL.customDELETE(object.id);
+            return baseURL.customDELETE(object.id,null,{'content-type':'application/json'});
         }
 
         return service;
