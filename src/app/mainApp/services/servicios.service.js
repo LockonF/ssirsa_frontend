@@ -30,7 +30,8 @@
             modificarInsumo:modificarInsumo,
             eliminarInsumo:eliminarInsumo,
             consultarInfoCabinet:consultarInfoCabinet,
-            consultarInsumobyNombre:consultarInsumobyNombre
+            consultarInsumobyNombre:consultarInsumobyNombre,
+            getCatalogoInsumoById:getCatalogoInsumoById
 
         };
 
@@ -40,7 +41,8 @@
             var deferred = $q.defer();
             //checar rutas :D
             Restangular.all('etapa_servicio').customPOST(etapa).then(function (res) {
-                deferred.resolve(res);
+
+                    deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(false);
                 console.log(err);
@@ -53,7 +55,6 @@
         function editarEtapaServicio(etapa) {
 
             var deferred = $q.defer();
-
             Restangular.one('etapa_servicio', etapa.id).customPUT(etapa).then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
@@ -81,7 +82,7 @@
 
         function consultarAllEtapaServicioDiagnostico(etapa) {
             var deferred = $q.defer();
-            //checar rutas :D
+
             Restangular.all('etapa_servicio').one('diagnostic', etapa.id).customGET().then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
@@ -95,7 +96,7 @@
 
         function consultarEtapaServicioDiagnostico(diagnostico) {
             var deferred = $q.defer();
-            //checar rutas :D
+
             Restangular.all('etapa_servicio').all('diagnostic').one('latest', diagnostico.id).customGET().then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
@@ -149,7 +150,7 @@
 
         function consultarAllInsumosCabinetEtapa(etapa) {
             var deferred = $q.defer();
-            Restangular.all('etapa_servicio').one('insumos', etapa.id).customGET(etapa.id).then(function (res) {
+            Restangular.all('etapa_servicio').one('insumos', etapa.id).customGET().then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);
@@ -233,7 +234,15 @@
             })
 
         }
+        function getCatalogoInsumoById(catalogo){
+            var deferred=$q.defer();
+            Restangular.one("catalogo_insumos",catalogo.id).customGet().then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            })
 
+        }
         function consultarInsumosEtapa(etapa) {
             var deferred = $q.defer();
             //checar rutas :D
@@ -242,6 +251,7 @@
             }).catch(function (err) {
                 deferred.reject(err);
             });
+
 
 
             return deferred.promise;

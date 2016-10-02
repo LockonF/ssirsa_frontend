@@ -129,6 +129,15 @@
                 templateUrl:'app/mainApp/catalogos/catalogo_insumo/catalogo_insumo.tmpl.html',
                 controller:'CatalogoInsumoController',
                 controllerAs:'vm'
+            })
+            .state('triangular.admin-default.catalogo-tipo-equipo',{
+                url:'/catalogo-tipo-equipo',
+                data: {
+                    roles: ['Administrador','Capturista']
+                },
+                templateUrl:'app/mainApp/catalogos/tipoEquipo/tipoEquipo.tmpl.html',
+                controller:'TipoEquipoController',
+                controllerAs:'vm'
             });
 
     }

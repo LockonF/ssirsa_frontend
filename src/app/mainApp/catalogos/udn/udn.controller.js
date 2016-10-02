@@ -50,7 +50,7 @@
 
         function listUdns()
         {
-            vm.udn_list = udn.newList()
+            vm.udn_list = udn.list()
         }
 
         function lookup(search_text){

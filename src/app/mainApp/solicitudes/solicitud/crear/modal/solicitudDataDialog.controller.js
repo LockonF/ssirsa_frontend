@@ -3,8 +3,10 @@
  */
 (function () {
     'use strict';
-    angular.module('app.mainApp').controller('solicitudDataDialogController',solicitudDataDialogController);
-    function solicitudDataDialogController($mdDialog,ModeloCabinet,OPTIONS)
+    angular
+        .module('app.mainApp')
+        .controller('solicitudDataDialogController',solicitudDataDialogController);
+    function solicitudDataDialogController($mdDialog,TipoEquipo,OPTIONS)
     {
         var vm = this;
         vm.status=OPTIONS.status_equipment;
@@ -13,12 +15,13 @@
         vm.tiposEquipo=null;
         activate();
         function activate(){
-            vm.tiposEquipo=ModeloCabinet.list();
+            vm.tiposEquipo=TipoEquipo.list();
         }
         function submit()
         {
             $mdDialog.hide(vm.object);
         }
+
         function cancel()
         {
             $mdDialog.cancel();

@@ -44,7 +44,8 @@
         "CONSUMABLE_CATALOG": "Catálogo de Insumos",
         "PROJECTS": "Proyectos",
         "CONSUMABLE_CATEGORY": "Categoría de Insumos",
-        "CLIENT": "Cliente"
+        "CLIENT": "Cliente",
+          "EQUIPMENT_TYPE": "Tipo de Equipo"
 
       },
       "INVENTORY":{
