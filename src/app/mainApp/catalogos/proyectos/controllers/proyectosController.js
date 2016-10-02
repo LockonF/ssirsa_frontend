@@ -20,11 +20,7 @@
         vm.clear = clear;
         vm.selectedItemChange=selectedItemChange;
         vm.clickCopy=clickCopy;
-
-        vm.projects = null;
-        vm.filteredProjects = [];
-        vm.project = null;
-        vm.selectedProject=null;
+        
         vm.searchParameter='';
         activate();
 
@@ -39,8 +35,11 @@
             vm.successRemove=Translate.translate('Projects.Notify.Messages.SUCCESS_REMOVING_PROJECT');
             vm.errorUpdate=Translate.translate('Projects.Notify.Messages.ERROR_UPDATING_PROJECT');
             vm.successUpdate=Translate.translate('Projects.Notify.Messages.SUCCESS_UPDATING_PROJECT');
-            vm.projects=Proyectos.getAll();
+
+            vm.projects=Proyectos.list();
             vm.filteredProjects=vm.projects;
+            vm.project=null;
+            vm.selectedProject=null;
         }
 
         function create() {

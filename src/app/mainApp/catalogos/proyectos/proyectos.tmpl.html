@@ -21,10 +21,13 @@
                         md-search-text-change="vm.search(vm.searchParameter)"
                         md-search-text="vm.searchParameter"
                         md-item-text="item.descripcion"
-                        md-min-length="0"
+                        md-min-length="1"
                         md-floating-label="{{'Projects.Fields.Search'|translate}}">
                     <md-item-template>
-                            <span>{{item.descripcion}}</span>
+                            <span class="item-title">
+                            <md-icon md-font-icon="fa fa-folder"></md-icon>
+                            <span>&nbsp; {{item.descripcion}}</span>
+                        </span>
                     </md-item-template>
                     <md-not-found><span translate="Projects.Errors.Not_Found"></span></md-not-found>
                 </md-autocomplete>

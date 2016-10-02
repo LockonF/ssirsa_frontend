@@ -26,10 +26,12 @@
                                      md-floating-label="{{'TRANSPORT_LINE.FORM.PLACEHOLDER.SEARCH_TRANSPORT_LINE'| translate }}">
                         <span
                             md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.razon_social}}</span>
-                        <md-item-template><span class="item-title">
-                        <md-icon md-font-icon="fa fa-briefcase"></md-icon>
-                        <span>&nbsp; {{item.razon_social}}</span>
-                        </span><span class="item-metadata">
+                        <md-item-template>
+                        <span class="item-title">
+                            <md-icon md-font-icon="fa fa-briefcase"></md-icon>
+                            <span>&nbsp; {{item.razon_social}}</span>
+                        </span>
+                        <span class="item-metadata">
                             <span class="item-metastat">
                                 <strong>{{item.responsable }}</strong>
                             </span>
