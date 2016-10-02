@@ -29,7 +29,7 @@
             "direccion": null,
             "telefono": null,
             "contacto_negocio": null,
-            "fecha_inicio": new Date(),
+            "fecha_atencion": new Date(),
             "udn": null,
             "created_at": new Date(),
             "updated_at": new Date()
@@ -60,7 +60,8 @@
             vm.udns = udn.list();
             vm.personas = PersonaCapturista.list();
             vm.tiposEquipo=TipEquipo.list();
-
+            vm.isClient = Session.userRole === 'Cliente';
+            vm.requisitoVenta.fecha_atencion=moment();
         }
         function showCreateDialog(event) {
             var config = {
@@ -96,7 +97,7 @@
             vm.udn = null;
             vm.persona = null;
             vm.isClient = Session.userRole === 'Cliente';
-            vm.requisitoVenta.fecha_inicio=moment();
+            vm.requisitoVenta.fecha_atencion=moment();
         }
 
         function guardarSolicitudAdmin() {
@@ -160,7 +161,7 @@
             });
         }
         function guardarSolicitudVenta() {
-            vm.requisitoVenta.fecha_inicio = moment(vm.requisitoVenta.fecha_inicio).format('YYYY-MM-DD');
+            vm.requisitoVenta.fecha_atencion = moment(vm.requisitoVenta.fecha_atencion).format('YYYY-MM-DD');
             vm.requisitoVenta.created_at = moment(vm.requisitoVenta.created_at).format('YYYY-MM-DD');
             vm.requisitoVenta.updated_at = moment(vm.requisitoVenta.updated_at).format('YYYY-MM-DD');
             vm.requisitoVenta.udn = vm.udn;
