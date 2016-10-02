@@ -102,6 +102,10 @@
       "PHONE_REGEX": "El campo debe tener un formato (xx)xxxxxxxx",
       "PATTERN_EMAIL_FIELD": "El campo debe ser un correo electrónico",
       "PATTERN_RFC_FIELD": "El campo debe tener formato RFC"
+    },
+    "DIALOG":{
+      "DELETE_TITLE":"Confirmación de eliminación",
+      "DELETE_MESSAGE":"¿Seguro que desea eliminar este elemento?"
     }
   }
 

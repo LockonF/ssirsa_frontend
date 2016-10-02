@@ -8,7 +8,7 @@
         .module('app.mainApp.catalogos')
         .controller('proyectosController', proyectosController);
 
-    function proyectosController(Proyectos, toastr, $scope, Translate) {
+    function proyectosController(Proyectos, toastr, $scope, Translate, $mdDialog) {
         var vm = this;
 
 
@@ -19,13 +19,7 @@
         vm.search = search;
         vm.clear = clear;
         vm.selectedItemChange=selectedItemChange;
-        vm.clickCopy=clickCopy;
-
-        vm.projects = null;
-        vm.filteredProjects = [];
-        vm.project = null;
-        vm.selectedProject=null;
-        vm.searchParameter='';
+        
         activate();
 
         function activate() {
@@ -39,48 +33,57 @@
             vm.successRemove=Translate.translate('Projects.Notify.Messages.SUCCESS_REMOVING_PROJECT');
             vm.errorUpdate=Translate.translate('Projects.Notify.Messages.ERROR_UPDATING_PROJECT');
             vm.successUpdate=Translate.translate('Projects.Notify.Messages.SUCCESS_UPDATING_PROJECT');
-            vm.projects=Proyectos.getAll();
+            vm.deleteButton=Translate.translate('MAIN.BUTTONS.DELETE');
+            vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
+            vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
+            vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
+
+            vm.searchParameter='';
+            vm.projects=Proyectos.list();
             vm.filteredProjects=vm.projects;
+            vm.project=null;
         }
 
         function create() {
             Proyectos.post(vm.project).then(function(res){
                 toastr.success(vm.succesCreate,vm.successTitle);
-                vm.selectedProject=null;
-                vm.projects=Proyectos.getAll();
-                vm.filteredProjects=vm.projects;
-                $scope.formProject.$setPristine();
-                $scope.formProject.$setUntouched();
+                vm.clear();
+                activate();
             }).catch(function(err){
                 toastr.error(vm.errorCreate,vm.errorTitle);
+                console.log(err);
             });
         }
 
         function update() {
             Proyectos.put(vm.project).then(function(res){
                 toastr.success(vm.successUpdate,vm.successTitle);
-                vm.selectedProject=null;
-                vm.projects=Proyectos.getAll();
-                vm.filteredProjects=vm.projects;
-                $scope.formProject.$setPristine();
-                $scope.formProject.$setUntouched();
+                vm.clear();
+                activate();
             }).catch(function(err){
                 toastr.error(vm.errorUpdate,vm.errorTitle);
+                console.log(err);
             });
         }
 
         function remove() {
-            Proyectos.remove(vm.project).then(function(res){
-                toastr.success(vm.successRemove,vm.successTitle);
-                $scope.formProject.$setPristine();
-                $scope.formProject.$setUntouched();
-                vm.projects=Proyectos.getAll();
-                vm.filteredProjects=vm.projects;
-                vm.selectedProject=null;
-                vm.project=null;
-            }).catch(function(err){
-                toastr.error(vm.errorRemove,vm.errorTitle);
-                console.log(err);
+            var confirm = $mdDialog.confirm()
+                .title(vm.dialogTitle)
+                .textContent(vm.dialogMessage)
+                .ariaLabel('Confirmar eliminación')
+                .ok(vm.deleteButton)
+                .cancel(vm.cancelButton);
+            $mdDialog.show(confirm).then(function() {
+                Proyectos.remove(vm.project).then(function (res) {
+                    toastr.success(vm.successRemove, vm.successTitle);
+                    vm.clear();
+                    activate();
+                }).catch(function (err) {
+                    toastr.error(vm.errorRemove, vm.errorTitle);
+                    console.log(err);
+                });
+            }, function (){
+                //Cancelled
             });
         }
 
@@ -92,23 +95,20 @@
         }
 
         function clear() {
-            vm.project = null;
-            vm.selectedProject=null;
             $scope.formProject.$setPristine();
             $scope.formProject.$setUntouched();
             $scope.formProject.$invalid=true;
+            vm.searchParameter='';
+            vm.filteredProjects=vm.projects;
+            vm.project=null;
         }
 
         function selectedItemChange(item) {
-            vm.selectedProject = item;
-            vm.project=angular.copy(vm.selectedProject);
+            vm.searchParameter='';
+            vm.project=angular.copy(item);
             $scope.formProject.$invalid=true;
         }
 
-        function clickCopy(item){
-            vm.project=angular.copy(item);
-            vm.selectedProject=null;
-        }
 
     }
 
