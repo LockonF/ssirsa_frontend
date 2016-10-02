@@ -22,10 +22,7 @@
         vm.search = search;
         vm.clear = clear;
         vm.selectedItemChange=selectedItemChange;
-        vm.clickCopy=clickCopy;
 
-        
-        vm.searchParameter='';
         activate();
 
         function activate() {
@@ -40,14 +37,26 @@
             vm.errorUpdate=Translate.translate('Clients.Notify.Messages.ERROR_UPDATING_CLIENT');
             vm.successUpdate=Translate.translate('Clients.Notify.Messages.SUCCESS_UPDATING_CLIENT');
 
+            vm.searchParameter='';
             vm.clients=Clientes.list();
             vm.filteredClients=vm.clients;
-            vm.client=null;
-            vm.selectedClient=null;
+            vm.client={
+                "nombre": "",
+                "apellido_paterno": "",
+                "apellido_materno": "",
+                "direccion": "",
+                "telefono": "",
+                "user": {}
+            };
+            //vm.selectedClient=null;
+            Clientes.getClienteId().then(function(res){
+                vm.role=res[0].id;
+            });
+
         }
 
         function create() {
-            vm.client=vm.selectedClient;
+            vm.client.user.role=vm.role;
             Clientes.create(vm.client).then(function(res){
                 toastr.success(vm.succesCreate,vm.successTitle);
                 vm.clear();
@@ -58,7 +67,7 @@
         }
 
         function update() {
-            vm.client=vm.selectedClient;
+            vm.client.user.role=vm.role;
             Clientes.modify(vm.client).then(function(res){
                 toastr.success(vm.successUpdate,vm.successTitle);
                 vm.clear();
@@ -69,9 +78,8 @@
         }
 
         function remove() {
-            vm.client=vm.selectedClient;
             Clientes.remove(vm.client).then(function(res){
-                toastr.succes(vm.successRemove,vm.successTitle);
+                toastr.success(vm.successRemove,vm.successTitle);
                 vm.clear();
             }).catch(function(err){
                 toastr.error(vm.errorRemove,vm.errorTitle);
@@ -87,25 +95,20 @@
         }
 
         function clear() {
-            vm.client = null;
-            vm.selectedClient=null;
+            activate();
+            $scope.formClient.$invalid=true;
             $scope.formClient.$setPristine();
             $scope.formClient.$setUntouched();
-            $scope.formClient.$invalid=true;
         }
 
         function selectedItemChange(item) {
-            vm.selectedClient = item;
-            vm.client=angular.copy(vm.selectedClient);
-            $scope.formClient.$invalid=true;
-            console.log(item);
-        }
-
-        function clickCopy(item){
+            //vm.selectedClient = item;
+            //vm.client=angular.copy(vm.selectedClient);
             vm.client=angular.copy(item);
-            vm.selectedClient=null;
+            $scope.formClient.$invalid=true;
         }
 
+        
     }
 
 })();

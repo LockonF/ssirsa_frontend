@@ -191,7 +191,8 @@
     "Errors": {
       "Required": "El campo es requerido",
       "Not_Found":"Cliente no encontrado",
-      "PhoneError":"El campo de teléfono debe contener 10 caracteres numéricos"
+      "PhoneError":"El campo de teléfono debe contener 10 caracteres numéricos",
+      "EmailError":"Ingrese un email valido"
     },
     "Notify": {
       "Error": "Error",

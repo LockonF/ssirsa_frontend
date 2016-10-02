@@ -16,7 +16,8 @@
             list: list,
             modify: modify,
             create: create,
-            remove: remove
+            remove: remove,
+            getClienteId: getClienteId
         };
 
         var baseURL=Restangular.all('persona_capturista');
@@ -35,6 +36,10 @@
 
         function remove(object){
             return baseURL.customDELETE(object.id,null,{'content-type':'application/json'});
+        }
+
+        function getClienteId(){
+            return Restangular.all('cliente_groups').customGET();
         }
 
         return service;
