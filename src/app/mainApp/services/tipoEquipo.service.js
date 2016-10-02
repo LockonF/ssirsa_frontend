@@ -6,14 +6,14 @@
 
     angular
         .module('app.mainApp')
-        .factory('TipEquipo',TipEquipo);
+        .factory('TipoEquipo',TipoEquipo);
 
-    function TipEquipo(Restangular){
+    function TipoEquipo(Restangular){
         var baseURL=Restangular.all('tipo_equipo');
          return {
             list: list,
-            put: put,
-            post: post,
+            update: update,
+            create: create,
             remove: remove
         };
 
@@ -23,16 +23,16 @@
             return baseURL.getList().$object;
         }
 
-        function put(object){
+        function update(object){
             return baseURL.all(object.id).customPUT(object);
         }
 
-        function post(object){
+        function create(object){
             return baseURL.post(object);
         }
 
         function remove(object){
-            return baseURL.customDELETE(object.id);
+            return baseURL.customDELETE(object.id,null,{'content-type':'application/json'});
         }
 
     }

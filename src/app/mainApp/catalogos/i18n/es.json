@@ -133,7 +133,22 @@
         "NOT_FOUND": "No se encontró el modelo"
       }
     }
-  },
+  },"EQUIPMENT_TYPE": {
+    "FORM": {
+        "LABEL": {
+            "MODEL": "Tipo de Equipo",
+            "NAME": "Nombre",
+            "DESCRIPTION": "Descripción",
+            "KEYWORD": "Palabra clave",
+            "INFO_MODEL": "Información de Tipo de Equipo",
+            "NEW_REGISTER": "Registro de Tipo de Equipo"
+        },
+        "PLACEHOLDER": {
+            "SEARCH_BRANCH": "Busca tu tipo de equipo",
+            "NOT_FOUND": "No se encontró el tipo de equipo"
+        }
+    }
+},
   "Transport_Kind": {
     "title": "Tipo de Transporte",
     "info": "Información de tipo de transporte",
