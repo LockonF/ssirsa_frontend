@@ -11,7 +11,7 @@
         .module('app.mainApp.catalogos')
         .controller('clienteController', clienteController);
 
-    function clienteController(Clientes, toastr, $scope, Translate) {
+    function clienteController(Clientes, toastr, $scope, Translate, $mdDialog) {
         var vm = this;
 
 
@@ -22,13 +22,7 @@
         vm.search = search;
         vm.clear = clear;
         vm.selectedItemChange=selectedItemChange;
-        vm.clickCopy=clickCopy;
 
-        vm.clients = null;
-        vm.filteredClients = [];
-        vm.client = null;
-        vm.selectedClient=null;
-        vm.searchParameter='';
         activate();
 
         function activate() {
@@ -42,15 +36,35 @@
             vm.successRemove=Translate.translate('Clients.Notify.Messages.SUCCESS_REMOVING_CLIENT');
             vm.errorUpdate=Translate.translate('Clients.Notify.Messages.ERROR_UPDATING_CLIENT');
             vm.successUpdate=Translate.translate('Clients.Notify.Messages.SUCCESS_UPDATING_CLIENT');
+            vm.deleteButton=Translate.translate('MAIN.BUTTONS.DELETE');
+            vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
+            vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
+            vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
 
+            vm.searchParameter='';
             vm.clients=Clientes.list();
             vm.filteredClients=vm.clients;
+            vm.client={
+                "nombre": "",
+                "apellido_paterno": "",
+                "apellido_materno": "",
+                "direccion": "",
+                "telefono": "",
+                "user": {}
+            };
+            //vm.selectedClient=null;
+            Clientes.getClienteId().then(function(res){
+                vm.role=res[0].id;
+            });
+
         }
 
         function create() {
-            vm.client=vm.selectedClient;
+            vm.client.user.role=vm.role;
             Clientes.create(vm.client).then(function(res){
                 toastr.success(vm.succesCreate,vm.successTitle);
+                vm.clear();
+                activate();
             }).catch(function(err){
                 toastr.error(vm.errorCreate,vm.errorTitle);
                 console.log(err);
@@ -58,26 +72,36 @@
         }
 
         function update() {
-            vm.client=vm.selectedClient;
+            vm.client.user.role=vm.role;
             Clientes.modify(vm.client).then(function(res){
                 toastr.success(vm.successUpdate,vm.successTitle);
+                vm.clear();
+                activate();
             }).catch(function(err){
                 toastr.error(vm.errorUpdate,vm.errorTitle);
+                console.log(err);
             });
-            vm.clients=Clientes.getAll();
-            vm.filteredClients=vm.projects;
         }
 
         function remove() {
-            vm.client=vm.selectedClient;
-            Clientes.remove(vm.client).then(function(res){
-                toastr.succes(vm.successRemove,vm.successTitle);
-            }).catch(function(err){
-                toastr.error(vm.errorRemove,vm.errorTitle);
-                console.log(err);
+            var confirm = $mdDialog.confirm()
+                .title(vm.dialogTitle)
+                .textContent(vm.dialogMessage)
+                .ariaLabel('Confirmar eliminación')
+                .ok(vm.deleteButton)
+                .cancel(vm.cancelButton);
+            $mdDialog.show(confirm).then(function() {
+                Clientes.remove(vm.client).then(function (res) {
+                    toastr.success(vm.successRemove, vm.successTitle);
+                    vm.clear();
+                    activate();
+                }).catch(function (err) {
+                    toastr.error(vm.errorRemove, vm.errorTitle);
+                    console.log(err);
+                });
+            },function(){
+                //Cancelled
             });
-            vm.clients=Clientes.getAll();
-            vm.filteredClients=vm.clients;
         }
 
         function search(text) {
@@ -88,22 +112,30 @@
         }
 
         function clear() {
-            vm.client = null;
-            vm.selectedClient=null;
+            $scope.formClient.$invalid=true;
             $scope.formClient.$setPristine();
             $scope.formClient.$setUntouched();
+            vm.searchParameter='';
+            vm.filteredClients=vm.clients;
+            vm.client={
+                "nombre": "",
+                "apellido_paterno": "",
+                "apellido_materno": "",
+                "direccion": "",
+                "telefono": "",
+                "user": {}
+            };
         }
 
         function selectedItemChange(item) {
-            vm.selectedClient = item;
+            //vm.selectedClient = item;
+            //vm.client=angular.copy(vm.selectedClient);
+            vm.searchParameter='';
+            vm.client=angular.copy(item);
             $scope.formClient.$invalid=true;
         }
 
-        function clickCopy(item){
-            vm.client=angular.copy(item);
-            vm.selectecClient=null;
-        }
-
+        
     }
 
 })();
