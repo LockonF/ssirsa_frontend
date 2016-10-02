@@ -25,7 +25,7 @@
                            name="status_equipment"
                            placeholder="{{'MODAL_REQUEST.FORM.PLACEHOLDER.STATUS_EQUIPMENT'|translate}}"
                            required='required'>
-                    <md-option ng-repeat="status in vm.status" ng-value="status.id">{{status.value}}
+                    <md-option ng-repeat="status in vm.status" ng-value="status.value">{{status.value}}
                     </md-option>
                 </md-select>
                 <div ng-messages="objectForm.status_equipment.$error">
@@ -34,10 +34,9 @@
             </md-input-container>
             <md-input-container>
                 <label>{{'MODAL_REQUEST.FORM.LABEL.TYPE_EQUIPMENT'|translate}}</label>
-                <md-select ng-model="vm.object.modelo_cabinet" required="required" name="equipment"
+                <md-select ng-model="vm.object.tipo_equipo" required="required" name="equipment"
                            placeholder="{{'MODAL_REQUEST.FORM.PLACEHOLDER.TYPE_EQUIPMENT'|translate}}">
-                    <md-option ng-repeat="tipoEquipo in vm.tiposEquipo" ng-value="tipoEquipo.id">{{tipoEquipo.nombre}} -
-                        {{tipoEquipo.tipo}}
+                    <md-option ng-repeat="tipoEquipo in vm.tiposEquipo" ng-value="tipoEquipo.id">{{tipoEquipo.nombre}}
                     </md-option>
                 </md-select>
                 <div ng-messages="objectForm.equipment.$error">

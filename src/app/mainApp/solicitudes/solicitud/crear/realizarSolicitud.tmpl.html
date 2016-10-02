@@ -172,18 +172,18 @@
                                                     <td md-cell="md-cell"
                                                         ng-click='vm.edit($event,dato,"status_equipo")'>
                                                         <md-select aria-label="fab button" ng-model="dato.status_equipo">
-                                                            <md-option ng-repeat="status in vm.status"
-                                                                       ng-value="status.id">{{status.value}}
+                                                            <md-option ng-repeat="status in vm.status_equipment"
+                                                                       ng-value="status.value">{{status.value}}
                                                             </md-option>
                                                         </md-select>
                                                     </td>
                                                     <td md-cell="md-cell"
                                                         ng-click='vm.edit($event,dato,"modelo_cabinet")'>
-                                                        <md-select aria-label="fab button"  ng-model="dato.modelo_cabinet">
+                                                        <md-select aria-label="fab button"  ng-model="dato.tipo_equipo">
                                                             <md-option
                                                                 ng-repeat="tipoEquipo in vm.tiposEquipo"
                                                                 ng-value="tipoEquipo.id">
-                                                                {{tipoEquipo.nombre}} - {{tipoEquipo.tipo}}
+                                                                {{tipoEquipo.nombre}}
                                                             </md-option>
                                                         </md-select>
                                                     </td>

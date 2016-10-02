@@ -6,7 +6,7 @@
         .module('app.mainApp.solicitudes')
         .controller('realizarSolicitudController', realizarSolicitudController);
 
-    function realizarSolicitudController(OPTIONS, udn,ModeloCabinet,$mdEditDialog, $mdDialog, Translate,toastr, Solicitudes, Solicitud_Servicio, Solicitudes_Admin, PersonaCapturista, Session, Socket,$scope) {
+    function realizarSolicitudController(OPTIONS, udn,TipEquipo,$mdEditDialog, $mdDialog, Translate,toastr, Solicitudes, Solicitud_Servicio, Solicitudes_Admin, PersonaCapturista, Session, Socket,$scope) {
         var vm = this;
 
         var requisito = {
@@ -60,7 +60,7 @@
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
             vm.udns = udn.list();
             vm.personas = PersonaCapturista.list();
-            vm.tiposEquipo=ModeloCabinet.list();
+            vm.tiposEquipo=TipEquipo.list();
             vm.isClient = Session.userRole == 'Cliente';
         }
         function showCreateDialog(event) {
@@ -140,6 +140,7 @@
 
 
             }).catch(function (res) {
+
                 toastr.error(vm.errorMessage, vm.errorTitle);
             })
         }
