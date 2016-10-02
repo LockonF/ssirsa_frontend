@@ -11,7 +11,7 @@
         .module('app.mainApp.catalogos')
         .controller('clienteController', clienteController);
 
-    function clienteController(Clientes, toastr, $scope, Translate) {
+    function clienteController(Clientes, toastr, $scope, Translate, $mdDialog) {
         var vm = this;
 
 
@@ -36,6 +36,10 @@
             vm.successRemove=Translate.translate('Clients.Notify.Messages.SUCCESS_REMOVING_CLIENT');
             vm.errorUpdate=Translate.translate('Clients.Notify.Messages.ERROR_UPDATING_CLIENT');
             vm.successUpdate=Translate.translate('Clients.Notify.Messages.SUCCESS_UPDATING_CLIENT');
+            vm.deleteButton=Translate.translate('MAIN.BUTTONS.DELETE');
+            vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
+            vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
+            vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
 
             vm.searchParameter='';
             vm.clients=Clientes.list();
@@ -60,6 +64,7 @@
             Clientes.create(vm.client).then(function(res){
                 toastr.success(vm.succesCreate,vm.successTitle);
                 vm.clear();
+                activate();
             }).catch(function(err){
                 toastr.error(vm.errorCreate,vm.errorTitle);
                 console.log(err);
@@ -71,6 +76,7 @@
             Clientes.modify(vm.client).then(function(res){
                 toastr.success(vm.successUpdate,vm.successTitle);
                 vm.clear();
+                activate();
             }).catch(function(err){
                 toastr.error(vm.errorUpdate,vm.errorTitle);
                 console.log(err);
@@ -78,12 +84,23 @@
         }
 
         function remove() {
-            Clientes.remove(vm.client).then(function(res){
-                toastr.success(vm.successRemove,vm.successTitle);
-                vm.clear();
-            }).catch(function(err){
-                toastr.error(vm.errorRemove,vm.errorTitle);
-                console.log(err);
+            var confirm = $mdDialog.confirm()
+                .title(vm.dialogTitle)
+                .textContent(vm.dialogMessage)
+                .ariaLabel('Confirmar eliminación')
+                .ok(vm.deleteButton)
+                .cancel(vm.cancelButton);
+            $mdDialog.show(confirm).then(function() {
+                Clientes.remove(vm.client).then(function (res) {
+                    toastr.success(vm.successRemove, vm.successTitle);
+                    vm.clear();
+                    activate();
+                }).catch(function (err) {
+                    toastr.error(vm.errorRemove, vm.errorTitle);
+                    console.log(err);
+                });
+            },function(){
+                //Cancelled
             });
         }
 
@@ -95,15 +112,25 @@
         }
 
         function clear() {
-            activate();
             $scope.formClient.$invalid=true;
             $scope.formClient.$setPristine();
             $scope.formClient.$setUntouched();
+            vm.searchParameter='';
+            vm.filteredClients=vm.clients;
+            vm.client={
+                "nombre": "",
+                "apellido_paterno": "",
+                "apellido_materno": "",
+                "direccion": "",
+                "telefono": "",
+                "user": {}
+            };
         }
 
         function selectedItemChange(item) {
             //vm.selectedClient = item;
             //vm.client=angular.copy(vm.selectedClient);
+            vm.searchParameter='';
             vm.client=angular.copy(item);
             $scope.formClient.$invalid=true;
         }

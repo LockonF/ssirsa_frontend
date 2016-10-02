@@ -147,14 +147,6 @@
       "Search": "Busqueda de proyectos",
       "Information": "Informacion del Proyecto"
     },
-    "Buttons": {
-      "Send": "Enviar",
-      "Cancel": "Cancelar",
-      "Clean": "Limpiar",
-      "Accept": "Aceptar",
-      "Delete": "Eliminar",
-      "Update": "Actualizar"
-    },
     "Errors": {
       "Required": "El campo es requerido",
       "Not_Found":"Proyecto no encontrado"
@@ -194,6 +186,7 @@
       "PhoneError":"El campo de teléfono debe contener 10 caracteres numéricos",
       "EmailError":"Ingrese un email valido"
     },
+
     "Notify": {
       "Error": "Error",
       "Success": "Éxito",
