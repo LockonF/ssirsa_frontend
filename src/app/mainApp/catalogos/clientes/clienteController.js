@@ -21,38 +21,33 @@
         vm.remove = remove;
         vm.search = search;
         vm.clear = clear;
-        vm.selectedItemChange=selectedItemChange;
+        vm.selectedItemChange = selectedItemChange;
+        vm.clickCopy = clickCopy;
+        vm.new=newClient;
+
+        vm.successTitle=Translate.translate('Clients.Notify.Success');
+        vm.errorTitle=Translate.translate('Clients.Notify.Error');
+        vm.warningTitle=Translate.translate('Clients.Notify.Warning');
+        vm.listErrorMessage=Translate.translate('Clients.Notify.Messages.ERROR_GETTING_CLIENTS');
+        vm.errorCreate=Translate.translate('Clients.Notify.Messages.ERROR_CREATING_CLIENT');
+        vm.succesCreate=Translate.translate('Clients.Notify.Messages.SUCCESS_CREATING_CLIENT');
+        vm.errorRemove=Translate.translate('Clients.Notify.Messages.ERROR_REMOVING_CLIENT');
+        vm.successRemove=Translate.translate('Clients.Notify.Messages.SUCCESS_REMOVING_CLIENT');
+        vm.errorUpdate=Translate.translate('Clients.Notify.Messages.ERROR_UPDATING_CLIENT');
+        vm.successUpdate=Translate.translate('Clients.Notify.Messages.SUCCESS_UPDATING_CLIENT');
+        vm.deleteButton=Translate.translate('MAIN.BUTTONS.DELETE');
+        vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
+        vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
+        vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
 
         activate();
-
+        vm.isNew=true;
         function activate() {
-            vm.successTitle=Translate.translate('Clients.Notify.Success');
-            vm.errorTitle=Translate.translate('Clients.Notify.Error');
-            vm.warningTitle=Translate.translate('Clients.Notify.Warning');
-            vm.listErrorMessage=Translate.translate('Clients.Notify.Messages.ERROR_GETTING_CLIENTS');
-            vm.errorCreate=Translate.translate('Clients.Notify.Messages.ERROR_CREATING_CLIENT');
-            vm.succesCreate=Translate.translate('Clients.Notify.Messages.SUCCESS_CREATING_CLIENT');
-            vm.errorRemove=Translate.translate('Clients.Notify.Messages.ERROR_REMOVING_CLIENT');
-            vm.successRemove=Translate.translate('Clients.Notify.Messages.SUCCESS_REMOVING_CLIENT');
-            vm.errorUpdate=Translate.translate('Clients.Notify.Messages.ERROR_UPDATING_CLIENT');
-            vm.successUpdate=Translate.translate('Clients.Notify.Messages.SUCCESS_UPDATING_CLIENT');
-            vm.deleteButton=Translate.translate('MAIN.BUTTONS.DELETE');
-            vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
-            vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
-            vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
 
             vm.searchParameter='';
             vm.clients=Clientes.list();
             vm.filteredClients=vm.clients;
-            vm.client={
-                "nombre": "",
-                "apellido_paterno": "",
-                "apellido_materno": "",
-                "direccion": "",
-                "telefono": "",
-                "user": {}
-            };
-            //vm.selectedClient=null;
+            vm.client=null;
             Clientes.getClienteId().then(function(res){
                 vm.role=res[0].id;
             });
@@ -64,11 +59,11 @@
             Clientes.create(vm.client).then(function(res){
                 toastr.success(vm.succesCreate,vm.successTitle);
                 vm.clear();
-                activate();
             }).catch(function(err){
                 toastr.error(vm.errorCreate,vm.errorTitle);
                 console.log(err);
             });
+            activate();
         }
 
         function update() {
@@ -76,11 +71,11 @@
             Clientes.modify(vm.client).then(function(res){
                 toastr.success(vm.successUpdate,vm.successTitle);
                 vm.clear();
-                activate();
             }).catch(function(err){
                 toastr.error(vm.errorUpdate,vm.errorTitle);
                 console.log(err);
             });
+            activate();
         }
 
         function remove() {
@@ -93,8 +88,8 @@
             $mdDialog.show(confirm).then(function() {
                 Clientes.remove(vm.client).then(function (res) {
                     toastr.success(vm.successRemove, vm.successTitle);
-                    vm.clear();
                     activate();
+                    vm.clear();
                 }).catch(function (err) {
                     toastr.error(vm.errorRemove, vm.errorTitle);
                     console.log(err);
@@ -112,30 +107,29 @@
         }
 
         function clear() {
-            $scope.formClient.$invalid=true;
             $scope.formClient.$setPristine();
             $scope.formClient.$setUntouched();
             vm.searchParameter='';
             vm.filteredClients=vm.clients;
-            vm.client={
-                "nombre": "",
-                "apellido_paterno": "",
-                "apellido_materno": "",
-                "direccion": "",
-                "telefono": "",
-                "user": {}
-            };
+            vm.client=null;
+            vm.isNew=false;
         }
 
         function selectedItemChange(item) {
-            //vm.selectedClient = item;
-            //vm.client=angular.copy(vm.selectedClient);
-            vm.searchParameter='';
-            vm.client=angular.copy(item);
-            $scope.formClient.$invalid=true;
+            //Requiered by the autocomplete control
+            vm.client.user.password="1234567a";
         }
 
+        function clickCopy(item) {
+            vm.client=angular.copy(item);
+            vm.client.user.password="1234567a";
+            $scope.formClient.$invalid=true;
+        }
         
+        function newClient(){
+            vm.clear();
+            vm.isNew=true;
+        }        
     }
 
 })();
