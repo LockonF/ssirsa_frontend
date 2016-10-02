@@ -6,7 +6,7 @@
     angular
         .module('app.mainApp')
         .controller('solicitudDataDialogController',solicitudDataDialogController);
-    function solicitudDataDialogController($mdDialog,TipEquipo,OPTIONS)
+    function solicitudDataDialogController($mdDialog,TipoEquipo,OPTIONS)
     {
         var vm = this;
         vm.status=OPTIONS.status_equipment;
@@ -15,7 +15,7 @@
         vm.tiposEquipo=null;
         activate();
         function activate(){
-            vm.tiposEquipo=TipEquipo.list();
+            vm.tiposEquipo=TipoEquipo.list();
         }
         function submit()
         {
