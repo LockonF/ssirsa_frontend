@@ -9,12 +9,12 @@
         .module('app.mainApp.tecnico')
         .controller('etapaController', etapaController);
 
-    function etapaController(Cabinet, Servicios, $mdDialog, CatalogoInsumo, Insumo, Translate, toastr, OPTIONS) {
+    function etapaController(Cabinet, Servicios, $mdDialog, CatalogoInsumo, $scope,Insumo, Translate, toastr, OPTIONS) {
         var vm = this;
         vm.activate = activate();
 
         //Inicializando Variables
-
+        $scope.form = {};
         vm.etapa = {
             diagnostico: '',
             validado: false,
@@ -65,6 +65,7 @@
         function activate() {
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
+            vm.notInsumos=Translate.translate('MAIN.MSG.ERROR_NOTINSUMOSTITLE');
             vm.successCreateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_CREATE');
             vm.successUpdateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_UPDATE');
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
@@ -107,11 +108,10 @@
                                     notifyError(res.status);
                                 })
                                 vm.insumos = vm.etapaActual.insumos;
-                                console.log(vm.etapaActual.actual_etapa);
-                                console.log(typeof(vm.etapaActual.actual_etapa));
-                                if ((vm.etapaActual.actual_etapa == 'EC') || (vm.etapaActual.actual_etapa == 'ED'))
+
+                                if ((vm.etapaActual.actual_etapa == 'EC') || (vm.etapaActual.actual_etapa == 'ED')|| (vm.etapaActual.actual_etapa == 'EO'))
                                 {
-                                   
+
                                     vm.showInsumosSection = false;
                                 }
                                 else
@@ -147,6 +147,10 @@
             var promise = CatalogoInsumo.getCatalogoByZone(vm.etapaActual.actual_etapa);
             promise.then(function (res) {
                 vm.catalogoInsumos = res;
+
+                if(_.size(vm.catalogoInsumos)==0){
+                    notifyError(900);
+                }
 
             }).catch(function (res) {
                 notifyError(res.status);
@@ -191,6 +195,7 @@
 
                 add();
 
+
             }
 
         }
@@ -211,9 +216,9 @@
                     break;
                 case 405:
                     toastr.warning(vm.notAllow, vm.errorTitle);
-                default:
-                    toastr.warning(vm.errorMessage, vm.errorTitle);
-                    break;
+                case 900:
+                    toastr.warning(vm.notInsumos, vm.errorMessage);
+
 
             }
         }
@@ -234,6 +239,8 @@
                 siguiente_etapa: ''
 
             };
+
+            
             vm.showInsumosSection = true;
             vm.catalogoInsumos = null;
             vm.editable = true;
@@ -250,6 +257,9 @@
                 cantidad: "",
                 notas: ""
             };// Insumo por agregar al cabinet en cuestion
+            $scope.insumoFormEtapa.$setPristine();
+            $scope.insumoFormEtapa.$setUntouched();
+
 
         }
 
@@ -313,7 +323,6 @@
             }
             vm.cancel();
         }
-
         function crearInsumo() {
             vm.buscarInsumosByCatalogo();
 
@@ -327,11 +336,16 @@
                 delete newInsumo['catalogo'];
                 vm.insumos.push(newInsumo);
 
+
             }
             else
                 notifyError(404);
             vm.catalogoSelected = null;
             vm.insumo = null;
+            $scope.form.insumoFormEtapa.$setPristine();
+            $scope.form.insumoFormEtapa.$setUntouched();
+
+
         }
 
         // Eliminar Insumo
