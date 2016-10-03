@@ -167,7 +167,7 @@
                         </div>
                         <div layout="row" layout-sm="column" layout-md="column" ng-show="vm.insumos.length!=0">
                             <md-table-container>
-                                <table md-table="" md-row-select="" ng-model="vm.insumos" flex="100">
+                                <table md-table="" md-row-select="vm.insumo" md-auto-select ng-model="vm.insumos" flex="100">
                                     <thead md-head="" md-order="vm.query.order">
                                     <tr md-row="md-row">
                                         <th md-column="md-column" md-order-by="nombre" flex="25"><span
