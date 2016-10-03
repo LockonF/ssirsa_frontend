@@ -60,7 +60,8 @@
 
         vm.isNew=true;
         function activate() {
-            //vm.searchParameter='';
+
+            vm.searchParameter='';
             vm.clients=Clientes.list();
             vm.filteredClients=vm.clients;
             vm.client=angular.copy(client);
@@ -129,14 +130,7 @@
             vm.client=angular.copy(client);
             vm.selectedClient=null;
             vm.isNew=false;
-            //vm.searchParameter='';
         }
-
-        /*function selectedItemChange(item) {
-            //Requiered by the autocomplete control
-            if(item!=null)
-                clickCopy(item);
-        }*/
 
         function clickCopy(item) {
             vm.selectedClient=item;

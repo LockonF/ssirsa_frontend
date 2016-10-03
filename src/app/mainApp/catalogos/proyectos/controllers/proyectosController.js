@@ -45,7 +45,7 @@
         }
 
         function create() {
-            Proyectos.post(vm.project).then(function(res){
+            Proyectos.create(vm.project).then(function(res){
                 toastr.success(vm.succesCreate,vm.successTitle);
                 vm.clear();
                 activate();
@@ -56,7 +56,7 @@
         }
 
         function update() {
-            Proyectos.put(vm.project).then(function(res){
+            Proyectos.modify(vm.project).then(function(res){
                 toastr.success(vm.successUpdate,vm.successTitle);
                 vm.clear();
                 activate();
@@ -104,7 +104,7 @@
         }
 
         function selectedItemChange(item) {
-            vm.searchParameter='';
+            //vm.searchParameter='';
             vm.project=angular.copy(item);
             $scope.formProject.$invalid=true;
         }
