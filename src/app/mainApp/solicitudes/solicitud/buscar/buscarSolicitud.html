@@ -63,9 +63,6 @@
                                         <tr md-row="md-row">
                                             <th md-column="md-column" md-order-by="id"><span translate="SEARCH_REQUEST.FORM.LABEL.FOLIO"></span>
                                             </th>
-                                            <!--th md-column="md-column" md-order-by="udn"><span translate="">UDN</span-->
-                                            <!--vm.requisito. -->
-                                            </th>
                                             <th md-column="md-column" md-order-by="fecha_inicio"><span translate="SEARCH_REQUEST.FORM.LABEL.FECHAINI"></span>
                                             </th>
                                             <th md-column="md-column" md-order-by="fecha_termino"><span translate="SEARCH_REQUEST.FORM.LABEL.FECHAFIN"></span>
@@ -84,65 +81,63 @@
                                         <tr md-row="md-row" flex=""
                                             ng-repeat="solicitud in vm.solicitudes | orderBy:vm.query.order | offset: (vm.query.page-1)*vm.query.limit | limitTo: vm.query.limit">
                                             <td md-cell="md-cell" >{{solicitud.id}}</td>
-                                            <!--td md-cell="md-cell" >{{solicitud.udnName}}</td-->
-                                            <!--td md-cell="md-cell" ng-click='vm.edit($event,person,"nombre")'>
-                                                <md-select ng-model="person.nombre" placeholder="Other">
-                                                    <md-option ng-value="type" ng-repeat="type in getTypes()">{{person.nombre}}</md-option>
-                                                </md-select>
-                                            </td-->
                                             <td md-cell="md-cell">
-                                                <md-input-container>
-                                                    <md-icon md-font-icon="zmdi zmdi-calendar"></md-icon>
-                                                    <input   type="text"  ng-model="solicitud.fecha_inicio" mdc-datetime-picker=""
-                                                             time="false" date="true" min-date="minDate" max-date="maxDate" lang="es-mx"
-                                                             cancel-text="Cancelar"
-                                                             ok-text="Aceptar"
-                                                             format="YYYY/MM/DD"
-                                                             ng-change='vm.editCalendar(solicitud)'
-                                                             name="date_initial"
-                                                             ng-required="(vm.requisito.tipo_solicitud==0 ||vm.requisito.tipo_solicitud==1)"
-                                                             class=" md-input">
-                                                    <div ng-messages="solicitudForm.date_initial.$error">
-                                                        <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
-                                                    </div>
-                                                </md-input-container>
+                                                <div class="md-inline-form">
+                                                    <md-input-container>
+                                                        <md-icon md-font-icon="zmdi zmdi-calendar"></md-icon>
+                                                        <input   type="text"  ng-model="solicitud.fecha_inicio" mdc-datetime-picker=""
+                                                                 time="false" date="true" min-date="minDate" max-date="maxDate" lang="es-mx"
+                                                                 cancel-text="Cancelar"
+                                                                 ok-text="Aceptar"
+                                                                 format="DD/MM/YYYY"
+                                                                 ng-change='vm.editCalendar(solicitud)'
+                                                                 name="date_initial"
+                                                                 ng-required="(vm.requisito.tipo_solicitud==0 ||vm.requisito.tipo_solicitud==1)"
+                                                                 class=" md-input">
+                                                        <div ng-messages="solicitudForm.date_initial.$error">
+                                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                                        </div>
+                                                    </md-input-container>
+                                                </div>
                                             </td>
                                             <td md-cell="md-cell" >
-                                                <md-input-container>
-                                                    <md-icon md-font-icon="zmdi zmdi-calendar"></md-icon>
-                                                    <input   type="text"  ng-model="solicitud.fecha_termino" mdc-datetime-picker=""
-                                                             time="false" date="true" min-date="minDate" max-date="maxDate" lang="es-mx"
-                                                             cancel-text="Cancelar"
-                                                             ok-text="Aceptar"
-                                                             format="YYYY/MM/DD"
-                                                             ng-change='vm.editCalendar(solicitud)'
-                                                             name="date_initial"
-                                                             ng-required="(vm.requisito.tipo_solicitud==0 ||vm.requisito.tipo_solicitud==1)"
-                                                             class=" md-input">
+                                                <div class="md-inline-form">
+                                                    <md-input-container>
+                                                        <md-icon md-font-icon="zmdi zmdi-calendar"></md-icon>
+                                                        <input   type="text"  ng-model="solicitud.fecha_termino" mdc-datetime-picker=""
+                                                                 time="false" date="true" min-date="minDate" max-date="maxDate" lang="es-mx"
+                                                                 cancel-text="Cancelar"
+                                                                 ok-text="Aceptar"
+                                                                 format="DD/MM/YYYY"
+                                                                 ng-change='vm.editCalendar(solicitud)'
+                                                                 name="date_initial"
+                                                                 ng-required="(vm.requisito.tipo_solicitud==0 ||vm.requisito.tipo_solicitud==1)"
+                                                                 class=" md-input">
 
-                                                    <div ng-messages="solicitudForm.fecha_termino.$error">
-                                                        <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
-                                                    </div>
-                                                </md-input-container>
+                                                        <div ng-messages="solicitudForm.fecha_termino.$error">
+                                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                                        </div>
+                                                    </md-input-container>
+                                                </div>
                                             </td>
                                             <td md-cell="md-cell" ng-if="!vm.isClient" >
-                                                <md-input-container>
-                                                    <md-icon md-font-icon="zmdi zmdi-calendar"></md-icon>
-
-                                                    <input  type="text" ng-model="solicitud.fecha_atendida" mdc-datetime-picker=""
-                                                            time="true" date="true" min-date="minDate" max-date="maxDate" lang="es-mx"
-                                                            cancel-text="Cancelar"
-                                                            ok-text="Aceptar"
-                                                            ng-change='vm.editCalendar(solicitud)'
-                                                            format="YYYY/MM/DD HH:mm"
-                                                            name="date_terminate"
-                                                            required
-                                                            class=" md-input">
-                                                    <div ng-messages="solicitudForm.date_terminate.$error">
-                                                        <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
-                                                    </div>
-
-                                                </md-input-container>
+                                                <div class="md-inline-form">
+                                                    <md-input-container>
+                                                        <md-icon md-font-icon="zmdi zmdi-calendar"></md-icon>
+                                                        <input  type="text" ng-model="solicitud.fecha_atendida" mdc-datetime-picker=""
+                                                                time="true" date="true" min-date="minDate" max-date="maxDate" lang="es-mx"
+                                                                cancel-text="Cancelar"
+                                                                ok-text="Aceptar"
+                                                                ng-change='vm.editCalendar(solicitud)'
+                                                                format="DD/MM/YYYY HH:mm"
+                                                                name="date_terminate"
+                                                                required
+                                                                class=" md-input">
+                                                        <div ng-messages="solicitudForm.date_terminate.$error">
+                                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                                        </div>
+                                                    </md-input-container>
+                                                </div>
                                             </td>
                                             <td md-cell="md-cell" >
                                                 <md-select ng-change='vm.editSelect(solicitud)' ng-model=solicitud.tipo_solicitud placeholder="Other">
@@ -155,7 +150,7 @@
                                                 </md-select>
                                             </td>
                                             <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"comentario")'>{{solicitud.comentario}}</td>
-                                            <td md-cell="md-cell" ng-click="$event.stopPropagation()"><!-- -->
+                                            <td md-cell="md-cell" ng-click="$event.stopPropagation()">
                                                 <md-button ng-click="vm.remove($event,solicitud.id)" class="md-fab md-warn md-mini">
                                                     <md-icon md-font-icon="fa fa-times-circle"></md-icon>
                                                 </md-button>
@@ -195,7 +190,6 @@
                                             </th>
                                             <th md-column="md-column" md-order-by="fecha_atencion" ng-if="!vm.isClient"><span translate="SEARCH_REQUEST.FORM.LABEL.FECHAATE"></span>
                                             </th>
-                                            <!-- Cuerpo de la tabla-->
                                         </tr>
                                         </thead>
                                         <tbody md-body="md-body">
@@ -208,21 +202,22 @@
                                             <td md-cell="md-cell" ng-click='vm.editVenta($event,solicitudVenta,"telefono")'>{{solicitudVenta.telefono}}</td>
                                             <td md-cell="md-cell" ng-click='vm.editVenta($event,solicitudVenta,"contacto_negocio")'>{{solicitudVenta.contacto_negocio}}</td>
                                             <td md-cell="md-cell" ng-if="!vm.isClient">
-                                                <md-input-container>
-                                                    <md-icon md-font-icon="zmdi zmdi-calendar"></md-icon>
+                                                <div class="md-inline-form">
+                                                    <md-input-container>
+                                                        <md-icon md-font-icon="zmdi zmdi-calendar"></md-icon>
 
-                                                    <input  type="text" ng-model="solicitud.fecha_atencion" mdc-datetime-picker=""
-                                                            time="true" date="true" min-date="minDate" max-date="maxDate" lang="es-mx"
-                                                            cancel-text="Cancelar"
-                                                            ok-text="Aceptar"
-                                                            ng-change='vm.editVentaCalendar(solicitudVenta)'
-                                                            format="YYYY/MM/DD HH:mm"
-                                                            name="date_terminate"
-                                                            class=" md-input">
-                                                </md-input-container>
+                                                        <input  type="text" ng-model="solicitud.fecha_atencion" mdc-datetime-picker=""
+                                                                time="true" date="true" min-date="minDate" max-date="maxDate" lang="es-mx"
+                                                                cancel-text="Cancelar"
+                                                                ok-text="Aceptar"
+                                                                ng-change='vm.editVentaCalendar(solicitudVenta)'
+                                                                format="DD/MM/YYYY HH:mm"
+                                                                name="date_terminate"
+                                                                class=" md-input">
+                                                    </md-input-container>
+                                                </div>
                                             </td>
-
-                                            <td md-cell="md-cell" ng-click="$event.stopPropagation()"><!-- -->
+                                            <td md-cell="md-cell" ng-click="$event.stopPropagation()">
                                                 <md-button ng-click="vm.removeVenta($event,solicitudVenta.id)" class="md-fab md-warn md-mini">
                                                     <md-icon md-font-icon="fa fa-times-circle"></md-icon>
                                                 </md-button>
@@ -251,3 +246,9 @@
         </md-card>
     </div>
 </div>
+
+<style>
+    .md-inline-form {
+        margin-top: 15px;
+    }
+</style>
