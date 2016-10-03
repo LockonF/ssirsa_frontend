@@ -13,7 +13,6 @@
         vm.lookup = lookup;
         vm.querySearch = querySearch;
         vm.selectedEquipos = selectedEquipos;
-        vm.showRegister=showRegister;
         vm.cancel = cancel;
         vm.create = create;
         vm.remove=remove;
@@ -39,9 +38,6 @@
 
         function activate() {
             vm.tipo_equipos = TipoEquipo.list();
-        }
-        function showRegister($event) {
-            clearForm();
         }
         function remove(ev) {
                 var confirm = $mdDialog.confirm()
