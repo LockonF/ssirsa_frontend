@@ -21,9 +21,11 @@
         vm.remove = remove;
         vm.search = search;
         vm.clear = clear;
-        vm.selectedItemChange = selectedItemChange;
+        //vm.selectedItemChange = selectedItemChange;
         vm.clickCopy = clickCopy;
         vm.new=newClient;
+        vm.querySearch=querySearch;
+
 
         vm.successTitle=Translate.translate('Clients.Notify.Success');
         vm.errorTitle=Translate.translate('Clients.Notify.Error');
@@ -41,13 +43,28 @@
         vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
 
         activate();
+
+        var client={
+            "nombre":"",
+            "apellido_paterno":"",
+            "apellido_materno":"",
+            "direccion":"",
+            "telefono":"",
+            user:{
+                "email":"",
+                "role":vm.role,
+                "username":"",
+                "password":"1234567a"
+            }
+        }
+
         vm.isNew=true;
         function activate() {
 
             vm.searchParameter='';
             vm.clients=Clientes.list();
             vm.filteredClients=vm.clients;
-            vm.client=null;
+            vm.client=angular.copy(client);
             Clientes.getClienteId().then(function(res){
                 vm.role=res[0].id;
             });
@@ -58,24 +75,24 @@
             vm.client.user.role=vm.role;
             Clientes.create(vm.client).then(function(res){
                 toastr.success(vm.succesCreate,vm.successTitle);
+                activate();
                 vm.clear();
             }).catch(function(err){
                 toastr.error(vm.errorCreate,vm.errorTitle);
                 console.log(err);
             });
-            activate();
         }
 
         function update() {
             vm.client.user.role=vm.role;
             Clientes.modify(vm.client).then(function(res){
                 toastr.success(vm.successUpdate,vm.successTitle);
+                activate();
                 vm.clear();
             }).catch(function(err){
                 toastr.error(vm.errorUpdate,vm.errorTitle);
                 console.log(err);
             });
-            activate();
         }
 
         function remove() {
@@ -109,27 +126,30 @@
         function clear() {
             $scope.formClient.$setPristine();
             $scope.formClient.$setUntouched();
-            vm.searchParameter='';
             vm.filteredClients=vm.clients;
-            vm.client=null;
+            vm.client=angular.copy(client);
+            vm.selectedClient=null;
             vm.isNew=false;
         }
 
-        function selectedItemChange(item) {
-            //Requiered by the autocomplete control
-            vm.client.user.password="1234567a";
-        }
-
         function clickCopy(item) {
+            vm.selectedClient=item;
             vm.client=angular.copy(item);
             vm.client.user.password="1234567a";
             $scope.formClient.$invalid=true;
+            vm.isNew=false;
         }
         
         function newClient(){
             vm.clear();
             vm.isNew=true;
-        }        
+        }
+        
+        function querySearch(query) {
+            var results = query ? search(query) : vm.clients;
+            return results;
+
+        }
     }
 
 })();

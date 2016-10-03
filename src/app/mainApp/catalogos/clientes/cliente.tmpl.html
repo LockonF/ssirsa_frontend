@@ -14,9 +14,9 @@
             <!--Autocomplete div-->
             <div layout="column" layout-align="space-between stretch" flex-gt-sm="30" flex="100">
                 <md-autocomplete
-                        md-items="item in vm.filteredClients"
-                        md-selected-item="vm.client"
-                        md-selected-item-change="vm.selectedItemChange(vm.client)"
+                        md-items="item in vm.querySearch(vm.searchParameter)"
+                        md-selected-item="vm.Client"
+                        md-selected-item-change="vm.selectedItemChange(vm.Client)"
                         md-search-text-change="vm.search(vm.searchParameter)"
                         md-search-text="vm.searchParameter"
                         md-item-text="item.nombre"
@@ -24,10 +24,10 @@
                         md-floating-label="{{'Clients.Fields.Search'|translate}}">
                     <span md-highlight-text="vm.searchParameter"  md-highlight-flags="^i">{{item.nombre}}</span>
                     <md-item-template>
-                        <span class="item-title">
+                        <div layout-fill  ng-click="vm.clickCopy(item)" >
                             <md-icon md-font-icon="fa fa-user"></md-icon>
                             <span>&nbsp; {{item.nombre}}</span>
-                        </span>
+                        </div>
                     </md-item-template>
                     <md-not-found><span translate="Clients.Errors.Not_Found"></span></md-not-found>
                 </md-autocomplete>
@@ -37,7 +37,7 @@
                             <md-list-itm flex="flex" ng-repeat="item in vm.filteredClients">
                                 <md-button
                                      ng-click="vm.clickCopy(item)"
-                                     ng-class="{'selected':item.id === vm.client.id}">
+                                     ng-class="{'selected':item.id === vm.selectedClient.id}">
                                     <img ng-src="assets/images/client.png" class="avatar"/>
                                     <span>{{item.nombre}}</span>
                                 </md-button>
