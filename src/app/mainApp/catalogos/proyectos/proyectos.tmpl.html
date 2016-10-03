@@ -15,9 +15,9 @@
             <div layout="column" layout-align="space-between stretch" flex-gt-sm="30" flex="100">
 
                 <md-autocomplete
-                        md-items="item in vm.filteredProjects"
+                        md-items="item in vm.querySearch(vm.searchParameter)"
                         md-selected-item="vm.Project"
-                        md-selected-item-change="vm.selectedItemChange(item)"
+                        md-selected-item-change="vm.selectedItemChange(vm.Project)"
                         md-search-text-change="vm.search(vm.searchParameter)"
                         md-search-text="vm.searchParameter"
                         md-item-text="item.descripcion"
@@ -25,24 +25,30 @@
                         md-floating-label="{{'Projects.Fields.Search'|translate}}">
                     <span md-highlight-text="vm.searchParameter"  md-highlight-flags="^i">{{item.descripcion}}</span>
                     <md-item-template>
+                        <div layout-fill  ng-click="vm.clickCopy(item)">
+                            <md-icon md-font-icon="fa fa-folder"></md-icon>
+                            <span>{{item.descripcion}}</span>
+                        </div><!--
                         <span class="item-title">
                             <md-icon md-font-icon="fa fa-folder"></md-icon>
                             <span>&nbsp; {{item.descripcion}}</span>
-                        </span>
+                        </span>-->
                     </md-item-template>
                     <md-not-found><span translate="Projects.Errors.Not_Found"></span></md-not-found>
                 </md-autocomplete>
 
-                <md-virtual-repeat-container flex="flex" hide layout-fill show-gt-sm style="min-height:350px">
-                    <div flex md-virtual-repeat="item in vm.filteredProjects">
-                        <div flex="flex"
-                             ng-click="vm.selectedItemChange(item)"
-                             layout-padding layout="row"
-                             layout-align="start center" >
-                            <img ng-src="assets/images/projects.png"  flex="20" />
-                            <span flex="80">{{item.descripcion}}</span>
-                        </div>
-                    </div>
+                <md-virtual-repeat-container id="vertical_container" flex="flex" hide-xs="hide-xs" layout-fill style="{min_heigth:350}">
+                    <md-list flex="flex">
+                        <md-list-itm flex="flex" ng-repeat="item in vm.filteredProjects">
+                            <md-button
+                                    ng-click="vm.clickCopy(item)"
+                                    ng-class="{'selected':item.id === vm.selectedProject.id}">
+                                <img ng-src="assets/images/projects.png" class="avatar"/>
+                                <span>{{item.descripcion}}</span>
+                            </md-button>
+                            <md-divider></md-divider>
+                        </md-list-itm>
+                    </md-list>
                 </md-virtual-repeat-container>
 
 

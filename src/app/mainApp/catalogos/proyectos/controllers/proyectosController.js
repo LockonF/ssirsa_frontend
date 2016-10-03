@@ -18,27 +18,26 @@
         vm.remove = remove;
         vm.search = search;
         vm.clear = clear;
-        vm.selectedItemChange=selectedItemChange;
+        vm.clickCopy=clickCopy;
+        vm.querySearch=querySearch;
         
         activate();
-
+        vm.successTitle=Translate.translate('Projects.Notify.Success');
+        vm.errorTitle=Translate.translate('Projects.Notify.Error');
+        vm.warningTitle=Translate.translate('Projects.Notify.Warning');
+        vm.listErrorMessage=Translate.translate('Projects.Notify.Messages.ERROR_GETTING_PROJECTS');
+        vm.errorCreate=Translate.translate('Projects.Notify.Messages.ERROR_CREATING_PROJECT');
+        vm.succesCreate=Translate.translate('Projects.Notify.Messages.SUCCESS_CREATING_PROJECT');
+        vm.errorRemove=Translate.translate('Projects.Notify.Messages.ERROR_REMOVING_PROJECT');
+        vm.successRemove=Translate.translate('Projects.Notify.Messages.SUCCESS_REMOVING_PROJECT');
+        vm.errorUpdate=Translate.translate('Projects.Notify.Messages.ERROR_UPDATING_PROJECT');
+        vm.successUpdate=Translate.translate('Projects.Notify.Messages.SUCCESS_UPDATING_PROJECT');
+        vm.deleteButton=Translate.translate('MAIN.BUTTONS.DELETE');
+        vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
+        vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
+        vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
+        
         function activate() {
-            vm.successTitle=Translate.translate('Projects.Notify.Success');
-            vm.errorTitle=Translate.translate('Projects.Notify.Error');
-            vm.warningTitle=Translate.translate('Projects.Notify.Warning');
-            vm.listErrorMessage=Translate.translate('Projects.Notify.Messages.ERROR_GETTING_PROJECTS');
-            vm.errorCreate=Translate.translate('Projects.Notify.Messages.ERROR_CREATING_PROJECT');
-            vm.succesCreate=Translate.translate('Projects.Notify.Messages.SUCCESS_CREATING_PROJECT');
-            vm.errorRemove=Translate.translate('Projects.Notify.Messages.ERROR_REMOVING_PROJECT');
-            vm.successRemove=Translate.translate('Projects.Notify.Messages.SUCCESS_REMOVING_PROJECT');
-            vm.errorUpdate=Translate.translate('Projects.Notify.Messages.ERROR_UPDATING_PROJECT');
-            vm.successUpdate=Translate.translate('Projects.Notify.Messages.SUCCESS_UPDATING_PROJECT');
-            vm.deleteButton=Translate.translate('MAIN.BUTTONS.DELETE');
-            vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
-            vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
-            vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
-
-            vm.searchParameter='';
             vm.projects=Proyectos.list();
             vm.filteredProjects=vm.projects;
             vm.project=null;
@@ -94,21 +93,27 @@
             return vm.filteredProjects;
         }
 
+        function clickCopy(item) {
+            vm.selectedProject=item;
+            vm.project=angular.copy(item);
+            $scope.formProject.$invalid=true;
+        }
+
         function clear() {
             $scope.formProject.$setPristine();
             $scope.formProject.$setUntouched();
             $scope.formProject.$invalid=true;
             vm.searchParameter='';
             vm.filteredProjects=vm.projects;
+            vm.selectedProject=null;
             vm.project=null;
         }
 
-        function selectedItemChange(item) {
-            //vm.searchParameter='';
-            vm.project=angular.copy(item);
-            $scope.formProject.$invalid=true;
-        }
+        function querySearch(query) {
+            var results = query ? search(query) : vm.projects;
+            return results;
 
+        }
 
     }
 
