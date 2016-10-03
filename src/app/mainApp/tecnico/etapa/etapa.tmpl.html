@@ -113,7 +113,7 @@
                 <md-content class="md-padding">
                     <div layout="column" flex>
                         <div layout="row" flex="100" layout-align="space-around stretch">
-                            <form name="insumoFormEtapa" layout-fill="">
+                            <form name="form.insumoFormEtapa" layout-fill="">
                                 <div layout="row" flex="100">
                                     <md-input-container flex="30">
                                         <label translate>ETAPA_SERVICIO.NAME</label>
@@ -121,6 +121,7 @@
                                                    ng-disabled="vm.editable">
                                             <md-option ng-repeat="insu in vm.catalogoInsumos" ng-value="insu">
                                                 {{insu.descripcion}}
+                                            <md-option ng-if="insu.descripcion==''"> "No hay Insumos que mostrar"</md-option>
                                             </md-option>
 
                                         </md-select>
