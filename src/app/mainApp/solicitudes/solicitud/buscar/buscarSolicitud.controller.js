@@ -14,6 +14,7 @@
             limit: 5,
             page: 1
         };
+        vm.minDate=new Date();
         vm.filtrarSolicitud=OPTIONS.filtrarSolicitud;
         vm.tipoSols=OPTIONS.tipoSolicitud;
         vm.estatusSols=OPTIONS.estatusSol;

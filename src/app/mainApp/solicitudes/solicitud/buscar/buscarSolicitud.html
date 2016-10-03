@@ -125,7 +125,7 @@
                                                     <md-input-container>
                                                         <md-icon md-font-icon="zmdi zmdi-calendar"></md-icon>
                                                         <input  type="text" ng-model="solicitud.fecha_atendida" mdc-datetime-picker=""
-                                                                time="true" date="true" min-date="minDate" max-date="maxDate" lang="es-mx"
+                                                                time="true" date="true" min-date="vm.minDate" max-date="maxDate" lang="es-mx"
                                                                 cancel-text="Cancelar"
                                                                 ok-text="Aceptar"
                                                                 ng-change='vm.editCalendar(solicitud)'
@@ -249,6 +249,6 @@
 
 <style>
     .md-inline-form {
-        margin-top: 15px;
+        margin-top: 19px;
     }
 </style>
