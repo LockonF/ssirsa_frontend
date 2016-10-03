@@ -13,7 +13,6 @@
         vm.lookup = lookup;
         vm.querySearch = querySearch;
         vm.selectedModelos = selectedModelos;
-        vm.showRegister=showRegister;
         vm.cancel = cancel;
         vm.create = create;
         vm.remove=remove;
@@ -45,9 +44,6 @@
         function activate() {
             vm.modelos = ModeloCabinet.list();
             vm.marcas = MarcaCabinet.list();
-        }
-        function showRegister($event) {
-            clearForm();
         }
         function remove(ev) {
                 var confirm = $mdDialog.confirm()
