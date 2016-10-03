@@ -149,6 +149,7 @@
                                         <label translate>ETAPA_SERVICIO.NOTES</label>
                                         <input name="notas" type="text" ng-model="vm.insumo.notas"
                                                ng-disabled="vm.editable"
+                                               md-maxlength="45"
                                                required maxlength="45" minlength="2"/>
                                         <div ng-messages="form.insumoFormEtapa.notas.$error">
 
