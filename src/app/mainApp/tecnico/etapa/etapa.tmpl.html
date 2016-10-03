@@ -125,7 +125,7 @@
                                             </md-option>
 
                                         </md-select>
-                                        <div ng-messages="insumoFormEtapa.insumo.$error">
+                                        <div ng-messages="form.insumoFormEtapa.insumo.$error">
 
                                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                         </div>
@@ -136,7 +136,7 @@
                                         <input name="cantidad" type="number" ng-model="vm.insumo.cantidad"
                                                ng-disabled="vm.editable" required
                                                max="{{vm.catalogoSelected.cantidad}}"/>
-                                        <div ng-messages="insumoFormEtapa.cantidad.$error">
+                                        <div ng-messages="form.insumoFormEtapa.cantidad.$error">
 
                                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                             <div ng-message="max">{{'MAIN.GENERAL.MAX_NUMBER' | translate}}
@@ -150,14 +150,14 @@
                                         <input name="notas" type="text" ng-model="vm.insumo.notas"
                                                ng-disabled="vm.editable"
                                                required maxlength="45" minlength="2"/>
-                                        <div ng-messages="insumoFormEtapa.notas.$error">
+                                        <div ng-messages="form.insumoFormEtapa.notas.$error">
 
                                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                         </div>
                                     </md-input-container>
                                     <md-input-container flex="10">
                                         <md-button class="md-primary md-raised" aria-label="raised button"
-                                                   ng-disabled="insumoFormEtapa.$invalid"
+                                                   ng-disabled="form.insumoFormEtapa.$invalid"
                                                    ng-click='vm.crearInsumo()'>
                                             <md-icon md-font-icon="zmdi zmdi-plus"></md-icon>
                                         </md-button>
