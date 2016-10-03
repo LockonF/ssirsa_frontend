@@ -40,42 +40,6 @@
             "datos":[],
             "modelo_cabinet":null
         };
-        vm.solicitud = [
-            {
-                "id":123,
-                "udn": "UDN_2",
-                "fecha_inicio": "6/12/2016",
-                "fecha_termino": "7/12/2016",
-                "tipo_solicitud": "UDN_3",
-                "status": "Dañado",
-                "comentario": "10"
-            },
-            {
-                "id":124,
-                "udn": "UDN_2",
-                "fecha_inicio": "6/12/2016",
-                "fecha_termino": "7/12/2016",
-                "tipo_solicitud": "UDN_1",
-                "status": "Dañado",
-                "comentario": "1"
-            },
-            {
-                "id":125,
-                "tipo_solicitud": "UDN_2",
-                "status": "Dañado",
-                "comentario": "5"
-            },
-            {
-                "id": 126,
-                "udn": "UDN_2",
-                "fecha_inicio": "6/12/2016",
-                "fecha_termino": "7/12/2016",
-                //"rDesc": null,
-                "tipo_solicitud": "UDN_3",
-                "status": "Dañado",
-                "comentario": "8"
-            }
-        ];
 
         vm.remove=remove;
         vm.removeVenta=removeVenta;
@@ -428,15 +392,19 @@
                                 for(var i=0,len = vm.solicitudes.length; i<len;i++)
                                 {
                                     //console.log(vm.solicitudes.length);
-                                    //console.log(vm.folio);
+                                    //console.log("vm.folio" +  vm.solicitudes.fecha_inicio);
                                     if(vm.solicitudes[i].id==vm.folio && vm.solicitudes[i].tipo_solicitud=='Envio')
                                     {
                                         vm.sol = vm.solicitudes[i];
+                                        vm.sol.fecha_inicio = moment(vm.sol.fecha_inicio).format('DD/MM/YYYY');
+                                        vm.sol.fecha_termino = moment(vm.sol.fecha_termino).format('DD/MM/YYYY');
+                                        vm.sol.fecha_atendida = moment(vm.sol.fecha_atendida).format('DD/MM/YYYY HH:mm');
                                         console.log(vm.sol);
                                     }
                                 }
                                 if(vm.sol!=null) {
-                                    //console.log("si se encontro el folio");
+                                    console.log("si se encontro el folio");
+                                    console.log("vm.folio" +  vm.sol.fecha_inicio);
                                     vm.solicitudes = [];
                                     vm.solicitudes.push(vm.sol);
                                 }else{
@@ -462,6 +430,8 @@
                                     if(vm.solicitudes[i].id==vm.folio && vm.solicitudes[i].tipo_solicitud=='Envio')
                                     {
                                         vm.sol = vm.solicitudes[i];
+                                        vm.sol.fecha_inicio = moment(vm.sol.fecha_inicio).format('DD/MM/YYYY');
+                                        vm.sol.fecha_termino = moment(vm.sol.fecha_termino).format('DD/MM/YYYY');
                                         console.log(vm.sol);
                                     }
                                 }
@@ -496,6 +466,9 @@
                                         if(vm.solicitudes[i].tipo_solicitud=='Envio')
                                         {
                                             vm.sol = vm.solicitudes[i];
+                                            vm.sol.fecha_inicio = moment(vm.sol.fecha_inicio).format('DD/MM/YYYY');
+                                            vm.sol.fecha_termino = moment(vm.sol.fecha_termino).format('DD/MM/YYYY');
+                                            vm.sol.fecha_atendida = moment(vm.sol.fecha_atendida).format('DD/MM/YYYY HH:mm');
                                             vm.solicitudesArray.push(vm.sol);
                                             console.log(vm.sol);
                                         }
@@ -528,6 +501,8 @@
                                         if(vm.solicitudes[i].tipo_solicitud=='Envio')
                                         {
                                             vm.sol = vm.solicitudes[i];
+                                            vm.sol.fecha_inicio = moment(vm.sol.fecha_inicio).format('DD/MM/YYYY');
+                                            vm.sol.fecha_termino = moment(vm.sol.fecha_termino).format('DD/MM/YYYY');
                                             vm.solicitudesArray.push(vm.sol);
                                             console.log(vm.sol);
                                         }
@@ -568,6 +543,9 @@
                                     if(vm.solicitudes[i].id==vm.folio && vm.solicitudes[i].tipo_solicitud=='Recoleccion')
                                     {
                                         vm.sol = vm.solicitudes[i];
+                                        vm.sol.fecha_inicio = moment(vm.sol.fecha_inicio).format('DD/MM/YYYY');
+                                        vm.sol.fecha_termino = moment(vm.sol.fecha_termino).format('DD/MM/YYYY');
+                                        vm.sol.fecha_atendida = moment(vm.sol.fecha_atendida).format('DD/MM/YYYY HH:mm');
                                         console.log(vm.sol);
                                     }
                                 }
@@ -598,6 +576,8 @@
                                     if(vm.solicitudes[i].id==vm.folio && vm.solicitudes[i].tipo_solicitud=='Recoleccion')
                                     {
                                         vm.sol = vm.solicitudes[i];
+                                        vm.sol.fecha_inicio = moment(vm.sol.fecha_inicio).format('DD/MM/YYYY');
+                                        vm.sol.fecha_termino = moment(vm.sol.fecha_termino).format('DD/MM/YYYY');
                                         console.log(vm.sol);
                                     }
                                 }
@@ -631,6 +611,9 @@
                                         if(vm.solicitudes[i].tipo_solicitud=='Recoleccion')
                                         {
                                             vm.sol = vm.solicitudes[i];
+                                            vm.sol.fecha_inicio = moment(vm.sol.fecha_inicio).format('DD/MM/YYYY');
+                                            vm.sol.fecha_termino = moment(vm.sol.fecha_termino).format('DD/MM/YYYY');
+                                            vm.sol.fecha_atendida = moment(vm.sol.fecha_atendida).format('DD/MM/YYYY HH:mm');
                                             vm.solicitudesArray.push(vm.sol);
                                             console.log(vm.sol);
                                         }
@@ -663,6 +646,9 @@
                                         if(vm.solicitudes[i].tipo_solicitud=='Recoleccion')
                                         {
                                             vm.sol = vm.solicitudes[i];
+                                            vm.sol.fecha_inicio = moment(vm.sol.fecha_inicio).format('DD/MM/YYYY');
+                                            vm.sol.fecha_termino = moment(vm.sol.fecha_termino).format('DD/MM/YYYY');
+                                            vm.sol.fecha_atendida = moment(vm.sol.fecha_atendida).format('DD/MM/YYYY HH:mm');
                                             vm.solicitudesArray.push(vm.sol);
                                             console.log(vm.sol);
                                         }
@@ -692,6 +678,31 @@
                             vm.solicitudesVentas = rest;
                             console.log("vm.solicitudesVentas = ");
                             console.log(vm.solicitudesVentas);
+                            if(rest.length>0) {
+                                vm.solicitudesVentas = rest;
+                                for(var i=0,len = vm.solicitudesVentas.length; i<len;i++)
+                                {
+
+                                        vm.sol = vm.solicitudesVentas[i];
+                                        vm.sol.fecha_atencion = moment(vm.sol.fecha_atencion).format('DD/MM/YYYY HH:mm');
+                                        vm.solicitudesArray.push(vm.sol);
+                                        console.log(vm.sol);
+                                }
+
+                                vm.solicitudesVentas = null;
+                                vm.solicitudesVentas = vm.solicitudesArray;
+                                vm.solicitudesArray = [];
+                                console.log("vm.solicitudes::");
+                                console.log(vm.solicitudesVentas);
+                                if(vm.solicitudesVentas==null) {
+                                    toastr.warning('Solicitudes ' + vm.busqueda_status + 's no encontradas', 'Advertencia');
+                                }
+                            }else{
+                                toastr.warning('Solicitudes '+vm.busqueda_status+'s no encontradas','Advertencia');
+                                vm.solicitudes = null;
+                            }
+
+
                         }).catch(function (error) {
                             console.log(error);
                         })
