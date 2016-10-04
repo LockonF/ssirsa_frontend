@@ -53,6 +53,16 @@
                 templateUrl:'app/mainApp/tecnico/asignacion/asignacionLinea.tmpl.html',
                 controller:'asignacionLineaController',
                 controllerAs:'vm'
+            })
+            .state('triangular.admin-default.entrada',{
+                url:'/entrada',
+                data: {
+                    roles: ['Administrador','Tecnico A','Tecnico B','Tecnico C','Tecnico D','Tecnico E']
+                },
+                templateUrl:'app/mainApp/tecnico/entrada/entrada.tmpl.html',
+                controller:'entradaController',
+                controllerAs:'vm'
             });
+
     }
 })();
