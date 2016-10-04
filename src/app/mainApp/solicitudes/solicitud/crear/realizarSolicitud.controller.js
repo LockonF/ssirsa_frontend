@@ -6,7 +6,7 @@
         .module('app.mainApp.solicitudes')
         .controller('realizarSolicitudController', realizarSolicitudController);
 
-    function realizarSolicitudController(OPTIONS, udn,TipEquipo,$mdEditDialog, $mdDialog, Translate,toastr, Solicitudes, Solicitud_Servicio, Solicitudes_Admin, PersonaCapturista, Session, Socket,$scope) {
+    function realizarSolicitudController(OPTIONS, udn,TipoEquipo,$mdEditDialog, $mdDialog, Translate,toastr, Solicitudes, Solicitud_Servicio, Solicitudes_Admin, PersonaCapturista, Session, Socket,$scope) {
         var vm = this;
 
         var requisito = {
@@ -59,7 +59,7 @@
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
             vm.udns = udn.list();
             vm.personas = PersonaCapturista.list();
-            vm.tiposEquipo=TipEquipo.list();
+            vm.tiposEquipo=TipoEquipo.list();
             vm.isClient = Session.userRole === 'Cliente';
             vm.requisitoVenta.fecha_atencion=moment();
         }
