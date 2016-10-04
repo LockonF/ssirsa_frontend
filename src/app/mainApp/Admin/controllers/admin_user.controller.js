@@ -6,14 +6,12 @@
         .controller('admin_userController', admin_userController)
         .filter('personaSearch', personaSearch);
 
-    /* @ngInject */
-    function admin_userController( $scope, toastr, Translate, $mdDialog, MarcaCabinet,Persona_Admin) {
+    function admin_userController( $scope, toastr, Translate, $mdDialog,Persona_Admin) {
 
         var vm = this;
         vm.lookup = lookup;
         vm.querySearch = querySearch;
         vm.selectedPersonas=selectedPersonas;
-        vm.showRegister=showRegister;
         vm.cancel = cancel;
         vm.clean=clean;
         vm.remove=remove;
@@ -61,10 +59,6 @@
             vm.personas_admin = Persona_Admin.list();
         }
 
-
-        function showRegister($event) {
-            clearForm();
-        }
         function remove(ev) {
             var confirm = $mdDialog.confirm()
                 .title('Confirmación para eliminar')

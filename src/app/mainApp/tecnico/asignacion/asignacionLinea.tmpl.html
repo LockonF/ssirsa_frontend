@@ -1,22 +1,24 @@
 <div layout="column">
-    <md-card class="md-padding card1" flex="100">
+    <md-card class="md-padding card1" flex="100" layout="column">
         <md-card-title>
             <md-card-title-text>
                 <span class="md-headline" translate>CABINET.LINE_ASSIGMENT</span>
             </md-card-title-text>
         </md-card-title>
 
-        <div flex="100" layout="row" , layout-sm="column" , layout-xs="column" layout-align-sm="center center"
-             layout-align="center center">
-            <form name="Buscar" ng-submit="vm.buscar()">
+            <div flex="100" layout="row" layout-xs="column" layout-sm="column" layout-md="column" layout-align-sm="center center"
+                 layout-align="center center">
+
                 <md-input-container flex="60">
+                    <form name="Buscar" ng-submit="vm.buscar()">
                     <label translate>CABINET.ID_CABINET</label>
                     <input type="text" ng-model="vm.idCabinet"/>
+                    </form>
                 </md-input-container>
 
 
-                <div>
-                    <md-input-container flex>
+                <div layout="row">
+                    <md-input-container>
                         <md-button class="md-fab" aria-label="fab button" ng-click="vm.buscar()">
                             <md-icon md-font-icon="zmdi zmdi-zoom-in"></md-icon>
                         </md-button>
@@ -29,7 +31,7 @@
                         </md-button>
                     </md-input-container>
                 </div>
-                <div>
+                <div layout="row">
                     <md-input-container flex>
                         <md-button class="md-fab  md-primary" aria-label="fab button"
                                    ng-click="vm.limpiar()">
@@ -43,14 +45,15 @@
                         </md-button>
                     </md-input-container>
                 </div>
-            </form>
-        </div>
+
+            </div>
+
         <div layout="column">
             <md-input-container>
                 <label translate>CABINET.AGE</label>
                 <input type="text" ng-model="vm.parent.cabinet.antiguedad" ng-disabled="true"/>
             </md-input-container>
-            <div layout="row">
+            <div layout="row" , layout-xs="column">
                 <md-slider-container flex>
                     <md-input-container flex="20">
                         <h5 translate>CABINET.EJEX</h5>

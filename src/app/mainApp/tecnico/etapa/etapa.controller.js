@@ -9,12 +9,12 @@
         .module('app.mainApp.tecnico')
         .controller('etapaController', etapaController);
 
-    function etapaController(Cabinet, Servicios, Diagnostico, CatalogoInsumo, Insumo, Translate, toastr,OPTIONS) {
+    function etapaController(Cabinet, Servicios, $mdDialog, CatalogoInsumo, $scope,Insumo, Translate, toastr, OPTIONS) {
         var vm = this;
         vm.activate = activate();
 
         //Inicializando Variables
-
+        $scope.form = {};
         vm.etapa = {
             diagnostico: '',
             validado: false,
@@ -22,12 +22,13 @@
             siguiente_etapa: ''
 
         };
+        vm.showInsumosSection = true;
         vm.catalogoInsumos = null;//array con todos los caatalogos de insumo disponibles de la etapa
         vm.catalogoSelected = null;//Elemento del tipo Catalogo de Insumo del insumo que se deseará agregar
         vm.editable = true;
         vm.idCabinet = null;
         vm.insumos = [];//Arreglo que poseera los Insumos que pueden ser usados en cierta etapa para md table
-        vm.insumosToArray=[];
+        vm.insumosToArray = [];
         vm.cabinet = null;// Informacion general del cabinet al cual se le asignara una nueva etapa
         vm.diagnostico = null;// Informacion del diagnostico que propicio que entrara a un proceso de servicio tecnico
         vm.etapa = null;
@@ -64,12 +65,17 @@
         function activate() {
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
+            vm.notInsumos=Translate.translate('MAIN.MSG.ERROR_NOTINSUMOSTITLE');
             vm.successCreateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_CREATE');
             vm.successUpdateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_UPDATE');
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
             vm.notFoundMessage = Translate.translate('MAIN.MSG.NOT_FOUND');
             vm.notFoundInput = Translate.translate('MAIN.MSG.NOT_FOUND_INPUT');
             vm.notAllow = Translate.translate('MAIN.MSG.NOT_ALLOWED');
+            vm.confirmDelete = Translate.translate('ETAPA_SERVICIO.ARE_U_SURE');
+            vm.delete = Translate.translate('ETAPA_SERVICIO.DELETE');
+            vm.cancelar = Translate.translate('ETAPA_SERVICIO.CANCEL');
+            vm.accepted = Translate.translate('ETAPA_SERVICIO.ACCEPT');
 
         }
 
@@ -89,7 +95,27 @@
                             if (vm.etapa.validado == false) {
 
                                 vm.etapaActual = vm.etapa;
+                                if (vm.etapaActual.insumos === undefined) {
+                                    vm.etapaActual.insumos = [];
+                                }
+                                promise = Servicios.consultarAllInsumosCabinetEtapa(vm.etapaActual);
+                                promise.then(function (res) {
+
+                                    vm.insumos = res;
+
+
+                                }).catch(function (res) {
+                                    notifyError(res.status);
+                                })
                                 vm.insumos = vm.etapaActual.insumos;
+
+                                if ((vm.etapaActual.actual_etapa == 'EC') || (vm.etapaActual.actual_etapa == 'ED')|| (vm.etapaActual.actual_etapa == 'EO'))
+                                {
+
+                                    vm.showInsumosSection = false;
+                                }
+                                else
+                                    vm.showInsumosSection = true;
                             }
                             else {
 
@@ -122,6 +148,10 @@
             promise.then(function (res) {
                 vm.catalogoInsumos = res;
 
+                if(_.size(vm.catalogoInsumos)==0){
+                    notifyError(900);
+                }
+
             }).catch(function (res) {
                 notifyError(res.status);
             });
@@ -152,19 +182,19 @@
 
                 if (vm.catalogoSelected.tipo = "U") {
 
-                    insumoAUsar = _.findWhere(insumotmp, {"usado":false});
+                    insumoAUsar = _.findWhere(insumotmp, {"usado": false});
                 }
-                if (vm.catalogoSelected.tipo = "L"){
+                if (vm.catalogoSelected.tipo = "L") {
 
-                    insumoAUsar = _.findWhere(insumotmp, {"usado":true});
+                    insumoAUsar = _.findWhere(insumotmp, {"usado": true});
                 }
 
-                vm.insumo.id=insumoAUsar.id;
-                vm.insumo.catalogo=insumoAUsar.catalogo;
-                vm.insumo.nombre=vm.catalogoSelected.descripcion;
-                console.log("El insumo a agregar al arreglo es:");
-                console.log(vm.insumo);
+                vm.insumo.id = insumoAUsar.id;
+                vm.insumo.catalogo = insumoAUsar.catalogo;
+                vm.insumo.nombre = vm.catalogoSelected.descripcion;
+
                 add();
+
 
             }
 
@@ -186,9 +216,9 @@
                     break;
                 case 405:
                     toastr.warning(vm.notAllow, vm.errorTitle);
-                default:
-                    toastr.warning(vm.errorMessage, vm.errorTitle);
-                    break;
+                case 900:
+                    toastr.warning(vm.notInsumos, vm.errorMessage);
+
 
             }
         }
@@ -210,6 +240,9 @@
 
             };
 
+            
+            vm.showInsumosSection = true;
+            vm.catalogoInsumos = null;
             vm.editable = true;
             vm.idCabinet = null;
             vm.insumos = [];//Arreglo que poseera los Insumos que pueden ser usados en cierta etapa
@@ -224,18 +257,32 @@
                 cantidad: "",
                 notas: ""
             };// Insumo por agregar al cabinet en cuestion
+            $scope.insumoFormEtapa.$setPristine();
+            $scope.insumoFormEtapa.$setUntouched();
+
 
         }
 
 
-        function eliminarEtapaServicio() {
+        function eliminarEtapaServicio(ev) {
             if (vm.etapaActual != null) {
-                var promise = Servicios.eliminarEtapaServicio(vm.etapaActual);
-                promise.then(function (res) {
-                    vm.diagnostico = res;
-                    vm.cancel();
-                }).catch(function (res) {
-                    notifyError(res.status);
+
+                var confirm = $mdDialog.confirm()
+                    .title(vm.delete)
+                    .textContent(vm.confirmDelete)
+                    .ariaLabel('Lucky day')
+                    .targetEvent(ev)
+                    .ok(vm.accepted)
+                    .cancel(vm.cancelar);
+                $mdDialog.show(confirm).then(function () {
+
+                    var promise = Servicios.eliminarEtapaServicio(vm.etapaActual);
+                    promise.then(function (res) {
+                        vm.diagnostico = res;
+                        vm.cancel();
+                    }).catch(function (res) {
+                        notifyError(res.status);
+                    })
                 });
             }
         }
@@ -243,15 +290,12 @@
         function crearEtapaServicio() {
             vm.etapaActual.insumos = vm.insumos;
             vm.etapaActual.diagnostico = vm.diagnostico.id;
-            console.log(vm.etapaActual);
 
 
             if (vm.etapaActual.id == null) {
-                console.log("voy a crear uno nuevo");
+
                 vm.etapaActual.insumos = vm.insumos;
-                console.log("Al editar/crear");
-                console.log(vm.etapaActual);
-                console.log("Ya voy a crear");
+
                 var promise = Servicios.crearEtapaServicio(vm.etapaActual);
                 promise.then(function (res) {
                     toastr.success(vm.successTitle, vm.successCreateMessage);
@@ -260,15 +304,15 @@
 
                 }).catch(function (res) {
 
-                    console.log(res);
+
                     notifyError(res.status);
                 });
             }
             else {
-                console.log("Voy a editar")
+
                 var promise = Servicios.editarEtapaServicio(vm.etapaActual);
                 promise.then(function (res) {
-                    console.log(vm.successTitle, vm.successUpdateMessage);
+
                     toastr.success(vm.successTitle, vm.successUpdateMessage);
                     vm.etapaActual = res;
                     vm.cancel();
@@ -278,55 +322,46 @@
 
             }
             vm.cancel();
-         }
-
+        }
         function crearInsumo() {
-         vm.buscarInsumosByCatalogo();
+            vm.buscarInsumosByCatalogo();
 
         }
 
-        function add(){
-            vm.insumoToArray={
-                insumo:''
-            };
-            if (vm.insumo.id !=null) {
-                vm.insumoToArray.insumo=vm.insumo.id;
-                vm.insumosToArray=_.omit(vm.insumo,'catalogo','nombre');
-                vm.insumoToArray=_.omit(vm.insumosToArray,'id');
-                console.log("entre al if");
-                console.log(vm.insumos);
-                console.log(vm.insumo);
-                console.log("Para etapa");
-                vm.insumos=_.toArray(vm.insumos);
-                vm.insumos.push(vm.insumo);
-                vm.insumosToArray=_.toArray(vm.insumosToArray);
-                vm.insumosToArray.push(vm.insumoToArray);
-                console.log(vm.insumos);
-                console.log(vm.insumo);
+        function add() {
+            if (vm.insumo.id != null) {
+                var newInsumo = _.clone(vm.insumo);
+                newInsumo.insumo = newInsumo.id;
+                delete newInsumo['id'];
+                delete newInsumo['catalogo'];
+                vm.insumos.push(newInsumo);
 
 
             }
             else
                 notifyError(404);
-            vm.catalogoSelected=null;
-            vm.insumo=null;
+            vm.catalogoSelected = null;
+            vm.insumo = null;
+            $scope.form.insumoFormEtapa.$setPristine();
+            $scope.form.insumoFormEtapa.$setUntouched();
+
+
         }
 
         // Eliminar Insumo
 
         function eliminarInsumo(insu) {
             var index;
+            //var Insumos=[];
 
             for (index = 0; index < vm.insumos.length; ++index) {
                 if (vm.insumos[index].id == insu.id) {
-                    console.log(index);
-                        console.log("voy a borrar");
-                        console.log(vm.Requisitos[index]);
-                        vm.Requisitos.splice(index, 1);
-
+                    vm.insumos.splice(index, 1);
                 }
-                else{console.log("Aun no lo encuentro")}
-                notifyError(404);
+                else {
+                    notifyError(404);
+                }
+
 
             }
 

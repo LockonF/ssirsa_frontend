@@ -181,6 +181,11 @@
                             name:'MAIN.MENU.CATALOGS.CLIENT',
                             state: 'triangular.admin-default.clientes',
                             type:'link'
+                        },
+                        {
+                            name:'MAIN.MENU.CATALOGS.EQUIPMENT_TYPE',
+                            state: 'triangular.admin-default.catalogo-tipo-equipo',
+                            type:'link'
                         }
 
                     ]

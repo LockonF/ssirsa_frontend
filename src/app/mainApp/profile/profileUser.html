@@ -58,13 +58,13 @@
                             <md-button flex="flex" ngf-select="vm.selectionFoto($files)" ngf-accept="'image/*'"  ng-disabled="false" ngf-multiple="false" ng-model="vm.picFoto" aria-label="upload" class="md-primary md-raised">
                                 <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>                                    {{'PROFILE.PROPERTY.ARCHIVO'|translate}}
                                 <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>
-                            </md-button><img src="assets/images/dashboards/weather.jpg" alt="Card Image" ng-show="vm.picFoto==null" width="120" height="120"/><img ngf-src="vm.picFoto" width="120" height="120" ng-if="vm.picFoto!=null"/>
+                            </md-button><img src="assets/images/dashboards/weather.jpg" alt="Card Image" ng-if="vm.picFoto==null" width="120" height="120"/><img ngf-src="vm.picFoto" width="120" height="120" ng-if="vm.picFoto!=null"/>
                         </div>
                         <div layout="column" layout-align="center center"><span class="md-headline">{{'PROFILE.PROPERTY.INE' | translate}}</span>
                             <md-button flex="flex" ngf-select="vm.selectionIFE($files)" ngf-accept="'image/*'"  ng-disabled="false" ngf-multiple="false" ng-model="vm.picIFE" aria-label="upload" class="md-primary md-raised">
                                 <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>                                    {{'PROFILE.PROPERTY.ARCHIVO'|translate}}
                                 <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>
-                            </md-button><img src="assets/images/dashboards/weather.jpg" alt="Card Image" ng-show="vm.picIFE==null" width="120" height="120"/><img ngf-src="vm.picIFE" width="120" height="120" ng-if="vm.picIFE!=null"/>
+                            </md-button><img src="assets/images/dashboards/weather.jpg" alt="Card Image" ng-if="vm.picIFE==null" width="120" height="120"/><img ngf-src="vm.picIFE" width="120" height="120" ng-if="vm.picIFE!=null"/>
                         </div>
                     </div>
 
