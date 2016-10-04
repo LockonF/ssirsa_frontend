@@ -46,7 +46,6 @@
                     toastr.warning(vm.errorMessage, vm.errorTitle);
                 }
                 vm.status = 'idle';
-
             });
         }
         function clear() {
