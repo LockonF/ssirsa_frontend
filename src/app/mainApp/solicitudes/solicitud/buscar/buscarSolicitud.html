@@ -27,7 +27,7 @@
                                 </md-select>
                             </md-input-container>
                             <md-input-container flex="" class="md-inline-form" ng-if="(vm.filtro_busqueda=='Por Folio')&&((vm.tipo_solicitud=='Envio')||(vm.tipo_solicitud=='Recoleccion'))">
-                                <label>Folio</label>
+                                <label>{{'SEARCH_REQUEST.FORM.LABEL.FOLIO'|translate}}</label>
                                 <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
                                 <input type="text" ng-model="vm.folio" name="folio" only-digits required='required'>
                                 <div ng-messages="objectForm.folio.$error">
