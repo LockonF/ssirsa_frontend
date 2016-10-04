@@ -6,7 +6,7 @@
         .module('app.mainApp.solicitudes')
         .controller('buscarSolicitudController',buscarSolicitudController);
 
-    function buscarSolicitudController(Translate,$mdEditDialog,Solicitudes,Solicitudes_Admin,udn,modelo_cabinet,Solicitud_Servicio,Solicitud_Servicio_Admin,Session,OPTIONS,toastr,$mdDialog){
+    function buscarSolicitudController(Translate,$mdEditDialog,Solicitudes,Solicitudes_Admin,udn,ModeloCabinet,Solicitud_Servicio,Solicitud_Servicio_Admin,Session,OPTIONS,toastr,$mdDialog){
         var vm = this;
         vm.flag=0;
         vm.query={
@@ -109,12 +109,8 @@
         function activate(){
             vm.udns=udn.list();
 
-            modelo_cabinet.list().then(function(rest){
-                vm.tiposEquipo=rest;
-                //console.log(vm.tiposEquipo);
-            }).catch(function(error){
 
-            });
+                vm.tiposEquipo=ModeloCabinet.list();
             vm.isClient = Session.userRole == 'Cliente';
             console.log(vm.isClient);
 
