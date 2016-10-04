@@ -35,7 +35,7 @@
                         <!-- opc 1 Solicitud de Envio-->
                         <div flex="" layout-sm="column" layout-gt-md="column"
                              ng-show="vm.requisito.tipo_solicitud==0 ||vm.requisito.tipo_solicitud==1  ">
-                            <md-input-container class="md-block" ng-if="!vm.isClient">
+                                <md-input-container class="md-block" ng-if="!vm.isClient">
                                 <md-select placeholder="{{'CREATE_REQUEST.FORM.PLACEHOLDER.PERSON'|translate}}"
                                            ng-model="vm.persona" name="persona"
                                            ng-required="(vm.requisito.tipo_solicitud==0 ||vm.requisito.tipo_solicitud==1) && !vm.isClient">
@@ -61,7 +61,7 @@
                             <md-input-container class="md-block">
                                 <label>{{'CREATE_REQUEST.FORM.LABEL.DESCRIPTION'|translate}}</label>
                                 <textarea ng-model="vm.requisito.descripcion" md-maxlength="100" name="descripcion"
-                                          ng-required="vm.requisito.tipo_solicitud==0 ||vm.requisito.tipo_solicitud==1"
+
                                           ></textarea>
                                 <div ng-messages="solicitudForm.descripcion.$error">
 
@@ -75,7 +75,7 @@
                                         <md-icon md-font-icon="zmdi zmdi-calendar"></md-icon>
 
                                         <input   type="text" placeholder="{{'CREATE_REQUEST.FORM.LABEL.DATE_INITIAL'|translate}}" ng-model="vm.requisito.fecha_inicio" mdc-datetime-picker=""
-                                               time="false" date="true" min-date="minDate" max-date="maxDate" lang="es-mx"
+                                               time="false" date="true"   lang="es-mx"
                                                cancel-text="Cancelar"
                                                ok-text="Aceptar"
                                                  format="DD/MM/YYYY"
@@ -88,7 +88,7 @@
                                         </div>
                                     </md-input-container>
                                 </div>
-                                <div class="margin-bottom-20" layout="column" layout-align="center center">
+                                <div class="margin-bottom-20" layout="column" layout-align="center center" ng-if="!vm.isClient">
 
                                     <md-input-container>
                                         <md-icon md-font-icon="zmdi zmdi-calendar"></md-icon>
@@ -99,7 +99,7 @@
                                                ok-text="Aceptar"
                                                  format="DD/MM/YYYY"
                                                  name="date_end"
-                                                 ng-required="(vm.requisito.tipo_solicitud==0 ||vm.requisito.tipo_solicitud==1)"
+                                                 ng-required="(vm.requisito.tipo_solicitud==0 ||vm.requisito.tipo_solicitud==1)  && !vm.isClient"
                                                class=" md-input">
                                         <div ng-messages="solicitudForm.date_end.$error">
 
@@ -107,7 +107,7 @@
                                         </div>
                                     </md-input-container>
                                 </div>
-                                <div class="margin-bottom-20" layout="column" layout-align="center center">
+                                <div class="margin-bottom-20" layout="column" layout-align="center center" ng-if="!vm.isClient">
                                     <md-input-container>
                                     <md-icon md-font-icon="zmdi zmdi-calendar"></md-icon>
 
@@ -172,18 +172,18 @@
                                                     <td md-cell="md-cell"
                                                         ng-click='vm.edit($event,dato,"status_equipo")'>
                                                         <md-select aria-label="fab button" ng-model="dato.status_equipo">
-                                                            <md-option ng-repeat="status in vm.status"
-                                                                       ng-value="status.id">{{status.value}}
+                                                            <md-option ng-repeat="status in vm.status_equipment"
+                                                                       ng-value="status.value">{{status.value}}
                                                             </md-option>
                                                         </md-select>
                                                     </td>
                                                     <td md-cell="md-cell"
                                                         ng-click='vm.edit($event,dato,"modelo_cabinet")'>
-                                                        <md-select aria-label="fab button"  ng-model="dato.modelo_cabinet">
+                                                        <md-select aria-label="fab button"  ng-model="dato.tipo_equipo">
                                                             <md-option
                                                                 ng-repeat="tipoEquipo in vm.tiposEquipo"
                                                                 ng-value="tipoEquipo.id">
-                                                                {{tipoEquipo.nombre}} - {{tipoEquipo.tipo}}
+                                                                {{tipoEquipo.nombre}}
                                                             </md-option>
                                                         </md-select>
                                                     </td>
@@ -203,7 +203,7 @@
                             <md-input-container class="md-block">
                                 <label>{{'CREATE_REQUEST.FORM.LABEL.COMMENT'|translate}}</label>
                                 <textarea ng-model="vm.requisito.comentario" md-maxlength="100" name="comentario"
-                                          ng-required="(vm.requisito.tipo_solicitud==0 ||vm.requisito.tipo_solicitud==1)"></textarea>
+                                          ></textarea>
                                 <div ng-messages="solicitudForm.comentario.$error">
                                     <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                 </div>
@@ -239,12 +239,13 @@
                                 <md-input-container>
                                     <md-icon md-font-icon="zmdi zmdi-calendar"></md-icon>
 
-                                    <input  type="text" placeholder="{{'CREATE_REQUEST.FORM.LABEL.DATE_TERMINATE'|translate}}" ng-model="vm.requisitoVenta.fecha_atencion" mdc-datetime-picker=""
-                                            time="true" date="true" min-date="minDate" max-date="maxDate" lang="es-mx"
+                                    <input  type="text" placeholder="{{'CREATE_REQUEST.FORM.LABEL.DATE_END'|translate}}" ng-model="vm.requisitoVenta.fecha_atencion" mdc-datetime-picker=""
+                                            time="false" date="true"  lang="es-mx"
                                             cancel-text="Cancelar"
                                             ok-text="Aceptar"
-                                            format="DD/MM/YYYY HH:mm"
+                                            format="DD/MM/YYYY"
                                             name="date_terminate"
+                                            ng-disabled="true"
                                             ng-required="vm.requisito.tipo_solicitud==2"
                                             class=" md-input">
                                     <div ng-messages="solicitudForm.date_terminate.$error">

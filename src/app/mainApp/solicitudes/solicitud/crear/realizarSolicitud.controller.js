@@ -6,7 +6,7 @@
         .module('app.mainApp.solicitudes')
         .controller('realizarSolicitudController', realizarSolicitudController);
 
-    function realizarSolicitudController(OPTIONS, udn,ModeloCabinet,$mdEditDialog, $mdDialog, Translate,toastr, Solicitudes, Solicitud_Servicio, Solicitudes_Admin, PersonaCapturista, Session, Socket,$scope) {
+    function realizarSolicitudController(OPTIONS, udn,TipEquipo,$mdEditDialog, $mdDialog, Translate,toastr, Solicitudes, Solicitud_Servicio, Solicitudes_Admin, PersonaCapturista, Session, Socket,$scope) {
         var vm = this;
 
         var requisito = {
@@ -20,8 +20,7 @@
             "status": null,
             "comentario": null,
             "datos": [],
-            "persona": null,
-            "modelo_cabinet": null
+            "persona": null
         };
         var requisitoVenta = {
             "id": null,
@@ -60,8 +59,9 @@
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
             vm.udns = udn.list();
             vm.personas = PersonaCapturista.list();
-            vm.tiposEquipo=ModeloCabinet.list();
-            vm.isClient = Session.userRole == 'Cliente';
+            vm.tiposEquipo=TipEquipo.list();
+            vm.isClient = Session.userRole === 'Cliente';
+            vm.requisitoVenta.fecha_atencion=moment();
         }
         function showCreateDialog(event) {
             var config = {
@@ -96,6 +96,8 @@
             $scope.solicitudForm.$setUntouched();
             vm.udn = null;
             vm.persona = null;
+            vm.isClient = Session.userRole === 'Cliente';
+            vm.requisitoVenta.fecha_atencion=moment();
         }
 
         function guardarSolicitudAdmin() {
@@ -139,7 +141,7 @@
                 toastr.success(vm.successCreateMessage, vm.successTitle);
 
 
-            }).catch(function (res) {
+            }).catch(function (res)  {
                 toastr.error(vm.errorMessage, vm.errorTitle);
             })
         }
@@ -159,7 +161,7 @@
             });
         }
         function guardarSolicitudVenta() {
-            vm.requisitoVenta.fecha_atencion = moment(vm.requisitoVenta.fecha_atencion).toISOString();
+            vm.requisitoVenta.fecha_atencion = moment(vm.requisitoVenta.fecha_atencion).format('YYYY-MM-DD');
             vm.requisitoVenta.created_at = moment(vm.requisitoVenta.created_at).format('YYYY-MM-DD');
             vm.requisitoVenta.updated_at = moment(vm.requisitoVenta.updated_at).format('YYYY-MM-DD');
             vm.requisitoVenta.udn = vm.udn;

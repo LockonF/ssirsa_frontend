@@ -9,15 +9,23 @@
         </div>
         <div flex="flex" layout-lt-md="column" layout-gt-sm="row">
             <div flex="flex" layout="column" layout-align="space-around stretch">
-                <md-autocomplete md-selected-item="vm.marca_cabinet" md-selected-item-change="vm.selectedItemChange(vm.marca_cabinet)" md-items="item in vm.search_items" md-item-text="item.descripcion" md-min-length="0" md-search-text-change="vm.lookup(vm.searchText)" md-search-text="vm.searchText" md-menu-class="autocomplete-custom-template" md-floating-label="{{&quot;Cabinet_Brand.lookup&quot; | translate}}">
+                <md-autocomplete md-selected-item="vm.marca_cabinet"
+                                 md-selected-item-change="vm.selectedItemChange(vm.marca_cabinet)"
+                                 md-items="item in vm.search_items"
+                                 md-item-text="item.descripcion"
+                                 md-min-length="0"
+                                 md-search-text-change="vm.lookup(vm.searchText)" md-search-text="vm.searchText" md-menu-class="autocomplete-custom-template"
+                                 md-floating-label="{{&quot;Cabinet_Brand.lookup&quot; | translate}}">
                     <md-item-template><span class="item-title">
               <md-icon md-font-icon="zmdi zmdi-truck"></md-icon><span>{{item.descripcion}}</span></span></md-item-template>
                 </md-autocomplete>
+
                 <md-virtual-repeat-container id="vertical_container" hide-xs="hide-xs" layout-fill="layout-fill" class="vr-min-height">
                     <md-list flex="flex">
                         <md-list-itm flex="flex" ng-repeat="item in vm.marca_cabinet_list">
                             <md-button ng-click="vm.clickRepeater(item)" ng-class="{'selected':item.id === vm.marca_cabinet.id}">
-                                <md-icon md-svg-icon="assets/images/modelo.svg" class="avatar"></md-icon><span>{{item.descripcion}}</span>
+                                <md-icon md-svg-icon="assets/images/modelo.svg" class="avatar"></md-icon>
+                                <span>{{item.descripcion}}</span>
                             </md-button>
                             <md-divider></md-divider>
                         </md-list-itm>

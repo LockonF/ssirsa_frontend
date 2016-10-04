@@ -9,18 +9,23 @@
             </div>
 
             <div layout="row">
+                <md-button class="md-raised" aria-label="Editar"
+                           ng-click="vm.editar()">
+                    <md-icon md-font-icon="fa fa-pencil"></md-icon>
+
+                </md-button>
                 <md-button class="md-raised" aria-label="Guardar"
                            ng-click='vm.crearEtapaServicio()'>
                     <md-icon md-font-icon="fa fa-save"></md-icon>
 
                 </md-button>
-                <md-button class="md-raised" aria-label="Guardar"
+                <md-button class="md-raised" aria-label="Cancelar"
                            ng-click="vm.cancel()">
                     <md-icon md-font-icon="fa fa-eraser"></md-icon>
 
                 </md-button>
-                <md-button class="md-raised" aria-label="Guardar"
-                           ng-click="vm.eliminarEtapaServicio()">
+                <md-button class="md-raised" aria-label="Eliminar"
+                           ng-click="vm.eliminarEtapaServicio($event)">
                     <md-icon md-font-icon="fa fa-trash"></md-icon>
 
                 </md-button>
@@ -38,7 +43,7 @@
                             <md-input-container flex>
                                 <form name="Buscar" ng-submit="vm.buscar()">
                                     <label translate>ETAPA_SERVICIO.ID_CABINET</label>
-                                      <input type="text" ng-model="vm.idCabinet"/>
+                                    <input type="text" ng-model="vm.idCabinet"/>
                                 </form>
                             </md-input-container>
 
@@ -97,12 +102,6 @@
                                             <md-icon md-font-icon="zmdi zmdi-zoom-in"></md-icon>
                                         </md-button>
                                     </md-input-container>
-                                    <md-input-container flex>
-                                        <md-button class="md-fab" class="md-primary" aria-label="fab button"
-                                                   ng-click="vm.editar()">
-                                            <md-icon md-font-icon="fa fa-pencil"></md-icon>
-                                        </md-button>
-                                    </md-input-container>
                                 </div>
                             </div>
                         </div>
@@ -110,61 +109,95 @@
                 </md-content>
             </md-tab>
 
-            <md-tab label="Insumos de la Etapa">
+            <md-tab label="Insumos de la Etapa" ng-if="vm.showInsumosSection">
                 <md-content class="md-padding">
-                    <div layout="row">
-                        <md-input-container flex="25">
-                            <label translate>ETAPA_SERVICIO.NAME</label>
-                            <md-select ng-model="vm.catalogoSelected" name="select" ng-disabled="vm.editable">
-                                <md-option ng-repeat="insu in vm.catalogoInsumos" ng-value="insu">{{insu.descripcion}}
-                                </md-option>
-                            </md-select>
-                        </md-input-container>
-                        <md-input-container flex="15">
-                            <label translate>ETAPA_SERVICIO.CANTITY</label>
-                            <input type="number" ng-model="vm.insumo.cantidad" ng-disabled="vm.editable"/>
-                        </md-input-container>
-                        <md-input-container flex="50">
-                            <label translate>ETAPA_SERVICIO.NOTES</label>
-                            <input type="text" ng-model="vm.insumo.notas" ng-disabled="vm.editable"/>
-                        </md-input-container>
-                        <md-input-container flex="10">
-                            <md-button class="md-primary md-raised" aria-label="raised button"
-                                       ng-click='vm.crearInsumo()'>
-                                <md-icon md-font-icon="zmdi zmdi-plus"></md-icon>
-                            </md-button>
-                        </md-input-container>
-                    </div>
-                    <div layout="row" layout-sm="column" layout-md="column" ng-show="vm.insumos">
-                        <md-table-container>
-                            <table md-table="" md-row-select="" ng-model="vm.insumos" flex="100">
-                                <thead md-head="" md-order="vm.query.order">
-                                <tr md-row="md-row">
-                                    <th md-column="md-column" md-order-by="nombre" flex="25"><span
-                                            translate>ETAPA_SERVICIO.NAME</span></th>
-                                    <th md-column="md-column" md-order-by="cantidad" flex="15"><span translate>ETAPA_SERVICIO.CANTITY</span>
-                                    </th>
-                                    <th md-column="md-column" md-order-by="notas" flex="50"><span
-                                            translate>ETAPA_SERVICIO.NOTES</span>
-                                        <!-- Cuerpo de la tabla-->
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody md-body="md-body">
-                                <tr md-row="md-row" md-select="insu" md-select-id="{{insu.id}}"
-                                    ng-repeat="insu in vm.insumos| orderBy:vm.query.order">
-                                    <td md-cell="md-cell" flex="25">{{insu.nombre}}</td>
-                                    <td md-cell="md-cell" flex="15">{{insu.cantidad}}</td>
-                                    <td md-cell="md-cell" flex="50">{{insu.notas}}</td>
-                                    <td md-cell="md-cell" ng-click="$event.stopPropagation()" flex="10">
-                                        <md-button ng-click="vm.eliminarInsumo(insu)" class="md-fab md-warn md-mini">
-                                            <md-icon md-font-icon="fa fa-times-circle"></md-icon>
+                    <div layout="column" flex>
+                        <div layout="row" flex="100" layout-align="space-around stretch">
+                            <form name="form.insumoFormEtapa" layout-fill="">
+                                <div layout="row" flex="100">
+                                    <md-input-container flex="30">
+                                        <label translate>ETAPA_SERVICIO.NAME</label>
+                                        <md-select ng-model="vm.catalogoSelected" name="insumo" required='required'
+                                                   ng-disabled="vm.editable">
+                                            <md-option ng-repeat="insu in vm.catalogoInsumos" ng-value="insu">
+                                                {{insu.descripcion}}
+                                            <md-option ng-if="insu.descripcion==''"> "No hay Insumos que mostrar"</md-option>
+                                            </md-option>
+
+                                        </md-select>
+                                        <div ng-messages="form.insumoFormEtapa.insumo.$error">
+
+                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                        </div>
+                                    </md-input-container>
+
+                                    <md-input-container flex="20">
+                                        <label translate>ETAPA_SERVICIO.CANTITY</label>
+                                        <input name="cantidad" type="number" ng-model="vm.insumo.cantidad"
+                                               ng-disabled="vm.editable" required
+                                               max="{{vm.catalogoSelected.cantidad}}"/>
+                                        <div ng-messages="form.insumoFormEtapa.cantidad.$error">
+
+                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                            <div ng-message="max">{{'MAIN.GENERAL.MAX_NUMBER' | translate}}
+                                                {{vm.catalogoSelected.cantidad}}
+                                            </div>
+
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container flex="40">
+                                        <label translate>ETAPA_SERVICIO.NOTES</label>
+                                        <input name="notas" type="text" ng-model="vm.insumo.notas"
+                                               ng-disabled="vm.editable"
+                                               md-maxlength="45"
+                                               required maxlength="45" minlength="2"/>
+                                        <div ng-messages="form.insumoFormEtapa.notas.$error">
+
+                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container flex="10">
+                                        <md-button class="md-primary md-raised" aria-label="raised button"
+                                                   ng-disabled="form.insumoFormEtapa.$invalid"
+                                                   ng-click='vm.crearInsumo()'>
+                                            <md-icon md-font-icon="zmdi zmdi-plus"></md-icon>
                                         </md-button>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </md-table-container>
+                                    </md-input-container>
+                                </div>
+                            </form>
+                        </div>
+                        <div layout="row" layout-sm="column" layout-md="column" ng-show="vm.insumos.length!=0">
+                            <md-table-container>
+                                <table md-table="" md-row-select="vm.insumo" md-auto-select ng-model="vm.insumos" flex="100">
+                                    <thead md-head="" md-order="vm.query.order">
+                                    <tr md-row="md-row">
+                                        <th md-column="md-column" md-order-by="nombre" flex="25"><span
+                                                translate>ETAPA_SERVICIO.NAME</span></th>
+                                        <th md-column="md-column" md-order-by="cantidad" flex="15"><span translate>ETAPA_SERVICIO.CANTITY</span>
+                                        </th>
+                                        <th md-column="md-column" md-order-by="notas" flex="50"><span
+                                                translate>ETAPA_SERVICIO.NOTES</span>
+                                            <!-- Cuerpo de la tabla-->
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody md-body="md-body">
+                                    <tr md-row="md-row" md-select="insu" md-select-id="{{insu.id}}"
+                                        ng-repeat="insu in vm.insumos| orderBy:vm.query.order">
+                                        <td md-cell="md-cell" flex="25">{{insu.nombre}}</td>
+                                        <td md-cell="md-cell" flex="15">{{insu.cantidad}}</td>
+                                        <td md-cell="md-cell" flex="50">{{insu.notas}}</td>
+                                        <td md-cell="md-cell" ng-click="$event.stopPropagation()" flex="10">
+                                            <md-button ng-click="vm.eliminarInsumo(insu)"
+                                                       class="md-fab md-warn md-mini">
+                                                <md-icon md-font-icon="fa fa-times-circle"></md-icon>
+                                            </md-button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </md-table-container>
+                        </div>
                     </div>
                 </md-content>
             </md-tab>
