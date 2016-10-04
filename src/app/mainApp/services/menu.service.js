@@ -353,7 +353,8 @@
                     icon: 'fa fa-wrench',
                     type: 'dropdown',
                     priority: 4,
-                    children: [{
+                    children: [
+                        {
                         name: 'MAIN.MENU.START',
                         state: 'triangular.admin-default.tecnico',
                         type: 'link'
