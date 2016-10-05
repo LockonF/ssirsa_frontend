@@ -62,7 +62,16 @@
                 templateUrl:'app/mainApp/tecnico/entrada/entrada.tmpl.html',
                 controller:'entradaController',
                 controllerAs:'vm'
-            });
+            })
+            .state('triangular.admin-default.salida',{
+            url:'/salida',
+            data: {
+                roles: ['Administrador','Tecnico A','Tecnico B','Tecnico C','Tecnico D','Tecnico E']
+            },
+            templateUrl:'app/mainApp/tecnico/salida/salida.tmpl.html',
+            controller:'salidaController',
+            controllerAs:'vm'
+        });
 
     }
 })();
