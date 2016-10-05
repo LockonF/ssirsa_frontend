@@ -35,13 +35,7 @@
                 templateUrl: 'app/mainApp/inventarios/catalogoInsumo.tmpl.html', //Dirección del archivo a usar
                 controller: 'catalogoInsumoController', //nombre del controlador
                 controllerAs: 'vm' //se renombra al scope
-            })
-            .state('triangular.admin-default.construccion', { //Nombre del state
-                url: '/construccion', //Nombre que quiero en mi url
-
-                templateUrl: 'app/mainApp/inventarios/enConstruccion.tmpl.html', //Dirección del archivo a usar
-
-            })
+            });
 
     }
 
