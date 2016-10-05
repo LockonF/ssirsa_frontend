@@ -177,7 +177,7 @@
         "SUCCESS_REMOVING_PROJECT": "Proyecto eliminado correctamente",
         "ERROR_REMOVING_PROJECT": "Error al eliminar proyecto",
         "SUCCESS_UPDATING_PROJECT": "Proyecto actualizado correctamente",
-        "ERROR_UPDATING_PROJECT": "Error al eliminar proyecto"
+        "ERROR_UPDATING_PROJECT": "Error al actualizar proyecto"
       }
     }
   },
