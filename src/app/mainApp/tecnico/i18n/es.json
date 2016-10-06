@@ -183,7 +183,9 @@
             "BUTTON":{
                 "CHOOSE_FILE": "Seleccionar Archivo",
                 "CHOOSE_IMAGE": "Seleccionar Imagen",
-                "NEXT": "Siguiente"
+                "NEXT": "Siguiente",
+                "CABINETS.MASSIVE.UPLOAD": "Carga masiva de cabinets",
+                "CABINETS.MANUAL.UPLOAD": "Carga individual de cabinets"
             },
             "Save": "Guardar",
             "Cancel": "Cancelar",
@@ -194,8 +196,6 @@
 
             "Upload Image": "Carga de Imagen",
             "Pediment": "Pedimento",
-            "Cabinets Massive Upload": "Carga masiva de cabinets",
-            "Cabinets Manual Upload": "Carga individual de cabinets",
 
             "Upload File": "Cargar Archivo",
 

@@ -129,9 +129,9 @@
             if ($files.length > 0) {
                 var file = $files[0];
                 var extn = file.name.split(".").pop();
-                if (file.size / 1000000 > 1) {
+                if (file.size / 1000000 > 10) {
                     vm.entrada.file = null;
-                    toastr.warning(vm.errorSize, vm.errorTitle);
+                    toastr.warning(vm.errorSizeTen, vm.errorTitle);
                 } else if (!Helper.acceptFile(file.type)) {
                     if (!Helper.acceptFile(extn)) {
                         toastr.warning(vm.errorTypeFile, vm.errorTitle);
@@ -152,6 +152,7 @@
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
             vm.errorTypeFile = Translate.translate('MAIN.MSG.ERORR_TYPE_FILE');
             vm.errorSize = Translate.translate('MAIN.MSG.FILE_SIZE');
+            vm.errorSizeTen = Translate.translate('MAIN.MSG.FILE_SIZE_10');
         }
 
         function showMassiveUpload() {

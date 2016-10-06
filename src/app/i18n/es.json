@@ -83,6 +83,7 @@
       "ERORR_TYPE_FILE": "No se permiten este tipo de archivo",
       "SUCCESS_TAKE": "El ticket se auto asignó  exitosamente",
       "FILE_SIZE": "Solo se pueden subir un archivo con un peso máximo de 1MB",
+      "FILE_SIZE_10": "Solo se pueden subir un archivo con un peso máximo de 10MB",
       "SUCCESS_DELETE_FOLLOWER": "Se eliminó el seguidor de manera exitosa",
       "NOT_FOUND": "No se encontró el elemento que se buscaba",
       "NOT_ALLOWED": "No se posee el permiso para realizar dicha Acción",

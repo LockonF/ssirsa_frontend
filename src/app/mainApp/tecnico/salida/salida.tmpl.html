@@ -99,8 +99,8 @@
                 <md-tab label = {{'OUTPUT.FORM.TABS.UPLOAD'|translate}} ng-disabled="entradaForm.$invalid">
                     <md-content layout-padding="">
                         <div layout-gt-md="row" layout="column" layout-align-gt-md="space-around center" layout-align="center stretch">
-                            <md-button ng-click="vm.showMassiveUpload()" class="md-raised md-primary">{{'INPUT.Cabinets Massive Upload'|translate}}</md-button>
-                            <md-button ng-click="vm.showManualUpload()" class="md-raised md-primary">{{'INPUT.Cabinets Manual Upload'|translate}}</md-button>
+                            <md-button ng-click="vm.showMassiveUpload()" class="md-raised md-primary">{{'OUTPUT.FORM.BUTTON.CABINETS.MASSIVE.UPLOAD'|translate}}</md-button>
+                            <md-button ng-click="vm.showManualUpload()" class="md-raised md-primary">{{'OUTPUT.FORM.BUTTON.CABINETS.MANUAL.UPLOAD'|translate}}</md-button>
                         </div>
                         <div layout="column" ng-hide="vm.hideMassiveUpload">
                             <!-- Massive Upload-->
@@ -109,12 +109,8 @@
                                     <input name="FileName" type="text" ng-model="vm.entrada.file.name" ng-disabled="true"/>
                                 </md-input-container>
                                 <div flex="25" flex-sm="100" flex-xs="100" flex-md="100" layout="column">
-                                    <md-button ngf-select="vm.selectionFile($file)" accept=".xlsx, application/vnd.ms-excel" ngf-max-size="10MB" ng-model="vm.entrada.file" class="md-primary md-raised">{{'INPUT.Choose File'|translate}}</md-button>
+                                    <md-button ngf-select="vm.selectionFile($files)" accept=".xlsx, application/vnd.ms-excel"   ng-model="vm.entrada.file" class="md-primary md-raised">{{'OUTPUT.FORM.BUTTON.CHOOSE_FILE'|translate}}</md-button>
                                 </div>
-                            </div>
-                            <div layout-gt-md="row" layout-align-gt-md="space-around center" layout-align="space-around stretch" layout="column">
-                                <md-button class="md-raised md-primary" ng-click="vm.showMarcaDialog(ev)">{{'INPUT.Create Brand'|translate}}</md-button>
-                                <md-button class="md-raised md-primary" ng-click="vm.showModeloDialog(ev)">{{'INPUT.Create Model'|translate}}</md-button>
                             </div>
                         </div>
                         <div flex="" layout="column" ng-hide="vm.hideRegisteredCabinets">

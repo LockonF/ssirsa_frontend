@@ -6,6 +6,7 @@
         .module('app.mainApp.profile')
         .controller('profileUserController',profileUserController);
 
+    /* @ngInject */
     function profileUserController(Persona,toastr,Helper,Translate){
         var vm = this;
         vm.picFoto=null;
