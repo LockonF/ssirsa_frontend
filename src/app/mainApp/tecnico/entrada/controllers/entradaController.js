@@ -8,7 +8,7 @@
         .module('app.mainApp.tecnico')
         .controller('entradaController', entradaController);
 
-    function entradaController(EntradaSalida, toastr, $mdDialog, MarcaCabinet, ModeloCabinet) {
+    function entradaController(EntradaSalida, toastr, $mdDialog, MarcaCabinet, ModeloCabinet, Sucursal, udn, Proyectos, TipoTransporte, LineaTransporte) {
         var vm = this;
 
         //vm.status="idle";//idle, uploading, complete
@@ -37,47 +37,6 @@
         vm.hideRegisteredCabinets = true;
         vm.hideUnregisteredCabinets = true;
 
-        //Models
-        vm.lineasTransporte = [
-            {
-                "id": "",
-                "razon_social": "",
-                "direccion": "",
-                "telefonos": "",
-                "responsable": ""
-            }
-        ];
-        vm.tiposTransporte = [
-            {
-                "id": "",
-                "descripcion": ""
-            }
-        ];
-        vm.udns = [
-            {
-                "id": "",
-                "zona": "",
-                "centro": "",
-                "agencia": "",
-                "direccion": "",
-                "telefono": []
-            }
-        ];
-        vm.Sucursales = [
-            {
-                "id": "",
-                "nombre": "",
-                "direccion": "",
-                "telefonos": [],
-                "responsable": ""
-            }
-        ];
-        vm.Proyectos = [
-            {
-                "id": "",
-                "descripcion": ""
-            }
-        ];
         vm.cabinets = null;
         vm.responseMassiveUpload = {
             "id": "",
@@ -162,35 +121,11 @@
 
         function activate() {
 
-            EntradaSalida.getLineasTransporte().then(function (res) {
-                vm.lineasTransporte = res;
-            }).catch(function (err) {
-                toastr.error('Error al obtener Lineas de Transporte, por favor intente de nuevo', 'Error');
-            });
-
-            EntradaSalida.getTiposTransporte().then(function (res) {
-                vm.tiposTransporte = res;
-            }).catch(function (err) {
-                toastr.error('Error al obtener Tipos de Transporte, por favor intente de nuevo', 'Error');
-            });
-
-            EntradaSalida.getSucursales().then(function (res) {
-                vm.Sucursales = res;
-            }).catch(function (err) {
-                toastr.error('Error al obtener Sucursales, por favor intente de nuevo', 'Error');
-            });
-
-            EntradaSalida.getProyectos().then(function (res) {
-                vm.Proyectos = res;
-            }).catch(function (err) {
-                toastr.error('Error al obtener Proyectos, por favor intente de nuevo', 'Error');
-            });
-
-            EntradaSalida.getUDN().then(function (res) {
-                vm.udns = res;
-            }).catch(function (err) {
-                toastr.error('Error al obtener UDNs, por favor intente de nuevo', 'Error');
-            });
+            vm.lineasTransporte = LineaTransporte.list();
+            vm.tiposTransporte = TipoTransporte.list();
+            vm.Sucursales = Sucursal.list();
+            vm.Proyectos = Proyectos.list();
+            vm.udns = udn.list();
 
         }
 
