@@ -8,17 +8,13 @@
         .module('app.mainApp.tecnico')
         .controller('salidaController', salidaController);
 
-    function salidaController(EntradaSalida, EnvironmentConfig, OAuthToken, Upload, Helper, Translate, toastr, Sucursal, udn, Proyectos, TipoTransporte, $scope, LineaTransporte) {
+    function salidaController(EntradaSalida, Helper, Translate, toastr, Sucursal, udn, Proyectos, TipoTransporte, $scope, LineaTransporte) {
         var vm = this;
         vm.guardar = guardar;
         vm.selectionFile = selectionFile;
         vm.selectionImage = selectionImage;
-        vm.showMassiveUpload = showMassiveUpload;
-        vm.showManualUpload = showManualUpload;
-        vm.cabinetSearch = cabinetSearch;
         vm.nextTab = nextTab;
         vm.clear = clear;
-        vm.appendCabinet = appendCabinet;
 
 
         activate();
@@ -27,14 +23,11 @@
         vm.idEntrada = null;
 
         //Visualizations
-        vm.hideEntrada = false;
-        vm.hideSalida = true;
-        vm.hideMassiveUpload = true;
-        vm.hideManualUpload = true;
+
+
         vm.hideRegisteredCabinets = true;
         vm.hideUnregisteredCabinets = true;
-        vm.manualInput = false;
-        vm.selectedCabinets = [];
+
 
         //Models
 
@@ -55,17 +48,14 @@
             "file": null,
 
             "creados": null,
-            "no_creados": null,
-            "cabinets": null
+            "no_creados": null
         };
         vm.salida = angular.copy(salida);
 
         //Functions
         function guardar() {
             vm.salida.fecha = moment().format("YYYY-MM-DD");
-
             var fd = new FormData();
-
             fd.append('accion', 'salida');
             fd.append('fecha', vm.salida.fecha);
             fd.append('pedimento', vm.salida.pedimento);
@@ -75,17 +65,8 @@
             fd.append('sucursal', vm.salida.sucursal);
             fd.append('tipo_transporte', vm.salida.tipo_transporte);
             fd.append('udn', vm.salida.udn);
-            var cabinet = [{
-                economico: "10"
-            }, {
-                economico: "9"
-            }];
-
             if (vm.salida.id != null)
                 fd.append("id", vm.salida.id);
-
-            vm.salida.cabinets = cabinet;
-            fd.append('cabinets', JSON.stringify(cabinet));
             if (vm.salida.ife_chofer != null)
                 fd.append('ife_chofer', vm.salida.ife_chofer);
             //Is massive upload
@@ -105,15 +86,6 @@
                     } else {
                         toastr.error(vm.errorMessage, vm.errorTitle);
                     }
-                });
-            }
-            else {
-                EntradaSalida.postEntrada(fd).then(function (res) {
-                    console.log(res);
-                    toastr.success(vm.successMessage, vm.successTitle);
-                }).catch(function (err) {
-                    console.log(err);
-                    toastr.error(vm.errorMessage, vm.errorTitle);
                 });
             }
 
@@ -168,10 +140,6 @@
             vm.successMessage = Translate.translate('MAIN.MSG.SUCCESS_MANUAL');
         }
 
-        function showMassiveUpload() {
-            vm.hideManualUpload = true;
-            vm.hideMassiveUpload = false;
-        }
 
         function clear() {
             vm.hideUnregisteredCabinets = true;
@@ -183,39 +151,7 @@
             vm.salida.creados = null;
         }
 
-        function showManualUpload() {
-            /*vm.hideManualUpload = false;
-            vm.hideMassiveUpload = true;
-            EntradaSalida.getCabinetsEntrada().then(function (res) {
-                vm.cabinetsEntrada = res;
-            });*/
-        }
 
-        function cabinetSearch(query) {
-
-            return query ? lookup(query) : vm.cabinetsEntrada;
-        }
-
-        function lookup(search_text) {
-            vm.search_items = _.filter(vm.cabinetsEntrada, function (item) {
-                return item.economico.toLowerCase().indexOf(search_text.toLowerCase()) >= 0;
-            });
-            return vm.search_items;
-        }
-
-        function appendCabinet(chip) {
-            if (vm.selectedCabinets != null) {
-                var index = _.findIndex(vm.selectedCabinets, function (obj) {
-                    return obj.economico === chip.economico;
-                });
-                if (index != -1) {//no lo encontr
-                    vm.selectedCabinets.splice(index, 1);
-                }
-            } else {
-                vm.selectedCabinets.splice(index, 1);
-            }
-            return chip;
-        }
 
         function nextTab() {
             vm.selectedTab = vm.selectedTab + 1;
