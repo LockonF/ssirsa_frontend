@@ -1,167 +1,206 @@
 {
-
-
     "ADMIN": {
         "MANAGE": {
             "MANAGEMENT_USER": "Administración de Usuarios"
         }
     },
-    "TECNICO":{
-        "FORM":{
-            "LABEL":{
-                "SEARCH":"Búsqueda de Cabinet",
-                "ID_CABINET":"Id Cabinet",
-                "MARCA":"Marca",
-                "DESCRIPTION":"Descripción",
-                "SLICED":"No. de Rodajas",
-                "LAYETTES":"No. de Canastillas",
-                "DOORS":"Puertas",
-                "GRIDS":"No. de Rejillas",
-                "STICKER":"Sticker",
-                "PAINTING":"Pintura",
-                "WASHED":"Lavado",
-                "STRETCH_WRAP":"Emplayado",
-                "READY_MARKET":"Listo para mercado",
-                "LUBRICATION":"Lubricación",
-                "ECONOMIC":"Económico",
-                "SERIE":"No serie",
-                "TYPE_INPUT":"Tipo de Entrada",
-                "YEAR":"Año",
-                "NO_INCIDENTS":"No. de incidencias",
-                "STATUS":"Estatus",
-                "OUTPUT":"Salida",
-                "CABINET":"Cabinet",
-                "CAPITAL":"Capitalizable",
-                "UNILEVER":"Activo"
-
+    "TECNICO": {
+        "FORM": {
+            "LABEL": {
+                "SEARCH": "Búsqueda de Cabinet",
+                "ID_CABINET": "Id Cabinet",
+                "MARCA": "Marca",
+                "DESCRIPTION": "Descripción",
+                "SLICED": "No. de Rodajas",
+                "LAYETTES": "No. de Canastillas",
+                "DOORS": "Puertas",
+                "GRIDS": "No. de Rejillas",
+                "STICKER": "Sticker",
+                "PAINTING": "Pintura",
+                "WASHED": "Lavado",
+                "STRETCH_WRAP": "Emplayado",
+                "READY_MARKET": "Listo para mercado",
+                "LUBRICATION": "Lubricación",
+                "ECONOMIC": "Económico",
+                "SERIE": "No serie",
+                "TYPE_INPUT": "Tipo de Entrada",
+                "YEAR": "Año",
+                "NO_INCIDENTS": "No. de incidencias",
+                "STATUS": "Estatus",
+                "OUTPUT": "Salida",
+                "CABINET": "Cabinet",
+                "CAPITAL": "Capitalizable",
+                "UNILEVER": "Activo"
             },
-            "SUBHEAD":{
-                "PIECES":"Número de Piezas",
-                "VALIDATION":"Validación de Salida",
-                "EVIDENCE":"Evidencia fotográfica"
+            "SUBHEAD": {
+                "PIECES": "Número de Piezas",
+                "VALIDATION": "Validación de Salida",
+                "EVIDENCE": "Evidencia fotográfica"
             }
         }
     },
-    "ETAPA_SERVICIO":{
-        "TITLE":"Registro de Servicio",
-        "ID_CABINET":"Id de Cabinet",
-        "ETAPA_INFO":"Información de Etapa",
-        "ETAPA_INSUMOS":"Insumos de la Etapa",
-        "NO_DIAGNOSTIC":"No. de Diagnostico",
-        "ETAPA_ACTUAL":"Etapa Actual",
-        "NEXT_ETAPA":"Siguiente Etapa",
-        "ECONOMIC":"Económico",
-        "ACTUAL_STATE":"Status Actual",
-        "INCIDENTS":"Incidencias",
-        "INSUM":"Insumo",
-        "CANTITY":"Cantidad",
-        "NOTES":"Notas",
-        "NAME":"Nombre",
-        "VALIDATED":"Validado",
-        "DELETE":"Eliminar Etapa",
-        "ARE_U_SURE":"¿Estás seguro que deseas eliminar el registro?",
-        "ACCEPT":"Aceptar",
-        "CANCEL":"Cancelar",
-        "INSUMO_NOTVALIDATED":"Etapa donde no se permite agregar Insumos"
+    "ETAPA_SERVICIO": {
+        "TITLE": "Registro de Servicio",
+        "ID_CABINET": "Id de Cabinet",
+        "ETAPA_INFO": "Información de Etapa",
+        "ETAPA_INSUMOS": "Insumos de la Etapa",
+        "NO_DIAGNOSTIC": "No. de Diagnostico",
+        "ETAPA_ACTUAL": "Etapa Actual",
+        "NEXT_ETAPA": "Siguiente Etapa",
+        "ECONOMIC": "Económico",
+        "ACTUAL_STATE": "Status Actual",
+        "INCIDENTS": "Incidencias",
+        "INSUM": "Insumo",
+        "CANTITY": "Cantidad",
+        "NOTES": "Notas",
+        "NAME": "Nombre",
+        "VALIDATED": "Validado",
+        "DELETE": "Eliminar Etapa",
+        "ARE_U_SURE": "¿Estás seguro que deseas eliminar el registro?",
+        "ACCEPT": "Aceptar",
+        "CANCEL": "Cancelar",
+        "INSUMO_NOTVALIDATED": "Etapa donde no se permite agregar Insumos"
     },
-    "CABINET":{
-        "LINE_ASSIGMENT":"Asignación de Linea",
-        "ID_CABINET":"Id de Cabinet",
-        "EJEX":"Pasillo",
-        "EJEY":"Nivel",
-        "EJEZ":"Profundidad",
-        "ECONOMIC":"Economico",
-        "STATUS":"Estado Actual",
-        "INCIDENTS":"Incidencias",
-        "FUNCTION":"Funciona",
-        "ID_UNILEVER":"Id de Unilever",
-        "NO_SERIE":"Número de Serie",
-        "YEAR":"Año",
-        "MODEL":"Modelo",
-        "SELECTED_CABINET":"Cabinet Seleccionado",
-        "AGE":"ANTIGÜEDAD"
-
+    "CABINET": {
+        "LINE_ASSIGMENT": "Asignación de Linea",
+        "ID_CABINET": "Id de Cabinet",
+        "EJEX": "Pasillo",
+        "EJEY": "Nivel",
+        "EJEZ": "Profundidad",
+        "ECONOMIC": "Economico",
+        "STATUS": "Estado Actual",
+        "INCIDENTS": "Incidencias",
+        "FUNCTION": "Funciona",
+        "ID_UNILEVER": "Id de Unilever",
+        "NO_SERIE": "Número de Serie",
+        "YEAR": "Año",
+        "MODEL": "Modelo",
+        "SELECTED_CABINET": "Cabinet Seleccionado",
+        "AGE": "ANTIGÜEDAD"
     },
-    "TEC":{
-        "TECNICIANA":"Técnico A",
-        "TECNICIANB":"Técnico B",
-        "TECNICIANC":"Técnico C",
-        "TECNICIAND":"Técnico D",
-        "TECNICIANE":"Técnico E",
-        "IN":"Entradas",
-        "PRECHEK_IN":"Pre Checklist Entrada",
-        "OUT":"Salidas",
-        "DIAGNOSTIC":"Diagnostico",
-        "SERVICE":"Registrar Servicio",
-        "LINE":"Asignar Linea",
-        "PRECHECKOUT":"Pre Checklist Salida"
+    "TEC": {
+        "TECNICIANA": "Técnico A",
+        "TECNICIANB": "Técnico B",
+        "TECNICIANC": "Técnico C",
+        "TECNICIAND": "Técnico D",
+        "TECNICIANE": "Técnico E",
+        "IN": "Entradas",
+        "PRECHEK_IN": "Pre Checklist Entrada",
+        "OUT": "Salidas",
+        "DIAGNOSTIC": "Diagnostico",
+        "SERVICE": "Registrar Servicio",
+        "LINE": "Asignar Linea",
+        "PRECHECKOUT": "Pre Checklist Salida"
     },
-    "INPUT":{
-        "Entrance":"Registrar Entrada",
-        "Output":"Registrar Salida",
-        "Save":"Guardar",
-        "Cancel":"Cancelar",
-        "Modify":"Modificar",
-        "Delete":"Borrar",
-        "Date":"Fecha",
-        "Subsidiary":"Sucursal",
-        "Project":"Proyecto",
-        "Upload Image":"Carga de Imagen",
-        "Pediment":"Pedimento",
-        "Cabinets Massive Upload":"Carga masiva de cabinets",
-        "Cabinets Manual Upload":"Carga individual de cabinets",
-        "Choose File":"Seleccionar Archivo",
-        "Choose Image":"Seleccionar Imagen",
-        "Upload File":"Cargar Archivo",
-        "Next":"Siguiente",
-        "Create Brand":"Registrar marca",
-        "Create Model":"Registrar modelo",
-
-        "Transport":{
-            "Line":"Linea de transporte",
-            "Kind":"Tipo de transporte"
+    "INPUT": {
+        "Entrance": "Registrar Entrada",
+        "Output": "Registrar Salida",
+        "Save": "Guardar",
+        "Cancel": "Cancelar",
+        "Modify": "Modificar",
+        "Delete": "Borrar",
+        "Date": "Fecha",
+        "Subsidiary": "Sucursal",
+        "Project": "Proyecto",
+        "Upload Image": "Carga de Imagen",
+        "Pediment": "Pedimento",
+        "Cabinets Massive Upload": "Carga masiva de cabinets",
+        "Cabinets Manual Upload": "Carga individual de cabinets",
+        "Choose File": "Seleccionar Archivo",
+        "Choose Image": "Seleccionar Imagen",
+        "Upload File": "Cargar Archivo",
+        "Next": "Siguiente",
+        "Create Brand": "Registrar marca",
+        "Create Model": "Registrar modelo",
+        "Transport": {
+            "Line": "Linea de transporte",
+            "Kind": "Tipo de transporte"
         },
-
-        "Driver":{
-            "ID":"Identificación del conductor",
-            "IFE":"Credencial de elector del operador",
-            "Name":"Nombre del operador",
-            "Information":"Información del operador"
+        "Driver": {
+            "ID": "Identificación del conductor",
+            "IFE": "Credencial de elector del operador",
+            "Name": "Nombre del operador",
+            "Information": "Información del operador"
         },
-
-        "TableCabinets":{
-            "Headers":{
-                "Economic Num.":"No. Economico",
-                "Serial Num.":"No. de Serie",
-                "Brand":"Marca",
-                "Model":"Modelo"
+        "TableCabinets": {
+            "Headers": {
+                "Economic Num.": "No. Economico",
+                "Serial Num.": "No. de Serie",
+                "Brand": "Marca",
+                "Model": "Modelo"
             }
         },
-        "Dialogs":{
-            "Model":{
-                "Name":"Nombre",
-                "Description":"Descripcion",
-                "Keyword":"Palabra clave",
-                "Refrigerant type":"Tipo de refrigerante",
-                "Refrigerant quantity":"Cantidad de refrigerante",
-                "Compressor type":"Tipo de compresor",
-                "Brand":"Marca"
+        "Dialogs": {
+            "Model": {
+                "Name": "Nombre",
+                "Description": "Descripcion",
+                "Keyword": "Palabra clave",
+                "Refrigerant type": "Tipo de refrigerante",
+                "Refrigerant quantity": "Cantidad de refrigerante",
+                "Compressor type": "Tipo de compresor",
+                "Brand": "Marca"
             },
-            "Brand":{
-                "Category":"Categoria",
-                "Description":"Descripción"
+            "Brand": {
+                "Category": "Categoria",
+                "Description": "Descripción"
             }
         },
-        "Tabs":{
-            "GeneralData":"Datos Generales",
-            "CabinetsUpload":"Carga de Cabinets"
+        "Tabs": {
+            "GeneralData": "Datos Generales",
+            "CabinetsUpload": "Carga de Cabinets"
         },
+        "Required Field": "Campo Requerido",
+        "Cabinets": "Cabinets",
+        "Registered Cabinets": "Cabinets Registrados",
+        "Unregistered Cabinets": "Cabinets No Registrados",
+        "UDN": "UDN"
+    },
+    "OUTPUT": {
+        "FORM": {
+            "PLACEHOLDER":{
+                "SEARCH":"Ingrese cabinet"
+            },
+            "TABLE": {
+                "HEADERS": {
+                    "ECONOMIC": "No. Economico",
+                    "REASON":"Motivo"
+                }
+            },
+            "TITLES": {
+                "OUTPUT": "Registrar Salida",
+                "REGISTERED": "Cabinets Registrados",
+                "UNREGISTERED": "Cabinets No Registrados"
+            },
+            "TABS": {
+                "GENERAL": "Datos Generales",
+                "UPLOAD": "Carga de Cabinets"
+            },
+            "LABEL":{
+                "DRIVER": {
+                    "ID": "Identificación del conductor",
+                    "IFE": "Credencial de elector del operador",
+                    "NAME": "Nombre del operador",
+                    "INFORMATION": "Información del operador"
+                },
+                "PEDIMENT": "Pedimento",
+                "UDN": "UDN",
+                "TRANSPORT": {
+                    "LINE": "Linea de transporte",
+                    "KIND": "Tipo de transporte"
+                },
+                "SUBSIDIARY": "Sucursal",
+                "PROJECT": "Proyecto"
+            },
+            "BUTTON":{
+                "CHOOSE_FILE": "Seleccionar Archivo",
+                "CHOOSE_IMAGE": "Seleccionar Imagen",
+                "NEXT": "Siguiente",
+                "CABINETS.MASSIVE.UPLOAD": "Carga masiva de cabinets",
+                "CABINETS.MANUAL.UPLOAD": "Carga individual de cabinets"
+            }
 
-        "Required Field":"Campo Requerido",
-        "Cabinets":"Cabinets",
-        "Registered Cabinets":"Cabinets Registrados",
-        "Unregistered Cabinets":"Cabinets No Registrados",
-        "UDN":"UDN"
+
+
+        }
     }
-
 }
