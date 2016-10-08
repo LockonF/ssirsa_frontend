@@ -184,11 +184,11 @@
         }
 
         function showManualUpload() {
-            vm.hideManualUpload = false;
+            /*vm.hideManualUpload = false;
             vm.hideMassiveUpload = true;
             EntradaSalida.getCabinetsEntrada().then(function (res) {
                 vm.cabinetsEntrada = res;
-            });
+            });*/
         }
 
         function cabinetSearch(query) {
