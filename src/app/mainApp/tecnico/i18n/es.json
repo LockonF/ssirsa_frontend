@@ -157,8 +157,16 @@
     },
     "OUTPUT": {
         "FORM": {
+            "TABLE": {
+                "HEADERS": {
+                    "ECONOMIC": "No. Economico",
+                    "REASON":"Motivo"
+                }
+            },
             "TITLES": {
-                "OUTPUT": "Registrar Salida"
+                "OUTPUT": "Registrar Salida",
+                "REGISTERED": "Cabinets Registrados",
+                "UNREGISTERED": "Cabinets No Registrados"
             },
             "TABS": {
                 "GENERAL": "Datos Generales",
@@ -186,48 +194,9 @@
                 "NEXT": "Siguiente",
                 "CABINETS.MASSIVE.UPLOAD": "Carga masiva de cabinets",
                 "CABINETS.MANUAL.UPLOAD": "Carga individual de cabinets"
-            },
-            "Save": "Guardar",
-            "Cancel": "Cancelar",
-            "Modify": "Modificar",
-            "Delete": "Borrar",
-            "Date": "Fecha",
+            }
 
 
-            "Upload Image": "Carga de Imagen",
-            "Pediment": "Pedimento",
-
-            "Upload File": "Cargar Archivo",
-
-            "Create Brand": "Registrar marca",
-            "Create Model": "Registrar modelo",
-            "TableCabinets": {
-                "Headers": {
-                    "Economic Num.": "No. Economico",
-                    "Serial Num.": "No. de Serie",
-                    "Brand": "Marca",
-                    "Model": "Modelo"
-                }
-            },
-            "Dialogs": {
-                "Model": {
-                    "Name": "Nombre",
-                    "Description": "Descripcion",
-                    "Keyword": "Palabra clave",
-                    "Refrigerant type": "Tipo de refrigerante",
-                    "Refrigerant quantity": "Cantidad de refrigerante",
-                    "Compressor type": "Tipo de compresor",
-                    "Brand": "Marca"
-                },
-                "Brand": {
-                    "Category": "Categoria",
-                    "Description": "Descripción"
-                }
-            },
-            "Required Field": "Campo Requerido",
-            "Cabinets": "Cabinets",
-            "Registered Cabinets": "Cabinets Registrados",
-            "Unregistered Cabinets": "Cabinets No Registrados"
         }
     }
 }

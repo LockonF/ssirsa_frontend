@@ -10,28 +10,22 @@
         .factory('EntradaSalida',EntradaSalida);
 
     function EntradaSalida($q, Restangular, toastr){
-
+        var baseURL=Restangular.all('entrada_salida');
         return {
             postEntrada:postEntrada,
             postEntradaMasiva:postEntradaMasiva,
-
-            cabinetExist:cabinetExist,
+            postSalidaMasiva:postSalidaMasiva,
             getLastEntradaByCabinet:getLastEntradaByCabinet,
             byUdn:byUdn
         };
         function getLastEntradaByCabinet(idCabinet) {
-            var defer=$q.defer();
-            Restangular.one('entrada_salida').one('cabinet').customGET(idCabinet).then(function(res){
-                defer.resolve(res);
-            }).catch(function(err){
-                defer.reject(err);
-            });
-            return defer.promise;
+            return baseURL.one('cabinet').customGET(idCabinet);
         }
+
         //entrada_salida
         function postEntrada(data){
             var defer= $q.defer();
-            Restangular.all('entrada_salida').withHttpConfig({transformRequest: angular.identity}).customPOST(data,"",{},{'Content-type':undefined}).then(function(res){
+            baseURL.withHttpConfig({transformRequest: angular.identity}).customPOST(data,"",{},{'Content-type':undefined}).then(function(res){
                 defer.resolve(res);
             }).catch(function(err){
                 defer.reject(err);
@@ -43,32 +37,19 @@
         //entrada_salida/mass_upload
         function postEntradaMasiva(data){
             var defer= $q.defer();
-            Restangular.all('entrada_salida').all('mass_upload').withHttpConfig({transformRequest: angular.identity}).customPOST(data,"",{},{'Content-type':undefined}).then(function(res){
+            baseURL.all('mass_upload').withHttpConfig({transformRequest: angular.identity}).customPOST(data,"",{},{'Content-type':undefined}).then(function(res){
                 defer.resolve(res);
             }).catch(function(err){
                 defer.reject(err);
             });
             return defer.promise;
         }
- 
-
-        //cabinet/id
-        function cabinetExist(id){
-            var defer=$q.defer();
-
-            Restangular.one('cabinet',id).customGET().then(function(res){
-                defer.resolve(res);
-            }).catch(function(err){
-                defer.reject(err);
-            });
-
-            return defer.promise;
+        function postSalidaMasiva(data) {
+            return baseURL.all('mass_exit').withHttpConfig({transformRequest: angular.identity}).customPOST(data,"",{},{'Content-type':undefined});
         }
 
         function byUdn(id){
-           return Restangular.all('entrada_salida').one('udn',id).getList().$object;
+           return baseURL.one('udn',id).getList().$object;
         }
-
     }
-
 })();

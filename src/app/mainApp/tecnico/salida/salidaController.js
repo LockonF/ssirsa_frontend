@@ -8,16 +8,15 @@
         .module('app.mainApp.tecnico')
         .controller('salidaController', salidaController);
 
-    function salidaController(EntradaSalida, Helper,Translate,toastr, Sucursal, udn, Proyectos, TipoTransporte, LineaTransporte) {
+    function salidaController(EntradaSalida, Helper,Translate,toastr, Sucursal, udn, Proyectos, TipoTransporte,$scope, LineaTransporte) {
         var vm = this;
         vm.guardar = guardar;
         vm.selectionFile = selectionFile;
         vm.selectionImage = selectionImage;
         vm.showMassiveUpload = showMassiveUpload;
         vm.showManualUpload = showManualUpload;
-        vm.removeImage = removeImage;
         vm.nextTab = nextTab;
-        vm.uploadFile = uploadFile;
+        vm.clear=clear;
 
 
         activate();
@@ -36,15 +35,8 @@
         //Models
 
         vm.cabinets = null;
-        vm.responseMassiveUpload = {
-            "id": "",
-            "creados": [],
-            "no_creados": [],
-            "modelos_no_existentes": []
 
-        };
-
-        vm.entrada = {
+       var salida = {
             "id": null,
             "fecha": "",
             "nombre_chofer": "",
@@ -63,40 +55,47 @@
             "modelos_no_existentes": null
 
         };
+        vm.salida=angular.copy(salida);
 
         //Functions
         function guardar() {
-            vm.entrada.fecha = moment().format("YYYY-MM-DD");
+            vm.salida.fecha = moment().format("YYYY-MM-DD");
 
             var fd = new FormData();
 
-            fd.append('accion', 'entrada');
-            fd.append('fecha', vm.entrada.fecha);
-            fd.append('pedimento', vm.entrada.pedimento);
-            fd.append('nombre_chofer', vm.entrada.nombre_chofer);
-            fd.append('linea_transporte', vm.entrada.linea_transporte);
-            fd.append('proyecto', vm.entrada.proyecto);
-            fd.append('sucursal', vm.entrada.sucursal);
-            fd.append('tipo_transporte', vm.entrada.tipo_transporte);
-            fd.append('udn', vm.entrada.udn);
+            fd.append('accion', 'salida');
+            fd.append('fecha', vm.salida.fecha);
+            fd.append('pedimento', vm.salida.pedimento);
+            fd.append('nombre_chofer', vm.salida.nombre_chofer);
+            fd.append('linea_transporte', vm.salida.linea_transporte);
+            fd.append('proyecto', vm.salida.proyecto);
+            fd.append('sucursal', vm.salida.sucursal);
+            fd.append('tipo_transporte', vm.salida.tipo_transporte);
+            fd.append('udn', vm.salida.udn);
 
-            if (vm.entrada.id != null)
-                fd.append("id", vm.entrada.id);
+            if (vm.salida.id != null)
+                fd.append("id", vm.salida.id);
             if (vm.cabinets != null)
                 fd.append('cabinets', vm.cabinets);
-            if (vm.entrada.ife_chofer != null)
-                fd.append('ife_chofer', vm.entrada.ife_chofer);
+            if (vm.salida.ife_chofer != null)
+                fd.append('ife_chofer', vm.salida.ife_chofer);
             //Is massive upload
-            if (vm.entrada.file != null) {
-                fd.append('file', vm.entrada.file);
-                EntradaSalida.postEntradaMasiva(fd).then(function (res) {
-                    vm.entrada = res;
+            if (vm.salida.file != null) {
+                fd.append('file', vm.salida.file);
+                EntradaSalida.postSalidaMasiva(fd).then(function (res) {
                     vm.hideRegisteredCabinets = false;
-                    vm.hideUnregisteredCabinets = false;
-                    toastr.success('Exito en la carga masiva', 'Exito');
+                    vm.hideUnregisteredCabinets = true;
+                    vm.salida.creados=res.creados;
+                    toastr.success(vm.successMassive, vm.successTitle);
                 }).catch(function (err) {
-                    toastr.error('Error en la carga masiva', 'Error');
-                    console.log(err);
+                    vm.hideUnregisteredCabinets = false;
+                    vm.hideRegisteredCabinets = true;
+                    if(err.status==400){
+                        toastr.error( vm.errorMassive, vm.errorTitle);
+                        vm.salida.no_creados=err.data;
+                    }else{
+                        toastr.error( vm.errorMessage, vm.errorTitle);
+                    }
                 });
             }
             else {
@@ -114,12 +113,12 @@
                 var file = $files[0];
                 var extn = file.name.split(".").pop();
                 if (file.size / 1000000 > 1) {
-                    vm.entrada.ife_chofer = null;
+                    vm.salida.ife_chofer = null;
                     toastr.warning(vm.errorSize, vm.errorTitle);
                 } else if (!Helper.acceptFile(file.type)) {
                     if (!Helper.acceptFile(extn)) {
                         toastr.warning(vm.errorTypeFile, vm.errorTitle);
-                        vm.entrada.ife_chofer = null;
+                        vm.salida.ife_chofer = null;
                     }
                 }
             }
@@ -130,12 +129,12 @@
                 var file = $files[0];
                 var extn = file.name.split(".").pop();
                 if (file.size / 1000000 > 10) {
-                    vm.entrada.file = null;
+                    vm.salida.file = null;
                     toastr.warning(vm.errorSizeTen, vm.errorTitle);
                 } else if (!Helper.acceptFile(file.type)) {
                     if (!Helper.acceptFile(extn)) {
                         toastr.warning(vm.errorTypeFile, vm.errorTitle);
-                        vm.entrada.file = null;
+                        vm.salida.file = null;
                     }
                 }
             }
@@ -153,33 +152,30 @@
             vm.errorTypeFile = Translate.translate('MAIN.MSG.ERORR_TYPE_FILE');
             vm.errorSize = Translate.translate('MAIN.MSG.FILE_SIZE');
             vm.errorSizeTen = Translate.translate('MAIN.MSG.FILE_SIZE_10');
+            vm.errorMassive = Translate.translate('MAIN.MSG.ERROR_MASSIVE');
+            vm.successMassive = Translate.translate('MAIN.MSG.SUCCESS_MASSIVE');
         }
 
         function showMassiveUpload() {
             vm.hideManualUpload = true;
             vm.hideMassiveUpload = false;
         }
-
+        function clear() {
+            vm.hideUnregisteredCabinets = true;
+            vm.hideRegisteredCabinets = true;
+            vm.salida=angular.copy(salida);
+            $scope.entradaForm.$setPristine();
+            $scope.entradaForm.$setUntouched();
+        }
         function showManualUpload() {
             vm.hideManualUpload = false;
             vm.hideMassiveUpload = true;
-        }
-
-        function removeImage() {
-            vm.entrada.ife_chofer = null;
         }
 
         function nextTab() {
             vm.selectedTab = vm.selectedTab + 1;
         }
 
-        function uploadFile() {
-            EntradaSalida.postEntradaMasiva(vm.entrada).then(function (res) {
-                vm.responseMassiveUpload = res;
-            }).catch(function (err) {
-                console.log(err);
-            });
-        }
 
     }
 
