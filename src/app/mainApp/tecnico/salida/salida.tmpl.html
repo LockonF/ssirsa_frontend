@@ -187,6 +187,20 @@
                                 </table>
                             </md-table-container>
                         </div>
+                        <div layout="row" layout-sm="column" layout-xs="column" layout-md="column" flex="100"
+                             ng-hide="vm.hideManualUpload">
+                            <md-chips ng-model="vm.selectedCabinets"
+                                      md-autocomplete-snap="md-autocomplete-snap" md-require-match="true"
+                                      md-on-append="vm.appendCabinet($chip)">
+                                <md-autocomplete md-selected-item="vm.selectedCabinet" md-search-text="vm.searchTextCabinet"
+                                                 md-items="cabinet in vm.cabinetSearch(vm.searchTextCabinet)"
+                                                 md-item-text="cabinet.economico"
+                                                 placeholder="{{ 'OUTPUT.FORM.PLACEHOLDER.SEARCH' | translate }}">
+                                    <span md-highlight-text="vm.searchTextCabinet">{{cabinet.economico}}</span></md-autocomplete>
+                                <md-chip-template><span><strong>{{$chip.economico}}</strong></span></md-chip-template>
+                            </md-chips>
+
+                        </div>
 
                         <div layout="row" layout-align="end center">
                             <md-button aria-label="fab button" ng-click="vm.clear()" class="md-raised md-primary">

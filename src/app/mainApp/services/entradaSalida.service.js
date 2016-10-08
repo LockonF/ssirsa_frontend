@@ -16,7 +16,8 @@
             postEntradaMasiva:postEntradaMasiva,
             postSalidaMasiva:postSalidaMasiva,
             getLastEntradaByCabinet:getLastEntradaByCabinet,
-            byUdn:byUdn
+            byUdn:byUdn,
+            getCabinetsEntrada:getCabinetsEntrada
         };
         function getLastEntradaByCabinet(idCabinet) {
             return baseURL.one('cabinet').customGET(idCabinet);
@@ -24,14 +25,7 @@
 
         //entrada_salida
         function postEntrada(data){
-            var defer= $q.defer();
-            baseURL.withHttpConfig({transformRequest: angular.identity}).customPOST(data,"",{},{'Content-type':undefined}).then(function(res){
-                defer.resolve(res);
-            }).catch(function(err){
-                defer.reject(err);
-                console.log(err);
-            });
-            return defer.promise;
+           return baseURL.withHttpConfig({transformRequest: angular.identity}).customPOST(data,"",{},{'Content-type':undefined});
         }
 
         //entrada_salida/mass_upload
@@ -50,6 +44,9 @@
 
         function byUdn(id){
            return baseURL.one('udn',id).getList().$object;
+        }
+        function getCabinetsEntrada() {
+            return baseURL.all('cabinet_input').getList();
         }
     }
 })();

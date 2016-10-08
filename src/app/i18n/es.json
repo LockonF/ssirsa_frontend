@@ -90,7 +90,8 @@
       "NOT_FOUND_INPUT": "No se puede realizar el pre-checklist por que el cabinet no cuenta con una Entrada",
       "ERROR_NOTINSUMOSTITLE":"No existen insumos Registrados Para esta etapa, verifique UDN u Stock",
       "ERROR_MASSIVE":"Error en la carga masiva, favor de revisar su excel",
-      "SUCCESS_MASSIVE":"Se realizó la carga masiva exitosamente"
+      "SUCCESS_MASSIVE":"Se realizó la carga masiva exitosamente",
+        "SUCCESS_MANUAL":"Se realizó las salidas exitosamente"
     },
     "BUTTONS": {
       "SUBMIT": "Enviar",

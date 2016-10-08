@@ -157,6 +157,9 @@
     },
     "OUTPUT": {
         "FORM": {
+            "PLACEHOLDER":{
+                "SEARCH":"Ingrese cabinet"
+            },
             "TABLE": {
                 "HEADERS": {
                     "ECONOMIC": "No. Economico",
@@ -195,6 +198,7 @@
                 "CABINETS.MASSIVE.UPLOAD": "Carga masiva de cabinets",
                 "CABINETS.MANUAL.UPLOAD": "Carga individual de cabinets"
             }
+
 
 
         }
