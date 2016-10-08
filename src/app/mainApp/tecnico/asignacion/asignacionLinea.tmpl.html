@@ -50,7 +50,7 @@
         </div>
 
         <div layout="column">
-            <form name="form.insumoFormEtapa" layout-fill="">
+            <form name="form.asignaLinea" layout-fill="">
                 <md-input-container>
                     <label translate>CABINET.AGE</label>
                     <input type="text" ng-model="vm.parent.cabinet.antiguedad" ng-disabled="true"/>
@@ -64,7 +64,7 @@
                             <input name="ejex" flex type="number" max="10" min="0" required
                                    ng-model="vm.cabinet.linea_x" aria-label="Posición en Eje X"
                                    aria-controls="Y-slider">
-                            <div ng-messages="form.insumoFormEtapa.ejex.$error">
+                            <div ng-messages="form.asignaLinea.ejex.$error">
                                 <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                 <div ng-message="max">{{'MAIN.GENERAL.MAX_NUMBER' | translate}} 10
                                 </div>
@@ -85,11 +85,9 @@
                             <input name="ejey" flex type="number" max="10" min="0" ng-model="vm.cabinet.linea_y"
                                    aria-label="Posición en Eje Y"
                                    aria-controls="Y-slider">
-                            <div ng-messages="form.insumoFormEtapa.ejey.$error">
-
+                            <div ng-messages="form.asignaLinea.ejey.$error">
                                 <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                 <div ng-message="max">{{'MAIN.GENERAL.MAX_NUMBER' | translate}} 10
-
                                 </div>
 
                             </div>
@@ -107,11 +105,9 @@
                             <input name="ejez" flex type="number" max="10" min="0" ng-model="vm.cabinet.linea_z"
                                    aria-label="Posición en Eje Z"
                                    aria-controls="Y-slider">
-                            <div ng-messages="form.insumoFormEtapa.ejez.$error">
-
+                            <div ng-messages="form.asignaLinea.ejez.$error">
                                 <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                 <div ng-message="max">{{'MAIN.GENERAL.MAX_NUMBER' | translate}} 10
-                                   
                                 </div>
 
                             </div>
