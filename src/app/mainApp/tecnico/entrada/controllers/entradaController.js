@@ -10,10 +10,13 @@
 
     function entradaController(EntradaSalida, toastr, $mdDialog, MarcaCabinet, ModeloCabinet) {
         var vm = this;
+        vm.isGarantia=false;
+        vm.isPedimento=false;
 
         //vm.status="idle";//idle, uploading, complete
 
         vm.guardar = guardar;
+        vm.limpiar=limpiar;
         vm.selectionFile = selectionFile;
         vm.selectionImage = selectionImage;
         vm.showMassiveUpload = showMassiveUpload;
@@ -24,14 +27,13 @@
         vm.showMarcaDialog = showMarcaDialog;
         vm.showModeloDialog = showModeloDialog;
 
-        activate();
+        vm.options=["Nuevos","Garantías"];
+        vm.selectedEntrada=null;
 
         vm.selectedTab = 0;
         vm.idEntrada = null;
 
         //Visualizations
-        vm.hideEntrada = false;
-        vm.hideSalida = true;
         vm.hideMassiveUpload = true;
         vm.hideManualUpload = true;
         vm.hideRegisteredCabinets = true;
@@ -87,41 +89,57 @@
 
         };
 
-        vm.entrada = {
+        var entrada = {
             "id": null,
             "fecha": "",
             "nombre_chofer": "",
-            "ife_chofer": "",
+            "ife_chofer": null,
             "pedimento": "",
             "accion": "entrada",
-            "linea_transporte": "",
-            "proyecto": "",
-            "sucursal": "",
-            "tipo_transporte": "",
+            "linea_transporte": null,
+            "proyecto": null,
+            "sucursal": null,
+            "tipo_transporte": null,
             "udn": null,
             "file": null,
-
             "creados": null,
             "no_creados": null,
             "modelos_no_existentes": null
 
         };
 
+        activate();
+
         //Functions
         function guardar() {
+            console.log(vm.entrada);
             vm.entrada.fecha = getToday();
 
             var fd = new FormData();
 
             fd.append('accion', 'entrada');
             fd.append('fecha', vm.entrada.fecha);
-            fd.append('pedimento', vm.entrada.pedimento);
+
+            if(vm.entrada.pedimento!=null)
+                fd.append('pedimento', vm.entrada.pedimento);
+            else
+                fd.append('pedimento', null);
+
             fd.append('nombre_chofer', vm.entrada.nombre_chofer);
             fd.append('linea_transporte', vm.entrada.linea_transporte);
-            fd.append('proyecto', vm.entrada.proyecto);
+
+            if(vm.entrada.proyecto!=null)
+                fd.append('proyecto', vm.entrada.proyecto);
+            else
+                fd.append('proyecto', null);
+
             fd.append('sucursal', vm.entrada.sucursal);
             fd.append('tipo_transporte', vm.entrada.tipo_transporte);
-            fd.append('udn', vm.entrada.udn);
+
+            if(vm.entrada.udn!=null)
+                fd.append('udn', vm.entrada.udn);
+            else
+                fd.append('udn', null);
 
             if (vm.entrada.id != null)
                 fd.append("id", vm.entrada.id);
@@ -152,6 +170,10 @@
 
         }
 
+        function limpiar(){
+            vm.entrada=angular.copy(entrada);
+        }
+
         function selectionImage($file) {
             vm.entrada.ife_chofer = $file;
         }
@@ -162,6 +184,7 @@
 
         function activate() {
 
+            angular.copy(vm.entrada,entrada);
             EntradaSalida.getLineasTransporte().then(function (res) {
                 vm.lineasTransporte = res;
             }).catch(function (err) {
@@ -301,6 +324,7 @@
                 $mdDialog.cancel();
             };
         }
+        
     }
 
 })();

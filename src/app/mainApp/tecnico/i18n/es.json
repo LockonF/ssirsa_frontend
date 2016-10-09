@@ -99,6 +99,7 @@
     "INPUT":{
         "Entrance":"Registrar Entrada",
         "Output":"Registrar Salida",
+        "Entrance_Kind":"Tipo de entrada",
         "Save":"Guardar",
         "Cancel":"Cancelar",
         "Modify":"Modificar",
