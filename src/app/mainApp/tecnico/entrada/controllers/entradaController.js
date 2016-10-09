@@ -8,7 +8,7 @@
         .module('app.mainApp.tecnico')
         .controller('entradaController', entradaController);
 
-    function entradaController(EntradaSalida, toastr, $mdDialog, MarcaCabinet, ModeloCabinet) {
+    function entradaController(EntradaSalida, toastr, $mdDialog, MarcaCabinet, ModeloCabinet, Sucursal, udn, Proyectos, TipoTransporte, LineaTransporte) {
         var vm = this;
         vm.isGarantia=false;
         vm.isPedimento=false;
@@ -39,47 +39,6 @@
         vm.hideRegisteredCabinets = true;
         vm.hideUnregisteredCabinets = true;
 
-        //Models
-        vm.lineasTransporte = [
-            {
-                "id": "",
-                "razon_social": "",
-                "direccion": "",
-                "telefonos": "",
-                "responsable": ""
-            }
-        ];
-        vm.tiposTransporte = [
-            {
-                "id": "",
-                "descripcion": ""
-            }
-        ];
-        vm.udns = [
-            {
-                "id": "",
-                "zona": "",
-                "centro": "",
-                "agencia": "",
-                "direccion": "",
-                "telefono": []
-            }
-        ];
-        vm.Sucursales = [
-            {
-                "id": "",
-                "nombre": "",
-                "direccion": "",
-                "telefonos": [],
-                "responsable": ""
-            }
-        ];
-        vm.Proyectos = [
-            {
-                "id": "",
-                "descripcion": ""
-            }
-        ];
         vm.cabinets = null;
         vm.responseMassiveUpload = {
             "id": "",
@@ -177,7 +136,6 @@
 
         function activate() {
 
-            angular.copy(vm.entrada,entrada);
             EntradaSalida.getLineasTransporte().then(function (res) {
                 vm.lineasTransporte = res;
             }).catch(function (err) {
@@ -317,7 +275,6 @@
                 $mdDialog.cancel();
             };
         }
-        
     }
 
 })();
