@@ -8,7 +8,7 @@
         .module('app.mainApp.tecnico')
         .controller('entradaController', entradaController);
 
-    function entradaController(EntradaSalida, toastr, $mdDialog, MarcaCabinet, ModeloCabinet) {
+    function entradaController(EntradaSalida, toastr, $mdDialog, MarcaCabinet, ModeloCabinet, Translate,$scope) {
         var vm = this;
         vm.isGarantia=false;
         vm.isPedimento=false;
@@ -108,6 +108,16 @@
 
         };
 
+        //Translates
+        vm.successTitle=Translate.translate('MAIN.MSG.SUCCESS_TITLE');
+        vm.warningTitle=Translate.translate('MAIN.MSG.WARNING_TITLE');
+        vm.errorTitle=Translate.translate('MAIN.MSG.ERROR_TITLE');
+        vm.sucessMassive=Translate.translate('INPUT.Messages.SuccessMassive');
+        vm.successNormal=Translate.translate('INPUT.Messages.SucessNormal');
+        vm.warning=Translate.translate('INPUT.Messages.Warning');
+        vm.errorMassive=Translate.translate('INPUT.Messages.ErrorMassive');
+        vm.errorNormal=Translate.translate('INPUT.Messages.ErrorNormal');
+
         activate();
 
         //Functions
@@ -147,17 +157,21 @@
                     vm.entrada = res;
                     vm.hideRegisteredCabinets = false;
                     vm.hideUnregisteredCabinets = false;
-                    toastr.success('Exito en la carga masiva', 'Exito');
+                    console.log(vm.entrada);
+                    toastr.success(vm.sucessMassive, vm.successTitle);
                 }).catch(function (err) {
-                    toastr.error('Error en la carga masiva', 'Error');
+                    toastr.error(vm.errorMassive, vm.errorTitle);
                     console.log(err);
                 });
             }
             else {
                 EntradaSalida.postEntrada(fd).then(function (res) {
-
+                    vm.entrada=res;
+                    vm.hideRegisteredCabinets = false;
+                    vm.hideUnregisteredCabinets = false;
                 }).catch(function (err) {
-
+                    toastr.error(vm.errorMassive, vm.errorTitle);
+                    console.log(err);
                 });
             }
 
@@ -165,6 +179,10 @@
 
         function limpiar(){
             vm.entrada=angular.copy(entrada);
+            $scope.entradaForm.$setPristine();
+            $scope.entradaForm.$setUntouched();
+            $scope.entradaForm.$invalid=true;
+            vm.selectedTab=0;
         }
 
         function selectionImage($file) {
