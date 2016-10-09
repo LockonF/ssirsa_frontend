@@ -117,6 +117,13 @@
         "Next":"Siguiente",
         "Create Brand":"Registrar marca",
         "Create Model":"Registrar modelo",
+        "Messages":{
+            "SuccesMassive":"Carga masiva registrada correctamente",
+            "SuccesNormal":"Entrada registrada correctamente",
+            "Warning":"Problema al registrar cabinets",
+            "ErrorMassive":"Error en la carga masiva",
+            "ErrorNormal":"Error al registrar la entrada"
+        },
 
         "Transport":{
             "Line":"Linea de transporte",

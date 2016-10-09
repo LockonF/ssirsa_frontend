@@ -112,7 +112,6 @@
 
         //Functions
         function guardar() {
-            console.log(vm.entrada);
             vm.entrada.fecha = getToday();
 
             var fd = new FormData();
@@ -122,24 +121,18 @@
 
             if(vm.entrada.pedimento!=null)
                 fd.append('pedimento', vm.entrada.pedimento);
-            else
-                fd.append('pedimento', null);
 
             fd.append('nombre_chofer', vm.entrada.nombre_chofer);
             fd.append('linea_transporte', vm.entrada.linea_transporte);
 
             if(vm.entrada.proyecto!=null)
                 fd.append('proyecto', vm.entrada.proyecto);
-            else
-                fd.append('proyecto', null);
 
             fd.append('sucursal', vm.entrada.sucursal);
             fd.append('tipo_transporte', vm.entrada.tipo_transporte);
 
             if(vm.entrada.udn!=null)
                 fd.append('udn', vm.entrada.udn);
-            else
-                fd.append('udn', null);
 
             if (vm.entrada.id != null)
                 fd.append("id", vm.entrada.id);
