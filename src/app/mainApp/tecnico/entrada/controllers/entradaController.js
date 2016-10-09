@@ -155,10 +155,15 @@
                 fd.append('file', vm.entrada.file);
                 EntradaSalida.postEntradaMasiva(fd).then(function (res) {
                     vm.entrada = res;
+                    console.log(vm.entrada);
                     vm.hideRegisteredCabinets = false;
                     vm.hideUnregisteredCabinets = false;
-                    console.log(vm.entrada);
-                    toastr.success(vm.sucessMassive, vm.successTitle);
+                    if (vm.entrada.no_creados.length > 0)
+                        toastr.warning(vm.warning, vm.warningTitle);
+                    else {
+                        toastr.success(vm.sucessMassive, vm.successTitle);
+                        limpiar();
+                    }
                 }).catch(function (err) {
                     toastr.error(vm.errorMassive, vm.errorTitle);
                     console.log(err);
@@ -169,6 +174,12 @@
                     vm.entrada=res;
                     vm.hideRegisteredCabinets = false;
                     vm.hideUnregisteredCabinets = false;
+                    if(vm.entrada.no_creados.length>0)
+                        toastr.warning(vm.warning,vm.warningTitle);
+                    else {
+                        toastr.success(vm.successNormal, vm.successTitle);
+                        limpiar();
+                    }
                 }).catch(function (err) {
                     toastr.error(vm.errorMassive, vm.errorTitle);
                     console.log(err);
