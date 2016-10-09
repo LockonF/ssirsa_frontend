@@ -8,10 +8,14 @@
         .module('app.mainApp.tecnico')
         .controller('entradaController', entradaController);
 
-    function entradaController(EntradaSalida, toastr, $mdDialog, MarcaCabinet, ModeloCabinet, Translate,$scope) {
+    function entradaController(EntradaSalida, toastr, $mdDialog, MarcaCabinet, ModeloCabinet, Sucursal, udn, Proyectos, TipoTransporte, LineaTransporte, Translate, $scope) {
         var vm = this;
         vm.isGarantia=false;
         vm.isPedimento=false;
+
+        vm.height = window.innerHeight + 'px';
+        vm.myStyle='{"min-height":"'+vm.height+'"}';
+        console.log(vm.myStyle);
 
         //vm.status="idle";//idle, uploading, complete
 
@@ -165,36 +169,11 @@
         function activate() {
 
             angular.copy(vm.entrada,entrada);
-            EntradaSalida.getLineasTransporte().then(function (res) {
-                vm.lineasTransporte = res;
-            }).catch(function (err) {
-                toastr.error('Error al obtener Lineas de Transporte, por favor intente de nuevo', 'Error');
-            });
-
-            EntradaSalida.getTiposTransporte().then(function (res) {
-                vm.tiposTransporte = res;
-            }).catch(function (err) {
-                toastr.error('Error al obtener Tipos de Transporte, por favor intente de nuevo', 'Error');
-            });
-
-            EntradaSalida.getSucursales().then(function (res) {
-                vm.Sucursales = res;
-            }).catch(function (err) {
-                toastr.error('Error al obtener Sucursales, por favor intente de nuevo', 'Error');
-            });
-
-            EntradaSalida.getProyectos().then(function (res) {
-                vm.Proyectos = res;
-            }).catch(function (err) {
-                toastr.error('Error al obtener Proyectos, por favor intente de nuevo', 'Error');
-            });
-
-            EntradaSalida.getUDN().then(function (res) {
-                vm.udns = res;
-            }).catch(function (err) {
-                toastr.error('Error al obtener UDNs, por favor intente de nuevo', 'Error');
-            });
-
+            vm.lineasTransporte=LineaTransporte.list();
+            vm.tiposTransporte = TipoTransporte.list();
+            vm.Sucursales = Sucursal.list();
+            vm.Proyectos = Proyectos.list();
+            vm.udns = udn.list();
         }
 
         function getToday() {

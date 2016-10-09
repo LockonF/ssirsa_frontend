@@ -1,6 +1,4 @@
 {
-
-
     "ADMIN": {
         "MANAGE": {
             "MANAGEMENT_USER": "Administración de Usuarios"
@@ -94,29 +92,6 @@
         "LINE": "Asignar Linea",
         "PRECHECKOUT": "Pre Checklist Salida"
     },
-    "INPUT": {
-        "Entrance": "Registrar Entrada",
-        "Output": "Registrar Salida",
-        "Save": "Guardar",
-        "Cancel": "Cancelar",
-        "Modify": "Modificar",
-        "Delete": "Borrar",
-        "Date": "Fecha",
-        "Subsidiary": "Sucursal",
-        "Project": "Proyecto",
-        "Upload Image": "Carga de Imagen",
-        "Pediment": "Pedimento",
-        "Cabinets Massive Upload": "Carga masiva de cabinets",
-        "Cabinets Manual Upload": "Carga individual de cabinets",
-        "Choose File": "Seleccionar Archivo",
-        "Choose Image": "Seleccionar Imagen",
-        "Upload File": "Cargar Archivo",
-        "Next": "Siguiente",
-        "Create Brand": "Registrar marca",
-        "Create Model": "Registrar modelo",
-        "Transport": {
-            "Line": "Linea de transporte",
-            "Kind": "Tipo de transporte"
     "INPUT":{
         "Entrance":"Registrar Entrada",
         "Output":"Registrar Salida",
@@ -189,12 +164,6 @@
         "Registered Cabinets":"Cabinets Registrados",
         "Unregistered Cabinets":"Cabinets No Registrados",
         "UDN": "Agencia"
-    }
-        "Required Field": "Campo Requerido",
-        "Cabinets": "Cabinets",
-        "Registered Cabinets": "Cabinets Registrados",
-        "Unregistered Cabinets": "Cabinets No Registrados",
-        "UDN": "UDN"
     },
     "OUTPUT": {
         "FORM": {

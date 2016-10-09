@@ -1,7 +1,7 @@
 <!--   Created by Emmanuel on 02/09/2016.-->
 <div layout="column">
-    <div layout="row" flex="" layout-padding="" layout-fill="" layout-align="center center">
-        <md-card flex-gt-xs="90" flex="100" class="md-padding-card1">
+    <div layout="row" flex="" layout-padding="" layout-fill="" layout-align="center center" >
+        <md-card flex-gt-xs="90" flex="100" class="md-padding-card1" ng-style='{"min-height":"600px"}'>{"min-height":"638px"}
             <md-card-title>
                 <md-card-title-text>
                     <span class="md-headline">
@@ -12,17 +12,21 @@
             <md-tabs layout-padding="true" md-dynamic-height="100" md-border-bottom="100" md-selected="vm.selectedTab">
                 <md-tab label={{'INPUT.Tabs.GeneralData'|translate}}>
                     <md-content layout-padding="">
-                        <md-input-container flex="100" class="md-block">
-                            <label>{{'INPUT.Entrance_Kind'|translate}}</label>
-                            <md-select name="selectEntranceKind" ng-model="vm.selectedEntrada" ng-on-open="vm.limpiar()">
-                                <md-option ng-repeat="option in vm.options" value="{{option}}">{{option}}</md-option>
-                            </md-select>
-                        </md-input-container>
                         <form name="entradaForm" novalidate="">
+                            <md-input-container flex="100" class="md-block">
+                                <label>{{'INPUT.Entrance_Kind'|translate}}</label>
+                                <md-select name="selectEntranceKind" ng-model="vm.selectedEntrada" required="">
+                                    <md-option ng-repeat="option in vm.options" value="{{option}}">{{option}}</md-option>
+                                </md-select>
+                                <div ng-messages="entradaForm.selectEntranceKind.$error">
+                                    <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
+                                </div>
+                            </md-input-container>
                             <div layout-gt-xs="row"
                                  layout="column"
                                  layout-align-gt-xs="center center"
                                  layout-align="center stretch">
+
                                 <md-input-container
                                         flex-gt-xs="100"
                                         flex="100"
