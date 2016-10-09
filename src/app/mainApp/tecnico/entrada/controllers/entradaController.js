@@ -39,47 +39,6 @@
         vm.hideRegisteredCabinets = true;
         vm.hideUnregisteredCabinets = true;
 
-        //Models
-        vm.lineasTransporte = [
-            {
-                "id": "",
-                "razon_social": "",
-                "direccion": "",
-                "telefonos": "",
-                "responsable": ""
-            }
-        ];
-        vm.tiposTransporte = [
-            {
-                "id": "",
-                "descripcion": ""
-            }
-        ];
-        vm.udns = [
-            {
-                "id": "",
-                "zona": "",
-                "centro": "",
-                "agencia": "",
-                "direccion": "",
-                "telefono": []
-            }
-        ];
-        vm.Sucursales = [
-            {
-                "id": "",
-                "nombre": "",
-                "direccion": "",
-                "telefonos": [],
-                "responsable": ""
-            }
-        ];
-        vm.Proyectos = [
-            {
-                "id": "",
-                "descripcion": ""
-            }
-        ];
         vm.cabinets = null;
         vm.responseMassiveUpload = {
             "id": "",
@@ -155,7 +114,6 @@
                 fd.append('file', vm.entrada.file);
                 EntradaSalida.postEntradaMasiva(fd).then(function (res) {
                     vm.entrada = res;
-                    console.log(vm.entrada);
                     vm.hideRegisteredCabinets = false;
                     vm.hideUnregisteredCabinets = false;
                     if (vm.entrada.no_creados.length > 0)
