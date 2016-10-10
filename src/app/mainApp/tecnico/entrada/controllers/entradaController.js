@@ -10,6 +10,8 @@
 
     function entradaController(EntradaSalida, toastr, $mdDialog, MarcaCabinet, ModeloCabinet, Sucursal, udn, Proyectos, TipoTransporte, LineaTransporte) {
         var vm = this;
+        vm.isGarantia=false;
+        vm.isPedimento=false;
 
         //vm.status="idle";//idle, uploading, complete
 

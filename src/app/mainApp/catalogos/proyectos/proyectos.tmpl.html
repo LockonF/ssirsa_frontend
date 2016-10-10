@@ -37,7 +37,7 @@
                     <md-not-found><span translate="Projects.Errors.Not_Found"></span></md-not-found>
                 </md-autocomplete>
 
-                <md-virtual-repeat-container id="vertical_container" flex="flex" hide-xs="hide-xs" layout-fill style="{min_heigth:350}">
+                <md-virtual-repeat-container id="vertical_containers" flex="flex" layout="column" hide-xs="hide-xs" layout-fill>
                     <md-list flex="flex">
                         <md-list-itm flex="flex" ng-repeat="item in vm.filteredProjects">
                             <md-button
