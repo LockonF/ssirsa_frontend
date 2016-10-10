@@ -32,7 +32,11 @@
                         </md-item-template>
                         <md-not-found><span translate="EQUIPMENT_TYPE.FORM.PLACEHOLDER.NOT_FOUND"></span></md-not-found>
                     </md-autocomplete>
-                    <md-virtual-repeat-container class="vertical-container"  flex="flex">
+                    <md-virtual-repeat-container id="vertical_containers"
+                                                 flex="flex"
+                                                 hide-xs="hide-xs"
+                                                 hide-sm="hide-sm"
+                                                 layout-fill >
                         <md-list  >
                             <md-list-item  ng-repeat="equipo in vm.tipo_equipos | tipoSearch:vm.searchText">
                                 <md-button ng-click="vm.selectedEquipos(equipo)"

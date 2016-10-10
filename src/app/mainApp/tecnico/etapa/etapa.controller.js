@@ -76,6 +76,8 @@
             vm.delete = Translate.translate('ETAPA_SERVICIO.DELETE');
             vm.cancelar = Translate.translate('ETAPA_SERVICIO.CANCEL');
             vm.accepted = Translate.translate('ETAPA_SERVICIO.ACCEPT');
+            vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
+            vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
 
         }
 
@@ -240,7 +242,7 @@
 
             };
 
-            
+
             vm.showInsumosSection = true;
             vm.catalogoInsumos = null;
             vm.editable = true;

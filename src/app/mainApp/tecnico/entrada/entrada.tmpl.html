@@ -2,25 +2,49 @@
 <div layout="column">
     <div layout="row" flex="" layout-padding="" layout-fill="" layout-align="center center">
         <md-card flex="90" flex-sm="100" flex-xs="100" class="md-padding-card1">
-            <md-card-title ng-hide="vm.hideEntrada">
-                <md-card-title-text><span class="md-headline">{{'INPUT.Entrance'|translate}}</span></md-card-title-text>
-            </md-card-title>
-            <md-card-title ng-hide="vm.hideSalida">
-                <md-card-title-text><span class="md-headline">{{'INPUT.Output'|translate}}</span></md-card-title-text>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">
+                        {{'INPUT.Entrance'|translate}}
+                    </span>
+                </md-card-title-text>
             </md-card-title>
             <md-tabs layout-padding="true" md-dynamic-height="100" md-border-bottom="100" md-selected="vm.selectedTab">
                 <md-tab label={{'INPUT.Tabs.GeneralData'|translate}}>
                     <md-content layout-padding="">
+                        <md-input-container flex="100" class="md-block">
+                            <label>{{'INPUT.Entrance_Kind'|translate}}</label>
+                            <md-select name="selectEntranceKind" ng-model="vm.selectedEntrada" ng-on-open="vm.limpiar()">
+                                <md-option ng-repeat="option in vm.options" value="{{option}}">{{option}}</md-option>
+                            </md-select>
+                        </md-input-container>
                         <form name="entradaForm" novalidate="">
-                            <div layout-gt-md="row" layout="column" layout-align-gt-md="center center" layout-align="center stretch">
-                                <md-input-container flex="80" flex-sm="100" flex-xs="100" class="md-block">
+                            <div layout-gt-md="row"
+                                 layout="column"
+                                 layout-align-gt-md="center center"
+                                 layout-align="center stretch">
+                                <md-input-container
+                                        flex="80"
+                                        flex-sm="100"
+                                        flex-xs="100"
+                                        class="md-block"
+                                        ng-if="vm.selectedEntrada ==='Nuevos' || vm.selectedEntrada === 'Garantías'">
                                     <label>{{'INPUT.Driver.Name'|translate}}</label>
-                                    <input name="DriverName" md-no-asterisk="" required="" type="text" ng-model="vm.entrada.nombre_chofer"/>
+                                    <input name="DriverName"
+                                           md-no-asterisk=""
+                                           required=""
+                                           type="text"
+                                           ng-model="vm.entrada.nombre_chofer"/>
                                     <div ng-messages="entradaForm.DriverName.$error">
                                         <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
                                     </div>
                                 </md-input-container>
-                                <md-input-container flex="20" flex-sm="100" flex-xs="100" class="md-block">
+                                <md-input-container
+                                        flex="20"
+                                        flex-sm="100"
+                                        flex-xs="100"
+                                        class="md-block"
+                                        ng-if="vm.selectedEntrada ==='Nuevos'">
                                     <label>{{'INPUT.Pediment'|translate}}</label>
                                     <input name="Pediment" md-no-asterisk="" required="" type="text" ng-model="vm.entrada.pedimento"/>
                                     <div ng-messages="entradaForm.Pediment.$error">
@@ -29,7 +53,10 @@
                                 </md-input-container>
                             </div>
                             <div layout="row" layout-sm="column" layout-xs="column" layout-align="center center" layout-align-sm="center stretch" layout-align-xs="center stretch">
-                                <md-input-container flex="100" class="md-block">
+                                <md-input-container
+                                        flex="100"
+                                        class="md-block"
+                                        ng-if="vm.selectedEntrada === 'Garantías'">
                                     <label>{{'INPUT.UDN'|translate}}</label>
                                     <md-select name="selectUDN" ng-model="vm.entrada.udn" required="" md-no-asterisk="">
                                         <md-option ng-repeat="udn in vm.udns" value="{{udn.id}}">{{udn.zona}} - {{udn.agencia}}</md-option>
@@ -38,7 +65,9 @@
                                         <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
                                     </div>
                                 </md-input-container>
-                                <md-input-container flex="100" class="md-block">
+                                <md-input-container flex="100"
+                                                    class="md-block"
+                                                    ng-if="vm.selectedEntrada ==='Nuevos' || vm.selectedEntrada === 'Garantías'">
                                     <label>{{'INPUT.Transport.Line'|translate}}</label>
                                     <md-select name="selectTransportLine" ng-model="vm.entrada.linea_transporte" required="" md-no-asterisk="">
                                         <md-option ng-repeat="linea in vm.lineasTransporte" value="{{linea.id}}">{{linea.razon_social}}</md-option>
@@ -47,7 +76,10 @@
                                         <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
                                     </div>
                                 </md-input-container>
-                                <md-input-container flex="100" class="md-block">
+                                <md-input-container
+                                        flex="100"
+                                        class="md-block"
+                                        ng-if="vm.selectedEntrada ==='Nuevos' || vm.selectedEntrada === 'Garantías'">
                                     <label>{{'INPUT.Transport.Kind'|translate}}</label>
                                     <md-select name="selectTransportKind" ng-model="vm.entrada.tipo_transporte" required="" md-no-asterisk="">
                                         <md-option ng-repeat="tipo in vm.tiposTransporte" value="{{tipo.id}}">{{tipo.descripcion}}</md-option>
@@ -58,7 +90,10 @@
                                 </md-input-container>
                             </div>
                             <div layout="row" layout-sm="column" layout-xs="column" layout-align="center center" layout-align-sm="center stretch" layout-align-xs="center stretch">
-                                <md-input-container flex="100" class="md-block">
+                                <md-input-container
+                                        flex="100"
+                                        class="md-block"
+                                        ng-if="vm.selectedEntrada ==='Nuevos' || vm.selectedEntrada === 'Garantías'">
                                     <label>{{'INPUT.Subsidiary'|translate}}</label>
                                     <md-select name="selectSubsidiary" ng-model="vm.entrada.sucursal" required="" md-no-asterisk="">
                                         <md-option ng-repeat="sucursal in vm.Sucursales" value="{{sucursal.id}}">{{sucursal.nombre}}</md-option>
@@ -67,7 +102,10 @@
                                         <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
                                     </div>
                                 </md-input-container>
-                                <md-input-container flex="100" class="md-block">
+                                <md-input-container
+                                        flex="100"
+                                        class="md-block"
+                                        ng-if="vm.selectedEntrada ==='Nuevos'">
                                     <label>{{'INPUT.Project'|translate}}</label>
                                     <md-select name="selectProject" ng-model="vm.entrada.proyecto" required="" md-no-asterisk="">
                                         <md-option ng-repeat="proyecto in vm.Proyectos" value="{{proyecto.id}}">{{proyecto.descripcion}}</md-option>
@@ -78,16 +116,31 @@
                                 </md-input-container>
                             </div>
                         </form>
-                        <div layout-gt-md="row" flex="100" layout="column" layout-align="center stretch" layout-align-gt-md="center center">
+                        <div
+                                layout-gt-md="row"
+                                flex="100"
+                                layout="column"
+                                layout-align="center stretch"
+                                layout-align-gt-md="center center"
+                                ng-if="vm.selectedEntrada ==='Nuevos' || vm.selectedEntrada === 'Garantías'">
                             <p>{{'INPUT.Driver.IFE'|translate}}</p>
                             <div flex="30" layout="column" layout-align="space-around center">
-                                <md-button type="file" ngf-select="vm.selectionImage($file)" accept="image/*" ngf-max-size="1MB" class="md-primary md-raised">{{'INPUT.Choose Image'|translate}}</md-button>
+                                <md-button
+                                        type="file"
+                                        ngf-select="vm.selectionImage($file)"
+                                        accept="image/*"
+                                        ngf-max-size="1MB"
+                                        class="md-primary md-raised">{{'INPUT.Choose Image'|translate}}</md-button>
                             </div>
                         </div>
                         <div flex="80">
-                            <div class="md-media-md card-media"><img ngf-src="vm.entrada.ife_chofer" style="max-width:150px" class="thumb"/></div>
+                            <div class="md-media-md card-media">
+                                <img ngf-src="vm.entrada.ife_chofer" style="max-width:150px" class="thumb"/>
+                            </div>
                         </div>
-                        <div layout="row" layout-align="end center">
+                        <div layout="row"
+                             layout-align="end center"
+                             ng-if="vm.selectedEntrada ==='Nuevos' || vm.selectedEntrada === 'Garantías'">
                             <md-button ng-click="vm.nextTab()" ng-disabled="entradaForm.$invalid" class="md-raised md-primary">{{'INPUT.Next'|translate}}</md-button>
                         </div>
                     </md-content>

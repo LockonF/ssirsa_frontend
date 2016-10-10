@@ -117,9 +117,11 @@
         }
 
         function search(text) {
-            vm.filteredClients = _.filter(vm.clients, function (item) {
-                return item.nombre.toLowerCase().includes(text.toLowerCase());
-            });
+            if(text.length>0) {
+                vm.filteredClients = _.filter(vm.clients, function (item) {
+                    return item.nombre.toLowerCase().includes(text.toLowerCase());
+                });
+            }
             return vm.filteredClients;
         }
 

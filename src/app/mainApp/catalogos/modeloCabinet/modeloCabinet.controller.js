@@ -39,6 +39,10 @@
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
             vm.successUpdateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_UPDATE');
             vm.successDeleteMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_DELETE');
+            vm.deleteButton=Translate.translate('MAIN.BUTTONS.DELETE');
+            vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
+            vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
+            vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
         }
 
         function activate() {
@@ -46,13 +50,12 @@
             vm.marcas = MarcaCabinet.list();
         }
         function remove(ev) {
-                var confirm = $mdDialog.confirm()
-                    .title('Confirmación para eliminar')
-                    .textContent('¿Esta seguro de eliminar este elemento?')
-                    .ariaLabel('Lucky day')
-                    .targetEvent(ev)
-                    .ok('Aceptar')
-                    .cancel('Cancelar');
+            var confirm = $mdDialog.confirm()
+                .title(vm.dialogTitle)
+                .textContent(vm.dialogMessage)
+                .ariaLabel('Confirmar eliminación')
+                .ok(vm.deleteButton)
+                .cancel(vm.cancelButton);
                 $mdDialog.show(confirm).then(function() {
                     ModeloCabinet.remove(vm.modelo).then(function (res) {
                         toastr.success(vm.successDeleteMessage, vm.successTitle);

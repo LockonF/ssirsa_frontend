@@ -88,27 +88,26 @@
         "provider": "Proveedor",
         "zone": "Zona",
         "lookup": "Busca el Catálogo",
-
-        "BUTTON":{
-            "STEPS":"Etapas",
-            "EQUIPMENT":"Tipo de Equipo"
+        "BUTTON": {
+            "STEPS": "Etapas",
+            "EQUIPMENT": "Tipo de Equipo"
         }
     },
     "MODAL_CATALOG_CONSUMABLE": {
         "FORM": {
-            "TITLE":{
-              "STEP":"Asignación de etapas",
-                "TYPE":"Asignación de tipo de equipo"
+            "TITLE": {
+                "STEP": "Asignación de etapas",
+                "TYPE": "Asignación de tipo de equipo"
             },
             "PLACEHOLDER": {
                 "SEARCH": "Búsqueda de etapa",
                 "SEARCH_TYPE": "Búsqueda de tipo de equipo"
             },
-            "LABEL":{
-                "NOT_FOUND":"No se encontró la etapa",
-                "NOT_FOUND_TYPE":"No se encontró el tipo de equipo",
-                "DESCRIPTION":"Descripción:",
-                "NAME":"Nombre:"
+            "LABEL": {
+                "NOT_FOUND": "No se encontró la etapa",
+                "NOT_FOUND_TYPE": "No se encontró el tipo de equipo",
+                "DESCRIPTION": "Descripción:",
+                "NAME": "Nombre:"
             }
         }
     },
@@ -168,6 +167,21 @@
             "PLACEHOLDER": {
                 "SEARCH_BRANCH": "Busca tu tipo de equipo",
                 "NOT_FOUND": "No se encontró el tipo de equipo"
+            }
+        }
+    },
+    "STAGES": {
+        "FORM": {
+            "LABEL": {
+                "MODEL": "Etapas",
+                "NAME": "Nombre",
+                "DESCRIPTION": "Descripción",
+
+                "INFO_MODEL": "Información de la Etapa"
+            },
+            "PLACEHOLDER": {
+                "SEARCH_BRANCH": "Búsqueda de etapa",
+                "NOT_FOUND": "No se encontró la etapa"
             }
         }
     },
