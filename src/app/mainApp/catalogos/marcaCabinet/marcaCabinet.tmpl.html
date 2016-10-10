@@ -20,7 +20,7 @@
               <md-icon md-font-icon="zmdi zmdi-truck"></md-icon><span>{{item.descripcion}}</span></span></md-item-template>
                 </md-autocomplete>
 
-                <md-virtual-repeat-container id="vertical_container" hide-xs="hide-xs" layout-fill="layout-fill" class="vr-min-height">
+                <md-virtual-repeat-container id="vertical_container" hide-xs hide-sm layout-fill="layout-fill" class="vr-min-height">
                     <md-list flex="flex">
                         <md-list-itm flex="flex" ng-repeat="item in vm.marca_cabinet_list">
                             <md-button ng-click="vm.clickRepeater(item)" ng-class="{'selected':item.id === vm.marca_cabinet.id}">
