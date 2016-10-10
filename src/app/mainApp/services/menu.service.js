@@ -42,6 +42,7 @@
                     break;
                 case "Tecnico E":
                     loadTecnicoMenu();
+                    break;
                 default:
                     triMenu.menu = [];
             }
