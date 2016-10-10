@@ -14,6 +14,7 @@
         vm.lookup = lookup;
         vm.querySearch = querySearch;
         vm.selectedLineas = selectedLineas;
+        vm.selectedItemChange = selectedItemChange;
         vm.cancel = cancel;
         vm.create = create;
         vm.remove=remove;
@@ -66,6 +67,7 @@
 
             });
         }
+
         function update() {
             LineaTransporte.update(vm.transport).then(function (res) {
                 toastr.success(vm.successUpdateMessage, vm.successTitle);
@@ -92,7 +94,15 @@
             vm.transport = angular.copy(transport);
             vm.selectedLineaList = null;
         }
+        function selectedItemChange(item)
+        {
+            if (item!=null) {
+                vm.transport = angular.copy(item);
 
+            }else{
+                cancel();
+            }
+        }
         function selectedLineas(project) {
             vm.selectedLineaList = project;
             vm.transport = angular.copy(project);

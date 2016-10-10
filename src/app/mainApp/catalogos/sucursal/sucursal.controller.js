@@ -14,6 +14,7 @@
         vm.lookup = lookup;
         vm.querySearch = querySearch;
         vm.selectedSucursales = selectedSucursales;
+        vm.selectedItemChange = selectedItemChange;
         vm.cancel = cancel;
         vm.create = create;
         vm.remove=remove;
@@ -92,7 +93,15 @@
             vm.sucursal = angular.copy(sucursal);
             vm.selectedSucursalList = null;
         }
+        function selectedItemChange(item)
+        {
+            if (item!=null) {
+                vm.sucursal = angular.copy(item);
 
+            }else{
+                cancel();
+            }
+        }
         function selectedSucursales(project) {
             vm.selectedSucursalList = project;
             vm.sucursal = angular.copy(project);

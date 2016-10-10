@@ -30,6 +30,7 @@
         vm.remove = remove;
         vm.clickRepeater = clickRepeater;
 
+
         activate();
 
 
@@ -62,7 +63,12 @@
 
         function selectedItemChange(item)
         {
+            if (item!=null) {
+                vm.tipo_transporte = angular.copy(item);
 
+            }else{
+                cancel();
+            }
         }
 
         function clickRepeater(tipo_transporte){

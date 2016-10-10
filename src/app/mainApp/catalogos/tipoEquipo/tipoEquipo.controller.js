@@ -13,6 +13,7 @@
         vm.lookup = lookup;
         vm.querySearch = querySearch;
         vm.selectedEquipos = selectedEquipos;
+        vm.selectedItemChange = selectedItemChange;
         vm.cancel = cancel;
         vm.create = create;
         vm.remove=remove;
@@ -42,6 +43,15 @@
 
         function activate() {
             vm.tipo_equipos = TipoEquipo.list();
+        }
+        function selectedItemChange(item)
+        {
+            if (item!=null) {
+                vm.tipo_equipo = angular.copy(item);
+
+            }else{
+                cancel();
+            }
         }
         function remove(ev) {
             var confirm = $mdDialog.confirm()
