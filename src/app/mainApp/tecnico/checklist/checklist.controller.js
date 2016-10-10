@@ -9,7 +9,7 @@
         .module('app.mainApp.tecnico')
         .controller('checklistController', checklistController);
 
-    function checklistController(Cabinet,$scope, ModeloCabinet,toastr,Translate,Helper,Upload,EnvironmentConfig,OAuthToken,MarcaCabinet,EntradaSalida) {
+    function checklistController(Cabinet,$scope, ModeloCabinet,toastr,Translate,Helper,Upload,EnvironmentConfig,OAuthToken,MarcaCabinet,CabinetEntradaSalida) {
         var vm = this;
         vm.diagnostico = {};
         vm.cabinets=null;
@@ -101,7 +101,7 @@
             Cabinet.get(vm.cabinet).then(function (res) {
                 ModeloCabinet.get(res.modelo).then(function (res) {
                     vm.cabinets=res;
-                    EntradaSalida.getLastEntradaByCabinet(vm.cabinet).then(function (res) {
+                    CabinetEntradaSalida.getLastEntradaByCabinet(vm.cabinet).then(function (res) {
                         vm.statusReady=1;
                         vm.diagnostico.cabinet_entrada_salida=res.id;
                     }).catch(function (res) {

@@ -37,10 +37,10 @@
             return deferred.promise;
         }
 
-       
+
         function getCatalogoByZone(etapa) {
             var deferred = $q.defer();
-           
+
             Restangular.all('catalogo_insumos').one('zone', etapa).customGET().then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
@@ -89,13 +89,5 @@
         function remove(object) {
             return baseCatalogoInsumo.customDELETE(object.id,null,{'content-type':'application/json'});
         }
-
-
-
-
-
-
-
-
     }
 })();

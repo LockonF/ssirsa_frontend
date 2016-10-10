@@ -10,8 +10,8 @@
       "TELEFONO": "Telefono",
       "INE": "Carga INE",
       "FOTO": "Carga Foto",
-      "MODIFY_EXITO": "Entrada registrada correctamente",
-      "MODIFY_ERROR": "Error al registrar entrada",
+      "MODIFY_EXITO": "El perfil se actualizó correctamente",
+      "MODIFY_ERROR": "Error al actualizar el perfil",
       "ERROR": "Error",
       "EXITO": "Éxito",
       "ARCHIVO":"Seleccionar Archivo"

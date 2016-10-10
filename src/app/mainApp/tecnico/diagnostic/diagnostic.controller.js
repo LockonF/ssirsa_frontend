@@ -23,7 +23,7 @@
 
         function guardar() {
 
-            if ((vm.cabinets.status!='Fuga Interna' && vm.cabinets.status!='Obsoleto') || vm.cabinets.foto==null) {
+            if ((vm.cabinets.status!='Fuga Interna' && vm.cabinets.status!='Obsoleto') || vm.cabinets.foto==null || !vm.cabinets.capitalizado) {
                 delete vm.cabinets.foto;
             }else{
                 vm.status = 'uploading';
@@ -40,9 +40,13 @@
                 clear();
                 toastr.success(vm.successCreateMessage, vm.successTitle);
             }, function (err) {
-                console.log(err);
+                if(err.status==400){
+                    toastr.warning(err.data[0], vm.errorTitle);
+                }else{
+                    toastr.warning(vm.errorMessage, vm.errorTitle);
+                }
                 vm.status = 'idle';
-                toastr.warning(vm.errorMessage, vm.errorTitle);
+
             });
         }
         function clear() {

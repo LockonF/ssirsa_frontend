@@ -6,19 +6,11 @@
         .module('app.mainApp.profile')
         .controller('profileUserController',profileUserController);
 
-    function profileUserController(udn,Persona,toastr,Helper,Translate){
+    /* @ngInject */
+    function profileUserController(Persona,toastr,Helper,Translate){
         var vm = this;
         vm.picFoto=null;
         vm.picIFE=null;
-        vm.persona={
-            "nombre": "",
-            "apellido_paterno": "",
-            "apellido_materno": "",
-            "direccion": "",
-            "telefono": "",
-            "ife":null,
-            "foto":null
-        };
         vm.user_ini={
             "id":"",
             "nombre": "",
@@ -30,69 +22,25 @@
             "foto":null
         };
 
-        vm.isClient=true;
         activate();
         function activate(){
-
             vm.errorSize = Translate.translate('MAIN.MSG.FILE_SIZE');
-            vm.exitoUpdate = Translate.translate('PROFILE.MODIFY_EXITO');
-            vm.errorUpdate = Translate.translate('PROFILE.MODIFY_ERROR');
-            vm.exito = Translate.translate('PROFILE.EXITO');
-            vm.error = Translate.translate('PROFILE.ERROR');
+            vm.exitoUpdate = Translate.translate('PROFILE.PROPERTY.MODIFY_EXITO');
+            vm.errorUpdate = Translate.translate('PROFILE.PROPERTY.MODIFY_ERROR');
+            vm.exito = Translate.translate('PROFILE.PROPERTY.EXITO');
+            vm.error = Translate.translate('PROFILE.PROPERTY.ERROR');
 
-            vm.user_ini=Persona.list();
+            Persona.listProfile().then(function(rest){
+                vm.user_ini=rest;
+                vm.picFoto=vm.user_ini.foto;
+                vm.picIFE=vm.user_ini.ife;
+            }).catch(function (error){
+            });
         }
 
-        vm.cpassword="";
-        vm.enviar =enviar;
-        vm.clean=clean;
-        vm.cancel=cancel;
         vm.selectionFoto=selectionFoto;
         vm.selectionIFE=selectionIFE;
         vm.updatePersona=updatePersona;
-        vm.user={
-            "mail":""
-        };
-        vm.user_vacio={
-            "user": {
-                "username": "",
-                "email": "",
-                "role": ""
-            },
-            "nombre": "",
-            "apellido_paterno": "",
-            "apellido_materno": "",
-            "direccion": "",
-            "telefono": "",
-            "ife":null,
-            "foto":null
-        };
-
-
-        function clean() {
-            vm.user={
-                user:"",
-                password:"",
-                confirm:"",
-                mail:"" ,
-                tipo:""
-
-            };
-            vm.cpassword = '';
-
-        }
-        function enviar() {
-
-            vm.user={
-                user:"",
-                password:"",
-                confirm:"",
-                mail:"" ,
-                tipo:""
-
-            };
-
-        }
 
         function updatePersona(){
             if(vm.picFoto!=vm.user_ini.foto)
@@ -104,8 +52,6 @@
             else
                 vm.user_ini.ife=null;
 
-            //vm.user_ini.foto=vm.picFoto;
-            //vm.user_ini.ife=vm.picIFE;
             Persona.modify(vm.user_ini).then(function (res) {
                 toastr.success(vm.exitoUpdate,vm.exito);
 
@@ -114,25 +60,6 @@
 
             });
         }
-
-
-
-        function cancel(){
-            vm.user_ini2= _.clone(vm.user_vacio);
-            vm.picFoto=null;
-            vm.picIFE=null;
-            vm.user_ini={
-                "nombre": "",
-                "apellido_paterno": "",
-                "apellido_materno": "",
-                "direccion": "",
-                "telefono": "",
-                "ife":null,
-                "foto":null
-            };
-            vm.cpassword = ''
-        }
-
 
         function selectionFoto($files) {
             if ($files.length > 0) {

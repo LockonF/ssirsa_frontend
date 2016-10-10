@@ -14,7 +14,6 @@
         vm.lookup = lookup;
         vm.querySearch = querySearch;
         vm.selectedSucursales = selectedSucursales;
-        vm.showRegister=showRegister;
         vm.cancel = cancel;
         vm.create = create;
         vm.remove=remove;
@@ -43,9 +42,6 @@
 
         function activate() {
             vm.sucursales = Sucursal.list();
-        }
-        function showRegister($event) {
-            clearForm();
         }
         function remove(ev) {
             var confirm = $mdDialog.confirm()

@@ -10,15 +10,24 @@
         </div>
         <div flex="flex" layout-lt-md="column" layout-gt-md="row">
             <div flex="flex" layout="column" layout-align="space-around stretch">
-                <md-autocomplete md-selected-item="vm.catalogo_insumo" md-selected-item-change="vm.selectedItemChange(vm.catalogo_insumo)" md-items="item in vm.search_items" md-item-text="item.descripcion" md-min-length="3" md-search-text-change="vm.lookup(vm.searchText)" md-search-text="vm.searchText" md-menu-class="autocomplete-custom-template" md-floating-label="{{&quot;Consumable_Catalog.lookup&quot; | translate}}">
+                <md-autocomplete md-selected-item="vm.selectedCatalogo"
+                                 md-selected-item-change="vm.selectedItemChange(vm.selectedCatalogo)"
+                                 md-items="item in vm.search_items" md-item-text="item.descripcion" md-min-length="3"
+                                 md-search-text-change="vm.lookup(vm.searchText)" md-search-text="vm.searchText"
+                                 md-menu-class="autocomplete-custom-template"
+                                 md-floating-label="{{&quot;Consumable_Catalog.lookup&quot; | translate}}">
                     <md-item-template><span class="item-title">
-              <md-icon md-font-icon="zmdi zmdi-truck"></md-icon><span>{{item.descripcion}}</span></span></md-item-template>
+              <md-icon md-font-icon="zmdi zmdi-truck"></md-icon><span>{{item.descripcion}}</span></span>
+                    </md-item-template>
                 </md-autocomplete>
-                <md-virtual-repeat-container layout-fill="layout-fill" hide-xs="hide-xs" hide-sm="hide-sm" class="vr-min-height">
+                <md-virtual-repeat-container layout-fill="layout-fill" hide-xs="hide-xs" hide-sm="hide-sm"
+                                             class="vr-min-height">
                     <md-list flex="flex">
                         <md-list-itm flex="flex" ng-repeat="item in vm.catalogo_insumo_list">
-                            <md-button ng-click="vm.clickRepeater(item)" ng-class="{'selected':item.id === vm.marca_cabinet.id}">
-                                <md-icon md-svg-icon="assets/images/catalog.svg" class="avatar"></md-icon><span>{{item.descripcion}}</span>
+                            <md-button ng-click="vm.clickRepeater(item)"
+                                       ng-class="{'selected':item.id === vm.marca_cabinet.id}">
+                                <md-icon md-svg-icon="assets/images/catalog.svg" class="avatar"></md-icon>
+                                <span>{{item.descripcion}}</span>
                             </md-button>
                             <md-divider></md-divider>
                         </md-list-itm>
@@ -26,14 +35,16 @@
                 </md-virtual-repeat-container>
             </div>
             <div flex="flex" layout-align="start stretch" layout="column">
-                <md-button id="cabecera" hide-xs="hide-xs" ng-click="vm.cancel()" class="md-fab md-primary md-scale md-fab-top-right">
+                <md-button id="cabecera" hide-xs="hide-xs" ng-click="vm.cancel()"
+                           class="md-fab md-primary md-scale md-fab-top-right">
                     <md-icon md-font-icon="fa fa-plus" style="color:white;"></md-icon>
                 </md-button>
                 <h3 class="md-display-1">{{'Consumable_Catalog.info' | translate}}</h3>
                 <form name="inputForm">
                     <md-input-container class="md-block">
                         <label>{{ 'Consumable_Catalog.quantity' | translate }}</label>
-                        <input type="number" name="cantidad" ng-model="vm.catalogo_insumo.cantidad" ng-required="true" min="0"/>
+                        <input type="number" name="cantidad" ng-model="vm.catalogo_insumo.cantidad" ng-required="true"
+                               min="0"/>
                         <div ng-messages="inputForm.cantidad.$error">
                             <div ng-message="min">{{'MAIN.GENERAL.MIN_NUMBER' | translate}} 0</div>
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
@@ -41,14 +52,16 @@
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>{{ 'Consumable_Catalog.description' | translate }}</label>
-                        <input type="text" name="descripcion" ng-model="vm.catalogo_insumo.descripcion" ng-required="true"/>
+                        <input type="text" name="descripcion" ng-model="vm.catalogo_insumo.descripcion"
+                               ng-required="true"/>
                         <div ng-messages="inputForm.descripcion.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>{{ 'Consumable_Catalog.cost' | translate }}</label>
-                        <input type="number" name="costo" ng-model="vm.catalogo_insumo.costo" ng-required="true" min="0"/>
+                        <input type="number" name="costo" ng-model="vm.catalogo_insumo.costo" ng-required="true"
+                               min="0"/>
                         <div ng-messages="inputForm.costo.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                             <div ng-message="min">{{'MAIN.GENERAL.MIN_NUMBER' | translate}} 0</div>
@@ -62,38 +75,52 @@
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>{{ 'Consumable_Catalog.keyword' | translate }}</label>
-                        <input type="text" name="palabra_clave" ng-model="vm.catalogo_insumo.palabra_clave" ng-required="true"/>
+                        <input type="text" name="palabra_clave" ng-model="vm.catalogo_insumo.palabra_clave"
+                               ng-required="true"/>
                         <div ng-messages="inputForm.palabra_clave.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>
                     </md-input-container>
-                    <md-input-container class="md-block">
-                        <label>{{ 'Consumable_Catalog.zone' | translate }}</label>
-                        <md-select ng-model="vm.catalogo_insumo.zona" ng-required="true">
-                            <md-option ng-repeat="zona in vm.zonas" ng-value="zona.value">{{zona.display}}</md-option>
-                        </md-select>
-                    </md-input-container>
+                    <div layout="row" layout-sm="column" layout-xs="column" layout-align="center center" layout-align-sm="start stretch" layout-align-xs="start stretch" >
+                        <div flex="50" flex-sm="100" flex-xs="100" layout="column" layout-align-sm="start stretch" layout-align-xs="start stretch" layout-align="center center">
+                            <md-button ng-click="vm.showSteps()"  class="md-raised md-primary">
+                                <p>{{'Consumable_Catalog.BUTTON.STEPS'|translate}}</p>
+                            </md-button>
+                        </div>
+                        <div flex="50" flex-sm="100" flex-xs="100" layout="column" layout-align-sm="start stretch" layout-align-xs="start stretch" layout-align="center center">
+                            <md-button ng-click="vm.showEquipment()"  class="md-raised md-primary">
+                                <p>{{'Consumable_Catalog.BUTTON.EQUIPMENT'|translate}}</p>
+                            </md-button>
+                        </div>
+                    </div>
                     <md-input-container class="md-block">
                         <label>{{ 'Consumable_Catalog.category' | translate }}</label>
                         <md-select ng-model="vm.catalogo_insumo.categoria" ng-required="true">
-                            <md-option ng-repeat="categoria in vm.categoria_list" ng-value="categoria.id">{{categoria.nombre}}</md-option>
+                            <md-option ng-repeat="categoria in vm.categoria_list" ng-value="categoria.id">
+                                {{categoria.nombre}}
+                            </md-option>
                         </md-select>
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>{{ 'Consumable_Catalog.provider' | translate }}</label>
                         <md-select ng-model="vm.catalogo_insumo.proveedor" ng-required="true">
-                            <md-option ng-repeat="proveedor in vm.proveedor_list" ng-value="proveedor.id">{{proveedor.razon_social}}</md-option>
+                            <md-option ng-repeat="proveedor in vm.proveedor_list" ng-value="proveedor.id">
+                                {{proveedor.razon_social}}
+                            </md-option>
                         </md-select>
                     </md-input-container>
                 </form>
                 <div flex="flex" layout="row" layout-align="end end">
-                    <md-button ng-if="vm.catalogo_insumo.id!=null &amp;&amp; vm.catalogo_insumo.id!=undefined" ng-disabled="inputForm.$invalid" ng-click="vm.update()" class="md-raised md-primary">
+                    <md-button ng-if="vm.catalogo_insumo.id!=null &amp;&amp; vm.catalogo_insumo.id!=undefined"
+                               ng-disabled="inputForm.$invalid" ng-click="vm.update()" class="md-raised md-primary">
                         <md-icon md-font-icon="fa fa-pencil"></md-icon>
                     </md-button>
-                    <md-button ng-if="vm.catalogo_insumo.id==null || vm.catalogo_insumo.id==undefined" ng-disabled="inputForm.$invalid" ng-click="vm.create()" class="md-raised md-primary">
+                    <md-button ng-if="vm.catalogo_insumo.id==null || vm.catalogo_insumo.id==undefined"
+                               ng-disabled="inputForm.$invalid" ng-click="vm.create()" class="md-raised md-primary">
                         <md-icon md-font-icon="fa fa-save"></md-icon>
                     </md-button>
-                    <md-button ng-if="vm.catalogo_insumo.id!=null &amp;&amp; vm.catalogo_insumo.id!=undefined" ng-click="vm.remove()" class="md-raised md-warn">
+                    <md-button ng-if="vm.catalogo_insumo.id!=null &amp;&amp; vm.catalogo_insumo.id!=undefined"
+                               ng-click="vm.remove()" class="md-raised md-warn">
                         <md-icon md-font-icon="fa fa-trash"></md-icon>
                     </md-button>
                 </div>

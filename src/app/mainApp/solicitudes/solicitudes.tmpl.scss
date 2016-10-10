@@ -153,3 +153,32 @@ md-dialog md-dialog-content {
 #quantity md-input-container .md-errors-spacer {
   min-height: 0px !important;
 }
+
+.mdp-calendar-monthyear {
+  font-size: 1.5rem;
+  font-weight: bold;
+  line-height: 32px;
+  min-height: 32px;
+}
+.mdp-datepicker-date.active,
+.mdp-datepicker-day.active,
+.mdp-datepicker-dow.active,
+.mdp-datepicker-month.active,
+.mdp-datepicker-date:hover,
+.mdp-datepicker-day:hover,
+.mdp-datepicker-dow:hover,
+.mdp-datepicker-month:hover {
+  opacity: 1;
+  color: white;
+  font-size: 3rem;
+}
+.mdp-datepicker-year {
+  font-size: 2rem;
+  opacity: 0.6;
+  padding: 0;
+  margin: 0;
+}
+.mdp-calendar-week-days {
+  font-size: 1.25rem;
+  opacity: 0.6;
+}
