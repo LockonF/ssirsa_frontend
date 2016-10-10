@@ -113,12 +113,14 @@
         "Next":"Siguiente",
         "Create Brand":"Registrar marca",
         "Create Model":"Registrar modelo",
+        "CabinetID":"Id del cabinet",
         "Messages":{
             "SuccessMassive":"Carga masiva registrada correctamente",
             "SuccessNormal":"Entrada registrada correctamente",
             "Warning":"Problema al registrar cabinets",
             "ErrorMassive":"Error en la carga masiva",
-            "ErrorNormal":"Error al registrar la entrada"
+            "ErrorNormal":"Error al registrar la entrada",
+            "ErrorCabinet":"El cabinet ya ha sido añadido"
         },
 
         "Transport":{
@@ -160,6 +162,7 @@
         },
 
         "Required Field":"Campo Requerido",
+        "Max100":"El campo no puede contener mas de 100 caracteres",
         "Cabinets":"Cabinets",
         "Registered Cabinets":"Cabinets Registrados",
         "Unregistered Cabinets":"Cabinets No Registrados",

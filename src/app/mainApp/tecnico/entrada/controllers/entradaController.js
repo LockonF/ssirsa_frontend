@@ -15,9 +15,6 @@
 
         vm.height = window.innerHeight + 'px';
         vm.myStyle='{"min-height":"'+vm.height+'"}';
-        console.log(vm.myStyle);
-
-        //vm.status="idle";//idle, uploading, complete
 
         vm.guardar = guardar;
         vm.limpiar=limpiar;
@@ -30,6 +27,8 @@
         vm.uploadFile = uploadFile;
         vm.showMarcaDialog = showMarcaDialog;
         vm.showModeloDialog = showModeloDialog;
+        vm.addCabinet = addCabinet;
+        vm.removeCabinet=removeCabinet;
 
         vm.options=["Nuevos","Garantías"];
         vm.selectedEntrada=null;
@@ -43,7 +42,7 @@
         vm.hideRegisteredCabinets = true;
         vm.hideUnregisteredCabinets = true;
 
-        vm.cabinets = null;
+
         vm.responseMassiveUpload = {
             "id": "",
             "creados": [],
@@ -80,10 +79,22 @@
         vm.warning=Translate.translate('INPUT.Messages.Warning');
         vm.errorMassive=Translate.translate('INPUT.Messages.ErrorMassive');
         vm.errorNormal=Translate.translate('INPUT.Messages.ErrorNormal');
+        vm.errorCabinet=Translate.translate('INPUT.Messages.ErrorCabinet');
 
         activate();
 
         //Functions
+        function activate() {
+            vm.cabinets = [];
+            vm.cabinet="";
+            angular.copy(vm.entrada,entrada);
+            vm.lineasTransporte=LineaTransporte.list();
+            vm.tiposTransporte = TipoTransporte.list();
+            vm.Sucursales = Sucursal.list();
+            vm.Proyectos = Proyectos.list();
+            vm.udns = udn.list();
+        }
+
         function guardar() {
             vm.entrada.fecha = getToday();
 
@@ -124,7 +135,7 @@
                         toastr.warning(vm.warning, vm.warningTitle);
                     else {
                         toastr.success(vm.sucessMassive, vm.successTitle);
-                        limpiar();
+                        //limpiar();
                     }
                 }).catch(function (err) {
                     toastr.error(vm.errorMassive, vm.errorTitle);
@@ -140,7 +151,7 @@
                         toastr.warning(vm.warning,vm.warningTitle);
                     else {
                         toastr.success(vm.successNormal, vm.successTitle);
-                        limpiar();
+                        //limpiar();
                     }
                 }).catch(function (err) {
                     toastr.error(vm.errorMassive, vm.errorTitle);
@@ -152,6 +163,10 @@
 
         function limpiar(){
             vm.entrada=angular.copy(entrada);
+            vm.hideRegisteredCabinets=true;
+            vm.hideUnregisteredCabinets=true;
+            vm.hideMassiveUpload=true;
+            vm.hideManualUpload=true;
             $scope.entradaForm.$setPristine();
             $scope.entradaForm.$setUntouched();
             $scope.entradaForm.$invalid=true;
@@ -164,16 +179,6 @@
 
         function selectionFile($file) {
             vm.entrada.file = $file;
-        }
-
-        function activate() {
-
-            angular.copy(vm.entrada,entrada);
-            vm.lineasTransporte=LineaTransporte.list();
-            vm.tiposTransporte = TipoTransporte.list();
-            vm.Sucursales = Sucursal.list();
-            vm.Proyectos = Proyectos.list();
-            vm.udns = udn.list();
         }
 
         function getToday() {
@@ -282,6 +287,23 @@
             $scope.cancel = function () {
                 $mdDialog.cancel();
             };
+        }
+
+        function addCabinet(){
+            if(vm.cabinets.indexOf(vm.cabinet) !== -1) {
+                toastr.warning(vm.errorCabinet,vm.warning);
+            }
+            else {
+                vm.cabinets.push(vm.cabinet);
+            }
+            vm.cabinet = "";
+        }
+        
+        function removeCabinet(id){
+            var index = array.indexOf(id);
+            if (index > -1) {
+                vm.cabinets.splice(index, 1);
+            }
         }
         
     }
