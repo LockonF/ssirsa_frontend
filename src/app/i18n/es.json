@@ -46,7 +46,8 @@
         "PROJECTS": "Proyectos",
         "CONSUMABLE_CATEGORY": "Categoría de Insumos",
         "CLIENT": "Cliente",
-          "EQUIPMENT_TYPE": "Tipo de Equipo"
+          "EQUIPMENT_TYPE": "Tipo de Equipo",
+          "STAGE": "Etapas"
 
       },
       "INVENTORY":{
