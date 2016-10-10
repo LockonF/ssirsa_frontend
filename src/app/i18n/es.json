@@ -68,7 +68,8 @@
     },
     "MSG": {
       "SUCCESS_TITLE": "Éxito",
-      "ERROR_TITLE": "Ooops",
+      "WARNING_TITLE":"Advertencia",
+      "ERROR_TITLE": "Error",
       "ERROR_MESSAGE": "Ha ocurrido un error, por favor intente de nuevo más tarde",
         "ERROR_ERROR_AUTHORIZATION": "Usted no cuenta con los permisos para acceder a esta página",
       "GENERIC_SUCCESS_CREATE": "El elemento se ha creado exitosamente",

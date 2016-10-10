@@ -10,10 +10,13 @@
 
     function entradaController(EntradaSalida, toastr, $mdDialog, MarcaCabinet, ModeloCabinet, Sucursal, udn, Proyectos, TipoTransporte, LineaTransporte) {
         var vm = this;
+        vm.isGarantia=false;
+        vm.isPedimento=false;
 
         //vm.status="idle";//idle, uploading, complete
 
         vm.guardar = guardar;
+        vm.limpiar=limpiar;
         vm.selectionFile = selectionFile;
         vm.selectionImage = selectionImage;
         vm.showMassiveUpload = showMassiveUpload;
@@ -24,14 +27,13 @@
         vm.showMarcaDialog = showMarcaDialog;
         vm.showModeloDialog = showModeloDialog;
 
-        activate();
+        vm.options=["Nuevos","Garantías"];
+        vm.selectedEntrada=null;
 
         vm.selectedTab = 0;
         vm.idEntrada = null;
 
         //Visualizations
-        vm.hideEntrada = false;
-        vm.hideSalida = true;
         vm.hideMassiveUpload = true;
         vm.hideManualUpload = true;
         vm.hideRegisteredCabinets = true;
@@ -46,25 +48,26 @@
 
         };
 
-        vm.entrada = {
+        var entrada = {
             "id": null,
             "fecha": "",
             "nombre_chofer": "",
-            "ife_chofer": "",
+            "ife_chofer": null,
             "pedimento": "",
             "accion": "entrada",
-            "linea_transporte": "",
-            "proyecto": "",
-            "sucursal": "",
-            "tipo_transporte": "",
+            "linea_transporte": null,
+            "proyecto": null,
+            "sucursal": null,
+            "tipo_transporte": null,
             "udn": null,
             "file": null,
-
             "creados": null,
             "no_creados": null,
             "modelos_no_existentes": null
 
         };
+
+        activate();
 
         //Functions
         function guardar() {
@@ -74,13 +77,21 @@
 
             fd.append('accion', 'entrada');
             fd.append('fecha', vm.entrada.fecha);
-            fd.append('pedimento', vm.entrada.pedimento);
+
+            if(vm.entrada.pedimento!=null)
+                fd.append('pedimento', vm.entrada.pedimento);
+
             fd.append('nombre_chofer', vm.entrada.nombre_chofer);
             fd.append('linea_transporte', vm.entrada.linea_transporte);
-            fd.append('proyecto', vm.entrada.proyecto);
+
+            if(vm.entrada.proyecto!=null)
+                fd.append('proyecto', vm.entrada.proyecto);
+
             fd.append('sucursal', vm.entrada.sucursal);
             fd.append('tipo_transporte', vm.entrada.tipo_transporte);
-            fd.append('udn', vm.entrada.udn);
+
+            if(vm.entrada.udn!=null)
+                fd.append('udn', vm.entrada.udn);
 
             if (vm.entrada.id != null)
                 fd.append("id", vm.entrada.id);
@@ -111,6 +122,10 @@
 
         }
 
+        function limpiar(){
+            vm.entrada=angular.copy(entrada);
+        }
+
         function selectionImage($file) {
             vm.entrada.ife_chofer = $file;
         }
@@ -121,11 +136,35 @@
 
         function activate() {
 
-            vm.lineasTransporte = LineaTransporte.list();
-            vm.tiposTransporte = TipoTransporte.list();
-            vm.Sucursales = Sucursal.list();
-            vm.Proyectos = Proyectos.list();
-            vm.udns = udn.list();
+            EntradaSalida.getLineasTransporte().then(function (res) {
+                vm.lineasTransporte = res;
+            }).catch(function (err) {
+                toastr.error('Error al obtener Lineas de Transporte, por favor intente de nuevo', 'Error');
+            });
+
+            EntradaSalida.getTiposTransporte().then(function (res) {
+                vm.tiposTransporte = res;
+            }).catch(function (err) {
+                toastr.error('Error al obtener Tipos de Transporte, por favor intente de nuevo', 'Error');
+            });
+
+            EntradaSalida.getSucursales().then(function (res) {
+                vm.Sucursales = res;
+            }).catch(function (err) {
+                toastr.error('Error al obtener Sucursales, por favor intente de nuevo', 'Error');
+            });
+
+            EntradaSalida.getProyectos().then(function (res) {
+                vm.Proyectos = res;
+            }).catch(function (err) {
+                toastr.error('Error al obtener Proyectos, por favor intente de nuevo', 'Error');
+            });
+
+            EntradaSalida.getUDN().then(function (res) {
+                vm.udns = res;
+            }).catch(function (err) {
+                toastr.error('Error al obtener UDNs, por favor intente de nuevo', 'Error');
+            });
 
         }
 
