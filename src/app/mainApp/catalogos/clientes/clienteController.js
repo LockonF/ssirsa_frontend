@@ -128,6 +128,8 @@
         function clear() {
             $scope.formClient.$setPristine();
             $scope.formClient.$setUntouched();
+            $scope.formClient.$invalid=true;
+            vm.searchParameter='';
             vm.filteredClients=vm.clients;
             vm.client=angular.copy(client);
             vm.selectedClient=null;
