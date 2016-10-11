@@ -226,6 +226,19 @@
                     }
 
                     ]
+                },
+                {
+                    name: 'MAIN.MENU.REPORTS.TITLE',
+                    icon: 'fa fa-line-chart',
+                    type: 'dropdown',
+                    priority: 6,
+                    children: [{
+                        name: 'MAIN.MENU.REPORTS.CREATE',
+                        state: 'triangular.admin-default.report-new',
+                        type: 'link'
+                    }
+
+                    ]
                 }
 
             ];
