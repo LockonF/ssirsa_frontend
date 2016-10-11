@@ -42,6 +42,7 @@
                     break;
                 case "Tecnico E":
                     loadTecnicoMenu();
+                    break;
                 default:
                     triMenu.menu = [];
             }
@@ -189,7 +190,12 @@
                             name: 'MAIN.MENU.CATALOGS.EQUIPMENT_TYPE',
                             state: 'triangular.admin-default.catalogo-tipo-equipo',
                             type: 'link'
+                        },{
+                            name: 'MAIN.MENU.CATALOGS.STAGE',
+                            state: 'triangular.admin-default.catalogo-etapas',
+                            type: 'link'
                         }
+
 
                     ]
                 },

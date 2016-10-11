@@ -13,6 +13,7 @@
         vm.lookup = lookup;
         vm.querySearch = querySearch;
         vm.selectedModelos = selectedModelos;
+        vm.selectedItemChange = selectedItemChange;
         vm.cancel = cancel;
         vm.create = create;
         vm.remove=remove;
@@ -39,6 +40,10 @@
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
             vm.successUpdateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_UPDATE');
             vm.successDeleteMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_DELETE');
+            vm.deleteButton=Translate.translate('MAIN.BUTTONS.DELETE');
+            vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
+            vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
+            vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
         }
 
         function activate() {
@@ -46,13 +51,12 @@
             vm.marcas = MarcaCabinet.list();
         }
         function remove(ev) {
-                var confirm = $mdDialog.confirm()
-                    .title('Confirmación para eliminar')
-                    .textContent('¿Esta seguro de eliminar este elemento?')
-                    .ariaLabel('Lucky day')
-                    .targetEvent(ev)
-                    .ok('Aceptar')
-                    .cancel('Cancelar');
+            var confirm = $mdDialog.confirm()
+                .title(vm.dialogTitle)
+                .textContent(vm.dialogMessage)
+                .ariaLabel('Confirmar eliminación')
+                .ok(vm.deleteButton)
+                .cancel(vm.cancelButton);
                 $mdDialog.show(confirm).then(function() {
                     ModeloCabinet.remove(vm.modelo).then(function (res) {
                         toastr.success(vm.successDeleteMessage, vm.successTitle);
@@ -91,7 +95,15 @@
             vm.modelo = angular.copy(modelo);
             vm.selectedModeloList = null;
         }
+        function selectedItemChange(item)
+        {
+            if (item!=null) {
+                vm.modelo = angular.copy(item);
 
+            }else{
+                cancel();
+            }
+        }
         function selectedModelos(project) {
             vm.selectedModeloList = project;
             vm.modelo = angular.copy(project);

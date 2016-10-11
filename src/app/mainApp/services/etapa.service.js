@@ -21,7 +21,7 @@
 
         function update(object)
         {
-            return object.put();
+            return baseUrl.all(object.id).customPUT(object);
         }
 
         function create(object){

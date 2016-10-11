@@ -18,7 +18,7 @@
                                      md-selected-item-change="vm.selectedItemChange(vm.selectedTipos)"
 
                                      md-items="item in vm.querySearch(vm.searchText)" md-item-text="item.nombre"
-                                     md-min-length="3"
+                                     md-min-length="1"
                                      md-search-text-change="vm.search(vm.searchText)"
                                      md-search-text="vm.searchText"
                                      md-menu-class="autocomplete-custom-template"
@@ -32,7 +32,11 @@
                         </md-item-template>
                         <md-not-found><span translate="EQUIPMENT_TYPE.FORM.PLACEHOLDER.NOT_FOUND"></span></md-not-found>
                     </md-autocomplete>
-                    <md-virtual-repeat-container class="vertical-container"  flex="flex">
+                    <md-virtual-repeat-container id="vertical_containers"
+                                                 flex="flex"
+                                                 hide-xs="hide-xs"
+                                                 hide-sm="hide-sm"
+                                                 layout-fill >
                         <md-list  >
                             <md-list-item  ng-repeat="equipo in vm.tipo_equipos | tipoSearch:vm.searchText">
                                 <md-button ng-click="vm.selectedEquipos(equipo)"
@@ -72,7 +76,7 @@
                             </div>
                         </md-input-container>
                     </form>
-                    <div layout="row" layout-align="end end">
+                    <div layout="row" layout-align="end end" layout-sm="column" layout-xs="column" layout-align-sm="start stretch" layout-align-xs="start stretch">
                         <md-button aria-label="fab button" ng-click="vm.cancel()" class="md-raised md-primary"><md-icon md-font-icon="fa fa-eraser"></md-icon></md-button>
                         <md-button aria-label="fab button" ng-if="vm.tipo_equipo.id!=null && vm.tipo_equipo.id!=undefined" ng-click="vm.remove($event)" class="md-raised md-warn"><md-icon md-font-icon="fa fa-trash"></md-icon></md-button>
                         <md-button aria-label="fab button" ng-if="vm.tipo_equipo.id!=null && vm.tipo_equipo.id!=undefined" ng-disabled="TipoEquipoForm.$invalid" ng-click="vm.update()" class="md-raised md-primary"><md-icon md-font-icon="fa fa-pencil"></md-icon></md-button>
