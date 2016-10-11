@@ -15,7 +15,7 @@
                     roles: ['Administrador','Capturista','Cliente','Tecnico A','Tecnico B','Tecnico C','Tecnico D','Tecnico E']
                 },
                 templateUrl:'app/mainApp/profile/profileUser.html',
-                controller:'profileUserController',
+                controller:'profileController',
                 controllerAs:'vm'
             });
 
