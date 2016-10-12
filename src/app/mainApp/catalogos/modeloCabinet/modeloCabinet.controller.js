@@ -13,6 +13,7 @@
         vm.lookup = lookup;
         vm.querySearch = querySearch;
         vm.selectedModelos = selectedModelos;
+        vm.selectedItemChange = selectedItemChange;
         vm.cancel = cancel;
         vm.create = create;
         vm.remove=remove;
@@ -94,7 +95,15 @@
             vm.modelo = angular.copy(modelo);
             vm.selectedModeloList = null;
         }
+        function selectedItemChange(item)
+        {
+            if (item!=null) {
+                vm.modelo = angular.copy(item);
 
+            }else{
+                cancel();
+            }
+        }
         function selectedModelos(project) {
             vm.selectedModeloList = project;
             vm.modelo = angular.copy(project);

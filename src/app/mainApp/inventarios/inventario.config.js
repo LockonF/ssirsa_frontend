@@ -14,7 +14,7 @@
                 data: {
                     roles: ['Administrador','Capturista']
                 },
-                templateUrl: 'app/mainApp/inventarios/cabinet.tmpl.html', //Dirección del archivo a usar
+                templateUrl: 'app/mainApp/inventarios/cabinet/cabinet.tmpl.html', //Dirección del archivo a usar
                 controller: 'cabinetController', //nombre del controlador
                 controllerAs: 'vm' //se renombra al scope
             })
@@ -23,7 +23,7 @@
                 data: {
                     roles: ['Administrador','Capturista']
                 },
-                templateUrl: 'app/mainApp/inventarios/insumo.tmpl.html', //Dirección del archivo a usar
+                templateUrl: 'app/mainApp/inventarios/insumo/insumo.tmpl.html', //Dirección del archivo a usar
                 controller: 'insumoController', //nombre del controlador
                 controllerAs: 'vm' //se renombra al scope
             })
