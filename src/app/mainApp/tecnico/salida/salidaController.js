@@ -10,7 +10,7 @@
         .filter('salidaSearch', salidaSearch)
         .filter('tipoequipoSearch',tipoequipoSearch);
 
-    function salidaController(EntradaSalida, ModeloCabinet, TipoEquipo, Helper, Translate, toastr, Sucursal, udn, Proyectos, CabinetEntradaSalida, TipoTransporte, $scope, LineaTransporte) {
+    function salidaController(EntradaSalida, ModeloCabinet,$mdDialog, TipoEquipo, Helper, Translate, toastr, Sucursal, udn, Proyectos, CabinetEntradaSalida, TipoTransporte, $scope, LineaTransporte) {
         var vm = this;
         vm.guardar = guardar;
         vm.selectionFile = selectionFile;
@@ -84,6 +84,8 @@
             //Is massive upload
             if (vm.salida.file != null) {
                 fd.append('file', vm.salida.file);
+                vm.salida.no_creados = null;
+                vm.salida.creados = null;
                 EntradaSalida.postSalidaMasiva(fd).then(function (res) {
                     vm.hideRegisteredCabinets = false;
                     vm.hideUnregisteredCabinets = true;
@@ -101,23 +103,40 @@
                 });
             }
             else {
-                EntradaSalida.postEntrada(fd).then(function (res) {
-                    var request = {
-                        entrada_salida: res.id,
-                        economico: vm.selectedCabinets
-                    };
-                    CabinetEntradaSalida.create(request).then(function () {
-                        toastr.success(vm.successMessage, vm.successTitle);
-                        clear();
-                    }).catch(function (er) {
-                        console.log(er);
-                        toastr.error(vm.errorMessage, vm.errorTitle);
+                if(vm.selectedCabinets.length==0){
+                    var confirm = $mdDialog.confirm()
+                        .title(vm.dialogTitle)
+                        .textContent(vm.dialogMessage)
+                        .ariaLabel('Confirmar envío')
+                        .ok(vm.submitButton)
+                        .cancel(vm.cancelButton);
+                    $mdDialog.show(confirm).then(function() {
+                        entradaManual(fd);
+                    }, function() {
+
                     });
-                }).catch(function () {
-                    toastr.error(vm.errorMessage, vm.errorTitle);
-                });
+                }else{
+                    entradaManual(fd);
+                }
+
             }
 
+        }
+        function entradaManual(fd) {
+            EntradaSalida.postEntrada(fd).then(function (res) {
+                var request = {
+                    entrada_salida: res.id,
+                    economico: vm.selectedCabinets
+                };
+                CabinetEntradaSalida.create(request).then(function () {
+                    toastr.success(vm.successMessage, vm.successTitle);
+                    clear();
+                }).catch(function (er) {
+                    toastr.error(vm.errorMessage, vm.errorTitle);
+                });
+            }).catch(function () {
+                toastr.error(vm.errorMessage, vm.errorTitle);
+            });
         }
 
         function selectionImage($files) {
@@ -182,11 +201,19 @@
             vm.errorMassive = Translate.translate('MAIN.MSG.ERROR_MASSIVE');
             vm.successMassive = Translate.translate('MAIN.MSG.SUCCESS_MASSIVE');
             vm.successMessage = Translate.translate('MAIN.MSG.SUCCESS_MANUAL');
+            vm.submitButton=Translate.translate('MAIN.BUTTONS.SUBMIT');
+            vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
+            vm.dialogTitle=Translate.translate('OUTPUT.FORM.DIALOG.SEND_TITLE');
+            vm.dialogMessage=Translate.translate('OUTPUT.FORM.DIALOG.SEND_MESSAGE');
         }
 
         function showMassiveUpload() {
             vm.hideManualUpload = true;
             vm.hideMassiveUpload = false;
+            vm.salida.no_creados = null;
+            vm.salida.creados = null;
+            vm.hideUnregisteredCabinets = true;
+            vm.hideRegisteredCabinets = true;
         }
 
         function clear() {
@@ -205,6 +232,8 @@
         function showManualUpload() {
             vm.hideManualUpload = false;
             vm.hideMassiveUpload = true;
+            vm.hideUnregisteredCabinets = true;
+            vm.hideRegisteredCabinets = true;
             vm.loading=true;
             EntradaSalida.getCabinetsEntrada().then(function (res) {
                 vm.cabinetsEntrada = res;

@@ -197,7 +197,7 @@
                 "SERIE":"No. Serie:",
                 "TYPE":"Tipo:",
                 "CABINET":"Cabinets disponibles",
-                "NOT_FOUND":"No se encontró el cabinet que se intento buscar",
+                "NOT_FOUND":"No hay cabinets que puedan ser procesables.",
                 "SEARCH":"Búsqueda"
             },
             "BUTTON":{
@@ -206,10 +206,11 @@
                 "NEXT": "Siguiente",
                 "CABINETS.MASSIVE.UPLOAD": "Carga masiva de cabinets",
                 "CABINETS.MANUAL.UPLOAD": "Carga individual de cabinets"
+            },
+            "DIALOG":{
+                "SEND_TITLE":"Confirmación de envío",
+                "SEND_MESSAGE":"¿Seguro que desea crear una salida sin ningún cabinet seleccionado?"
             }
-
-
-
         }
     }
 }
