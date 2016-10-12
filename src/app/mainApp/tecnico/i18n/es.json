@@ -160,7 +160,8 @@
     "OUTPUT": {
         "FORM": {
             "PLACEHOLDER":{
-                "SEARCH":"Ingrese cabinet"
+                "SEARCH":"Ingrese cabinet",
+                "TYPE_EQUIPMENT":"Tipo de equipo"
             },
             "TABLE": {
                 "HEADERS": {
@@ -191,7 +192,13 @@
                     "KIND": "Tipo de transporte"
                 },
                 "SUBSIDIARY": "Sucursal",
-                "PROJECT": "Proyecto"
+                "PROJECT": "Proyecto",
+                "ECONOMIC":"No. Economico:",
+                "SERIE":"No. Serie:",
+                "TYPE":"Tipo:",
+                "CABINET":"Cabinets disponibles",
+                "NOT_FOUND":"No se encontró el cabinet que se intento buscar",
+                "SEARCH":"Búsqueda"
             },
             "BUTTON":{
                 "CHOOSE_FILE": "Seleccionar Archivo",

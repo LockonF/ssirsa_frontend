@@ -6,9 +6,11 @@
 
     angular
         .module('app.mainApp.tecnico')
-        .controller('salidaController', salidaController);
+        .controller('salidaController', salidaController)
+        .filter('salidaSearch', salidaSearch)
+        .filter('tipoequipoSearch',tipoequipoSearch);
 
-    function salidaController(EntradaSalida, Helper, Translate, toastr, Sucursal, udn, Proyectos, CabinetEntradaSalida, TipoTransporte, $scope, LineaTransporte) {
+    function salidaController(EntradaSalida, ModeloCabinet, TipoEquipo, Helper, Translate, toastr, Sucursal, udn, Proyectos, CabinetEntradaSalida, TipoTransporte, $scope, LineaTransporte) {
         var vm = this;
         vm.guardar = guardar;
         vm.selectionFile = selectionFile;
@@ -18,8 +20,8 @@
         vm.cabinetSearch = cabinetSearch;
         vm.nextTab = nextTab;
         vm.clear = clear;
-        vm.appendCabinet = appendCabinet;
 
+        vm.selection = selection;
 
         activate();
 
@@ -33,7 +35,7 @@
         vm.hideRegisteredCabinets = true;
         vm.hideUnregisteredCabinets = true;
         vm.selectedCabinets = [];
-
+        vm.loading=true;
         //Models
 
         vm.cabinets = null;
@@ -134,6 +136,19 @@
             }
         }
 
+        function selection(cabinet) {
+            var index = _.findIndex(vm.selectedCabinets, function (obj) {
+                return obj.economico === cabinet.economico;
+            });
+            if (index > -1) {//no lo encontr
+                vm.selectedCabinets.splice(index, 1);
+            } else {
+                vm.selectedCabinets.push({
+                    economico: cabinet.economico
+                });
+            }
+        }
+
         function selectionFile($files) {
             if ($files.length > 0) {
                 var file = $files[0];
@@ -156,6 +171,8 @@
             vm.Sucursales = Sucursal.list();
             vm.Proyectos = Proyectos.list();
             vm.udns = udn.list();
+            vm.modelos = ModeloCabinet.list();
+            vm.tipoEquipos = TipoEquipo.list();
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
@@ -180,7 +197,7 @@
             $scope.entradaForm.$setUntouched();
             vm.salida.no_creados = null;
             vm.salida.creados = null;
-            vm.selectedCabinets=[];
+            vm.selectedCabinets = [];
             vm.hideMassiveUpload = true;
             vm.hideManualUpload = true;
         }
@@ -188,8 +205,10 @@
         function showManualUpload() {
             vm.hideManualUpload = false;
             vm.hideMassiveUpload = true;
+            vm.loading=true;
             EntradaSalida.getCabinetsEntrada().then(function (res) {
                 vm.cabinetsEntrada = res;
+                vm.loading=false;
             });
         }
 
@@ -205,26 +224,37 @@
             return vm.search_items;
         }
 
-        function appendCabinet(chip) {
-            if (vm.selectedCabinets != null) {
-                var index = _.findIndex(vm.selectedCabinets, function (obj) {
-                    return obj.economico === chip.economico;
-                });
-                if (index != -1) {//no lo encontr
-                    vm.selectedCabinets.splice(index, 1);
-                }
-            } else {
-                vm.selectedCabinets.splice(index, 1);
-            }
-            return {
-                economico:chip.economico
-            };
-        }
 
         function nextTab() {
             vm.selectedTab = vm.selectedTab + 1;
         }
 
+
+    }
+    function tipoequipoSearch() {
+        return function (input, text,tipos,modelos) {
+            if (!angular.isNumber(text) || text === '') {
+                return input;
+            }
+
+
+            return _.filter(input, function (item) {
+                return tipos[modelos[item.modelo].tipo].id==text;
+            });
+
+        };
+    }
+    function salidaSearch() {
+        return function (input, text) {
+            if (!angular.isString(text) || text === '') {
+                return input;
+            }
+
+            return _.filter(input, function (item) {
+                return item.economico.toLowerCase().indexOf(text.toLowerCase()) >= 0;
+            });
+
+        };
 
     }
 
