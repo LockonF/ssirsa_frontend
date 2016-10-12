@@ -11,6 +11,7 @@
         var vm = this;
         vm.lookup = lookup;
         vm.querySearch = querySearch;
+        vm.selectedItemChange = selectedItemChange;
         vm.selectedPersonas=selectedPersonas;
         vm.cancel = cancel;
         vm.clean=clean;
@@ -137,6 +138,10 @@
         function selectedPersonas(project) {
             vm.selectedPersonaList = project;
             vm.persona = angular.copy(project);
+        }
+
+        function selectedItemChange(item){
+            vm.persona = angular.copy(item);
         }
 
 
