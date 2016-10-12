@@ -215,7 +215,8 @@
                                                 title="{{'OUTPUT.FORM.LABEL.CABINET'|translate}}">
                                         <md-list flex>
                                             <md-list-item ng-repeat="cabinet in vm.cabinetsEntrada | salidaSearch:vm.economicoFilter  | tipoequipoSearch:vm.filtroTipo:vm.tipoEquipos:vm.modelos"
-                                                          class="md-2-line">
+                                                          class="md-2-line"
+                                            >
                                                 <div layout-padding layout="row"
                                                      layout-align="start center">
                                                     <md-checkbox
@@ -224,13 +225,13 @@
                                                         ng-click="vm.selection(cabinet)"
                                                     ></md-checkbox>
                                                     <md-icon md-svg-icon="assets/images/cabinet.svg"
-                                                             class="md-avatar"></md-icon>
+                                                             class="md-avatar" hide-sm="" hide-xs=""></md-icon>
                                                     <div class="md-list-item-text" layout="column">
-                                                        <h3><b>{{'OUTPUT.FORM.LABEL.ECONOMIC'|translate}}</b>
-                                                            {{cabinet.economico }}</h3>
-                                                        <h4><b>{{'OUTPUT.FORM.LABEL.SERIE'|translate}}</b>
+                                                        <h4><b hide-sm="" hide-xs="">{{'OUTPUT.FORM.LABEL.ECONOMIC'|translate}}</b>
+                                                            {{cabinet.economico }}</h4>
+                                                        <h4><b hide-sm="" hide-xs="">{{'OUTPUT.FORM.LABEL.SERIE'|translate}}</b>
                                                             {{cabinet.no_serie}}</h4>
-                                                        <h4><b>{{'OUTPUT.FORM.LABEL.TYPE'|translate}}</b>
+                                                        <h4><b hide-sm="" hide-xs="">{{'OUTPUT.FORM.LABEL.TYPE'|translate}}</b>
                                                             {{vm.tipoEquipos[vm.modelos[cabinet.modelo].tipo].nombre}}
                                                         </h4>
                                                     </div>
