@@ -7,7 +7,7 @@
         .filter('modeloSearch', modeloSearch);
 
     /* @ngInject */
-    function ModeloCabinetController(ModeloCabinet, $scope, toastr, Translate, $mdDialog, MarcaCabinet) {
+    function ModeloCabinetController(ModeloCabinet,TipoEquipo, $scope, toastr, Translate, $mdDialog, MarcaCabinet) {
 
         var vm = this;
         vm.lookup = lookup;
@@ -49,6 +49,7 @@
         function activate() {
             vm.modelos = ModeloCabinet.list();
             vm.marcas = MarcaCabinet.list();
+            vm.tipoEquipos = TipoEquipo.list();
         }
         function remove(ev) {
             var confirm = $mdDialog.confirm()
@@ -105,7 +106,9 @@
             }
         }
         function selectedModelos(project) {
+            project.cantidad =parseFloat(project.cantidad);
             vm.selectedModeloList = project;
+
             vm.modelo = angular.copy(project);
         }
 

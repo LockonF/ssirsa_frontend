@@ -68,9 +68,12 @@
                         </md-input-container>
                         <md-input-container class="md-block">
                             <label>{{'MODEL_CABINET.FORM.LABEL.TYPE'|translate}}</label>
-                            <input md-no-asterisk="" required="" type="text" name="type"
-                                   ng-disabled="vm.editable"
-                                   ng-model="vm.modelo.tipo"/>
+                            <md-select ng-model="vm.modelo.tipo"
+                                       md-no-asterisk="" required=""
+                                       name="type">
+                                <md-option ng-repeat="tipo in vm.tipoEquipos" ng-value="tipo.id">{{tipo.nombre}}
+                                </md-option>
+                            </md-select>
                             <div ng-messages="ModelCabinetForm.type.$error">
                                 <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
                             </div>
