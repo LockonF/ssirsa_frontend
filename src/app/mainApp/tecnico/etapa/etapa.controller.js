@@ -349,6 +349,20 @@
 
 
         }
+        //Dialog de Info de Etapa
+        vm.verInfo = function () {
+            $mdDialog.show({
+                locals: {parent: vm},
+                controller: function () {
+                    this.parent = vm
+                },
+                templateUrl: 'app/mainApp/tecnico/etapa/dialogInfoEtapa.tmpl.html',
+                parent: angular.element(document.body),
+                controllerAs: 'vm',
+                clickOutsideToClose: true
+            })
+
+        };
 
         // Eliminar Insumo
 
