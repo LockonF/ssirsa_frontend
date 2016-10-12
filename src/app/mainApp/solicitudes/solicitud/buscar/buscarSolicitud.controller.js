@@ -4,61 +4,61 @@
 (function () {
     angular
         .module('app.mainApp.solicitudes')
-        .controller('buscarSolicitudController',buscarSolicitudController);
+        .controller('buscarSolicitudController', buscarSolicitudController);
 
-    function buscarSolicitudController(Translate,$mdEditDialog,Solicitudes,Solicitudes_Admin,udn,ModeloCabinet,Solicitud_Servicio,Solicitud_Servicio_Admin,Session,OPTIONS,toastr,$mdDialog){
+    function buscarSolicitudController(Translate, $mdEditDialog, Solicitudes, Solicitudes_Admin, udn, ModeloCabinet, Solicitud_Servicio, Solicitud_Servicio_Admin, Session, OPTIONS, toastr, $mdDialog) {
         var vm = this;
-        vm.flag=0;
-        vm.query={
+        vm.flag = 0;
+        vm.query = {
             order: 'id',
             limit: 5,
             page: 1
         };
-        vm.minDate=new Date();
-        vm.filtrarSolicitud=OPTIONS.filtrarSolicitud;
-        vm.tipoSols=OPTIONS.tipoSolicitud;
-        vm.estatusSols=OPTIONS.estatusSol;
-        vm.id=null;
-        vm.FechaFin=new Date();
-        vm.tipo_solicitud=null;
-        vm.filtro_busqueda=null;
-        vm.busqueda_status=null;
-        vm.folio=null;
-        vm.sol=null;
-        vm.solicitudesArray=[];
+        vm.minDate = new Date();
+        vm.filtrarSolicitud = OPTIONS.filtrarSolicitud;
+        vm.tipoSols = OPTIONS.tipoSolicitud;
+        vm.estatusSols = OPTIONS.estatusSol;
+        vm.id = null;
+        vm.FechaFin = new Date();
+        vm.tipo_solicitud = null;
+        vm.filtro_busqueda = null;
+        vm.busqueda_status = null;
+        vm.folio = null;
+        vm.sol = null;
+        vm.solicitudesArray = [];
         vm.requisito = {
-            "id":null,
-            "udn":null,
-            "fecha_inicio":new Date(),
-            "fecha_termino":new Date(),
-            "fecha_atendida":new Date(),
-            "descripcion":null,
+            "id": null,
+            "udn": null,
+            "fecha_inicio": new Date(),
+            "fecha_termino": new Date(),
+            "fecha_atendida": new Date(),
+            "descripcion": null,
             "tipo_solicitud": null,
             "status": null,
             "comentario": null,
-            "datos":[],
-            "modelo_cabinet":null
+            "datos": [],
+            "modelo_cabinet": null
         };
 
-        vm.remove=remove;
-        vm.removeVenta=removeVenta;
-        vm.removeCliente=removeCliente;
-        vm.removeVentaCliente=removeVentaCliente;
-        vm.buscarSolicitudes=buscarSolicitudes;
-        vm.busqueda=busqueda;
-        vm.borrarSolicitudVenta=borrarSolicitudVenta;
-        vm.borrarSolicitud=borrarSolicitud;
-        vm.edit=edit;
-        vm.editVenta=editVenta;
-        vm.editSelect=editSelect;
-        vm.editCalendar=editCalendar;
-        vm.editVentaCalendar=editVentaCalendar;
+        vm.remove = remove;
+        vm.removeVenta = removeVenta;
+        vm.removeCliente = removeCliente;
+        vm.removeVentaCliente = removeVentaCliente;
+        vm.buscarSolicitudes = buscarSolicitudes;
+        vm.busqueda = busqueda;
+        vm.borrarSolicitudVenta = borrarSolicitudVenta;
+        vm.borrarSolicitud = borrarSolicitud;
+        vm.edit = edit;
+        vm.editVenta = editVenta;
+        vm.editSelect = editSelect;
+        vm.editCalendar = editCalendar;
+        vm.editVentaCalendar = editVentaCalendar;
 
 
         vm.Requisitos = [];
-        vm.solicitudes=null;
-        vm.solicitudesVentas=null;
-        vm.isClient=true;
+        vm.solicitudes = null;
+        vm.solicitudesVentas = null;
+        vm.isClient = true;
         activate();
         init();
         function init() {
@@ -68,18 +68,22 @@
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
             vm.successUpdateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_UPDATE');
             vm.successDeleteMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_DELETE');
+            vm.deleteButton=Translate.translate('MAIN.BUTTONS.DELETE');
+            vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
+            vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
+            vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
         }
-        function activate(){
-            vm.udns=udn.list();
 
-                vm.tiposEquipo=ModeloCabinet.list();
+        function activate() {
+            vm.udns = udn.list();
 
+            vm.tiposEquipo = ModeloCabinet.list();
             vm.isClient = Session.userRole == 'Cliente';
 
         }
 
 
-        function edit(event,object,field) {
+        function edit(event, object, field) {
             var config =
             {
                 modelValue: object[field],
@@ -95,7 +99,7 @@
                 }
             };
 
-            function updateObject(obj){
+            function updateObject(obj) {
                 obj.fecha_inicio = moment(obj.fecha_inicio).format('YYYY-MM-DD');
                 obj.fecha_termino = moment(obj.fecha_termino).format('YYYY-MM-DD');
                 obj.fecha_atendida = moment(obj.fecha_atendida).toISOString();
@@ -105,8 +109,9 @@
                     toastr.error(vm.errorMessage, vm.errorTitle);
                 })
             }
-            $mdEditDialog.small(config).then(function(ctrl){
-            }).catch(function(err){
+
+            $mdEditDialog.small(config).then(function (ctrl) {
+            }).catch(function (err) {
                 toastr.warning(vm.errorMessage, vm.errorTitle);
             });
         }
@@ -132,27 +137,28 @@
                 toastr.error(vm.errorMessage, vm.errorTitle);
             })
         }
-        function borrarSolicitudVenta(id){
-            Solicitud_Servicio_Admin.borrarSol(id).then(function(resp){
+
+        function borrarSolicitudVenta(id) {
+            Solicitud_Servicio_Admin.borrarSol(id).then(function (resp) {
                 vm.busqueda();
-            }).catch(function(err){
+            }).catch(function (err) {
                 toastr.warning(vm.errorMessage, vm.errorTitle);
             })
 
             busqueda();
         }
 
-        function borrarSolicitud(id){
-            Solicitudes_Admin.borrarSol(id).then(function(resp){
+        function borrarSolicitud(id) {
+            Solicitudes_Admin.borrarSol(id).then(function (resp) {
                 vm.busqueda();
-            }).catch(function(err){
+            }).catch(function (err) {
                 toastr.warning(vm.errorMessage, vm.errorTitle);
             })
 
             busqueda();
         }
 
-        function editVenta(event,object,field) {
+        function editVenta(event, object, field) {
             var config =
             {
                 modelValue: object[field],
@@ -168,7 +174,7 @@
                 }
             };
 
-            function updateObject(obj){
+            function updateObject(obj) {
                 Solicitud_Servicio_Admin.updateSolicitud(obj).then(function () {
                     toastr.success(vm.successUpdateMessage, vm.successTitle);
                 }).catch(function (res) {
@@ -176,8 +182,8 @@
                 })
             }
 
-            $mdEditDialog.small(config).then(function(ctrl){
-            }).catch(function(err){
+            $mdEditDialog.small(config).then(function (ctrl) {
+            }).catch(function (err) {
                 toastr.warning(vm.errorMessage, vm.errorTitle);
             });
         }
@@ -191,98 +197,94 @@
             })
         }
 
-        function removeVenta(ev,id) {
+        function removeVenta(ev, id) {
             var confirm = $mdDialog.confirm()
-                .title('Confirmación para eliminar')
-                .textContent('¿Esta seguro de eliminar este elemento?')
-                .ariaLabel('Lucky day')
-                .targetEvent(ev)
-                .ok('Aceptar')
-                .cancel('Cancelar');
-            $mdDialog.show(confirm).then(function() {
-                Solicitud_Servicio_Admin.borrarSolVenta(id).then(function(resp){
+                .title(vm.dialogTitle)
+                .textContent(vm.dialogMessage)
+                .ariaLabel('Confirmar eliminación')
+                .ok(vm.deleteButton)
+                .cancel(vm.cancelButton);
+            $mdDialog.show(confirm).then(function () {
+                Solicitud_Servicio_Admin.borrarSolVenta(id).then(function (resp) {
                     vm.busqueda();
                     toastr.success(vm.successDeleteMessage, vm.successTitle);
-                }).catch(function(err){
+                }).catch(function (err) {
                     toastr.warning(vm.errorMessage, vm.errorTitle);
                 })
-            }, function() {
+            }, function () {
 
             });
 
         }
 
-        function remove(ev,id) {
+        function remove(ev, id) {
             var confirm = $mdDialog.confirm()
-                .title('Confirmación para eliminar')
-                .textContent('¿Esta seguro de eliminar este elemento?')
-                .ariaLabel('Lucky day')
-                .targetEvent(ev)
-                .ok('Aceptar')
-                .cancel('Cancelar');
-            $mdDialog.show(confirm).then(function() {
-                Solicitudes_Admin.borrarSol(id).then(function(resp){
+                .title(vm.dialogTitle)
+                .textContent(vm.dialogMessage)
+                .ariaLabel('Confirmar eliminación')
+                .ok(vm.deleteButton)
+                .cancel(vm.cancelButton);
+            $mdDialog.show(confirm).then(function () {
+                Solicitudes_Admin.borrarSol(id).then(function (resp) {
                     vm.busqueda();
                     toastr.success(vm.successDeleteMessage, vm.successTitle);
-                }).catch(function(err){
+                }).catch(function (err) {
                     toastr.warning(vm.errorMessage, vm.errorTitle);
                 })
-            }, function() {
+            }, function () {
 
             });
 
         }
 
-        function removeVentaCliente(ev,id) {
+        function removeVentaCliente(ev, id) {
             var confirm = $mdDialog.confirm()
-                .title('Confirmación para eliminar')
-                .textContent('¿Esta seguro de eliminar este elemento?')
-                .ariaLabel('Lucky day')
-                .targetEvent(ev)
-                .ok('Aceptar')
-                .cancel('Cancelar');
-            $mdDialog.show(confirm).then(function() {
-                Solicitud_Servicio.borrarSolVenta(id).then(function(resp){
+                .title(vm.dialogTitle)
+                .textContent(vm.dialogMessage)
+                .ariaLabel('Confirmar eliminación')
+                .ok(vm.deleteButton)
+                .cancel(vm.cancelButton);
+            $mdDialog.show(confirm).then(function () {
+                Solicitud_Servicio.borrarSolVenta(id).then(function (resp) {
                     vm.busqueda();
                     toastr.success(vm.successDeleteMessage, vm.successTitle);
-                }).catch(function(err){
+                }).catch(function (err) {
                     toastr.warning(vm.errorMessage, vm.errorTitle);
                 })
-            }, function() {
+            }, function () {
 
             });
 
         }
 
-        function removeCliente(ev,id) {
+        function removeCliente(ev, id) {
             var confirm = $mdDialog.confirm()
-                .title('Confirmación para eliminar')
-                .textContent('¿Esta seguro de eliminar este elemento?')
-                .ariaLabel('Lucky day')
-                .targetEvent(ev)
-                .ok('Aceptar')
-                .cancel('Cancelar');
-            $mdDialog.show(confirm).then(function() {
-                Solicitudes.borrarSol(id).then(function(resp){
+                .title(vm.dialogTitle)
+                .textContent(vm.dialogMessage)
+                .ariaLabel('Confirmar eliminación')
+                .ok(vm.deleteButton)
+                .cancel(vm.cancelButton);
+            $mdDialog.show(confirm).then(function () {
+                Solicitudes.borrarSol(id).then(function (resp) {
                     vm.busqueda();
                     toastr.success(vm.successDeleteMessage, vm.successTitle);
-                }).catch(function(err){
+                }).catch(function (err) {
                     toastr.warning(vm.errorMessage, vm.errorTitle);
                 })
-            }, function() {
+            }, function () {
 
             });
 
         }
 
-        function buscarSolicitudes(){
-            if(!vm.isClient){
-                Solicitudes_Admin.list().then(function (rest){
+        function buscarSolicitudes() {
+            if (!vm.isClient) {
+                Solicitudes_Admin.list().then(function (rest) {
                     vm.solicitudes = rest;
-                }).catch(function(error){
+                }).catch(function (error) {
                     toastr.warning(vm.errorMessage, vm.errorTitle);
                 })
-            }else {
+            } else {
 
                 Solicitudes.list().then(function (rest) {
                     vm.solicitudes = rest;
@@ -293,57 +295,52 @@
         }
 
         function busqueda() {
-            if(vm.filtro_busqueda=='Todas'){
-                vm.busqueda_status=null;
+            if (vm.filtro_busqueda == 'Todas') {
+                vm.busqueda_status = null;
             }
             vm.solicitudes = null;
-            vm.sol=null;
+            vm.sol = null;
             vm.solicitudesArray = [];
             switch (vm.tipo_solicitud) {
                 case 'Envio':
-                    if(vm.filtro_busqueda == 'Por Folio')
-                    {
-                        if(!vm.isClient){
-                            Solicitudes_Admin.list().then(function (rest){
+                    if (vm.filtro_busqueda == 'Por Folio') {
+                        if (!vm.isClient) {
+                            Solicitudes_Admin.list().then(function (rest) {
                                 vm.solicitudes = rest;
-                                for(var i=0,len = vm.solicitudes.length; i<len;i++)
-                                {
-                                    if(vm.solicitudes[i].id==vm.folio && vm.solicitudes[i].tipo_solicitud=='Envio')
-                                    {
+                                for (var i = 0, len = vm.solicitudes.length; i < len; i++) {
+                                    if (vm.solicitudes[i].id == vm.folio && vm.solicitudes[i].tipo_solicitud == 'Envio') {
                                         vm.sol = vm.solicitudes[i];
                                         vm.sol.fecha_inicio = moment(vm.sol.fecha_inicio).format('DD/MM/YYYY');
                                         vm.sol.fecha_termino = moment(vm.sol.fecha_termino).format('DD/MM/YYYY');
                                         vm.sol.fecha_atendida = moment(vm.sol.fecha_atendida).format('DD/MM/YYYY HH:mm');
                                     }
                                 }
-                                if(vm.sol!=null) {
+                                if (vm.sol != null) {
                                     vm.solicitudes = [];
                                     vm.solicitudes.push(vm.sol);
-                                }else{
-                                    toastr.warning('Folio no encontrado','Advertencia');
+                                } else {
+                                    toastr.warning('Folio no encontrado', 'Advertencia');
                                     vm.solicitudes = null;
                                 }
-                            }).catch(function(error){
+                            }).catch(function (error) {
                                 toastr.warning(vm.errorMessage, vm.errorTitle);
                             })
-                        }else {
+                        } else {
 
                             Solicitudes.list().then(function (rest) {
                                 vm.solicitudes = rest;
-                                for(var i=0,len = vm.solicitudes.length; i<len;i++)
-                                {
-                                    if(vm.solicitudes[i].id==vm.folio && vm.solicitudes[i].tipo_solicitud=='Envio')
-                                    {
+                                for (var i = 0, len = vm.solicitudes.length; i < len; i++) {
+                                    if (vm.solicitudes[i].id == vm.folio && vm.solicitudes[i].tipo_solicitud == 'Envio') {
                                         vm.sol = vm.solicitudes[i];
                                         vm.sol.fecha_inicio = moment(vm.sol.fecha_inicio).format('DD/MM/YYYY');
                                         vm.sol.fecha_termino = moment(vm.sol.fecha_termino).format('DD/MM/YYYY');
                                     }
                                 }
-                                if(vm.sol!=null) {
+                                if (vm.sol != null) {
                                     vm.solicitudes = [];
                                     vm.solicitudes.push(vm.sol);
-                                }else{
-                                    toastr.warning('Folio no encontrado','Advertencia');
+                                } else {
+                                    toastr.warning('Folio no encontrado', 'Advertencia');
                                     vm.solicitudes = null;
                                 }
                             }).catch(function (error) {
@@ -353,16 +350,13 @@
 
 
                     }
-                    else
-                    {
-                        if(!vm.isClient){
+                    else {
+                        if (!vm.isClient) {
                             Solicitudes_Admin.consultaEsp(vm.busqueda_status).then(function (rest) {
-                                if(rest.length>0) {
+                                if (rest.length > 0) {
                                     vm.solicitudes = rest;
-                                    for(var i=0,len = vm.solicitudes.length; i<len;i++)
-                                    {
-                                        if(vm.solicitudes[i].tipo_solicitud=='Envio')
-                                        {
+                                    for (var i = 0, len = vm.solicitudes.length; i < len; i++) {
+                                        if (vm.solicitudes[i].tipo_solicitud == 'Envio') {
                                             vm.sol = vm.solicitudes[i];
                                             vm.sol.fecha_inicio = moment(vm.sol.fecha_inicio).format('DD/MM/YYYY');
                                             vm.sol.fecha_termino = moment(vm.sol.fecha_termino).format('DD/MM/YYYY');
@@ -373,25 +367,23 @@
                                     vm.solicitudes = null;
                                     vm.solicitudes = vm.solicitudesArray;
                                     vm.solicitudesArray = [];
-                                    if(vm.solicitudes==null) {
+                                    if (vm.solicitudes == null) {
                                         toastr.warning('Solicitudes ' + vm.busqueda_status + 's no encontradas', 'Advertencia');
                                     }
 
-                                }else{
-                                    toastr.warning('Solicitudes '+vm.busqueda_status+'s no encontradas','Advertencia');
+                                } else {
+                                    toastr.warning('Solicitudes ' + vm.busqueda_status + 's no encontradas', 'Advertencia');
                                     vm.solicitudes = null;
                                 }
                             }).catch(function (error) {
                                 toastr.warning(vm.errorMessage, vm.errorTitle);
                             });
-                        }else{
+                        } else {
                             Solicitudes.consultaEsp(vm.busqueda_status).then(function (rest) {
-                                if(rest.length>0) {
+                                if (rest.length > 0) {
                                     vm.solicitudes = rest;
-                                    for(var i=0,len = vm.solicitudes.length; i<len;i++)
-                                    {
-                                        if(vm.solicitudes[i].tipo_solicitud=='Envio')
-                                        {
+                                    for (var i = 0, len = vm.solicitudes.length; i < len; i++) {
+                                        if (vm.solicitudes[i].tipo_solicitud == 'Envio') {
                                             vm.sol = vm.solicitudes[i];
                                             vm.sol.fecha_inicio = moment(vm.sol.fecha_inicio).format('DD/MM/YYYY');
                                             vm.sol.fecha_termino = moment(vm.sol.fecha_termino).format('DD/MM/YYYY');
@@ -401,8 +393,8 @@
                                     vm.solicitudes = null;
                                     vm.solicitudes = vm.solicitudesArray;
                                     vm.solicitudesArray = [];
-                                }else{
-                                    toastr.warning('Solicitudes '+vm.busqueda_status+'s no encontradas','Advertencia');
+                                } else {
+                                    toastr.warning('Solicitudes ' + vm.busqueda_status + 's no encontradas', 'Advertencia');
                                     vm.solicitudes = null;
                                 }
                             }).catch(function (error) {
@@ -413,49 +405,44 @@
                     }
                     break;
                 case 'Recoleccion':
-                    if(vm.filtro_busqueda == 'Por Folio')
-                    {
-                        if(!vm.isClient){
-                            Solicitudes_Admin.list().then(function (rest){
+                    if (vm.filtro_busqueda == 'Por Folio') {
+                        if (!vm.isClient) {
+                            Solicitudes_Admin.list().then(function (rest) {
                                 vm.solicitudes = rest;
-                                for(var i=0,len = vm.solicitudes.length; i<len;i++)
-                                {
-                                    if(vm.solicitudes[i].id==vm.folio && vm.solicitudes[i].tipo_solicitud=='Recoleccion')
-                                    {
+                                for (var i = 0, len = vm.solicitudes.length; i < len; i++) {
+                                    if (vm.solicitudes[i].id == vm.folio && vm.solicitudes[i].tipo_solicitud == 'Recoleccion') {
                                         vm.sol = vm.solicitudes[i];
                                         vm.sol.fecha_inicio = moment(vm.sol.fecha_inicio).format('DD/MM/YYYY');
                                         vm.sol.fecha_termino = moment(vm.sol.fecha_termino).format('DD/MM/YYYY');
                                         vm.sol.fecha_atendida = moment(vm.sol.fecha_atendida).format('DD/MM/YYYY HH:mm');
                                     }
                                 }
-                                if(vm.sol!=null) {
+                                if (vm.sol != null) {
                                     vm.solicitudes = [];
                                     vm.solicitudes.push(vm.sol);
-                                }else{
-                                    toastr.warning('Folio no encontrado','Advertencia');
+                                } else {
+                                    toastr.warning('Folio no encontrado', 'Advertencia');
                                     vm.solicitudes = null;
                                 }
-                            }).catch(function(error){
+                            }).catch(function (error) {
                                 toastr.warning(vm.errorMessage, vm.errorTitle);
                             })
-                        }else {
+                        } else {
 
                             Solicitudes.list().then(function (rest) {
                                 vm.solicitudes = rest;
-                                for(var i=0,len = vm.solicitudes.length; i<len;i++)
-                                {
-                                    if(vm.solicitudes[i].id==vm.folio && vm.solicitudes[i].tipo_solicitud=='Recoleccion')
-                                    {
+                                for (var i = 0, len = vm.solicitudes.length; i < len; i++) {
+                                    if (vm.solicitudes[i].id == vm.folio && vm.solicitudes[i].tipo_solicitud == 'Recoleccion') {
                                         vm.sol = vm.solicitudes[i];
                                         vm.sol.fecha_inicio = moment(vm.sol.fecha_inicio).format('DD/MM/YYYY');
                                         vm.sol.fecha_termino = moment(vm.sol.fecha_termino).format('DD/MM/YYYY');
                                     }
                                 }
-                                if(vm.sol!=null) {
+                                if (vm.sol != null) {
                                     vm.solicitudes = [];
                                     vm.solicitudes.push(vm.sol);
-                                }else{
-                                    toastr.warning('Folio no encontrado','Advertencia');
+                                } else {
+                                    toastr.warning('Folio no encontrado', 'Advertencia');
                                     vm.solicitudes = null;
                                 }
                             }).catch(function (error) {
@@ -465,16 +452,13 @@
 
 
                     }
-                    else
-                    {
-                        if(!vm.isClient){
+                    else {
+                        if (!vm.isClient) {
                             Solicitudes_Admin.consultaEsp(vm.busqueda_status).then(function (rest) {
-                                if(rest.length>0) {
+                                if (rest.length > 0) {
                                     vm.solicitudes = rest;
-                                    for(var i=0,len = vm.solicitudes.length; i<len;i++)
-                                    {
-                                        if(vm.solicitudes[i].tipo_solicitud=='Recoleccion')
-                                        {
+                                    for (var i = 0, len = vm.solicitudes.length; i < len; i++) {
+                                        if (vm.solicitudes[i].tipo_solicitud == 'Recoleccion') {
                                             vm.sol = vm.solicitudes[i];
                                             vm.sol.fecha_inicio = moment(vm.sol.fecha_inicio).format('DD/MM/YYYY');
                                             vm.sol.fecha_termino = moment(vm.sol.fecha_termino).format('DD/MM/YYYY');
@@ -486,24 +470,22 @@
                                     vm.solicitudes = null;
                                     vm.solicitudes = vm.solicitudesArray;
                                     vm.solicitudesArray = [];
-                                    if(vm.solicitudes==null) {
+                                    if (vm.solicitudes == null) {
                                         toastr.warning('Solicitudes ' + vm.busqueda_status + 's no encontradas', 'Advertencia');
                                     }
-                                }else{
-                                    toastr.warning('Solicitudes '+vm.busqueda_status+'s no encontradas','Advertencia');
+                                } else {
+                                    toastr.warning('Solicitudes ' + vm.busqueda_status + 's no encontradas', 'Advertencia');
                                     vm.solicitudes = null;
                                 }
                             }).catch(function (error) {
                                 toastr.warning(vm.errorMessage, vm.errorTitle);
                             });
-                        }else{
+                        } else {
                             Solicitudes.consultaEsp(vm.busqueda_status).then(function (rest) {
-                                if(rest.length>0) {
+                                if (rest.length > 0) {
                                     vm.solicitudes = rest;
-                                    for(var i=0,len = vm.solicitudes.length; i<len;i++)
-                                    {
-                                        if(vm.solicitudes[i].tipo_solicitud=='Recoleccion')
-                                        {
+                                    for (var i = 0, len = vm.solicitudes.length; i < len; i++) {
+                                        if (vm.solicitudes[i].tipo_solicitud == 'Recoleccion') {
                                             vm.sol = vm.solicitudes[i];
                                             vm.sol.fecha_inicio = moment(vm.sol.fecha_inicio).format('DD/MM/YYYY');
                                             vm.sol.fecha_termino = moment(vm.sol.fecha_termino).format('DD/MM/YYYY');
@@ -514,8 +496,8 @@
                                     vm.solicitudes = null;
                                     vm.solicitudes = vm.solicitudesArray;
                                     vm.solicitudesArray = [];
-                                }else{
-                                    toastr.warning('Solicitudes '+vm.busqueda_status+'s no encontradas','Advertencia');
+                                } else {
+                                    toastr.warning('Solicitudes ' + vm.busqueda_status + 's no encontradas', 'Advertencia');
                                     vm.solicitudes = null;
                                 }
                             }).catch(function (error) {
@@ -527,27 +509,26 @@
                     break;
                 case 'Venta':
 
-                    if(!vm.isClient) {
+                    if (!vm.isClient) {
                         Solicitud_Servicio_Admin.list().then(function (rest) {
                             vm.solicitudesVentas = rest;
-                            if(rest.length>0) {
+                            if (rest.length > 0) {
                                 vm.solicitudesVentas = rest;
-                                for(var i=0,len = vm.solicitudesVentas.length; i<len;i++)
-                                {
+                                for (var i = 0, len = vm.solicitudesVentas.length; i < len; i++) {
 
-                                        vm.sol = vm.solicitudesVentas[i];
-                                        vm.sol.fecha_atencion = moment(vm.sol.fecha_atencion).format('DD/MM/YYYY HH:mm');
-                                        vm.solicitudesArray.push(vm.sol);
+                                    vm.sol = vm.solicitudesVentas[i];
+                                    vm.sol.fecha_atencion = moment(vm.sol.fecha_atencion).format('DD/MM/YYYY HH:mm');
+                                    vm.solicitudesArray.push(vm.sol);
                                 }
 
                                 vm.solicitudesVentas = null;
                                 vm.solicitudesVentas = vm.solicitudesArray;
                                 vm.solicitudesArray = [];
-                                if(vm.solicitudesVentas==null) {
+                                if (vm.solicitudesVentas == null) {
                                     toastr.warning('Solicitudes ' + vm.busqueda_status + 's no encontradas', 'Advertencia');
                                 }
-                            }else{
-                                toastr.warning('Solicitudes '+vm.busqueda_status+'s no encontradas','Advertencia');
+                            } else {
+                                toastr.warning('Solicitudes ' + vm.busqueda_status + 's no encontradas', 'Advertencia');
                                 vm.solicitudes = null;
                             }
 
@@ -555,7 +536,7 @@
                         }).catch(function (error) {
                             toastr.warning(vm.errorMessage, vm.errorTitle);
                         })
-                    }else{
+                    } else {
                         Solicitud_Servicio.list().then(function (rest) {
                             vm.solicitudesVentas = rest;
                         }).catch(function (error) {

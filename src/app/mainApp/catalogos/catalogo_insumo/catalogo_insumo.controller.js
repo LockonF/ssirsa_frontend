@@ -9,29 +9,29 @@
         .module('app.mainApp.catalogos')
         .controller('CatalogoInsumoController',CatalogoInsumoController);
 
-    function CatalogoInsumoController(CatalogoInsumo,Categoria,Proveedor, toastr, Translate, $scope)
+    function CatalogoInsumoController(CatalogoInsumo,Etapa,$mdDialog,Categoria,Proveedor, toastr, Translate, $scope)
     {
         var vm = this;
 
         //Variables
         vm.searchText = '';
         vm.search_items = [];
+        vm.selected=[];
         vm.catalogo_insumo_list = null;
-        vm.catalogo_insumo = null;
+        vm.catalogo_insumo =  {
+            cantidad: null,
+            unidades: null,
+            descripcion: null,
+            costo: null,
+            tipo: null,
+            palabra_clave:null,
+            categoria: null,
+            proveedor: null,
+            sucursal: null,
+            etapas: [],
+            tipos_equipo: []
+        };
         vm.tipos = [{'display':'Lote','value':'L'},{'display':'Único','value':'U'}];
-        vm.zonas = [
-            {'display':'E1','value':'E1'},
-            {'display':'E2','value':'E2'},
-            {'display':'E3','value':'E3'},
-            {'display':'E3.1','value':'E3.1'},
-            {'display':'E3.2','value':'E3.2'},
-            {'display':'E3.3','value':'E3.3'},
-            {'display':'E4','value':'E4'},
-            {'display':'E5','value':'E5'},
-            {'display':'ED','value':'ED'},
-            {'display':'EC','value':'EC'},
-            {'display':'N/A','value':'N/A'}
-        ];
         vm.categoria_list = null;
         vm.proveedor_list = null;
 
@@ -43,6 +43,8 @@
         vm.create = create;
         vm.remove = remove;
         vm.clickRepeater = clickRepeater;
+        vm.showSteps=showSteps;
+        vm.showEquipment=showEquipment;
 
         activate();
 
@@ -62,6 +64,33 @@
             listCatalogoInsumos();
             listCategorias();
             listProveedores();
+            listEtapas();
+        }
+        function showSteps() {
+            $mdDialog.show({
+                controller: 'EtapaDialogController',
+                controllerAs: 'vm',
+                templateUrl: 'app/mainApp/catalogos/catalogo_insumo/modal/etapa.modal.tmpl.html',
+                focusOnOpen: false,
+                locals: {
+                    catalogo: vm.catalogo_insumo
+                }
+            }).then(function (res) {
+                vm.catalogo_insumo.etapas=res;
+            });
+        }
+        function showEquipment() {
+            $mdDialog.show({
+                controller: 'TipoEquipoDialogController',
+                controllerAs: 'vm',
+                templateUrl: 'app/mainApp/catalogos/catalogo_insumo/modal/tipoEquipo.modal.tmpl.html',
+                focusOnOpen: false,
+                locals: {
+                    catalogo: vm.catalogo_insumo
+                }
+            }).then(function (res) {
+                vm.catalogo_insumo.tipos_equipo=res;
+            });
         }
 
         function listCatalogoInsumos()
@@ -71,6 +100,10 @@
         }
 
 
+        function listEtapas()
+        {
+            vm.etapa_list  = Etapa.list();
+        }
         function listCategorias()
         {
             vm.categoria_list  = Categoria.list();
@@ -92,7 +125,11 @@
 
         function selectedItemChange(item)
         {
-
+            if(item!=null){
+                item.costo = parseFloat(item.costo);
+                item.cantidad =parseFloat(item.cantidad);
+                vm.catalogo_insumo = item.clone();
+            }
         }
 
         function clickRepeater(catalogo_insumo){

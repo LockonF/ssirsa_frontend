@@ -1,33 +1,33 @@
 <div layout="column" flex layout-padding layout-align-gt-md="center center" layout-align="center stretch">
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2>{{'Create Brand'|translate}}</h2>
+            <h2>{{'INPUT.Create Brand'|translate}}</h2>
         </div>
     </md-toolbar>
     <md-dialog-content>
         <form name="brandForm" novalidate="">
             <md-input-container class="md-block">
-                <label>{{'Dialogs.Brand.Category'|translate}}</label>
+                <label>{{'INPUT.Dialogs.Brand.Category'|translate}}</label>
                 <input name="BrandCategory" md-no-asterisk="" required="" type="text" ng-model="marca.categoria"/>
                 <div ng-messages="brandForm.ModelDescription.$error">
-                    <div ng-message="required">{{'Required Field'|translate}}</div>
+                    <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
                 </div>
             </md-input-container>
             <md-input-container class="md-block">
-                <label>{{'Dialogs.Brand.Description'|translate}}</label>
+                <label>{{'INPUT.Dialogs.Brand.Description'|translate}}</label>
                 <input name="BrandDescription" md-no-asterisk="" required="" type="text" ng-model="marca.descripcion"/>
                 <div ng-messages="brandForm.ModelKeyword.$error">
-                    <div ng-message="required">{{'Required Field'|translate}}</div>
+                    <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
                 </div>
             </md-input-container>
         </form>
     </md-dialog-content>
     <md-dialog-actions layout="row" layout-align="end center">
         <md-button ng-click="cancel()" md-no-ink class="md-primary">
-            {{'Cancel'|translate}}
+            {{'INPUT.Cancel'|translate}}
         </md-button>
         <md-button ng-click="registrarMarca()" ng-disabled="brandForm.$invalid" md-no-ink class="md-primary">
-            {{'Save'|translate}}
+            {{'INPUT.Save'|translate}}
         </md-button>
     </md-dialog-actions>
 </div>

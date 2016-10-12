@@ -117,15 +117,19 @@
         }
 
         function search(text) {
-            vm.filteredClients = _.filter(vm.clients, function (item) {
-                return item.nombre.toLowerCase().includes(text.toLowerCase());
-            });
+            if(text.length>0) {
+                vm.filteredClients = _.filter(vm.clients, function (item) {
+                    return item.nombre.toLowerCase().includes(text.toLowerCase());
+                });
+            }
             return vm.filteredClients;
         }
 
         function clear() {
             $scope.formClient.$setPristine();
             $scope.formClient.$setUntouched();
+            $scope.formClient.$invalid=true;
+            vm.searchParameter='';
             vm.filteredClients=vm.clients;
             vm.client=angular.copy(client);
             vm.selectedClient=null;
