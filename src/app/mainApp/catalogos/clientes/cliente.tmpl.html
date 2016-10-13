@@ -97,7 +97,7 @@
                                 <div ng-message="pattern">{{'Clients.Errors.PhoneError'|translate}}</div>
                             </div>
                         </md-input-container>
-                        <md-input-container class="md-block" flex="50">
+                        <md-input-container class="md-block" flex="50" ng-if="vm.isNew">
                             <label>{{'Clients.Fields.Email'|translate}}</label>
                             <input name="ClientEmail" type="text" required="" md-no-asterisk=""
                                    ng-model="vm.client.user.email"
@@ -112,7 +112,7 @@
                         <md-input-container class="md-block" flex="50">
                             <label>{{'Clients.Fields.User'|translate}}</label>
                             <input name="ClientUser" type="text" required="" md-no-asterisk=""
-                                   ng-model="vm.client.user.username" ng-disabled="!vm.isNew">
+                                   ng-model="vm.client.user.username" ng-if="vm.isNew">
                             <div ng-messages="formClient.ClientName.$error">
                                 <div ng-message="required">{{'Clients.Errors.Required'|translate}}</div>
                             </div>
@@ -120,7 +120,7 @@
                         <md-input-container class="md-block" flex="50">
                             <label>{{'Clients.Fields.Password'|translate}}</label>
                             <input name="ClientPassword" type="password" required="" md-no-asterisk=""
-                                   ng-model="vm.client.user.password" ng-disabled="!vm.isNew">
+                                   ng-model="vm.client.user.password" ng-if="vm.isNew">
                             <div ng-messages="formClient.ClientEmail.$error">
                                 <div ng-message="required">{{'Clients.Errors.Required'|translate}}</div>
                             </div>

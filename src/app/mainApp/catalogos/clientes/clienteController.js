@@ -49,22 +49,23 @@
             "apellido_paterno":"",
             "apellido_materno":"",
             "direccion":"",
-            "telefono":"",
-            user:{
-                "email":"",
-                "role":vm.role,
-                "username":"",
-                "password":"1234567a"
-            }
-        }
+            "telefono":""
+        };
+
+        var user={
+            "email":"",
+            "role":vm.role,
+            "username":"",
+            "password":"1234567a"
+        };
 
         vm.isNew=true;
         function activate() {
-
             vm.searchParameter='';
             vm.clients=Clientes.list();
             vm.filteredClients=vm.clients;
             vm.client=angular.copy(client);
+            vm.user=angular.copy(user);
             Clientes.getClienteId().then(function(res){
                 vm.role=res[0].id;
             });
@@ -72,7 +73,7 @@
         }
 
         function create() {
-            vm.client.user.role=vm.role;
+            vm.client.user=vm.user;
             Clientes.create(vm.client).then(function(res){
                 toastr.success(vm.succesCreate,vm.successTitle);
                 activate();
