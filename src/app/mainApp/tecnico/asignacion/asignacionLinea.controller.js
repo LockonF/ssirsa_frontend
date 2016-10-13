@@ -8,8 +8,9 @@
         .module('app.mainApp.tecnico')
         .controller('asignacionLineaController', asignacionLineaController);
 
-    function asignacionLineaController(Cabinet, toastr, Translate, ModeloCabinet, $mdDialog) {
+    function asignacionLineaController(Cabinet, toastr, Translate, ModeloCabinet,$scope, $mdDialog) {
         var vm = this;
+        $scope.form = {};
         //Inicializacion de variables
         vm.cabinet = {
             activo: false,
