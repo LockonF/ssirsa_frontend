@@ -27,6 +27,10 @@
         vm.querySearch=querySearch;
 
 
+        vm.myHeight=window.innerHeight-250;
+        console.log(vm.myHeight);
+
+
         vm.successTitle=Translate.translate('Clients.Notify.Success');
         vm.errorTitle=Translate.translate('Clients.Notify.Error');
         vm.warningTitle=Translate.translate('Clients.Notify.Warning');

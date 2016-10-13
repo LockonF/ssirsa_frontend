@@ -10,9 +10,10 @@
                 </md-icon>
             </md-button>
         </div>
-        <div layout-gt-sm="row" layout="column">
+        <div layout-gt-sm="row" layout="column" ng-style='vm.myStyle'>
             <!--Autocomplete div-->
             <div layout="column" layout-align="space-between stretch" flex-gt-sm="40" flex="100">
+
                 <md-autocomplete
                         md-items="item in vm.querySearch(vm.searchParameter)"
                         md-selected-item="vm.Client"
@@ -32,7 +33,12 @@
                     <md-not-found><span translate="Clients.Errors.Not_Found"></span></md-not-found>
                 </md-autocomplete>
 
-                <md-virtual-repeat-container id="vertical_container" flex="flex" hide-xs="hide-xs" layout-fill class="vr-min-height">
+                <md-virtual-repeat-container id="vertical_container"
+                                             flex="flex"
+                                             hide-xs="hide-xs"
+                                             hide-sm="hide-sm"
+                                             layout-fill
+                                             class="vr-min-height">
                         <md-list flex="flex">
                             <md-list-item flex="flex" ng-repeat="item in vm.filteredClients">
                                 <md-button
