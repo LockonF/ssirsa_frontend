@@ -97,10 +97,13 @@
                                 <div ng-message="pattern">{{'Clients.Errors.PhoneError'|translate}}</div>
                             </div>
                         </md-input-container>
-                        <md-input-container class="md-block" flex="50" ng-if="vm.isNew">
+                        <md-input-container class="md-block" flex="50" ng-hide="!vm.isNew">
                             <label>{{'Clients.Fields.Email'|translate}}</label>
-                            <input name="ClientEmail" type="text" required="" md-no-asterisk=""
-                                   ng-model="vm.client.user.email"
+                            <input name="ClientEmail"
+                                   type="text"
+                                   required="vm.isNew"
+                                   md-no-asterisk=""
+                                   ng-model="vm.user.email"
                                    ng-pattern="/^[A-Za-z0-9._%+-]+@[A-Za-z0-9._%+-]+.[A-Za-z]{2,}$/">
                             <div ng-messages="formClient.ClientEmail.$error">
                                 <div ng-message="required">{{'Clients.Errors.Required'|translate}}</div>
@@ -109,18 +112,26 @@
                         </md-input-container>
                     </div>
                     <div layout="column" layout-gt-sm="row" flex="100">
-                        <md-input-container class="md-block" flex="50">
+                        <md-input-container class="md-block" flex="50" ng-hide="!vm.isNew">
                             <label>{{'Clients.Fields.User'|translate}}</label>
-                            <input name="ClientUser" type="text" required="" md-no-asterisk=""
-                                   ng-model="vm.client.user.username" ng-if="vm.isNew">
+                            <input name="ClientUser"
+                                   type="text"
+                                   required="vm.isNew"
+                                   md-no-asterisk=""
+                                   ng-model="vm.user.username"
+                                   ng-if="vm.isNew">
                             <div ng-messages="formClient.ClientName.$error">
                                 <div ng-message="required">{{'Clients.Errors.Required'|translate}}</div>
                             </div>
                         </md-input-container>
-                        <md-input-container class="md-block" flex="50">
+                        <md-input-container class="md-block" flex="50" ng-hide="!vm.isNew">
                             <label>{{'Clients.Fields.Password'|translate}}</label>
-                            <input name="ClientPassword" type="password" required="" md-no-asterisk=""
-                                   ng-model="vm.client.user.password" ng-if="vm.isNew">
+                            <input name="ClientPassword"
+                                   type="password"
+                                   required="vm.isNew"
+                                   md-no-asterisk=""
+                                   ng-model="vm.user.password"
+                                   ng-if="vm.isNew">
                             <div ng-messages="formClient.ClientEmail.$error">
                                 <div ng-message="required">{{'Clients.Errors.Required'|translate}}</div>
                             </div>

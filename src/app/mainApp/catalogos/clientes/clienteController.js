@@ -59,8 +59,8 @@
             "password":"1234567a"
         };
 
-        vm.isNew=true;
         function activate() {
+            vm.isNew=true;
             vm.searchParameter='';
             vm.clients=Clientes.list();
             vm.filteredClients=vm.clients;
@@ -85,7 +85,6 @@
         }
 
         function update() {
-            vm.client.user.role=vm.role;
             Clientes.modify(vm.client).then(function(res){
                 toastr.success(vm.successUpdate,vm.successTitle);
                 activate();
@@ -138,11 +137,11 @@
         }
 
         function clickCopy(item) {
+            vm.isNew=false;
             vm.selectedClient=item;
             vm.client=angular.copy(item);
             vm.client.user.password="1234567a";
             $scope.formClient.$invalid=true;
-            vm.isNew=false;
         }
         
         function newClient(){
