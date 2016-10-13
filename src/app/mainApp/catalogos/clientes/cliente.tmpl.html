@@ -97,9 +97,10 @@
                                 <div ng-message="pattern">{{'Clients.Errors.PhoneError'|translate}}</div>
                             </div>
                         </md-input-container>
-                        <md-input-container class="md-block" flex="50" ng-hide="!vm.isNew">
+                        <md-input-container class="md-block" flex="50" >
                             <label>{{'Clients.Fields.Email'|translate}}</label>
                             <input name="ClientEmail"
+                                   ng-disabled="!vm.isNew"
                                    type="text"
                                    required="vm.isNew"
                                    md-no-asterisk=""
@@ -112,9 +113,10 @@
                         </md-input-container>
                     </div>
                     <div layout="column" layout-gt-sm="row" flex="100">
-                        <md-input-container class="md-block" flex="50" ng-hide="!vm.isNew">
+                        <md-input-container class="md-block" flex="50" >
                             <label>{{'Clients.Fields.User'|translate}}</label>
                             <input name="ClientUser"
+                                   ng-disabled="!vm.isNew"
                                    type="text"
                                    required="vm.isNew"
                                    md-no-asterisk=""
@@ -124,9 +126,10 @@
                                 <div ng-message="required">{{'Clients.Errors.Required'|translate}}</div>
                             </div>
                         </md-input-container>
-                        <md-input-container class="md-block" flex="50" ng-hide="!vm.isNew">
+                        <md-input-container class="md-block" flex="50" >
                             <label>{{'Clients.Fields.Password'|translate}}</label>
                             <input name="ClientPassword"
+                                   ng-disabled="!vm.isNew"
                                    type="password"
                                    required="vm.isNew"
                                    md-no-asterisk=""

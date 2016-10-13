@@ -65,11 +65,10 @@
             vm.clients=Clientes.list();
             vm.filteredClients=vm.clients;
             vm.client=angular.copy(client);
-            vm.user=angular.copy(user);
             Clientes.getClienteId().then(function(res){
                 vm.role=res[0].id;
             });
-
+            vm.user=angular.copy(user);
         }
 
         function create() {
@@ -132,16 +131,18 @@
             vm.searchParameter='';
             vm.filteredClients=vm.clients;
             vm.client=angular.copy(client);
+            vm.user=angular.copy(user);
             vm.selectedClient=null;
-            vm.isNew=false;
+            vm.isNew=true;
         }
 
         function clickCopy(item) {
             vm.isNew=false;
             vm.selectedClient=item;
             vm.client=angular.copy(item);
-            vm.client.user.password="1234567a";
+            vm.user=vm.client.user;
             $scope.formClient.$invalid=true;
+            console.log(vm.client.user);
         }
         
         function newClient(){
