@@ -142,7 +142,7 @@
                                                 </div>
                                             </td>
                                             <td md-cell="md-cell" >
-                                                <md-select ng-change='vm.editSelect(solicitud)' ng-model=solicitud.tipo_solicitud placeholder="Other" ng-disabled="(solicitud.fecha_atendida!=null)&&(vm.isClient)">
+                                                <md-select ng-change='vm.editSelect(solicitud)' ng-model=solicitud.tipo_solicitud placeholder="Other" ng-disabled="(vm.isClient)">
                                                     <md-option ng-value="type.value" ng-repeat="type in vm.tipoSols">{{type.value}}</md-option>
                                                 </md-select>
                                             </td>
