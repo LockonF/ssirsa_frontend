@@ -6,7 +6,7 @@
         .controller('TipoEquipoDialogController', TipoEquipoDialogController);
 
     /* @ngInject */
-    function TipoEquipoDialogController($mdDialog, catalogo, TipoEquipo) {
+    function TipoEquipoDialogController($mdDialog, $scope,catalogo, TipoEquipo) {
 
         var vm = this;
         vm.cancelClick = cancelClick;
@@ -14,49 +14,54 @@
         vm.querySearch = querySearch;
         vm.lookup = lookup;
         vm.deleteTipoEquipo = deleteTipoEquipo;
-        vm.selectedItemChange=selectedItemChange;
-        vm.equipo_list=[];
+        vm.addTipoEquipo=addTipoEquipo;
+        vm.search=search;
+        vm.catalogo=catalogo;
+        var tipos_equipo={
+            tipo_equipo:null,
+            cantidad:null,
+            descripcion:null
+        };
         activate();
+        vm.tipos_equipo=angular.copy(tipos_equipo);
         function activate() {
             TipoEquipo.listWitout().then(function (res) {
                 vm.equipos = res;
-                if(catalogo.tipos_equipo.length>0) {
-                    vm.equipo_list = angular.copy(vm.equipos);
-                    vm.equipos.forEach(function (value) {
-                        var exist = _.filter(catalogo.tipos_equipo, function (item) {
-                            return (item == value.id);
-                        });
-                        if (exist.length == 0) {
-                            vm.equipo_list = _.filter(vm.equipo_list, function (item) {
-                                return !(item.id == value.id);
 
-                            });
-                        }
-                    });
-                }
             });
         }
-        function selectedItemChange(item) {
-            if (vm.equipo_list != null && item!=null) {
-                var index = _.findIndex(vm.equipo_list, function (obj) {
-                    return obj.id === item.id;
+        function search(obj) {
+            if(vm.equipos.length>0) {
+                return _.findWhere(vm.equipos, {id: obj}).nombre;
+            }
+        }
+        function addTipoEquipo() {
+            if (vm.tipos_equipo!=null) {
+                var index = _.findIndex(vm.catalogo.tipos_equipo, function (obj) {
+                    return obj.tipo_equipo == vm.selectedTipoEquipo.id;
                 });
                 if (index == -1) {
-                    vm.equipo_list.splice(0, 0, item);
-                    vm.equipo_list = _.sortBy(vm.equipo_list, 'nombre');
+                    vm.tipos_equipo.tipo_equipo=vm.selectedTipoEquipo.id;
+                    vm.catalogo.tipos_equipo.push(vm.tipos_equipo);
+                    vm.catalogo.tipos_equipo = _.sortBy(vm.catalogo.tipos_equipo, 'tipo_equipo');
+                    clear();
                 }
             }
         }
+        function clear() {
+            $scope.addTipoEquipoForm.$setPristine();
+            $scope.addTipoEquipoForm.$setUntouched();
+            vm.tipos_equipo=angular.copy(tipos_equipo);
+        }
         function deleteTipoEquipo(item) {
-            var resultado = _.indexOf(vm.equipo_list, item);
+            var resultado = _.indexOf(vm.catalogo.tipos_equipo, item);
             if (resultado != -1) {
-                vm.equipo_list.splice(resultado, 1);
+                vm.catalogo.tipos_equipo.splice(resultado, 1);
             }
         }
 
         function okClick() {
-            vm.equipo_list=_.pluck(vm.equipo_list,"id");
-            $mdDialog.hide(vm.equipo_list);
+            $mdDialog.hide(vm.catalogo.tipos_equipo);
         }
 
         function cancelClick() {

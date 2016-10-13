@@ -101,13 +101,19 @@
             },
             "PLACEHOLDER": {
                 "SEARCH": "Búsqueda de etapa",
-                "SEARCH_TYPE": "Búsqueda de tipo de equipo"
+                "SEARCH_TYPE": "Búsqueda de tipo de equipo",
+                "DESCRIPTION":"Ingrese descripción"
             },
             "LABEL": {
+                "NAME":"Nombre",
                 "NOT_FOUND": "No se encontró la etapa",
                 "NOT_FOUND_TYPE": "No se encontró el tipo de equipo",
                 "DESCRIPTION": "Descripción:",
-                "NAME": "Nombre:"
+                "TYPE": "Tipo de Equipo:",
+                "QUANTITY":"Cantidad:"
+            },
+            "BUTTON":{
+                "ADD":"Agregar"
             }
         }
     },
