@@ -118,10 +118,9 @@
                             <input name="ClientUser"
                                    ng-disabled="!vm.isNew"
                                    type="text"
-                                   required="vm.isNew"
+                                   ng-required="vm.isNew"
                                    md-no-asterisk=""
-                                   ng-model="vm.user.username"
-                                   ng-if="vm.isNew">
+                                   ng-model="vm.user.username">
                             <div ng-messages="formClient.ClientName.$error">
                                 <div ng-message="required">{{'Clients.Errors.Required'|translate}}</div>
                             </div>
@@ -131,10 +130,9 @@
                             <input name="ClientPassword"
                                    ng-disabled="!vm.isNew"
                                    type="password"
-                                   required="vm.isNew"
+                                   ng-required="vm.isNew"
                                    md-no-asterisk=""
-                                   ng-model="vm.user.password"
-                                   ng-if="vm.isNew">
+                                   ng-model="vm.user.password">
                             <div ng-messages="formClient.ClientEmail.$error">
                                 <div ng-message="required">{{'Clients.Errors.Required'|translate}}</div>
                             </div>

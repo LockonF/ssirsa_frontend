@@ -14,7 +14,7 @@
     function clienteController(Clientes, toastr, $scope, Translate, $mdDialog) {
         var vm = this;
 
-
+        vm.res=350;
         //Functions
         vm.create = create;
         vm.update = update;
@@ -54,9 +54,9 @@
 
         var user={
             "email":"",
-            "role":vm.role,
+            "role":"",
             "username":"",
-            "password":"1234567a"
+            "password":""
         };
 
         function activate() {
