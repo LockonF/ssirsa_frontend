@@ -14,7 +14,7 @@
     function clienteController(Clientes, toastr, $scope, Translate, $mdDialog) {
         var vm = this;
 
-
+        vm.res=350;
         //Functions
         vm.create = create;
         vm.update = update;
@@ -26,6 +26,8 @@
         vm.new=newClient;
         vm.querySearch=querySearch;
 
+        vm.myHeight=window.innerHeight-250;
+        vm.myStyle={"min-height":""+vm.myHeight+"px"};
 
         vm.successTitle=Translate.translate('Clients.Notify.Success');
         vm.errorTitle=Translate.translate('Clients.Notify.Error');
@@ -54,22 +56,21 @@
 
         var user={
             "email":"",
-            "role":vm.role,
+            "role":"",
             "username":"",
-            "password":"1234567a"
+            "password":""
         };
 
-        vm.isNew=true;
         function activate() {
+            vm.isNew=true;
             vm.searchParameter='';
             vm.clients=Clientes.list();
             vm.filteredClients=vm.clients;
             vm.client=angular.copy(client);
-            vm.user=angular.copy(user);
             Clientes.getClienteId().then(function(res){
                 vm.role=res[0].id;
             });
-
+            vm.user=angular.copy(user);
         }
 
         function create() {
@@ -85,7 +86,6 @@
         }
 
         function update() {
-            vm.client.user.role=vm.role;
             Clientes.modify(vm.client).then(function(res){
                 toastr.success(vm.successUpdate,vm.successTitle);
                 activate();
@@ -133,16 +133,18 @@
             vm.searchParameter='';
             vm.filteredClients=vm.clients;
             vm.client=angular.copy(client);
+            vm.user=angular.copy(user);
             vm.selectedClient=null;
-            vm.isNew=false;
+            vm.isNew=true;
         }
 
         function clickCopy(item) {
+            vm.isNew=false;
             vm.selectedClient=item;
             vm.client=angular.copy(item);
-            vm.client.user.password="1234567a";
+            vm.user=vm.client.user;
             $scope.formClient.$invalid=true;
-            vm.isNew=false;
+            console.log(vm.client.user);
         }
         
         function newClient(){
