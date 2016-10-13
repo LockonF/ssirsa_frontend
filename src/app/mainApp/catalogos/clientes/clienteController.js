@@ -14,7 +14,7 @@
     function clienteController(Clientes, toastr, $scope, Translate, $mdDialog) {
         var vm = this;
 
-
+        vm.res=350;
         //Functions
         vm.create = create;
         vm.update = update;
@@ -25,6 +25,8 @@
         vm.clickCopy = clickCopy;
         vm.querySearch=querySearch;
 
+        vm.myHeight=window.innerHeight-250;
+        vm.myStyle={"min-height":""+vm.myHeight+"px"};
 
         vm.successTitle=Translate.translate('Clients.Notify.Success');
         vm.errorTitle=Translate.translate('Clients.Notify.Error');
@@ -53,9 +55,9 @@
 
         var user={
             "email":"",
-            "role":vm.role,
+            "role":"",
             "username":"",
-            "password":"1234567a"
+            "password":""
         };
 
         function activate() {
