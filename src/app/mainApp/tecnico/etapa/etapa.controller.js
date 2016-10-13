@@ -40,7 +40,10 @@
             catalogo: "",
             notas: ""
         };// Insumo por agregar al cabinet en cuestion
-        vm.etapas = OPTIONS.steps;//Arreglo de las diferentes etapas que componen el proceso de fabricacion de Cabinets
+        //Nuevas VariablesUsadas
+        vm.insumos_lote=[];// Arreglo que posera los Insumos de Lote que serán utilizados en la etapa de servicio
+        vm.dataEtapa=null;//Variable que posera los datos de la etapa para el precargado de Template (id etapa, idTipoEquipo)
+        vm.etapas;//Arreglo de las diferentes etapas que componen el proceso de fabricacion de Cabinets
         //Declaracion de Funciones
         vm.crearInsumo = crearInsumo;
         vm.eliminarInsumo = eliminarInsumo;
@@ -53,6 +56,7 @@
         vm.buscarCatalogoInsumos = buscarCatalogoInsumos;
         vm.buscarCatalogoInsumosByWord = buscarCatalogoInsumosByWord;
         vm.buscarInsumosByCatalogo = buscarInsumosByCatalogo;
+        vm.getEtapasList=getEtapasList;
 
 
         // Funciones
@@ -78,7 +82,23 @@
             vm.accepted = Translate.translate('ETAPA_SERVICIO.ACCEPT');
             vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
             vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
+            vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
+            vm.notStepsMessage=Translate.translate('MAIN.DIALOG.NOT_STEPS');
+            vm.getEtapasList();
 
+        }
+        function getEtapasList(){
+            var promise = Servicios.etapaList();
+            promise.then(function (res) {
+                vm.etapas = res;
+
+                if(_.size(vm.etapas)==0){
+                    notifyError(1000);
+                }
+
+            }).catch(function (res) {
+                notifyError(res.status);
+            });
         }
 
         function buscar() {
@@ -218,8 +238,15 @@
                     break;
                 case 405:
                     toastr.warning(vm.notAllow, vm.errorTitle);
+                    break;
                 case 900:
                     toastr.warning(vm.notInsumos, vm.errorMessage);
+                    break;
+                case 1000:
+                    toastr.warning(vm.notFoundMessage, vm.notStepsMessage);
+                    break;
+                default:
+                    toastr.warning(vm.errorMessage,vm.errorTitle);
 
 
             }

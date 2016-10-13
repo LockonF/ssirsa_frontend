@@ -19,9 +19,6 @@
             eliminarEtapaServicio: eliminarEtapaServicio,
             consultarAllEtapaServicioDiagnostico: consultarAllEtapaServicioDiagnostico,
             consultarEtapaServicioDiagnostico:consultarEtapaServicioDiagnostico,
-            verEtapaNoValidada:verEtapaNoValidada,
-            verEtapaValidada:verEtapaValidada,
-            etapasValidablesByPerson:etapasValidablesByPerson,
             consultarInsumosEtapa:consultarInsumosEtapa,
             consultarAllInsumosCabinetEtapa:consultarAllInsumosCabinetEtapa,
             getEtapaValidable:getEtapaValidable,
@@ -31,7 +28,9 @@
             eliminarInsumo:eliminarInsumo,
             consultarInfoCabinet:consultarInfoCabinet,
             consultarInsumobyNombre:consultarInsumobyNombre,
-            getCatalogoInsumoById:getCatalogoInsumoById
+            getCatalogoInsumoById:getCatalogoInsumoById,
+            BusquedaCatalogoTypeStep:BusquedaCatalogoTypeStep,
+            etapaList:etapaList
 
         };
 
@@ -225,7 +224,7 @@
             });
             return deferred.promise;
         }
-         function list(){
+         function etapaList(){
              var deferred=$q.defer();
              Restangular.all("etapa").customGET().then(function (res) {
                  deferred.resolve(res);
@@ -234,7 +233,7 @@
              });
              return deferred.promise;
          }
-        
+
 
         return service;
 
