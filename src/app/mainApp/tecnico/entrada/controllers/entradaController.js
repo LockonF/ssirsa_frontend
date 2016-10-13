@@ -128,11 +128,14 @@
             if (vm.entrada.file != null) {
                 fd.append('file', vm.entrada.file);
                 EntradaSalida.postEntradaMasiva(fd).then(function (res) {
-                    vm.entrada = res;
+                    vm.entrada.creados = res.creados;
+                    vm.entrada.no_creados = res.no_creados;
                     vm.hideRegisteredCabinets = false;
                     vm.hideUnregisteredCabinets = false;
-                    if (vm.entrada.no_creados.length > 0)
+                    if (vm.entrada.no_creados.length > 0) {
                         toastr.warning(vm.warning, vm.warningTitle);
+                        vm.entrada.file = null;
+                    }
                     else {
                         toastr.success(vm.sucessMassive, vm.successTitle);
                         //limpiar();

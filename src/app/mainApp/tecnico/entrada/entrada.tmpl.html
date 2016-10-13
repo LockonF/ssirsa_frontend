@@ -168,7 +168,13 @@
                                         <input name="FileName" type="text" ng-model="vm.entrada.file.name" ng-disabled="true"/>
                                     </md-input-container>
                                     <div flex-gt-xs="25" flex="100" layout="column">
-                                        <md-button ngf-select="vm.selectionFile($file)" accept=".xlsx, application/vnd.ms-excel" ngf-max-size="10MB" ng-model="vm.entrada.file" class="md-primary md-raised">{{'INPUT.Choose File'|translate}}</md-button>
+                                        <md-button ngf-select="vm.selectionFile($file)"
+                                                   accept=".xlsx, application/vnd.ms-excel"
+                                                   ngf-max-size="5MB"
+                                                   ng-model="vm.entrada.file"
+                                                   class="md-primary md-raised">
+                                            {{'INPUT.Choose File'|translate}}
+                                        </md-button>
                                     </div>
                                 </div>
                                 <div ng-if="vm.entrada.no_creados.lenght > 0"
