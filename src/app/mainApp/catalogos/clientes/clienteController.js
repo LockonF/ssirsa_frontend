@@ -26,10 +26,8 @@
         vm.new=newClient;
         vm.querySearch=querySearch;
 
-
         vm.myHeight=window.innerHeight-250;
-        console.log(vm.myHeight);
-
+        vm.myStyle={"min-height":""+vm.myHeight+"px"};
 
         vm.successTitle=Translate.translate('Clients.Notify.Success');
         vm.errorTitle=Translate.translate('Clients.Notify.Error');

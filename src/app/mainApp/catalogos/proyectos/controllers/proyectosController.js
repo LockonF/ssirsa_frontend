@@ -22,8 +22,6 @@
         vm.querySearch=querySearch;
 
         vm.myHeight=window.innerHeight-250;
-        console.log(vm.myHeight);
-
         vm.myStyle={"min-height":""+vm.myHeight+"px"};
         
         activate();
