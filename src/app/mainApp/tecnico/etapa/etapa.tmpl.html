@@ -37,7 +37,7 @@
                 <md-content class="md-padding">
                     <div flex="100" layout="row">
 
-                        <div layout="column" flex="70">
+                        <div layout="column" flex="45">
 
                             <md-input-container flex>
                                 <form name="Buscar" ng-submit="vm.buscar()">
@@ -46,7 +46,15 @@
                                 </form>
                             </md-input-container>
                         </div>
-                        <div layout="row" flex="30">
+                        <md-input-container flex="40">
+                            <label translate>ETAPA_SERVICIO.NEXT_ETAPA</label>
+                            <md-select ng-model="vm.parent.etapaActual.siguiente_etapa" name="select"
+                                       ng-disabled="vm.parent.editable">
+                                <md-option ng-repeat="etap in vm.parent.etapas" ng-value="etap.value">{{etap.nombre}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                        <div layout="row" flex="15">
                             <div layout="column">
                                 <div layout="row" layout-sm="row" layout-xs="column">
                                     <md-input-container flex>
@@ -67,7 +75,7 @@
                     </div>
                 </md-content>
 
-                <md-content class="md-padding">
+                <md-content class="md-padding" ng-if="vm.etapaActual.actual_etapa">
                     <div layout="column" flex>
                         <div layout="row" flex="100" layout-align="space-around stretch">
                             <form name="form.insumoFormEtapa" layout-fill="">
@@ -157,7 +165,7 @@
                         </div>
                     </div>
                 </md-content>
-                <md-content layout="row">
+                <md-content layout="row" ng-if="vm.etapaActual.actual_etapa">
                     <md-switch ng-model="inputDisabled">
                         Agregar Micro motor o Compresor
                     </md-switch>
