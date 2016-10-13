@@ -221,7 +221,7 @@
                                         </tr>
                                         </thead>
                                         <tbody md-body="">
-                                        <tr md-row="" ng-repeat="registeredCabinet in vm.entrada.creados">
+                                        <tr md-row="" ng-repeat="registeredCabinet in vm.entrada.creados track by $index">
                                             <td md-cell="">{{registeredCabinet.economico}}</td>
                                             <td md-cell="">{{registeredCabinet.no_serie}}</td>
                                             <td md-cell="">{{registeredCabinet.modelo.marca.descripcion}}</td>
@@ -241,7 +241,7 @@
                                         </tr>
                                         </thead>
                                         <tbody md-body="">
-                                        <tr md-row="" ng-repeat="unregisteredCabinet in vm.entrada.no_creados">
+                                        <tr md-row="" ng-repeat="unregisteredCabinet in vm.entrada.no_creados track by $index">
                                             <td md-cell="">{{unregisteredCabinet}}</td>
                                         </tr>
                                         </tbody>
