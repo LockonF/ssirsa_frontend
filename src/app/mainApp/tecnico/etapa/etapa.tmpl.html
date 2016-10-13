@@ -48,9 +48,9 @@
                         </div>
                         <md-input-container flex="40">
                             <label translate>ETAPA_SERVICIO.NEXT_ETAPA</label>
-                            <md-select ng-model="vm.parent.etapaActual.siguiente_etapa" name="select"
-                                       ng-disabled="vm.parent.editable">
-                                <md-option ng-repeat="etap in vm.parent.etapas" ng-value="etap.value">{{etap.nombre}}
+                            <md-select ng-model="vm.etapaActual.siguiente_etapa" name="select"
+                                       ng-disabled="vm.editable">
+                                <md-option ng-repeat="etap in vm.etapas" ng-value="etap.id">{{etap.nombre}} : {{etap.descripcion}}
                                 </md-option>
                             </md-select>
                         </md-input-container>

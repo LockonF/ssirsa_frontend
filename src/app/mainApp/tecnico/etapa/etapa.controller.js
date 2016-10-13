@@ -64,6 +64,21 @@
         function editar() {
             vm.editable = !vm.editable;
         }
+        function getEtapasList(){
+            var promise = Servicios.etapaList();
+            promise.then(function (res) {
+                console.log(res);
+                vm.etapas = res;
+                console.log(vm.etapas);
+
+                if(_.size(vm.etapas)==0){
+                    notifyError(1000);
+                }
+
+            }).catch(function (res) {
+                notifyError(res.status);
+            });
+        }
 
         //Funcion Activate al iniciar la vista
         function activate() {
@@ -84,22 +99,10 @@
             vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
             vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
             vm.notStepsMessage=Translate.translate('MAIN.DIALOG.NOT_STEPS');
-            vm.getEtapasList();
+            getEtapasList();
 
         }
-        function getEtapasList(){
-            var promise = Servicios.etapaList();
-            promise.then(function (res) {
-                vm.etapas = res;
 
-                if(_.size(vm.etapas)==0){
-                    notifyError(1000);
-                }
-
-            }).catch(function (res) {
-                notifyError(res.status);
-            });
-        }
 
         function buscar() {
             if (vm.idCabinet != null) {
@@ -117,6 +120,7 @@
                             if (vm.etapa.validado == false) {
 
                                 vm.etapaActual = vm.etapa;
+                                console.log(vm.etapaActual);
                                 if (vm.etapaActual.insumos === undefined) {
                                     vm.etapaActual.insumos = [];
                                 }
