@@ -23,7 +23,6 @@
         vm.clear = clear;
         //vm.selectedItemChange = selectedItemChange;
         vm.clickCopy = clickCopy;
-        vm.new=newClient;
         vm.querySearch=querySearch;
 
 
@@ -134,20 +133,17 @@
             vm.user=angular.copy(user);
             vm.selectedClient=null;
             vm.isNew=true;
+            vm.user.password="";
         }
 
         function clickCopy(item) {
             vm.isNew=false;
             vm.selectedClient=item;
             vm.client=angular.copy(item);
-            vm.user=vm.client.user;
+            vm.user.username=vm.client.user.username;
+            vm.user.email=vm.client.user.email;
+            vm.user
             $scope.formClient.$invalid=true;
-            console.log(vm.client.user);
-        }
-        
-        function newClient(){
-            vm.clear();
-            vm.isNew=true;
         }
         
         function querySearch(query) {

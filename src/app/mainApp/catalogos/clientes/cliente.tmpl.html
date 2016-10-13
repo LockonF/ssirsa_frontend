@@ -4,7 +4,7 @@
             <h2 flex="70" flex-sm="100" flex-gt-xs="100" class="md-headline-1 text-center" translate="">
                 Clients.Header
             </h2>
-            <md-button  aria-label="fab button" class="md-fab md-scale md-fab-top-right" ng-click="vm.new()">
+            <md-button  aria-label="fab button" class="md-fab md-scale md-fab-top-right" ng-click="vm.clear()">
                 <md-icon md-font-icon="fa fa-plus" ng-style="{color: 'white'}">
 
                 </md-icon>
@@ -102,7 +102,7 @@
                             <input name="ClientEmail"
                                    ng-disabled="!vm.isNew"
                                    type="text"
-                                   required="vm.isNew"
+                                   ng-required="vm.isNew"
                                    md-no-asterisk=""
                                    ng-model="vm.user.email"
                                    ng-pattern="/^[A-Za-z0-9._%+-]+@[A-Za-z0-9._%+-]+.[A-Za-z]{2,}$/">
@@ -118,10 +118,9 @@
                             <input name="ClientUser"
                                    ng-disabled="!vm.isNew"
                                    type="text"
-                                   required="vm.isNew"
+                                   ng-required="vm.isNew"
                                    md-no-asterisk=""
-                                   ng-model="vm.user.username"
-                                   ng-if="vm.isNew">
+                                   ng-model="vm.user.username">
                             <div ng-messages="formClient.ClientName.$error">
                                 <div ng-message="required">{{'Clients.Errors.Required'|translate}}</div>
                             </div>
@@ -131,10 +130,9 @@
                             <input name="ClientPassword"
                                    ng-disabled="!vm.isNew"
                                    type="password"
-                                   required="vm.isNew"
+                                   ng-required="vm.isNew"
                                    md-no-asterisk=""
-                                   ng-model="vm.user.password"
-                                   ng-if="vm.isNew">
+                                   ng-model="vm.user.password">
                             <div ng-messages="formClient.ClientEmail.$error">
                                 <div ng-message="required">{{'Clients.Errors.Required'|translate}}</div>
                             </div>
