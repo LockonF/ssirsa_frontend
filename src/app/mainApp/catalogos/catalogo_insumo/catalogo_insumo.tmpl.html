@@ -43,8 +43,7 @@
                 <form name="inputForm">
                     <md-input-container class="md-block">
                         <label>{{ 'Consumable_Catalog.quantity' | translate }}</label>
-                        <input type="number" name="cantidad" ng-model="vm.catalogo_insumo.cantidad" ng-required="true"
-                               min="0"/>
+                        <number-only-input input-value="vm.catalogo_insumo.cantidad" input-name="cantidad" min="0"/>
                         <div ng-messages="inputForm.cantidad.$error">
                             <div ng-message="min">{{'MAIN.GENERAL.MIN_NUMBER' | translate}} 0</div>
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
@@ -59,9 +58,8 @@
                         </div>
                     </md-input-container>
                     <md-input-container class="md-block">
-                        <label>{{ 'Consumable_Catalog.cost' | translate }}</label>
-                        <input type="number" name="costo" ng-model="vm.catalogo_insumo.costo" ng-required="true"
-                               min="0"/>
+                        <label>{{ 'Consumable_Catalog.cost' | translate }}</label> 
+                        <number-only-input input-value="vm.catalogo_insumo.costo" input-name="costo" min="0"/>
                         <div ng-messages="inputForm.costo.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                             <div ng-message="min">{{'MAIN.GENERAL.MIN_NUMBER' | translate}} 0</div>
