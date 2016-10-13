@@ -25,7 +25,7 @@
                     <md-list flex="flex">
                         <md-list-itm flex="flex" ng-repeat="item in vm.catalogo_insumo_list">
                             <md-button ng-click="vm.clickRepeater(item)"
-                                       ng-class="{'selected':item.id === vm.marca_cabinet.id}">
+                                       ng-class="{'selected':item.id ==vm.catalogo_insumo.id}">
                                 <md-icon md-svg-icon="assets/images/catalog.svg" class="avatar"></md-icon>
                                 <span>{{item.descripcion}}</span>
                             </md-button>
@@ -58,7 +58,7 @@
                         </div>
                     </md-input-container>
                     <md-input-container class="md-block">
-                        <label>{{ 'Consumable_Catalog.cost' | translate }}</label> 
+                        <label>{{ 'Consumable_Catalog.cost' | translate }}</label>
                         <number-only-input input-value="vm.catalogo_insumo.costo" input-name="costo" min="0"/>
                         <div ng-messages="inputForm.costo.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
