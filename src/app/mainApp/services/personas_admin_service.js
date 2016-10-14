@@ -13,6 +13,7 @@
 
         return {
             list:list,
+            listCanonico:listCanonico,
             update:update,
             create:create,
             createObject:createObject,
@@ -50,6 +51,10 @@
         }
         function list(){
             return baseModelo.getList().$object;
+        }
+
+        function listCanonico(){
+            return Restangular.all('persona_admin').customGET();//prueba
         }
 
         function update(object)
