@@ -80,13 +80,16 @@
         vm.errorMassive=Translate.translate('INPUT.Messages.ErrorMassive');
         vm.errorNormal=Translate.translate('INPUT.Messages.ErrorNormal');
         vm.errorCabinet=Translate.translate('INPUT.Messages.ErrorCabinet');
+        vm.notFoundCabinet=Translate.translate('INPUT:Messages.NotFoundCabinet');
 
         activate();
 
         //Functions
         function activate() {
             vm.cabinets = [];
-            vm.cabinet="";
+            vm.cabinetID="";
+            vm.notFoundCabinets=[];
+
             angular.copy(vm.entrada,entrada);
             vm.lineasTransporte=LineaTransporte.list();
             vm.tiposTransporte = TipoTransporte.list();
@@ -293,13 +296,18 @@
         }
 
         function addCabinet(){
-            if(vm.cabinets.indexOf(vm.cabinet) !== -1) {
-                toastr.warning(vm.errorCabinet,vm.warning);
-            }
-            else {
-                vm.cabinets.push(vm.cabinet);
-            }
-            vm.cabinet = "";
+            Cabinet.get(vm.cabinetID).then(function(res){
+                if(vm.cabinets.indexOf(vm.cabinet) !== -1) {
+                    toastr.warning(vm.errorCabinet,vm.warning);
+                }
+                else {
+                    vm.cabinets.push(res);
+                }
+            }).catch(function(err){
+                toastr.warning(vm.warning,vm.notFoundCabinet);
+                vm.notFoundCabinets.push(vm.cabinetID);
+            });
+            vm.cabinetID = "";
         }
         
         function removeCabinet(id){

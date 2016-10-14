@@ -120,7 +120,8 @@
             "Warning":"Problema al registrar cabinets",
             "ErrorMassive":"Error en la carga masiva",
             "ErrorNormal":"Error al registrar la entrada",
-            "ErrorCabinet":"El cabinet ya ha sido añadido"
+            "ErrorCabinet":"El cabinet ya ha sido añadido",
+            "NotFoundCabinet":"Cabinet no encontrado"
         },
 
         "Transport":{
