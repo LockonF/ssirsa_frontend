@@ -33,7 +33,11 @@
         }
         function search(obj) {
             if(vm.equipos.length>0) {
-                return _.findWhere(vm.equipos, {id: obj}).nombre;
+                var res= _.findWhere(vm.equipos, {id: obj}).nombre;
+                if(res==null){
+                    return "No tiene tipo de equipo";
+                }
+                return res;
             }
         }
         function addTipoEquipo() {
