@@ -2,7 +2,7 @@
   "ADMIN": {
     "MANAGE": {
       "MANAGEMENT_USER": "Nuevo Usuario",
-      "BUSQUEDA_USUARIO":"Busqueda de Usuarios",
+      "BUSQUEDA_USUARIO":"Administración de Usuarios",
       "INFO_USUARIO":"Información del Usuario",
       "DATAUSER":"Datos de Contacto",
       "DATAPER":"Datos Personales",
