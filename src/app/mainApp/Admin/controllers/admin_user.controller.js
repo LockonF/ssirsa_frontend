@@ -6,7 +6,7 @@
         .controller('admin_userController', admin_userController)
         .filter('personaSearch', personaSearch);
 
-    function admin_userController( $scope, toastr, Translate, $mdDialog,Persona_Admin) {
+    function admin_userController( $scope, toastr, Translate, $mdDialog,Persona_Admin,Persona) {
 
         var vm = this;
         vm.lookup = lookup;
@@ -21,7 +21,7 @@
         vm.picFoto="assets/images/modelo.svg";
         vm.search_items = [];
         vm.searchText = '';
-
+        vm.user_ini=null;
         var persona = {
             "user": {
                 "username": "",
@@ -61,7 +61,19 @@
         }
 
         function activate() {
-            vm.personas_admin = Persona_Admin.list();
+            Persona_Admin.listCanonico().then(function(rest){
+                vm.personas_admin=rest;
+                Persona.listProfile().then(function(rest){
+                    vm.user_ini=rest;
+                    vm.personas_admin = _.filter(vm.personas_admin, function(item){
+                        return item.id != vm.user_ini.id;
+                    });
+                }).catch(function (error){
+                });
+            }).catch(function(error){
+
+            });
+
         }
 
         function remove(ev) {
