@@ -118,11 +118,13 @@
                             <md-button ng-click="vm.nextTab()" ng-disabled="entradaForm.$invalid"
                                        class="md-raised md-primary">{{'OUTPUT.FORM.BUTTON.NEXT'|translate}}
                             </md-button>
+
                         </div>
                     </md-content>
                 </md-tab>
                 <!--Registro de cabinets-->
-                <md-tab label={{'OUTPUT.FORM.TABS.UPLOAD'|translate}} ng-disabled="entradaForm.$invalid">
+                <!--<md-tab label={{'OUTPUT.FORM.TABS.UPLOAD'|translate}} ng-disabled="entradaForm.$invalid"> -->
+                <md-tab label={{'OUTPUT.FORM.TABS.UPLOAD'|translate}}>
                     <md-content layout-padding="">
                         <div layout-gt-md="row" layout="column" layout-align-gt-md="space-around center"
                              layout-align="center stretch">
@@ -186,19 +188,68 @@
                                 </table>
                             </md-table-container>
                         </div>
-                        <div layout="row" layout-sm="column" layout-xs="column" layout-md="column" flex="100"
-                             ng-hide="vm.hideManualUpload">
-                            <md-chips ng-model="vm.selectedCabinets"
-                                      md-autocomplete-snap="md-autocomplete-snap" md-require-match="true"
-                                      md-on-append="vm.appendCabinet($chip)">
-                                <md-autocomplete md-selected-item="vm.selectedCabinet" md-search-text="vm.searchTextCabinet"
-                                                 md-items="cabinet in vm.cabinetSearch(vm.searchTextCabinet)"
-                                                 md-item-text="cabinet.economico"
-                                                 placeholder="{{ 'OUTPUT.FORM.PLACEHOLDER.SEARCH' | translate }}">
-                                    <span md-highlight-text="vm.searchTextCabinet">{{cabinet.economico}}</span></md-autocomplete>
-                                <md-chip-template><span><strong>{{$chip.economico}}</strong></span></md-chip-template>
-                            </md-chips>
+                        <div ng-hide="vm.hideManualUpload">
+                            <div layout="row" layout-sm="column" layout-xs="column" layout-md="column" flex="100"
+                                 layout-align="center center">
+                                <md-input-container class="md-inline-form" flex="50" flex-sm="100" flex-xs="100">
+                                    <label>{{'OUTPUT.FORM.PLACEHOLDER.SEARCH'|translate}}</label>
+                                    <input type="text" ng-model="vm.economicoFilter"/>
+                                </md-input-container>
+                                <md-input-container class="md-inline-form" id="salidaSelect" flex="50" flex-sm="100" flex-xs="100">
+                                    <md-select ng-model="vm.filtroTipo"
+                                               placeholder="{{'OUTPUT.FORM.PLACEHOLDER.TYPE_EQUIPMENT'|translate}}"
+                                    >
+                                        <md-option ng-repeat="tipo in vm.tipoEquipos" ng-value="tipo.id">{{tipo.nombre}}
+                                        </md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </div>
+                            <div layout="row" layout-sm="column" layout-xs="column" layout-md="column" flex="100"
+                                 layout-align="center center">
 
+                                <div class="widget-loading-inner" ng-show="vm.loading">
+                                    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+                                </div>
+                                <md-virtual-repeat-container class="vertical-container"
+                                                             ng-show="!vm.loading">
+                                    <tri-widget class="flex" flex="100"
+                                                title="{{'OUTPUT.FORM.LABEL.CABINET'|translate}}">
+                                        <md-list flex>
+                                            <md-list-item ng-repeat="cabinet in vm.cabinetsEntrada | salidaSearch:vm.economicoFilter  | tipoequipoSearch:vm.filtroTipo:vm.tipoEquipos:vm.modelos"
+                                                          class="md-2-line"
+                                            >
+                                                <div layout-padding layout="row"
+                                                     layout-align="start center">
+                                                    <md-checkbox
+                                                        aria-label="seleccion"
+                                                        value="{{cabinet.economico}}"
+                                                        ng-click="vm.selection(cabinet)"
+                                                    ></md-checkbox>
+                                                    <md-icon md-svg-icon="assets/images/cabinet.svg"
+                                                             class="md-avatar" hide-sm="" hide-xs=""></md-icon>
+                                                    <div class="md-list-item-text" layout="column">
+                                                        <h4><b hide-sm="" hide-xs="">{{'OUTPUT.FORM.LABEL.ECONOMIC'|translate}}</b>
+                                                            {{cabinet.economico }}</h4>
+                                                        <h4><b hide-sm="" hide-xs="">{{'OUTPUT.FORM.LABEL.SERIE'|translate}}</b>
+                                                            {{cabinet.no_serie}}</h4>
+                                                        <h4><b hide-sm="" hide-xs="">{{'OUTPUT.FORM.LABEL.TYPE'|translate}}</b>
+                                                            {{vm.search(cabinet)}}
+                                                        </h4>
+                                                    </div>
+
+                                                </div>
+                                                <md-divider></md-divider>
+                                            </md-list-item>
+                                            <md-list-item ng-if="vm.results_tipo.length==0 || vm.results.length==0">
+                                                <md-icon md-svg-icon="assets/images/cabinet.svg"
+                                                         class="md-avatar"></md-icon>
+                                                <p>{{'OUTPUT.FORM.LABEL.NOT_FOUND'|translate}}</p>
+                                            </md-list-item>
+
+                                        </md-list>
+                                    </tri-widget>
+                                </md-virtual-repeat-container>
+                            </div>
                         </div>
 
                         <div layout="row" layout-align="end center">

@@ -16,7 +16,7 @@
             create:create
         };
         function getLastEntradaByCabinet(idCabinet) {
-            return baseURL.one('lastInput').all('cabinet',idCabinet).customGET();
+            return baseURL.one('lastInput').one('cabinet').customGET(idCabinet);
         }
         function create(object){
             return baseURL.post(object);
