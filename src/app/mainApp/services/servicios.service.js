@@ -30,7 +30,9 @@
             consultarInsumobyNombre:consultarInsumobyNombre,
             getCatalogoInsumoById:getCatalogoInsumoById,
             BusquedaCatalogoTypeStep:BusquedaCatalogoTypeStep,
-            etapaList:etapaList
+            etapaList:etapaList,
+            BusquedaInsumosTypeStep:BusquedaInsumosTypeStep,
+            cabinetByEconomicoomic:cabinetByEconomicoomic
 
         };
 
@@ -200,6 +202,7 @@
             })
 
         }
+       
         function consultarInsumosEtapa(etapa) {
             var deferred = $q.defer();
             //checar rutas :D
@@ -224,6 +227,17 @@
             });
             return deferred.promise;
         }
+        function BusquedaInsumosTypeStep(data){
+            var deferred =$q.defer();
+            Restangular.all("insumo").one("tipo", data.idTipo).one("etapa", data.idEtapa).customGET().then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+
+            });
+            return deferred.promise;
+
+        }
          function etapaList(){
              var deferred=$q.defer();
              Restangular.all("etapa").customGET().then(function (res) {
@@ -233,6 +247,16 @@
              });
              return deferred.promise;
          }
+        function cabinetByEconomicoomic(economico){
+            var deferred=$q.defer();
+            Restangular.all("model").one("cabinet",economico).customGET().then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            });
+            return deferred.promise;
+
+        }
 
 
         return service;

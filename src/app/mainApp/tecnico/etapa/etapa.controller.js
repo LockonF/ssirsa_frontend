@@ -109,6 +109,7 @@
                 var promise = Cabinet.get(vm.idCabinet);
                 promise.then(function (res) {
                     vm.cabinet = res;
+                    console.log(vm.cabinet);
                     promise = Servicios.getDiagnosticoFromCabinet(vm.idCabinet);
                     promise.then(function (res) {
                         vm.diagnostico = res;
@@ -197,6 +198,13 @@
             }).catch(function (res) {
                 notifyError(res.status);
             });
+
+        }
+        function getInsumosLote(etapa,modelo_cabinet){
+            var data=null;
+            data.idTipo=vm.modelo_cabinet.tipo;
+            data.
+
 
         }
 

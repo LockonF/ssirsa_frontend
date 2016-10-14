@@ -135,7 +135,7 @@
                 </div>
                 <div layout="row" layout-sm="column" layout-md="column" ng-show="vm.insumos.length!=0">
                     <md-table-container>
-                        <table md-table="" md-row-select="vm.insumo" md-auto-select ng-model="vm.insumos" flex="100">
+                        <table md-table="" md-row-select="vm.insumoLote" md-auto-select ng-model="vm.insumosLote" flex="100">
                             <thead md-head="" md-order="vm.query.order">
                             <tr md-row="md-row">
                                 <th md-column="md-column" md-order-by="nombre" flex="25"><span
@@ -150,7 +150,7 @@
                             </thead>
                             <tbody md-body="md-body">
                             <tr md-row="md-row" md-select="insu" md-select-id="{{insu.id}}"
-                                ng-repeat="insu in vm.insumos| orderBy:vm.query.order">
+                                ng-repeat="insu in vm.insumosLote| orderBy:vm.query.order">
                                 <td md-cell="md-cell" flex="25">{{insu.nombre}}</td>
                                 <td md-cell="md-cell" flex="15" ng-click='vm.edit($event,insumos,"cantidad")'>
                                     {{insu.cantidad}}
