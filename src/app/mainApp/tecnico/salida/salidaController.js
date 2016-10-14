@@ -8,9 +8,9 @@
         .module('app.mainApp.tecnico')
         .controller('salidaController', salidaController)
         .filter('salidaSearch', salidaSearch)
-        .filter('tipoequipoSearch',tipoequipoSearch);
+        .filter('tipoequipoSearch', tipoequipoSearch);
 
-    function salidaController(EntradaSalida, ModeloCabinet,$mdDialog, TipoEquipo, Helper, Translate, toastr, Sucursal, udn, Proyectos, CabinetEntradaSalida, TipoTransporte, $scope, LineaTransporte) {
+    function salidaController(EntradaSalida, ModeloCabinet, $mdDialog, TipoEquipo, Helper, Translate, toastr, Sucursal, udn, Proyectos, CabinetEntradaSalida, TipoTransporte, $scope, LineaTransporte) {
         var vm = this;
         vm.guardar = guardar;
         vm.selectionFile = selectionFile;
@@ -20,6 +20,7 @@
         vm.cabinetSearch = cabinetSearch;
         vm.nextTab = nextTab;
         vm.clear = clear;
+        vm.search = search;
 
         vm.selection = selection;
 
@@ -35,7 +36,7 @@
         vm.hideRegisteredCabinets = true;
         vm.hideUnregisteredCabinets = true;
         vm.selectedCabinets = [];
-        vm.loading=true;
+        vm.loading = true;
         //Models
 
         vm.cabinets = null;
@@ -103,25 +104,26 @@
                 });
             }
             else {
-                if(vm.selectedCabinets.length==0){
+                if (vm.selectedCabinets.length == 0) {
                     var confirm = $mdDialog.confirm()
                         .title(vm.dialogTitle)
                         .textContent(vm.dialogMessage)
                         .ariaLabel('Confirmar envío')
                         .ok(vm.submitButton)
                         .cancel(vm.cancelButton);
-                    $mdDialog.show(confirm).then(function() {
+                    $mdDialog.show(confirm).then(function () {
                         entradaManual(fd);
-                    }, function() {
+                    }, function () {
 
                     });
-                }else{
+                } else {
                     entradaManual(fd);
                 }
 
             }
 
         }
+
         function entradaManual(fd) {
             EntradaSalida.postEntrada(fd).then(function (res) {
                 var request = {
@@ -137,6 +139,16 @@
             }).catch(function () {
                 toastr.error(vm.errorMessage, vm.errorTitle);
             });
+        }
+
+        function search(obj) {
+            var tipo = _.findWhere(vm.modelos, {id: obj.modelo}).tipo;
+            if(tipo!=null){
+                return _.findWhere(vm.tipoEquipos, {id: tipo}).nombre;
+            }else{
+                return "No tiene";
+            }
+
         }
 
         function selectionImage($files) {
@@ -201,10 +213,10 @@
             vm.errorMassive = Translate.translate('MAIN.MSG.ERROR_MASSIVE');
             vm.successMassive = Translate.translate('MAIN.MSG.SUCCESS_MASSIVE');
             vm.successMessage = Translate.translate('MAIN.MSG.SUCCESS_MANUAL');
-            vm.submitButton=Translate.translate('MAIN.BUTTONS.SUBMIT');
-            vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
-            vm.dialogTitle=Translate.translate('OUTPUT.FORM.DIALOG.SEND_TITLE');
-            vm.dialogMessage=Translate.translate('OUTPUT.FORM.DIALOG.SEND_MESSAGE');
+            vm.submitButton = Translate.translate('MAIN.BUTTONS.SUBMIT');
+            vm.cancelButton = Translate.translate('MAIN.BUTTONS.CANCEL');
+            vm.dialogTitle = Translate.translate('OUTPUT.FORM.DIALOG.SEND_TITLE');
+            vm.dialogMessage = Translate.translate('OUTPUT.FORM.DIALOG.SEND_MESSAGE');
         }
 
         function showMassiveUpload() {
@@ -234,10 +246,10 @@
             vm.hideMassiveUpload = true;
             vm.hideUnregisteredCabinets = true;
             vm.hideRegisteredCabinets = true;
-            vm.loading=true;
+            vm.loading = true;
             EntradaSalida.getCabinetsEntrada().then(function (res) {
                 vm.cabinetsEntrada = res;
-                vm.loading=false;
+                vm.loading = false;
             });
         }
 
@@ -260,19 +272,21 @@
 
 
     }
+
     function tipoequipoSearch() {
-        return function (input, text,tipos,modelos) {
+        return function (input, text, tipos, modelos) {
             if (!angular.isNumber(text) || text === '') {
                 return input;
             }
 
 
             return _.filter(input, function (item) {
-                return tipos[modelos[item.modelo].tipo].id==text;
+                return tipos[modelos[item.modelo].tipo].id == text;
             });
 
         };
     }
+
     function salidaSearch() {
         return function (input, text) {
             if (!angular.isString(text) || text === '') {
