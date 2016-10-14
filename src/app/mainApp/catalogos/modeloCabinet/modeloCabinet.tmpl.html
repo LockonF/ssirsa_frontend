@@ -18,7 +18,7 @@
                                      md-selected-item-change="vm.selectedItemChange(vm.selectedModelo)"
 
                                      md-items="item in vm.querySearch(vm.searchText)" md-item-text="item.nombre"
-                                     md-min-length="3"
+                                     md-min-length="0"
                                      md-search-text-change="vm.search(vm.searchText)"
                                      md-search-text="vm.searchText"
                                      md-menu-class="autocomplete-custom-template"
@@ -68,9 +68,12 @@
                         </md-input-container>
                         <md-input-container class="md-block">
                             <label>{{'MODEL_CABINET.FORM.LABEL.TYPE'|translate}}</label>
-                            <input md-no-asterisk="" required="" type="text" name="type"
-                                   ng-disabled="vm.editable"
-                                   ng-model="vm.modelo.tipo"/>
+                            <md-select ng-model="vm.modelo.tipo"
+                                       md-no-asterisk="" required=""
+                                       name="type">
+                                <md-option ng-repeat="tipo in vm.tipoEquipos" ng-value="tipo.id">{{tipo.nombre}}
+                                </md-option>
+                            </md-select>
                             <div ng-messages="ModelCabinetForm.type.$error">
                                 <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
                             </div>
@@ -138,7 +141,7 @@
                         </md-input-container>
 
                     </form>
-                    <div layout="row" layout-align="end end">
+                    <div layout="row" layout-align="end end" layout-sm="column" layout-xs="column" layout-align-sm="start stretch" layout-align-xs="start stretch">
                         <md-button aria-label="fab button" ng-click="vm.cancel()" class="md-raised md-primary"><md-icon md-font-icon="fa fa-eraser"></md-icon></md-button>
                         <md-button aria-label="fab button" ng-if="vm.modelo.id!=null && vm.modelo.id!=undefined" ng-click="vm.remove($event)" class="md-raised md-warn"><md-icon md-font-icon="fa fa-trash"></md-icon></md-button>
                         <md-button aria-label="fab button" ng-if="vm.modelo.id!=null && vm.modelo.id!=undefined" ng-disabled="ModelCabinetForm.$invalid" ng-click="vm.update()" class="md-raised md-primary"><md-icon md-font-icon="fa fa-pencil"></md-icon></md-button>

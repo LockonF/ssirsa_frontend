@@ -3,38 +3,35 @@
 
     angular
         .module('app.mainApp.catalogos')
-        .controller('LineaTransporteController', LineaTransporteController)
-        .filter('lineaSearch', custom);
+        .controller('EtapasController', EtapasController)
+        .filter('etapaSearch', etapaSearch);
 
     /* @ngInject */
-    function LineaTransporteController(LineaTransporte, $scope, toastr, Translate,$mdDialog) {
+    function EtapasController(Etapa, $scope, toastr, Translate, $mdDialog) {
 
         var vm = this;
-
         vm.lookup = lookup;
         vm.querySearch = querySearch;
-        vm.selectedLineas = selectedLineas;
-        vm.selectedItemChange = selectedItemChange;
+        vm.selectedEtapa = selectedEtapa;
+        vm.selectedItemChange=selectedItemChange;
         vm.cancel = cancel;
         vm.create = create;
-        vm.remove=remove;
-        vm.update=update;
+        vm.remove = remove;
+        vm.update = update;
         vm.search_items = [];
         vm.searchText = '';
-        var transport = {
-            razon_social: null,
-            direccion: null,
-            telefonos: [],
-            responsable: null
+        var etapa = {
+            nombre: null,
+            descripcion: null
+
         };
-        vm.transport = angular.copy(transport);
-        vm.numberBuffer = '';
+        vm.etapa = angular.copy(etapa);
         activate();
         init();
         function init() {
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
-            vm.successCreateMessage = Translate.translate('MAIN.MSG.SUCESSS_TRANSPORTE_MESSAGE');
+            vm.successCreateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_CREATE');
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
             vm.successUpdateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_UPDATE');
             vm.successDeleteMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_DELETE');
@@ -44,9 +41,19 @@
             vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
         }
 
-
         function activate() {
-            vm.lineas = LineaTransporte.list();
+            Etapa.list().then(function (res) {
+                vm.etapas=res;
+            });
+
+        }
+        function selectedItemChange(item) {
+            if (item!=null) {
+                vm.etapa = angular.copy(item);
+
+            }else{
+                cancel();
+            }
         }
         function remove(ev) {
             var confirm = $mdDialog.confirm()
@@ -55,21 +62,21 @@
                 .ariaLabel('Confirmar eliminación')
                 .ok(vm.deleteButton)
                 .cancel(vm.cancelButton);
-            $mdDialog.show(confirm).then(function() {
-                LineaTransporte.remove(vm.transport).then(function (res) {
+            $mdDialog.show(confirm).then(function () {
+                Etapa.remove(vm.etapa).then(function (res) {
                     toastr.success(vm.successDeleteMessage, vm.successTitle);
                     cancel();
                     activate();
                 }).catch(function (res) {
                     toastr.warning(vm.errorMessage, vm.errorTitle);
                 });
-            }, function() {
+            }, function () {
 
             });
         }
 
         function update() {
-            LineaTransporte.update(vm.transport).then(function (res) {
+            Etapa.update(vm.etapa).then(function (res) {
                 toastr.success(vm.successUpdateMessage, vm.successTitle);
                 cancel();
                 activate();
@@ -77,10 +84,11 @@
                 toastr.warning(vm.errorMessage, vm.errorTitle);
             });
         }
+
         function create() {
-            LineaTransporte.create(vm.transport).then(function (res) {
+            Etapa.create(vm.etapa).then(function (res) {
                 toastr.success(vm.successCreateMessage, vm.successTitle);
-                vm.transport = angular.copy(transport);
+                vm.etapa = angular.copy(etapa);
                 cancel();
                 activate();
             }).catch(function (res) {
@@ -89,52 +97,44 @@
         }
 
         function cancel() {
-            $scope.TransportForm.$setPristine();
-            $scope.TransportForm.$setUntouched();
-            vm.transport = angular.copy(transport);
-            vm.selectedLineaList = null;
+            $scope.EtapaForm.$setPristine();
+            $scope.EtapaForm.$setUntouched();
+            vm.etapa = angular.copy(etapa);
+            vm.selectedEtapaList = null;
         }
-        function selectedItemChange(item)
-        {
-            if (item!=null) {
-                vm.transport = angular.copy(item);
 
-            }else{
-                cancel();
-            }
-        }
-        function selectedLineas(project) {
-            vm.selectedLineaList = project;
-            vm.transport = angular.copy(project);
+        function selectedEtapa(project) {
+            vm.selectedEtapaList = project;
+            vm.etapa = angular.copy(project);
         }
 
         function querySearch(query) {
-            var results = query ? lookup(query) : vm.lineas;
+            var results = query ? lookup(query) : vm.etapas;
             return results;
 
         }
 
         function lookup(search_text) {
-            vm.search_items = _.filter(vm.lineas, function (item) {
-                return item.razon_social.toLowerCase().indexOf(search_text.toLowerCase()) >= 0;
+            vm.search_items = _.filter(vm.etapas, function (item) {
+                return item.descripcion.toLowerCase().indexOf(search_text.toLowerCase()) >= 0;
             });
             return vm.search_items;
         }
 
+
     }
 
-    function custom() {
+    function etapaSearch() {
         return function (input, text) {
             if (!angular.isString(text) || text === '') {
                 return input;
             }
 
             return _.filter(input, function (item) {
-                return item.razon_social.toLowerCase().indexOf(text.toLowerCase()) >= 0;
+                return item.descripcion.toLowerCase().indexOf(text.toLowerCase()) >= 0;
             });
 
         };
-
 
     }
 })();

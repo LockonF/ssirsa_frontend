@@ -4,7 +4,9 @@
 (function(){
     'use_strict';//
 
-    angular.module('app.mainApp').factory('udn',udn);
+    angular
+        .module('app.mainApp')
+        .factory('udn',udn);
     function udn(Restangular){
 
         var baseUdn = Restangular.all('udn');

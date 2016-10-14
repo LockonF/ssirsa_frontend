@@ -138,7 +138,15 @@
                 templateUrl:'app/mainApp/catalogos/tipoEquipo/tipoEquipo.tmpl.html',
                 controller:'TipoEquipoController',
                 controllerAs:'vm'
-            });
+            }).state('triangular.admin-default.catalogo-etapas',{
+            url:'/catalogo-etapas',
+            data: {
+                roles: ['Administrador','Capturista']
+            },
+            templateUrl:'app/mainApp/catalogos/etapas/etapas.tmpl.html',
+            controller:'EtapasController',
+            controllerAs:'vm'
+        });
 
     }
 })();

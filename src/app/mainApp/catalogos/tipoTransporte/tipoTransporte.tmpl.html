@@ -40,13 +40,14 @@
                     </md-input-container>
                 </form>
                 <div flex="flex" layout="row" layout-align="end end">
-                    <md-button ng-if="vm.tipo_transporte.id!=null &amp;&amp; vm.tipo_transporte.id!=undefined" ng-disabled="inputForm.$invalid" ng-click="vm.update()" class="md-raised md-primary">
+                    <md-button aria-label="fab button" ng-click="vm.cancel()" class="md-raised md-primary"><md-icon md-font-icon="fa fa-eraser"></md-icon></md-button>
+                    <md-button ng-if="vm.tipo_transporte.id!=null && vm.tipo_transporte.id!=undefined" ng-disabled="inputForm.$invalid" ng-click="vm.update()" class="md-raised md-primary">
                         <md-icon md-font-icon="fa fa-pencil"></md-icon>
                     </md-button>
                     <md-button ng-if="vm.tipo_transporte.id==null || vm.tipo_transporte.id==undefined" ng-disabled="inputForm.$invalid" ng-click="vm.create()" class="md-raised md-primary">
                         <md-icon md-font-icon="fa fa-save"></md-icon>
                     </md-button>
-                    <md-button ng-if="vm.tipo_transporte.id!=null &amp;&amp; vm.tipo_transporte.id!=undefined" ng-click="vm.remove()" class="md-raised md-warn">
+                    <md-button ng-if="vm.tipo_transporte.id!=null && vm.tipo_transporte.id!=undefined" ng-click="vm.remove()" class="md-raised md-warn">
                         <md-icon md-font-icon="fa fa-trash"></md-icon>
                     </md-button>
                 </div>

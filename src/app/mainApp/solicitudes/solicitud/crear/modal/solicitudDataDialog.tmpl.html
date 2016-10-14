@@ -11,12 +11,15 @@
     <md-divider></md-divider>
 
     <md-dialog-content class="md-dialog-content card1 md-blue-grey-theme">
-        <form name="objectForm" layout="column" >
+        <form name="objectForm" layout="column">
             <md-input-container>
                 <label>{{'MODAL_REQUEST.FORM.LABEL.QUANTITY'|translate}}</label>
-                <input type="text" ng-required="true" name="cantidad" ng-model="vm.object.cantidad" only-digits/>
+                <input type="number" ng-required="true" name="cantidad" ng-model="vm.object.cantidad"
+                       ng-minlength="1" min="1"
+                       />
                 <div ng-messages="objectForm.cantidad.$error">
                     <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                    <div ng-message="min">{{'MAIN.GENERAL.MIN_NUMBER' | translate}} 1</div>
                 </div>
             </md-input-container>
             <md-input-container>

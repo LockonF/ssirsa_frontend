@@ -34,6 +34,7 @@
             "created_at": new Date(),
             "updated_at": new Date()
         };
+        vm.minDate = moment();
         vm.udn = null;
         vm.persona = null;
         vm.types_request = OPTIONS.type_request;

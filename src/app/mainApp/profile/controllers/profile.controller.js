@@ -1,13 +1,13 @@
 /**
- * Created by Sandra Ivette on 6/09/16.
- */
+* Created by Sandra Ivette on 6/09/16.
+*/
 (function () {
     angular
         .module('app.mainApp.profile')
-        .controller('profileUserController',profileUserController);
+        .controller('profileController',profileController);
 
     /* @ngInject */
-    function profileUserController(Persona,toastr,Helper,Translate){
+    function profileController(Persona,toastr,Helper,Translate){
         var vm = this;
         vm.picFoto=null;
         vm.picIFE=null;
