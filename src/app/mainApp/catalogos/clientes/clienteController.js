@@ -23,7 +23,6 @@
         vm.clear = clear;
         //vm.selectedItemChange = selectedItemChange;
         vm.clickCopy = clickCopy;
-        vm.new=newClient;
         vm.querySearch=querySearch;
 
         vm.myHeight=window.innerHeight-250;
@@ -70,10 +69,11 @@
             Clientes.getClienteId().then(function(res){
                 vm.role=res[0].id;
             });
-            vm.user=angular.copy(user);
+            vm.user=user;
         }
 
         function create() {
+            vm.user.role=vm.role;
             vm.client.user=vm.user;
             Clientes.create(vm.client).then(function(res){
                 toastr.success(vm.succesCreate,vm.successTitle);
@@ -136,20 +136,17 @@
             vm.user=angular.copy(user);
             vm.selectedClient=null;
             vm.isNew=true;
+            vm.user.password="";
         }
 
         function clickCopy(item) {
             vm.isNew=false;
             vm.selectedClient=item;
             vm.client=angular.copy(item);
-            vm.user=vm.client.user;
+            vm.user.username=vm.client.user.username;
+            vm.user.email=vm.client.user.email;
+            vm.user
             $scope.formClient.$invalid=true;
-            console.log(vm.client.user);
-        }
-        
-        function newClient(){
-            vm.clear();
-            vm.isNew=true;
         }
         
         function querySearch(query) {
