@@ -69,10 +69,11 @@
             Clientes.getClienteId().then(function(res){
                 vm.role=res[0].id;
             });
-            vm.user=angular.copy(user);
+            vm.user=user;
         }
 
         function create() {
+            vm.user.role=vm.role;
             vm.client.user=vm.user;
             Clientes.create(vm.client).then(function(res){
                 toastr.success(vm.succesCreate,vm.successTitle);
