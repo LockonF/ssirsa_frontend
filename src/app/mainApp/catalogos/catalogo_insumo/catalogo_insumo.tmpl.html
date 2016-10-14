@@ -43,9 +43,10 @@
                 <form name="inputForm">
                     <md-input-container class="md-block">
                         <label>{{ 'Consumable_Catalog.quantity' | translate }}</label>
-                        <number-only-input input-value="vm.catalogo_insumo.cantidad" input-name="cantidad" min="0"/>
+                        <input type="text" name="cantidad" valid-number ng-model="vm.catalogo_insumo.cantidad" ng-required="true"
+                               ng-min="0"/>
                         <div ng-messages="inputForm.cantidad.$error">
-                            <div ng-message="min">{{'MAIN.GENERAL.MIN_NUMBER' | translate}} 0</div>
+                            <div ng-message="belowminimum">{{'MAIN.GENERAL.MIN_NUMBER' | translate}} 0</div>
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>
                     </md-input-container>
@@ -59,10 +60,11 @@
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>{{ 'Consumable_Catalog.cost' | translate }}</label>
-                        <number-only-input input-value="vm.catalogo_insumo.costo" input-name="costo" min="0"/>
+                        <input type="number" name="costo" valid-number ng-model="vm.catalogo_insumo.costo" ng-required="true"
+                               ng-min="0"/>
                         <div ng-messages="inputForm.costo.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
-                            <div ng-message="min">{{'MAIN.GENERAL.MIN_NUMBER' | translate}} 0</div>
+                            <div ng-message="belowminimum   ">{{'MAIN.GENERAL.MIN_NUMBER' | translate}} 0</div>
                         </div>
                     </md-input-container>
                     <md-input-container class="md-block">
@@ -109,15 +111,15 @@
                     </md-input-container>
                 </form>
                 <div flex="flex" layout="row" layout-align="end end">
-                    <md-button ng-if="vm.catalogo_insumo.id!=null &amp;&amp; vm.catalogo_insumo.id!=undefined"
+                    <md-button aria-label="actualizar" ng-if="vm.catalogo_insumo.id!=null && vm.catalogo_insumo.id!=undefined"
                                ng-disabled="inputForm.$invalid" ng-click="vm.update()" class="md-raised md-primary">
                         <md-icon md-font-icon="fa fa-pencil"></md-icon>
                     </md-button>
-                    <md-button ng-if="vm.catalogo_insumo.id==null || vm.catalogo_insumo.id==undefined"
+                    <md-button aria-label="crear" ng-if="vm.catalogo_insumo.id==null || vm.catalogo_insumo.id==undefined"
                                ng-disabled="inputForm.$invalid" ng-click="vm.create()" class="md-raised md-primary">
                         <md-icon md-font-icon="fa fa-save"></md-icon>
                     </md-button>
-                    <md-button ng-if="vm.catalogo_insumo.id!=null &amp;&amp; vm.catalogo_insumo.id!=undefined"
+                    <md-button aria-label="borrar" ng-if="vm.catalogo_insumo.id!=null && vm.catalogo_insumo.id!=undefined"
                                ng-click="vm.remove()" class="md-raised md-warn">
                         <md-icon md-font-icon="fa fa-trash"></md-icon>
                     </md-button>

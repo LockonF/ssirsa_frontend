@@ -17,6 +17,7 @@
         vm.addTipoEquipo=addTipoEquipo;
         vm.search=search;
         vm.catalogo=catalogo;
+        vm.equipos=[];
         var tipos_equipo={
             tipo_equipo:null,
             cantidad:null,

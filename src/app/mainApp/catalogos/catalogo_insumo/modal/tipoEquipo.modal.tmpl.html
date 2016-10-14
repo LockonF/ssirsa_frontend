@@ -5,7 +5,7 @@
                 <span>{{'MODAL_CATALOG_CONSUMABLE.FORM.TITLE.TYPE'|translate}}</span>
             </h2>
             <span flex></span>
-            <md-button class="md-icon-button" ng-click="vm.cancelClick()" aria-label="cancel">
+            <md-button aria-label="cerrar" class="md-icon-button" ng-click="vm.cancelClick()" aria-label="cancel">
                 <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
             </md-button>
         </div>
@@ -24,7 +24,7 @@
                                  md-input-name="tipoEquipo"
                                  required
                                  md-min-length="0"
-                                 md-search-text-change="vm.search(vm.searchText)"
+                                 md-search-text-change="vm.searchs(vm.searchText)"
                                  md-search-text="vm.searchText"
                                  md-menu-class="autocomplete-custom-template"
                                  md-floating-label="{{'MODAL_CATALOG_CONSUMABLE.FORM.PLACEHOLDER.SEARCH_TYPE'| translate }}">
@@ -47,9 +47,11 @@
                  layout-align="center center">
                 <md-input-container class="md-inline-form" flex="50" flex-sm="100" flex-xs="100">
                     <label>{{'MODAL_CATALOG_CONSUMABLE.FORM.LABEL.QUANTITY'|translate}}</label>
-                    <number-only-input input-value="vm.tipos_equipo.cantidad" input-name="cantidad"/>
+                    <input type="text" name="cantidad" valid-number ng-model="vm.tipos_equipo.cantidad" ng-required="true"
+                           ng-min="0"/>
                     <div ng-messages="addTipoEquipoForm.cantidad.$error">
                         <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
+                        <div ng-message="belowminimum   ">{{'MAIN.GENERAL.MIN_NUMBER' | translate}} 0</div>
                     </div>
                 </md-input-container>
                 <md-input-container class="md-inline-form" flex="50" flex-sm="100" flex-xs="100">
@@ -98,9 +100,9 @@
     <md-dialog-actions layout="row" class="card1 md-blue-grey-theme">
 
         <span flex></span>
-        <md-button ng-click="vm.cancelClick()" aria-label="{{'Cancel' | triTranslate}}"
+        <md-button aria-label="cerrar" ng-click="vm.cancelClick()" aria-label="{{'Cancel' | triTranslate}}"
                    translate="MAIN.BUTTONS.CANCEL"></md-button>
-        <md-button ng-click="vm.okClick()" class="md-primary" ng-disabled="updateSolicitudform.$invalid"
+        <md-button aria-label="enviar" ng-click="vm.okClick()" class="md-primary" ng-disabled="updateSolicitudform.$invalid"
                    aria-label="{{vm.dialogData.confirmButtonText | triTranslate}}"
                    translate="MAIN.BUTTONS.SUBMIT"></md-button>
     </md-dialog-actions>
