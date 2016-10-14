@@ -32,7 +32,7 @@
             BusquedaCatalogoTypeStep:BusquedaCatalogoTypeStep,
             etapaList:etapaList,
             BusquedaInsumosTypeStep:BusquedaInsumosTypeStep,
-            cabinetByEconomicoomic:cabinetByEconomicoomic
+            cabinetByEconomic:cabinetByEconomic
 
         };
 
@@ -247,7 +247,7 @@
              });
              return deferred.promise;
          }
-        function cabinetByEconomicoomic(economico){
+        function cabinetByEconomic(economico){
             var deferred=$q.defer();
             Restangular.all("model").one("cabinet",economico).customGET().then(function (res) {
                 deferred.resolve(res);

@@ -57,6 +57,8 @@
         vm.buscarCatalogoInsumosByWord = buscarCatalogoInsumosByWord;
         vm.buscarInsumosByCatalogo = buscarInsumosByCatalogo;
         vm.getEtapasList=getEtapasList;
+        vm.getInsumosLote=getInsumosLote;
+        vm.getModelByCabinet=getModelByCabinet;
 
 
         // Funciones
@@ -110,6 +112,7 @@
                 promise.then(function (res) {
                     vm.cabinet = res;
                     console.log(vm.cabinet);
+                    getModelByCabinet();
                     promise = Servicios.getDiagnosticoFromCabinet(vm.idCabinet);
                     promise.then(function (res) {
                         vm.diagnostico = res;
@@ -129,6 +132,7 @@
                                 promise.then(function (res) {
 
                                     vm.insumos = res;
+                                    getInsumosLote();
 
 
                                 }).catch(function (res) {
@@ -153,7 +157,7 @@
                                 vm.etapaActual.insumos = null;
                             }
 
-                            buscarCatalogoInsumos();
+
                         }).catch(function (res) {
                             notifyError(res.status);
                         })
@@ -168,6 +172,15 @@
                 notifyError(404);
             }
 
+        }
+        function getModelByCabinet(){
+            var promise=Servicios.cabinetByEconomic(vm.cabinet.economico);
+            promise.then(function (res) {
+                vm.modelo=res;
+                console.log(vm.modelo);
+            }).catch(function (res) {
+                notifyError(res.status);
+            });
         }
 
         function buscarCatalogoInsumos() {
@@ -200,10 +213,10 @@
             });
 
         }
-        function getInsumosLote(etapa,modelo_cabinet){
+        function getInsumosLote(){
             var data=null;
             data.idTipo=vm.modelo_cabinet.tipo;
-            data.
+            data.idEtapa=vm.etapaActual.actual_etapa;
 
 
         }
@@ -233,7 +246,7 @@
             }
 
         }
-
+        
         function buscarCatalogoInsumosByWord() {
             var promise = CatalogoInsumo.getCatalogoByWord(vm.word);
             promise.then(function (res) {
@@ -257,8 +270,9 @@
                 case 1000:
                     toastr.warning(vm.notFoundMessage, vm.notStepsMessage);
                     break;
-                default:
+                case 500:
                     toastr.warning(vm.errorMessage,vm.errorTitle);
+                    break;
 
 
             }
