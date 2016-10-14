@@ -177,7 +177,7 @@
             var promise=Servicios.cabinetByEconomic(vm.cabinet.economico);
             promise.then(function (res) {
                 vm.modelo=res;
-                console.log(vm.modelo);
+                console.log(vm.modelo.tipo);
             }).catch(function (res) {
                 notifyError(res.status);
             });
@@ -199,7 +199,7 @@
         }
 
         function buscarInsumosByCatalogo() {
-            vm.insumostmp = null;
+            vm.insumostmp;
 
             var promise = Insumo.getInsumosByCatalogo(vm.catalogoSelected.id);
             promise.then(function (res) {
@@ -214,9 +214,21 @@
 
         }
         function getInsumosLote(){
-            var data=null;
-            data.idTipo=vm.modelo_cabinet.tipo;
+
+            var data={
+                idTipo:'',
+                idEtapa:''
+            };
+            data.idTipo=vm.modelo.tipo;
             data.idEtapa=vm.etapaActual.actual_etapa;
+            console.log(data);
+            var promise = Servicios.BusquedaInsumosTypeStep(data);
+            promise.then(function (res) {
+                vm.insumosLote= res;
+                console.log(vm.insumos_lote);
+            }).catch(function (res) {
+                notifyError(res.status);
+            })
 
 
         }
