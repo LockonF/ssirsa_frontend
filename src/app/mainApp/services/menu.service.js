@@ -194,6 +194,10 @@
                             name: 'MAIN.MENU.CATALOGS.STAGE',
                             state: 'triangular.admin-default.catalogo-etapas',
                             type: 'link'
+                        },{
+                            name: 'MAIN.MENU.CATALOGS.CONSUMABLE_CATALOG',
+                            state: 'triangular.admin-default.catalogo-insumo',
+                            type: 'link'
                         }
 
 
@@ -216,11 +220,7 @@
                         name: 'MAIN.MENU.CATALOGS.CONSUMABLE_CATEGORY',
                         state: 'triangular.admin-default.categoria',
                         type: 'link'
-                    }, {
-                        name: 'MAIN.MENU.CATALOGS.CONSUMABLE_CATALOG',
-                        state: 'triangular.admin-default.catalogo-insumo',
-                        type: 'link'
-                    }, {
+                    },   {
                         name: 'MAIN.MENU.CATALOGS.PROVIDER',
                         state: 'triangular.admin-default.proveedor',
                         type: 'link'
@@ -285,11 +285,7 @@
                         name: 'MAIN.MENU.CATALOGS.CONSUMABLE_CATEGORY',
                         state: 'triangular.admin-default.categoria',
                         type: 'link'
-                    }, {
-                        name: 'MAIN.MENU.CATALOGS.CONSUMABLE_CATALOG',
-                        state: 'triangular.admin-default.catalogo-insumo',
-                        type: 'link'
-                    }, {
+                    },  {
                         name: 'MAIN.MENU.CATALOGS.PROVIDER',
                         state: 'triangular.admin-default.proveedor',
                         type: 'link'

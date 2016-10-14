@@ -171,7 +171,8 @@
     "OUTPUT": {
         "FORM": {
             "PLACEHOLDER":{
-                "SEARCH":"Ingrese cabinet"
+                "SEARCH":"Ingrese cabinet",
+                "TYPE_EQUIPMENT":"Tipo de equipo"
             },
             "TABLE": {
                 "HEADERS": {
@@ -202,7 +203,13 @@
                     "KIND": "Tipo de transporte"
                 },
                 "SUBSIDIARY": "Sucursal",
-                "PROJECT": "Proyecto"
+                "PROJECT": "Proyecto",
+                "ECONOMIC":"No. Economico:",
+                "SERIE":"No. Serie:",
+                "TYPE":"Tipo:",
+                "CABINET":"Cabinets disponibles",
+                "NOT_FOUND":"No hay cabinets que puedan ser procesables.",
+                "SEARCH":"Búsqueda"
             },
             "BUTTON":{
                 "CHOOSE_FILE": "Seleccionar Archivo",
@@ -210,10 +217,11 @@
                 "NEXT": "Siguiente",
                 "CABINETS.MASSIVE.UPLOAD": "Carga masiva de cabinets",
                 "CABINETS.MANUAL.UPLOAD": "Carga individual de cabinets"
+            },
+            "DIALOG":{
+                "SEND_TITLE":"Confirmación de envío",
+                "SEND_MESSAGE":"¿Seguro que desea crear una salida sin ningún cabinet seleccionado?"
             }
-
-
-
         }
     }
 }
