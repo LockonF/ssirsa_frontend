@@ -89,6 +89,7 @@
                     catalogo: vm.catalogo_insumo
                 }
             }).then(function (res) {
+
                 vm.catalogo_insumo.tipos_equipo=res;
             });
         }

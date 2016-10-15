@@ -31,7 +31,7 @@
                         </md-item-template>
                         <md-not-found><span translate="ADMIN.MANAGE.NOTFOUND"></span></md-not-found>
                     </md-autocomplete>
-                    <md-virtual-repeat-container class="vertical-container"  layout-fill="">
+                    <md-virtual-repeat-container class="vertical-container"  layout-fill="" hide-xs="hide-xs" hide-sm="hide-sm">
                         <md-list  >
                             <md-list-item  ng-repeat="persona in vm.personas_admin | personaSearch:vm.searchText">
                                 <md-button ng-click="vm.selectedPersonas(persona)"
