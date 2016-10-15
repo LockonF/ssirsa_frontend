@@ -223,7 +223,7 @@
                                     <div flex="" layout="column" ng-if="vm.notFoundCabinets.length > 0">
                                         <p>{{'INPUT.Unregistered Cabinets'|translate}}</p>
                                         <md-virtual-repeat-container flex="100" layout-fill ng-style='{"height":"150px"}'>
-                                            <md-list ng-disabled="true">
+                                            <md-list>
                                                 <md-list-item ng-repeat="cabinet in vm.notFoundCabinets">
                                                     <div layout="row" flex="100">
                                                         <span flex="flex">{{cabinet}}</span>
@@ -247,11 +247,12 @@
                                             </tr>
                                             </thead>
                                             <tbody md-body="">
-                                            <tr md-row="" ng-repeat="registeredCabinet in vm.cabinets track by $index">
+                                            <tr md-row=""
+                                                ng-repeat="registeredCabinet in vm.cabinets">
                                                 <td md-cell="">{{registeredCabinet.economico}}</td>
                                                 <td md-cell="">{{registeredCabinet.no_serie}}</td>
-                                                <td md-cell="">{{registeredCabinet.modelo.marca.descripcion}}</td>
-                                                <td md-cell="">{{registeredCabinet.modelo.nombre}}</td>
+                                                <td md-cell="">{{registeredCabinet.marca}}</td>
+                                                <td md-cell="">{{registeredCabinet.modelo}}</td>
                                             </tr>
                                             </tbody>
                                         </table>

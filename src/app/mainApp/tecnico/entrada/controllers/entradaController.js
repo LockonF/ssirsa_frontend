@@ -35,6 +35,8 @@
 
         vm.selectedTab = 0;
         vm.idEntrada = null;
+        vm.modelos=ModeloCabinet.list();
+        vm.marcas=MarcaCabinet.list();
 
         //Visualizations
         vm.hideMassiveUpload = true;
@@ -80,7 +82,7 @@
         vm.errorMassive=Translate.translate('INPUT.Messages.ErrorMassive');
         vm.errorNormal=Translate.translate('INPUT.Messages.ErrorNormal');
         vm.errorCabinet=Translate.translate('INPUT.Messages.ErrorCabinet');
-        vm.notFoundCabinet=Translate.translate('INPUT:Messages.NotFoundCabinet');
+        vm.notFoundCabinet=Translate.translate('INPUT.Messages.NotFoundCabinet');
 
         activate();
 
@@ -297,15 +299,23 @@
 
         function addCabinet(){
             Cabinet.get(vm.cabinetID).then(function(res){
-                if(vm.cabinets.indexOf(vm.cabinet) !== -1) {
+                if(vm.cabinets.indexOf(res) != -1) {
                     toastr.warning(vm.errorCabinet,vm.warning);
                 }
                 else {
-                    vm.cabinets.push(res);
+                    var tempCabinet=angular.copy(res);
+                    tempCabinet.modelo=modeloById(res.modelo).nombre;
+                    tempCabinet.marca=marcaById(res.modelo);
+                    vm.cabinets.push(tempCabinet);
                 }
             }).catch(function(err){
-                toastr.warning(vm.warning,vm.notFoundCabinet);
-                vm.notFoundCabinets.push(vm.cabinetID);
+                toastr.warning(vm.notFoundCabinet,vm.warning);
+                if(vm.notFoundCabinets.indexOf(vm.cabinetID) != -1) {
+                    toastr.warning(vm.errorCabinet,vm.warning);
+                }
+                else {
+                    vm.notFoundCabinets.push(vm.cabinetID);
+                }
             });
             vm.cabinetID = "";
         }
@@ -316,7 +326,19 @@
                 vm.cabinets.splice(index, 1);
             }
         }
-        
+
+        function modeloById(id){
+            return _.find(vm.modelos,function(model){
+                return model.id == id;
+            });
+        }
+
+        function marcaById(id){
+            var modelo = modeloById(id);
+            return _.find(vm.marcas,function(brand){
+                return brand.id == modelo.marca;
+            }).descripcion;
+        }
     }
 
 })();
