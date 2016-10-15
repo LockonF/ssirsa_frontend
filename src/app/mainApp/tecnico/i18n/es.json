@@ -155,6 +155,14 @@
             "Brand": {
                 "Category": "Categoria",
                 "Description": "Descripción"
+            },
+            "Cabinet":{
+                "Title":"Crear Cabinet",
+                "Economic":"Economico",
+                "Active":"Activo",
+                "Serial":"Número de Serie",
+                "Brand":"Marca",
+                "Model":"Modelo"
             }
         },
         "Tabs": {

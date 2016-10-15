@@ -27,6 +27,7 @@
         vm.uploadFile = uploadFile;
         vm.showMarcaDialog = showMarcaDialog;
         vm.showModeloDialog = showModeloDialog;
+        vm.showCabinetDialog=showCabinetDialog;
         vm.addCabinet = addCabinet;
         vm.removeCabinet=removeCabinet;
 
@@ -339,6 +340,10 @@
             return _.find(vm.marcas,function(brand){
                 return brand.id == modelo.marca;
             }).descripcion;
+        }
+        
+        function showCabinetDialog(){
+            
         }
     }
 
