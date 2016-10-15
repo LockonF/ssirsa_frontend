@@ -6,7 +6,7 @@
         .module('app.mainApp.admin')
         .controller('gestion_userController',gestion_userController);
 
-    function gestion_userController(groups,udn,Persona_Admin,toastr,Helper,Translate,$scope){
+    function gestion_userController(groups,Persona_Admin,toastr,Helper,Translate,$scope,Sucursal){
         var vm = this;
         vm.isClient=true;
         activate();
@@ -24,7 +24,7 @@
 
             });
 
-            vm.udns =udn.list();
+            vm.sucursales =Sucursal.list();
 
         }
         vm.cpassword="";
