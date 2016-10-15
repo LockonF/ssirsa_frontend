@@ -308,6 +308,7 @@
                     tempCabinet.marca=marcaById(res.modelo);
                     vm.cabinets.push(tempCabinet);
                 }
+                vm.cabinetID = "";
             }).catch(function(err){
                 toastr.warning(vm.notFoundCabinet,vm.warning);
                 if(vm.notFoundCabinets.indexOf(vm.cabinetID) != -1) {
@@ -316,8 +317,8 @@
                 else {
                     vm.notFoundCabinets.push(vm.cabinetID);
                 }
+                vm.cabinetID = "";
             });
-            vm.cabinetID = "";
         }
         
         function removeCabinet(id){

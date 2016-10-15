@@ -220,19 +220,6 @@
                                                    ng-model="vm.cabinetID">
                                         </md-input-container>
                                     </form>
-                                    <div flex="" layout="column" ng-if="vm.notFoundCabinets.length > 0">
-                                        <p>{{'INPUT.Unregistered Cabinets'|translate}}</p>
-                                        <md-virtual-repeat-container flex="100" layout-fill ng-style='{"height":"150px"}'>
-                                            <md-list>
-                                                <md-list-item ng-repeat="cabinet in vm.notFoundCabinets">
-                                                    <div layout="row" flex="100">
-                                                        <span flex="flex">{{cabinet}}</span>
-                                                    </div>
-                                                    <md-divider></md-divider>
-                                                </md-list-item>
-                                            </md-list>
-                                        </md-virtual-repeat-container>
-                                    </div>
                                 </div>
                                 <div flex="" layout="column" ng-if="vm.cabinets.length > 0">
                                     <p>{{'INPUT.Registered Cabinets'|translate}}</p>
@@ -257,6 +244,19 @@
                                             </tbody>
                                         </table>
                                     </md-table-container>
+                                </div>
+                                <div flex="" layout="column" ng-if="vm.notFoundCabinets.length > 0">
+                                    <p>{{'INPUT.Unregistered Cabinets'|translate}}</p>
+                                    <md-virtual-repeat-container flex="100" layout-fill ng-style='{"height":"150px"}'>
+                                        <md-list>
+                                            <md-list-item ng-repeat="cabinet in vm.notFoundCabinets">
+                                                <div layout="row" flex="100">
+                                                    <md-button>{{cabinet}}</md-button>
+                                                </div>
+                                                <md-divider></md-divider>
+                                            </md-list-item>
+                                        </md-list>
+                                    </md-virtual-repeat-container>
                                 </div>
                             </div>
 
