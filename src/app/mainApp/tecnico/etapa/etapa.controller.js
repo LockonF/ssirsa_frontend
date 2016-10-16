@@ -42,6 +42,7 @@
         };// Insumo por agregar al cabinet en cuestion
         //Nuevas VariablesUsadas
         vm.insumos_lote=[];// Arreglo que posera los Insumos de Lote que serán utilizados en la etapa de servicio
+        vm.insumos_loteUsados=[];//Arreglo que ya posee el arreglo como es necesario para agregar los insumos al formato de arreglo para agregarlos a la etapa
         vm.dataEtapa=null;//Variable que posera los datos de la etapa para el precargado de Template (id etapa, idTipoEquipo)
         vm.etapas;//Arreglo de las diferentes etapas que componen el proceso de fabricacion de Cabinets
         //Declaracion de Funciones
@@ -119,8 +120,6 @@
                         promise = Servicios.consultarEtapaServicioDiagnostico(vm.diagnostico);
                         promise.then(function (res) {
                             vm.etapa = res;
-
-
                             if (vm.etapa.validado == false) {
 
                                 vm.etapaActual = vm.etapa;
@@ -213,6 +212,8 @@
             });
 
         }
+
+
         function getInsumosLote(){
 
             var data={
@@ -222,10 +223,11 @@
             data.idTipo=vm.modelo.tipo;
             data.idEtapa=vm.etapaActual.actual_etapa;
             console.log(data);
-            var promise = Servicios.BusquedaInsumosTypeStep(data);
+            var promise = Servicios.BusquedaCatalogoTypeStep(data);
             promise.then(function (res) {
                 vm.insumosLote= res;
-                console.log(vm.insumos_lote);
+                 console.log("Insumos por Lote");
+                console.log(vm.insumosLote);
             }).catch(function (res) {
                 notifyError(res.status);
             })
@@ -263,9 +265,14 @@
             var promise = CatalogoInsumo.getCatalogoByWord(vm.word);
             promise.then(function (res) {
                 vm.catalogoInsumos2 = res;
+
             }).catch(function (res) {
                 notifyError(res.status);
             })
+        }
+        function transformArrayCatalogoInsumos(){
+            foreach
+
         }
 
         function notifyError(status) {

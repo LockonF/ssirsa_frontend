@@ -81,11 +81,13 @@
                 <div layout="row" flex="100" layout-align="space-around stretch">
                     <form name="form.insumoFormEtapa" layout-fill="">
                         <div layout="row" flex="100">
+                            <!-- insumos lote
+                            -->
                             <md-input-container flex="30">
                                 <label translate>ETAPA_SERVICIO.NAME</label>
                                 <md-select ng-model="vm.catalogoSelected" name="insumo" required='required'
                                            ng-disabled="vm.editable">
-                                    <md-option ng-repeat="insu in vm.catalogoInsumos" ng-value="insu">
+                                    <md-option ng-repeat="insu in vm.insumosLote" ng-value="insu">
                                         {{insu.descripcion}}
                                         <md-option ng-if="insu.descripcion==''"> "No hay Insumos que mostrar"
                                         </md-option>
@@ -100,9 +102,10 @@
 
                             <md-input-container flex="20">
                                 <label translate>ETAPA_SERVICIO.CANTITY</label>
-                                <input name="cantidad" type="number" ng-model="vm.insumo.cantidad"
+                                <input name="cantidad" type="number" ng-model="Number(vm.catalogoSelected.tipos_equipo[0].cantidad)"
                                        ng-disabled="vm.editable" required
                                        max="{{vm.catalogoSelected.cantidad}}"/>
+
                                 <div ng-messages="form.insumoFormEtapa.cantidad.$error">
 
                                     <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
@@ -114,7 +117,7 @@
                             </md-input-container>
                             <md-input-container flex="50">
                                 <label translate>ETAPA_SERVICIO.NOTES</label>
-                                <input name="notas" type="text" ng-model="vm.insumo.notas"
+                                <input name="notas" type="text" ng-model="vm.catalogoSelected.tipos_equipo[0].cantidad"
                                        ng-disabled="vm.editable"
                                        md-maxlength="45"
                                        required maxlength="45" minlength="2"/>
@@ -133,7 +136,7 @@
                         </div>
                     </form>
                 </div>
-                <div layout="row" layout-sm="column" layout-md="column" ng-show="vm.insumos.length!=0">
+                <div layout="row" layout-sm="column" layout-md="column" ng-show="vm.insumosLote.length!=0">
                     <md-table-container>
                         <table md-table="" md-row-select="vm.insumoLote" md-auto-select ng-model="vm.insumosLote" flex="100">
                             <thead md-head="" md-order="vm.query.order">
@@ -151,12 +154,12 @@
                             <tbody md-body="md-body">
                             <tr md-row="md-row" md-select="insu" md-select-id="{{insu.id}}"
                                 ng-repeat="insu in vm.insumosLote| orderBy:vm.query.order">
-                                <td md-cell="md-cell" flex="25">{{insu.nombre}}</td>
+                                <td md-cell="md-cell" flex="25">{{insu.descripcion}}</td>
                                 <td md-cell="md-cell" flex="15" ng-click='vm.edit($event,insumos,"cantidad")'>
-                                    {{insu.cantidad}}
+                                    {{insu.tipos_equipo[0].cantidad}}
                                 </td>
                                 <td md-cell="md-cell" flex="50" ng-click='vm.edit($event,insumos,"notas")'>
-                                    {{insu.notas}}
+                                    {{insu.tipos_equipo[0].descripcion}}
                                 </td>
                                 <td md-cell="md-cell" ng-click="$event.stopPropagation()" flex="10">
                                     <md-button ng-click="vm.eliminarInsumo(insu)"
