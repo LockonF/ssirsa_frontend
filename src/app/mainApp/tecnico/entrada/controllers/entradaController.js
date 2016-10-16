@@ -124,8 +124,10 @@
 
             if (vm.entrada.id != null)
                 fd.append("id", vm.entrada.id);
-            if (vm.cabinets != null)
-                fd.append('cabinets', vm.cabinets);
+
+            if (vm.cabinets.length>0)
+                fd.append('cabinets', _.pluck(vm.cabinets,"economico"));
+
             if (vm.entrada.ife_chofer != null)
                 fd.append('ife_chofer', vm.entrada.ife_chofer);
             //Is massive upload
@@ -151,17 +153,16 @@
             }
             else {
                 EntradaSalida.postEntrada(fd).then(function (res) {
-                    vm.entrada=res;
-                    vm.hideRegisteredCabinets = false;
-                    vm.hideUnregisteredCabinets = false;
-                    if(vm.entrada.no_creados.length>0)
-                        toastr.warning(vm.warning,vm.warningTitle);
-                    else {
+                    if(vm.notFoundCabinet.length>0) {
+                        console.log(res);
                         toastr.success(vm.successNormal, vm.successTitle);
-                        //limpiar();
+                        limpiar();
+                    }
+                    else{
+
                     }
                 }).catch(function (err) {
-                    toastr.error(vm.errorMassive, vm.errorTitle);
+                    toastr.error(vm.errorNormal, vm.errorTitle);
                     console.log(err);
                 });
             }
