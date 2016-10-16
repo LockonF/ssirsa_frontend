@@ -6,7 +6,7 @@
         .controller('TipoEquipoDialogController', TipoEquipoDialogController);
 
     /* @ngInject */
-    function TipoEquipoDialogController($mdDialog, $scope,catalogo, TipoEquipo) {
+    function TipoEquipoDialogController($mdDialog, $scope, catalogo, TipoEquipo, Helper) {
 
         var vm = this;
         vm.cancelClick = cancelClick;
@@ -14,50 +14,54 @@
         vm.querySearch = querySearch;
         vm.lookup = lookup;
         vm.deleteTipoEquipo = deleteTipoEquipo;
-        vm.addTipoEquipo=addTipoEquipo;
-        vm.search=search;
-        vm.catalogo=catalogo;
-        vm.equipos=[];
-        var tipos_equipo={
-            tipo_equipo:null,
-            cantidad:null,
-            descripcion:null
+        vm.addTipoEquipo = addTipoEquipo;
+        vm.search = search;
+        vm.catalogo = catalogo;
+        vm.equipos = [];
+        var tipos_equipo = {
+            tipo_equipo: null,
+            cantidad: null,
+            descripcion: null
         };
         activate();
-        vm.tipos_equipo=angular.copy(tipos_equipo);
+        vm.tipos_equipo = angular.copy(tipos_equipo);
         function activate() {
             TipoEquipo.listWitout().then(function (res) {
-                vm.equipos = res;
+                vm.equipos = Helper.filterDeleted(res, true);
 
             });
         }
+
         function search(obj) {
-            if(vm.equipos.length>0) {
-                var res= _.findWhere(vm.equipos, {id: obj}).nombre;
-                if(res==null){
+            if (vm.equipos.length > 0) {
+                var res = _.findWhere(vm.equipos, {id: obj}).nombre;
+                if (res == null) {
                     return "No tiene tipo de equipo";
                 }
                 return res;
             }
         }
+
         function addTipoEquipo() {
-            if (vm.tipos_equipo!=null) {
+            if (vm.tipos_equipo != null) {
                 var index = _.findIndex(vm.catalogo.tipos_equipo, function (obj) {
                     return obj.tipo_equipo == vm.selectedTipoEquipo.id;
                 });
                 if (index == -1) {
-                    vm.tipos_equipo.tipo_equipo=vm.selectedTipoEquipo.id;
+                    vm.tipos_equipo.tipo_equipo = vm.selectedTipoEquipo.id;
                     vm.catalogo.tipos_equipo.push(vm.tipos_equipo);
                     vm.catalogo.tipos_equipo = _.sortBy(vm.catalogo.tipos_equipo, 'tipo_equipo');
                     clear();
                 }
             }
         }
+
         function clear() {
             $scope.addTipoEquipoForm.$setPristine();
             $scope.addTipoEquipoForm.$setUntouched();
-            vm.tipos_equipo=angular.copy(tipos_equipo);
+            vm.tipos_equipo = angular.copy(tipos_equipo);
         }
+
         function deleteTipoEquipo(item) {
             var resultado = _.indexOf(vm.catalogo.tipos_equipo, item);
             if (resultado != -1) {
