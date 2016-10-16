@@ -25,7 +25,6 @@
         }
 
 
-
         function list(){
             return baseSucursal.getList().$object;
         }

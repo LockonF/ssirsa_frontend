@@ -22,7 +22,6 @@
         function listWitout(){
             return baseModelo.getList();
         }
-
         function get(id) {
             return baseModelo.get(id);
         }
