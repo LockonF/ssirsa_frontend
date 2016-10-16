@@ -42,6 +42,7 @@
         };// Insumo por agregar al cabinet en cuestion
         //Nuevas VariablesUsadas
         vm.insumos_lote=[];// Arreglo que posera los Insumos de Lote que serán utilizados en la etapa de servicio
+        vm.insumoLote={};
         vm.insumos_loteUsados=[];//Arreglo que ya posee el arreglo como es necesario para agregar los insumos al formato de arreglo para agregarlos a la etapa
         vm.dataEtapa=null;//Variable que posera los datos de la etapa para el precargado de Template (id etapa, idTipoEquipo)
         vm.etapas;//Arreglo de las diferentes etapas que componen el proceso de fabricacion de Cabinets
@@ -60,6 +61,9 @@
         vm.getEtapasList=getEtapasList;
         vm.getInsumosLote=getInsumosLote;
         vm.getModelByCabinet=getModelByCabinet;
+        vm.editCatalogoInsumo=editCatalogoInsumo;
+        vm.addCatalogoInsumo=addCatalogoInsumo;
+
 
 
         // Funciones
@@ -417,6 +421,52 @@
                 delete newInsumo['id'];
                 delete newInsumo['catalogo'];
                 vm.insumos.push(newInsumo);
+
+
+            }
+            else
+                notifyError(404);
+            vm.catalogoSelected = null;
+            vm.insumo = null;
+            $scope.form.insumoFormEtapa.$setPristine();
+            $scope.form.insumoFormEtapa.$setUntouched();
+
+
+        }
+        function addCatalogoInsumo() {
+            if (vm.catalogoSelected.id != null) {
+                var newCatalogoInsumo = {};
+                newCatalogoInsumo.id = vm.catalogoSelected.id;
+                newCatalogoInsumo.nombre = vm.catalogoSelected.descripcion;
+                newCatalogoInsumo.cantidad = vm.catalogoSelected.tipos_equipo[0].cantidad;
+                newCatalogoInsumo.notas = vm.catalogoSelected.tipos_equipo[0].descripcion;
+                vm.insumos_loteUsados.push(newCatalogoInsumo);
+
+
+            }
+            else
+                notifyError(404);
+            vm.catalogoSelected = null;
+            vm.insumo = null;
+            $scope.form.insumoFormEtapa.$setPristine();
+            $scope.form.insumoFormEtapa.$setUntouched();
+
+
+        }
+        function editCatalogoInsumo() {
+            if (vm.insumoLote.id != null) {
+                var newCatalogoInsumo = {};
+                vm.catalogoSelected.id= vm.insumoLote.id;
+                vm.catalogoSelected.descripcion=vm.insumoLote.nombre;
+                vm.catalogoSelected.tipos_equipo[0].cantidad=vm.insumoLote.cantidad;
+                vm.catalogoSelected.tipos_equipo[0].descripcion=vm.insumoLote.nots;
+
+
+                newCatalogoInsumo.id = vm.catalogoSelected.id;
+                newCatalogoInsumo.nombre = vm.catalogoSelected.descripcion;
+                newCatalogoInsumo.cantidad = vm.catalogoSelected.tipos_equipo[0].cantidad;
+                newCatalogoInsumo.notas = vm.catalogoSelected.tipos_equipo[0].descripcion;
+                vm.insumos_loteUsados.push(newCatalogoInsumo);
 
 
             }
