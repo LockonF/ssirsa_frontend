@@ -16,8 +16,12 @@
             create:create,
             get:get,
             remove: remove,
-            marca:marca
+            marca:marca,
+            listWitout:listWitout
         };
+        function listWitout(){
+            return baseModelo.getList();
+        }
 
         function get(id) {
             return baseModelo.get(id);
