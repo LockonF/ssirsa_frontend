@@ -9,7 +9,7 @@
         .module('app.mainApp.catalogos')
         .controller('CatalogoInsumoController',CatalogoInsumoController);
 
-    function CatalogoInsumoController(CatalogoInsumo,Etapa,$mdDialog,Categoria,Proveedor, toastr, Translate, $scope)
+    function CatalogoInsumoController(Helper,CatalogoInsumo,Etapa,$mdDialog,Categoria,Proveedor, toastr, Translate, $scope)
     {
         var vm = this;
 
@@ -45,6 +45,7 @@
         vm.clickRepeater = clickRepeater;
         vm.showSteps=showSteps;
         vm.showEquipment=showEquipment;
+        vm.disabled=disabled;
 
         activate();
 
@@ -61,10 +62,13 @@
             vm.notFoundInput=Translate.translate('MAIN.MSG.NOT_FOUND_INPUT');
             vm.errorTypeFile = Translate.translate('MAIN.MSG.ERORR_TYPE_FILE');
             vm.errorSize = Translate.translate('MAIN.MSG.FILE_SIZE');
+            vm.deleteButton=Translate.translate('MAIN.BUTTONS.DELETE');
+            vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
+            vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
+            vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
             listCatalogoInsumos();
             listCategorias();
             listProveedores();
-            listEtapas();
         }
         function showSteps() {
             $mdDialog.show({
@@ -78,6 +82,16 @@
             }).then(function (res) {
                 vm.catalogo_insumo.etapas=res;
             });
+        }
+        function disabled(id,tipoArray) {
+            if(id!=null) {
+                if(tipoArray==="categoria") {
+                    return Helper.searchByField(vm.categoria_list, id).deleted;
+                }else{
+                    return Helper.searchByField(vm.proveedor_list, id).deleted;
+                }
+
+            }
         }
         function showEquipment() {
             $mdDialog.show({
@@ -96,25 +110,28 @@
 
         function listCatalogoInsumos()
         {
-            vm.catalogo_insumo_list  = CatalogoInsumo.list();
+            CatalogoInsumo.listObject().then(function (res) {
+                vm.catalogo_insumo_list=Helper.filterDeleted(res,true);
+                vm.catalogo_insumo_list=_.sortBy(vm.catalogo_insumo_list, 'descripcion');
+            });
 
         }
 
 
-        function listEtapas()
-        {
-            vm.etapa_list  = Etapa.list();
-        }
         function listCategorias()
         {
-            vm.categoria_list  = Categoria.list();
+            Categoria.listObject().then(function (res) {
+                vm.categoria_list  =res;
+            });
         }
 
 
 
         function listProveedores()
         {
-            vm.proveedor_list  = Proveedor.list();
+            Proveedor.listObject().then(function (res) {
+                vm.proveedor_list  =res;
+            });
         }
 
         function lookup(search_text){
@@ -136,7 +153,6 @@
         function clickRepeater(catalogo_insumo){
             catalogo_insumo.costo = parseFloat(catalogo_insumo.costo);
             catalogo_insumo.cantidad =parseFloat(catalogo_insumo.cantidad);
-
             vm.catalogo_insumo = catalogo_insumo.clone();
         }
 
@@ -169,12 +185,23 @@
 
         function remove()
         {
-            CatalogoInsumo.remove(vm.catalogo_insumo).then(function(res){
-                listCatalogoInsumos();
-                cancel();
-                toastr.success(vm.successDeleteMessage,vm.successTitle)
-            }).catch(function(err){
-                toastr.error(vm.errorMessage,vm.errorTitle);
+            var confirm = $mdDialog.confirm()
+                .title(vm.dialogTitle)
+                .textContent(vm.dialogMessage)
+                .ariaLabel('Confirmar eliminación')
+                .ok(vm.deleteButton)
+                .cancel(vm.cancelButton);
+            $mdDialog.show(confirm).then(function() {
+
+                CatalogoInsumo.remove(vm.catalogo_insumo).then(function(res){
+                    listCatalogoInsumos();
+                    cancel();
+                    toastr.success(vm.successDeleteMessage,vm.successTitle)
+                }).catch(function(err){
+                    toastr.error(vm.errorMessage,vm.errorTitle);
+                });
+            }, function() {
+
             });
         }
 

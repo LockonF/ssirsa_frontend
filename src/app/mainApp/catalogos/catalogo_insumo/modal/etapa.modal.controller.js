@@ -6,7 +6,7 @@
         .controller('EtapaDialogController', EtapaDialogController);
 
     /* @ngInject */
-    function EtapaDialogController($mdDialog, catalogo, Etapa) {
+    function EtapaDialogController($mdDialog, Helper,catalogo, Etapa) {
 
         var vm = this;
         vm.cancelClick = cancelClick;
@@ -23,6 +23,7 @@
                 vm.etapas = res;
                 if(catalogo.etapas.length>0) {
                     vm.etapa_list = angular.copy(vm.etapas);
+
                     vm.etapas.forEach(function (value) {
                         var exist = _.filter(catalogo.etapas, function (item) {
                             return (item == value.id);
@@ -34,6 +35,7 @@
                             });
                         }
                     });
+                    vm.etapas=Helper.filterDeleted(res,true);
                 }
             });
         }
