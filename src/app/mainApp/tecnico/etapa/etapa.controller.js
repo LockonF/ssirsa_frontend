@@ -9,7 +9,7 @@
         .module('app.mainApp.tecnico')
         .controller('etapaController', etapaController);
 
-    function etapaController(Cabinet, Servicios, $mdDialog, CatalogoInsumo, $scope,Insumo, Translate, toastr, OPTIONS) {
+    function etapaController(Cabinet, Servicios, $mdDialog, $scope, Insumo, Translate, toastr) {
         var vm = this;
         vm.activate = activate();
 
@@ -41,29 +41,28 @@
             notas: ""
         };// Insumo por agregar al cabinet en cuestion
         //Nuevas VariablesUsadas
-        vm.insumos_lote=[];// Arreglo que posera los Insumos de Lote que serán utilizados en la etapa de servicio
-        vm.insumoLote={};
-        vm.insumos_loteUsados=[];//Arreglo que ya posee el arreglo como es necesario para agregar los insumos al formato de arreglo para agregarlos a la etapa
-        vm.dataEtapa=null;//Variable que posera los datos de la etapa para el precargado de Template (id etapa, idTipoEquipo)
+        vm.insumos_lote = [];// Arreglo que posera los Insumos de Lote que serán utilizados en la etapa de servicio
+        vm.insumoLote = {};
+        vm.insumos_loteUsados = [];//Arreglo que ya posee el arreglo como es necesario para agregar los insumos al formato de arreglo para agregarlos a la etapa
+        vm.dataEtapa = null;//Variable que posera los datos de la etapa para el precargado de Template (id etapa, idTipoEquipo)
         vm.etapas;//Arreglo de las diferentes etapas que componen el proceso de fabricacion de Cabinets
         //Declaracion de Funciones
-        vm.crearInsumo = crearInsumo;
-        vm.eliminarInsumo = eliminarInsumo;
+
+
         vm.crearEtapaServicio = crearEtapaServicio; //Crea una nueva etapa de servicio
         vm.cancel = cancel;//Limpiar campos
         vm.buscar = buscar;//Buscar Cabinet
         vm.eliminarEtapaServicio = eliminarEtapaServicio;//
         vm.getInsumos = getInsumos;//
         vm.editar = editar;
-        vm.buscarCatalogoInsumos = buscarCatalogoInsumos;
-        vm.buscarCatalogoInsumosByWord = buscarCatalogoInsumosByWord;
         vm.buscarInsumosByCatalogo = buscarInsumosByCatalogo;
-        vm.getEtapasList=getEtapasList;
-        vm.getInsumosLote=getInsumosLote;
-        vm.getModelByCabinet=getModelByCabinet;
-        vm.editCatalogoInsumo=editCatalogoInsumo;
-        vm.addCatalogoInsumo=addCatalogoInsumo;
-
+        vm.getEtapasList = getEtapasList;
+        vm.getInsumosLote = getInsumosLote;
+        vm.getModelByCabinet = getModelByCabinet;
+        vm.editCatalogoInsumo = editCatalogoInsumo;
+        vm.addCatalogoInsumo = addCatalogoInsumo;
+        vm.eliminarCatalogoInsumo = eliminarCatalogoInsumo;
+        vm.eliminarInsumo = eliminarInsumo;
 
 
         // Funciones
@@ -71,14 +70,15 @@
         function editar() {
             vm.editable = !vm.editable;
         }
-        function getEtapasList(){
+
+        function getEtapasList() {
             var promise = Servicios.etapaList();
             promise.then(function (res) {
                 console.log(res);
                 vm.etapas = res;
                 console.log(vm.etapas);
 
-                if(_.size(vm.etapas)==0){
+                if (_.size(vm.etapas) == 0) {
                     notifyError(1000);
                 }
 
@@ -91,7 +91,7 @@
         function activate() {
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
-            vm.notInsumos=Translate.translate('MAIN.MSG.ERROR_NOTINSUMOSTITLE');
+            vm.notInsumos = Translate.translate('MAIN.MSG.ERROR_NOTINSUMOSTITLE');
             vm.successCreateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_CREATE');
             vm.successUpdateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_UPDATE');
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
@@ -102,10 +102,10 @@
             vm.delete = Translate.translate('ETAPA_SERVICIO.DELETE');
             vm.cancelar = Translate.translate('ETAPA_SERVICIO.CANCEL');
             vm.accepted = Translate.translate('ETAPA_SERVICIO.ACCEPT');
-            vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
-            vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
-            vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
-            vm.notStepsMessage=Translate.translate('MAIN.DIALOG.NOT_STEPS');
+            vm.dialogTitle = Translate.translate('MAIN.DIALOG.DELETE_TITLE');
+            vm.dialogMessage = Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
+            vm.dialogMessage = Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
+            vm.notStepsMessage = Translate.translate('MAIN.DIALOG.NOT_STEPS');
             getEtapasList();
 
         }
@@ -138,14 +138,12 @@
                                     getInsumosLote();
 
 
-
                                 }).catch(function (res) {
                                     notifyError(res.status);
                                 });
                                 vm.insumos = vm.etapaActual.insumos;
 
-                                if ((vm.etapaActual.actual_etapa == 'EC') || (vm.etapaActual.actual_etapa == 'ED')|| (vm.etapaActual.actual_etapa == 'EO'))
-                                {
+                                if ((vm.etapaActual.actual_etapa == 'EC') || (vm.etapaActual.actual_etapa == 'ED') || (vm.etapaActual.actual_etapa == 'EO')) {
 
                                     vm.showInsumosSection = false;
                                 }
@@ -177,30 +175,17 @@
             }
 
         }
-        function getModelByCabinet(){
-            var promise=Servicios.cabinetByEconomic(vm.cabinet.economico);
+
+        function getModelByCabinet() {
+            var promise = Servicios.cabinetByEconomic(vm.cabinet.economico);
             promise.then(function (res) {
-                vm.modelo=res;
+                vm.modelo = res;
                 console.log(vm.modelo.tipo);
             }).catch(function (res) {
                 notifyError(res.status);
             });
         }
 
-        function buscarCatalogoInsumos() {
-            var promise = CatalogoInsumo.getCatalogoByZone(vm.etapaActual.actual_etapa);
-            promise.then(function (res) {
-                vm.catalogoInsumos = res;
-
-                if(_.size(vm.catalogoInsumos)==0){
-                    notifyError(900);
-                }
-
-            }).catch(function (res) {
-                notifyError(res.status);
-            });
-
-        }
 
         function buscarInsumosByCatalogo() {
             vm.insumostmp;
@@ -219,19 +204,19 @@
         }
 
 
-        function getInsumosLote(){
+        function getInsumosLote() {
 
-            var data={
-                idTipo:'',
-                idEtapa:''
+            var data = {
+                idTipo: '',
+                idEtapa: ''
             };
-            data.idTipo=vm.modelo.tipo;
-            data.idEtapa=vm.etapaActual.actual_etapa;
+            data.idTipo = vm.modelo.tipo;
+            data.idEtapa = vm.etapaActual.actual_etapa;
             console.log(data);
             var promise = Servicios.BusquedaCatalogoTypeStep(data);
             promise.then(function (res) {
-                vm.insumosLote= res;
-                 console.log("Insumos por Lote");
+                vm.insumosLote = res;
+                console.log("Insumos por Lote");
                 console.log(vm.insumosLote);
                 transformArrayCatalogoInsumos();
             }).catch(function (res) {
@@ -240,18 +225,19 @@
 
 
         }
-        function transformArrayCatalogoInsumos(){
+
+        function transformArrayCatalogoInsumos() {
             console.log("Empezare a transformar");
-            vm.insumosLote.forEach(function (insulote, index){
+            vm.insumosLote.forEach(function (insulote, index) {
                 console.log("Registro de Insumo");
                 console.log(insulote);
-                vm.insumoLote.id=insulote.id;
-                vm.insumoLote.cantidad=insulote.tipos_equipo[0].cantidad;
-                vm.insumoLote.nombre=insulote.descripcion;
-                vm.insumoLote.notas=insulote.tipos_equipo[0].cantidad;
+                vm.insumoLote.id = insulote.id;
+                vm.insumoLote.cantidad = insulote.tipos_equipo[0].cantidad;
+                vm.insumoLote.nombre = insulote.descripcion;
+                vm.insumoLote.notas = insulote.tipos_equipo[0].cantidad;
                 console.log(vm.insumoLote)
                 vm.insumos_loteUsados.push(vm.insumoLote);
-                vm.insumoLote={};
+                vm.insumoLote = {};
             })
             console.log(vm.insumos_loteUsados);
         }
@@ -281,16 +267,6 @@
             }
 
         }
-        
-        function buscarCatalogoInsumosByWord() {
-            var promise = CatalogoInsumo.getCatalogoByWord(vm.word);
-            promise.then(function (res) {
-                vm.catalogoInsumos2 = res;
-
-            }).catch(function (res) {
-                notifyError(res.status);
-            })
-        }
 
 
         function notifyError(status) {
@@ -308,7 +284,7 @@
                     toastr.warning(vm.notFoundMessage, vm.notStepsMessage);
                     break;
                 case 500:
-                    toastr.warning(vm.errorMessage,vm.errorTitle);
+                    toastr.warning(vm.errorMessage, vm.errorTitle);
                     break;
 
 
@@ -415,10 +391,6 @@
             }
             vm.cancel();
         }
-        function crearInsumo() {
-            vm.buscarInsumosByCatalogo();
-
-        }
 
         function add() {
             if (vm.insumo.id != null) {
@@ -439,12 +411,13 @@
 
 
         }
+
         function addCatalogoInsumo() {
             if (vm.catalogoSelected.id != null) {
                 var newCatalogoInsumo = {};
                 newCatalogoInsumo.id = vm.catalogoSelected.id;
                 newCatalogoInsumo.nombre = vm.catalogoSelected.descripcion;
-                newCatalogoInsumo.cantidad =parseFloat( vm.catalogoSelected.tipos_equipo[0].cantidad);
+                newCatalogoInsumo.cantidad = parseFloat(vm.catalogoSelected.tipos_equipo[0].cantidad);
                 newCatalogoInsumo.notas = vm.catalogoSelected.tipos_equipo[0].descripcion;
                 vm.insumos_loteUsados.push(newCatalogoInsumo);
 
@@ -459,13 +432,14 @@
 
 
         }
+
         function editCatalogoInsumo() {
             if (vm.insumoLote.id != null) {
                 var newCatalogoInsumo = {};
-                vm.catalogoSelected.id= vm.insumoLote.id;
-                vm.catalogoSelected.descripcion=vm.insumoLote.nombre;
-                vm.catalogoSelected.tipos_equipo[0].cantidad=parseFloat(vm.insumoLote.cantidad);
-                vm.catalogoSelected.tipos_equipo[0].descripcion=vm.insumoLote.notas;
+                vm.catalogoSelected.id = vm.insumoLote.id;
+                vm.catalogoSelected.descripcion = vm.insumoLote.nombre;
+                vm.catalogoSelected.tipos_equipo[0].cantidad = parseFloat(vm.insumoLote.cantidad);
+                vm.catalogoSelected.tipos_equipo[0].descripcion = vm.insumoLote.notas;
 
 
                 newCatalogoInsumo.id = vm.catalogoSelected.id;
@@ -485,6 +459,7 @@
 
 
         }
+
         //Dialog de Info de Etapa
         vm.verInfo = function () {
             $mdDialog.show({
@@ -504,7 +479,7 @@
 
         function eliminarInsumo(insu) {
             var index;
-            //var Insumos=[];
+
 
             for (index = 0; index < vm.insumos.length; ++index) {
                 if (vm.insumos[index].id == insu.id) {
@@ -515,10 +490,9 @@
                 }
             }
         }
+
         function eliminarCatalogoInsumo(insu) {
             var index;
-            //var Insumos=[];
-
             for (index = 0; index < vm.insumos_loteUsados.length; ++index) {
                 if (vm.insumos_loteUsados[index].id == insu.id) {
                     vm.insumos_loteUsados.splice(index, 1);
