@@ -167,7 +167,7 @@
             },
             "Confirm":{
                 "Title":"Confirmar Entrada",
-                "Message":"La entrada tiene cabinets no registrados ¿Desea continuar?",
+                "Message":"La entrada tiene cabinets no registrados ¿Desea continuar?"
             }
         },
         "Tabs": {
