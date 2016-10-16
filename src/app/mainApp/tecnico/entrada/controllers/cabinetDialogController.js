@@ -7,7 +7,7 @@
     angular
         .module('app.mainApp.tecnico')
         .controller('CabinetDialogController',CabinetDialogController);
-    function CabinetDialogController($mdDialog, Cabinet, MarcaCabinet, ModeloCabinet){
+    function CabinetDialogController($mdDialog, Cabinet, MarcaCabinet, ModeloCabinet, cabinetID){
         var vm = this;
 
         //Functions
@@ -41,12 +41,18 @@
         function activate(){
             vm.cabinet=angular.copy(cabinet);
             vm.marca=null;
+            vm.cabinet.economico=cabinetID;
             vm.marcas=MarcaCabinet.list();
             vm.modelos=[];
         }
 
         function filterModels(){
-            vm.modelos=MarcaCabinet.getModels(vm.marca.id);
+            MarcaCabinet.getModels(vm.marca.id).then(function(res){
+                console.log(res);
+            }).catch(function(err){
+
+            });
+            console.log(vm.modelos);
         }
         
         function create(){

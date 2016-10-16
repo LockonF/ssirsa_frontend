@@ -342,12 +342,17 @@
             }).descripcion;
         }
         
-        function showCabinetDialog(){
+        function showCabinetDialog(economico){
             $mdDialog.show({
                 controller: 'CabinetDialogController',
                 controllerAs: 'vm',
                 templateUrl: 'app/mainApp/tecnico/entrada/dialogs/cabinet.tmpl.html',
-                focusOnOpen: true
+                fullscreen: true,
+                clickOutsideToClose:true,
+                focusOnOpen: true,
+                locals:{
+                    cabinetID:economico
+                }
             }).then(function (res) {
                 console.log(res);
             });

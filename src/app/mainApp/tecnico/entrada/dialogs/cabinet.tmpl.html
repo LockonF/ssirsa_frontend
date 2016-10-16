@@ -5,17 +5,12 @@
                 <span>{{'INPUT.Dialogs.Cabinet.Title'|translate}}</span>
             </h2>
             <span flex></span>
-            <md-button class="md-icon-button" ng-click="vm.cancelClick()" aria-label="cancel">
+            <md-button class="md-icon-button" ng-click="vm.cancel()" aria-label="cancel">
                 <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
             </md-button>
         </div>
     </md-toolbar>
     <div layout="column" flex layout-padding layout-align-gt-md="center center" layout-align="center stretch">
-        <md-toolbar>
-            <div class="md-toolbar-tools">
-                <h2>{{'INPUT.Create Brand'|translate}}</h2>
-            </div>
-        </md-toolbar>
         <md-dialog-content layout="column">
             <form name="cabinetForm" novalidate="">
                 <div layour="row">
@@ -25,6 +20,7 @@
                                md-no-asterisk=""
                                required=""
                                type="text"
+                               disabled="true"
                                ng-model="vm.cabinet.economico"/>
                         <div ng-messages="brandForm.CabinetEconomic.$error">
                             <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>

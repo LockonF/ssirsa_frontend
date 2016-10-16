@@ -251,7 +251,7 @@
                                         <md-list>
                                             <md-list-item ng-repeat="cabinet in vm.notFoundCabinets">
                                                 <div layout="row" flex="100">
-                                                    <md-button>{{cabinet}}</md-button>
+                                                    <md-button ng-click="vm.showCabinetDialog(cabinet)">{{cabinet}}</md-button>
                                                 </div>
                                                 <md-divider></md-divider>
                                             </md-list-item>
