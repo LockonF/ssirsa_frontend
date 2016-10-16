@@ -7,7 +7,7 @@
         .filter('sucursalSearch', sucursalSearch);
 
     /* @ngInject */
-    function SucursalController(Sucursal, $scope, toastr, Translate,$mdDialog) {
+    function SucursalController(Sucursal, $scope, toastr,Helper, Translate,$mdDialog) {
 
         var vm = this;
 
@@ -46,7 +46,12 @@
 
 
         function activate() {
-            vm.sucursales = Sucursal.list();
+            Sucursal.listObject().then(function (res) {
+                vm.sucursales =Helper.filterDeleted(res,true);
+                vm.sucursales=_.sortBy(vm.sucursales, 'nombre');
+            });
+
+
         }
         function remove(ev) {
             var confirm = $mdDialog.confirm()
@@ -92,6 +97,7 @@
             $scope.SucursalForm.$setUntouched();
             vm.sucursal = angular.copy(sucursal);
             vm.selectedSucursalList = null;
+            vm.numberBuffer=null;
         }
         function selectedItemChange(item)
         {
