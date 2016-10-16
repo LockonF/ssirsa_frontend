@@ -10,5 +10,6 @@
 
     function Reportes(Restangular){
         var path= Restangular.all('report_builder').all('api');
+        
     }
 })();
