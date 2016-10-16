@@ -219,7 +219,7 @@
         //Nuevos Endpoints por nuevos requerimentos y reeconstruccion Etapa Servicio
         function BusquedaCatalogoTypeStep(data){
             var deferred =$q.defer();
-            Restangular.all("catalogo_insumos").one("tipo", data.idTipo).one("etapa", data.idEtapa).customGET().then(function (res) {
+            Restangular.all("catalogo_insumos").one("tipo", data.idTipo).all("etapa").customGET(data.idEtapa).then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);

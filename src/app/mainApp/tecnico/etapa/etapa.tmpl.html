@@ -136,9 +136,9 @@
                         </div>
                     </form>
                 </div>
-                <div layout="row" layout-sm="column" layout-md="column" ng-show="vm.insumosLote.length!=0">
+                <div layout="row" layout-sm="column" layout-md="column" ng-show="vm.insumos_loteUsados.length!=0">
                     <md-table-container>
-                        <table md-table="" md-row-select="vm.insumoLote" md-auto-select ng-model="vm.insumosLote" flex="100">
+                        <table md-table="" md-row-select="vm.insumoLote" md-auto-select ng-model="vm.insumos_loteUsados" flex="100">
                             <thead md-head="" md-order="vm.query.order">
                             <tr md-row="md-row">
                                 <th md-column="md-column" md-order-by="nombre" flex="25"><span
@@ -154,12 +154,12 @@
                             <tbody md-body="md-body">
                             <tr md-row="md-row" md-select="insu" md-select-id="{{insu.id}}"
                                 ng-repeat="insu in vm.insumosLote| orderBy:vm.query.order">
-                                <td md-cell="md-cell" flex="25">{{insu.descripcion}}</td>
+                                <td md-cell="md-cell" flex="25">{{insu.nombre}}</td>
                                 <td md-cell="md-cell" flex="15" ng-click='vm.edit($event,insumos,"cantidad")'>
-                                    {{insu.tipos_equipo[0].cantidad}}
+                                    {{insu.cantidad}}
                                 </td>
                                 <td md-cell="md-cell" flex="50" ng-click='vm.edit($event,insumos,"notas")'>
-                                    {{insu.tipos_equipo[0].descripcion}}
+                                    {{insu.descripcion}}
                                 </td>
                                 <td md-cell="md-cell" ng-click="$event.stopPropagation()" flex="10">
                                     <md-button ng-click="vm.eliminarInsumo(insu)"

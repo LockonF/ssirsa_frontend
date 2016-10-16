@@ -132,11 +132,12 @@
 
                                     vm.insumos = res;
                                     getInsumosLote();
+                                    transformArrayCatalogoInsumos();
 
 
                                 }).catch(function (res) {
                                     notifyError(res.status);
-                                })
+                                });
                                 vm.insumos = vm.etapaActual.insumos;
 
                                 if ((vm.etapaActual.actual_etapa == 'EC') || (vm.etapaActual.actual_etapa == 'ED')|| (vm.etapaActual.actual_etapa == 'EO'))
@@ -234,6 +235,16 @@
 
 
         }
+        function transformArrayCatalogoInsumos(){
+            vm.insumosLote.foreach(function (insulote, index){
+                vm.insumos_loteUsados[index].id=insulote.id;
+                vm.insumos_loteUsados[index].cantidad=insulote.tipos_equipo[0].cantidad;
+                vm.insumos_loteUsados[index].nombre=insulote.descripcion;
+                vm.insumos_loteUsados[index].notas=insulote.tipos_equipo[0].cantidad;
+            })
+            console.log(vm.insumos_loteUsados);
+
+        }
 
         function selectInsumo(insumotmp) {
 
@@ -270,10 +281,7 @@
                 notifyError(res.status);
             })
         }
-        function transformArrayCatalogoInsumos(){
-            foreach
 
-        }
 
         function notifyError(status) {
             switch (status) {
