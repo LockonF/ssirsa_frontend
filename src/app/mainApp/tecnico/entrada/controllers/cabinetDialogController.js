@@ -7,11 +7,12 @@
     angular
         .module('app.mainApp.tecnico')
         .controller('CabinetDialogController',CabinetDialogController);
-    function CabinetDialogController(Cabinet, MarcaCabinet, ModeloCabinet){
+    function CabinetDialogController($mdDialog, Cabinet, MarcaCabinet, ModeloCabinet){
         var vm = this;
 
         //Functions
         vm.create=create;
+        vm.cancel=cancelClick;
         vm.filterModels=filterModels;
 
         //Blank variables templates
@@ -49,7 +50,15 @@
         }
         
         function create(){
-            Cabinet.createClean(vm.cabinet);
+            Cabinet.createClean(vm.cabinet).then(function(res){
+                $mdDialog.hide(vm.cabinet);
+            }).catch(function(err){
+                $mdDialog.hide();
+            });
+        }
+
+        function cancelClick(){
+            $mdDialog.cancel();   
         }
         
     }

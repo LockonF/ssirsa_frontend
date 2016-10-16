@@ -343,7 +343,14 @@
         }
         
         function showCabinetDialog(){
-            
+            $mdDialog.show({
+                controller: 'CabinetDialogController',
+                controllerAs: 'vm',
+                templateUrl: 'app/mainApp/tecnico/entrada/dialogs/cabinet.tmpl.html',
+                focusOnOpen: true
+            }).then(function (res) {
+                console.log(res);
+            });
         }
     }
 
