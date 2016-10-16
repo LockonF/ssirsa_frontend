@@ -9,6 +9,7 @@
     function Cabinet($q, Restangular) {
         return {
             create: create,
+            createClean:createClean,
             get: get,
             getAll: getAll,
             remove: remove,
@@ -19,6 +20,16 @@
         function create(request) {
             var deferred = $q.defer();
             Restangular.all('cabinet').customPOST(request).then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            });
+            return deferred.promise;
+        }
+
+        function createClean(data){
+            var deferred = $q.defer();
+            Restangular.all('cabinet').all('clean').customPOST(data).then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);
