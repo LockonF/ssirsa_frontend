@@ -19,7 +19,7 @@
         var cabinet = {
             "economico": "",
             "deleted": false,
-            "status": null,
+            "status": "N/A",
             "id_unilever": "",
             "antiguedad": null,
             "activo": false,
@@ -48,19 +48,18 @@
 
         function filterModels(){
             vm.modelos=MarcaCabinet.getModels(vm.marca);
-            console.log(vm.modelos);
         }
         
         function create(){
             Cabinet.createClean(vm.cabinet).then(function(res){
-                $mdDialog.hide(vm.cabinet);
+                $mdDialog.hide(vm.cabinet.economico);
             }).catch(function(err){
                 $mdDialog.cancel(err);
             });
         }
 
         function cancelClick(){
-            $mdDialog.cancel();   
+            $mdDialog.cancel(null);
         }
         
     }

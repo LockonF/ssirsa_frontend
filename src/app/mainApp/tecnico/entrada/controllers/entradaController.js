@@ -330,9 +330,16 @@
         }
         
         function removeCabinet(id){
-            var index = array.indexOf(id);
+            var index = vm.cabinets.indexOf(id);
             if (index > -1) {
                 vm.cabinets.splice(index, 1);
+            }
+        }
+
+        function removeNotFoundCabinet(id){
+            var index = vm.notFoundCabinets.indexOf(id);
+            if (index > -1) {
+                vm.notFoundCabinets.splice(index, 1);
             }
         }
 
@@ -361,10 +368,15 @@
                     cabinetID:economico
                 }
             }).then(function (res) {
-                console.log(res);
+                vm.existingCabinets.push(res);
+                removeNotFoundCabinet(res);
+                vm.cabinetID=res;
+                addCabinet();
             }).catch(function(err){
-                console.log("Error");
-                console.log(err);
+                if(err!=null) {
+                    console.log("Error");
+                    console.log(err);
+                }
             });
         }
     }
