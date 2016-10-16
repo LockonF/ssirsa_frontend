@@ -14,11 +14,14 @@
 
         var service = {
             list:list,
+            listObject:listObject,
             update:update,
             create:create,
             remove:remove
         };
-
+        function listObject() {
+            return baseProveedor.getList();
+        }
 
         function list(){
             return baseProveedor.getList().$object;

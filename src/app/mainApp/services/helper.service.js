@@ -5,7 +5,7 @@
         .module('app.mainApp')
         .factory('Helper', Helper);
     /**
-     * @author Christian Adan Israel Amezcua Aguilar <camezcua@mimoni.com>
+     * @author Christian Adan Israel Amezcua Aguilar <amezcua9205@gmail.com>
      * @constructor
      */
     function Helper($rootScope, $log) {
@@ -13,8 +13,33 @@
         return {
             acceptFile: acceptFile,
             showNotification: showNotification,
-            addNotificationGlobal: addNotificationGlobal
+            addNotificationGlobal: addNotificationGlobal,
+            filterDeleted:filterDeleted,
+            searchByField:searchByField
         };
+
+        /**
+         * @description Se encarga de filtrar un array mediante la propiedad de "deleted".
+         * @param {Object[]} array - El array que se tiene que filtrar.
+         * @param {Boolean} status - Indica que tipo de elementos queremos que regrese del array.
+         * @returns {Object[]} El array filtrado por la propiedad "deleted"
+         */
+        function filterDeleted(array,status) {
+            return  _.filter(array, function(obj){
+                return !(obj.deleted==status);
+            });
+        }
+        /**
+         * @description Se encarga de buscar y regresar un objeto dentro de un array mediante su id
+         * @param {Object[]} array - El array que se tiene que filtrar.
+         * @param {number} value - Indica el id del elemento a buscar
+         * @returns {Object|undefined} El resultado de la búsqueda.
+         */
+        function searchByField(array,value) {
+            return _.findWhere(array, {
+                id: value
+            });
+        }
 
 
         /**

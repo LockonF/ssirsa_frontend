@@ -197,13 +197,34 @@
         }
 
         function activate() {
-            vm.lineasTransporte = LineaTransporte.list();
-            vm.tiposTransporte = TipoTransporte.list();
-            vm.Sucursales = Sucursal.list();
-            vm.Proyectos = Proyectos.list();
-            vm.udns = udn.list();
-            vm.modelos = ModeloCabinet.list();
-            vm.tipoEquipos = TipoEquipo.list();
+
+            LineaTransporte.listObject().then(function (res) {
+                vm.lineasTransporte =Helper.filterDeleted(res,true);
+                vm.lineasTransporte=_.sortBy(vm.lineasTransporte, 'razon_social');
+            });
+            TipoTransporte.listObject().then(function (res) {
+                vm.tiposTransporte =Helper.filterDeleted(res,true);
+                vm.tiposTransporte=_.sortBy(vm.tiposTransporte, 'descripcion');
+            });
+            Sucursal.listObject().then(function (res) {
+                vm.Sucursales =Helper.filterDeleted(res,true);
+                vm.Sucursales=_.sortBy(vm.Sucursales, 'nombre');
+            });
+             Proyectos.listObject().then(function (res) {
+                vm.Proyectos =Helper.filterDeleted(res,true);
+                vm.Proyectos=_.sortBy(vm.Proyectos, 'descripcion');
+            });
+              udn.listObject().then(function (res) {
+                vm.udns  =Helper.filterDeleted(res,true);
+                vm.udns =_.sortBy(vm.udns , 'agencia');
+            });
+             ModeloCabinet.listWitout().then(function (res) {
+                vm.modelos  =Helper.filterDeleted(res,true);
+            });
+             TipoEquipo.listWitout().then(function (res) {
+                vm.tipoEquipos  =Helper.filterDeleted(res,true);
+                vm.tipoEquipos =_.sortBy(vm.tipoEquipos , 'nombre');
+            });
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
@@ -248,7 +269,8 @@
             vm.hideRegisteredCabinets = true;
             vm.loading = true;
             EntradaSalida.getCabinetsEntrada().then(function (res) {
-                vm.cabinetsEntrada = res;
+                vm.cabinetsEntrada = Helper.filterDeleted(res,true);
+                vm.cabinetsEntrada =_.sortBy(vm.cabinetsEntrada , 'economico');
                 vm.loading = false;
             });
         }

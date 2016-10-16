@@ -15,9 +15,12 @@
             update:update,
             create:create,
             get:get,
-            remove: remove
+            remove: remove,
+            listObject:listObject
         };
-
+        function listObject() {
+            return baseModelo.getList();
+        }
         function get(id) {
             return baseModelo.get(id);
         }

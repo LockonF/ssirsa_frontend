@@ -7,7 +7,7 @@
         .filter('modeloSearch', modeloSearch);
 
     /* @ngInject */
-    function ModeloCabinetController(ModeloCabinet,TipoEquipo, $scope, toastr, Translate, $mdDialog, MarcaCabinet) {
+    function ModeloCabinetController(ModeloCabinet,TipoEquipo, $scope, toastr,Helper, Translate, $mdDialog, MarcaCabinet) {
 
         var vm = this;
         vm.lookup = lookup;
@@ -18,6 +18,8 @@
         vm.create = create;
         vm.remove=remove;
         vm.update=update;
+
+        vm.disabled=disabled;
         vm.search_items = [];
         vm.searchText = '';
         var modelo = {
@@ -45,9 +47,21 @@
             vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
             vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
         }
+        function disabled(id,tipoArray) {
+            if(id!=null) {
+                if(tipoArray==="tipo") {
+                    return Helper.searchByField(vm.tipoEquipos, id).deleted;
+                }else{
+                    return Helper.searchByField(vm.marcas, id).deleted;
+                }
 
+            }
+        }
         function activate() {
-            vm.modelos = ModeloCabinet.list();
+            ModeloCabinet.listWitout().then(function (res) {
+                vm.modelos =Helper.filterDeleted(res,true);
+                vm.modelos=_.sortBy(vm.modelos, 'nombre');
+            });
             vm.marcas = MarcaCabinet.list();
             vm.tipoEquipos = TipoEquipo.list();
         }
