@@ -8,7 +8,8 @@
         .module('app.mainApp.tecnico')
         .controller('entradaController', entradaController);
 
-    function entradaController(EntradaSalida, toastr, $mdDialog, MarcaCabinet, ModeloCabinet, Sucursal, udn, Proyectos, TipoTransporte, LineaTransporte, Translate, $scope, Cabinet) {
+    function entradaController(EntradaSalida, toastr, $mdDialog, MarcaCabinet, ModeloCabinet, Sucursal, udn,
+                               Proyectos, TipoTransporte, LineaTransporte, Translate, $scope, Cabinet, Helper) {
         var vm = this;
         vm.isGarantia=false;
         vm.isPedimento=false;
@@ -96,11 +97,31 @@
             vm.existingCabinets = Cabinet.getEconomics();
 
             angular.copy(vm.entrada,entrada);
-            vm.lineasTransporte=LineaTransporte.list();
-            vm.tiposTransporte = TipoTransporte.list();
-            vm.Sucursales = Sucursal.list();
-            vm.Proyectos = Proyectos.list();
-            vm.udns = udn.list();
+            LineaTransporte.listObject().then(function (res) {
+                vm.lineasTransporte =Helper.filterDeleted(res,true);
+                vm.lineasTransporte=_.sortBy(vm.lineasTransporte, 'razon_social');
+            });
+            TipoTransporte.listObject().then(function (res) {
+                vm.tiposTransporte =Helper.filterDeleted(res,true);
+                vm.tiposTransporte=_.sortBy(vm.tiposTransporte, 'descripcion');
+            });
+            Sucursal.listObject().then(function (res) {
+                vm.Sucursales =Helper.filterDeleted(res,true);
+                vm.Sucursales=_.sortBy(vm.Sucursales, 'nombre');
+            });
+            Proyectos.listObject().then(function (res) {
+                vm.Proyectos =Helper.filterDeleted(res,true);
+                vm.Proyectos=_.sortBy(vm.Proyectos, 'descripcion');
+            });
+            udn.listObject().then(function (res) {
+                vm.udns  =Helper.filterDeleted(res,true);
+                vm.udns =_.sortBy(vm.udns , 'agencia');
+            });
+            // vm.lineasTransporte=LineaTransporte.list();
+            // vm.tiposTransporte = TipoTransporte.list();
+            // vm.Sucursales = Sucursal.list();
+            // vm.Proyectos = Proyectos.list();
+            // vm.udns = udn.list();
         }
 
         function guardar() {
