@@ -58,8 +58,9 @@
                     <md-select name="selectBrand"
                                ng-model="vm.marca"
                                required=""
+                               md-on-close="vm.filterModels()"
                                md-no-asterisk="">
-                        <md-option ng-repeat="marca in marcas" value="{{marca.id}}">{{marca.descripcion}}
+                        <md-option ng-repeat="marca in vm.marcas" value="{{marca.id}}">{{marca.descripcion}}
                         </md-option>
                     </md-select>
                     <div ng-messages="entradaForm.selectBrand.$error">
@@ -71,8 +72,9 @@
                     <md-select name="selectModel"
                                ng-model="vm.cabinet.modelo"
                                required=""
+                               ng-disabled="vm.marca==null"
                                md-no-asterisk="">
-                        <md-option ng-repeat="modelo in modelo" value="{{modelo.id}}">{{marca.descripcion}}
+                        <md-option ng-repeat="modelo in vm.modelos" value="{{modelo.id}}">{{modelo.nombre}}
                         </md-option>
                     </md-select>
                     <div ng-messages="entradaForm.selectModel.$error">
@@ -82,10 +84,10 @@
             </form>
         </md-dialog-content>
         <md-dialog-actions layout="row" layout-align="end center">
-            <md-button ng-click="cancel()" md-no-ink class="md-primary">
+            <md-button ng-click="vm.cancel()" md-no-ink class="md-primary">
                 {{'INPUT.Cancel'|translate}}
             </md-button>
-            <md-button ng-click="registrarCabinet()" ng-disabled="cabinetForm.$invalid" md-no-ink class="md-primary">
+            <md-button ng-click="vm.create()" ng-disabled="cabinetForm.$invalid" md-no-ink class="md-primary">
                 {{'INPUT.Save'|translate}}
             </md-button>
         </md-dialog-actions>

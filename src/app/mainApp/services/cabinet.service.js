@@ -28,13 +28,7 @@
         }
 
         function createClean(data){
-            var deferred = $q.defer();
-            Restangular.all('cabinet').all('clean').customPOST(data).then(function (res) {
-                deferred.resolve(res);
-            }).catch(function (err) {
-                deferred.reject(err);
-            });
-            return deferred.promise;
+            return Restangular.all('cabinet').all('clean').customPOST(data);
         }
 
         function get(no_serie) {
