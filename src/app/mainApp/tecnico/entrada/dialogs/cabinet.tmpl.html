@@ -13,7 +13,7 @@
     <div layout="column" flex layout-padding layout-align="center stretch">
         <md-dialog-content layout="column">
             <form name="cabinetForm" novalidate="">
-                <div layour="row">
+                <div layout="row">
                     <md-input-container class="md-block">
                         <label>{{'INPUT.Dialogs.Cabinet.Economic'|translate}}</label>
                         <input name="CabinetEconomic"
@@ -38,6 +38,23 @@
                         </div>
                     </md-input-container>
                 </div>
+                <md-input-container class="md-block">
+                    <label>{{'INPUT.Dialogs.Cabinet.Year'|translate}}</label>
+                    <input name="CabinetSerial"
+                           only-digit=""
+                           md-no-asterisk=""
+                           required=""
+                           type="number"
+                           ng-model="vm.cabinet.year"
+                           min="1900"
+                           max="2100"
+                    />
+                    <div ng-messages="cabinetForm.CabinetSerial.$error">
+                        <div ng-message="min">{{'INPUT.Year Field'|translate}}</div>
+                        <div ng-message="max">{{'INPUT.Year Field'|translate}}</div>
+                        <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
+                    </div>
+                </md-input-container>
                 <md-input-container class="md-block">
                     <label>{{'INPUT.Dialogs.Cabinet.Serial'|translate}}</label>
                     <input name="CabinetSerial"

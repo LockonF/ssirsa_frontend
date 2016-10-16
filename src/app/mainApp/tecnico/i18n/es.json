@@ -162,7 +162,8 @@
                 "Active":"Activo",
                 "Serial":"Número de Serie",
                 "Brand":"Marca",
-                "Model":"Modelo"
+                "Model":"Modelo",
+                "Year":"Año"
             }
         },
         "Tabs": {
@@ -175,7 +176,8 @@
         "Cabinets":"Cabinets",
         "Registered Cabinets":"Cabinets Registrados",
         "Unregistered Cabinets":"Cabinets No Registrados",
-        "UDN": "Agencia"
+        "UDN": "Agencia",
+        "Year Field":"Año inválido"
     },
     "OUTPUT": {
         "FORM": {

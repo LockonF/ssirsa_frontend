@@ -27,7 +27,7 @@
             "no_serie": "",
             "tipo_entrada": "",
             "year": null,
-            "no_incidencias": null,
+            "no_incidencias": "1",
             "linea_x": null,
             "linea_y": null,
             "linea_z": null,
@@ -55,7 +55,7 @@
             Cabinet.createClean(vm.cabinet).then(function(res){
                 $mdDialog.hide(vm.cabinet);
             }).catch(function(err){
-                $mdDialog.hide();
+                $mdDialog.cancel(err);
             });
         }
 
