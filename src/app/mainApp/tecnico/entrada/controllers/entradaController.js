@@ -78,7 +78,7 @@
         vm.warningTitle=Translate.translate('MAIN.MSG.WARNING_TITLE');
         vm.errorTitle=Translate.translate('MAIN.MSG.ERROR_TITLE');
         vm.sucessMassive=Translate.translate('INPUT.Messages.SuccessMassive');
-        vm.successNormal=Translate.translate('INPUT.Messages.SucessNormal');
+        vm.successNormal=Translate.translate('INPUT.Messages.SuccessNormal');
         vm.warning=Translate.translate('INPUT.Messages.Warning');
         vm.errorMassive=Translate.translate('INPUT.Messages.ErrorMassive');
         vm.errorNormal=Translate.translate('INPUT.Messages.ErrorNormal');
@@ -186,29 +186,32 @@
                         .ok(vm.acceptButton)
                         .cancel(vm.cancelButton);
                     $mdDialog.show(confirm).then(function() {
-                        postManual();
+                        postManual(fd);
                     },function(){
                         //Cancelled
                     });
                 }
                 else{
-                    postManual();
+                    postManual(fd);
                 }
 
             }
 
         }
 
-        function postManual(){
+        function postManual(fd){
             EntradaSalida.postEntrada(fd).then(function (res) {
                 var request={
-                    entrada_salida: res.id,
-                    economico:  _.pluck(vm.cabinets,"economico")
+                    "entrada_salida": res.id,
+                    "economico": _.map(vm.cabinets,function(element){
+                            return {"economico":element.economico};
+                        }
+                    )
                 };
                 CabinetEntradaSalida.create(request).then(function(){
                     toastr.success(vm.successNormal, vm.successTitle);
                     limpiar();
-                }).catch(function(){
+                }).catch(function(err){
                     toastr.error(vm.errorNormal, vm.errorTitle);
                 });
 
@@ -424,7 +427,7 @@
                 addCabinet();
             }).catch(function(err){
                 if(err!=null) {
-                    
+
                 }
             });
         }
