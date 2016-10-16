@@ -156,22 +156,11 @@
                 });
             }
             else {
-                if(vm.notFoundCabinet.length>0) {
-                    EntradaSalida.postEntrada(fd).then(function (res) {
-                        console.log(res);
-                        toastr.success(vm.successNormal, vm.successTitle);
-                        limpiar();
-
-                    }).catch(function (err) {
-                        toastr.error(vm.errorNormal, vm.errorTitle);
-                        console.log(err);
-                    });
-                }
-                else{
+                if(vm.notFoundCabinet.length==0) {
                     var confirm = $mdDialog.confirm()
                         .title(vm.dialogTitle)
                         .textContent(vm.dialogMessage)
-                        .ariaLabel('Confirmar eliminación')
+                        .ariaLabel('Confirmar guardado')
                         .ok(vm.acceptButton)
                         .cancel(vm.cancelButton);
                     $mdDialog.show(confirm).then(function() {
@@ -186,6 +175,17 @@
                         });
                     },function(){
                         //Cancelled
+                    });
+                }
+                else{
+                    EntradaSalida.postEntrada(fd).then(function (res) {
+                        console.log(res);
+                        toastr.success(vm.successNormal, vm.successTitle);
+                        limpiar();
+
+                    }).catch(function (err) {
+                        toastr.error(vm.errorNormal, vm.errorTitle);
+                        console.log(err);
                     });
                 }
 
