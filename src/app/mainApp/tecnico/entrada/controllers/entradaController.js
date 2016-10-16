@@ -8,8 +8,10 @@
         .module('app.mainApp.tecnico')
         .controller('entradaController', entradaController);
 
-    function entradaController(EntradaSalida, toastr, $mdDialog, MarcaCabinet, ModeloCabinet, Sucursal, udn,
-                               Proyectos, TipoTransporte, LineaTransporte, Translate, $scope, Cabinet, Helper) {
+    function entradaController(EntradaSalida, toastr, $mdDialog, MarcaCabinet,
+                               ModeloCabinet, Sucursal, udn, CabinetEntradaSalida,
+                               Proyectos, TipoTransporte, LineaTransporte, Translate,
+                               $scope, Cabinet, Helper) {
         var vm = this;
         vm.isGarantia=false;
         vm.isPedimento=false;
@@ -173,7 +175,6 @@
                     }
                 }).catch(function (err) {
                     toastr.error(vm.errorMassive, vm.errorTitle);
-                    console.log(err);
                 });
             }
             else {
@@ -185,33 +186,35 @@
                         .ok(vm.acceptButton)
                         .cancel(vm.cancelButton);
                     $mdDialog.show(confirm).then(function() {
-                        EntradaSalida.postEntrada(fd).then(function (res) {
-                            console.log(res);
-                            toastr.success(vm.successNormal, vm.successTitle);
-                            limpiar();
-
-                        }).catch(function (err) {
-                            toastr.error(vm.errorNormal, vm.errorTitle);
-                            console.log(err);
-                        });
+                        postManual();
                     },function(){
                         //Cancelled
                     });
                 }
                 else{
-                    EntradaSalida.postEntrada(fd).then(function (res) {
-                        console.log(res);
-                        toastr.success(vm.successNormal, vm.successTitle);
-                        limpiar();
-
-                    }).catch(function (err) {
-                        toastr.error(vm.errorNormal, vm.errorTitle);
-                        console.log(err);
-                    });
+                    postManual();
                 }
 
             }
 
+        }
+
+        function postManual(){
+            EntradaSalida.postEntrada(fd).then(function (res) {
+                var request={
+                    entrada_salida: res.id,
+                    economico:  _.pluck(vm.cabinets,"economico")
+                };
+                CabinetEntradaSalida.create(request).then(function(){
+                    toastr.success(vm.successNormal, vm.successTitle);
+                    limpiar();
+                }).catch(function(){
+                    toastr.error(vm.errorNormal, vm.errorTitle);
+                });
+
+            }).catch(function (err) {
+                toastr.error(vm.errorNormal, vm.errorTitle);
+            });
         }
 
         function limpiar(){
@@ -274,7 +277,7 @@
             EntradaSalida.postEntradaMasiva(vm.entrada).then(function (res) {
                 vm.responseMassiveUpload = res;
             }).catch(function (err) {
-                console.log(err);
+
             });
         }
 
@@ -421,8 +424,7 @@
                 addCabinet();
             }).catch(function(err){
                 if(err!=null) {
-                    console.log("Error");
-                    console.log(err);
+                    
                 }
             });
         }
