@@ -164,6 +164,10 @@
                 "Brand":"Marca",
                 "Model":"Modelo",
                 "Year":"Año"
+            },
+            "Confirm":{
+                "Title":"Confirmar Entrada",
+                "Message":"La entrada tiene cabinets no registrados ¿Desea continuar?",
             }
         },
         "Tabs": {

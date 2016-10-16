@@ -81,6 +81,10 @@
         vm.errorNormal=Translate.translate('INPUT.Messages.ErrorNormal');
         vm.errorCabinet=Translate.translate('INPUT.Messages.ErrorCabinet');
         vm.notFoundCabinet=Translate.translate('INPUT.Messages.NotFoundCabinet');
+        vm.acceptButton=Translate.translate('MAIN.BUTTONS.ACCEPT');
+        vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
+        vm.dialogTitle=Translate.translate('INPUT.Dialogs.Confirm.Title');
+        vm.dialogMessage=Translate.translate('INPUT.Dialogs.Confirm.Message');
 
         activate();
 
@@ -152,19 +156,39 @@
                 });
             }
             else {
-                EntradaSalida.postEntrada(fd).then(function (res) {
-                    if(vm.notFoundCabinet.length>0) {
+                if(vm.notFoundCabinet.length>0) {
+                    EntradaSalida.postEntrada(fd).then(function (res) {
                         console.log(res);
                         toastr.success(vm.successNormal, vm.successTitle);
                         limpiar();
-                    }
-                    else{
 
-                    }
-                }).catch(function (err) {
-                    toastr.error(vm.errorNormal, vm.errorTitle);
-                    console.log(err);
-                });
+                    }).catch(function (err) {
+                        toastr.error(vm.errorNormal, vm.errorTitle);
+                        console.log(err);
+                    });
+                }
+                else{
+                    var confirm = $mdDialog.confirm()
+                        .title(vm.dialogTitle)
+                        .textContent(vm.dialogMessage)
+                        .ariaLabel('Confirmar eliminación')
+                        .ok(vm.acceptButton)
+                        .cancel(vm.cancelButton);
+                    $mdDialog.show(confirm).then(function() {
+                        EntradaSalida.postEntrada(fd).then(function (res) {
+                            console.log(res);
+                            toastr.success(vm.successNormal, vm.successTitle);
+                            limpiar();
+
+                        }).catch(function (err) {
+                            toastr.error(vm.errorNormal, vm.errorTitle);
+                            console.log(err);
+                        });
+                    },function(){
+                        //Cancelled
+                    });
+                }
+
             }
 
         }
@@ -267,6 +291,7 @@
                 $mdDialog.cancel();
             });
         }
+        
         function modeloDialogController($scope, $mdDialog) {
             $scope.marcas = null;
             $scope.marcas = MarcaCabinet.list();

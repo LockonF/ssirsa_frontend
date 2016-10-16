@@ -98,6 +98,7 @@
     },
     "BUTTONS": {
       "SUBMIT": "Enviar",
+      "ACCEPT":"Aceptar",
       "UPDATE": "Actualizar",
       "CANCEL": "Cancelar",
       "DELETE": "Eliminar",
