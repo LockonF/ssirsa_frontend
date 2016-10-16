@@ -438,7 +438,7 @@
                 var newCatalogoInsumo = {};
                 newCatalogoInsumo.id = vm.catalogoSelected.id;
                 newCatalogoInsumo.nombre = vm.catalogoSelected.descripcion;
-                newCatalogoInsumo.cantidad = vm.catalogoSelected.tipos_equipo[0].cantidad;
+                newCatalogoInsumo.cantidad =parseFloat( vm.catalogoSelected.tipos_equipo[0].cantidad);
                 newCatalogoInsumo.notas = vm.catalogoSelected.tipos_equipo[0].descripcion;
                 vm.insumos_loteUsados.push(newCatalogoInsumo);
 
@@ -458,13 +458,13 @@
                 var newCatalogoInsumo = {};
                 vm.catalogoSelected.id= vm.insumoLote.id;
                 vm.catalogoSelected.descripcion=vm.insumoLote.nombre;
-                vm.catalogoSelected.tipos_equipo[0].cantidad=vm.insumoLote.cantidad;
-                vm.catalogoSelected.tipos_equipo[0].descripcion=vm.insumoLote.nots;
+                vm.catalogoSelected.tipos_equipo[0].cantidad=parseFloat(vm.insumoLote.cantidad);
+                vm.catalogoSelected.tipos_equipo[0].descripcion=vm.insumoLote.notas;
 
 
                 newCatalogoInsumo.id = vm.catalogoSelected.id;
                 newCatalogoInsumo.nombre = vm.catalogoSelected.descripcion;
-                newCatalogoInsumo.cantidad = vm.catalogoSelected.tipos_equipo[0].cantidad;
+                newCatalogoInsumo.cantidad = parseFloat(vm.catalogoSelected.tipos_equipo[0].cantidad);
                 newCatalogoInsumo.notas = vm.catalogoSelected.tipos_equipo[0].descripcion;
                 vm.insumos_loteUsados.push(newCatalogoInsumo);
 
@@ -507,10 +507,20 @@
                 else {
                     notifyError(404);
                 }
-
-
             }
+        }
+        function eliminarCatalogoInsumo(insu) {
+            var index;
+            //var Insumos=[];
 
+            for (index = 0; index < vm.insumos_loteUsados.length; ++index) {
+                if (vm.insumos_loteUsados[index].id == insu.id) {
+                    vm.insumos_loteUsados.splice(index, 1);
+                }
+                else {
+                    notifyError(404);
+                }
+            }
         }
 
 

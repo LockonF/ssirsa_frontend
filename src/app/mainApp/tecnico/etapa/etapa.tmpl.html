@@ -117,13 +117,11 @@
                             </md-input-container>
                             <md-input-container flex="50">
                                 <label translate>ETAPA_SERVICIO.NOTES</label>
-                                <input name="notas" type="text" ng-model="vm.catalogoSelected.tipos_equipo[0].cantidad"
+                                <input name="notas" type="text" ng-model="vm.catalogoSelected.tipos_equipo[0].descripcion"
                                        ng-disabled="vm.editable"
                                        md-maxlength="45"
-                                       required maxlength="45" minlength="2"/>
+                                        maxlength="45" minlength="2"/>
                                 <div ng-messages="form.insumoFormEtapa.notas.$error">
-
-                                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                 </div>
                             </md-input-container>
                             <md-input-container flex="10">
@@ -153,7 +151,7 @@
                             </thead>
                             <tbody md-body="md-body">
                             <tr md-row="md-row" md-select="insu" md-select-id="{{insu.id}}"
-                                ng-repeat="insu in vm.insumosLote| orderBy:vm.query.order">
+                                ng-repeat="insu in vm.insumos_loteUsados| orderBy:vm.query.order">
                                 <td md-cell="md-cell" flex="25">{{insu.nombre}}</td>
                                 <td md-cell="md-cell" flex="15" ng-click='vm.edit($event,insumos,"cantidad")'>
                                     {{insu.cantidad}}
@@ -162,7 +160,7 @@
                                     {{insu.descripcion}}
                                 </td>
                                 <td md-cell="md-cell" ng-click="$event.stopPropagation()" flex="10">
-                                    <md-button ng-click="vm.eliminarInsumo(insu)"
+                                    <md-button ng-click="vm.eliminarCatalogoInsumo(insu)"
                                                class="md-fab md-warn md-mini">
                                         <md-icon md-font-icon="fa fa-times-circle"></md-icon>
                                     </md-button>
