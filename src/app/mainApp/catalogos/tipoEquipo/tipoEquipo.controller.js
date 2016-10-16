@@ -7,7 +7,7 @@
         .filter('tipoSearch', tipoSearch);
 
     /* @ngInject */
-    function TipoEquipoController(TipoEquipo, $scope, toastr, Translate, $mdDialog) {
+    function TipoEquipoController(TipoEquipo, $scope,Helper, toastr, Translate, $mdDialog) {
 
         var vm = this;
         vm.lookup = lookup;
@@ -42,7 +42,10 @@
         }
 
         function activate() {
-            vm.tipo_equipos = TipoEquipo.list();
+            TipoEquipo.listWitout().then(function (res) {
+                vm.tipo_equipos =Helper.filterDeleted(res,true);
+                vm.tipo_equipos=_.sortBy(vm.tipo_equipos, 'nombre');
+            })
         }
         function selectedItemChange(item)
         {
