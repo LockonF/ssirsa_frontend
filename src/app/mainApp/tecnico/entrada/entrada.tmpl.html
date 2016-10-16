@@ -155,8 +155,7 @@
                         </md-content>
                     </md-tab>
                     <!--Registro de cabinets-->
-                    <!--ng-disabled="entradaForm.$invalid"-->
-                    <md-tab label = {{'INPUT.Tabs.CabinetsUpload'|translate}} >
+                    <md-tab label = {{'INPUT.Tabs.CabinetsUpload'|translate}} ng-disabled="entradaForm.$invalid">
                         <md-content layout-padding="">
                             <div layout-gt-xs="row" layout="column" layout-align-gt-xs="space-around center" layout-align="center stretch">
                                 <md-button ng-click="vm.showMassiveUpload()" class="md-raised md-primary">{{'INPUT.Cabinets Massive Upload'|translate}}</md-button>
