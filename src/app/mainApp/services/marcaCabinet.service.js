@@ -39,7 +39,7 @@
         }
 
         function getModels(id){
-            return Restangular.all('marca_cabinet').one('models',id).getList();
+            return baseMarca.one('models',id).getList().$object;
         }
 
     }
