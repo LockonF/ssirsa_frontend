@@ -13,9 +13,6 @@
         vm.isGarantia=false;
         vm.isPedimento=false;
 
-        vm.height = window.innerHeight + 'px';
-        vm.myStyle='{"min-height":"'+vm.height+'"}';
-
         vm.guardar = guardar;
         vm.limpiar=limpiar;
         vm.selectionFile = selectionFile;
@@ -92,6 +89,7 @@
             vm.cabinets = [];
             vm.cabinetID="";
             vm.notFoundCabinets=[];
+            vm.existingCabinets = Cabinet.getEconomics();
 
             angular.copy(vm.entrada,entrada);
             vm.lineasTransporte=LineaTransporte.list();
@@ -215,6 +213,7 @@
         function showManualUpload() {
             vm.hideManualUpload = false;
             vm.hideMassiveUpload = true;
+            vm.existingCabinets= _.pluck(vm.existingCabinets,"economico");
         }
 
         function removeImage() {
@@ -299,27 +298,35 @@
         }
 
         function addCabinet(){
-            Cabinet.get(vm.cabinetID).then(function(res){
-                if(vm.cabinets.indexOf(res) != -1) {
-                    toastr.warning(vm.errorCabinet,vm.warning);
-                }
-                else {
-                    var tempCabinet=angular.copy(res);
-                    tempCabinet.modelo=modeloById(res.modelo).nombre;
-                    tempCabinet.marca=marcaById(res.modelo);
-                    vm.cabinets.push(tempCabinet);
-                }
-                vm.cabinetID = "";
-            }).catch(function(err){
-                toastr.warning(vm.notFoundCabinet,vm.warning);
+            if(_.contains(vm.existingCabinets,vm.cabinetID)){
+                Cabinet.get(vm.cabinetID).then(function(res){
+                    if(vm.cabinets.indexOf(res) != -1) {
+                        toastr.warning(vm.errorCabinet,vm.warning);
+                    }
+                    else {
+                        var tempCabinet=angular.copy(res);
+                        tempCabinet.modelo=modeloById(res.modelo).nombre;
+                        tempCabinet.marca=marcaById(res.modelo);
+                        vm.cabinets.push(tempCabinet);
+                    }
+                    vm.cabinetID = "";
+                }).catch(function(err){
+                    toastr.error(vm.notFoundCabinet,vm.errorTitle);
+                    vm.cabinetID = "";
+                });
+            }
+            else{
                 if(vm.notFoundCabinets.indexOf(vm.cabinetID) != -1) {
                     toastr.warning(vm.errorCabinet,vm.warning);
                 }
                 else {
+                    toastr.warning(vm.notFoundCabinet,vm.warning);
                     vm.notFoundCabinets.push(vm.cabinetID);
                 }
                 vm.cabinetID = "";
-            });
+            }
+
+
         }
         
         function removeCabinet(id){

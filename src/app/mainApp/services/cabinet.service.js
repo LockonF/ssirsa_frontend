@@ -12,6 +12,7 @@
             createClean:createClean,
             get: get,
             getAll: getAll,
+            getEconomics:getEconomics,
             remove: remove,
             modify: modify,
             loadByModel:loadByModel
@@ -49,6 +50,10 @@
                 deferred.reject(err);
             });
             return deferred.promise;
+        }
+
+        function getEconomics(){
+            return Restangular.all("cabinet").all("clean").all("economico").getList().$object;
         }
 
         function remove(cabinet) {
