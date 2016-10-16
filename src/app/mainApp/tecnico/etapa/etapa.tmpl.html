@@ -102,7 +102,7 @@
 
                             <md-input-container flex="20">
                                 <label translate>ETAPA_SERVICIO.CANTITY</label>
-                                <input name="cantidad" type="number" ng-model="Number(vm.catalogoSelected.tipos_equipo[0].cantidad)"
+                                <input name="cantidad" pattern="^[0-9]+(\.[0-9]{1,3})?$" ng-model="vm.catalogoSelected.tipos_equipo[0].cantidad"
                                        ng-disabled="vm.editable" required
                                        max="{{vm.catalogoSelected.cantidad}}"/>
 

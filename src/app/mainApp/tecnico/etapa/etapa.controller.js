@@ -236,7 +236,7 @@
 
         }
         function transformArrayCatalogoInsumos(){
-            vm.insumosLote.foreach(function (insulote, index){
+            vm.insumosLote.forEach(function (insulote, index){
                 vm.insumos_loteUsados[index].id=insulote.id;
                 vm.insumos_loteUsados[index].cantidad=insulote.tipos_equipo[0].cantidad;
                 vm.insumos_loteUsados[index].nombre=insulote.descripcion;
