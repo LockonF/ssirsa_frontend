@@ -52,6 +52,8 @@
         {
             MarcaCabinet.listPromise().then(function (res) {
                 vm.marca_cabinet_list = Helper.filterDeleted(res, true);
+                vm.marca_cabinet_list = Helper.sortByAttribute(vm.marca_cabinet_list, 'descripcion')
+
             }).catch(function (err) {
 
             })

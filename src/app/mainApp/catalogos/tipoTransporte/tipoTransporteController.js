@@ -53,6 +53,8 @@
         {
             TipoTransporte.listObject().then(function(res){
                 vm.tipo_transporte_list  = Helper.filterDeleted(res, true);
+                vm.tipo_transporte_list = Helper.sortByAttribute(vm.tipo_transporte_list, 'descripcion');
+
             }).catch(function(err){
 
             });

@@ -52,6 +52,7 @@
         {
             udn.listObject().then(function(res){
                 vm.udn_list = Helper.filterDeleted(res, true);
+                vm.udn_list = Helper.sortByAttribute(vm.udn_list, 'zona')
             }).catch(function(err){
 
             });
@@ -70,7 +71,8 @@
         }
 
         function clickRepeater(item){
-            vm.udn = item.clone();
+            vm.selected_udn = item.clone();
+            vm.udn = vm.selected_udn;
         }
 
         function  cancel(){
@@ -78,6 +80,7 @@
             $scope.inputForm.$setUntouched();
 
             vm.udn = null;
+            vm.selected_udn = null;
         }
 
         function update(){

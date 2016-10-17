@@ -51,7 +51,8 @@
         function listProveedores()
         {
             Proveedor.listObject().then(function(res){
-                vm.proveedor_list  = Helper.filterDeleted(res, true);
+                vm.proveedor_list = Helper.filterDeleted(res, true);
+                vm.proveedor_list = Helper.sortByAttribute(vm.proveedor_list, 'razon_social');
             }).catch(function(err){
 
             });
