@@ -297,24 +297,29 @@
                 siguiente_etapa: ''
 
             };
-
-
             vm.showInsumosSection = true;
-            vm.catalogoInsumos = null;
+            vm.catalogoInsumos = null;//array con todos los caatalogos de insumo disponibles de la etapa
+            vm.catalogoSelected = {};//Elemento del tipo Catalogo de Insumo del insumo que se deseará agregar
             vm.editable = true;
             vm.idCabinet = null;
-            vm.insumos = [];//Arreglo que poseera los Insumos que pueden ser usados en cierta etapa
+            vm.insumos = [];//Arreglo que poseera los Insumos que pueden ser usados en cierta etapa para md table
+            vm.insumosToArray = [];
             vm.cabinet = null;// Informacion general del cabinet al cual se le asignara una nueva etapa
             vm.diagnostico = null;// Informacion del diagnostico que propicio que entrara a un proceso de servicio tecnico
             vm.etapa = null;
-            vm.modelo = null;
             vm.etapaActual = null;
             vm.insumo = {
                 id: "",
                 nombre: "",
                 cantidad: "",
+                catalogo: "",
                 notas: ""
             };// Insumo por agregar al cabinet en cuestion
+            //Nuevas VariablesUsadas
+            vm.insumos_lote = [];// Arreglo que posera los Insumos de Lote que serán utilizados en la etapa de servicio
+            vm.insumoLote = {};
+            vm.insumos_loteUsados = [];//Arreglo que ya posee el arreglo como es necesario para agregar los insumos al formato de arreglo para agregarlos a la etapa
+            vm.dataEtapa = null;//Variable que posera los datos de la etapa para el precargado de Template (id etapa, idTipoEquipo)
             $scope.insumoFormEtapa.$setPristine();
             $scope.insumoFormEtapa.$setUntouched();
 
@@ -351,7 +356,7 @@
 
 
             if (vm.etapaActual.id == null) {
-
+                vm.etapaActual.insumos_lote=vm.insumos_loteUsados;
                 vm.etapaActual.insumos = vm.insumos;
 
                 var promise = Servicios.crearEtapaServicio(vm.etapaActual);
