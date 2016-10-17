@@ -134,9 +134,9 @@
                         </div>
                     </form>
                 </div>
-                <div layout="row" layout-sm="column" layout-md="column" ng-show="vm.insumos_loteUsados.length!=0">
+                <div layout="row" layout-sm="column" layout-md="column"    layout-align="space-around center"  ng-show="vm.insumos_loteUsados.length!=0" flex="100">
                     <md-table-container>
-                        <table md-table="" md-row-select="vm.insumoLote" md-auto-select ng-model="vm.insumos_loteUsados" flex="100">
+                        <table md-table="" md-row-select="vm.insumoLote" md-auto-select ng-model="vm.a" flex="100">
                             <thead md-head="">
                             <tr md-row="md-row">
                                 <th md-column="md-column"  flex="25"><span
@@ -159,7 +159,13 @@
                                 <td md-cell="md-cell" flex="50" ng-click='vm.editCatalogoInsumo(insu)'>
                                     {{insu.notas}}
                                 </td>
-                                <td md-cell="md-cell" ng-click="$event.stopPropagation()" flex="10">
+                                <td md-cell="md-cell" flex="10">
+                                    <md-button ng-click="vm.editCatalogoInsumo(insu)"
+                                               class="md-fab md-primary md-mini">
+                                        <md-icon md-font-icon="fa fa-pencil"></md-icon>
+                                    </md-button>
+                                </td>
+                                <td md-cell="md-cell"  flex="10">
                                     <md-button ng-click="vm.eliminarCatalogoInsumo(insu)"
                                                class="md-fab md-warn md-mini">
                                         <md-icon md-font-icon="fa fa-times-circle"></md-icon>
