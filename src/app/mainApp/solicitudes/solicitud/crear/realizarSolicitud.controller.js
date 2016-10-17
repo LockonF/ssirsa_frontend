@@ -32,6 +32,20 @@
             "created_at": new Date(),
             "updated_at": new Date()
         };
+
+        var entrada = {
+            "id": null,
+            "razon_social": null,
+            "nombre_negocio": null,
+            "direccion": null,
+            "telefono": null,
+            "contacto_negocio": null,
+            "fecha_atencion": new Date(),
+            "udn": null,
+            "created_at": new Date(),
+            "updated_at": new Date(),
+            "file":null
+        };
         vm.minDate = moment();
         vm.hideManualUpload = true;
         vm.hideMassiveUpload = false;
@@ -46,7 +60,7 @@
         vm.personas = null;
         vm.isClient = true;
         vm.requisitoVenta = angular.copy(requisitoVenta);
-        vm.entrada = angular.copy(requisitoVenta);
+        vm.entrada = angular.copy(entrada);
         vm.requisito = angular.copy(requisito);
         vm.showCreateDialog = showCreateDialog;
         vm.cancel = cancel;
@@ -80,6 +94,7 @@
         function showManualUpload() {
             vm.hideManualUpload = false;
             vm.hideMassiveUpload = true;
+            vm.hideRegisteredSolicitud=true;
         }
 
         function selectionFile($file) {
@@ -93,8 +108,8 @@
                 fd.append('file', vm.entrada.file);
                 Solicitud_Servicio.postEntradaMasiva(fd).then(function (res) {
                     vm.entrada = res;
-                    vm.hideRegisteredCabinets = false;
-                    vm.hideUnregisteredCabinets = false;
+                    vm.hideRegisteredSolicitud = false;
+                    vm.hideUnregisteredSolicitud = true;
                     toastr.success('Exito en la carga masiva', 'Exito');
                     console.log("vm.entrada");
                     console.log(vm.entrada);
@@ -148,6 +163,7 @@
             vm.persona = null;
             vm.isClient = Session.userRole === 'Cliente';
             vm.requisitoVenta.fecha_atencion=moment();
+            vm.entrada = angular.copy(entrada);
         }
 
         function guardarSolicitudAdmin() {
