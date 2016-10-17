@@ -13,9 +13,12 @@
         return {
             getReports:getReports,
             getReport:getReport,
+            getFullReports:getFullReports,
+            getFullReport:getFullReport,
             getModels:getModels,
             getRelatedModels:getRelatedModels,
-            getFields:getFields
+            getFields:getFields,
+            saveReport:saveReport
         };
 
         //Obtiene todos los reportes existentes con su información básica
@@ -25,6 +28,14 @@
         //Obtiene la información básica de un reporte en específico
         function getReport(id){
             return path.one("reports",id).customGET();
+        }
+        //Obtiene todos los reportes existentes con su información completa (útil para guardar el reporte)
+        function getFullReports(){
+            return path.all("report").getList().$object;
+        }
+        //Obtiene la información completa de un reporte en específico (útil para guardar un reporte)
+        function getFullReport(id){
+            return path.one("report",id).customGET();
         }
         //Obtiene todos los modelos base sobre los cuales se pueden hacer reportes, filtros, obtener campos, etc.
         function getModels(){
@@ -49,6 +60,12 @@
                 "field": ""
             };
             return path.one("fields").post(request);
+        }
+        //Guardar un reporte (Incluso aunque sea nuevo, primero se crea vacio, luego se modifica
+        // con los campos que se requiere)
+        //Utilizar como entrada un reporte obtenido mediante fullReport
+        function saveReport(report){
+            return path.all(report.id).customPUT(report);
         }
     }
 })();
