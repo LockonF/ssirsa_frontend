@@ -6,9 +6,11 @@
 
     angular
         .module('app.mainApp.tecnico')
-        .controller('salidaController', salidaController);
+        .controller('salidaController', salidaController)
+        .filter('salidaSearch', salidaSearch)
+        .filter('tipoequipoSearch', tipoequipoSearch);
 
-    function salidaController(EntradaSalida, Helper, Translate, toastr, Sucursal, udn, Proyectos, CabinetEntradaSalida, TipoTransporte, $scope, LineaTransporte) {
+    function salidaController(EntradaSalida, ModeloCabinet, $mdDialog, TipoEquipo, Helper, Translate, toastr, Sucursal, udn, Proyectos, CabinetEntradaSalida, TipoTransporte, $scope, LineaTransporte) {
         var vm = this;
         vm.guardar = guardar;
         vm.selectionFile = selectionFile;
@@ -18,8 +20,9 @@
         vm.cabinetSearch = cabinetSearch;
         vm.nextTab = nextTab;
         vm.clear = clear;
-        vm.appendCabinet = appendCabinet;
+        vm.search = search;
 
+        vm.selection = selection;
 
         activate();
 
@@ -33,7 +36,7 @@
         vm.hideRegisteredCabinets = true;
         vm.hideUnregisteredCabinets = true;
         vm.selectedCabinets = [];
-
+        vm.loading = true;
         //Models
 
         vm.cabinets = null;
@@ -82,6 +85,8 @@
             //Is massive upload
             if (vm.salida.file != null) {
                 fd.append('file', vm.salida.file);
+                vm.salida.no_creados = null;
+                vm.salida.creados = null;
                 EntradaSalida.postSalidaMasiva(fd).then(function (res) {
                     vm.hideRegisteredCabinets = false;
                     vm.hideUnregisteredCabinets = true;
@@ -99,21 +104,49 @@
                 });
             }
             else {
-                EntradaSalida.postEntrada(fd).then(function (res) {
-                    var request = {
-                        entrada_salida: res.id,
-                        economico: vm.selectedCabinets
-                    };
-                    CabinetEntradaSalida.create(request).then(function () {
-                        toastr.success(vm.successMessage, vm.successTitle);
-                        clear();
-                    }).catch(function (er) {
-                        console.log(er);
-                        toastr.error(vm.errorMessage, vm.errorTitle);
+                if (vm.selectedCabinets.length == 0) {
+                    var confirm = $mdDialog.confirm()
+                        .title(vm.dialogTitle)
+                        .textContent(vm.dialogMessage)
+                        .ariaLabel('Confirmar envío')
+                        .ok(vm.submitButton)
+                        .cancel(vm.cancelButton);
+                    $mdDialog.show(confirm).then(function () {
+                        entradaManual(fd);
+                    }, function () {
+
                     });
-                }).catch(function () {
+                } else {
+                    entradaManual(fd);
+                }
+
+            }
+
+        }
+
+        function entradaManual(fd) {
+            EntradaSalida.postEntrada(fd).then(function (res) {
+                var request = {
+                    entrada_salida: res.id,
+                    economico: vm.selectedCabinets
+                };
+                CabinetEntradaSalida.create(request).then(function () {
+                    toastr.success(vm.successMessage, vm.successTitle);
+                    clear();
+                }).catch(function (er) {
                     toastr.error(vm.errorMessage, vm.errorTitle);
                 });
+            }).catch(function () {
+                toastr.error(vm.errorMessage, vm.errorTitle);
+            });
+        }
+
+        function search(obj) {
+            var tipo = _.findWhere(vm.modelos, {id: obj.modelo}).tipo;
+            if(tipo!=null){
+                return _.findWhere(vm.tipoEquipos, {id: tipo}).nombre;
+            }else{
+                return "No tiene";
             }
 
         }
@@ -134,6 +167,19 @@
             }
         }
 
+        function selection(cabinet) {
+            var index = _.findIndex(vm.selectedCabinets, function (obj) {
+                return obj.economico === cabinet.economico;
+            });
+            if (index > -1) {//no lo encontr
+                vm.selectedCabinets.splice(index, 1);
+            } else {
+                vm.selectedCabinets.push({
+                    economico: cabinet.economico
+                });
+            }
+        }
+
         function selectionFile($files) {
             if ($files.length > 0) {
                 var file = $files[0];
@@ -151,11 +197,34 @@
         }
 
         function activate() {
-            vm.lineasTransporte = LineaTransporte.list();
-            vm.tiposTransporte = TipoTransporte.list();
-            vm.Sucursales = Sucursal.list();
-            vm.Proyectos = Proyectos.list();
-            vm.udns = udn.list();
+
+            LineaTransporte.listObject().then(function (res) {
+                vm.lineasTransporte =Helper.filterDeleted(res,true);
+                vm.lineasTransporte=_.sortBy(vm.lineasTransporte, 'razon_social');
+            });
+            TipoTransporte.listObject().then(function (res) {
+                vm.tiposTransporte =Helper.filterDeleted(res,true);
+                vm.tiposTransporte=_.sortBy(vm.tiposTransporte, 'descripcion');
+            });
+            Sucursal.listObject().then(function (res) {
+                vm.Sucursales =Helper.filterDeleted(res,true);
+                vm.Sucursales=_.sortBy(vm.Sucursales, 'nombre');
+            });
+             Proyectos.listObject().then(function (res) {
+                vm.Proyectos =Helper.filterDeleted(res,true);
+                vm.Proyectos=_.sortBy(vm.Proyectos, 'descripcion');
+            });
+              udn.listObject().then(function (res) {
+                vm.udns  =Helper.filterDeleted(res,true);
+                vm.udns =_.sortBy(vm.udns , 'agencia');
+            });
+             ModeloCabinet.listWitout().then(function (res) {
+                vm.modelos  =Helper.filterDeleted(res,true);
+            });
+             TipoEquipo.listWitout().then(function (res) {
+                vm.tipoEquipos  =Helper.filterDeleted(res,true);
+                vm.tipoEquipos =_.sortBy(vm.tipoEquipos , 'nombre');
+            });
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
@@ -165,11 +234,19 @@
             vm.errorMassive = Translate.translate('MAIN.MSG.ERROR_MASSIVE');
             vm.successMassive = Translate.translate('MAIN.MSG.SUCCESS_MASSIVE');
             vm.successMessage = Translate.translate('MAIN.MSG.SUCCESS_MANUAL');
+            vm.submitButton = Translate.translate('MAIN.BUTTONS.SUBMIT');
+            vm.cancelButton = Translate.translate('MAIN.BUTTONS.CANCEL');
+            vm.dialogTitle = Translate.translate('OUTPUT.FORM.DIALOG.SEND_TITLE');
+            vm.dialogMessage = Translate.translate('OUTPUT.FORM.DIALOG.SEND_MESSAGE');
         }
 
         function showMassiveUpload() {
             vm.hideManualUpload = true;
             vm.hideMassiveUpload = false;
+            vm.salida.no_creados = null;
+            vm.salida.creados = null;
+            vm.hideUnregisteredCabinets = true;
+            vm.hideRegisteredCabinets = true;
         }
 
         function clear() {
@@ -180,7 +257,7 @@
             $scope.entradaForm.$setUntouched();
             vm.salida.no_creados = null;
             vm.salida.creados = null;
-            vm.selectedCabinets=[];
+            vm.selectedCabinets = [];
             vm.hideMassiveUpload = true;
             vm.hideManualUpload = true;
         }
@@ -188,8 +265,13 @@
         function showManualUpload() {
             vm.hideManualUpload = false;
             vm.hideMassiveUpload = true;
+            vm.hideUnregisteredCabinets = true;
+            vm.hideRegisteredCabinets = true;
+            vm.loading = true;
             EntradaSalida.getCabinetsEntrada().then(function (res) {
-                vm.cabinetsEntrada = res;
+                vm.cabinetsEntrada = Helper.filterDeleted(res,true);
+                vm.cabinetsEntrada =_.sortBy(vm.cabinetsEntrada , 'economico');
+                vm.loading = false;
             });
         }
 
@@ -205,26 +287,39 @@
             return vm.search_items;
         }
 
-        function appendCabinet(chip) {
-            if (vm.selectedCabinets != null) {
-                var index = _.findIndex(vm.selectedCabinets, function (obj) {
-                    return obj.economico === chip.economico;
-                });
-                if (index != -1) {//no lo encontr
-                    vm.selectedCabinets.splice(index, 1);
-                }
-            } else {
-                vm.selectedCabinets.splice(index, 1);
-            }
-            return {
-                economico:chip.economico
-            };
-        }
 
         function nextTab() {
             vm.selectedTab = vm.selectedTab + 1;
         }
 
+
+    }
+
+    function tipoequipoSearch() {
+        return function (input, text, tipos, modelos) {
+            if (!angular.isNumber(text) || text === '') {
+                return input;
+            }
+
+
+            return _.filter(input, function (item) {
+                return tipos[modelos[item.modelo].tipo].id == text;
+            });
+
+        };
+    }
+
+    function salidaSearch() {
+        return function (input, text) {
+            if (!angular.isString(text) || text === '') {
+                return input;
+            }
+
+            return _.filter(input, function (item) {
+                return item.economico.toLowerCase().indexOf(text.toLowerCase()) >= 0;
+            });
+
+        };
 
     }
 

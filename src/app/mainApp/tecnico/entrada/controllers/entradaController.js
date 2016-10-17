@@ -8,12 +8,13 @@
         .module('app.mainApp.tecnico')
         .controller('entradaController', entradaController);
 
-    function entradaController(EntradaSalida, toastr, $mdDialog, MarcaCabinet, ModeloCabinet, Sucursal, udn, Proyectos, TipoTransporte, LineaTransporte) {
+    function entradaController(EntradaSalida, toastr, $mdDialog, MarcaCabinet, ModeloCabinet, Sucursal, udn, Proyectos, TipoTransporte, LineaTransporte, Translate, $scope) {
         var vm = this;
         vm.isGarantia=false;
         vm.isPedimento=false;
 
-        //vm.status="idle";//idle, uploading, complete
+        vm.height = window.innerHeight + 'px';
+        vm.myStyle='{"min-height":"'+vm.height+'"}';
 
         vm.guardar = guardar;
         vm.limpiar=limpiar;
@@ -26,6 +27,8 @@
         vm.uploadFile = uploadFile;
         vm.showMarcaDialog = showMarcaDialog;
         vm.showModeloDialog = showModeloDialog;
+        vm.addCabinet = addCabinet;
+        vm.removeCabinet=removeCabinet;
 
         vm.options=["Nuevos","Garantías"];
         vm.selectedEntrada=null;
@@ -39,7 +42,7 @@
         vm.hideRegisteredCabinets = true;
         vm.hideUnregisteredCabinets = true;
 
-        vm.cabinets = null;
+
         vm.responseMassiveUpload = {
             "id": "",
             "creados": [],
@@ -67,9 +70,31 @@
 
         };
 
+        //Translates
+        vm.successTitle=Translate.translate('MAIN.MSG.SUCCESS_TITLE');
+        vm.warningTitle=Translate.translate('MAIN.MSG.WARNING_TITLE');
+        vm.errorTitle=Translate.translate('MAIN.MSG.ERROR_TITLE');
+        vm.sucessMassive=Translate.translate('INPUT.Messages.SuccessMassive');
+        vm.successNormal=Translate.translate('INPUT.Messages.SucessNormal');
+        vm.warning=Translate.translate('INPUT.Messages.Warning');
+        vm.errorMassive=Translate.translate('INPUT.Messages.ErrorMassive');
+        vm.errorNormal=Translate.translate('INPUT.Messages.ErrorNormal');
+        vm.errorCabinet=Translate.translate('INPUT.Messages.ErrorCabinet');
+
         activate();
 
         //Functions
+        function activate() {
+            vm.cabinets = [];
+            vm.cabinet="";
+            angular.copy(vm.entrada,entrada);
+            vm.lineasTransporte=LineaTransporte.list();
+            vm.tiposTransporte = TipoTransporte.list();
+            vm.Sucursales = Sucursal.list();
+            vm.Proyectos = Proyectos.list();
+            vm.udns = udn.list();
+        }
+
         function guardar() {
             vm.entrada.fecha = getToday();
 
@@ -103,20 +128,37 @@
             if (vm.entrada.file != null) {
                 fd.append('file', vm.entrada.file);
                 EntradaSalida.postEntradaMasiva(fd).then(function (res) {
-                    vm.entrada = res;
+                    vm.entrada.creados = res.creados;
+                    vm.entrada.no_creados = res.no_creados;
                     vm.hideRegisteredCabinets = false;
                     vm.hideUnregisteredCabinets = false;
-                    toastr.success('Exito en la carga masiva', 'Exito');
+                    if (vm.entrada.no_creados.length > 0) {
+                        toastr.warning(vm.warning, vm.warningTitle);
+                        vm.entrada.file = null;
+                    }
+                    else {
+                        toastr.success(vm.sucessMassive, vm.successTitle);
+                        //limpiar();
+                    }
                 }).catch(function (err) {
-                    toastr.error('Error en la carga masiva', 'Error');
+                    toastr.error(vm.errorMassive, vm.errorTitle);
                     console.log(err);
                 });
             }
             else {
                 EntradaSalida.postEntrada(fd).then(function (res) {
-
+                    vm.entrada=res;
+                    vm.hideRegisteredCabinets = false;
+                    vm.hideUnregisteredCabinets = false;
+                    if(vm.entrada.no_creados.length>0)
+                        toastr.warning(vm.warning,vm.warningTitle);
+                    else {
+                        toastr.success(vm.successNormal, vm.successTitle);
+                        //limpiar();
+                    }
                 }).catch(function (err) {
-
+                    toastr.error(vm.errorMassive, vm.errorTitle);
+                    console.log(err);
                 });
             }
 
@@ -124,6 +166,14 @@
 
         function limpiar(){
             vm.entrada=angular.copy(entrada);
+            vm.hideRegisteredCabinets=true;
+            vm.hideUnregisteredCabinets=true;
+            vm.hideMassiveUpload=true;
+            vm.hideManualUpload=true;
+            $scope.entradaForm.$setPristine();
+            $scope.entradaForm.$setUntouched();
+            $scope.entradaForm.$invalid=true;
+            vm.selectedTab=0;
         }
 
         function selectionImage($file) {
@@ -132,40 +182,6 @@
 
         function selectionFile($file) {
             vm.entrada.file = $file;
-        }
-
-        function activate() {
-
-            EntradaSalida.getLineasTransporte().then(function (res) {
-                vm.lineasTransporte = res;
-            }).catch(function (err) {
-                toastr.error('Error al obtener Lineas de Transporte, por favor intente de nuevo', 'Error');
-            });
-
-            EntradaSalida.getTiposTransporte().then(function (res) {
-                vm.tiposTransporte = res;
-            }).catch(function (err) {
-                toastr.error('Error al obtener Tipos de Transporte, por favor intente de nuevo', 'Error');
-            });
-
-            EntradaSalida.getSucursales().then(function (res) {
-                vm.Sucursales = res;
-            }).catch(function (err) {
-                toastr.error('Error al obtener Sucursales, por favor intente de nuevo', 'Error');
-            });
-
-            EntradaSalida.getProyectos().then(function (res) {
-                vm.Proyectos = res;
-            }).catch(function (err) {
-                toastr.error('Error al obtener Proyectos, por favor intente de nuevo', 'Error');
-            });
-
-            EntradaSalida.getUDN().then(function (res) {
-                vm.udns = res;
-            }).catch(function (err) {
-                toastr.error('Error al obtener UDNs, por favor intente de nuevo', 'Error');
-            });
-
         }
 
         function getToday() {
@@ -275,6 +291,24 @@
                 $mdDialog.cancel();
             };
         }
+
+        function addCabinet(){
+            if(vm.cabinets.indexOf(vm.cabinet) !== -1) {
+                toastr.warning(vm.errorCabinet,vm.warning);
+            }
+            else {
+                vm.cabinets.push(vm.cabinet);
+            }
+            vm.cabinet = "";
+        }
+        
+        function removeCabinet(id){
+            var index = array.indexOf(id);
+            if (index > -1) {
+                vm.cabinets.splice(index, 1);
+            }
+        }
+        
     }
 
 })();

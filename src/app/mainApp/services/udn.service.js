@@ -4,7 +4,9 @@
 (function(){
     'use_strict';//
 
-    angular.module('app.mainApp').factory('udn',udn);
+    angular
+        .module('app.mainApp')
+        .factory('udn',udn);
     function udn(Restangular){
 
         var baseUdn = Restangular.all('udn');
@@ -13,8 +15,13 @@
             list:list,
             update:update,
             create:create,
-            remove:remove
+            remove:remove,
+            listObject:listObject
         };
+        function listObject() {
+            return baseUdn.getList();
+        }
+
         function list(){
             return baseUdn.getList().$object;
         }

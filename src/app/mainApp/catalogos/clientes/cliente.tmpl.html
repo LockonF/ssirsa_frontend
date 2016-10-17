@@ -4,15 +4,16 @@
             <h2 flex="70" flex-sm="100" flex-gt-xs="100" class="md-headline-1 text-center" translate="">
                 Clients.Header
             </h2>
-            <md-button  aria-label="fab button" class="md-fab md-scale md-fab-top-right" ng-click="vm.new()">
+            <md-button  aria-label="fab button" class="md-fab md-scale md-fab-top-right" ng-click="vm.clear()">
                 <md-icon md-font-icon="fa fa-plus" ng-style="{color: 'white'}">
 
                 </md-icon>
             </md-button>
         </div>
-        <div layout-gt-sm="row" layout="column">
+        <div layout-gt-sm="row" layout="column" ng-style='vm.myStyle'>
             <!--Autocomplete div-->
             <div layout="column" layout-align="space-between stretch" flex-gt-sm="40" flex="100">
+
                 <md-autocomplete
                         md-items="item in vm.querySearch(vm.searchParameter)"
                         md-selected-item="vm.Client"
@@ -32,7 +33,12 @@
                     <md-not-found><span translate="Clients.Errors.Not_Found"></span></md-not-found>
                 </md-autocomplete>
 
-                <md-virtual-repeat-container id="vertical_container" flex="flex" hide-xs="hide-xs" layout-fill class="vr-min-height">
+                <md-virtual-repeat-container id="vertical_container"
+                                             flex="flex"
+                                             hide-xs="hide-xs"
+                                             hide-sm="hide-sm"
+                                             layout-fill
+                                             class="vr-min-height">
                         <md-list flex="flex">
                             <md-list-item flex="flex" ng-repeat="item in vm.filteredClients">
                                 <md-button
@@ -97,10 +103,14 @@
                                 <div ng-message="pattern">{{'Clients.Errors.PhoneError'|translate}}</div>
                             </div>
                         </md-input-container>
-                        <md-input-container class="md-block" flex="50">
+                        <md-input-container class="md-block" flex="50" >
                             <label>{{'Clients.Fields.Email'|translate}}</label>
-                            <input name="ClientEmail" type="text" required="" md-no-asterisk=""
-                                   ng-model="vm.client.user.email"
+                            <input name="ClientEmail"
+                                   ng-disabled="!vm.isNew"
+                                   type="text"
+                                   ng-required="vm.isNew"
+                                   md-no-asterisk=""
+                                   ng-model="vm.user.email"
                                    ng-pattern="/^[A-Za-z0-9._%+-]+@[A-Za-z0-9._%+-]+.[A-Za-z]{2,}$/">
                             <div ng-messages="formClient.ClientEmail.$error">
                                 <div ng-message="required">{{'Clients.Errors.Required'|translate}}</div>
@@ -109,18 +119,26 @@
                         </md-input-container>
                     </div>
                     <div layout="column" layout-gt-sm="row" flex="100">
-                        <md-input-container class="md-block" flex="50">
+                        <md-input-container class="md-block" flex="50" >
                             <label>{{'Clients.Fields.User'|translate}}</label>
-                            <input name="ClientUser" type="text" required="" md-no-asterisk=""
-                                   ng-model="vm.client.user.username" ng-disabled="!vm.isNew">
+                            <input name="ClientUser"
+                                   ng-disabled="!vm.isNew"
+                                   type="text"
+                                   ng-required="vm.isNew"
+                                   md-no-asterisk=""
+                                   ng-model="vm.user.username">
                             <div ng-messages="formClient.ClientName.$error">
                                 <div ng-message="required">{{'Clients.Errors.Required'|translate}}</div>
                             </div>
                         </md-input-container>
-                        <md-input-container class="md-block" flex="50">
+                        <md-input-container class="md-block" flex="50" >
                             <label>{{'Clients.Fields.Password'|translate}}</label>
-                            <input name="ClientPassword" type="password" required="" md-no-asterisk=""
-                                   ng-model="vm.client.user.password" ng-disabled="!vm.isNew">
+                            <input name="ClientPassword"
+                                   ng-disabled="!vm.isNew"
+                                   type="password"
+                                   ng-required="vm.isNew"
+                                   md-no-asterisk=""
+                                   ng-model="vm.user.password">
                             <div ng-messages="formClient.ClientEmail.$error">
                                 <div ng-message="required">{{'Clients.Errors.Required'|translate}}</div>
                             </div>

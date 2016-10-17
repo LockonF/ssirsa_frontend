@@ -9,12 +9,18 @@
         .factory('Solicitud_Servicio',Solicitud_Servicio);
 
     function Solicitud_Servicio($q, Restangular){
+        var baseURL = Restangular.all('solicitud_servicio');
         return{
             create:create,
             list:list,
             updateSolicitud:updateSolicitud,
-            borrarSolVenta:borrarSolVenta
+            borrarSolVenta:borrarSolVenta,
+            postEntradaMasiva:postEntradaMasiva
         };
+
+        function postEntradaMasiva(data) {
+            return baseURL.all('mass_upload').withHttpConfig({transformRequest: angular.identity}).customPOST(data, "", {}, {'Content-type': undefined});
+        }
 
         function create(object){
             //Forma canonica

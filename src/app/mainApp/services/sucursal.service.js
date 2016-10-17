@@ -17,8 +17,12 @@
             list:list,
             update:update,
             create:create,
-            remove:remove
+            remove:remove,
+            listObject:listObject
         };
+        function listObject() {
+            return baseSucursal.getList();
+        }
 
 
         function list(){

@@ -1,6 +1,4 @@
 {
-
-
     "ADMIN": {
         "MANAGE": {
             "MANAGEMENT_USER": "Administración de Usuarios"
@@ -95,29 +93,40 @@
         "LINE": "Asignar Linea",
         "PRECHECKOUT": "Pre Checklist Salida"
     },
-    "INPUT": {
-        "Entrance": "Registrar Entrada",
-        "Output": "Registrar Salida",
-        "Save": "Guardar",
-        "Cancel": "Cancelar",
-        "Modify": "Modificar",
-        "Delete": "Borrar",
-        "Date": "Fecha",
-        "Subsidiary": "Sucursal",
-        "Project": "Proyecto",
-        "Upload Image": "Carga de Imagen",
-        "Pediment": "Pedimento",
-        "Cabinets Massive Upload": "Carga masiva de cabinets",
-        "Cabinets Manual Upload": "Carga individual de cabinets",
-        "Choose File": "Seleccionar Archivo",
-        "Choose Image": "Seleccionar Imagen",
-        "Upload File": "Cargar Archivo",
-        "Next": "Siguiente",
-        "Create Brand": "Registrar marca",
-        "Create Model": "Registrar modelo",
-        "Transport": {
-            "Line": "Linea de transporte",
-            "Kind": "Tipo de transporte"
+    "INPUT":{
+        "Entrance":"Registrar Entrada",
+        "Output":"Registrar Salida",
+        "Entrance_Kind":"Tipo de entrada",
+        "Save":"Guardar",
+        "Cancel":"Cancelar",
+        "Modify":"Modificar",
+        "Delete":"Borrar",
+        "Date":"Fecha",
+        "Subsidiary":"Sucursal",
+        "Project":"Proyecto",
+        "Upload Image":"Carga de Imagen",
+        "Pediment":"Pedimento",
+        "Cabinets Massive Upload":"Carga masiva de cabinets",
+        "Cabinets Manual Upload":"Carga individual de cabinets",
+        "Choose File":"Seleccionar Archivo",
+        "Choose Image":"Seleccionar Imagen",
+        "Upload File":"Cargar Archivo",
+        "Next":"Siguiente",
+        "Create Brand":"Registrar marca",
+        "Create Model":"Registrar modelo",
+        "CabinetID":"Id del cabinet",
+        "Messages":{
+            "SuccessMassive":"Carga masiva registrada correctamente",
+            "SuccessNormal":"Entrada registrada correctamente",
+            "Warning":"Problema al registrar cabinets",
+            "ErrorMassive":"Error en la carga masiva",
+            "ErrorNormal":"Error al registrar la entrada",
+            "ErrorCabinet":"El cabinet ya ha sido añadido"
+        },
+
+        "Transport":{
+            "Line":"Linea de transporte",
+            "Kind":"Tipo de transporte"
         },
         "Driver": {
             "ID": "Identificación del conductor",
@@ -152,16 +161,19 @@
             "GeneralData": "Datos Generales",
             "CabinetsUpload": "Carga de Cabinets"
         },
-        "Required Field": "Campo Requerido",
-        "Cabinets": "Cabinets",
-        "Registered Cabinets": "Cabinets Registrados",
-        "Unregistered Cabinets": "Cabinets No Registrados",
-        "UDN": "UDN"
+
+        "Required Field":"Campo Requerido",
+        "Max100":"El campo no puede contener mas de 100 caracteres",
+        "Cabinets":"Cabinets",
+        "Registered Cabinets":"Cabinets Registrados",
+        "Unregistered Cabinets":"Cabinets No Registrados",
+        "UDN": "Agencia"
     },
     "OUTPUT": {
         "FORM": {
             "PLACEHOLDER":{
-                "SEARCH":"Ingrese cabinet"
+                "SEARCH":"Ingrese cabinet",
+                "TYPE_EQUIPMENT":"Tipo de equipo"
             },
             "TABLE": {
                 "HEADERS": {
@@ -192,7 +204,13 @@
                     "KIND": "Tipo de transporte"
                 },
                 "SUBSIDIARY": "Sucursal",
-                "PROJECT": "Proyecto"
+                "PROJECT": "Proyecto",
+                "ECONOMIC":"No. Economico:",
+                "SERIE":"No. Serie:",
+                "TYPE":"Tipo:",
+                "CABINET":"Cabinets disponibles",
+                "NOT_FOUND":"No hay cabinets que puedan ser procesables.",
+                "SEARCH":"Búsqueda"
             },
             "BUTTON":{
                 "CHOOSE_FILE": "Seleccionar Archivo",
@@ -200,10 +218,11 @@
                 "NEXT": "Siguiente",
                 "CABINETS.MASSIVE.UPLOAD": "Carga masiva de cabinets",
                 "CABINETS.MANUAL.UPLOAD": "Carga individual de cabinets"
+            },
+            "DIALOG":{
+                "SEND_TITLE":"Confirmación de envío",
+                "SEND_MESSAGE":"¿Seguro que desea crear una salida sin ningún cabinet seleccionado?"
             }
-
-
-
         }
     }
 }

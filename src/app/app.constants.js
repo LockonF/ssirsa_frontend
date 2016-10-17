@@ -10,6 +10,10 @@
             notAuthorized: 'auth-not-authorized',
             sessionRestore: 'auth-session-restored'
         })
+        .constant('EVENTS_GENERAL', {
+            notFound: 'not-found',
+            notFount_select: 'not-found-select'
+        })
         .constant('OPTIONS', {
             status: [
                 {

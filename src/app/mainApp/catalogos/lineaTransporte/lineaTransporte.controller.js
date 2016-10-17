@@ -7,7 +7,7 @@
         .filter('lineaSearch', custom);
 
     /* @ngInject */
-    function LineaTransporteController(LineaTransporte, $scope, toastr, Translate,$mdDialog) {
+    function LineaTransporteController(LineaTransporte,Helper, $scope, toastr, Translate,$mdDialog) {
 
         var vm = this;
 
@@ -46,7 +46,10 @@
 
 
         function activate() {
-            vm.lineas = LineaTransporte.list();
+            LineaTransporte.listObject().then(function (res) {
+                vm.lineas =Helper.filterDeleted(res,true);
+                vm.lineas=_.sortBy(vm.lineas, 'razon_social');
+            });
         }
         function remove(ev) {
             var confirm = $mdDialog.confirm()
@@ -93,6 +96,7 @@
             $scope.TransportForm.$setUntouched();
             vm.transport = angular.copy(transport);
             vm.selectedLineaList = null;
+            vm.numberBuffer=null;
         }
         function selectedItemChange(item)
         {

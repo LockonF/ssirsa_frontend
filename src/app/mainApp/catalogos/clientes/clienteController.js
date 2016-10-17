@@ -14,7 +14,7 @@
     function clienteController(Clientes, toastr, $scope, Translate, $mdDialog) {
         var vm = this;
 
-
+        vm.res=350;
         //Functions
         vm.create = create;
         vm.update = update;
@@ -23,9 +23,10 @@
         vm.clear = clear;
         //vm.selectedItemChange = selectedItemChange;
         vm.clickCopy = clickCopy;
-        vm.new=newClient;
         vm.querySearch=querySearch;
 
+        vm.myHeight=window.innerHeight-250;
+        vm.myStyle={"min-height":""+vm.myHeight+"px"};
 
         vm.successTitle=Translate.translate('Clients.Notify.Success');
         vm.errorTitle=Translate.translate('Clients.Notify.Error');
@@ -49,18 +50,18 @@
             "apellido_paterno":"",
             "apellido_materno":"",
             "direccion":"",
-            "telefono":"",
-            user:{
-                "email":"",
-                "role":vm.role,
-                "username":"",
-                "password":"1234567a"
-            }
-        }
+            "telefono":""
+        };
 
-        vm.isNew=true;
+        var user={
+            "email":"",
+            "role":"",
+            "username":"",
+            "password":""
+        };
+
         function activate() {
-
+            vm.isNew=true;
             vm.searchParameter='';
             vm.clients=Clientes.list();
             vm.filteredClients=vm.clients;
@@ -68,11 +69,12 @@
             Clientes.getClienteId().then(function(res){
                 vm.role=res[0].id;
             });
-
+            vm.user=user;
         }
 
         function create() {
-            vm.client.user.role=vm.role;
+            vm.user.role=vm.role;
+            vm.client.user=vm.user;
             Clientes.create(vm.client).then(function(res){
                 toastr.success(vm.succesCreate,vm.successTitle);
                 activate();
@@ -84,7 +86,6 @@
         }
 
         function update() {
-            vm.client.user.role=vm.role;
             Clientes.modify(vm.client).then(function(res){
                 toastr.success(vm.successUpdate,vm.successTitle);
                 activate();
@@ -132,21 +133,20 @@
             vm.searchParameter='';
             vm.filteredClients=vm.clients;
             vm.client=angular.copy(client);
+            vm.user=angular.copy(user);
             vm.selectedClient=null;
-            vm.isNew=false;
+            vm.isNew=true;
+            vm.user.password="";
         }
 
         function clickCopy(item) {
+            vm.isNew=false;
             vm.selectedClient=item;
             vm.client=angular.copy(item);
-            vm.client.user.password="1234567a";
+            vm.user.username=vm.client.user.username;
+            vm.user.email=vm.client.user.email;
+            vm.user
             $scope.formClient.$invalid=true;
-            vm.isNew=false;
-        }
-        
-        function newClient(){
-            vm.clear();
-            vm.isNew=true;
         }
         
         function querySearch(query) {
