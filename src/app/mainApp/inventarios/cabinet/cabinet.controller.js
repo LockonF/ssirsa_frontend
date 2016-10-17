@@ -133,7 +133,7 @@
                 });
 
             }).catch(function (err) {
-
+                vm.modelos_choice_resolver = true;
             });
         }
 
