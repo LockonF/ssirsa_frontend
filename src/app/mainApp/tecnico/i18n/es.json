@@ -121,7 +121,8 @@
             "Warning":"Problema al registrar cabinets",
             "ErrorMassive":"Error en la carga masiva",
             "ErrorNormal":"Error al registrar la entrada",
-            "ErrorCabinet":"El cabinet ya ha sido añadido"
+            "ErrorCabinet":"El cabinet ya ha sido añadido",
+            "NotFoundCabinet":"Cabinet no encontrado"
         },
 
         "Transport":{
@@ -155,6 +156,19 @@
             "Brand": {
                 "Category": "Categoria",
                 "Description": "Descripción"
+            },
+            "Cabinet":{
+                "Title":"Crear Cabinet",
+                "Economic":"Economico",
+                "Active":"Activo",
+                "Serial":"Número de Serie",
+                "Brand":"Marca",
+                "Model":"Modelo",
+                "Year":"Año"
+            },
+            "Confirm":{
+                "Title":"Confirmar Entrada",
+                "Message":"La entrada tiene cabinets no registrados ¿Desea continuar?"
             }
         },
         "Tabs": {
@@ -167,7 +181,8 @@
         "Cabinets":"Cabinets",
         "Registered Cabinets":"Cabinets Registrados",
         "Unregistered Cabinets":"Cabinets No Registrados",
-        "UDN": "Agencia"
+        "UDN": "Agencia",
+        "Year Field":"Año inválido"
     },
     "OUTPUT": {
         "FORM": {
