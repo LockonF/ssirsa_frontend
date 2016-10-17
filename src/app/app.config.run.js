@@ -14,18 +14,7 @@
                     AuthService.getUser();
 
             }
-            if(!OAuth.isAuthenticated()){
-                OAuth.getRefreshToken().then(
-                    function(){
-                        $http.defaults.headers.common['Authorization'] = 'Bearer '+OAuthToken.getToken().access_token;
-                    }
-                ).catch(
-                    function(){
-                        //Uncomment for enable user validation
-                        $state.go('login');
-                    }
-                );
-            }
+
             $rootScope.toState = toState;
             $rootScope.toStateParams = toStateParams;
             if (AuthService.isIdentityResolved()) {
