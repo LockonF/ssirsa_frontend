@@ -8,12 +8,13 @@
         .module('app.mainApp.reports')
         .controller('ReportsCrudController',ReportsCrudController);
 
-    function ReportsCrudController(toastr, Reportes){
+    function ReportsCrudController(toastr, Reportes, $scope){
         var vm=this;
 
         //Function parse
         vm.search=search;
         vm.clickCopy=clickCopy;
+        vm.querySearch=querySearch;
 
         //Empty variables
 
@@ -22,9 +23,9 @@
         activate();
         //Functions
         function activate(){
-            vm.reports=Reportes.getReports();
-            vm.fullReports=Reportes.getFullReports();
-            vm.filteredReports=angular.copy(vm.fullReports);
+            vm.report={};
+            vm.reports=Reportes.getFullReports();
+            vm.filteredReports=angular.copy(vm.reports);
             vm.searchParameter='';
         }
 
@@ -39,12 +40,15 @@
 
         function clickCopy(item) {
             vm.isNew=false;
-            vm.selectedClient=item;
-            vm.client=angular.copy(item);
-            vm.user.username=vm.client.user.username;
-            vm.user.email=vm.client.user.email;
-            vm.user
-            $scope.formClient.$invalid=true;
+            vm.selectedReport=item;
+            vm.report=angular.copy(item);
+            //$scope.formClient.$invalid=true;
+        }
+
+        function querySearch(query) {
+            var results = query ? search(query) : vm.reports;
+            return results;
+
         }
 
     }

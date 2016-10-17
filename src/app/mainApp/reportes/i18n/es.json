@@ -4,6 +4,13 @@
     "INFORMATION":"Información del reporte",
     "DIALOGS":{
 
+    },
+    "FIELDS":{
+      "SEARCH":"Busqueda de reportes",
+      "INFORMATION":"Información del reporte"
+    },
+    "ERRORS":{
+      "NOT_FOUND":"No se encontró ningun reporte"
     }
   }
 }
