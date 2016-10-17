@@ -15,8 +15,21 @@
             showNotification: showNotification,
             addNotificationGlobal: addNotificationGlobal,
             filterDeleted:filterDeleted,
-            searchByField:searchByField
+            searchByField:searchByField,
+            sortByAttribute:sortByAttribute
         };
+
+        /**
+         * @description Se encarga de ordenar un array mediante la propiedad "attribute" especificada en la firma del método
+         * @param {Object[]} array - El array a ordenar
+         * @param {string} attribute - El atributo a filtrar
+         * @returns {Object[]} El array filtrado por la propiedad "deleted"
+         */
+        function sortByAttribute(array, attribute) {
+            return _.sortBy(array, function (obj) {
+                return obj[attribute]
+            });
+        }
 
         /**
          * @description Se encarga de filtrar un array mediante la propiedad de "deleted".
