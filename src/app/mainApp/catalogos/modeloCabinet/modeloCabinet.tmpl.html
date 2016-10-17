@@ -70,8 +70,10 @@
                             <label>{{'MODEL_CABINET.FORM.LABEL.TYPE'|translate}}</label>
                             <md-select ng-model="vm.modelo.tipo"
                                        md-no-asterisk="" required=""
-                                       name="type">
-                                <md-option ng-repeat="tipo in vm.tipoEquipos" ng-value="tipo.id">{{tipo.nombre}}
+                                       name="type"
+                                       ng-disabled="vm.disabled(vm.modelo.tipo,'tipo')">
+                                <md-option ng-repeat="tipo in vm.tipoEquipos" ng-value="tipo.id" ng-if="tipo.deleted==false || tipo.id==vm.modelo.tipo">
+                                    {{tipo.nombre}}
                                 </md-option>
                             </md-select>
                             <div ng-messages="ModelCabinetForm.type.$error">
@@ -127,12 +129,14 @@
                             <label>{{'MODEL_CABINET.FORM.LABEL.BRAND'|translate}}</label>
 
                             <md-select ng-model="vm.modelo.marca"
-                                       ng-disabled="vm.editable"
                                        name="marca"
                                        placeholder="{{'MODEL_CABINET.FORM.LABEL.BRAND'|translate}}"
                                        required=""
+                                       ng-disabled="vm.disabled(vm.modelo.marca,'marca')"
                             >
-                                <md-option ng-repeat="marca in vm.marcas" ng-value="marca.id">{{marca.descripcion}}
+ 
+                                <md-option ng-repeat="marca in vm.marcas" ng-value="marca.id" ng-if="marca.deleted==false || marca.id==vm.modelo.marca">{{marca.descripcion}}
+
                                 </md-option>
                             </md-select>
                             <div ng-messages="ModelCabinetForm.marca.$error">

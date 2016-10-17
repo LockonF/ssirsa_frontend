@@ -7,7 +7,7 @@
         .filter('etapaSearch', etapaSearch);
 
     /* @ngInject */
-    function EtapasController(Etapa, $scope, toastr, Translate, $mdDialog) {
+    function EtapasController(Etapa, $scope, Helper,toastr, Translate, $mdDialog) {
 
         var vm = this;
         vm.lookup = lookup;
@@ -43,7 +43,8 @@
 
         function activate() {
             Etapa.list().then(function (res) {
-                vm.etapas=res;
+                vm.etapas=Helper.filterDeleted(res,true);
+                vm.etapas=_.sortBy(vm.etapas, 'nombre');
             });
 
         }
