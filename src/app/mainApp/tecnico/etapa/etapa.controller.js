@@ -74,10 +74,7 @@
         function getEtapasList() {
             var promise = Servicios.etapaList();
             promise.then(function (res) {
-                console.log(res);
                 vm.etapas = res;
-                console.log(vm.etapas);
-
                 if (_.size(vm.etapas) == 0) {
                     notifyError(1000);
                 }
@@ -116,7 +113,6 @@
                 var promise = Cabinet.get(vm.idCabinet);
                 promise.then(function (res) {
                     vm.cabinet = res;
-                    console.log(vm.cabinet);
                     getModelByCabinet();
                     promise = Servicios.getDiagnosticoFromCabinet(vm.idCabinet);
                     promise.then(function (res) {
@@ -127,7 +123,6 @@
                             if (vm.etapa.validado == false) {
 
                                 vm.etapaActual = vm.etapa;
-                                console.log(vm.etapaActual);
                                 if (vm.etapaActual.insumos === undefined) {
                                     vm.etapaActual.insumos = [];
                                 }
@@ -180,7 +175,6 @@
             var promise = Servicios.cabinetByEconomic(vm.cabinet.economico);
             promise.then(function (res) {
                 vm.modelo = res;
-                console.log(vm.modelo.tipo);
             }).catch(function (res) {
                 notifyError(res.status);
             });
@@ -212,12 +206,9 @@
             };
             data.idTipo = vm.modelo.tipo;
             data.idEtapa = vm.etapaActual.actual_etapa;
-            console.log(data);
             var promise = Servicios.BusquedaCatalogoTypeStep(data);
             promise.then(function (res) {
                 vm.insumosLote = res;
-                console.log("Insumos por Lote");
-                console.log(vm.insumosLote);
                 transformArrayCatalogoInsumos();
             }).catch(function (res) {
                 notifyError(res.status);
@@ -227,7 +218,6 @@
         }
 
         function transformArrayCatalogoInsumos() {
-            console.log("Empezare a transformar");
             vm.insumosLote.forEach(function (insulote, index) {
 
 
@@ -237,11 +227,9 @@
                 vm.insumoLote.notas = insulote.tipos_equipo[0].cantidad;
 
                 vm.insumos_loteUsados.push(vm.insumoLote);
-                console.log(vm.insumos_loteUsados)
                 vm.insumoLote = null;
                 vm.insumoLote = {};
             })
-            console.log(vm.insumos_loteUsados);
         }
 
         function selectInsumo(insumotmp) {
@@ -437,37 +425,34 @@
         }
 
         function editCatalogoInsumo(insu) {
-
+            var newCatalogoInsumo = {
+                id:null,
+                descripcion:'',
+                cantidad:0,
+                notas:''
+            };
+            vm.catalogoSelected={
+                id:'',
+                descripcion:'',
+                tipos_equipo:[{
+                    cantidad:'',
+                    descripcion:''
+                }]
+            }
             if (insu != null) {
                 console.log("voy a editar");
                 console.log(insu);
-                var newCatalogoInsumo = {
-                    id:null,
-                    descripcion:'',
-                    cantidad:0,
-                    notas:''
-                };
-                vm.catalogoSelected={
-                    id:'',
-                    descripcion:'',
-                    tipos_equipo:[{
-                        cantidad:'',
-                        descripcion:''
-                    }]
-                }
+
                 vm.catalogoSelected.id = insu.id;
                 vm.catalogoSelected.descripcion = insu.nombre;
                 vm.catalogoSelected.tipos_equipo[0].cantidad = parseFloat(insu.cantidad);
                 vm.catalogoSelected.tipos_equipo[0].descripcion =insu.notas;
-
+                console.log(vm.catalogoSelected);
 
                 newCatalogoInsumo.id = vm.catalogoSelected.id;
                 newCatalogoInsumo.nombre = vm.catalogoSelected.descripcion;
                 newCatalogoInsumo.cantidad = parseFloat(vm.catalogoSelected.tipos_equipo[0].cantidad);
                 newCatalogoInsumo.notas = vm.catalogoSelected.tipos_equipo[0].descripcion;
-                vm.insumos_loteUsados.push(newCatalogoInsumo);
-
-
             }
             else
                 notifyError(404);

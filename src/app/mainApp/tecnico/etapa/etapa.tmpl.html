@@ -136,9 +136,11 @@
                 </div>
                 <div layout="row" layout-sm="column" layout-md="column"    layout-align="space-around center"  ng-show="vm.insumos_loteUsados.length!=0" flex="100">
                     <md-table-container>
-                        <table md-table="" md-row-select="vm.insumoLote" md-auto-select ng-model="vm.a" flex="100">
+                        <table md-table="" md-row-select="insu" md-auto-select ng-model="vm.insumoLote" flex="100">
                             <thead md-head="">
                             <tr md-row="md-row">
+                                <th md-column="md-column"  flex="25"><span
+                                        translate>ID</span></th>
                                 <th md-column="md-column"  flex="25"><span
                                         translate>ETAPA_SERVICIO.NAME</span></th>
                                 <th md-column="md-column" flex="15"><span translate>ETAPA_SERVICIO.CANTITY</span>
@@ -151,7 +153,8 @@
                             </thead>
                             <tbody md-body="md-body">
                             <tr md-row="md-row" md-select="insu" md-select-id="{{insu.id}}"
-                                ng-repeat="insu in vm.insumos_loteUsados track by $index">
+                                ng-repeat="insu in vm.insumos_loteUsados">
+                                <td md-cell="md-cell" flex="25">{{insu.id}}</td>
                                 <td md-cell="md-cell" flex="25">{{insu.nombre}}</td>
                                 <td md-cell="md-cell" flex="15" ng-click='vm.editCatalogoInsumo(insu)'>
                                     {{insu.cantidad}}
