@@ -132,7 +132,7 @@
                                        placeholder="{{'MODEL_CABINET.FORM.LABEL.BRAND'|translate}}"
                                        required=""
                             >
-                                <md-option ng-repeat="marca in vm.marcas" ng-value="marca.id">{{marca.categoria}}
+                                <md-option ng-repeat="marca in vm.marcas" ng-value="marca.id">{{marca.descripcion}}
                                 </md-option>
                             </md-select>
                             <div ng-messages="ModelCabinetForm.marca.$error">
