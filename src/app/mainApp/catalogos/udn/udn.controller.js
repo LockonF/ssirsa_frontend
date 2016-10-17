@@ -9,7 +9,7 @@
         .module('app.mainApp.catalogos')
         .controller('UDNController',UDNController);
 
-    function UDNController(udn, toastr, Translate, $scope)
+    function UDNController(udn, toastr, Translate, $scope, Helper, $mdDialog)
     {
         var vm = this;
 
@@ -38,19 +38,23 @@
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
             vm.successCreateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_CREATE');
+            vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
             vm.successUpdateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_UPDATE');
             vm.successDeleteMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_DELETE');
-            vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
-            vm.notFoundMessage = Translate.translate('MAIN.MSG.NOT_FOUND');
-            vm.notFoundInput=Translate.translate('MAIN.MSG.NOT_FOUND_INPUT');
-            vm.errorTypeFile = Translate.translate('MAIN.MSG.ERORR_TYPE_FILE');
-            vm.errorSize = Translate.translate('MAIN.MSG.FILE_SIZE');
+            vm.deleteButton=Translate.translate('MAIN.BUTTONS.DELETE');
+            vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
+            vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
+            vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
             listUdns();
         }
 
         function listUdns()
         {
-            vm.udn_list = udn.list()
+            udn.listObject().then(function(res){
+                vm.udn_list = Helper.filterDeleted(res, true);
+            }).catch(function(err){
+
+            });
         }
 
         function lookup(search_text){
@@ -95,13 +99,25 @@
 
         function remove()
         {
-            udn.remove(vm.udn).then(function(res){
-                listUdns();
-                cancel();
-                toastr.success(vm.successDeleteMessage,vm.successTitle)
-            }).catch(function(err){
-                toastr.error(vm.errorMessage,vm.errorTitle);
+
+            var confirm = $mdDialog.confirm()
+                .title(vm.dialogTitle)
+                .textContent(vm.dialogMessage)
+                .ariaLabel('Confirmar eliminación')
+                .ok(vm.deleteButton)
+                .cancel(vm.cancelButton);
+            $mdDialog.show(confirm).then(function() {
+                udn.remove(vm.udn).then(function(res){
+                    toastr.success(vm.successDeleteMessage, vm.successTitle);
+                    cancel();
+                    activate();
+                }).catch(function (res) {
+                    toastr.warning(vm.errorMessage, vm.errorTitle);
+                });
+            }, function() {
+
             });
+
         }
 
     }

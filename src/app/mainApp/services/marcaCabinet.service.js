@@ -15,10 +15,15 @@
             remove:remove,
             get: get,
             create:create,
-            getModels:getModels
+            getModels:getModels,
+            listPromise:listPromise
         };
         function get(id) {
             return baseMarca.get(id);
+        }
+
+        function listPromise() {
+            return baseMarca.getList();
         }
 
         function list(){
