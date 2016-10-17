@@ -35,6 +35,8 @@
                 "CARGA_INDIVIDUAL_SOLICITUDES":"Carga individual de solicitudes",
                 "ARCHIVO":"Seleccionar Archivo",
                 "REGISTRADOS":"Solicitudes Registradas",
+                "SAVE":"Guardar",
+                "ERASE":"Borrar",
                 "NO_REGISTRADOS":"Solicitudes no Registradas"
             },
             "PLACEHOLDER":{
