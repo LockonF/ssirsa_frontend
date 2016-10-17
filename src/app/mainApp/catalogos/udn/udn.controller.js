@@ -84,7 +84,7 @@
         }
 
         function update(){
-            udn.update(vm.udn).then(function(res){
+            udn.update(vm.selected_udn).then(function(res){
                 toastr.success(vm.successUpdateMessage,vm.successTitle);
                 listUdns();
             }).catch(function(err){
@@ -94,7 +94,7 @@
 
         function create()
         {
-            udn.create(vm.udn).then(function(res){
+            udn.create(vm.selected_udn).then(function(res){
                 listUdns();
                 toastr.success(vm.successCreateMessage,vm.successTitle);
             }).catch(function(err){
@@ -112,7 +112,7 @@
                 .ok(vm.deleteButton)
                 .cancel(vm.cancelButton);
             $mdDialog.show(confirm).then(function() {
-                udn.remove(vm.udn).then(function(res){
+                udn.remove(vm.selected_udn).then(function(res){
                     toastr.success(vm.successDeleteMessage, vm.successTitle);
                     cancel();
                     activate();
