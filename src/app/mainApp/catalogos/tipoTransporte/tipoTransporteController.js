@@ -81,6 +81,8 @@
 
         function  cancel(){
             $scope.inputForm.$setPristine();
+            $scope.inputForm.$setUntouched();
+
             vm.tipo_transporte = null;
         }
 

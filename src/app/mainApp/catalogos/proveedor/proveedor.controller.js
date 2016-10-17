@@ -75,6 +75,8 @@
 
         function  cancel(){
             $scope.inputForm.$setPristine();
+            $scope.inputForm.$setUntouched();
+
             vm.proveedor = null;
         }
 

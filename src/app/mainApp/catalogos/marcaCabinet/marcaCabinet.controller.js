@@ -76,6 +76,8 @@
 
         function  cancel(){
             $scope.inputForm.$setPristine();
+            $scope.inputForm.$setUntouched();
+
             vm.marca_cabinet = null;
         }
 
