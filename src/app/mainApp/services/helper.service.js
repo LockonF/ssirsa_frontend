@@ -22,8 +22,8 @@
         /**
          * @description Se encarga de ordenar un array mediante la propiedad "attribute" especificada en la firma del método
          * @param {Object[]} array - El array a ordenar
-         * @param {string} attribute - El atributo a filtrar
-         * @returns {Object[]} El array filtrado por la propiedad "deleted"
+         * @param {string} attribute - El atributo a ordenar
+         * @returns {Object[]} El array filtrado por la propiedad "attribute"
          */
         function sortByAttribute(array, attribute) {
             return _.sortBy(array, function (obj) {
