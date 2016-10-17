@@ -1,5 +1,5 @@
 /**
- * Created by lockonDaniel on 12/12/15.
+ * Created by Christian amezcua on 17/10/16.
  */
 (function() {
     'use strict';
@@ -9,7 +9,9 @@
         .service('AuthInterceptor', AuthInterceptor);
 
     /* @ngInject */
-    function AuthInterceptor($injector, $q) {
+    function AuthInterceptor($injector, $q,EnvironmentConfig) {
+        var inFlightGet = null;
+        var inFlightRefresh = null;
         return {
             request: request,
             response: response,
@@ -18,23 +20,23 @@
 
         function request(config) {
             //var $state = $injector.get('$state');
-            var Auth = $injector.get('AuthService');
-            var OAuthToken = $injector.get('OAuthToken');
-            var $http=$injector.get('$http');
-            if(!Auth.isAuthenticated()){
-                 Auth.refreshToken().then(
-                    function(){
-                        $http.defaults.headers.common['Authorization'] = 'Bearer '+OAuthToken.getToken().access_token;
-                    }
-                ).catch(
-                    function(){
-                        console.log("Error3");
-                        //Uncomment for enable user validation
-                       // $state.go('login');
-                    }
-                );
+            var deferred=$q.defer();
+            if ((config.url.indexOf(EnvironmentConfig.site.rest.api) !== -1) && (config.url.indexOf('token') == -1)){
+
+                if(!inFlightGet){
+                    inFlightGet=$injector.get('AuthService').getToken();
+                }
+                inFlightGet.then(function (token) {
+                    config.headers.Authorization='Bearer '+token;
+                    inFlightGet=null;
+                    deferred.resolve(config);
+                });
+
+            }else{
+                deferred.resolve(config);
             }
-            return config;
+            return deferred.promise;
+            /*return config;*/
         }
 
         function response(res) {
@@ -42,28 +44,17 @@
         }
 
         function responseError(response) {
-           var $state = $injector.get('$state');
-            var Auth = $injector.get('AuthService');
-
-            if (response.status === 403) {
-                if(Auth.isAuthenticated())
-                {
-                    var promise =  Auth.refreshToken();
-                    promise.then(function(res){
-                    }).catch(function(err)
-                    {
-                        console.log(err);
-                        $injector.get('AuthService').logout();
-                        console.log("Error");
-                        //$state.go('auth.login');
-                    });
+            if (response.status === 401) {
+                var deferred = $q.defer();
+                var $http = $injector.get('$http');
+                if (!inFlightRefresh) {
+                    inFlightRefresh = $injector.get('AuthService').refreshToken();
                 }
-                else
-                {
-                    $injector.get('AuthService').logout();
-                    //$state.go('auth.login');
-                    console.log("Error2");
-                }
+                inFlightRefresh.then(function() {
+                    inFlightRefresh = null;
+                    $http(response.config).then(deferred.resolve, deferred.reject);
+                });
+                return deferred.promise
             }
             return $q.reject(response);
         }
