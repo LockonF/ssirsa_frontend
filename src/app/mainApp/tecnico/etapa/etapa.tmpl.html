@@ -137,13 +137,13 @@
                 <div layout="row" layout-sm="column" layout-md="column" ng-show="vm.insumos_loteUsados.length!=0">
                     <md-table-container>
                         <table md-table="" md-row-select="vm.insumoLote" md-auto-select ng-model="vm.insumos_loteUsados" flex="100">
-                            <thead md-head="" md-order="vm.query.order">
+                            <thead md-head="">
                             <tr md-row="md-row">
-                                <th md-column="md-column" md-order-by="nombre" flex="25"><span
+                                <th md-column="md-column"  flex="25"><span
                                         translate>ETAPA_SERVICIO.NAME</span></th>
-                                <th md-column="md-column" md-order-by="cantidad" flex="15"><span translate>ETAPA_SERVICIO.CANTITY</span>
+                                <th md-column="md-column" flex="15"><span translate>ETAPA_SERVICIO.CANTITY</span>
                                 </th>
-                                <th md-column="md-column" md-order-by="notas" flex="50"><span
+                                <th md-column="md-column"  flex="50"><span
                                         translate>ETAPA_SERVICIO.NOTES</span>
                                     <!-- Cuerpo de la tabla-->
                                 </th>
@@ -151,12 +151,12 @@
                             </thead>
                             <tbody md-body="md-body">
                             <tr md-row="md-row" md-select="insu" md-select-id="{{insu.id}}"
-                                ng-repeat="insu in vm.insumos_loteUsados track by $index| orderBy:vm.query.order">
+                                ng-repeat="insu in vm.insumos_loteUsados track by $index">
                                 <td md-cell="md-cell" flex="25">{{insu.nombre}}</td>
-                                <td md-cell="md-cell" flex="15" ng-click='vm.edit($event,insumos,"cantidad")'>
+                                <td md-cell="md-cell" flex="15" ng-click='vm.editCatalogoInsumo(insu)'>
                                     {{insu.cantidad}}
                                 </td>
-                                <td md-cell="md-cell" flex="50" ng-click='vm.edit($event,insumos,"notas")'>
+                                <td md-cell="md-cell" flex="50" ng-click='vm.editCatalogoInsumo(insu)'>
                                     {{insu.notas}}
                                 </td>
                                 <td md-cell="md-cell" ng-click="$event.stopPropagation()" flex="10">

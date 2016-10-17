@@ -24,7 +24,7 @@
         };
         vm.showInsumosSection = true;
         vm.catalogoInsumos = null;//array con todos los caatalogos de insumo disponibles de la etapa
-        vm.catalogoSelected = null;//Elemento del tipo Catalogo de Insumo del insumo que se deseará agregar
+        vm.catalogoSelected = {};//Elemento del tipo Catalogo de Insumo del insumo que se deseará agregar
         vm.editable = true;
         vm.idCabinet = null;
         vm.insumos = [];//Arreglo que poseera los Insumos que pueden ser usados en cierta etapa para md table
@@ -433,13 +433,29 @@
 
         }
 
-        function editCatalogoInsumo() {
-            if (vm.insumoLote.id != null) {
-                var newCatalogoInsumo = {};
-                vm.catalogoSelected.id = vm.insumoLote.id;
-                vm.catalogoSelected.descripcion = vm.insumoLote.nombre;
-                vm.catalogoSelected.tipos_equipo[0].cantidad = parseFloat(vm.insumoLote.cantidad);
-                vm.catalogoSelected.tipos_equipo[0].descripcion = vm.insumoLote.notas;
+        function editCatalogoInsumo(insu) {
+
+            if (insu != null) {
+                console.log("voy a editar");
+                console.log(insu);
+                var newCatalogoInsumo = {
+                    id:null,
+                    descripcion:'',
+                    cantidad:0,
+                    notas:''
+                };
+                vm.catalogoSelected={
+                    id:'',
+                    descripcion:'',
+                    tipos_equipo:[{
+                        cantidad:'',
+                        descripcion:''
+                    }]
+                }
+                vm.catalogoSelected.id = insu.id;
+                vm.catalogoSelected.descripcion = insu.nombre;
+                vm.catalogoSelected.tipos_equipo[0].cantidad = parseFloat(insu.cantidad);
+                vm.catalogoSelected.tipos_equipo[0].descripcion =insu.notas;
 
 
                 newCatalogoInsumo.id = vm.catalogoSelected.id;
