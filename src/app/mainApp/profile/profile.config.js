@@ -7,7 +7,7 @@
         .config(moduleConfig);
 
     function moduleConfig($stateProvider, $translatePartialLoaderProvider){
-        $translatePartialLoaderProvider.addPart('app/mainApp/Profile');
+        $translatePartialLoaderProvider.addPart('app/mainApp/profile');
         $stateProvider
             .state('triangular.admin-default.profile',{
                 url:'/profile',
@@ -15,7 +15,7 @@
                     roles: ['Administrador','Capturista','Cliente','Tecnico A','Tecnico B','Tecnico C','Tecnico D','Tecnico E']
                 },
                 templateUrl:'app/mainApp/profile/profileUser.html',
-                controller:'profileUserController',
+                controller:'profileController',
                 controllerAs:'vm'
             });
 

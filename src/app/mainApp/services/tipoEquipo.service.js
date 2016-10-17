@@ -14,13 +14,17 @@
             list: list,
             update: update,
             create: create,
-            remove: remove
+            remove: remove,
+             listWitout:listWitout
         };
 
 
 
         function list(){
             return baseURL.getList().$object;
+        }
+        function listWitout(){
+            return baseURL.getList();
         }
 
         function update(object){

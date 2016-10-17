@@ -7,13 +7,14 @@
         .filter('sucursalSearch', sucursalSearch);
 
     /* @ngInject */
-    function SucursalController(Sucursal, $scope, toastr, Translate,$mdDialog) {
+    function SucursalController(Sucursal, $scope, toastr,Helper, Translate,$mdDialog) {
 
         var vm = this;
 
         vm.lookup = lookup;
         vm.querySearch = querySearch;
         vm.selectedSucursales = selectedSucursales;
+        vm.selectedItemChange = selectedItemChange;
         vm.cancel = cancel;
         vm.create = create;
         vm.remove=remove;
@@ -37,20 +38,28 @@
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
             vm.successUpdateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_UPDATE');
             vm.successDeleteMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_DELETE');
+            vm.deleteButton=Translate.translate('MAIN.BUTTONS.DELETE');
+            vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
+            vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
+            vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
         }
 
 
         function activate() {
-            vm.sucursales = Sucursal.list();
+            Sucursal.listObject().then(function (res) {
+                vm.sucursales =Helper.filterDeleted(res,true);
+                vm.sucursales=_.sortBy(vm.sucursales, 'nombre');
+            });
+
+
         }
         function remove(ev) {
             var confirm = $mdDialog.confirm()
-                .title('Confirmación para eliminar')
-                .textContent('¿Esta seguro de eliminar este elemento?')
-                .ariaLabel('Lucky day')
-                .targetEvent(ev)
-                .ok('Aceptar')
-                .cancel('Cancelar');
+                .title(vm.dialogTitle)
+                .textContent(vm.dialogMessage)
+                .ariaLabel('Confirmar eliminación')
+                .ok(vm.deleteButton)
+                .cancel(vm.cancelButton);
             $mdDialog.show(confirm).then(function() {
                 Sucursal.remove(vm.sucursal).then(function (res) {
                     toastr.success(vm.successDeleteMessage, vm.successTitle);
@@ -88,8 +97,17 @@
             $scope.SucursalForm.$setUntouched();
             vm.sucursal = angular.copy(sucursal);
             vm.selectedSucursalList = null;
+            vm.numberBuffer=null;
         }
+        function selectedItemChange(item)
+        {
+            if (item!=null) {
+                vm.sucursal = angular.copy(item);
 
+            }else{
+                cancel();
+            }
+        }
         function selectedSucursales(project) {
             vm.selectedSucursalList = project;
             vm.sucursal = angular.copy(project);

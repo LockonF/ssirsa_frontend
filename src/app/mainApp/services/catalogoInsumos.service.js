@@ -20,6 +20,7 @@
             getCatalogoByZone:getCatalogoByZone,
             getCatalogoByWord:getCatalogoByWord,
             list:list,
+            listObject:listObject,
             update:update,
             create:create,
             remove:remove
@@ -37,10 +38,10 @@
             return deferred.promise;
         }
 
-       
+
         function getCatalogoByZone(etapa) {
             var deferred = $q.defer();
-           
+
             Restangular.all('catalogo_insumos').one('zone', etapa).customGET().then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
@@ -76,6 +77,9 @@
         function list(){
             return baseCatalogoInsumo.getList().$object;
         }
+        function listObject() {
+            return baseCatalogoInsumo.getList();
+        }
 
         function update(object)
         {
@@ -89,13 +93,5 @@
         function remove(object) {
             return baseCatalogoInsumo.customDELETE(object.id,null,{'content-type':'application/json'});
         }
-
-
-
-
-
-
-
-
     }
 })();

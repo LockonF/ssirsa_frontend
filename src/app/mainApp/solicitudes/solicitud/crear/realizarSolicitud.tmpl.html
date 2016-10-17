@@ -1,13 +1,13 @@
 <div layout="row" flex layout-padding layout-fill layout-align="center center">
-    <div flex="70" flex-xs="100">
-            <md-card class="md-padding card1" flex="flex">
-                <md-card-content>
-                    <div layout="row" flex="" layout-align="space-around stretch" id="cabecera">
-                        <h2 flex="100" flex-sm="100" flex-gt-xs="100"
-                            class="md-headline-1 text-center">{{'CREATE_REQUEST.FORM.TITLE.CREATE'|translate}}</h2>
+    <div flex="80" flex-xs="100">
+        <md-card class="md-padding card1" flex="flex">
+            <md-card-content>
+                <div layout="row" flex="" layout-align="space-around stretch" id="cabecera">
+                    <h2 flex="100" flex-sm="100" flex-gt-xs="100"
+                        class="md-headline-1 text-center">{{'CREATE_REQUEST.FORM.TITLE.CREATE'|translate}}</h2>
 
-                    </div>
-                    <form name="solicitudForm">
+                </div>
+                <form name="solicitudForm">
                     <div layout="column" layout-xs="column" layout-sm="column" layout-align="start stretch">
                         <md-input-container class="md-block">
                             <md-select placeholder="{{'CREATE_REQUEST.FORM.PLACEHOLDER.UDN'|translate}}"
@@ -35,7 +35,7 @@
                         <!-- opc 1 Solicitud de Envio-->
                         <div flex="" layout-sm="column" layout-gt-md="column"
                              ng-show="vm.requisito.tipo_solicitud==0 ||vm.requisito.tipo_solicitud==1  ">
-                                <md-input-container class="md-block" ng-if="!vm.isClient">
+                            <md-input-container class="md-block" ng-if="!vm.isClient">
                                 <md-select placeholder="{{'CREATE_REQUEST.FORM.PLACEHOLDER.PERSON'|translate}}"
                                            ng-model="vm.persona" name="persona"
                                            ng-required="(vm.requisito.tipo_solicitud==0 ||vm.requisito.tipo_solicitud==1) && !vm.isClient">
@@ -49,8 +49,8 @@
                             </md-input-container>
                             <md-input-container class="md-block" ng-if="!vm.isClient">
                                 <md-select placeholder="{{'CREATE_REQUEST.FORM.PLACEHOLDER.STATUS'|translate}}"
-                                    ng-required="(vm.requisito.tipo_solicitud==0 ||vm.requisito.tipo_solicitud==1) && !vm.isClient"
-                                    ng-model="vm.requisito.status" name="status">
+                                           ng-required="(vm.requisito.tipo_solicitud==0 ||vm.requisito.tipo_solicitud==1) && !vm.isClient"
+                                           ng-model="vm.requisito.status" name="status">
                                     <md-option ng-repeat="status in vm.status" ng-value="status.value">{{status.value}}
                                     </md-option>
                                 </md-select>
@@ -62,7 +62,7 @@
                                 <label>{{'CREATE_REQUEST.FORM.LABEL.DESCRIPTION'|translate}}</label>
                                 <textarea ng-model="vm.requisito.descripcion" md-maxlength="100" name="descripcion"
 
-                                          ></textarea>
+                                ></textarea>
                                 <div ng-messages="solicitudForm.descripcion.$error">
 
                                     <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
@@ -74,13 +74,16 @@
                                     <md-input-container>
                                         <md-icon md-font-icon="zmdi zmdi-calendar"></md-icon>
 
-                                        <input   type="text" placeholder="{{'CREATE_REQUEST.FORM.LABEL.DATE_INITIAL'|translate}}" ng-model="vm.requisito.fecha_inicio" mdc-datetime-picker=""
-                                               time="false" date="true"   lang="es-mx"
+                                        <input type="text"
+                                               placeholder="{{'CREATE_REQUEST.FORM.LABEL.DATE_INITIAL'|translate}}"
+                                               ng-model="vm.requisito.fecha_inicio" mdc-datetime-picker=""
+                                               time="false" date="true" lang="es-mx"
+                                               min-date="vm.minDate"
                                                cancel-text="Cancelar"
                                                ok-text="Aceptar"
-                                                 format="DD/MM/YYYY"
-                                                 name="date_initial"
-                                                 ng-required="(vm.requisito.tipo_solicitud==0 ||vm.requisito.tipo_solicitud==1)"
+                                               format="DD/MM/YYYY"
+                                               name="date_initial"
+                                               ng-required="(vm.requisito.tipo_solicitud==0 ||vm.requisito.tipo_solicitud==1)"
                                                class=" md-input">
                                         <div ng-messages="solicitudForm.date_initial.$error">
 
@@ -88,18 +91,22 @@
                                         </div>
                                     </md-input-container>
                                 </div>
-                                <div class="margin-bottom-20" layout="column" layout-align="center center" ng-if="!vm.isClient">
+                                <div class="margin-bottom-20" layout="column" layout-align="center center"
+                                     ng-if="!vm.isClient">
 
                                     <md-input-container>
                                         <md-icon md-font-icon="zmdi zmdi-calendar"></md-icon>
 
-                                        <input   type="text" placeholder="{{'CREATE_REQUEST.FORM.LABEL.DATE_END'|translate}}" ng-model="vm.requisito.fecha_termino" mdc-datetime-picker=""
-                                               time="false" date="true" min-date="minDate" max-date="maxDate" lang="es-mx"
+                                        <input type="text"
+                                               placeholder="{{'CREATE_REQUEST.FORM.LABEL.DATE_END'|translate}}"
+                                               ng-model="vm.requisito.fecha_termino" mdc-datetime-picker=""
+                                               time="false" date="true" max-date="maxDate" lang="es-mx"
                                                cancel-text="Cancelar"
+                                               min-date="vm.minDate"
                                                ok-text="Aceptar"
-                                                 format="DD/MM/YYYY"
-                                                 name="date_end"
-                                                 ng-required="(vm.requisito.tipo_solicitud==0 ||vm.requisito.tipo_solicitud==1)  && !vm.isClient"
+                                               format="DD/MM/YYYY"
+                                               name="date_end"
+                                               ng-required="(vm.requisito.tipo_solicitud==0 ||vm.requisito.tipo_solicitud==1)  && !vm.isClient"
                                                class=" md-input">
                                         <div ng-messages="solicitudForm.date_end.$error">
 
@@ -107,18 +114,22 @@
                                         </div>
                                     </md-input-container>
                                 </div>
-                                <div class="margin-bottom-20" layout="column" layout-align="center center" ng-if="!vm.isClient">
+                                <div class="margin-bottom-20" layout="column" layout-align="center center"
+                                     ng-if="!vm.isClient">
                                     <md-input-container>
-                                    <md-icon md-font-icon="zmdi zmdi-calendar"></md-icon>
+                                        <md-icon md-font-icon="zmdi zmdi-calendar"></md-icon>
 
-                                    <input  type="text" placeholder="{{'CREATE_REQUEST.FORM.LABEL.DATE_TERMINATE'|translate}}" ng-model="vm.requisito.fecha_atendida" mdc-datetime-picker=""
-                                           time="true" date="true" min-date="minDate" max-date="maxDate" lang="es-mx"
-                                           cancel-text="Cancelar"
-                                           ok-text="Aceptar"
-                                            format="DD/MM/YYYY HH:mm"
-                                            name="date_terminate"
-                                            ng-required="(vm.requisito.tipo_solicitud==0 ||vm.requisito.tipo_solicitud==1) && !vm.isClient"
-                                           class=" md-input">
+                                        <input type="text"
+                                               placeholder="{{'CREATE_REQUEST.FORM.LABEL.DATE_TERMINATE'|translate}}"
+                                               ng-model="vm.requisito.fecha_atendida" mdc-datetime-picker=""
+                                               time="true" date="true" min-date="vm.minDate" max-date="maxDate"
+                                               lang="es-mx"
+                                               cancel-text="Cancelar"
+                                               ok-text="Aceptar"
+                                               format="DD/MM/YYYY HH:mm"
+                                               name="date_terminate"
+                                               ng-required="(vm.requisito.tipo_solicitud==0 ||vm.requisito.tipo_solicitud==1) && !vm.isClient"
+                                               class=" md-input">
                                         <div ng-messages="solicitudForm.date_terminate.$error">
 
                                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
@@ -138,7 +149,8 @@
                                         <md-toolbar class="md-table-toolbar md-default">
                                             <div class="md-toolbar-tools"><span>Información</span>
                                                 <div flex="flex"></div>
-                                                <md-button aria-label="fab button" ng-click="vm.showCreateDialog($event)"
+                                                <md-button aria-label="fab button"
+                                                           ng-click="vm.showCreateDialog($event)"
                                                            class="md-icon-button">
                                                     <ng-md-icon icon="local_hospital" size="30"></ng-md-icon>
                                                 </md-button>
@@ -150,13 +162,13 @@
                                                 <thead md-head="" md-order="vm.query.order">
                                                 <tr md-row="md-row">
                                                     <th md-column="md-column" md-order-by="cantidad"><span
-                                                        translate=""><label>{{'MODAL_REQUEST.FORM.LABEL.QUANTITY'|translate}}</label></span>
+                                                            translate=""><label>{{'MODAL_REQUEST.FORM.LABEL.QUANTITY'|translate}}</label></span>
                                                     </th>
                                                     <th md-column="md-column" md-order-by="status_equipo"><span
-                                                        translate=""> <label>{{'MODAL_REQUEST.FORM.LABEL.STATUS_EQUIPMENT'|translate}}</label></span>
+                                                            translate=""> <label>{{'MODAL_REQUEST.FORM.LABEL.STATUS_EQUIPMENT'|translate}}</label></span>
                                                     </th>
                                                     <th md-column="md-column" md-order-by="modelo_cabinet"><span
-                                                        translate=""> <label>{{'MODAL_REQUEST.FORM.LABEL.TYPE_EQUIPMENT'|translate}}</label></span>
+                                                            translate=""> <label>{{'MODAL_REQUEST.FORM.LABEL.TYPE_EQUIPMENT'|translate}}</label></span>
                                                     </th>
 
                                                 </tr>
@@ -171,7 +183,8 @@
                                                     </td>
                                                     <td md-cell="md-cell"
                                                         ng-click='vm.edit($event,dato,"status_equipo")'>
-                                                        <md-select aria-label="fab button" ng-model="dato.status_equipo">
+                                                        <md-select aria-label="fab button"
+                                                                   ng-model="dato.status_equipo">
                                                             <md-option ng-repeat="status in vm.status_equipment"
                                                                        ng-value="status.value">{{status.value}}
                                                             </md-option>
@@ -179,10 +192,10 @@
                                                     </td>
                                                     <td md-cell="md-cell"
                                                         ng-click='vm.edit($event,dato,"modelo_cabinet")'>
-                                                        <md-select aria-label="fab button"  ng-model="dato.tipo_equipo">
+                                                        <md-select aria-label="fab button" ng-model="dato.tipo_equipo">
                                                             <md-option
-                                                                ng-repeat="tipoEquipo in vm.tiposEquipo"
-                                                                ng-value="tipoEquipo.id">
+                                                                    ng-repeat="tipoEquipo in vm.tiposEquipo"
+                                                                    ng-value="tipoEquipo.id">
                                                                 {{tipoEquipo.nombre}}
                                                             </md-option>
                                                         </md-select>
@@ -203,7 +216,7 @@
                             <md-input-container class="md-block">
                                 <label>{{'CREATE_REQUEST.FORM.LABEL.COMMENT'|translate}}</label>
                                 <textarea ng-model="vm.requisito.comentario" md-maxlength="100" name="comentario"
-                                          ></textarea>
+                                ></textarea>
                                 <div ng-messages="solicitudForm.comentario.$error">
                                     <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                 </div>
@@ -239,15 +252,16 @@
                                 <md-input-container>
                                     <md-icon md-font-icon="zmdi zmdi-calendar"></md-icon>
 
-                                    <input  type="text" placeholder="{{'CREATE_REQUEST.FORM.LABEL.DATE_END'|translate}}" ng-model="vm.requisitoVenta.fecha_atencion" mdc-datetime-picker=""
-                                            time="false" date="true"  lang="es-mx"
-                                            cancel-text="Cancelar"
-                                            ok-text="Aceptar"
-                                            format="DD/MM/YYYY"
-                                            name="date_terminate"
-                                            ng-disabled="true"
-                                            ng-required="vm.requisito.tipo_solicitud==2"
-                                            class=" md-input">
+                                    <input type="text" placeholder="{{'CREATE_REQUEST.FORM.LABEL.DATE_END'|translate}}"
+                                           ng-model="vm.requisitoVenta.fecha_atencion" mdc-datetime-picker=""
+                                           time="false" date="true" lang="es-mx"
+                                           cancel-text="Cancelar"
+                                           ok-text="Aceptar"
+                                           format="DD/MM/YYYY"
+                                           name="date_terminate"
+                                           ng-disabled="true"
+                                           ng-required="vm.requisito.tipo_solicitud==2"
+                                           class=" md-input">
                                     <div ng-messages="solicitudForm.date_terminate.$error">
 
                                         <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
@@ -255,6 +269,73 @@
 
                                 </md-input-container>
                             </div>
+
+                            <md-tabs layout-padding="true" md-dynamic-height="100" md-border-bottom="100" md-selected="vm.selectedTab">
+                                <md-tab label = {{'INPUT.Tabs.CabinetsUpload'|translate}}>
+                                    <md-content layout-padding="">
+                                        <div layout-gt-md="row" layout="column" layout-align-gt-md="space-around center" layout-align="center stretch">
+                                            <md-button ng-click="vm.showMassiveUpload()" class="md-raised md-primary">{{'CREATE_REQUEST.FORM.LABEL.CARGA_MASIVA_SOLICITUDES'|translate}}</md-button>
+                                            <md-button ng-click="vm.showManualUpload()" class="md-raised md-primary">{{'CREATE_REQUEST.FORM.LABEL.CARGA_INDIVIDUAL_SOLICITUDES'|translate}}</md-button>
+                                        </div>
+                                        <div layout="column" ng-hide="vm.hideMassiveUpload">
+                                            <!-- Massive Upload-->
+                                            <div layout="row" layout-sm="column" layout-xs="column" layout-md="column" flex="100" ng-hide="vm.hideMassiveUpload">
+                                                <md-input-container flex="75" flex-sm="100" flex-xs="100" flex-md="100">
+                                                    <input name="FileName" type="text" ng-model="vm.entrada.file.name" ng-disabled="true"/>
+                                                </md-input-container>
+                                                <div flex="25" flex-sm="100" flex-xs="100" flex-md="100" layout="column">
+                                                    <md-button ngf-select="vm.selectionFile($file)" accept=".xlsx, application/vnd.ms-excel" ngf-max-size="10MB" ng-model="vm.entrada.file" class="md-primary md-raised">{{'CREATE_REQUEST.FORM.LABEL.ARCHIVO'|translate}}</md-button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div flex="" layout="column"  ng-hide="vm.hideRegisteredSolicitud">
+                                            <p>{{'CREATE_REQUEST.FORM.LABEL.REGISTRADOS'|translate}}</p>
+                                            <md-table-container>
+                                                <table md-table="" md-row-select="" multiple="" ng-disabled="true">
+                                                    <thead md-head="">
+                                                    <tr md-row="">
+                                                        <th md-column="">{{'INPUT.TableCabinets.Headers.Economic Num.'|translate}}</th>
+                                                        <th md-column="">{{'INPUT.TableCabinets.Headers.Serial Num.'|translate}}</th>
+                                                        <th md-column="">{{'INPUT.TableCabinets.Headers.Brand'|translate}}</th>
+                                                        <th md-column="">{{'INPUT.TableCabinets.Headers.Model'|translate}}</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody md-body="">
+                                                    <tr md-row="" ng-repeat="registeredCabinet in vm.entrada.creados">
+                                                        <td md-cell="">{{registeredCabinet.economico}}</td>
+                                                        <td md-cell="">{{registeredCabinet.no_serie}}</td>
+                                                        <td md-cell="">{{registeredCabinet.modelo.marca.descripcion}}</td>
+                                                        <td md-cell="">{{registeredCabinet.modelo.nombre}}</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </md-table-container>
+                                        </div>
+                                        <div flex="" layout="column"  ng-hide="vm.hideUnregisteredSolicitud">
+                                            <p>{{'CREATE_REQUEST.FORM.LABEL.NO_REGISTRADOS'|translate}}</p>
+                                            <md-table-container>
+                                                <table md-table="" md-row-select="" multiple="" ng-disabled="true">
+                                                    <thead md-head="">
+                                                    <tr md-row="">
+                                                        <th md-column="">{{'INPUT.TableCabinets.Headers.Economic Num.'|translate}}</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody md-body="">
+                                                    <tr md-row="" ng-repeat="unregisteredCabinet in vm.entrada.no_creados">
+                                                        <td md-cell="">{{unregisteredCabinet}}</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </md-table-container>
+                                        </div>
+
+                                        <div layout="row" layout-align="end center">
+                                            <md-button ng-disabled="entradaForm.$invalid" ng-click="vm.guardar()" class="md-raised md-primary">{{'INPUT.Save'|translate}}</md-button>
+                                        </div>
+                                    </md-content>
+                                </md-tab>
+                            </md-tabs>
+
                             <md-input-container class="md-block">
                                 <label>{{'CREATE_REQUEST.FORM.LABEL.RAZON'|translate}}</label>
                                 <textarea ng-model="vm.requisitoVenta.razon_social" name="razon"
@@ -265,7 +346,7 @@
                             </md-input-container>
                             <md-input-container class="md-block">
                                 <label>{{'CREATE_REQUEST.FORM.LABEL.BUSINESS_NAME'|translate}}</label>
-                                <textarea ng-model="vm.requisitoVenta.nombre_negocio"  name="business"
+                                <textarea ng-model="vm.requisitoVenta.nombre_negocio" name="business"
                                           ng-required="vm.requisito.tipo_solicitud==2"></textarea>
                                 <div ng-messages="solicitudForm.business.$error">
                                     <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
@@ -317,8 +398,8 @@
                             </div>
                         </div>
                     </div>
-                    </form>
-                </md-card-content>
-            </md-card>
+                </form>
+            </md-card-content>
+        </md-card>
     </div>
 </div>

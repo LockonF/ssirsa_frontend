@@ -1,6 +1,4 @@
-/**
- * Created by franciscojaviercerdamartinez on 6/2/16.
- */
+
 (function () {
     angular
         .module('app.mainApp.solicitudes')
@@ -34,6 +32,11 @@
             "created_at": new Date(),
             "updated_at": new Date()
         };
+        vm.minDate = moment();
+        vm.hideManualUpload = true;
+        vm.hideMassiveUpload = false;
+        vm.hideRegisteredSolicitud = true;
+        vm.hideUnregisteredSolicitud = true;
         vm.udn = null;
         vm.persona = null;
         vm.types_request = OPTIONS.type_request;
@@ -43,6 +46,7 @@
         vm.personas = null;
         vm.isClient = true;
         vm.requisitoVenta = angular.copy(requisitoVenta);
+        vm.entrada = angular.copy(requisitoVenta);
         vm.requisito = angular.copy(requisito);
         vm.showCreateDialog = showCreateDialog;
         vm.cancel = cancel;
@@ -51,6 +55,10 @@
         vm.guardarSolicitudAdmin = guardarSolicitudAdmin;
         vm.guardarSolicitudVenta = guardarSolicitudVenta;
         vm.guardarSolicitudCliente = guardarSolicitudCliente;
+        vm.showMassiveUpload = showMassiveUpload;
+        vm.showManualUpload = showManualUpload;
+        vm.selectionFile = selectionFile;
+        vm.guardar=guardar;
         activate();
         function activate() {
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
@@ -63,6 +71,48 @@
             vm.isClient = Session.userRole === 'Cliente';
             vm.requisitoVenta.fecha_atencion=moment();
         }
+
+        function showMassiveUpload() {
+            vm.hideManualUpload = true;
+            vm.hideMassiveUpload = false;
+        }
+
+        function showManualUpload() {
+            vm.hideManualUpload = false;
+            vm.hideMassiveUpload = true;
+        }
+
+        function selectionFile($file) {
+            vm.entrada.file = $file;
+        }
+
+        function guardar() {
+            var fd = new FormData();
+            //Is massive upload
+            if (vm.entrada.file != null) {
+                fd.append('file', vm.entrada.file);
+                Solicitud_Servicio.postEntradaMasiva(fd).then(function (res) {
+                    vm.entrada = res;
+                    vm.hideRegisteredCabinets = false;
+                    vm.hideUnregisteredCabinets = false;
+                    toastr.success('Exito en la carga masiva', 'Exito');
+                    console.log("vm.entrada");
+                    console.log(vm.entrada);
+                }).catch(function (err) {
+                    toastr.error('Error en la carga masiva', 'Error');
+                    console.log(err);
+                });
+            }
+            else {
+                Solicitud_Servicio.postEntrada(fd).then(function (res) {
+
+                }).catch(function (err) {
+
+                });
+            }
+
+        }
+
         function showCreateDialog(event) {
             var config = {
                 controller: 'solicitudDataDialogController',

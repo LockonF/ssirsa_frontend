@@ -7,13 +7,14 @@
         .filter('lineaSearch', custom);
 
     /* @ngInject */
-    function LineaTransporteController(LineaTransporte, $scope, toastr, Translate,$mdDialog) {
+    function LineaTransporteController(LineaTransporte,Helper, $scope, toastr, Translate,$mdDialog) {
 
         var vm = this;
 
         vm.lookup = lookup;
         vm.querySearch = querySearch;
         vm.selectedLineas = selectedLineas;
+        vm.selectedItemChange = selectedItemChange;
         vm.cancel = cancel;
         vm.create = create;
         vm.remove=remove;
@@ -37,20 +38,26 @@
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
             vm.successUpdateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_UPDATE');
             vm.successDeleteMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_DELETE');
+            vm.deleteButton=Translate.translate('MAIN.BUTTONS.DELETE');
+            vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
+            vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
+            vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
         }
 
 
         function activate() {
-            vm.lineas = LineaTransporte.list();
-        } 
+            LineaTransporte.listObject().then(function (res) {
+                vm.lineas =Helper.filterDeleted(res,true);
+                vm.lineas=_.sortBy(vm.lineas, 'razon_social');
+            });
+        }
         function remove(ev) {
             var confirm = $mdDialog.confirm()
-                .title('Confirmación para eliminar')
-                .textContent('¿Esta seguro de eliminar este elemento?')
-                .ariaLabel('Lucky day')
-                .targetEvent(ev)
-                .ok('Aceptar')
-                .cancel('Cancelar');
+                .title(vm.dialogTitle)
+                .textContent(vm.dialogMessage)
+                .ariaLabel('Confirmar eliminación')
+                .ok(vm.deleteButton)
+                .cancel(vm.cancelButton);
             $mdDialog.show(confirm).then(function() {
                 LineaTransporte.remove(vm.transport).then(function (res) {
                     toastr.success(vm.successDeleteMessage, vm.successTitle);
@@ -63,6 +70,7 @@
 
             });
         }
+
         function update() {
             LineaTransporte.update(vm.transport).then(function (res) {
                 toastr.success(vm.successUpdateMessage, vm.successTitle);
@@ -88,8 +96,17 @@
             $scope.TransportForm.$setUntouched();
             vm.transport = angular.copy(transport);
             vm.selectedLineaList = null;
+            vm.numberBuffer=null;
         }
+        function selectedItemChange(item)
+        {
+            if (item!=null) {
+                vm.transport = angular.copy(item);
 
+            }else{
+                cancel();
+            }
+        }
         function selectedLineas(project) {
             vm.selectedLineaList = project;
             vm.transport = angular.copy(project);

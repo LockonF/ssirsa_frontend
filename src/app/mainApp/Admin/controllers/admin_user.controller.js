@@ -6,11 +6,12 @@
         .controller('admin_userController', admin_userController)
         .filter('personaSearch', personaSearch);
 
-    function admin_userController( $scope, toastr, Translate, $mdDialog,Persona_Admin) {
+    function admin_userController( $scope, toastr, Translate, $mdDialog,Persona_Admin,Persona) {
 
         var vm = this;
         vm.lookup = lookup;
         vm.querySearch = querySearch;
+        vm.selectedItemChange = selectedItemChange;
         vm.selectedPersonas=selectedPersonas;
         vm.cancel = cancel;
         vm.clean=clean;
@@ -20,7 +21,7 @@
         vm.picFoto="assets/images/modelo.svg";
         vm.search_items = [];
         vm.searchText = '';
-
+        vm.user_ini=null;
         var persona = {
             "user": {
                 "username": "",
@@ -53,20 +54,35 @@
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
             vm.successUpdateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_UPDATE');
             vm.successDeleteMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_DELETE');
+            vm.deleteButton=Translate.translate('MAIN.BUTTONS.DELETE');
+            vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
+            vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
+            vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
         }
 
         function activate() {
-            vm.personas_admin = Persona_Admin.list();
+            Persona_Admin.listCanonico().then(function(rest){
+                vm.personas_admin=rest;
+                Persona.listProfile().then(function(rest){
+                    vm.user_ini=rest;
+                    vm.personas_admin = _.filter(vm.personas_admin, function(item){
+                        return item.id != vm.user_ini.id;
+                    });
+                }).catch(function (error){
+                });
+            }).catch(function(error){
+
+            });
+
         }
 
         function remove(ev) {
             var confirm = $mdDialog.confirm()
-                .title('Confirmación para eliminar')
-                .textContent('¿Esta seguro de eliminar este elemento?')
-                .ariaLabel('Lucky day')
-                .targetEvent(ev)
-                .ok('Aceptar')
-                .cancel('Cancelar');
+                .title(vm.dialogTitle)
+                .textContent(vm.dialogMessage)
+                .ariaLabel('Confirmar eliminación')
+                .ok(vm.deleteButton)
+                .cancel(vm.cancelButton);
             $mdDialog.show(confirm).then(function() {
                 Persona_Admin.deleteData(vm.persona).then(function(rest){
                     toastr.success(vm.successDeleteMessage, vm.successTitle);
@@ -137,6 +153,10 @@
         function selectedPersonas(project) {
             vm.selectedPersonaList = project;
             vm.persona = angular.copy(project);
+        }
+
+        function selectedItemChange(item){
+            vm.persona = angular.copy(item);
         }
 
 

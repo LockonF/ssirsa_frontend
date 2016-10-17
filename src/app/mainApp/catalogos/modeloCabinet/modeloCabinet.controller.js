@@ -7,16 +7,19 @@
         .filter('modeloSearch', modeloSearch);
 
     /* @ngInject */
-    function ModeloCabinetController(ModeloCabinet, $scope, toastr, Translate, $mdDialog, MarcaCabinet) {
+    function ModeloCabinetController(ModeloCabinet,TipoEquipo, $scope, toastr,Helper, Translate, $mdDialog, MarcaCabinet) {
 
         var vm = this;
         vm.lookup = lookup;
         vm.querySearch = querySearch;
         vm.selectedModelos = selectedModelos;
+        vm.selectedItemChange = selectedItemChange;
         vm.cancel = cancel;
         vm.create = create;
         vm.remove=remove;
         vm.update=update;
+
+        vm.disabled=disabled;
         vm.search_items = [];
         vm.searchText = '';
         var modelo = {
@@ -39,20 +42,36 @@
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
             vm.successUpdateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_UPDATE');
             vm.successDeleteMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_DELETE');
+            vm.deleteButton=Translate.translate('MAIN.BUTTONS.DELETE');
+            vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
+            vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
+            vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
         }
+        function disabled(id,tipoArray) {
+            if(id!=null) {
+                if(tipoArray==="tipo") {
+                    return Helper.searchByField(vm.tipoEquipos, id).deleted;
+                }else{
+                    return Helper.searchByField(vm.marcas, id).deleted;
+                }
 
+            }
+        }
         function activate() {
-            vm.modelos = ModeloCabinet.list();
+            ModeloCabinet.listWitout().then(function (res) {
+                vm.modelos =Helper.filterDeleted(res,true);
+                vm.modelos=_.sortBy(vm.modelos, 'nombre');
+            });
             vm.marcas = MarcaCabinet.list();
+            vm.tipoEquipos = TipoEquipo.list();
         }
         function remove(ev) {
-                var confirm = $mdDialog.confirm()
-                    .title('Confirmación para eliminar')
-                    .textContent('¿Esta seguro de eliminar este elemento?')
-                    .ariaLabel('Lucky day')
-                    .targetEvent(ev)
-                    .ok('Aceptar')
-                    .cancel('Cancelar');
+            var confirm = $mdDialog.confirm()
+                .title(vm.dialogTitle)
+                .textContent(vm.dialogMessage)
+                .ariaLabel('Confirmar eliminación')
+                .ok(vm.deleteButton)
+                .cancel(vm.cancelButton);
                 $mdDialog.show(confirm).then(function() {
                     ModeloCabinet.remove(vm.modelo).then(function (res) {
                         toastr.success(vm.successDeleteMessage, vm.successTitle);
@@ -91,9 +110,19 @@
             vm.modelo = angular.copy(modelo);
             vm.selectedModeloList = null;
         }
+        function selectedItemChange(item)
+        {
+            if (item!=null) {
+                vm.modelo = angular.copy(item);
 
+            }else{
+                cancel();
+            }
+        }
         function selectedModelos(project) {
+            project.cantidad =parseFloat(project.cantidad);
             vm.selectedModeloList = project;
+
             vm.modelo = angular.copy(project);
         }
 

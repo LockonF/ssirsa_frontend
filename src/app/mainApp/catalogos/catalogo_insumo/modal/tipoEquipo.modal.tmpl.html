@@ -1,0 +1,109 @@
+<md-dialog class="mobile-fullwidth-dialog" flex="40" flex-xs="100" flex-sm="100">
+    <md-toolbar class="toolbar-default">
+        <div class="md-toolbar-tools">
+            <h2>
+                <span>{{'MODAL_CATALOG_CONSUMABLE.FORM.TITLE.TYPE'|translate}}</span>
+            </h2>
+            <span flex></span>
+            <md-button aria-label="cerrar" class="md-icon-button" ng-click="vm.cancelClick()" aria-label="cancel">
+                <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <md-divider></md-divider>
+
+    <md-dialog-content class="md-dialog-content card1 md-blue-grey-theme">
+        <form name="addTipoEquipoForm">
+            <div layout="column" layout-sm="column" layout-xs="column" layout-md="column" flex="100"
+                 layout-align="space-around stretch">
+                <md-autocomplete md-selected-item="vm.selectedTipoEquipo"
+                                 md-selected-item-change="vm.selectedItemChange(vm.selectedTipoEquipo)"
+                                 md-items="item in vm.querySearch(vm.searchText)"
+                                 md-item-text="item.descripcion"
+                                 md-input-name="tipoEquipo"
+                                 required
+                                 md-min-length="0"
+                                 md-search-text-change="vm.searchs(vm.searchText)"
+                                 md-search-text="vm.searchText"
+                                 md-menu-class="autocomplete-custom-template"
+                                 md-floating-label="{{'MODAL_CATALOG_CONSUMABLE.FORM.PLACEHOLDER.SEARCH_TYPE'| translate }}">
+                        <span
+                            md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.descripcion}}</span>
+                    <md-item-template>
+                        <span class="item-title">
+                            <md-icon md-font-icon="fa fa-check"></md-icon>
+                            <span>&nbsp; {{item.nombre}} - {{item.descripcion}}</span>
+                        </span>
+                    </md-item-template>
+                    <div ng-messages="addTipoEquipoForm.tipoEquipo.$error">
+                        <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
+                    </div>
+                    <md-not-found><span translate="MODAL_CATALOG_CONSUMABLE.FORM.LABEL.NOT_FOUND_TYPE"></span>
+                    </md-not-found>
+                </md-autocomplete>
+            </div>
+            <div layout="row" layout-sm="column" layout-xs="column" layout-md="column" flex="100"
+                 layout-align="center center" layout-align-xs="space-around stretch" layout-align-sm="space-around stretch">
+                <md-input-container class="md-inline-form" flex="50" flex-sm="100" flex-xs="100">
+                    <label>{{'MODAL_CATALOG_CONSUMABLE.FORM.LABEL.QUANTITY'|translate}}</label>
+                    <input type="text" name="cantidad" valid-number ng-model="vm.tipos_equipo.cantidad" ng-required="true"
+                           ng-min="0"/>
+                    <div ng-messages="addTipoEquipoForm.cantidad.$error">
+                        <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
+                        <div ng-message="belowminimum   ">{{'MAIN.GENERAL.MIN_NUMBER' | translate}} 0</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-inline-form" flex="50" flex-sm="100" flex-xs="100">
+                    <label>{{'MODAL_CATALOG_CONSUMABLE.FORM.PLACEHOLDER.DESCRIPTION'|translate}}</label>
+                    <input type="text" ng-model="vm.tipos_equipo.descripcion"/>
+                </md-input-container>
+            </div>
+            <div layout="column" layout-sm="column" layout-xs="column" layout-md="column" flex="100"
+            >
+                <md-button ng-click="vm.addTipoEquipo()" ng-disabled="addTipoEquipoForm.$invalid"
+                           class="md-raised md-primary">
+                    <p>{{'MODAL_CATALOG_CONSUMABLE.FORM.BUTTON.ADD'|translate}}</p>
+                </md-button>
+            </div>
+        </form>
+        <md-list>
+            <md-virtual-repeat-container id="vertical_containers">
+
+                <md-list-item ng-repeat="equipo in vm.catalogo.tipos_equipo"
+                              class="md-2-line">
+                    <div layout-padding layout="row"
+                         layout-align="start center">
+                        <md-icon md-svg-icon="assets/images/equipment_type.svg" class="md-avatar-icon"></md-icon>
+                        <div class="md-list-item-text" layout="column">
+                            <h4><b>{{'MODAL_CATALOG_CONSUMABLE.FORM.LABEL.TYPE'|translate}}</b>
+                                {{vm.search(equipo.tipo_equipo)}}
+                            </h4>
+                            <h4><b>{{'MODAL_CATALOG_CONSUMABLE.FORM.LABEL.DESCRIPTION'|translate}}</b>
+                                {{equipo.descripcion}}</h4>
+                            <h4><b>{{'MODAL_CATALOG_CONSUMABLE.FORM.LABEL.QUANTITY'|translate}}</b>
+                                {{equipo.cantidad}}</h4>
+                        </div>
+                        <md-button class="md-secondary md-icon-button" ng-click="vm.deleteTipoEquipo(equipo)"
+                                   aria-label="call">
+                            <md-icon md-font-icon="fa fa-close"></md-icon>
+                        </md-button>
+                    </div>
+                    <md-divider></md-divider>
+
+                </md-list-item>
+
+
+            </md-virtual-repeat-container>
+        </md-list>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" class="card1 md-blue-grey-theme">
+
+        <span flex></span>
+        <md-button aria-label="cerrar" ng-click="vm.cancelClick()" aria-label="{{'Cancel' | triTranslate}}"
+                   translate="MAIN.BUTTONS.CANCEL"></md-button>
+        <md-button aria-label="enviar" ng-click="vm.okClick()" class="md-primary" ng-disabled="updateSolicitudform.$invalid"
+                   aria-label="{{vm.dialogData.confirmButtonText | triTranslate}}"
+                   translate="MAIN.BUTTONS.SUBMIT"></md-button>
+    </md-dialog-actions>
+</md-dialog>

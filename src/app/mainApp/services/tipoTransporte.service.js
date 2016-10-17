@@ -16,8 +16,12 @@
             list:list,
             update:update,
             create:create,
-            remove:remove
+            remove:remove,
+            listObject:listObject
         };
+        function listObject() {
+            return baseTipoTransporte.getList();
+        }
 
 
         function list(){

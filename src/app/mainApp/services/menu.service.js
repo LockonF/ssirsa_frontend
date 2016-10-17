@@ -43,6 +43,7 @@
                     break;
                 case "Tecnico E":
                     loadTecnicoMenu();
+                    break;
                 default:
                     triMenu.menu = [];
             }
@@ -120,6 +121,10 @@
                             name: 'MAIN.MENU.IN',
                             state: 'triangular.admin-default.entrada',
                             type: 'link'
+                        },{
+                            name: 'MAIN.MENU.OUT',
+                            state: 'triangular.admin-default.salida',
+                            type: 'link'
                         },
                         {
                             name: 'MAIN.MENU.REGISTER_STEP',
@@ -168,7 +173,7 @@
                             name: 'MAIN.MENU.CATALOGS.CABINET_BRAND',
                             state: 'triangular.admin-default.marca-cabinet',
                             type: 'link'
-                        },{
+                        }, {
                             name: 'MAIN.MENU.CATALOGS.CABINET_MODEL',
                             state: 'triangular.admin-default.model-cabinet',
                             type: 'link'
@@ -178,15 +183,24 @@
                             type: 'link'
                         },
                         {
-                            name:'MAIN.MENU.CATALOGS.CLIENT',
+                            name: 'MAIN.MENU.CATALOGS.CLIENT',
                             state: 'triangular.admin-default.clientes',
-                            type:'link'
+                            type: 'link'
                         },
                         {
-                            name:'MAIN.MENU.CATALOGS.EQUIPMENT_TYPE',
+                            name: 'MAIN.MENU.CATALOGS.EQUIPMENT_TYPE',
                             state: 'triangular.admin-default.catalogo-tipo-equipo',
-                            type:'link'
+                            type: 'link'
+                        },{
+                            name: 'MAIN.MENU.CATALOGS.STAGE',
+                            state: 'triangular.admin-default.catalogo-etapas',
+                            type: 'link'
+                        },{
+                            name: 'MAIN.MENU.CATALOGS.CONSUMABLE_CATALOG',
+                            state: 'triangular.admin-default.catalogo-insumo',
+                            type: 'link'
                         }
+
 
                     ]
                 },
@@ -207,11 +221,7 @@
                         name: 'MAIN.MENU.CATALOGS.CONSUMABLE_CATEGORY',
                         state: 'triangular.admin-default.categoria',
                         type: 'link'
-                    }, {
-                        name: 'MAIN.MENU.CATALOGS.CONSUMABLE_CATALOG',
-                        state: 'triangular.admin-default.catalogo-insumo',
-                        type: 'link'
-                    },{
+                    },   {
                         name: 'MAIN.MENU.CATALOGS.PROVIDER',
                         state: 'triangular.admin-default.proveedor',
                         type: 'link'
@@ -274,11 +284,7 @@
                         name: 'MAIN.MENU.CATALOGS.CONSUMABLE_CATEGORY',
                         state: 'triangular.admin-default.categoria',
                         type: 'link'
-                    }, {
-                        name: 'MAIN.MENU.CATALOGS.CONSUMABLE_CATALOG',
-                        state: 'triangular.admin-default.catalogo-insumo',
-                        type: 'link'
-                    },{
+                    },  {
                         name: 'MAIN.MENU.CATALOGS.PROVIDER',
                         state: 'triangular.admin-default.proveedor',
                         type: 'link'
@@ -349,14 +355,20 @@
                     icon: 'fa fa-wrench',
                     type: 'dropdown',
                     priority: 4,
-                    children: [{
-                        name: 'MAIN.MENU.START',
-                        state: 'triangular.admin-default.tecnico',
-                        type: 'link'
-                    },
+                    children: [
+                        {
+                            name: 'MAIN.MENU.START',
+                            state: 'triangular.admin-default.tecnico',
+                            type: 'link'
+                        },
                         {
                             name: 'MAIN.MENU.IN',
                             state: 'triangular.admin-default.entrada',
+                            type: 'link'
+                        },
+                        {
+                            name: 'MAIN.MENU.OUT',
+                            state: 'triangular.admin-default.salida',
                             type: 'link'
                         },
                         {

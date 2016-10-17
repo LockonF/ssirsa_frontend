@@ -83,11 +83,17 @@
             vm.notFoundInput = Translate.translate('MAIN.MSG.NOT_FOUND_INPUT');
             vm.errorTypeFile = Translate.translate('MAIN.MSG.ERORR_TYPE_FILE');
             vm.errorSize = Translate.translate('MAIN.MSG.FILE_SIZE');
+            vm.errorDisabled = Translate.translate('MAIN.MSG.ERROR_DISABLED_CABINET');
         }
 
         function searchCabinet() {
             Cabinet.get(vm.cabinet).then(function (res) {
-                vm.cabinets = res;
+                if(!res.deleted){
+                    vm.cabinets = res;
+                }else{
+                    toastr.warning(vm.errorDisabled, vm.errorTitle);
+                }
+
             }).catch(function (res) {
                 notifyError(res.status);
             });

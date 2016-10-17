@@ -10,7 +10,6 @@
         'app.mainApp.bienvenida',
         'app.mainApp.tecnico',
         'app.mainApp.inventario',
-        'app.mainApp.entradaSalida',
         'app.mainApp.socket',
         'app.mainApp.catalogos',
         'app.mainApp.profile'

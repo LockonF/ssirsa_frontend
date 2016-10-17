@@ -20,6 +20,9 @@
         vm.clear = clear;
         vm.clickCopy=clickCopy;
         vm.querySearch=querySearch;
+
+        vm.myHeight=window.innerHeight-250;
+        vm.myStyle={"min-height":""+vm.myHeight+"px"};
         
         activate();
         vm.successTitle=Translate.translate('Projects.Notify.Success');
@@ -38,9 +41,9 @@
         vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
         
         function activate() {
+            vm.project=null;
             vm.projects=Proyectos.list();
             vm.filteredProjects=vm.projects;
-            vm.project=null;
         }
 
         function create() {
@@ -87,9 +90,11 @@
         }
 
         function search(text) {
-            vm.filteredProjects = _.filter(vm.projects, function (item) {
-                return item.descripcion.toLowerCase().includes(text.toLowerCase());
-            });
+            if(text.length>0) {
+                vm.filteredProjects = _.filter(vm.projects, function (item) {
+                    return item.descripcion.toLowerCase().includes(text.toLowerCase());
+                });
+            }
             return vm.filteredProjects;
         }
 

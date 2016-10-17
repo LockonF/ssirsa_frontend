@@ -19,11 +19,11 @@
                                      md-selected-item-change="vm.selectedItemChange(vm.selectedSucursal)"
 
                                      md-items="item in vm.querySearch(vm.searchText)" md-item-text="item.nombre"
-                                     md-min-length="3"
+                                     md-min-length="0"
                                      md-search-text-change="vm.search(vm.searchText)"
                                      md-search-text="vm.searchText"
                                      md-menu-class="autocomplete-custom-template"
-                                     md-floating-label="{{'TRANSPORT_LINE.FORM.PLACEHOLDER.SEARCH_TRANSPORT_LINE'| translate }}">
+                                     md-floating-label="{{'SUCURSAL.FORM.PLACEHOLDER.SEARCH_BRANCH'| translate }}">
                         <span
                             md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.nombre}}</span>
                         <md-item-template><span class="item-title">
@@ -98,7 +98,7 @@
                             </div>
                         </md-input-container>
                     </form>
-                    <div layout="row" layout-align="end end">
+                    <div layout="row" layout-align="end end"  layout-sm="column" layout-xs="column" layout-align-sm="start stretch" layout-align-xs="start stretch">
                         <md-button aria-label="fab button" ng-click="vm.cancel()" class="md-raised md-primary">
                             <md-icon md-font-icon="fa fa-eraser"></md-icon>
                         </md-button>

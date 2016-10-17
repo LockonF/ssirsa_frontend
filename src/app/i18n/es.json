@@ -13,6 +13,7 @@
       "CALENDAR":"Calendario",
       "SERVICES":"Servicios",
       "IN":"Entradas",
+        "OUT":"Salidas",
       "REGISTER_STEP":"Registro de Etapa",
       "PRECHECK":"Pre - Checklist",
       "DIAGNOSTIC":"Diagnostico",
@@ -45,7 +46,8 @@
         "PROJECTS": "Proyectos",
         "CONSUMABLE_CATEGORY": "Categoría de Insumos",
         "CLIENT": "Cliente",
-          "EQUIPMENT_TYPE": "Tipo de Equipo"
+          "EQUIPMENT_TYPE": "Tipo de Equipo",
+          "STAGE": "Etapas"
 
       },
       "INVENTORY":{
@@ -67,7 +69,8 @@
     },
     "MSG": {
       "SUCCESS_TITLE": "Éxito",
-      "ERROR_TITLE": "Ooops",
+      "WARNING_TITLE":"Advertencia",
+      "ERROR_TITLE": "Error",
       "ERROR_MESSAGE": "Ha ocurrido un error, por favor intente de nuevo más tarde",
         "ERROR_ERROR_AUTHORIZATION": "Usted no cuenta con los permisos para acceder a esta página",
       "GENERIC_SUCCESS_CREATE": "El elemento se ha creado exitosamente",
@@ -82,11 +85,16 @@
       "ERORR_TYPE_FILE": "No se permiten este tipo de archivo",
       "SUCCESS_TAKE": "El ticket se auto asignó  exitosamente",
       "FILE_SIZE": "Solo se pueden subir un archivo con un peso máximo de 1MB",
+      "FILE_SIZE_10": "Solo se pueden subir un archivo con un peso máximo de 10MB",
       "SUCCESS_DELETE_FOLLOWER": "Se eliminó el seguidor de manera exitosa",
       "NOT_FOUND": "No se encontró el elemento que se buscaba",
       "NOT_ALLOWED": "No se posee el permiso para realizar dicha Acción",
       "NOT_FOUND_INPUT": "No se puede realizar el pre-checklist por que el cabinet no cuenta con una Entrada",
-      "ERROR_NOTINSUMOSTITLE":"No existen insumos Registrados Para esta etapa, verifique UDN u Stock"
+      "ERROR_NOTINSUMOSTITLE":"No existen insumos Registrados Para esta etapa, verifique UDN u Stock",
+      "ERROR_MASSIVE":"Error en la carga masiva, favor de revisar su excel",
+      "SUCCESS_MASSIVE":"Se realizó la carga masiva exitosamente",
+        "SUCCESS_MANUAL":"Se realizó las salidas exitosamente",
+      "ERROR_DISABLED_CABINET":"Error este cabinet ha sido eliminado."
     },
     "BUTTONS": {
       "SUBMIT": "Enviar",

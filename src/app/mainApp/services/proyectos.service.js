@@ -9,14 +9,20 @@
         .factory('Proyectos', Proyectos);
 
     function Proyectos(Restangular) {
+        var baseURL=Restangular.all('proyecto');
+
         var service = {
             list: list,
             modify: modify,
             create: create,
-            remove: remove
+            remove: remove,
+            listObject:listObject
         };
+        function listObject() {
+            return baseURL.getList();
+        }
 
-        var baseURL=Restangular.all('proyecto');
+
 
         function list(){
             return baseURL.getList().$object;

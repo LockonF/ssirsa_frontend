@@ -1,220 +1,261 @@
 {
-  "TRANSPORT_LINE": {
-    "FORM": {
-      "LABEL": {
-        "TRANSPORT_LINE": "Linea de Transporte",
-        "BUSINESS_NAME": "Razón social",
-        "ADDRESS": "Dirección",
-        "PHONE": "Telefonos",
-        "RESPONSABLE": "Responsable",
-        "INFO_TRANSPORT_LINE": "Información de Linea de Transporte",
-        "NEW_REGISTER": "Registro de Linea de Transporte",
-        "PLUS-PHONE": "+Teléfono"
-      },
-      "PLACEHOLDER": {
-        "SEARCH_TRANSPORT_LINE": "Busca tu linea de transporte",
-        "NOT_FOUND": "No se encontró la linea de transporte",
-        "ENTER-PHONE": "Ingrese los teléfonos"
-      }
-    }
-  },
-  "CABINET_CRUD": {
-    "SERIAL_NUMBER": "Número de Serie",
-    "YEAR": "Año",
-    "UNILEVER_ID": "Identificador Unilever",
-    "STATUS": "Estatus actual",
-    "ACTIVE": "Activo",
-    "CAPITALIZED": "Capitalizado",
-    "INFO": "Información de Cabinet",
-    "LOOKUP": "Búsqueda por económico",
-    "TITLE": "Gestión de Cabinets",
-    "PRE_CHECKLIST": "Pre Checklist",
-    "LAYETTES": "Canastillas",
-    "DOORS": "Puertas",
-    "GRIDS": "Rejillas",
-    "ISSUES": "Incidencias",
-    "ENTRY": "Asignar Entrada",
-    "SELECT_UDN": "Seleccionar UDN",
-    "SELECT_ENTRY": "Selecciona la entrada",
-    "SELECT_DATE": "Selecciona la fecha",
-    "OLD": "Antigüedad",
-    "SELECT_BRAND": "Selecciona la marca",
-    "SELECT_MODEL": "Selecciona el modelo",
-    "ECONOMIC_NUMBER": "Número económico",
-    "WHEELS":"Rodajas"
-  },
-  "SUCURSAL": {
-    "FORM": {
-      "LABEL": {
-        "BRANCH": "Sucursal",
-        "NAME": "Nombre",
-        "ADDRESS": "Dirección",
-        "PHONE": "Telefonos",
-        "RESPONSABLE": "Responsable",
-        "INFO_BRANCH": "Información de Sucursal",
-        "NEW_REGISTER": "Registro de Sucursal",
-        "PLUS-PHONE": "+Teléfono"
-      },
-      "PLACEHOLDER": {
-        "SEARCH_BRANCH": "Busca tu sucursal",
-        "NOT_FOUND": "No se encontró la sucursal",
-        "ENTER-PHONE": "Ingrese los teléfonos"
-      }
-    }
-  },
-  "Cabinet_Brand": {
-    "title": "Marca de Cábinet",
-    "info": "Información de Marca de Cábinet",
-    "category": "Categoria",
-    "description": "Descripción",
-    "lookup": "Busca la Marca de Cábinet"
-  },
-  "Category": {
-    "title": "Categoría",
-    "info": "Información de Categoría",
-    "name": "Nombre",
-    "description": "Descripción",
-    "lookup": "Busca la Categoría"
-  },
-  "Consumable_Catalog": {
-    "title": "Catálogo de Insumo",
-    "info": "Información de Catálogo de Insumo",
-    "quantity": "Cantidad",
-    "description": "Descripción",
-    "keyword": "Palabra Clave",
-    "cost": "Costo $",
-    "type": "Tipo",
-    "category": "Categoria",
-    "provider": "Proveedor",
-    "zone": "Zona",
-    "lookup": "Busca el Catálogo"
-  },
-  "Provider": {
-    "title": "Proveedor",
+    "TRANSPORT_LINE": {
+        "FORM": {
+            "LABEL": {
+                "TRANSPORT_LINE": "Linea de Transporte",
+                "BUSINESS_NAME": "Razón social",
+                "ADDRESS": "Dirección",
+                "PHONE": "Telefonos",
+                "RESPONSABLE": "Responsable",
+                "INFO_TRANSPORT_LINE": "Información de Linea de Transporte",
+                "NEW_REGISTER": "Registro de Linea de Transporte",
+                "PLUS-PHONE": "+Teléfono"
+            },
+            "PLACEHOLDER": {
+                "SEARCH_TRANSPORT_LINE": "Busca tu linea de transporte",
+                "NOT_FOUND": "No se encontró la linea de transporte",
+                "ENTER-PHONE": "Ingrese los teléfonos"
+            }
+        }
+    },
+    "CABINET_CRUD": {
+        "SERIAL_NUMBER": "Número de Serie",
+        "YEAR": "Año",
+        "UNILEVER_ID": "Identificador Unilever",
+        "STATUS": "Estatus actual",
+        "ACTIVE": "Activo",
+        "CAPITALIZED": "Capitalizado",
+        "INFO": "Información de Cabinet",
+        "LOOKUP": "Búsqueda por económico",
+        "TITLE": "Gestión de Cabinets",
+        "PRE_CHECKLIST": "Pre Checklist",
+        "LAYETTES": "Canastillas",
+        "DOORS": "Puertas",
+        "GRIDS": "Rejillas",
+        "ISSUES": "Incidencias",
+        "ENTRY": "Asignar Entrada",
+        "SELECT_UDN": "Seleccionar UDN",
+        "SELECT_ENTRY": "Selecciona la entrada",
+        "SELECT_DATE": "Selecciona la fecha",
+        "OLD": "Antigüedad",
+        "SELECT_BRAND": "Selecciona la marca",
+        "SELECT_MODEL": "Selecciona el modelo",
+        "ECONOMIC_NUMBER": "Número económico",
+        "WHEELS": "Rodajas"
+    },
+    "SUCURSAL": {
+        "FORM": {
+            "LABEL": {
+                "BRANCH": "Sucursal",
+                "NAME": "Nombre",
+                "ADDRESS": "Dirección",
+                "PHONE": "Telefonos",
+                "RESPONSABLE": "Responsable",
+                "INFO_BRANCH": "Información de Sucursal",
+                "NEW_REGISTER": "Registro de Sucursal",
+                "PLUS-PHONE": "+Teléfono"
+            },
+            "PLACEHOLDER": {
+                "SEARCH_BRANCH": "Busca tu sucursal",
+                "NOT_FOUND": "No se encontró la sucursal",
+                "ENTER-PHONE": "Ingrese los teléfonos"
+            }
+        }
+    },
+    "Cabinet_Brand": {
+        "title": "Marca de Cábinet",
+        "info": "Información de Marca de Cábinet",
+        "category": "Categoria",
+        "description": "Descripción",
+        "lookup": "Busca la Marca de Cábinet"
+    },
+    "Category": {
+        "title": "Categoría",
+        "info": "Información de Categoría",
+        "name": "Nombre",
+        "description": "Descripción",
+        "lookup": "Busca la Categoría"
+    },
+    "Consumable_Catalog": {
+        "title": "Catálogo de Insumo",
+        "info": "Información de Catálogo de Insumo",
+        "quantity": "Cantidad",
+        "description": "Descripción",
+        "keyword": "Palabra Clave",
+        "cost": "Costo $",
+        "type": "Tipo",
+        "category": "Categoria",
+        "provider": "Proveedor",
+        "zone": "Zona",
+        "lookup": "Busca el Catálogo",
+        "BUTTON": {
+            "STEPS": "Etapas",
+            "EQUIPMENT": "Tipo de Equipo"
+        }
+    },
+    "MODAL_CATALOG_CONSUMABLE": {
+        "FORM": {
+            "TITLE": {
+                "STEP": "Asignación de etapas",
+                "TYPE": "Asignación de tipo de equipo"
+            },
+            "PLACEHOLDER": {
+                "SEARCH": "Búsqueda de etapa",
+                "SEARCH_TYPE": "Búsqueda de tipo de equipo",
+                "DESCRIPTION":"Ingrese descripción"
+            },
+            "LABEL": {
+                "NAME":"Nombre",
+                "NOT_FOUND": "No se encontró la etapa",
+                "NOT_FOUND_TYPE": "No se encontró el tipo de equipo",
+                "DESCRIPTION": "Descripción:",
+                "TYPE": "Tipo de Equipo:",
+                "QUANTITY":"Cantidad:"
+            },
+            "BUTTON":{
+                "ADD":"Agregar"
+            }
+        }
+    },
+    "Provider": {
+        "title": "Proveedor",
+        "info": "Información de Marca de Cábinet",
+        "lookup": "Busca por razón social",
+        "business_name": "Razón Social",
+        "address": "Dirección",
+        "rfc": "RFC",
+        "phone": "Teléfono",
+        "contact": "Contacto",
+        "email": "Correo electrónico",
+        "comments": "Comentarios"
+    },
+    "UDN_CATALOG": {
+        "title": "UDN",
+        "info": "Información de UDN",
+        "zone": "Zona",
+        "center": "Centro",
+        "agency": "Agencia",
+        "address": "Dirección",
+        "phone": "Teléfono",
+        "lookup": "Busca el UDN"
+    },
+    "MODEL_CABINET": {
+        "FORM": {
+            "LABEL": {
+                "MODEL": "Modelo de Cabinet",
+                "NAME": "Nombre",
+                "TYPE": "Tipo",
+                "DESCRIPTION": "Descripción",
+                "KEYWORD": "Palabra clave",
+                "TYPE_REFRIGERANT": "Tipo de refrigerante",
+                "QUANTITY": "Cantidad",
+                "COMPRESSOR_TYPE": "Tipo de compressor",
+                "BRAND": "Marca",
+                "INFO_MODEL": "Información de Modelo de Cabinet",
+                "NEW_REGISTER": "Registro de Modelo de Cabinet"
+            },
+            "PLACEHOLDER": {
+                "SEARCH_BRANCH": "Busca tu modelo de cabinet",
+                "NOT_FOUND": "No se encontró el modelo"
+            }
+        }
+    },
+    "EQUIPMENT_TYPE": {
+        "FORM": {
+            "LABEL": {
+                "MODEL": "Tipo de Equipo",
+                "NAME": "Nombre",
+                "DESCRIPTION": "Descripción",
+                "KEYWORD": "Palabra clave",
+                "INFO_MODEL": "Información de Tipo de Equipo",
+                "NEW_REGISTER": "Registro de Tipo de Equipo"
+            },
+            "PLACEHOLDER": {
+                "SEARCH_BRANCH": "Busca tu tipo de equipo",
+                "NOT_FOUND": "No se encontró el tipo de equipo"
+            }
+        }
+    },
+    "STAGES": {
+        "FORM": {
+            "LABEL": {
+                "MODEL": "Etapas",
+                "NAME": "Nombre",
+                "DESCRIPTION": "Descripción",
 
-    "info": "Información de Marca de Cábinet",
-    "lookup": "Busca por razón social",
-
-    "business_name": "Razón Social",
-    "address": "Dirección",
-    "rfc": "RFC",
-    "phone": "Teléfono",
-    "contact": "Contacto",
-    "email": "Correo electrónico",
-    "comments":"Comentarios"
-  },
-  "UDN_CATALOG": {
-    "title": "UDN",
-    "info": "Información de UDN",
-    "zone": "Zona",
-    "center": "Centro",
-    "agency": "Agencia",
-    "address": "Dirección",
-    "phone": "Teléfono",
-    "lookup": "Busca el UDN"
-  },
-  "MODEL_CABINET": {
-    "FORM": {
-      "LABEL": {
-        "MODEL": "Modelo de Cabinet",
-        "NAME": "Nombre",
-        "TYPE": "Tipo",
-        "DESCRIPTION": "Descripción",
-        "KEYWORD": "Palabra clave",
-        "TYPE_REFRIGERANT": "Tipo de refrigerante",
-        "QUANTITY": "Cantidad",
-        "COMPRESSOR_TYPE": "Tipo de compressor",
-        "BRAND": "Marca",
-        "INFO_MODEL": "Información de Modelo de Cabinet",
-        "NEW_REGISTER": "Registro de Modelo de Cabinet"
-      },
-      "PLACEHOLDER": {
-        "SEARCH_BRANCH": "Busca tu modelo de cabinet",
-        "NOT_FOUND": "No se encontró el modelo"
-      }
-    }
-  },"EQUIPMENT_TYPE": {
-    "FORM": {
-        "LABEL": {
-            "MODEL": "Tipo de Equipo",
-            "NAME": "Nombre",
-            "DESCRIPTION": "Descripción",
-            "KEYWORD": "Palabra clave",
-            "INFO_MODEL": "Información de Tipo de Equipo",
-            "NEW_REGISTER": "Registro de Tipo de Equipo"
+                "INFO_MODEL": "Información de la Etapa"
+            },
+            "PLACEHOLDER": {
+                "SEARCH_BRANCH": "Búsqueda de etapa",
+                "NOT_FOUND": "No se encontró la etapa"
+            }
+        }
+    },
+    "Transport_Kind": {
+        "title": "Tipo de Transporte",
+        "info": "Información de tipo de transporte",
+        "description": "Descripción",
+        "lookup": "Busca el tipo de transporte"
+    },
+    "Projects": {
+        "Header": "Proyectos",
+        "Fields": {
+            "ProjectName": "Nombre del Proyecto",
+            "Search": "Busqueda de proyectos",
+            "Information": "Informacion del Proyecto"
         },
-        "PLACEHOLDER": {
-            "SEARCH_BRANCH": "Busca tu tipo de equipo",
-            "NOT_FOUND": "No se encontró el tipo de equipo"
+        "Errors": {
+            "Required": "El campo es requerido",
+            "Not_Found": "Proyecto no encontrado"
+        },
+        "Notify": {
+            "Error": "Error",
+            "Success": "Éxito",
+            "Warning": "Advertencia",
+            "Messages": {
+                "ERROR_GETTING_PROJECTS": "Error al obtener la lista de proyectos",
+                "ERROR_CREATING_PROJECT": "Error al crear el proyecto",
+                "SUCCESS_CREATING_PROJECT": "Proyecto creado correctamente",
+                "SUCCESS_REMOVING_PROJECT": "Proyecto eliminado correctamente",
+                "ERROR_REMOVING_PROJECT": "Error al eliminar proyecto",
+                "SUCCESS_UPDATING_PROJECT": "Proyecto actualizado correctamente",
+                "ERROR_UPDATING_PROJECT": "Error al eliminar proyecto"
+            }
+        }
+    },
+    "Clients": {
+        "Header": "Cliente",
+        "Fields": {
+            "Name": "Nombre del Cliente",
+            "Surname": "Apellido Paterno",
+            "LastName": "Apellido Materno",
+            "Address": "Direccion",
+            "Telephone": "Teléfono",
+            "User": "Usuario",
+            "Password": "Contraseña",
+            "Email": "Correo electrónico",
+            "Search": "Buscar Clientes",
+            "Information": "Información del cliente"
+        },
+        "Errors": {
+            "Required": "El campo es requerido",
+            "Not_Found": "Cliente no encontrado",
+            "PhoneError": "El campo de teléfono debe contener 10 caracteres numéricos",
+            "EmailError": "Ingrese un email valido"
+        },
+        "Notify": {
+            "Error": "Error",
+            "Success": "Éxito",
+            "Warning": "Advertencia",
+            "Messages": {
+                "ERROR_GETTING_CLIENTS": "Error al obtener la lista de clientes",
+                "ERROR_CREATING_CLIENT": "Error al crear el cliente",
+                "SUCCESS_CREATING_CLIENT": "Cliente creado correctamente",
+                "SUCCESS_REMOVING_CLIENT": "Cliente eliminado correctamente",
+                "ERROR_REMOVING_CLIENT": "Error al eliminar cliente",
+                "SUCCESS_UPDATING_CLIENT": "Cliente actualizado correctamente",
+                "ERROR_UPDATING_CLIENT": "Error al actualizar cliente"
+            }
         }
     }
-},
-  "Transport_Kind": {
-    "title": "Tipo de Transporte",
-    "info": "Información de tipo de transporte",
-    "description": "Descripción",
-    "lookup": "Busca el tipo de transporte"
-  },
-  "Projects": {
-    "Header": "Proyectos",
-    "Fields": {
-      "ProjectName": "Nombre del Proyecto",
-      "Search": "Busqueda de proyectos",
-      "Information": "Informacion del Proyecto"
-    },
-    "Errors": {
-      "Required": "El campo es requerido",
-      "Not_Found":"Proyecto no encontrado"
-    },
-    "Notify": {
-      "Error": "Error",
-      "Success": "Éxito",
-      "Warning": "Advertencia",
-      "Messages": {
-        "ERROR_GETTING_PROJECTS": "Error al obtener la lista de proyectos",
-        "ERROR_CREATING_PROJECT": "Error al crear el proyecto",
-        "SUCCESS_CREATING_PROJECT": "Proyecto creado correctamente",
-        "SUCCESS_REMOVING_PROJECT": "Proyecto eliminado correctamente",
-        "ERROR_REMOVING_PROJECT": "Error al eliminar proyecto",
-        "SUCCESS_UPDATING_PROJECT": "Proyecto actualizado correctamente",
-        "ERROR_UPDATING_PROJECT": "Error al eliminar proyecto"
-      }
-    }
-  },
-  "Clients": {
-    "Header": "Cliente",
-    "Fields": {
-      "Name": "Nombre del Cliente",
-      "Surname": "Apellido Paterno",
-      "LastName": "Apellido Materno",
-      "Address": "Direccion",
-      "Telephone": "Teléfono",
-      "User": "Usuario",
-      "Password": "Contraseña",
-      "Email": "Correo electrónico",
-      "Search": "Buscar Clientes",
-      "Information": "Información del cliente"
-    },
-    "Errors": {
-      "Required": "El campo es requerido",
-      "Not_Found":"Cliente no encontrado",
-      "PhoneError":"El campo de teléfono debe contener 10 caracteres numéricos",
-      "EmailError":"Ingrese un email valido"
-    },
-
-    "Notify": {
-      "Error": "Error",
-      "Success": "Éxito",
-      "Warning": "Advertencia",
-      "Messages": {
-        "ERROR_GETTING_CLIENTS": "Error al obtener la lista de clientes",
-        "ERROR_CREATING_CLIENT": "Error al crear el cliente",
-        "SUCCESS_CREATING_CLIENT": "Cliente creado correctamente",
-        "SUCCESS_REMOVING_CLIENT": "Cliente eliminado correctamente",
-        "ERROR_REMOVING_CLIENT": "Error al eliminar cliente",
-        "SUCCESS_UPDATING_CLIENT": "Cliente actualizado correctamente",
-        "ERROR_UPDATING_CLIENT": "Error al actualizar cliente"
-      }
-    }
-  }
 }

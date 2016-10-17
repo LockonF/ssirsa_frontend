@@ -9,29 +9,29 @@
         .module('app.mainApp.catalogos')
         .controller('CatalogoInsumoController',CatalogoInsumoController);
 
-    function CatalogoInsumoController(CatalogoInsumo,Categoria,Proveedor, toastr, Translate, $scope)
+    function CatalogoInsumoController(Helper,CatalogoInsumo,Etapa,$mdDialog,Categoria,Proveedor, toastr, Translate, $scope)
     {
         var vm = this;
 
         //Variables
         vm.searchText = '';
         vm.search_items = [];
+        vm.selected=[];
         vm.catalogo_insumo_list = null;
-        vm.catalogo_insumo = null;
+        vm.catalogo_insumo =  {
+            cantidad: null,
+            unidades: null,
+            descripcion: null,
+            costo: null,
+            tipo: null,
+            palabra_clave:null,
+            categoria: null,
+            proveedor: null,
+            sucursal: null,
+            etapas: [],
+            tipos_equipo: []
+        };
         vm.tipos = [{'display':'Lote','value':'L'},{'display':'Único','value':'U'}];
-        vm.zonas = [
-            {'display':'E1','value':'E1'},
-            {'display':'E2','value':'E2'},
-            {'display':'E3','value':'E3'},
-            {'display':'E3.1','value':'E3.1'},
-            {'display':'E3.2','value':'E3.2'},
-            {'display':'E3.3','value':'E3.3'},
-            {'display':'E4','value':'E4'},
-            {'display':'E5','value':'E5'},
-            {'display':'ED','value':'ED'},
-            {'display':'EC','value':'EC'},
-            {'display':'N/A','value':'N/A'}
-        ];
         vm.categoria_list = null;
         vm.proveedor_list = null;
 
@@ -43,6 +43,9 @@
         vm.create = create;
         vm.remove = remove;
         vm.clickRepeater = clickRepeater;
+        vm.showSteps=showSteps;
+        vm.showEquipment=showEquipment;
+        vm.disabled=disabled;
 
         activate();
 
@@ -59,28 +62,76 @@
             vm.notFoundInput=Translate.translate('MAIN.MSG.NOT_FOUND_INPUT');
             vm.errorTypeFile = Translate.translate('MAIN.MSG.ERORR_TYPE_FILE');
             vm.errorSize = Translate.translate('MAIN.MSG.FILE_SIZE');
+            vm.deleteButton=Translate.translate('MAIN.BUTTONS.DELETE');
+            vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
+            vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
+            vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
             listCatalogoInsumos();
             listCategorias();
             listProveedores();
         }
+        function showSteps() {
+            $mdDialog.show({
+                controller: 'EtapaDialogController',
+                controllerAs: 'vm',
+                templateUrl: 'app/mainApp/catalogos/catalogo_insumo/modal/etapa.modal.tmpl.html',
+                focusOnOpen: false,
+                locals: {
+                    catalogo: vm.catalogo_insumo
+                }
+            }).then(function (res) {
+                vm.catalogo_insumo.etapas=res;
+            });
+        }
+        function disabled(id,tipoArray) {
+            if(id!=null) {
+                if(tipoArray==="categoria") {
+                    return Helper.searchByField(vm.categoria_list, id).deleted;
+                }else{
+                    return Helper.searchByField(vm.proveedor_list, id).deleted;
+                }
+
+            }
+        }
+        function showEquipment() {
+            $mdDialog.show({
+                controller: 'TipoEquipoDialogController',
+                controllerAs: 'vm',
+                templateUrl: 'app/mainApp/catalogos/catalogo_insumo/modal/tipoEquipo.modal.tmpl.html',
+                focusOnOpen: false,
+                locals: {
+                    catalogo: vm.catalogo_insumo
+                }
+            }).then(function (res) {
+
+                vm.catalogo_insumo.tipos_equipo=res;
+            });
+        }
 
         function listCatalogoInsumos()
         {
-            vm.catalogo_insumo_list  = CatalogoInsumo.list();
+            CatalogoInsumo.listObject().then(function (res) {
+                vm.catalogo_insumo_list=Helper.filterDeleted(res,true);
+                vm.catalogo_insumo_list=_.sortBy(vm.catalogo_insumo_list, 'descripcion');
+            });
 
         }
 
 
         function listCategorias()
         {
-            vm.categoria_list  = Categoria.list();
+            Categoria.listObject().then(function (res) {
+                vm.categoria_list  =res;
+            });
         }
 
 
 
         function listProveedores()
         {
-            vm.proveedor_list  = Proveedor.list();
+            Proveedor.listObject().then(function (res) {
+                vm.proveedor_list  =res;
+            });
         }
 
         function lookup(search_text){
@@ -92,13 +143,16 @@
 
         function selectedItemChange(item)
         {
-
+            if(item!=null){
+                item.costo = parseFloat(item.costo);
+                item.cantidad =parseFloat(item.cantidad);
+                vm.catalogo_insumo = item.clone();
+            }
         }
 
         function clickRepeater(catalogo_insumo){
             catalogo_insumo.costo = parseFloat(catalogo_insumo.costo);
             catalogo_insumo.cantidad =parseFloat(catalogo_insumo.cantidad);
-
             vm.catalogo_insumo = catalogo_insumo.clone();
         }
 
@@ -131,12 +185,23 @@
 
         function remove()
         {
-            CatalogoInsumo.remove(vm.catalogo_insumo).then(function(res){
-                listCatalogoInsumos();
-                cancel();
-                toastr.success(vm.successDeleteMessage,vm.successTitle)
-            }).catch(function(err){
-                toastr.error(vm.errorMessage,vm.errorTitle);
+            var confirm = $mdDialog.confirm()
+                .title(vm.dialogTitle)
+                .textContent(vm.dialogMessage)
+                .ariaLabel('Confirmar eliminación')
+                .ok(vm.deleteButton)
+                .cancel(vm.cancelButton);
+            $mdDialog.show(confirm).then(function() {
+
+                CatalogoInsumo.remove(vm.catalogo_insumo).then(function(res){
+                    listCatalogoInsumos();
+                    cancel();
+                    toastr.success(vm.successDeleteMessage,vm.successTitle)
+                }).catch(function(err){
+                    toastr.error(vm.errorMessage,vm.errorTitle);
+                });
+            }, function() {
+
             });
         }
 

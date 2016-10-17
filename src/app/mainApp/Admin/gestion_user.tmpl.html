@@ -107,11 +107,11 @@
                             <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
                         </div>
                     </md-input-container>
-                    <md-input-container class="md-block">
+                    <md-input-container class="md-block" ng-if="!(vm.user_ini.user.role=='5')">
                         <md-icon md-font-icon="zmdi zmdi-store"></md-icon>
-                        <md-select placeholder="{{'ADMIN_PERSONA.PROPERTY.SUCURSALDEF'|translate}}" ng-model="vm.user_ini.udn" ng-required="false">
+                        <md-select placeholder="{{'ADMIN_PERSONA.PROPERTY.SUCURSALDEF'|translate}}" ng-model="vm.user_ini.sucursal" ng-required="false" >
                             <md-option ng-value="undefined">{{'ADMIN_PERSONA.PROPERTY.SUCURSALDEF'|translate}}</md-option>
-                            <md-option ng-value="udn.id" ng-repeat="udn in vm.udns">{{udn.zona}} - {{udn.agencia}}</md-option>
+                            <md-option ng-value="sucursal.id" ng-repeat="sucursal in vm.sucursales">{{sucursal.nombre}}</md-option>
                         </md-select>
                     </md-input-container>
                     <div layout="column" >
