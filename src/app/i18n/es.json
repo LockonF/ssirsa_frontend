@@ -58,7 +58,11 @@
         "CONSUMABLE_CATALOG": "Catálogo de Insumos",
         "CONSUMABLE_CATEGORY": "Categoría de Insumos",
         "PROVIDER": "Proveedor"
-      }
+      },
+        "REPORTS":{
+            "TITLE":"Reportes",
+            "CREATE":"Crear reporte temp"
+        }
     },
     "COMPONENTS": {
       "PROFILE": "Perfil",
