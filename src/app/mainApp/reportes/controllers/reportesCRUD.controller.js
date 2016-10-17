@@ -5,8 +5,8 @@
     'use_strict';
 
     angular
-        .module('app.mainApp.reports')
-        .controller('ReportsCrudController',ReportsCrudController);
+        .module('app.mainApp.reportes')
+        .controller('ReportesCrudController',ReportsCrudController);
 
     function ReportsCrudController(toastr, Reportes, $scope){
         var vm=this;
@@ -23,10 +23,11 @@
         activate();
         //Functions
         function activate(){
-            vm.report={};
+            vm.report="";
             vm.reports=Reportes.getFullReports();
-            vm.filteredReports=angular.copy(vm.reports);
+            vm.filteredReports=Reportes.getFullReports();
             vm.searchParameter='';
+            console.log(vm.filteredReports);
         }
 
         function search(text) {

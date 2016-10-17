@@ -31,7 +31,7 @@
         }
         //Obtiene todos los reportes existentes con su información completa (útil para guardar el reporte)
         function getFullReports(){
-            return path.all("report").getList().$object;
+            return path.all("report").all("").getList().$object;
         }
         //Obtiene la información completa de un reporte en específico (útil para guardar un reporte)
         function getFullReport(id){

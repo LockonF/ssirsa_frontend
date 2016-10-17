@@ -15,7 +15,7 @@
                     roles: ['Administrador','Capturista']
                 },
                 templateUrl: 'app/mainApp/reportes/reportesCRUD.tmpl.html',
-                controller: 'reportesCrudController',
+                controller: 'ReportesCrudController',
                 controllerAs: 'vm'
             });
 
