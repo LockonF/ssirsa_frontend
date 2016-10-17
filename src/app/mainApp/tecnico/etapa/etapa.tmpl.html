@@ -185,11 +185,19 @@
             <md-switch ng-model="inputDisabled">
                 Agregar Micro motor o Compresor
             </md-switch>
-            <md-input-container flex="80" ng-if="inputDisabled">
+            <md-input-container flex="40" ng-if="inputDisabled">
                 <label>Escanea el No de serie</label>
-                <input type="text" ng-model="vm.insumoMotorCompressor">
+                <input type="text" ng-model="vm.etapaActual.insumos[0].no_serie">
             </md-input-container>
-            <md-input-container flex="10" ng-if="inputDisabled">
+            <md-input-container flex="35" ng-if="inputDisabled">
+                <label>Notas</label>
+                <input type="text" ng-model="vm.etapaActual.insumos[0].notas">
+            </md-input-container>
+            <md-input-container flex="15" ng-if="inputDisabled">
+                <label>Cantidad</label>
+                <input type="number" ng-model="vm.etapaActual.insumos[0].cantidad" >
+            </md-input-container>
+            <md-input-container flex="10" ng-if="">
                 <md-button class="md-primary md-raised" aria-label="raised button"
                            ng-disabled="form.insumoFormEtapa.$invalid"
                            ng-click='vm.crearInsumo()'>
@@ -200,7 +208,7 @@
         </md-content>
         <md-content ng-if="vm.etapaActual.actual_etapa">
             <md-input-container layout-fill flex>
-                <md-switch class="md-primary" ng-model="vm.parent.etapaActual.validado"
+                <md-switch class="md-primary" ng-model="vm.etapaActual.validado"
                            aria-label="Se valida la etapa para avanzar a la siguiente fase"
                            ng-disabled="vm.parent.editable">
                     <span translate>ETAPA_SERVICIO.VALIDATED</span>
