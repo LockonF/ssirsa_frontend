@@ -7,7 +7,7 @@
     angular
         .module('app.mainApp.tecnico')
         .controller('CabinetDialogController',CabinetDialogController);
-    function CabinetDialogController($mdDialog, Cabinet, MarcaCabinet, ModeloCabinet, cabinetID, Helper){
+    function CabinetDialogController($mdDialog, Cabinet, MarcaCabinet, cabinetID, Helper, Translate){
         var vm = this;
 
         //Functions
@@ -35,6 +35,10 @@
             "modelo": null,
             "insumo": null
         };
+
+        //Translates
+        vm.errorTitle=Translate.translate('MAIN.MSG.ERROR_TITLE');
+        vm.errorMessage=Translate.translate('MAIN.MSG.ERROR_CATALOG');
                 
         activate();
         
@@ -42,9 +46,11 @@
             vm.cabinet=angular.copy(cabinet);
             vm.marca=null;
             vm.cabinet.economico=cabinetID;
-            MarcaCabinetlistObject().then(function(res){
+            MarcaCabinet.listObject().then(function(res){
                 MarcaCabinet=Helper.filterDeleted(res,true);
-            });
+            }).catch(function(err){
+                toastr.error(vm.errorMessage,vm.errorTitle);
+            });;
             vm.marcas= Helper.filterDeleted( MarcaCabinet.list() );
             vm.modelos=[];
         }
