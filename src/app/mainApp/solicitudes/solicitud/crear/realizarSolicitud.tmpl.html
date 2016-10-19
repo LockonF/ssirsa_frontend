@@ -5,6 +5,7 @@
                 <div layout="row" flex="" layout-align="space-around stretch" id="cabecera">
                     <h2 flex="100" flex-sm="100" flex-gt-xs="100"
                         class="md-headline-1 text-center">{{'CREATE_REQUEST.FORM.TITLE.CREATE'|translate}}</h2>
+
                 </div>
                 <form name="solicitudForm">
                     <div layout="column" layout-xs="column" layout-sm="column" layout-align="start stretch">
@@ -276,14 +277,14 @@
                                             <md-button ng-click="vm.showMassiveUpload()" class="md-raised md-primary">{{'CREATE_REQUEST.FORM.LABEL.CARGA_MASIVA_SOLICITUDES'|translate}}</md-button>
                                             <md-button ng-click="vm.showManualUpload()" class="md-raised md-primary">{{'CREATE_REQUEST.FORM.LABEL.CARGA_INDIVIDUAL_SOLICITUDES'|translate}}</md-button>
                                         </div>
-                                        <div layout="column" ng-if="!vm.hideMassiveUpload">
+                                        <div layout="column" ng-hide="vm.hideMassiveUpload">
                                             <!-- Massive Upload-->
-                                            <div layout="row" layout-sm="column" layout-xs="column" layout-md="column" flex="100" ng-if="!vm.hideMassiveUpload">
-                                                <md-input-container flex="75" flex-sm="100" flex-xs="100" flex-md="100">
+                                            <div layout="row" layout-sm="column" layout-xs="column" layout-md="column" flex="100" ng-hide="vm.hideMassiveUpload">
+                                                <md-input-container flex="65" flex-sm="100" flex-xs="100" flex-md="100">
                                                     <input name="FileName" type="text" ng-model="vm.entrada.file.name" ng-disabled="true"/>
                                                 </md-input-container>
-                                                <div flex="25" flex-sm="100" flex-xs="100" flex-md="100" layout="column">
-                                                    <md-button ngf-select="vm.selectionFile($file)" accept=".xlsx, application/vnd.ms-excel" ngf-max-size="10MB" ng-model="vm.entrada.file" class="md-primary md-raised">{{'CREATE_REQUEST.FORM.LABEL.ARCHIVO'|translate}}</md-button>
+                                                <div flex="35" flex-sm="100" flex-xs="100" flex-md="100" layout="column">
+                                                    <md-button ngf-select="vm.selectionFile($file)" class="md-raised md-primary" accept=".xlsx, application/vnd.ms-excel" ngf-max-size="10MB" ng-model="vm.entrada.file" class="md-primary md-raised">{{'CREATE_REQUEST.FORM.LABEL.ARCHIVO'|translate}}</md-button>
                                                 </div>
                                             </div>
                                             <div layout="row" layout-align="end end">
