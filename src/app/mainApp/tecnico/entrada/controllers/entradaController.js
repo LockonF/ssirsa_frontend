@@ -67,8 +67,8 @@
             "tipo_transporte": null,
             "udn": null,
             "file": null,
-            "creados": null,
-            "no_creados": null,
+            "creados": [],
+            "no_creados": [],
             "modelos_no_existentes": null
 
         };
@@ -232,6 +232,12 @@
             vm.selectedTab=0;
         }
 
+        function partialClean(){
+            vm.cabinets=[];
+            vm.entrada.creados=[];
+            vm.entrada.no_creados=[];
+        }
+
         function selectionImage($file) {
             vm.entrada.ife_chofer = $file;
         }
@@ -260,12 +266,14 @@
         function showMassiveUpload() {
             vm.hideManualUpload = true;
             vm.hideMassiveUpload = false;
+            partialClean();
         }
 
         function showManualUpload() {
             vm.hideManualUpload = false;
             vm.hideMassiveUpload = true;
             vm.existingCabinets= _.pluck(vm.existingCabinets,"economico");
+            partialClean();
         }
 
         function removeImage() {
