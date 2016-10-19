@@ -77,6 +77,7 @@
         vm.successTitle=Translate.translate('MAIN.MSG.SUCCESS_TITLE');
         vm.warningTitle=Translate.translate('MAIN.MSG.WARNING_TITLE');
         vm.errorTitle=Translate.translate('MAIN.MSG.ERROR_TITLE');
+        vm.errorMessage=Translate.translate('MAIN.MSG.ERROR_CATALOG');
         vm.sucessMassive=Translate.translate('INPUT.Messages.SuccessMassive');
         vm.successNormal=Translate.translate('INPUT.Messages.SuccessNormal');
         vm.warning=Translate.translate('INPUT.Messages.Warning');
@@ -102,22 +103,32 @@
             LineaTransporte.listObject().then(function (res) {
                 vm.lineasTransporte =Helper.filterDeleted(res,true);
                 vm.lineasTransporte=_.sortBy(vm.lineasTransporte, 'razon_social');
+            }).catch(function(err){
+                toastr.error(vm.errorMessage,vm.errorTitle);
             });
             TipoTransporte.listObject().then(function (res) {
                 vm.tiposTransporte =Helper.filterDeleted(res,true);
                 vm.tiposTransporte=_.sortBy(vm.tiposTransporte, 'descripcion');
+            }).catch(function(err){
+                toastr.error(vm.errorMessage,vm.errorTitle);
             });
             Sucursal.listObject().then(function (res) {
                 vm.Sucursales =Helper.filterDeleted(res,true);
                 vm.Sucursales=_.sortBy(vm.Sucursales, 'nombre');
+            }).catch(function(err){
+                toastr.error(vm.errorMessage,vm.errorTitle);
             });
             Proyectos.listObject().then(function (res) {
                 vm.Proyectos =Helper.filterDeleted(res,true);
                 vm.Proyectos=_.sortBy(vm.Proyectos, 'descripcion');
+            }).catch(function(err){
+                toastr.error(vm.errorMessage,vm.errorTitle);
             });
             udn.listObject().then(function (res) {
                 vm.udns  =Helper.filterDeleted(res,true);
                 vm.udns =_.sortBy(vm.udns , 'agencia');
+            }).catch(function(err){
+                toastr.error(vm.errorMessage,vm.errorTitle);
             });
             // vm.lineasTransporte=LineaTransporte.list();
             // vm.tiposTransporte = TipoTransporte.list();
