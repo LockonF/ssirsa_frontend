@@ -7,7 +7,7 @@
     angular
         .module('app.mainApp.tecnico')
         .controller('CabinetDialogController',CabinetDialogController);
-    function CabinetDialogController($mdDialog, Cabinet, MarcaCabinet, cabinetID, Helper, Translate){
+    function CabinetDialogController($mdDialog, Cabinet, MarcaCabinet, cabinetID, Helper, Translate, toastr){
         var vm = this;
 
         //Functions
@@ -47,11 +47,11 @@
             vm.marca=null;
             vm.cabinet.economico=cabinetID;
             MarcaCabinet.listObject().then(function(res){
-                MarcaCabinet=Helper.filterDeleted(res,true);
+                vm.marcas=Helper.filterDeleted(res,true);
             }).catch(function(err){
                 toastr.error(vm.errorMessage,vm.errorTitle);
-            });;
-            vm.marcas= Helper.filterDeleted( MarcaCabinet.list() );
+                vm.marcas=[];
+            });
             vm.modelos=[];
         }
 

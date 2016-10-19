@@ -6,7 +6,7 @@
         .factory('MarcaCabinet', MarcaCabinet);
 
     /* @ngInject */
-    function MarcaCabinet($q, Restangular, toastr) {
+    function MarcaCabinet(Restangular) {
         var baseMarca = Restangular.all('marca_cabinet');
 
         return {
