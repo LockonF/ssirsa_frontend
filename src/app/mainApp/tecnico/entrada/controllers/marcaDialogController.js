@@ -6,8 +6,8 @@
 
     angular
         .module('app.mainApp.tecnico')
-        .controller('CabinetDialogController',CabinetDialogController);
-    function CabinetDialogController($mdDialog, MarcaCabinet, Translate, toastr){
+        .controller('MarcaDialogController',MarcaDialogController);
+    function MarcaDialogController($mdDialog, MarcaCabinet, Translate, toastr){
         var vm = this;
 
         //Functions

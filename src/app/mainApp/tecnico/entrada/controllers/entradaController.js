@@ -77,6 +77,7 @@
         vm.successTitle=Translate.translate('MAIN.MSG.SUCCESS_TITLE');
         vm.warningTitle=Translate.translate('MAIN.MSG.WARNING_TITLE');
         vm.errorTitle=Translate.translate('MAIN.MSG.ERROR_TITLE');
+        vm.errorGeneric=Translate.translate('MAIN.MSG.ERROR_MSG');
         vm.errorMessage=Translate.translate('MAIN.MSG.ERROR_CATALOG');
         vm.sucessMassive=Translate.translate('INPUT.Messages.SuccessMassive');
         vm.successNormal=Translate.translate('INPUT.Messages.SuccessNormal');
@@ -306,20 +307,19 @@
 
         function showMarcaDialog(ev) {
             $mdDialog.show({
-                controller: marcaDialogController,
+                controller: 'MarcaDialogController',
+                controllerAs: 'vm',
                 templateUrl: 'app/mainApp/tecnico/entrada/dialogs/marca.tmpl.html',
-                parent: angular.element(document.body),
-                targetEvent: ev,
                 fullscreen: true,
-                clickOutsideToClose: true
-            }).then(function (answer) {
-                //Accepted
-                $mdDialog.hide();
-            }, function () {
-                //Cancelled
-                $mdDialog.cancel();
-            });
+                clickOutsideToClose:true,
+                focusOnOpen: true
+            }).then(function (res) {
 
+            }).catch(function(err){
+                if(err!=null) {
+                    toastr.error(vm.errorGeneric,vm.errorTitle);
+                }
+            });
         }
 
         function showModeloDialog(ev) {
@@ -338,7 +338,7 @@
                 $mdDialog.cancel();
             });
         }
-        
+
         function modeloDialogController($scope, $mdDialog) {
             $scope.marcas = null;
             $scope.marcas = MarcaCabinet.list();
@@ -401,7 +401,7 @@
 
 
         }
-        
+
         function removeCabinet(id){
             var index = vm.cabinets.indexOf(id);
             if (index > -1) {
@@ -428,7 +428,7 @@
                 return brand.id == modelo.marca;
             }).descripcion;
         }
-        
+
         function showCabinetDialog(economico){
             $mdDialog.show({
                 controller: 'CabinetDialogController',

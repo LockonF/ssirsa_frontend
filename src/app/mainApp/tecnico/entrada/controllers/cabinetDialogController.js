@@ -3,7 +3,7 @@
  */
 (function(){
     'use_strict';
-    
+
     angular
         .module('app.mainApp.tecnico')
         .controller('CabinetDialogController',CabinetDialogController);
@@ -39,9 +39,9 @@
         //Translates
         vm.errorTitle=Translate.translate('MAIN.MSG.ERROR_TITLE');
         vm.errorMessage=Translate.translate('MAIN.MSG.ERROR_CATALOG');
-                
+
         activate();
-        
+
         function activate(){
             vm.cabinet=angular.copy(cabinet);
             vm.marca=null;
@@ -58,7 +58,7 @@
         function filterModels(){
             vm.modelos=MarcaCabinet.getModels(vm.marca);
         }
-        
+
         function create(){
             Cabinet.createClean(vm.cabinet).then(function(res){
                 $mdDialog.hide(vm.cabinet.economico);
@@ -70,6 +70,6 @@
         function cancelClick(){
             $mdDialog.cancel(null);
         }
-        
+
     }
 })();
