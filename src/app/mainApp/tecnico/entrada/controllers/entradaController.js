@@ -356,20 +356,6 @@
             };
         }
 
-        function marcaDialogController($scope, $mdDialog) {
-            $scope.marca = null;
-            $scope.hide = function () {
-                $mdDialog.hide();
-            };
-            $scope.registrarMarca = function () {
-                MarcaCabinet.create($scope.marca);
-                $mdDialog.hide();
-            };
-            $scope.cancel = function () {
-                $mdDialog.cancel();
-            };
-        }
-
         function addCabinet(){
             if(_.contains(vm.existingCabinets,vm.cabinetID)){
                 Cabinet.get(vm.cabinetID).then(function(res){
