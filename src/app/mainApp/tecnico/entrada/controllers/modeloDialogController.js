@@ -9,25 +9,7 @@
         .controller('ModeloDialogController',ModeloDialogController);
     function ModeloDialogController($mdDialog, Cabinet, MarcaCabinet, ModeloCabinet, Helper, Translate, toastr){
         var vm = this;
-
-        /*
-         $scope.marcas = null;
-         $scope.marcas = MarcaCabinet.list();
-         $scope.marca = null;
-         $scope.modelo = null;
-         $scope.hide = function () {
-         $mdDialog.hide();
-         };
-         $scope.registrarModelo = function () {
-         ModeloCabinet.create($scope.modelo);
-         $mdDialog.hide();
-         };
-         $scope.cancel = function () {
-         $mdDialog.cancel();
-         };
-         }
-         */
-
+        
         //Translates
         vm.succesTitle=Translate.translate('MAIN.MSG.SUCCESS_TITLE');
         vm.successMessage=Translate.translate('MAIN.MSG.GENERIC_SUCCESS_CREATE');
