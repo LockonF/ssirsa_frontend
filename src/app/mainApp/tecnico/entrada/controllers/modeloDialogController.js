@@ -7,7 +7,7 @@
     angular
         .module('app.mainApp.tecnico')
         .controller('ModeloDialogController',ModeloDialogController);
-    function ModeloDialogController($mdDialog, Cabinet, MarcaCabinet, ModeloCabinet, Helper, Translate, toastr){
+    function ModeloDialogController($mdDialog, MarcaCabinet, ModeloCabinet, Helper, Translate, toastr){
         var vm = this;
         
         //Translates
@@ -23,9 +23,11 @@
         activate();
 
         function activate(){
-            vm.marca=null;
+            vm.modelo=null;
             MarcaCabinet.listObject().then(function(res){
                 vm.marcas=Helper.filterDeleted(res,true);
+                console.log(vm.marcas);
+                vm.marcas.forEach
             }).catch(function(err){
                 toastr.error(vm.errorMessage,vm.errorTitle);
                 vm.marcas=[];

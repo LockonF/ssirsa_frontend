@@ -62,8 +62,9 @@ Created by Emmanuel on 03/09/2016.
                     </md-input-container>
                     <md-input-container flex="100" class="md-block">
                         <label>{{'INPUT.Dialogs.Model.Brand'|translate}}</label>
-                        <md-select name="selectBrand" ng-model="vm.modelo.marca" required="" md-no-asterisk="">
-                            <md-option ng-repeat="marca in vm.marcas" value="{{marca.id}}">{{marca.descripcion}}
+                        <md-select name="selectBrand" ng-model="vm.modelo.marca" required="" md-no-asterisk="" ng-if="vm.marcas!=null">
+                            <md-option ng-repeat="marca in vm.marcas" value="marca.id">
+                                <span>{{marca.descripcion}}</span>
                             </md-option>
                         </md-select>
                         <div ng-messages="entradaForm.selectUDN.$error">

@@ -330,32 +330,17 @@
                 templateUrl: 'app/mainApp/tecnico/entrada/dialogs/modelo.tmpl.html',
                 parent: angular.element(document.body),
                 targetEvent: ev,
+                controllerAs:'vm',
                 fullscreen: true,
                 clickOutsideToClose: true
-            }).then(function (answer) {
-                //Accepted
-                $mdDialog.hide();
-            }, function () {
-                //Cancelled
-                $mdDialog.cancel();
-            });
-        }
+            }).then(function (res) {
 
-        function modeloDialogController($scope, $mdDialog) {
-            $scope.marcas = null;
-            $scope.marcas = MarcaCabinet.list();
-            $scope.marca = null;
-            $scope.modelo = null;
-            $scope.hide = function () {
-                $mdDialog.hide();
-            };
-            $scope.registrarModelo = function () {
-                ModeloCabinet.create($scope.modelo);
-                $mdDialog.hide();
-            };
-            $scope.cancel = function () {
-                $mdDialog.cancel();
-            };
+            }).catch(function(err){
+                if(err!=null) {
+                    toastr.error(vm.errorGeneric,vm.errorTitle);
+                    console.log(err);
+                }
+            });
         }
 
         function addCabinet(){

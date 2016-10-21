@@ -5,16 +5,16 @@
                 <h2>{{'INPUT.Create Brand'|translate}}</h2>
             </div>
         </md-toolbar>
-        <md-dialog-content>
-            <form name="brandForm" novalidate="">
-                <md-input-container class="md-block">
+        <md-dialog-content flex="100" layout-fill>
+            <form name="brandForm" novalidate="" flex="100">
+                <md-input-container class="md-block" flex="100">
                     <label>{{'INPUT.Dialogs.Brand.Category'|translate}}</label>
                     <input name="BrandCategory" md-no-asterisk="" required="" type="text" ng-model="vm.marca.categoria"/>
                     <div ng-messages="brandForm.ModelDescription.$error">
                         <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
                     </div>
                 </md-input-container>
-                <md-input-container class="md-block">
+                <md-input-container class="md-block" flex="100">
                     <label>{{'INPUT.Dialogs.Brand.Description'|translate}}</label>
                     <input name="BrandDescription" md-no-asterisk="" required="" type="text"
                            ng-model="vm.marca.descripcion"/>

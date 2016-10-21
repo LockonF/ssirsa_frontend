@@ -177,7 +177,8 @@
                         </md-content>
                     </md-tab>
                     <!--Registro de cabinets-->
-                    <md-tab label={{'INPUT.Tabs.CabinetsUpload'|translate}} ng-disabled="entradaForm.$invalid">
+                    <!-- ng-disabled="entradaForm.$invalid" -->
+                    <md-tab label={{'INPUT.Tabs.CabinetsUpload'|translate}} >
                         <md-content layout-padding="">
                             <div layout-gt-xs="row" layout="column" layout-align-gt-xs="space-around center"
                                  layout-align="center stretch">
@@ -188,7 +189,8 @@
                                     {{'INPUT.Cabinets Manual Upload'|translate}}
                                 </md-button>
                             </div>
-                            <div layout="column" ng-hide="vm.hideMassiveUpload">
+                            <!-- ng-hide="vm.hideMassiveUpload" -->
+                            <div layout="column" >
                                 <!-- Massive Upload-->
                                 <div layout-gt-xs="row" layout="column" flex="100" ng-hide="vm.hideMassiveUpload">
                                     <md-input-container flex-gt-xs="75" flex="100">
@@ -205,7 +207,8 @@
                                         </md-button>
                                     </div>
                                 </div>
-                                <div ng-if="vm.entrada.no_creados.length > 0"
+                                <!-- ng-if="vm.entrada.no_creados.length > 0" -->
+                                <div
                                      layout-gt-xs="row"
                                      layout-align-gt-xs="space-around center"
                                      layout-align="space-around stretch"
