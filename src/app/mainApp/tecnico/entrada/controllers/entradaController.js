@@ -173,7 +173,6 @@
             if (vm.entrada.file != null) {
                 fd.append('file', vm.entrada.file);
                 EntradaSalida.postEntradaMasiva(fd).then(function (res) {
-                    console.log(res.no_creados);
                     vm.entrada.creados = res.creados;
                     vm.entrada.no_creados = res.no_creados;
                     vm.hideRegisteredCabinets = false;
@@ -320,13 +319,14 @@
             }).catch(function(err){
                 if(err!=null) {
                     toastr.error(vm.errorGeneric,vm.errorTitle);
+                    console.log(err);
                 }
             });
         }
 
         function showModeloDialog(ev) {
             $mdDialog.show({
-                controller: modeloDialogController,
+                controller: 'ModeloDialogController',
                 templateUrl: 'app/mainApp/tecnico/entrada/dialogs/modelo.tmpl.html',
                 parent: angular.element(document.body),
                 targetEvent: ev,

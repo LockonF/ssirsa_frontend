@@ -9,7 +9,7 @@
             <form name="brandForm" novalidate="">
                 <md-input-container class="md-block">
                     <label>{{'INPUT.Dialogs.Brand.Category'|translate}}</label>
-                    <input name="BrandCategory" md-no-asterisk="" required="" type="text" ng-model="marca.categoria"/>
+                    <input name="BrandCategory" md-no-asterisk="" required="" type="text" ng-model="vm.marca.categoria"/>
                     <div ng-messages="brandForm.ModelDescription.$error">
                         <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
                     </div>
@@ -17,7 +17,7 @@
                 <md-input-container class="md-block">
                     <label>{{'INPUT.Dialogs.Brand.Description'|translate}}</label>
                     <input name="BrandDescription" md-no-asterisk="" required="" type="text"
-                           ng-model="marca.descripcion"/>
+                           ng-model="vm.marca.descripcion"/>
                     <div ng-messages="brandForm.ModelKeyword.$error">
                         <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
                     </div>
@@ -25,10 +25,10 @@
             </form>
         </md-dialog-content>
         <md-dialog-actions layout="row" layout-align="end center">
-            <md-button ng-click="cancel()" md-no-ink class="md-primary">
+            <md-button ng-click="vm.cancel()" md-no-ink class="md-primary">
                 {{'INPUT.Cancel'|translate}}
             </md-button>
-            <md-button ng-click="registrarMarca()" ng-disabled="brandForm.$invalid" md-no-ink class="md-primary">
+            <md-button ng-click="vm.create()" ng-disabled="brandForm.$invalid" md-no-ink class="md-primary">
                 {{'INPUT.Save'|translate}}
             </md-button>
         </md-dialog-actions>

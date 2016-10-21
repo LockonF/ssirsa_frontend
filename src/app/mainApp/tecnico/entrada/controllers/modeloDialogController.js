@@ -6,8 +6,8 @@
 
     angular
         .module('app.mainApp.tecnico')
-        .controller('CabinetDialogController',CabinetDialogController);
-    function CabinetDialogController($mdDialog, Cabinet, MarcaCabinet, cabinetID, Helper, Translate, toastr){
+        .controller('ModeloDialogController',ModeloDialogController);
+    function ModeloDialogController($mdDialog, Cabinet, MarcaCabinet, ModeloCabinet, Helper, Translate, toastr){
         var vm = this;
 
         /*
@@ -28,6 +28,12 @@
          }
          */
 
+        //Translates
+        vm.succesTitle=Translate.translate('MAIN.MSG.SUCCESS_TITLE');
+        vm.successMessage=Translate.translate('MAIN.MSG.GENERIC_SUCCESS_CREATE');
+        vm.errorTitle=Translate.translate('MAIN.MSG.ERROR_TITLE');
+        vm.errorMessage=Translate.translate('MAIN.MSG.ERROR_MESSAGE');
+
         //Functions
         vm.create=create;
         vm.cancel=cancelClick;
@@ -46,9 +52,11 @@
 
 
         function create(){
-            Cabinet.createClean(vm.cabinet).then(function(res){
+            ModeloCabinet.create(vm.cabinet).then(function(res){
+                toastr.success(vm.successMessage,vm.succesTitle);
                 $mdDialog.hide(vm.cabinet.economico);
             }).catch(function(err){
+                toastr.error(vm.errorMessage,vm.errorTitle);
                 $mdDialog.cancel(err);
             });
         }
