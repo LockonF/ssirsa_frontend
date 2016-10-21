@@ -306,11 +306,22 @@
                                     <md-virtual-repeat-container flex="100" layout-fill ng-style='{"height":"250px"}'>
                                         <md-list>
                                             <md-list-item ng-repeat="cabinet in vm.notFoundCabinets">
-                                                <div layout="row" flex="100">
-                                                    <md-button flex="90" ng-click="vm.showCabinetDialog(cabinet)">
+                                                <div layout="row"
+                                                     layout-align="end center"
+                                                     flex-gt-sm="90"
+                                                     flex="80"
+                                                     md-swipe-left="vm.removeNotFoundCabinet(cabinet)"
+                                                     md-swipe-right="vm.removeNotFoundCabinet(cabinet)"
+                                                >
+                                                    <md-button flex="90"
+                                                               ng-click="vm.showCabinetDialog(cabinet)">
                                                         {{cabinet}}
                                                     </md-button>
-                                                    <div flex="10" layout-align="center center" layout="row">
+                                                    <div flex-gt-sm="10"
+                                                         flex="20"
+                                                         layout="row"
+                                                         layout-fill
+                                                    >
                                                         <md-button ng-click="vm.removeNotFoundCabinet(cabinet)"
                                                                    class="md-fab md-warn md-mini"
                                                                    >
