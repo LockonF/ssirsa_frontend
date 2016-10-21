@@ -29,7 +29,7 @@
         vm.showModeloDialog = showModeloDialog;
         vm.showCabinetDialog=showCabinetDialog;
         vm.addCabinet = addCabinet;
-        vm.removeCabinet=removeCabinet;
+        vm.removeNotFoundCabinet=removeNotFoundCabinet;
 
         vm.options=["Nuevos","Garantías"];
         vm.selectedEntrada=null;
@@ -374,15 +374,10 @@
 
 
         }
-
-        function removeCabinet(id){
-            var index = vm.cabinets.indexOf(id);
-            if (index > -1) {
-                vm.cabinets.splice(index, 1);
-            }
-        }
+        
 
         function removeNotFoundCabinet(id){
+            console.log(id);
             var index = vm.notFoundCabinets.indexOf(id);
             if (index > -1) {
                 vm.notFoundCabinets.splice(index, 1);

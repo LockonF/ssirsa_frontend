@@ -177,8 +177,8 @@
                         </md-content>
                     </md-tab>
                     <!--Registro de cabinets-->
-                    <!-- ng-disabled="entradaForm.$invalid" -->
-                    <md-tab label={{'INPUT.Tabs.CabinetsUpload'|translate}} >
+                    <!--ng-disabled="entradaForm.$invalid"-->
+                    <md-tab label={{'INPUT.Tabs.CabinetsUpload'|translate}}>
                         <md-content layout-padding="">
                             <div layout-gt-xs="row" layout="column" layout-align-gt-xs="space-around center"
                                  layout-align="center stretch">
@@ -189,8 +189,7 @@
                                     {{'INPUT.Cabinets Manual Upload'|translate}}
                                 </md-button>
                             </div>
-                            <!-- ng-hide="vm.hideMassiveUpload" -->
-                            <div layout="column" >
+                            <div layout="column" ng-hide="vm.hideMassiveUpload">
                                 <!-- Massive Upload-->
                                 <div layout-gt-xs="row" layout="column" flex="100" ng-hide="vm.hideMassiveUpload">
                                     <md-input-container flex-gt-xs="75" flex="100">
@@ -207,8 +206,7 @@
                                         </md-button>
                                     </div>
                                 </div>
-                                <!-- ng-if="vm.entrada.no_creados.length > 0" -->
-                                <div
+                                <div ng-if="vm.entrada.no_creados.length > 0"
                                      layout-gt-xs="row"
                                      layout-align-gt-xs="space-around center"
                                      layout-align="space-around stretch"
@@ -309,8 +307,16 @@
                                         <md-list>
                                             <md-list-item ng-repeat="cabinet in vm.notFoundCabinets">
                                                 <div layout="row" flex="100">
-                                                    <md-button ng-click="vm.showCabinetDialog(cabinet)">{{cabinet}}
+                                                    <md-button flex="90" ng-click="vm.showCabinetDialog(cabinet)">
+                                                        {{cabinet}}
                                                     </md-button>
+                                                    <div flex="10" layout-align="center center" layout="row">
+                                                        <md-button ng-click="vm.removeNotFoundCabinet(cabinet)"
+                                                                   class="md-fab md-warn md-mini"
+                                                                   >
+                                                            <md-icon md-font-icon="fa fa-times-circle"></md-icon>
+                                                        </md-button>
+                                                    </div>
                                                 </div>
                                                 <md-divider></md-divider>
                                             </md-list-item>
