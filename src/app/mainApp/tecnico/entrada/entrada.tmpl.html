@@ -177,13 +177,24 @@
                                         </md-button>
                                     </div>
                                 </div>
-                                <div ng-if="vm.entrada.no_creados.lenght > 0"
+                                <div ng-if="vm.entrada.no_creados.length > 0"
                                      layout-gt-xs="row"
                                      layout-align-gt-xs="space-around center"
                                      layout-align="space-around stretch"
                                      layout="column">
                                     <md-button class="md-raised md-primary" ng-click="vm.showMarcaDialog(ev)">{{'INPUT.Create Brand'|translate}}</md-button>
                                     <md-button class="md-raised md-primary" ng-click="vm.showModeloDialog(ev)">{{'INPUT.Create Model'|translate}}</md-button>
+                                    <p>{{'INPUT.Unregistered Cabinets'|translate}}</p>
+                                    <md-virtual-repeat-container flex="100" layout-fill ng-style='{"height":"250px"}'>
+                                        <md-list>
+                                            <md-list-item ng-repeat="cabinet in vm.entrada.no_creados">
+                                                <div layout="row" flex="100">
+                                                    <span>{{cabinet}}</span>
+                                                </div>
+                                                <md-divider></md-divider>
+                                            </md-list-item>
+                                        </md-list>
+                                    </md-virtual-repeat-container>
                                 </div>
                                 <div flex="" layout="column" ng-if="vm.entrada.creados.length > 0">
                                     <p>{{'INPUT.Registered Cabinets'|translate}}</p>
@@ -246,7 +257,7 @@
                                 </div>
                                 <div flex="" layout="column" ng-if="vm.notFoundCabinets.length > 0">
                                     <p>{{'INPUT.Unregistered Cabinets'|translate}}</p>
-                                    <md-virtual-repeat-container flex="100" layout-fill ng-style='{"height":"150px"}'>
+                                    <md-virtual-repeat-container flex="100" layout-fill ng-style='{"height":"250px"}'>
                                         <md-list>
                                             <md-list-item ng-repeat="cabinet in vm.notFoundCabinets">
                                                 <div layout="row" flex="100">

@@ -173,6 +173,7 @@
             if (vm.entrada.file != null) {
                 fd.append('file', vm.entrada.file);
                 EntradaSalida.postEntradaMasiva(fd).then(function (res) {
+                    console.log(res.no_creados);
                     vm.entrada.creados = res.creados;
                     vm.entrada.no_creados = res.no_creados;
                     vm.hideRegisteredCabinets = false;
@@ -187,6 +188,7 @@
                     }
                 }).catch(function (err) {
                     toastr.error(vm.errorMassive, vm.errorTitle);
+                    console.log(err);
                 });
             }
             else {
