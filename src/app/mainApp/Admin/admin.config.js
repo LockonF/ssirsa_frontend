@@ -19,12 +19,6 @@
                 templateUrl: 'app/mainApp/Admin/gestion_user.tmpl.html', //Dirección del archivo a usar
                 controller: 'gestion_userController', //nombre del controlador
                 controllerAs: 'vm' //se renombra al scope
-            })
-            .state('triangular.admin-default.buscarUsuario',{
-                url:'/buscarUsuario',
-                templateUrl:'app/mainApp/Admin/buscarUsuario.html',
-                controller:'buscarUsuarioController',
-                controllerAs:'vm'
             }).state('triangular.admin-default.admin_user', {
                 // set the url of this page
                 url: '/admin_user',
