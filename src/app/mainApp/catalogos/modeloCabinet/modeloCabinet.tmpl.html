@@ -134,7 +134,9 @@
                                        required=""
                                        ng-disabled="vm.disabled(vm.modelo.marca,'marca')"
                             >
-                                <md-option ng-repeat="marca in vm.marcas" ng-value="marca.id" ng-if="marca.deleted==false || marca.id==vm.modelo.marca">{{marca.categoria}}
+ 
+                                <md-option ng-repeat="marca in vm.marcas" ng-value="marca.id" ng-if="marca.deleted==false || marca.id==vm.modelo.marca">{{marca.descripcion}}
+
                                 </md-option>
                             </md-select>
                             <div ng-messages="ModelCabinetForm.marca.$error">

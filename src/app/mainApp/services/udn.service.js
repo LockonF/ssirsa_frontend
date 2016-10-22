@@ -2,7 +2,7 @@
  * Created by Luis_Olvera on 19/07/2016.
  */
 (function(){
-    'use_strict';//
+    'use_strict';
 
     angular
         .module('app.mainApp')
@@ -38,8 +38,5 @@
         function remove(object) {
             return baseUdn.customDELETE(object.id,null,{'content-type':'application/json'});
         }
-
-
-
     }
 })();
