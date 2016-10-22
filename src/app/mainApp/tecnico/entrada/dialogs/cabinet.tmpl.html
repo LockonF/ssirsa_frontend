@@ -44,14 +44,13 @@
                            only-digits
                            md-no-asterisk=""
                            required=""
-                           type="number"
+                           type="text"
+                           only-numbers
+                           ng-pattern="/[0-9]{4}"
                            ng-model="vm.cabinet.year"
-                           min="1900"
-                           max="2100"
                     />
                     <div ng-messages="cabinetForm.CabinetYear.$error">
-                        <div ng-message="min">{{'INPUT.Year Field'|translate}}</div>
-                        <div ng-message="max">{{'INPUT.Year Field'|translate}}</div>
+                        <div ng-message="pattern">{{'INPUT.Year Field'|translate}}</div>
                         <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
                     </div>
                 </md-input-container>

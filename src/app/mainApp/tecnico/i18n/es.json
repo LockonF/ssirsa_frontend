@@ -181,7 +181,7 @@
         "Registered Cabinets":"Cabinets Registrados",
         "Unregistered Cabinets":"Cabinets No Registrados",
         "UDN": "Agencia",
-        "Year Field":"Año inválido"
+        "Year Field":"Formato de año inválido"
     },
     "OUTPUT": {
         "FORM": {
