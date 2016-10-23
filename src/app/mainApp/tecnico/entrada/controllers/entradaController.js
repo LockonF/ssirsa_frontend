@@ -8,13 +8,13 @@
         .module('app.mainApp.tecnico')
         .controller('entradaController', entradaController);
 
-    function entradaController(EntradaSalida, toastr, $mdDialog, MarcaCabinet, ModeloCabinet, Sucursal, udn, Proyectos, TipoTransporte, LineaTransporte, Translate, $scope) {
+    function entradaController(EntradaSalida, toastr, $mdDialog, MarcaCabinet,
+                               ModeloCabinet, Sucursal, udn, CabinetEntradaSalida,
+                               Proyectos, TipoTransporte, LineaTransporte, Translate,
+                               $scope, Cabinet, Helper) {
         var vm = this;
         vm.isGarantia=false;
         vm.isPedimento=false;
-
-        vm.height = window.innerHeight + 'px';
-        vm.myStyle='{"min-height":"'+vm.height+'"}';
 
         vm.guardar = guardar;
         vm.limpiar=limpiar;
@@ -27,14 +27,17 @@
         vm.uploadFile = uploadFile;
         vm.showMarcaDialog = showMarcaDialog;
         vm.showModeloDialog = showModeloDialog;
+        vm.showCabinetDialog=showCabinetDialog;
         vm.addCabinet = addCabinet;
-        vm.removeCabinet=removeCabinet;
+        vm.removeNotFoundCabinet=removeNotFoundCabinet;
 
         vm.options=["Nuevos","Garantías"];
         vm.selectedEntrada=null;
 
         vm.selectedTab = 0;
         vm.idEntrada = null;
+        vm.modelos=ModeloCabinet.list();
+        vm.marcas=MarcaCabinet.list();
 
         //Visualizations
         vm.hideMassiveUpload = true;
@@ -64,8 +67,8 @@
             "tipo_transporte": null,
             "udn": null,
             "file": null,
-            "creados": null,
-            "no_creados": null,
+            "creados": [],
+            "no_creados": [],
             "modelos_no_existentes": null
 
         };
@@ -74,25 +77,60 @@
         vm.successTitle=Translate.translate('MAIN.MSG.SUCCESS_TITLE');
         vm.warningTitle=Translate.translate('MAIN.MSG.WARNING_TITLE');
         vm.errorTitle=Translate.translate('MAIN.MSG.ERROR_TITLE');
+        vm.errorGeneric=Translate.translate('MAIN.MSG.ERROR_MSG');
+        vm.errorMessage=Translate.translate('MAIN.MSG.ERROR_CATALOG');
         vm.sucessMassive=Translate.translate('INPUT.Messages.SuccessMassive');
-        vm.successNormal=Translate.translate('INPUT.Messages.SucessNormal');
+        vm.successNormal=Translate.translate('INPUT.Messages.SuccessNormal');
         vm.warning=Translate.translate('INPUT.Messages.Warning');
         vm.errorMassive=Translate.translate('INPUT.Messages.ErrorMassive');
         vm.errorNormal=Translate.translate('INPUT.Messages.ErrorNormal');
         vm.errorCabinet=Translate.translate('INPUT.Messages.ErrorCabinet');
+        vm.notFoundCabinet=Translate.translate('INPUT.Messages.NotFoundCabinet');
+        vm.acceptButton=Translate.translate('MAIN.BUTTONS.ACCEPT');
+        vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
+        vm.dialogTitle=Translate.translate('INPUT.Dialogs.Confirm.Title');
+        vm.dialogMessage=Translate.translate('INPUT.Dialogs.Confirm.Message');
 
         activate();
 
         //Functions
         function activate() {
             vm.cabinets = [];
-            vm.cabinet="";
-            angular.copy(vm.entrada,entrada);
-            vm.lineasTransporte=LineaTransporte.list();
-            vm.tiposTransporte = TipoTransporte.list();
-            vm.Sucursales = Sucursal.list();
-            vm.Proyectos = Proyectos.list();
-            vm.udns = udn.list();
+            vm.cabinetID="";
+            vm.notFoundCabinets=[];
+            vm.existingCabinets = Cabinet.getEconomics();
+
+            vm.entrada = angular.copy(entrada);
+            LineaTransporte.listObject().then(function (res) {
+                vm.lineasTransporte =Helper.filterDeleted(res,true);
+                vm.lineasTransporte=_.sortBy(vm.lineasTransporte, 'razon_social');
+            }).catch(function(err){
+                toastr.error(vm.errorMessage,vm.errorTitle);
+            });
+            TipoTransporte.listObject().then(function (res) {
+                vm.tiposTransporte =Helper.filterDeleted(res,true);
+                vm.tiposTransporte=_.sortBy(vm.tiposTransporte, 'descripcion');
+            }).catch(function(err){
+                toastr.error(vm.errorMessage,vm.errorTitle);
+            });
+            Sucursal.listObject().then(function (res) {
+                vm.Sucursales =Helper.filterDeleted(res,true);
+                vm.Sucursales=_.sortBy(vm.Sucursales, 'nombre');
+            }).catch(function(err){
+                toastr.error(vm.errorMessage,vm.errorTitle);
+            });
+            Proyectos.listObject().then(function (res) {
+                vm.Proyectos =Helper.filterDeleted(res,true);
+                vm.Proyectos=_.sortBy(vm.Proyectos, 'descripcion');
+            }).catch(function(err){
+                toastr.error(vm.errorMessage,vm.errorTitle);
+            });
+            udn.listObject().then(function (res) {
+                vm.udns  =Helper.filterDeleted(res,true);
+                vm.udns =_.sortBy(vm.udns , 'agencia');
+            }).catch(function(err){
+                toastr.error(vm.errorMessage,vm.errorTitle);
+            });
         }
 
         function guardar() {
@@ -120,8 +158,10 @@
 
             if (vm.entrada.id != null)
                 fd.append("id", vm.entrada.id);
-            if (vm.cabinets != null)
-                fd.append('cabinets', vm.cabinets);
+
+            if (vm.cabinets.length>0)
+                fd.append('cabinets', _.pluck(vm.cabinets,"economico"));
+
             if (vm.entrada.ife_chofer != null)
                 fd.append('ife_chofer', vm.entrada.ife_chofer);
             //Is massive upload
@@ -142,26 +182,49 @@
                     }
                 }).catch(function (err) {
                     toastr.error(vm.errorMassive, vm.errorTitle);
-                    console.log(err);
                 });
             }
             else {
-                EntradaSalida.postEntrada(fd).then(function (res) {
-                    vm.entrada=res;
-                    vm.hideRegisteredCabinets = false;
-                    vm.hideUnregisteredCabinets = false;
-                    if(vm.entrada.no_creados.length>0)
-                        toastr.warning(vm.warning,vm.warningTitle);
-                    else {
-                        toastr.success(vm.successNormal, vm.successTitle);
-                        //limpiar();
-                    }
-                }).catch(function (err) {
-                    toastr.error(vm.errorMassive, vm.errorTitle);
-                    console.log(err);
-                });
+                if(vm.notFoundCabinet.length==0) {
+                    var confirm = $mdDialog.confirm()
+                        .title(vm.dialogTitle)
+                        .textContent(vm.dialogMessage)
+                        .ariaLabel('Confirmar guardado')
+                        .ok(vm.acceptButton)
+                        .cancel(vm.cancelButton);
+                    $mdDialog.show(confirm).then(function() {
+                        postManual(fd);
+                    },function(){
+                        //Cancelled
+                    });
+                }
+                else{
+                    postManual(fd);
+                }
+
             }
 
+        }
+
+        function postManual(fd){
+            EntradaSalida.postEntrada(fd).then(function (res) {
+                var request={
+                    "entrada_salida": res.id,
+                    "economico": _.map(vm.cabinets,function(element){
+                            return {"economico":element.economico};
+                        }
+                    )
+                };
+                CabinetEntradaSalida.create(request).then(function(){
+                    toastr.success(vm.successNormal, vm.successTitle);
+                    limpiar();
+                }).catch(function(err){
+                    toastr.error(vm.errorNormal, vm.errorTitle);
+                });
+
+            }).catch(function (err) {
+                toastr.error(vm.errorNormal, vm.errorTitle);
+            });
         }
 
         function limpiar(){
@@ -174,6 +237,13 @@
             $scope.entradaForm.$setUntouched();
             $scope.entradaForm.$invalid=true;
             vm.selectedTab=0;
+        }
+
+        function partialClean(){
+            vm.cabinets=[];
+            vm.entrada.creados=[];
+            vm.entrada.no_creados=[];
+            vm.notFoundCabinets=[];
         }
 
         function selectionImage($file) {
@@ -204,11 +274,14 @@
         function showMassiveUpload() {
             vm.hideManualUpload = true;
             vm.hideMassiveUpload = false;
+            partialClean();
         }
 
         function showManualUpload() {
             vm.hideManualUpload = false;
             vm.hideMassiveUpload = true;
+            vm.existingCabinets= _.pluck(vm.existingCabinets,"economico");
+            partialClean();
         }
 
         function removeImage() {
@@ -223,92 +296,120 @@
             EntradaSalida.postEntradaMasiva(vm.entrada).then(function (res) {
                 vm.responseMassiveUpload = res;
             }).catch(function (err) {
-                console.log(err);
+
             });
         }
 
         function showMarcaDialog(ev) {
             $mdDialog.show({
-                controller: marcaDialogController,
+                controller: 'MarcaDialogController',
+                controllerAs: 'vm',
                 templateUrl: 'app/mainApp/tecnico/entrada/dialogs/marca.tmpl.html',
-                parent: angular.element(document.body),
-                targetEvent: ev,
                 fullscreen: true,
-                clickOutsideToClose: true
-            }).then(function (answer) {
-                //Accepted
-                $mdDialog.hide();
-            }, function () {
-                //Cancelled
-                $mdDialog.cancel();
-            });
+                clickOutsideToClose:true,
+                focusOnOpen: true
+            }).then(function (res) {
 
+            }).catch(function(err){
+                if(err!=null) {
+                    toastr.error(vm.errorGeneric,vm.errorTitle);
+                }
+            });
         }
 
         function showModeloDialog(ev) {
             $mdDialog.show({
-                controller: modeloDialogController,
+                controller: 'ModeloDialogController',
                 templateUrl: 'app/mainApp/tecnico/entrada/dialogs/modelo.tmpl.html',
                 parent: angular.element(document.body),
                 targetEvent: ev,
+                controllerAs:'vm',
                 fullscreen: true,
                 clickOutsideToClose: true
-            }).then(function (answer) {
-                //Accepted
-                $mdDialog.hide();
-            }, function () {
-                //Cancelled
-                $mdDialog.cancel();
-            });
-        }
-        function modeloDialogController($scope, $mdDialog) {
-            $scope.marcas = null;
-            $scope.marcas = MarcaCabinet.list();
-            $scope.marca = null;
-            $scope.modelo = null;
-            $scope.hide = function () {
-                $mdDialog.hide();
-            };
-            $scope.registrarModelo = function () {
-                ModeloCabinet.create($scope.modelo);
-                $mdDialog.hide();
-            };
-            $scope.cancel = function () {
-                $mdDialog.cancel();
-            };
-        }
+            }).then(function (res) {
 
-        function marcaDialogController($scope, $mdDialog) {
-            $scope.marca = null;
-            $scope.hide = function () {
-                $mdDialog.hide();
-            };
-            $scope.registrarMarca = function () {
-                MarcaCabinet.create($scope.marca);
-                $mdDialog.hide();
-            };
-            $scope.cancel = function () {
-                $mdDialog.cancel();
-            };
+            }).catch(function(err){
+                if(err!=null) {
+                    toastr.error(vm.errorGeneric,vm.errorTitle);
+                }
+            });
         }
 
         function addCabinet(){
-            if(vm.cabinets.indexOf(vm.cabinet) !== -1) {
-                toastr.warning(vm.errorCabinet,vm.warning);
+            if(_.contains(vm.existingCabinets,vm.cabinetID)){
+                Cabinet.get(vm.cabinetID).then(function(res){
+                    if(vm.cabinets.indexOf(res) != -1) {
+                        toastr.warning(vm.errorCabinet,vm.warning);
+                    }
+                    else {
+                        var tempCabinet=angular.copy(res);
+                        tempCabinet.modelo=modeloById(res.modelo).nombre;
+                        tempCabinet.marca=marcaById(res.modelo);
+                        vm.cabinets.push(tempCabinet);
+                    }
+                    vm.cabinetID = "";
+                }).catch(function(err){
+                    toastr.error(vm.notFoundCabinet,vm.errorTitle);
+                    vm.cabinetID = "";
+                });
             }
-            else {
-                vm.cabinets.push(vm.cabinet);
+            else{
+                if(vm.notFoundCabinets.indexOf(vm.cabinetID) != -1) {
+                    toastr.warning(vm.errorCabinet,vm.warning);
+                }
+                else {
+                    toastr.warning(vm.notFoundCabinet,vm.warning);
+                    vm.notFoundCabinets.push(vm.cabinetID);
+                }
+                vm.cabinetID = "";
             }
-            vm.cabinet = "";
+
+
         }
-        
-        function removeCabinet(id){
-            var index = array.indexOf(id);
+
+
+        function removeNotFoundCabinet(id){
+            var index = vm.notFoundCabinets.indexOf(id);
             if (index > -1) {
-                vm.cabinets.splice(index, 1);
+                vm.notFoundCabinets.splice(index, 1);
             }
         }
-        
+
+        function modeloById(id){
+            return _.find(vm.modelos,function(model){
+                return model.id == id;
+            });
+        }
+
+        function marcaById(id){
+            var modelo = modeloById(id);
+            return _.find(vm.marcas,function(brand){
+                return brand.id == modelo.marca;
+            }).descripcion;
+        }
+
+        function showCabinetDialog(economico){
+            $mdDialog.show({
+                controller: 'CabinetDialogController',
+                controllerAs: 'vm',
+                templateUrl: 'app/mainApp/tecnico/entrada/dialogs/cabinet.tmpl.html',
+                fullscreen: true,
+                clickOutsideToClose:true,
+                focusOnOpen: true,
+                locals:{
+                    cabinetID:economico
+                }
+            }).then(function (res) {
+                vm.existingCabinets.push(res);
+                removeNotFoundCabinet(res);
+                vm.cabinetID=res;
+                addCabinet();
+            }).catch(function(err){
+                if(err!=null) {
+
+                }
+            });
+        }
     }
 
 })();

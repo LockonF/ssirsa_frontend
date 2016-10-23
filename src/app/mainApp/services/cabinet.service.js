@@ -9,8 +9,10 @@
     function Cabinet($q, Restangular) {
         return {
             create: create,
+            createClean:createClean,
             get: get,
             getAll: getAll,
+            getEconomics:getEconomics,
             remove: remove,
             modify: modify,
             loadByModel:loadByModel
@@ -24,6 +26,10 @@
                 deferred.reject(err);
             });
             return deferred.promise;
+        }
+
+        function createClean(data){
+            return Restangular.all('cabinet').all('clean').customPOST(data);
         }
 
         function get(no_serie) {
@@ -44,6 +50,10 @@
                 deferred.reject(err);
             });
             return deferred.promise;
+        }
+
+        function getEconomics(){
+            return Restangular.all("cabinet").all("clean").all("economico").getList().$object;
         }
 
         function remove(cabinet) {

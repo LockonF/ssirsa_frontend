@@ -19,6 +19,7 @@
             byUdn: byUdn,
             getCabinetsEntrada: getCabinetsEntrada
         };
+        
         function getLastEntradaByCabinet(idCabinet) {
             return baseURL.one('cabinet').customGET(idCabinet);
         }
