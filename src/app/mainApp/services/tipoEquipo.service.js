@@ -39,6 +39,5 @@
             return baseURL.customDELETE(object.id,null,{'content-type':'application/json'});
         }
 
-    }
-
+    } 
 })();

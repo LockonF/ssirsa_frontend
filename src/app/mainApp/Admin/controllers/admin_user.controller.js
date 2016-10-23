@@ -17,6 +17,7 @@
         vm.clean=clean;
         vm.remove=remove;
         vm.update=update;
+        vm.getPersonaAdmin=getPersonaAdmin;
 
         vm.picFoto="assets/images/modelo.svg";
         vm.search_items = [];
@@ -61,6 +62,11 @@
         }
 
         function activate() {
+            getPersonaAdmin();
+        }
+
+        function getPersonaAdmin()
+        {
             Persona_Admin.listCanonico().then(function(rest){
                 vm.personas_admin=rest;
                 Persona.listProfile().then(function(rest){
@@ -73,7 +79,6 @@
             }).catch(function(error){
 
             });
-
         }
 
         function remove(ev) {
@@ -86,6 +91,7 @@
             $mdDialog.show(confirm).then(function() {
                 Persona_Admin.deleteData(vm.persona).then(function(rest){
                     toastr.success(vm.successDeleteMessage, vm.successTitle);
+                    getPersonaAdmin();
                     cancel();
                     activate();
                 }).catch(function (res) {
@@ -120,6 +126,7 @@
             $scope.objectForm.$setUntouched();
             vm.persona = angular.copy(persona);
             vm.selectedPersonaList = null;
+            vm.searchText = '';
         }
 
         function clean() {

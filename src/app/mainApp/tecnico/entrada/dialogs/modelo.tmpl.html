@@ -13,7 +13,7 @@ Created by Emmanuel on 03/09/2016.
                 <div layout="column">
                     <md-input-container class="md-block">
                         <label>{{'INPUT.Dialogs.Model.Name'|translate}}</label>
-                        <input name="ModelName" md-no-asterisk="" required="" type="text" ng-model="modelo.nombre"/>
+                        <input name="ModelName" md-no-asterisk="" required="" type="text" ng-model="vm.modelo.nombre"/>
                         <div ng-messages="modelForm.ModelName.$error">
                             <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
                         </div>
@@ -21,7 +21,7 @@ Created by Emmanuel on 03/09/2016.
                     <md-input-container class="md-block">
                         <label>{{'INPUT.Dialogs.Model.Description'|translate}}</label>
                         <input name="ModelDescription" md-no-asterisk="" required="" type="text"
-                               ng-model="modelo.descripcion"/>
+                               ng-model="vm.modelo.descripcion"/>
                         <div ng-messages="modelForm.ModelDescription.$error">
                             <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
                         </div>
@@ -29,7 +29,7 @@ Created by Emmanuel on 03/09/2016.
                     <md-input-container class="md-block">
                         <label>{{'INPUT.Dialogs.Model.Keyword'|translate}}</label>
                         <input name="ModelKeyword" md-no-asterisk="" required="" type="text"
-                               ng-model="modelo.palabra_clave"/>
+                               ng-model="vm.modelo.palabra_clave"/>
                         <div ng-messages="modelForm.ModelKeyword.$error">
                             <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
                         </div>
@@ -37,7 +37,7 @@ Created by Emmanuel on 03/09/2016.
                     <md-input-container class="md-block">
                         <label>{{'INPUT.Dialogs.Model.Refrigerant type'|translate}}</label>
                         <input name="ModelRefrigerantType" md-no-asterisk="" required="" type="text"
-                               ng-model="modelo.tipo_refrigerante"/>
+                               ng-model="vm.modelo.tipo_refrigerante"/>
                         <div ng-messages="modelForm.ModelRefrigerantType.$error">
                             <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
                         </div>
@@ -47,7 +47,7 @@ Created by Emmanuel on 03/09/2016.
                     <md-input-container class="md-block">
                         <label>{{'INPUT.Dialogs.Model.Refrigerant quantity'|translate}}</label>
                         <input name="ModelRefrigerantQuantity" md-no-asterisk="" required="" type="text"
-                               ng-model="modelo.cantidad"/>
+                               ng-model="vm.modelo.cantidad"/>
                         <div ng-messages="modelForm.ModelRefrigerantQuantity.$error">
                             <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
                         </div>
@@ -55,15 +55,16 @@ Created by Emmanuel on 03/09/2016.
                     <md-input-container class="md-block">
                         <label>{{'INPUT.Dialogs.Model.Compressor type'|translate}}</label>
                         <input name="ModelCompressorType" md-no-asterisk="" required="" type="text"
-                               ng-model="modelo.tipo_compresor"/>
+                               ng-model="vm.modelo.tipo_compresor"/>
                         <div ng-messages="modelForm.ModelCompressorType.$error">
                             <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
                         </div>
                     </md-input-container>
                     <md-input-container flex="100" class="md-block">
                         <label>{{'INPUT.Dialogs.Model.Brand'|translate}}</label>
-                        <md-select name="selectBrand" ng-model="modelo.marca" required="" md-no-asterisk="">
-                            <md-option ng-repeat="marca in marcas" value="{{marca.id}}">{{marca.descripcion}}
+                        <md-select name="selectBrand" ng-model="vm.modelo.marca" required="" md-no-asterisk="" ng-if="vm.marcas!=null">
+                            <md-option ng-repeat="marca in vm.marcas" value="marca.id">
+                                <span>{{marca.descripcion}}</span>
                             </md-option>
                         </md-select>
                         <div ng-messages="entradaForm.selectUDN.$error">
@@ -75,10 +76,10 @@ Created by Emmanuel on 03/09/2016.
         </form>
     </md-dialog-content>
     <md-dialog-actions layout="row" layout-align="end center">
-        <md-button ng-click="cancel()" md-no-ink class="md-primary">
+        <md-button ng-click="vm.cancel()" md-no-ink class="md-primary">
             {{'INPUT.Cancel'|translate}}
         </md-button>
-        <md-button ng-click="registrarModelo()" ng-disabled="modelForm.$invalid" md-no-ink class="md-primary">
+        <md-button ng-click="vm.create()" ng-disabled="modelForm.$invalid" md-no-ink class="md-primary">
             {{'INPUT.Save'|translate}}
         </md-button>
     </md-dialog-actions>

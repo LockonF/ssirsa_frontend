@@ -10,7 +10,14 @@
         var vm = this;
         vm.isClient=true;
         activate();
-
+        vm.cpassword="";
+        vm.guardarUsuario = guardarUsuario;
+        vm.listSucursales=listSucursales;
+        vm.enviar =enviar;
+        vm.clean=clean;
+        vm.cancel=cancel;
+        vm.selectionFoto=selectionFoto;
+        vm.selectionIFE=selectionIFE;
         function activate(){
 
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
@@ -23,17 +30,11 @@
             }).catch(function(error){
 
             });
-
-            vm.sucursales =Sucursal.list();
-
+            //vm.sucursales =Sucursal.list();
+            listSucursales();
         }
-        vm.cpassword="";
-        vm.guardarUsuario = guardarUsuario;
-        vm.enviar =enviar;
-        vm.clean=clean;
-        vm.cancel=cancel;
-        vm.selectionFoto=selectionFoto;
-        vm.selectionIFE=selectionIFE;
+
+
         vm.user={
             "mail":""
         };
@@ -92,12 +93,20 @@
             };
         }
 
+        function listSucursales()
+        {
+            Sucursal.listObject().then(function (res) {
+                vm.sucursales=Helper.filterDeleted(res,true);
+                vm.sucursales=_.sortBy(vm.sucursales, 'descripcion');
+            });
+        }
+
         function guardarUsuario(){
             vm.user_ini.foto=vm.picFoto;
             vm.user_ini.ife=vm.picIFE;
 
-            if(vm.user_ini.udn == null)
-                delete vm.user_ini['udn'];
+            if(vm.user_ini.sucursal == null)
+                delete vm.user_ini['sucursal'];
             Persona_Admin.createObject(vm.user_ini).then(function (res) {
                 toastr.success(vm.successCreateMessage, vm.successTitle);
                 cancel();
