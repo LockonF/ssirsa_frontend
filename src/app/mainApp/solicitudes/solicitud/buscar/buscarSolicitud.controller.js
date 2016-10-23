@@ -53,6 +53,7 @@
         vm.editSelect = editSelect;
         vm.editCalendar = editCalendar;
         vm.editVentaCalendar = editVentaCalendar;
+        vm.showCreateDialog=showCreateDialog;
 
 
         vm.Requisitos = [];
@@ -103,17 +104,48 @@
                 obj.fecha_inicio = moment(obj.fecha_inicio).format('YYYY-MM-DD');
                 obj.fecha_termino = moment(obj.fecha_termino).format('YYYY-MM-DD');
                 obj.fecha_atendida = moment(obj.fecha_atendida).toISOString();
-                Solicitudes_Admin.updateSolicitud(obj).then(function () {
-                    toastr.success(vm.successUpdateMessage, vm.successTitle);
-                }).catch(function (res) {
-                    toastr.error(vm.errorMessage, vm.errorTitle);
-                })
+                if(vm.isClient)
+                {
+                    Solicitudes.modify(obj).then(function () {
+                        toastr.success(vm.successUpdateMessage, vm.successTitle);
+                    }).catch(function (res) {
+                        toastr.error(vm.errorMessage, vm.errorTitle);
+                    })
+                }else{
+                    Solicitudes_Admin.updateSolicitud(obj).then(function () {
+                        toastr.success(vm.successUpdateMessage, vm.successTitle);
+                    }).catch(function (res) {
+                        toastr.error(vm.errorMessage, vm.errorTitle);
+                    })
+                }
             }
 
             $mdEditDialog.small(config).then(function (ctrl) {
             }).catch(function (err) {
                 toastr.warning(vm.errorMessage, vm.errorTitle);
             });
+        }
+
+        function showCreateDialog(event,object) {
+            var config = {
+                controller: 'solicitudDetailDialogController',
+                controllerAs: 'vm',
+                bindToController: true,
+                templateUrl: 'app/mainApp/solicitudes/solicitud/buscar/modal/solicitudDetailDialog.tmpl.html',
+                parent: angular.element(document.body),
+                targetEvent: event,
+                clickOutsideToClose: true,
+                fullscreen: false,
+                locals: {
+                    event: object,
+                    tipoSol: vm.tipo_solicitud,
+                    edit: true
+                }
+            };
+            $mdDialog.show(config).then(function (object) {
+                    vm.requisito.datos.push(object);
+                }
+            );
         }
 
         function editCalendar(obj) {
@@ -415,6 +447,7 @@
                                         vm.sol.fecha_inicio = moment(vm.sol.fecha_inicio).format('DD/MM/YYYY');
                                         vm.sol.fecha_termino = moment(vm.sol.fecha_termino).format('DD/MM/YYYY');
                                         vm.sol.fecha_atendida = moment(vm.sol.fecha_atendida).format('DD/MM/YYYY HH:mm');
+                                        console.log(vm.sol);
                                     }
                                 }
                                 if (vm.sol != null) {
@@ -519,6 +552,7 @@
                                     vm.sol = vm.solicitudesVentas[i];
                                     vm.sol.fecha_atencion = moment(vm.sol.fecha_atencion).format('DD/MM/YYYY HH:mm');
                                     vm.solicitudesArray.push(vm.sol);
+                                    console.log(vm.sol);
                                 }
 
                                 vm.solicitudesVentas = null;
