@@ -59,7 +59,7 @@
             if(vm.marca!=null) {
                 vm.modelos = MarcaCabinet.getModels(vm.marca).then(function(res){
                     if(res.length>0) {
-                        vm.modelos = res;
+                        vm.modelos = Helper.filterDeleted(res,true);
                     }
                 }).catch(function(){
                     vm.modelos=[];
