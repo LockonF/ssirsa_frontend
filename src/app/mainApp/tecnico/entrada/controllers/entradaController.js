@@ -131,11 +131,6 @@
             }).catch(function(err){
                 toastr.error(vm.errorMessage,vm.errorTitle);
             });
-            // vm.lineasTransporte=LineaTransporte.list();
-            // vm.tiposTransporte = TipoTransporte.list();
-            // vm.Sucursales = Sucursal.list();
-            // vm.Proyectos = Proyectos.list();
-            // vm.udns = udn.list();
         }
 
         function guardar() {
@@ -187,7 +182,6 @@
                     }
                 }).catch(function (err) {
                     toastr.error(vm.errorMassive, vm.errorTitle);
-                    console.log(err);
                 });
             }
             else {
@@ -319,7 +313,6 @@
             }).catch(function(err){
                 if(err!=null) {
                     toastr.error(vm.errorGeneric,vm.errorTitle);
-                    console.log(err);
                 }
             });
         }
@@ -338,7 +331,6 @@
             }).catch(function(err){
                 if(err!=null) {
                     toastr.error(vm.errorGeneric,vm.errorTitle);
-                    console.log(err);
                 }
             });
         }
@@ -374,10 +366,9 @@
 
 
         }
-        
+
 
         function removeNotFoundCabinet(id){
-            console.log(id);
             var index = vm.notFoundCabinets.indexOf(id);
             if (index > -1) {
                 vm.notFoundCabinets.splice(index, 1);
