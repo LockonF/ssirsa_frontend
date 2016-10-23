@@ -30,7 +30,11 @@
                     <md-icon md-font-icon="fa fa-trash"></md-icon>
 
                 </md-button>
-                <md-button ng-if="vm.etapaActual.actual_etapa==E2" class="md-raised md-primary"
+                <md-button ng-if="vm.etapaActual.actual_etapa==1" class="md-raised md-primary"
+                           ng-click="vm.showDiagnosticoDialog(ev)">
+                    <md-icon md-font-icon="fa fa-check-square"></md-icon>
+                </md-button>
+                <md-button ng-if="vm.etapaActual.actual_etapa==2" class="md-raised md-primary"
                            ng-click="vm.showDiagnosticoDialog(ev)">
                     <md-icon md-font-icon="fa fa-check-square"></md-icon>
                 </md-button>
@@ -194,48 +198,50 @@
 
                     <md-virtual-repeat-container layout-fill="layout-padding"
                                                  class="vr-min-height">
-                        <md-list flex="flex">
+                        <md-list flex="flex" >
                             <md-list-itm flex="flex" ng-repeat="insu in vm.insumos_loteUsados track by $index">
-                                <md-switch class="md-primary" ng-model="vm.insumos_loteUsados[$index].agregar"
+                                <md-switch layout-fill="layout-padding"  class="md-primary" ng-model="vm.insumos_loteUsados[$index].agregar"
                                            aria-label="Primary Switch">
-                                    {{$index}}.- <b>{{insu.nombre}} <b> - {{insu.cantidad}} - {{insu.notas}}
+                                    {{$index}}.- <b>Insumo: </b> {{insu.nombre}} <b> - Cantidad: </b> {{insu.cantidad}} -<b>  Notas: </b> {{insu.notas}}
                                 </md-switch>
                                 <md-divider></md-divider>
                             </md-list-itm>
                         </md-list>
                     </md-virtual-repeat-container>
                 </div>
+                <!--
                 <md-input-container>
                     <md-button class="md-fab" class="md-primary" aria-label="fab button"
                                ng-click="vm.imprimirObjetoPrueba()">
                         <md-icon md-font-icon="zmdi zmdi-zoom-in"></md-icon>
                     </md-button>
                 </md-input-container>
+                -->
+                <md-content layout="row" ng-if="vm.etapaActual.actual_etapa">
+                    <md-switch ng-model="inputDisabled">
+                        Agregar Micro motor o Compresor
+                    </md-switch>
+                    <md-input-container flex="40" ng-if="inputDisabled">
+                        <label>Escanea el No de serie</label>
+                        <input type="text" ng-model="vm.etapaActual.insumos[0].no_serie">
+                    </md-input-container>
+                    <md-input-container flex="35" ng-if="inputDisabled">
+                        <label>Notas</label>
+                        <input type="text" ng-model="vm.etapaActual.insumos[0].notas">
+                    </md-input-container>
+                    <md-input-container flex="15" ng-if="inputDisabled">
+                        <label>Cantidad</label>
+                        <input type="number" ng-model="vm.etapaActual.insumos[0].cantidad">
+                    </md-input-container>
+                    <md-input-container flex="10">
+                        <md-button class="md-primary md-raised" aria-label="raised button"
+                                   ng-disabled="form.insumoFormEtapa.$invalid"
+                                   ng-click='vm.crearInsumo()'>
+                            <md-icon md-font-icon="zmdi zmdi-plus"></md-icon>
+                        </md-button>
+                    </md-input-container>
             </div>
         </md-content>
-        <md-content layout="row" ng-if="vm.etapaActual.actual_etapa">
-            <md-switch ng-model="inputDisabled">
-                Agregar Micro motor o Compresor
-            </md-switch>
-            <md-input-container flex="40" ng-if="inputDisabled">
-                <label>Escanea el No de serie</label>
-                <input type="text" ng-model="vm.etapaActual.insumos[0].no_serie">
-            </md-input-container>
-            <md-input-container flex="35" ng-if="inputDisabled">
-                <label>Notas</label>
-                <input type="text" ng-model="vm.etapaActual.insumos[0].notas">
-            </md-input-container>
-            <md-input-container flex="15" ng-if="inputDisabled">
-                <label>Cantidad</label>
-                <input type="number" ng-model="vm.etapaActual.insumos[0].cantidad">
-            </md-input-container>
-            <md-input-container flex="10">
-                <md-button class="md-primary md-raised" aria-label="raised button"
-                           ng-disabled="form.insumoFormEtapa.$invalid"
-                           ng-click='vm.crearInsumo()'>
-                    <md-icon md-font-icon="zmdi zmdi-plus"></md-icon>
-                </md-button>
-            </md-input-container>
 
         </md-content>
         <md-content ng-if="vm.etapaActual.actual_etapa">

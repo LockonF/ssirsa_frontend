@@ -65,6 +65,7 @@
         vm.eliminarInsumo = eliminarInsumo;
         vm.imprimirObjetoPrueba = imprimirObjetoPrueba;
         vm.showDiagnosticoDialog = showDiagnosticoDialog;
+        vm.showPreCheckDialog=showPreCheckDialog;
 
 
         // Funciones
@@ -237,11 +238,29 @@
 
         function showDiagnosticoDialog(ev) {
             $mdDialog.show({
-                controller: DiagnosticController,
+                controller: 'DiagnosticController',
                 templateUrl: 'app/mainApp/tecnico/diagnostic/diagnostic.tpl.html',
+                controllerAs: 'vm',
                 parent: angular.element(document.body),
                 targetEvent: ev,
-                fullscreen: true,
+                fullscreen: false,
+                clickOutsideToClose: true
+            }).then(function (answer) {
+                //Accepted
+                $mdDialog.hide();
+            }, function () {
+                //Cancelled
+                $mdDialog.cancel();
+            });
+        }
+        function showPreCheckDialog(ev) {
+            $mdDialog.show({
+                controller: 'DiagnosticController',
+                templateUrl: 'app/mainApp/tecnico/diagnostic/diagnostic.tpl.html',
+                controllerAs: 'vm',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                fullscreen: false,
                 clickOutsideToClose: true
             }).then(function (answer) {
                 //Accepted
