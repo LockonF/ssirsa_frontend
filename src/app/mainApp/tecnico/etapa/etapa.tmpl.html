@@ -192,8 +192,7 @@
                                                  class="vr-min-height">
                         <md-list flex="flex">
                             <md-list-itm flex="flex" ng-repeat="insu in vm.insumos_loteUsados track by $index">
-                                <md-switch class="md-primary" ng-model="switches.primary"  ng-value="vm.insumos_loteUsados[$index].agregar" aria-label="Primary Switch"
-                                           ng-init="switches.primary = true">
+                                <md-switch class="md-primary"   ng-model="vm.insumos_loteUsados[$index].agregar" aria-label="Primary Switch">
                                    {{$index}}.- <b>{{insu.nombre}} <b> - {{insu.cantidad}} - {{insu.notas}}
                                 </md-switch>
                                 <md-divider></md-divider>
@@ -202,7 +201,10 @@
                     </md-virtual-repeat-container>
                 </div>
                 <md-input-container>
-                    
+                    <md-button class="md-fab" class="md-primary" aria-label="fab button"
+                               ng-click="vm.imprimirObjetoPrueba()">
+                        <md-icon md-font-icon="zmdi zmdi-zoom-in"></md-icon>
+                    </md-button>
                 </md-input-container>
             </div>
         </md-content>

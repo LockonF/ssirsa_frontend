@@ -63,6 +63,7 @@
         vm.addCatalogoInsumo = addCatalogoInsumo;
         vm.eliminarCatalogoInsumo = eliminarCatalogoInsumo;
         vm.eliminarInsumo = eliminarInsumo;
+        vm.imprimirObjetoPrueba=imprimirObjetoPrueba;
 
 
         // Funciones
@@ -225,6 +226,7 @@
                 vm.insumoLote.cantidad = insulote.tipos_equipo[0].cantidad;
                 vm.insumoLote.nombre = insulote.descripcion;
                 vm.insumoLote.notas = insulote.tipos_equipo[0].cantidad;
+                vm.insumoLote.agregar = true;
 
                 vm.insumos_loteUsados.push(vm.insumoLote);
                 vm.insumoLote = null;
@@ -348,6 +350,9 @@
                     })
                 });
             }
+        }
+        function imprimirObjetoPrueba(){
+            console.log(vm.insumos_loteUsados);
         }
 
         function crearEtapaServicio() {
