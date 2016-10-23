@@ -78,12 +78,12 @@
                         <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
                     </div>
                 </md-input-container>
-                <md-input-container flex="100" class="md-block" ng-disabled="vm.modelos.length == 0">
+                <md-input-container flex="100" class="md-block">
                     <label>{{'INPUT.Dialogs.Cabinet.Model'|translate}}</label>
                     <md-select name="selectModel"
                                ng-model="vm.cabinet.modelo"
                                required=""
-                               ng-disabled="vm.marca==null"
+                               ng-disabled="vm.marca==null || vm.modelos.length == 0"
                                md-no-asterisk="">
                         <md-option ng-repeat="modelo in vm.modelos" value="{{modelo.id}}">{{modelo.nombre}}
                         </md-option>
@@ -92,9 +92,8 @@
                         <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
                     </div>
                 </md-input-container>
-                <div ng-hide="!vm.modelos.length == 0">
+                <div ng-hide="!vm.modelos.length == 0||vm.marca==null ||vm.marca==undefined">
                     <p>{{'INPUT.Dialogs.Cabinet.No_Model'|translate}}</p>
-                    {{vm.marca}}
                 </div>
             </form>
         </md-dialog-content>

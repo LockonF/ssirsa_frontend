@@ -44,7 +44,7 @@
         }
 
         function getModels(id){
-            return baseMarca.one('models',id).getList().$object;
+            return baseMarca.one('models',id).getList();
         }
 
     }

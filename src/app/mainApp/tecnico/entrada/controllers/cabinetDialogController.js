@@ -56,7 +56,15 @@
         }
 
         function filterModels(){
-            vm.modelos=MarcaCabinet.getModels(vm.marca);
+            if(vm.marca!=null) {
+                vm.modelos = MarcaCabinet.getModels(vm.marca).then(function(res){
+                    if(res.length>0) {
+                        vm.modelos = res;
+                    }
+                }).catch(function(){
+                    vm.modelos=[];
+                });
+            }
         }
 
         function create(){
