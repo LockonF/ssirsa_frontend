@@ -64,6 +64,7 @@
         vm.eliminarCatalogoInsumo = eliminarCatalogoInsumo;
         vm.eliminarInsumo = eliminarInsumo;
         vm.imprimirObjetoPrueba=imprimirObjetoPrueba;
+        vm.showDiagnosticoDialog=showDiagnosticoDialog;
 
 
         // Funciones
@@ -233,7 +234,22 @@
                 vm.insumoLote = {};
             })
         }
-
+        function showDiagnosticoDialog(ev) {
+            $mdDialog.show({
+                controller: DiagnosticController,
+                templateUrl: 'app/mainApp/tecnico/diagnostic/diagnostic.tpl.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                fullscreen: true,
+                clickOutsideToClose: true
+            }).then(function (answer) {
+                //Accepted
+                $mdDialog.hide();
+            }, function () {
+                //Cancelled
+                $mdDialog.cancel();
+            });
+        }
         function selectInsumo(insumotmp) {
 
 
