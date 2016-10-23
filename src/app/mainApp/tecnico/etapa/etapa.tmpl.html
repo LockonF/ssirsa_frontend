@@ -30,7 +30,8 @@
                     <md-icon md-font-icon="fa fa-trash"></md-icon>
 
                 </md-button>
-                <md-button ng-if="vm.etapaActual.actual_etapa==E2" class="md-raised md-primary" ng-click="vm.showDiagnosticoDialog(ev)">
+                <md-button ng-if="vm.etapaActual.actual_etapa==E2" class="md-raised md-primary"
+                           ng-click="vm.showDiagnosticoDialog(ev)">
                     <md-icon md-font-icon="fa fa-check-square"></md-icon>
                 </md-button>
             </div>
@@ -195,8 +196,9 @@
                                                  class="vr-min-height">
                         <md-list flex="flex">
                             <md-list-itm flex="flex" ng-repeat="insu in vm.insumos_loteUsados track by $index">
-                                <md-switch class="md-primary"   ng-model="vm.insumos_loteUsados[$index].agregar" aria-label="Primary Switch">
-                                   {{$index}}.- <b>{{insu.nombre}} <b> - {{insu.cantidad}} - {{insu.notas}}
+                                <md-switch class="md-primary" ng-model="vm.insumos_loteUsados[$index].agregar"
+                                           aria-label="Primary Switch">
+                                    {{$index}}.- <b>{{insu.nombre}} <b> - {{insu.cantidad}} - {{insu.notas}}
                                 </md-switch>
                                 <md-divider></md-divider>
                             </md-list-itm>
