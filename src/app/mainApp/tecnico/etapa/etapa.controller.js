@@ -63,8 +63,8 @@
         vm.addCatalogoInsumo = addCatalogoInsumo;
         vm.eliminarCatalogoInsumo = eliminarCatalogoInsumo;
         vm.eliminarInsumo = eliminarInsumo;
-        vm.imprimirObjetoPrueba=imprimirObjetoPrueba;
-        vm.showDiagnosticoDialog=showDiagnosticoDialog;
+        vm.imprimirObjetoPrueba = imprimirObjetoPrueba;
+        vm.showDiagnosticoDialog = showDiagnosticoDialog;
 
 
         // Funciones
@@ -234,6 +234,7 @@
                 vm.insumoLote = {};
             })
         }
+
         function showDiagnosticoDialog(ev) {
             $mdDialog.show({
                 controller: DiagnosticController,
@@ -250,6 +251,7 @@
                 $mdDialog.cancel();
             });
         }
+
         function selectInsumo(insumotmp) {
 
 
@@ -367,7 +369,8 @@
                 });
             }
         }
-        function imprimirObjetoPrueba(){
+
+        function imprimirObjetoPrueba() {
             console.log(vm.insumos_loteUsados);
         }
 
@@ -377,7 +380,7 @@
 
 
             if (vm.etapaActual.id == null) {
-                vm.etapaActual.insumos_lote=vm.insumos_loteUsados;
+                vm.etapaActual.insumos_lote = vm.insumos_loteUsados;
                 vm.etapaActual.insumos = vm.insumos;
 
                 var promise = Servicios.crearEtapaServicio(vm.etapaActual);
@@ -415,7 +418,6 @@
                 delete newInsumo['id'];
                 delete newInsumo['catalogo'];
                 vm.insumos.push(newInsumo);
-                
 
 
             }
@@ -452,17 +454,17 @@
 
         function editCatalogoInsumo(insu) {
             var newCatalogoInsumo = {
-                id:null,
-                descripcion:'',
-                cantidad:0,
-                notas:''
+                id: null,
+                descripcion: '',
+                cantidad: 0,
+                notas: ''
             };
-            vm.catalogoSelected={
-                id:'',
-                descripcion:'',
-                tipos_equipo:[{
-                    cantidad:'',
-                    descripcion:''
+            vm.catalogoSelected = {
+                id: '',
+                descripcion: '',
+                tipos_equipo: [{
+                    cantidad: '',
+                    descripcion: ''
                 }]
             }
             if (insu != null) {
@@ -472,7 +474,7 @@
                 vm.catalogoSelected.id = insu.id;
                 vm.catalogoSelected.descripcion = insu.nombre;
                 vm.catalogoSelected.tipos_equipo[0].cantidad = parseFloat(insu.cantidad);
-                vm.catalogoSelected.tipos_equipo[0].descripcion =insu.notas;
+                vm.catalogoSelected.tipos_equipo[0].descripcion = insu.notas;
                 console.log(vm.catalogoSelected);
 
                 newCatalogoInsumo.id = vm.catalogoSelected.id;
