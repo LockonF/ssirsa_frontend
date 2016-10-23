@@ -163,7 +163,8 @@
                 "Serial":"Número de Serie",
                 "Brand":"Marca",
                 "Model":"Modelo",
-                "Year":"Año"
+                "Year":"Año",
+                "No_Model":"La marca no tiene modelos asignados"
             },
             "Confirm":{
                 "Title":"Confirmar Entrada",

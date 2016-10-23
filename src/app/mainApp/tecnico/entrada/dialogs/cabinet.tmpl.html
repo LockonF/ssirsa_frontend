@@ -41,11 +41,10 @@
                 <md-input-container class="md-block">
                     <label>{{'INPUT.Dialogs.Cabinet.Year'|translate}}</label>
                     <input name="CabinetYear"
-                           only-digits
                            md-no-asterisk=""
-                           required=""
                            type="text"
-                           ng-pattern="/[0-9]{4}"
+                           ng-pattern="/^[0-9]{4}/"
+                           ng-required="true"
                            only-numbers=""
                            ng-model="vm.cabinet.year"
                     />
@@ -79,7 +78,7 @@
                         <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
                     </div>
                 </md-input-container>
-                <md-input-container flex="100" class="md-block">
+                <md-input-container flex="100" class="md-block" ng-disabled="vm.modelos.length == 0">
                     <label>{{'INPUT.Dialogs.Cabinet.Model'|translate}}</label>
                     <md-select name="selectModel"
                                ng-model="vm.cabinet.modelo"
@@ -93,6 +92,10 @@
                         <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
                     </div>
                 </md-input-container>
+                <div ng-hide="!vm.modelos.length == 0">
+                    <p>{{'INPUT.Dialogs.Cabinet.No_Model'|translate}}</p>
+                    {{vm.marca}}
+                </div>
             </form>
         </md-dialog-content>
         <md-dialog-actions layout="row" layout-align="end center">

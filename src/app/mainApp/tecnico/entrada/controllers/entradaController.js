@@ -100,7 +100,7 @@
             vm.notFoundCabinets=[];
             vm.existingCabinets = Cabinet.getEconomics();
 
-            angular.copy(vm.entrada,entrada);
+            vm.entrada = angular.copy(entrada);
             LineaTransporte.listObject().then(function (res) {
                 vm.lineasTransporte =Helper.filterDeleted(res,true);
                 vm.lineasTransporte=_.sortBy(vm.lineasTransporte, 'razon_social');
