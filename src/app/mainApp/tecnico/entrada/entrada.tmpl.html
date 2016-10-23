@@ -69,13 +69,38 @@
                                             flex="100"
                                             class="md-block"
                                             ng-if="vm.selectedEntrada === 'Garantías'">
-                                        <label>{{'INPUT.UDN'|translate}}</label>
-                                        <md-select name="selectUDN" ng-model="vm.entrada.udn" required=""
+                                        <!--<md-select name="selectUDN" ng-model="vm.entrada.udn" required=""
                                                    md-no-asterisk="">
                                             <md-option ng-repeat="udn in vm.udns" value="{{udn.id}}">{{udn.zona}} -
                                                 {{udn.agencia}}
                                             </md-option>
-                                        </md-select>
+                                        </md-select>-->
+                                        <md-autocomplete md-selected-item="vm.selectedUdn"
+                                                         name="selectUDN"
+                                                         md-selected-item-change="vm.selectedItemChange(vm.selectedUdn)"
+                                                         md-items="item in vm.querySearch(vm.searchText)"
+                                                         md-item-text="vm.selectedUdn.agencia"
+                                                         md-min-length="0"
+                                                         md-search-text-change="vm.search(vm.searchText)"
+                                                         md-search-text="vm.searchText"
+                                                         md-menu-class="autocomplete-custom-template"
+                                                         md-floating-label="{{'INPUT.UDN'|translate}}">
+                                            <span
+                                                    md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.agencia}}</span>
+                                            <md-item-template>
+                                                    <span class="item-title">
+                                                        <md-icon md-font-icon="zmdi zmdi-city"></md-icon>
+                                                        <span>&nbsp; {{item.agencia}}</span>
+                                                    </span>
+                                                    <span class="item-metadata">
+                                                        <span class="item-metastat">
+                                                            <strong>{{item.zona}}</strong>
+                                                        </span>
+                                                    </span>
+                                            </md-item-template>
+                                            <md-not-found><span translate="INPUT.Messages.NotFoundUdn"></span>
+                                            </md-not-found>
+                                        </md-autocomplete>
                                         <div ng-messages="entradaForm.selectUDN.$error">
                                             <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
                                         </div>
@@ -279,7 +304,8 @@
                                         <table md-table="" md-row-select="" multiple="" ng-disabled="true">
                                             <thead md-head="">
                                             <tr md-row="">
-                                                <th md-column="">{{'INPUT.TableCabinets.Headers.Economic Num'|translate}}
+                                                <th md-column="">{{'INPUT.TableCabinets.Headers.Economic
+                                                    Num'|translate}}
                                                 </th>
                                                 <th md-column="">{{'INPUT.TableCabinets.Headers.Serial Num'|translate}}
                                                 </th>
@@ -320,11 +346,11 @@
                                                          layout="row"
                                                     >
                                                         <md-input-continer layout-align="center center">
-                                                        <md-button ng-click="vm.removeNotFoundCabinet(cabinet)"
-                                                                   class="md-fab md-warn md-mini"
-                                                                   >
-                                                            <md-icon md-font-icon="fa fa-times-circle"></md-icon>
-                                                        </md-button>
+                                                            <md-button ng-click="vm.removeNotFoundCabinet(cabinet)"
+                                                                       class="md-fab md-warn md-mini"
+                                                            >
+                                                                <md-icon md-font-icon="fa fa-times-circle"></md-icon>
+                                                            </md-button>
                                                         </md-input-continer>
                                                     </div>
                                                 </div>

@@ -15,6 +15,7 @@
         var vm = this;
         vm.isGarantia=false;
         vm.isPedimento=false;
+        vm.searchText="";
 
         vm.guardar = guardar;
         vm.limpiar=limpiar;
@@ -30,6 +31,9 @@
         vm.showCabinetDialog=showCabinetDialog;
         vm.addCabinet = addCabinet;
         vm.removeNotFoundCabinet=removeNotFoundCabinet;
+        vm.clickCopy=clickCopy;
+        vm.querySearch=querySearch;
+        vm.selectedItemChange=selectedItemChange;
 
         vm.options=["Nuevos","Garantías"];
         vm.selectedEntrada=null;
@@ -128,6 +132,7 @@
             udn.listObject().then(function (res) {
                 vm.udns  =Helper.filterDeleted(res,true);
                 vm.udns =_.sortBy(vm.udns , 'agencia');
+                vm.filteredUDN=angular.copy(vm.udns);
             }).catch(function(err){
                 toastr.error(vm.errorMessage,vm.errorTitle);
             });
@@ -419,6 +424,38 @@
                 }
             });
         }
+
+        function querySearch(query) {
+            var results = query ? search(query) : vm.udns;
+            return results;
+
+        }
+
+        function search(text) {
+            if(text.length>0) {
+                vm.filteredUDN = _.filter(vm.udns, function (item) {
+                    return item.agencia.toLowerCase().startsWith(text.toLowerCase());
+                });
+            }
+            return vm.filteredUDN;
+        }
+
+        function clickCopy(item) {
+            console.log("item copied");
+            vm.entrada.udn=item;
+        }
+
+        function selectedItemChange(item)
+        {
+            if (item!=null) {
+                vm.entrada.udn = angular.copy(item);
+
+            }else{
+                //
+            }
+        }
+
+
     }
 
 })();
