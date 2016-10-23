@@ -11,3 +11,12 @@
 #salidaSelect{
   margin-top: -3px;
 }
+md-autocomplete[md-floating-label] md-input-container {
+  padding-bottom: 2px;
+}
+md-input-container .md-errors-spacer {
+  min-height: 0;
+}
+#udn{
+  padding-top: -10px;
+}

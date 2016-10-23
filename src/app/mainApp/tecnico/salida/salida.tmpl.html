@@ -32,18 +32,30 @@
                             </div>
                             <div layout="row" layout-sm="column" layout-xs="column" layout-align="center center"
                                  layout-align-sm="center stretch" layout-align-xs="center stretch">
-                                <md-input-container flex="100" class="md-block">
-                                    <label>{{'OUTPUT.FORM.LABEL.UDN'|translate}}</label>
-                                    <md-select name="selectUDN" ng-model="vm.salida.udn" required="" md-no-asterisk="">
-                                        <md-option ng-repeat="udn in vm.udns" ng-value="udn.id">{{udn.zona}} -
-                                            {{udn.agencia}}
-                                        </md-option>
-                                    </md-select>
+                                <div flex="100" class="md-inline-form">
+                                    <md-autocomplete md-selected-item="vm.salida.udn"
+                                                     md-selected-item-change="vm.selectedItemChange(vm.salida.udn)"
+                                                     md-items="item in vm.search_items" md-item-text="item.agencia"
+                                                     md-min-length="1"
+                                                     md-input-name="selectUDN"
+                                                     md-search-text-change="vm.lookupUDN(vm.searchText)"
+                                                     required
+                                                     md-input-id="udn"
+                                                     md-search-text="vm.searchText"
+                                                     md-menu-class="autocomplete-custom-template"
+                                                     md-floating-label="{{'OUTPUT.FORM.LABEL.UDN'| translate}}">
+                                    <md-item-template>
+                                        <span class="item-title">
+                                            <md-icon md-font-icon="zmdi zmdi-truck"></md-icon><span>{{item.zona}} -
+                                            {{item.agencia}}</span></span>
+                                    </md-item-template>
                                     <div ng-messages="entradaForm.selectUDN.$error">
                                         <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                     </div>
-                                </md-input-container>
-                                <md-input-container flex="100" class="md-block">
+                                    </md-autocomplete>
+
+                                </div>
+                                <md-input-container flex="100" class="md-inline-form">
                                     <label>{{'OUTPUT.FORM.LABEL.TRANSPORT.LINE'|translate}}</label>
                                     <md-select name="selectTransportLine" ng-model="vm.salida.linea_transporte"
                                                required="" md-no-asterisk="">
@@ -55,7 +67,7 @@
                                         <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                     </div>
                                 </md-input-container>
-                                <md-input-container flex="100" class="md-block">
+                                <md-input-container flex="100" class="md-inline-form">
                                     <label>{{'OUTPUT.FORM.LABEL.TRANSPORT.KIND'|translate}}</label>
                                     <md-select name="selectTransportKind" ng-model="vm.salida.tipo_transporte"
                                                required="" md-no-asterisk="">
@@ -142,11 +154,17 @@
                                     <input name="FileName" type="text" ng-model="vm.salida.file.name"
                                            ng-disabled="true"/>
                                 </md-input-container>
-                                <div flex="25" flex-sm="100" flex-xs="100" flex-md="100" layout="column">
+                                <div flex="12" flex-sm="100" flex-xs="100" flex-md="100" layout="column">
                                     <md-button ngf-select="vm.selectionFile($files)"
                                                accept=".xlsx, application/vnd.ms-excel" ng-model="vm.salida.file"
                                                class="md-primary md-raised">
                                         {{'OUTPUT.FORM.BUTTON.CHOOSE_FILE'|translate}}
+                                    </md-button>
+
+                                </div>
+                                <div flex="12" flex-sm="100" flex-xs="100" flex-md="100" layout="column">
+                                    <md-button ng-href="https://goo.gl/vZHNyv" target="_blank">
+                                        {{'OUTPUT.FORM.LABEL.FORMAT'|translate}}
                                     </md-button>
                                 </div>
                             </div>
@@ -194,7 +212,8 @@
                                     <label>{{'OUTPUT.FORM.PLACEHOLDER.SEARCH'|translate}}</label>
                                     <input type="text" ng-model="vm.economicoFilter"/>
                                 </md-input-container>
-                                <md-input-container class="md-inline-form" id="salidaSelect" flex="50" flex-sm="100" flex-xs="100">
+                                <md-input-container class="md-inline-form" id="salidaSelect" flex="50" flex-sm="100"
+                                                    flex-xs="100">
                                     <md-select ng-model="vm.filtroTipo"
                                                placeholder="{{'OUTPUT.FORM.PLACEHOLDER.TYPE_EQUIPMENT'|translate}}"
                                     >
@@ -214,8 +233,9 @@
                                     <tri-widget class="flex" flex="100"
                                                 title="{{'OUTPUT.FORM.LABEL.CABINET'|translate}}">
                                         <md-list flex>
-                                            <md-list-item ng-repeat="cabinet in vm.cabinetsEntrada | salidaSearch:vm.economicoFilter  | tipoequipoSearch:vm.filtroTipo:vm.tipoEquipos:vm.modelos"
-                                                          class="md-2-line"
+                                            <md-list-item
+                                                ng-repeat="cabinet in vm.cabinetsEntrada | salidaSearch:vm.economicoFilter  | tipoequipoSearch:vm.filtroTipo:vm.tipoEquipos:vm.modelos"
+                                                class="md-2-line"
                                             >
                                                 <div layout-padding layout="row"
                                                      layout-align="start center">

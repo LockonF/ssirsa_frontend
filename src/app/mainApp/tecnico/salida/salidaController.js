@@ -21,6 +21,7 @@
         vm.nextTab = nextTab;
         vm.clear = clear;
         vm.search = search;
+        vm.lookupUDN = lookupUDN;
 
         vm.selection = selection;
 
@@ -283,6 +284,12 @@
         function lookup(search_text) {
             vm.search_items = _.filter(vm.cabinetsEntrada, function (item) {
                 return item.economico.toLowerCase().indexOf(search_text.toLowerCase()) >= 0;
+            });
+            return vm.search_items;
+        }
+        function lookupUDN(search_text){
+            vm.search_items = _.filter(vm.udns,function(item){
+                return item.zona.toLowerCase().includes(search_text.toLowerCase()) || item.agencia.toLowerCase().includes(search_text.toLowerCase());
             });
             return vm.search_items;
         }

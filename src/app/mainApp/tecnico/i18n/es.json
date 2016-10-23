@@ -225,14 +225,15 @@
                 "TYPE":"Tipo:",
                 "CABINET":"Cabinets disponibles",
                 "NOT_FOUND":"No hay cabinets que puedan ser procesables.",
-                "SEARCH":"Búsqueda"
+                "SEARCH":"Búsqueda",
+                "FORMAT":"Formato"
             },
             "BUTTON":{
-                "CHOOSE_FILE": "Seleccionar Archivo",
+                "CHOOSE_FILE": "Seleccionar",
                 "CHOOSE_IMAGE": "Seleccionar Imagen",
                 "NEXT": "Siguiente",
-                "CABINETS.MASSIVE.UPLOAD": "Carga masiva de cabinets",
-                "CABINETS.MANUAL.UPLOAD": "Carga individual de cabinets"
+                "CABINETS.MASSIVE.UPLOAD": "Carga masiva",
+                "CABINETS.MANUAL.UPLOAD": "Carga individual"
             },
             "DIALOG":{
                 "SEND_TITLE":"Confirmación de envío",
