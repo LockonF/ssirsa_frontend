@@ -73,12 +73,18 @@
                 "ESTATUS":"Estatus",
                 "COMENTARIO":"Comentario",
                 "UDN":"UDN",
+                "PERSONA":"Usuario que realizo la Solicitud",
                 "RAZON_SOCIAL":"Razón social",
                 "NOMBRE_NEGOCIO":"Nombre del Negocio",
                 "TELEFONO":"Telefono",
                 "CONTACTO_NEGOCIO":"Contacto del Negocio",
-                "DIRECCION":"Rirección"
-
+                "DIRECCION":"Dirección",
+                "RESPONSABLE":"Responsable",
+                "TIPO_SERVICIO":"Tipo de Servicio",
+                "CEDIS":"Centro de Distribución",
+                "NO_SERIE":"N° de Serie",
+                "FECHA_REALIZACION":"Fecha de Realización",
+                "MODELO":"Modelo"
             }
         }
     }
