@@ -90,7 +90,7 @@
                                                                  cancel-text="Cancelar"
                                                                  ok-text="Aceptar"
                                                                  format="DD/MM/YYYY"
-                                                                 ng-disabled="(solicitud.fecha_atendida!=null)&&(vm.isClient)"
+                                                                 ng-disabled="(vm.isClient)"
                                                                  ng-change='vm.editCalendar(solicitud)'
                                                                  name="date_initial"
                                                                  ng-required="(vm.requisito.tipo_solicitud==0 ||vm.requisito.tipo_solicitud==1)"
@@ -110,7 +110,7 @@
                                                                  cancel-text="Cancelar"
                                                                  ok-text="Aceptar"
                                                                  format="DD/MM/YYYY"
-                                                                 ng-disabled="(solicitud.fecha_atendida!=null)&&(vm.isClient)"
+                                                                 ng-disabled="(vm.isClient)"
                                                                  ng-change='vm.editCalendar(solicitud)'
                                                                  name="date_initial"
                                                                  ng-required="(vm.requisito.tipo_solicitud==0 ||vm.requisito.tipo_solicitud==1)"
@@ -147,11 +147,16 @@
                                                 </md-select>
                                             </td>
                                             <td md-cell="md-cell">
-                                                <md-select ng-change='vm.editSelect(solicitud)' ng-model=solicitud.status placeholder="Other" ng-disabled="(solicitud.fecha_atendida!=null)&&(vm.isClient)">
+                                                <md-select ng-change='vm.editSelect(solicitud)' ng-model=solicitud.status placeholder="Other" ng-disabled="(vm.isClient)">
                                                     <md-option ng-value="estatus.value" ng-repeat="estatus in vm.estatusSols">{{estatus.value}}</md-option>
                                                 </md-select>
                                             </td>
-                                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"comentario")' ng-disabled="(solicitud.fecha_atendida!=null)&&(vm.isClient)">{{solicitud.comentario}}</td>
+                                            <td md-cell="md-cell" ng-disabled="(solicitud.fecha_atendida!=null)&&(vm.isClient)" ng-click='vm.edit($event,solicitud,"comentario")' >{{solicitud.comentario}}</td>
+                                            <td md-cell="md-cell" ng-click="$event.stopPropagation()">
+                                                <md-button ng-click="vm.showCreateDialog($event,solicitud.id)" class="md-fab md-warn md-mini">
+                                                    <md-icon md-font-icon="fa fa-times-save"></md-icon>
+                                                </md-button>
+                                            </td>
                                             <td md-cell="md-cell" ng-click="$event.stopPropagation()">
                                                 <md-button ng-click="vm.remove($event,solicitud.id)" class="md-fab md-warn md-mini" ng-disabled="(solicitud.fecha_atendida!=null)&&(vm.isClient)">
                                                     <md-icon md-font-icon="fa fa-times-circle"></md-icon>

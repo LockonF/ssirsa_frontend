@@ -53,6 +53,7 @@
         vm.editSelect = editSelect;
         vm.editCalendar = editCalendar;
         vm.editVentaCalendar = editVentaCalendar;
+        vm.showCreateDialog=showCreateDialog;
 
 
         vm.Requisitos = [];
@@ -103,17 +104,43 @@
                 obj.fecha_inicio = moment(obj.fecha_inicio).format('YYYY-MM-DD');
                 obj.fecha_termino = moment(obj.fecha_termino).format('YYYY-MM-DD');
                 obj.fecha_atendida = moment(obj.fecha_atendida).toISOString();
-                Solicitudes_Admin.updateSolicitud(obj).then(function () {
-                    toastr.success(vm.successUpdateMessage, vm.successTitle);
-                }).catch(function (res) {
-                    toastr.error(vm.errorMessage, vm.errorTitle);
-                })
+                if(vm.isClient)
+                {
+                    Solicitudes.modify(obj).then(function () {
+                        toastr.success(vm.successUpdateMessage, vm.successTitle);
+                    }).catch(function (res) {
+                        toastr.error(vm.errorMessage, vm.errorTitle);
+                    })
+                }else{
+                    Solicitudes_Admin.updateSolicitud(obj).then(function () {
+                        toastr.success(vm.successUpdateMessage, vm.successTitle);
+                    }).catch(function (res) {
+                        toastr.error(vm.errorMessage, vm.errorTitle);
+                    })
+                }
             }
 
             $mdEditDialog.small(config).then(function (ctrl) {
             }).catch(function (err) {
                 toastr.warning(vm.errorMessage, vm.errorTitle);
             });
+        }
+
+        function showCreateDialog(event) {
+            var config = {
+                controller: 'solicitudDataDialogController',
+                controllerAs: 'vm',
+                bindToController: true,
+                templateUrl: 'app/mainApp/solicitudes/solicitud/crear/modal/solicitudDataDialog.tmpl.html',
+                parent: angular.element(document.body),
+                targetEvent: event,
+                clickOutsideToClose: true,
+                fullscreen: false
+            };
+            $mdDialog.show(config).then(function (object) {
+                    vm.requisito.datos.push(object);
+                }
+            );
         }
 
         function editCalendar(obj) {

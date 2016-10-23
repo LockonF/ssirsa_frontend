@@ -74,6 +74,7 @@
                     vm.personas_admin = _.filter(vm.personas_admin, function(item){
                         return item.id != vm.user_ini.id;
                     });
+                    vm.personas_admin=_.sortBy(vm.personas_admin, 'nombre');
                 }).catch(function (error){
                 });
             }).catch(function(error){
