@@ -6,7 +6,7 @@
         .module('app.mainApp.solicitudes')
         .controller('buscarSolicitudController', buscarSolicitudController);
 
-    function buscarSolicitudController(Translate, $mdEditDialog, Solicitudes, Solicitudes_Admin, udn, ModeloCabinet, Solicitud_Servicio, Solicitud_Servicio_Admin, Session, OPTIONS, toastr, $mdDialog) {
+    function buscarSolicitudController(Translate, $mdEditDialog, Solicitudes, Solicitudes_Admin, udn, Persona, ModeloCabinet, Solicitud_Servicio, Solicitud_Servicio_Admin, Session, OPTIONS, toastr, $mdDialog) {
         var vm = this;
         vm.flag = 0;
         vm.query = {
@@ -25,6 +25,7 @@
         vm.busqueda_status = null;
         vm.folio = null;
         vm.sol = null;
+        vm.solicitudesVentasAux=null;
         vm.solicitudesArray = [];
         vm.requisito = {
             "id": null,
@@ -53,6 +54,7 @@
         vm.editSelect = editSelect;
         vm.editCalendar = editCalendar;
         vm.editVentaCalendar = editVentaCalendar;
+        vm.showCreateDialog=showCreateDialog;
 
 
         vm.Requisitos = [];
@@ -103,17 +105,48 @@
                 obj.fecha_inicio = moment(obj.fecha_inicio).format('YYYY-MM-DD');
                 obj.fecha_termino = moment(obj.fecha_termino).format('YYYY-MM-DD');
                 obj.fecha_atendida = moment(obj.fecha_atendida).toISOString();
-                Solicitudes_Admin.updateSolicitud(obj).then(function () {
-                    toastr.success(vm.successUpdateMessage, vm.successTitle);
-                }).catch(function (res) {
-                    toastr.error(vm.errorMessage, vm.errorTitle);
-                })
+                if(vm.isClient)
+                {
+                    Solicitudes.modify(obj).then(function () {
+                        toastr.success(vm.successUpdateMessage, vm.successTitle);
+                    }).catch(function (res) {
+                        toastr.error(vm.errorMessage, vm.errorTitle);
+                    })
+                }else{
+                    Solicitudes_Admin.updateSolicitud(obj).then(function () {
+                        toastr.success(vm.successUpdateMessage, vm.successTitle);
+                    }).catch(function (res) {
+                        toastr.error(vm.errorMessage, vm.errorTitle);
+                    })
+                }
             }
 
             $mdEditDialog.small(config).then(function (ctrl) {
             }).catch(function (err) {
                 toastr.warning(vm.errorMessage, vm.errorTitle);
             });
+        }
+
+        function showCreateDialog(event,object) {
+            var config = {
+                controller: 'solicitudDetailDialogController',
+                controllerAs: 'vm',
+                bindToController: true,
+                templateUrl: 'app/mainApp/solicitudes/solicitud/buscar/modal/solicitudDetailDialog.tmpl.html',
+                parent: angular.element(document.body),
+                targetEvent: event,
+                clickOutsideToClose: true,
+                fullscreen: false,
+                locals: {
+                    event: object,
+                    tipoSol: vm.tipo_solicitud,
+                    edit: true
+                }
+            };
+            $mdDialog.show(config).then(function (object) {
+                    vm.requisito.datos.push(object);
+                }
+            );
         }
 
         function editCalendar(obj) {
@@ -299,6 +332,8 @@
                 vm.busqueda_status = null;
             }
             vm.solicitudes = null;
+            vm.solicitudesVentas=null;
+            vm.solicitudesVentasAdmin=null;
             vm.sol = null;
             vm.solicitudesArray = [];
             switch (vm.tipo_solicitud) {
@@ -508,23 +543,22 @@
                     }
                     break;
                 case 'Venta':
-
                     if (!vm.isClient) {
                         Solicitud_Servicio_Admin.list().then(function (rest) {
-                            vm.solicitudesVentas = rest;
+                            vm.solicitudesVentasAdmin = rest;
                             if (rest.length > 0) {
-                                vm.solicitudesVentas = rest;
-                                for (var i = 0, len = vm.solicitudesVentas.length; i < len; i++) {
+                                vm.solicitudesVentasAdmin = rest;
+                                for (var i = 0, len = vm.solicitudesVentasAdmin.length; i < len; i++) {
 
-                                    vm.sol = vm.solicitudesVentas[i];
+                                    vm.sol = vm.solicitudesVentasAdmin[i];
                                     vm.sol.fecha_atencion = moment(vm.sol.fecha_atencion).format('DD/MM/YYYY HH:mm');
                                     vm.solicitudesArray.push(vm.sol);
                                 }
 
-                                vm.solicitudesVentas = null;
-                                vm.solicitudesVentas = vm.solicitudesArray;
+                                vm.solicitudesVentasAdmin = null;
+                                vm.solicitudesVentasAdmin = vm.solicitudesArray;
                                 vm.solicitudesArray = [];
-                                if (vm.solicitudesVentas == null) {
+                                if (vm.solicitudesVentasAdmin == null) {
                                     toastr.warning('Solicitudes ' + vm.busqueda_status + 's no encontradas', 'Advertencia');
                                 }
                             } else {
@@ -538,10 +572,27 @@
                         })
                     } else {
                         Solicitud_Servicio.list().then(function (rest) {
-                            vm.solicitudesVentas = rest;
+                            vm.solicitudesVentasAux = rest;
+                            Persona.listProfile().then(function(rest){
+                                vm.user_ini=rest;
+                                vm.solicitudesVentasAux = _.filter(vm.solicitudesVentasAux, function(item){
+                                    return item.persona == vm.user_ini.id;
+                                });
+                                if(vm.solicitudesVentasAux!=null) {
+                                    vm.solicitudesVentas = vm.solicitudesVentasAux;
+                                }else{
+                                    vm.solicitudesVentas =null;
+                                }
+                            }).catch(function (error){
+                                toastr.warning(vm.errorMessage, vm.errorTitle);
+                            });
                         }).catch(function (error) {
                             toastr.warning(vm.errorMessage, vm.errorTitle);
                         })
+                        console.log(("VEnta"));
+                        console.log((vm.tipo_solicitud=='Venta'));
+                        console.log(("solicitudesVentas"));
+                        console.log((vm.solicitudesVentas!=null));
                     }
                     break;
             }
