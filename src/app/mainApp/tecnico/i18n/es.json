@@ -227,7 +227,8 @@
                 "NOT_FOUND":"No hay cabinets que puedan ser procesables.",
                 "SEARCH":"Búsqueda",
                 "FORMAT":"Formato",
-                "TYPE_OUTPUT":"Tipo de Salida"
+                "TYPE_OUTPUT":"Tipo de Salida",
+                "SELECT":"Selecciona"
             },
             "BUTTON":{
                 "CHOOSE_FILE": "Seleccionar",

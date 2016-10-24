@@ -156,7 +156,12 @@
         function search(obj) {
             var tipo = _.findWhere(vm.modelos, {id: obj.modelo}).tipo;
             if (tipo != null) {
-                return _.findWhere(vm.tipoEquipos, {id: tipo}).nombre;
+                var tiposEquipo=_.findWhere(vm.tipoEquipos, {id: tipo});
+                if(tiposEquipo!=null) {
+                    return tiposEquipo.nombre;
+                }else{
+                    return "No tiene";
+                }
             } else {
                 return "No tiene";
             }
@@ -239,7 +244,7 @@
                 vm.modelos = Helper.filterDeleted(res, true);
             });
             TipoEquipo.listWitout().then(function (res) {
-                vm.tipoEquipos = Helper.filterDeleted(res, true);
+                vm.tipoEquipos =res;
                 vm.tipoEquipos = _.sortBy(vm.tipoEquipos, 'nombre');
             }).catch(function(err){
                 toastr.error(vm.errorMessage,vm.errorTitle);
@@ -330,10 +335,14 @@
             if (!angular.isNumber(text) || text === '') {
                 return input;
             }
-
-
             return _.filter(input, function (item) {
-                return tipos[modelos[item.modelo].tipo].id == text;
+                var tipo = _.findWhere(modelos, {id: item.modelo}).tipo;
+                if (tipo != null) {
+                    var tiposEquipo=_.findWhere(tipos, {id: tipo});
+                    if(tiposEquipo!=null) {
+                        return tiposEquipo.id==text;
+                    }
+                }
             });
 
         };

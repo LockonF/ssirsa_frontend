@@ -129,7 +129,8 @@
                     </md-content>
                 </md-tab>
                 <!--Registro de cabinets-->
-                <md-tab label={{'OUTPUT.FORM.TABS.UPLOAD'|translate}} ng-disabled="entradaForm.$invalid">
+                <!--<md-tab label={{'OUTPUT.FORM.TABS.UPLOAD'|translate}} ng-disabled="entradaForm.$invalid">-->
+                <md-tab label={{'OUTPUT.FORM.TABS.UPLOAD'|translate}}>
                     <md-content layout-padding="">
                         <div layout-gt-md="row" layout="column" layout-align-gt-md="space-around center"
                              layout-align="center stretch">
@@ -201,16 +202,19 @@
                         </div>
                         <div ng-hide="vm.hideManualUpload">
                             <div layout="row" layout-sm="column" layout-xs="column" layout-md="column" flex="100"
-                                 layout-align="center center">
+                                 layout-align="center center"
+                                 layout-align-sm="center stretch"
+                                 layout-align-xs="center stretch">
                                 <md-input-container class="md-inline-form" flex="50" flex-sm="100" flex-xs="100">
                                     <label>{{'OUTPUT.FORM.PLACEHOLDER.SEARCH'|translate}}</label>
                                     <input type="text" ng-model="vm.economicoFilter"/>
                                 </md-input-container>
-                                <md-input-container class="md-inline-form" id="salidaSelect" flex="50" flex-sm="100"
+                                <md-input-container class="md-inline-form md-block" id="salidaSelect" flex="50" flex-sm="100"
                                                     flex-xs="100">
                                     <md-select ng-model="vm.filtroTipo"
                                                placeholder="{{'OUTPUT.FORM.PLACEHOLDER.TYPE_EQUIPMENT'|translate}}"
                                     >
+                                        <md-option ng-value="">{{'OUTPUT.FORM.PLACEHOLDER.TYPE_EQUIPMENT'|translate}}</md-option>
                                         <md-option ng-repeat="tipo in vm.tipoEquipos" ng-value="tipo.id">{{tipo.nombre}}
                                         </md-option>
                                     </md-select>
