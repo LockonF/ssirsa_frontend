@@ -13,12 +13,12 @@
                                Proyectos, TipoTransporte, LineaTransporte, Translate,
                                $scope, Cabinet, Helper) {
         var vm = this;
-        vm.isGarantia=false;
-        vm.isPedimento=false;
-        vm.searchText="";
+        vm.isGarantia = false;
+        vm.isPedimento = false;
+        vm.searchText = "";
 
         vm.guardar = guardar;
-        vm.limpiar=limpiar;
+        vm.limpiar = limpiar;
         vm.selectionFile = selectionFile;
         vm.selectionImage = selectionImage;
         vm.showMassiveUpload = showMassiveUpload;
@@ -28,19 +28,19 @@
         vm.uploadFile = uploadFile;
         vm.showMarcaDialog = showMarcaDialog;
         vm.showModeloDialog = showModeloDialog;
-        vm.showCabinetDialog=showCabinetDialog;
+        vm.showCabinetDialog = showCabinetDialog;
         vm.addCabinet = addCabinet;
-        vm.removeNotFoundCabinet=removeNotFoundCabinet;
-        vm.querySearch=querySearch;
-        vm.selectedItemChange=selectedItemChange;
+        vm.removeNotFoundCabinet = removeNotFoundCabinet;
+        vm.querySearch = querySearch;
+        vm.selectedItemChange = selectedItemChange;
 
-        vm.options=["Nuevos","Garantías"];
-        vm.selectedEntrada=null;
+        vm.options = ["Nuevos", "Garantías"];
+        vm.selectedEntrada = null;
 
         vm.selectedTab = 0;
         vm.idEntrada = null;
-        vm.modelos=ModeloCabinet.list();
-        vm.marcas=MarcaCabinet.list();
+        vm.modelos = ModeloCabinet.list();
+        vm.marcas = MarcaCabinet.list();
 
         //Visualizations
         vm.hideMassiveUpload = true;
@@ -77,63 +77,63 @@
         };
 
         //Translates
-        vm.successTitle=Translate.translate('MAIN.MSG.SUCCESS_TITLE');
-        vm.warningTitle=Translate.translate('MAIN.MSG.WARNING_TITLE');
-        vm.errorTitle=Translate.translate('MAIN.MSG.ERROR_TITLE');
-        vm.errorGeneric=Translate.translate('MAIN.MSG.ERROR_MSG');
-        vm.errorMessage=Translate.translate('MAIN.MSG.ERROR_CATALOG');
-        vm.sucessMassive=Translate.translate('INPUT.Messages.SuccessMassive');
-        vm.successNormal=Translate.translate('INPUT.Messages.SuccessNormal');
-        vm.warning=Translate.translate('INPUT.Messages.Warning');
-        vm.errorMassive=Translate.translate('INPUT.Messages.ErrorMassive');
-        vm.errorNormal=Translate.translate('INPUT.Messages.ErrorNormal');
-        vm.errorCabinet=Translate.translate('INPUT.Messages.ErrorCabinet');
-        vm.notFoundCabinet=Translate.translate('INPUT.Messages.NotFoundCabinet');
-        vm.acceptButton=Translate.translate('MAIN.BUTTONS.ACCEPT');
-        vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
-        vm.dialogTitle=Translate.translate('INPUT.Dialogs.Confirm.Title');
-        vm.dialogMessage=Translate.translate('INPUT.Dialogs.Confirm.Message');
+        vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
+        vm.warningTitle = Translate.translate('MAIN.MSG.WARNING_TITLE');
+        vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
+        vm.errorGeneric = Translate.translate('MAIN.MSG.ERROR_MSG');
+        vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_CATALOG');
+        vm.sucessMassive = Translate.translate('INPUT.Messages.SuccessMassive');
+        vm.successNormal = Translate.translate('INPUT.Messages.SuccessNormal');
+        vm.warning = Translate.translate('INPUT.Messages.Warning');
+        vm.errorMassive = Translate.translate('INPUT.Messages.ErrorMassive');
+        vm.errorNormal = Translate.translate('INPUT.Messages.ErrorNormal');
+        vm.errorCabinet = Translate.translate('INPUT.Messages.ErrorCabinet');
+        vm.notFoundCabinet = Translate.translate('INPUT.Messages.NotFoundCabinet');
+        vm.acceptButton = Translate.translate('MAIN.BUTTONS.ACCEPT');
+        vm.cancelButton = Translate.translate('MAIN.BUTTONS.CANCEL');
+        vm.dialogTitle = Translate.translate('INPUT.Dialogs.Confirm.Title');
+        vm.dialogMessage = Translate.translate('INPUT.Dialogs.Confirm.Message');
 
         activate();
 
         //Functions
         function activate() {
             vm.cabinets = [];
-            vm.cabinetID="";
-            vm.notFoundCabinets=[];
+            vm.cabinetID = "";
+            vm.notFoundCabinets = [];
             vm.existingCabinets = Cabinet.getEconomics();
 
             vm.entrada = angular.copy(entrada);
             LineaTransporte.listObject().then(function (res) {
-                vm.lineasTransporte =Helper.filterDeleted(res,true);
-                vm.lineasTransporte=_.sortBy(vm.lineasTransporte, 'razon_social');
-            }).catch(function(err){
-                toastr.error(vm.errorMessage,vm.errorTitle);
+                vm.lineasTransporte = Helper.filterDeleted(res, true);
+                vm.lineasTransporte = _.sortBy(vm.lineasTransporte, 'razon_social');
+            }).catch(function (err) {
+                toastr.error(vm.errorMessage, vm.errorTitle);
             });
             TipoTransporte.listObject().then(function (res) {
-                vm.tiposTransporte =Helper.filterDeleted(res,true);
-                vm.tiposTransporte=_.sortBy(vm.tiposTransporte, 'descripcion');
-            }).catch(function(err){
-                toastr.error(vm.errorMessage,vm.errorTitle);
+                vm.tiposTransporte = Helper.filterDeleted(res, true);
+                vm.tiposTransporte = _.sortBy(vm.tiposTransporte, 'descripcion');
+            }).catch(function (err) {
+                toastr.error(vm.errorMessage, vm.errorTitle);
             });
             Sucursal.listObject().then(function (res) {
-                vm.Sucursales =Helper.filterDeleted(res,true);
-                vm.Sucursales=_.sortBy(vm.Sucursales, 'nombre');
-            }).catch(function(err){
-                toastr.error(vm.errorMessage,vm.errorTitle);
+                vm.Sucursales = Helper.filterDeleted(res, true);
+                vm.Sucursales = _.sortBy(vm.Sucursales, 'nombre');
+            }).catch(function (err) {
+                toastr.error(vm.errorMessage, vm.errorTitle);
             });
             Proyectos.listObject().then(function (res) {
-                vm.Proyectos =Helper.filterDeleted(res,true);
-                vm.Proyectos=_.sortBy(vm.Proyectos, 'descripcion');
-            }).catch(function(err){
-                toastr.error(vm.errorMessage,vm.errorTitle);
+                vm.Proyectos = Helper.filterDeleted(res, true);
+                vm.Proyectos = _.sortBy(vm.Proyectos, 'descripcion');
+            }).catch(function (err) {
+                toastr.error(vm.errorMessage, vm.errorTitle);
             });
             udn.listObject().then(function (res) {
-                vm.udns  =Helper.filterDeleted(res,true);
-                vm.udns =_.sortBy(vm.udns , 'agencia');
-                vm.filteredUDN=angular.copy(vm.udns);
-            }).catch(function(err){
-                toastr.error(vm.errorMessage,vm.errorTitle);
+                vm.udns = Helper.filterDeleted(res, true);
+                vm.udns = _.sortBy(vm.udns, 'agencia');
+                vm.filteredUDN = angular.copy(vm.udns);
+            }).catch(function (err) {
+                toastr.error(vm.errorMessage, vm.errorTitle);
             });
         }
 
@@ -145,64 +145,91 @@
             fd.append('accion', 'entrada');
             fd.append('fecha', vm.entrada.fecha);
 
-            if(vm.entrada.pedimento!=null)
+            if (vm.entrada.pedimento != null)
                 fd.append('pedimento', vm.entrada.pedimento);
 
             fd.append('nombre_chofer', vm.entrada.nombre_chofer);
             fd.append('linea_transporte', vm.entrada.linea_transporte);
 
-            if(vm.entrada.proyecto!=null)
+            if (vm.entrada.proyecto != null)
                 fd.append('proyecto', vm.entrada.proyecto);
 
             fd.append('sucursal', vm.entrada.sucursal);
             fd.append('tipo_transporte', vm.entrada.tipo_transporte);
 
-            if(vm.entrada.udn!=null)
-                fd.append('udn', vm.entrada.udn);
+            if (vm.entrada.udn != null)
+                fd.append('udn', vm.entrada.udn.id);
 
             if (vm.entrada.id != null)
                 fd.append("id", vm.entrada.id);
 
-            if (vm.cabinets.length>0)
-                fd.append('cabinets', _.pluck(vm.cabinets,"economico"));
+            if (vm.cabinets.length > 0)
+                fd.append('cabinets', _.pluck(vm.cabinets, "economico"));
 
             if (vm.entrada.ife_chofer != null)
                 fd.append('ife_chofer', vm.entrada.ife_chofer);
             //Is massive upload
             if (vm.entrada.file != null) {
                 fd.append('file', vm.entrada.file);
-                EntradaSalida.postEntradaMasiva(fd).then(function (res) {
-                    vm.entrada.creados = res.creados;
-                    vm.entrada.no_creados = res.no_creados;
-                    vm.hideRegisteredCabinets = false;
-                    vm.hideUnregisteredCabinets = false;
-                    if (vm.entrada.no_creados.length > 0) {
-                        toastr.warning(vm.warning, vm.warningTitle);
-                        vm.entrada.file = null;
-                    }
-                    else {
-                        toastr.success(vm.sucessMassive, vm.successTitle);
-                        //limpiar();
-                    }
-                }).catch(function (err) {
-                    toastr.error(vm.errorMassive, vm.errorTitle);
-                });
+                if (vm.entrada.id == null) {
+                    EntradaSalida.postEntradaMasiva(fd).then(function (res) {
+                        console.log(res);
+                        vm.entrada.id=res.id;
+                        vm.entrada.creados = res.creados;
+                        vm.entrada.no_creados = res.no_creados;
+                        vm.hideRegisteredCabinets = false;
+                        vm.hideUnregisteredCabinets = false;
+                        if (vm.entrada.no_creados.length > 0) {
+                            toastr.warning(vm.warning, vm.warningTitle);
+                            vm.entrada.file = null;
+                        }
+                        else {
+                            toastr.success(vm.sucessMassive, vm.successTitle);
+                            //limpiar();
+                        }
+                    }).catch(function (err) {
+                        console.log(err);
+                        toastr.error(vm.errorMassive, vm.errorTitle);
+                    });
+                }
+                else{
+                    fd.append('id', vm.entrada.id);
+                    EntradaSalida.putEntradaMasiva(fd).then(function (res) {
+                        console.log(res);
+                        vm.entrada.id=res.id;
+                        vm.entrada.creados = res.creados;
+                        vm.entrada.no_creados = res.no_creados;
+                        vm.hideRegisteredCabinets = false;
+                        vm.hideUnregisteredCabinets = false;
+                        if (vm.entrada.no_creados.length > 0) {
+                            toastr.warning(vm.warning, vm.warningTitle);
+                            vm.entrada.file = null;
+                        }
+                        else {
+                            toastr.success(vm.sucessMassive, vm.successTitle);
+                            //limpiar();
+                        }
+                    }).catch(function (err) {
+                        console.log(err);
+                        toastr.error(vm.errorMassive, vm.errorTitle);
+                    });
+                }
             }
             else {
-                if(vm.notFoundCabinet.length==0) {
+                if (vm.notFoundCabinet.length == 0) {
                     var confirm = $mdDialog.confirm()
                         .title(vm.dialogTitle)
                         .textContent(vm.dialogMessage)
                         .ariaLabel('Confirmar guardado')
                         .ok(vm.acceptButton)
                         .cancel(vm.cancelButton);
-                    $mdDialog.show(confirm).then(function() {
+                    $mdDialog.show(confirm).then(function () {
                         postManual(fd);
-                    },function(){
+                    }, function () {
                         //Cancelled
                     });
                 }
-                else{
+                else {
                     postManual(fd);
                 }
 
@@ -210,19 +237,19 @@
 
         }
 
-        function postManual(fd){
+        function postManual(fd) {
             EntradaSalida.postEntrada(fd).then(function (res) {
-                var request={
+                var request = {
                     "entrada_salida": res.id,
-                    "economico": _.map(vm.cabinets,function(element){
-                            return {"economico":element.economico};
+                    "economico": _.map(vm.cabinets, function (element) {
+                            return {"economico": element.economico};
                         }
                     )
                 };
-                CabinetEntradaSalida.create(request).then(function(){
+                CabinetEntradaSalida.create(request).then(function () {
                     toastr.success(vm.successNormal, vm.successTitle);
                     limpiar();
-                }).catch(function(err){
+                }).catch(function (err) {
                     toastr.error(vm.errorNormal, vm.errorTitle);
                 });
 
@@ -231,23 +258,23 @@
             });
         }
 
-        function limpiar(){
-            vm.entrada=angular.copy(entrada);
-            vm.hideRegisteredCabinets=true;
-            vm.hideUnregisteredCabinets=true;
-            vm.hideMassiveUpload=true;
-            vm.hideManualUpload=true;
+        function limpiar() {
+            vm.entrada = angular.copy(entrada);
+            vm.hideRegisteredCabinets = true;
+            vm.hideUnregisteredCabinets = true;
+            vm.hideMassiveUpload = true;
+            vm.hideManualUpload = true;
             $scope.entradaForm.$setPristine();
             $scope.entradaForm.$setUntouched();
-            $scope.entradaForm.$invalid=true;
-            vm.selectedTab=0;
+            $scope.entradaForm.$invalid = true;
+            vm.selectedTab = 0;
         }
 
-        function partialClean(){
-            vm.cabinets=[];
-            vm.entrada.creados=[];
-            vm.entrada.no_creados=[];
-            vm.notFoundCabinets=[];
+        function partialClean() {
+            vm.cabinets = [];
+            vm.entrada.creados = [];
+            vm.entrada.no_creados = [];
+            vm.notFoundCabinets = [];
         }
 
         function selectionImage($file) {
@@ -284,7 +311,7 @@
         function showManualUpload() {
             vm.hideManualUpload = false;
             vm.hideMassiveUpload = true;
-            vm.existingCabinets= _.pluck(vm.existingCabinets,"economico");
+            vm.existingCabinets = _.pluck(vm.existingCabinets, "economico");
             partialClean();
         }
 
@@ -310,13 +337,13 @@
                 controllerAs: 'vm',
                 templateUrl: 'app/mainApp/tecnico/entrada/dialogs/marca.tmpl.html',
                 fullscreen: true,
-                clickOutsideToClose:true,
+                clickOutsideToClose: true,
                 focusOnOpen: true
             }).then(function (res) {
 
-            }).catch(function(err){
-                if(err!=null) {
-                    toastr.error(vm.errorGeneric,vm.errorTitle);
+            }).catch(function (err) {
+                if (err != null) {
+                    toastr.error(vm.errorGeneric, vm.errorTitle);
                 }
             });
         }
@@ -327,42 +354,42 @@
                 templateUrl: 'app/mainApp/tecnico/entrada/dialogs/modelo.tmpl.html',
                 parent: angular.element(document.body),
                 targetEvent: ev,
-                controllerAs:'vm',
+                controllerAs: 'vm',
                 fullscreen: true,
                 clickOutsideToClose: true
             }).then(function (res) {
 
-            }).catch(function(err){
-                if(err!=null) {
-                    toastr.error(vm.errorGeneric,vm.errorTitle);
+            }).catch(function (err) {
+                if (err != null) {
+                    toastr.error(vm.errorGeneric, vm.errorTitle);
                 }
             });
         }
 
-        function addCabinet(){
-            if(_.contains(vm.existingCabinets,vm.cabinetID)){
-                Cabinet.get(vm.cabinetID).then(function(res){
-                    if(vm.cabinets.indexOf(res) != -1) {
-                        toastr.warning(vm.errorCabinet,vm.warning);
+        function addCabinet() {
+            if (_.contains(vm.existingCabinets, vm.cabinetID)) {
+                Cabinet.get(vm.cabinetID).then(function (res) {
+                    if (vm.cabinets.indexOf(res) != -1) {
+                        toastr.warning(vm.errorCabinet, vm.warning);
                     }
                     else {
-                        var tempCabinet=angular.copy(res);
-                        tempCabinet.modelo=modeloById(res.modelo).nombre;
-                        tempCabinet.marca=marcaById(res.modelo);
+                        var tempCabinet = angular.copy(res);
+                        tempCabinet.modelo = modeloById(res.modelo).nombre;
+                        tempCabinet.marca = marcaById(res.modelo);
                         vm.cabinets.push(tempCabinet);
                     }
                     vm.cabinetID = "";
-                }).catch(function(err){
-                    toastr.error(vm.notFoundCabinet,vm.errorTitle);
+                }).catch(function (err) {
+                    toastr.error(vm.notFoundCabinet, vm.errorTitle);
                     vm.cabinetID = "";
                 });
             }
-            else{
-                if(vm.notFoundCabinets.indexOf(vm.cabinetID) != -1) {
-                    toastr.warning(vm.errorCabinet,vm.warning);
+            else {
+                if (vm.notFoundCabinets.indexOf(vm.cabinetID) != -1) {
+                    toastr.warning(vm.errorCabinet, vm.warning);
                 }
                 else {
-                    toastr.warning(vm.notFoundCabinet,vm.warning);
+                    toastr.warning(vm.notFoundCabinet, vm.warning);
                     vm.notFoundCabinets.push(vm.cabinetID);
                 }
                 vm.cabinetID = "";
@@ -372,44 +399,44 @@
         }
 
 
-        function removeNotFoundCabinet(id){
+        function removeNotFoundCabinet(id) {
             var index = vm.notFoundCabinets.indexOf(id);
             if (index > -1) {
                 vm.notFoundCabinets.splice(index, 1);
             }
         }
 
-        function modeloById(id){
-            return _.find(vm.modelos,function(model){
+        function modeloById(id) {
+            return _.find(vm.modelos, function (model) {
                 return model.id == id;
             });
         }
 
-        function marcaById(id){
+        function marcaById(id) {
             var modelo = modeloById(id);
-            return _.find(vm.marcas,function(brand){
+            return _.find(vm.marcas, function (brand) {
                 return brand.id == modelo.marca;
             }).descripcion;
         }
 
-        function showCabinetDialog(economico){
+        function showCabinetDialog(economico) {
             $mdDialog.show({
                 controller: 'CabinetDialogController',
                 controllerAs: 'vm',
                 templateUrl: 'app/mainApp/tecnico/entrada/dialogs/cabinet.tmpl.html',
                 fullscreen: true,
-                clickOutsideToClose:true,
+                clickOutsideToClose: true,
                 focusOnOpen: true,
-                locals:{
-                    cabinetID:economico
+                locals: {
+                    cabinetID: economico
                 }
             }).then(function (res) {
                 vm.existingCabinets.push(res);
                 removeNotFoundCabinet(res);
-                vm.cabinetID=res;
+                vm.cabinetID = res;
                 addCabinet();
-            }).catch(function(err){
-                if(err!=null) {
+            }).catch(function (err) {
+                if (err != null) {
 
                 }
             });
@@ -423,20 +450,19 @@
 
         function search(text) {
             //if(text.length>0) {
-                vm.filteredUDN = _.filter(vm.udns, function (item) {
-                    return item.agencia.toLowerCase().startsWith(text.toLowerCase());
-                });
+            vm.filteredUDN = _.filter(vm.udns, function (item) {
+                return item.agencia.toLowerCase().startsWith(text.toLowerCase());
+            });
             //}
             return vm.filteredUDN;
         }
 
-        function selectedItemChange(item)
-        {
-            if (item!=null) {
+        function selectedItemChange(item) {
+            if (item != null) {
                 vm.entrada.udn = angular.copy(item);
 
-            }else{
-                
+            } else {
+
             }
         }
 
