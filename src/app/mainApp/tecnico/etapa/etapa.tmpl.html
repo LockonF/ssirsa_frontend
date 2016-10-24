@@ -31,7 +31,7 @@
 
                 </md-button>
                 <md-button ng-if="vm.etapaActual.actual_etapa==1" class="md-raised md-primary"
-                           ng-click="vm.showDiagnosticoDialog(ev)">
+                           ng-click="vm.showPreCheckDialog(ev)">
                     <md-icon md-font-icon="fa fa-check-square"></md-icon>
                 </md-button>
                 <md-button ng-if="vm.etapaActual.actual_etapa==2" class="md-raised md-primary"
@@ -193,21 +193,29 @@
                     </md-table-container>
                 </div>
                 -->
-                <div layout="row" layout-sm="column" layout-md="column" layout-align="center center"
-                     ng-show="vm.insumos_loteUsados.length!=0" flex="100">
+                <div layout="row" layout-sm="column"  layout-xs="column"  layout-align=""
+                     ng-show="vm.insumos_loteUsados.length!=0" flex="100" layout-wrap>
 
-                    <md-virtual-repeat-container layout-fill="layout-padding"
-                                                 class="vr-min-height">
-                        <md-list flex="flex" >
-                            <md-list-itm flex="flex" ng-repeat="insu in vm.insumos_loteUsados track by $index">
-                                <md-switch layout-fill="layout-padding"  class="md-primary" ng-model="vm.insumos_loteUsados[$index].agregar"
-                                           aria-label="Primary Switch">
-                                    {{$index}}.- <b>Insumo: </b> {{insu.nombre}} <b> - Cantidad: </b> {{insu.cantidad}} -<b>  Notas: </b> {{insu.notas}}
-                                </md-switch>
-                                <md-divider></md-divider>
-                            </md-list-itm>
-                        </md-list>
-                    </md-virtual-repeat-container>
+
+                    <div ng-repeat="insu in vm.insumos_loteUsados track by $index" flex="50">
+                        <div column>
+                            <div layout="row">
+                                <div flex="20">
+                                    <md-switch flex class="md-primary" ng-model="vm.insumos_loteUsados[$index].agregar"
+                                               aria-label="Primary Switch">
+                                    </md-switch>
+                                </div>
+                                <div layout="column" flex>
+                                    <div><b>Insumo: </b> {{insu.nombre}}</div>
+                                    <div><b>Cantidad:</b>{{insu.cantidad}}</div>
+                                    <div><b>Notas: </b> {{insu.notas}}</div>
+                                </div>
+                                
+                            </div>
+                            <md-divider></md-divider>
+                        </div>
+                    </div>
+
                 </div>
                 <!--
                 <md-input-container>
@@ -243,16 +251,16 @@
             </div>
         </md-content>
 
-        </md-content>
-        <md-content ng-if="vm.etapaActual.actual_etapa">
-            <md-input-container layout-fill flex>
-                <md-switch class="md-primary" ng-model="vm.etapaActual.validado"
-                           aria-label="Se valida la etapa para avanzar a la siguiente fase"
-                           ng-disabled="vm.parent.editable">
-                    <span translate>ETAPA_SERVICIO.VALIDATED</span>
-                </md-switch>
-            </md-input-container>
-        </md-content>
+    </md-content>
+    <md-content ng-if="vm.etapaActual.actual_etapa">
+        <md-input-container layout-fill flex>
+            <md-switch class="md-primary" ng-model="vm.etapaActual.validado"
+                       aria-label="Se valida la etapa para avanzar a la siguiente fase"
+                       ng-disabled="vm.parent.editable">
+                <span translate>ETAPA_SERVICIO.VALIDATED</span>
+            </md-switch>
+        </md-input-container>
+    </md-content>
 
     </md-content>
 </div>

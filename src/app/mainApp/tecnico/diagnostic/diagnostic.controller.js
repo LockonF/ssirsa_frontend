@@ -9,7 +9,7 @@
         .module('app.mainApp.tecnico')
         .controller('DiagnosticController', DiagnosticController);
 
-    function DiagnosticController(Cabinet, OPTIONS, toastr,$scope, Translate, Helper, Upload, EnvironmentConfig, OAuthToken) {
+    function DiagnosticController(Cabinet,cabinet, OPTIONS, toastr,$scope, Translate, Helper, Upload, EnvironmentConfig, OAuthToken) {
         var vm = this;
         vm.diagnostico = {};
         vm.cabinets = null;
@@ -51,10 +51,12 @@
             });
         }
         function clear() {
+            if(cabinet){
             $scope.registerForm.$setPristine();
             $scope.registerForm.$setUntouched();
             $scope.searchCabinetForm.$setPristine();
             $scope.searchCabinetForm.$setUntouched();
+            }   
             vm.cabinet = null;
             vm.cabinets = null;
             vm.diagnostico = null;

@@ -184,7 +184,11 @@
                 notifyError(res.status);
             });
         }
+        function eliminaNoSeleccionados(){
 
+            var paraAgregar = _.where(vm.insumos_loteUsados, {agregar: true });
+            console.log(paraAgregar);
+        }
 
         function buscarInsumosByCatalogo() {
             vm.insumostmp;
@@ -249,7 +253,7 @@
                 },
                 parent: angular.element(document.body),
                 targetEvent: ev,
-                fullscreen: false,
+                fullscreen: true,
                 clickOutsideToClose: true
             }).then(function (answer) {
                 //Accepted
@@ -268,7 +272,7 @@
                 controllerAs: 'vm',
                 parent: angular.element(document.body),
                 targetEvent: ev,
-                fullscreen: false,
+                fullscreen: true,
                 clickOutsideToClose: true,
                 locals: {
                     cabinet: vm.idCabinet
@@ -403,8 +407,7 @@
             vm.insumoLote = {};
             vm.insumos_loteUsados = [];//Arreglo que ya posee el arreglo como es necesario para agregar los insumos al formato de arreglo para agregarlos a la etapa
             vm.dataEtapa = null;//Variable que posera los datos de la etapa para el precargado de Template (id etapa, idTipoEquipo)
-            $scope.insumoFormEtapa.$setPristine();
-            $scope.insumoFormEtapa.$setUntouched();
+
 
 
         }
@@ -443,6 +446,9 @@
 
 
             if (vm.etapaActual.id == null) {
+                console.log(vm.insumos_loteUsados);
+                eliminaNoSeleccionados();
+
                 vm.etapaActual.insumos_lote = vm.insumos_loteUsados;
                 vm.etapaActual.insumos = vm.insumos;
 
@@ -459,7 +465,8 @@
                 });
             }
             else {
-
+                console.log(vm.insumos_loteUsados);
+                eliminaNoSeleccionados();
                 var promise = Servicios.editarEtapaServicio(vm.etapaActual);
                 promise.then(function (res) {
 
@@ -488,8 +495,6 @@
                 notifyError(404);
             vm.catalogoSelected = null;
             vm.insumo = null;
-            $scope.form.insumoFormEtapa.$setPristine();
-            $scope.form.insumoFormEtapa.$setUntouched();
 
 
         }
@@ -509,8 +514,7 @@
                 notifyError(404);
             vm.catalogoSelected = null;
             vm.insumo = null;
-            $scope.form.insumoFormEtapa.$setPristine();
-            $scope.form.insumoFormEtapa.$setUntouched();
+
 
 
         }
@@ -549,8 +553,7 @@
                 notifyError(404);
             vm.catalogoSelected = null;
             vm.insumo = null;
-            $scope.form.insumoFormEtapa.$setPristine();
-            $scope.form.insumoFormEtapa.$setUntouched();
+
 
 
         }

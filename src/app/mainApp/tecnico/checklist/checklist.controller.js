@@ -9,7 +9,7 @@
         .module('app.mainApp.tecnico')
         .controller('checklistController', checklistController);
 
-    function checklistController(Cabinet, $scope, ModeloCabinet, toastr, Translate, Helper, Upload, EnvironmentConfig, OAuthToken, MarcaCabinet, CabinetEntradaSalida) {
+    function checklistController(Cabinet, $scope, ModeloCabinet,cabinet, toastr, Translate, Helper, Upload, EnvironmentConfig, OAuthToken, MarcaCabinet, CabinetEntradaSalida) {
         var vm = this;
         vm.diagnostico = {};
         vm.cabinets = null;
