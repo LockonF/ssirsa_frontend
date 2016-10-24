@@ -79,6 +79,7 @@
             console.log(cabinet);
             if (cabinet!=null) {
                 vm.cabinet = cabinet;
+                vm.searchCabinet();
             }
                 vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');

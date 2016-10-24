@@ -7,25 +7,7 @@
                     <span class="md-headline">{{'TECNICO.FORM.LABEL.SEARCH'|translate}}</span>
                 </md-card-title-text>
             </md-card-title>
-            <md-card-content>
-                <form ng-submit="vm.searchCabinet()" name="searchCabinetForm" id="searchCabinetForm" novalidate>
-                    <div flex="100" layout="row">
-                        <md-input-container flex="80">
-                            <label>{{'TECNICO.FORM.LABEL.ID_CABINET'|translate}}</label>
-                            <input ng-model="vm.cabinet" required minlength="0">
-                            <div ng-messages="inputForm.antiguedad.$error">
-                                <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
-                            </div>
-
-                        </md-input-container>
-                        <md-input-container flex>
-                            <md-button class="md-fab" aria-label="fab button" ng-disabled="searchCabinetForm.$invalid"
-                                       ng-click="vm.searchCabinet()">
-                                <md-icon md-font-icon="zmdi zmdi-zoom-in"></md-icon>
-                            </md-button>
-                        </md-input-container>
-                    </div>
-                </form>
+            <md-card-content>x
                 <form name="registerForm" id="registerForm" novalidate>
                     <div ng-if="vm.cabinets!=null">
                         <div layout="row" layout-xs="column" layout-align-xs="center center" layout-sm="column"

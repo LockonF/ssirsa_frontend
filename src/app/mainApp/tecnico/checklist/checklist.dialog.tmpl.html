@@ -7,24 +7,6 @@
                 </md-card-title-text>
             </md-card-title>
             <md-card-content>
-                <form ng-submit="vm.searchCabinet()" name="searchCabinetForm" id="searchCabinetForm" novalidate>
-                    <div flex="100" layout="row">
-
-                        <md-input-container flex="80">
-                            <label>{{'TECNICO.FORM.LABEL.ID_CABINET'|translate}}</label>
-                            <input ng-model="vm.cabinet" required minlength="0">
-                        </md-input-container>
-
-                        <md-input-container flex>
-                            <md-button class="md-fab" aria-label="fab button" ng-click="vm.searchCabinet()">
-                                <md-icon md-font-icon="zmdi zmdi-zoom-in"></md-icon>
-                            </md-button>
-                        </md-input-container>
-
-
-                    </div>
-                </form>
-
                 <div ng-if="vm.cabinets!=null && vm.statusReady==1">
                     <div layout="row" layout-xs="column" layout-align-xs="center center">
                         <div flex="50">
