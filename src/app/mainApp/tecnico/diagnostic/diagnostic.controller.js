@@ -15,6 +15,7 @@
         vm.cabinets = null;
         vm.cabinet=null;
         vm.status = 'idle';  // idle | uploading | complete
+        vm.cerrar=cerrar;
         vm.guardar = guardar;
         vm.searchCabinet = searchCabinet;
         vm.selectionFile = selectionFile;
@@ -49,6 +50,9 @@
                 vm.status = 'idle';
 
             });
+        }
+        function cerrar(){
+            $mdDialog.hide();
         }
         function clear() {
             if(cabinet){

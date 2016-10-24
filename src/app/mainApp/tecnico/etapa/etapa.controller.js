@@ -254,7 +254,8 @@
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 fullscreen: true,
-                clickOutsideToClose: true
+                focusOnOpen: false,
+
             }).then(function (answer) {
                 //Accepted
                 $mdDialog.hide();
@@ -273,7 +274,7 @@
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 fullscreen: true,
-                clickOutsideToClose: true,
+
                 locals: {
                     cabinet: vm.idCabinet
                 }
