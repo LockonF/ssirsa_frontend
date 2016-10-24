@@ -54,6 +54,15 @@
                 controller:'asignacionLineaController',
                 controllerAs:'vm'
             })
+            .state('triangular.admin-default.servicioPuntoVenta',{
+                url:'/servicioPuntoVenta',
+                data: {
+                    roles: ['Administrador','Tecnico A','Tecnico B','Tecnico C','Tecnico D','Tecnico E']
+                },
+                templateUrl:'app/mainApp/tecnico/servicioPuntoVenta/servicioPuntoVenta.tmpl.html',
+                controller:'servicioPuntoVentaController',
+                controllerAs:'vm'
+            })
             .state('triangular.admin-default.entrada',{
                 url:'/entrada',
                 data: {
