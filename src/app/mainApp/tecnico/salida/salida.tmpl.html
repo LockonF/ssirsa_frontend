@@ -11,27 +11,19 @@
                         <form name="entradaForm" novalidate="">
                             <div layout-gt-md="row" layout="column" layout-align-gt-md="center center"
                                  layout-align="center stretch">
-                                <md-input-container flex="80" flex-sm="100" flex-xs="100" class="md-block">
-                                    <label>{{'OUTPUT.FORM.LABEL.DRIVER.NAME'|translate}}</label>
-                                    <input name="DriverName" md-no-asterisk="" required="" type="text"
-                                           md-maxlength="100"
-                                           ng-model="vm.salida.nombre_chofer"/>
-                                    <div ng-messages="entradaForm.DriverName.$error">
+                                <md-input-container flex="100" class="md-block">
+                                    <label>{{'OUTPUT.FORM.LABEL.TYPE_OUTPUT'|translate}}</label>
+                                    <md-select name="selectOutKind" ng-model="vm.selectedEntrada" required="" ng-change="vm.changeType()">
+                                        <md-option ng-repeat="option in vm.types" ng-value="option.id">{{option.value}}
+                                        </md-option>
+                                    </md-select>
+                                    <div ng-messages="entradaForm.selectOutKind.$error">
                                         <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                     </div>
                                 </md-input-container>
-                                <md-input-container flex="20" flex-sm="100" flex-xs="100" class="md-block">
-                                    <label>{{'OUTPUT.FORM.LABEL.PEDIMENT'|translate}}</label>
-                                    <input name="Pediment" md-no-asterisk="" required="" type="text"
-                                           md-maxlength="100"
-                                           ng-model="vm.salida.pedimento"/>
-                                    <div ng-messages="entradaForm.Pediment.$error">
-                                        <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
-                                    </div>
-                                </md-input-container>
-                            </div>
-                            <div layout="row" layout-sm="column" layout-xs="column" layout-align="center center"
-                                 layout-align-sm="center stretch" layout-align-xs="center stretch">
+                                </div>
+                            <div layout-gt-md="row" layout="column" layout-align-gt-md="center center"
+                                 layout-align="center stretch">
                                 <div flex="100" class="md-inline-form">
                                     <md-autocomplete md-selected-item="vm.salida.udn"
                                                      md-selected-item-change="vm.selectedItemChange(vm.salida.udn)"
@@ -44,17 +36,34 @@
                                                      md-search-text="vm.searchText"
                                                      md-menu-class="autocomplete-custom-template"
                                                      md-floating-label="{{'OUTPUT.FORM.LABEL.UDN'| translate}}">
-                                    <md-item-template>
+                                        <md-item-template>
                                         <span class="item-title">
                                             <md-icon md-font-icon="zmdi zmdi-truck"></md-icon><span>{{item.zona}} -
                                             {{item.agencia}}</span></span>
-                                    </md-item-template>
-                                    <div ng-messages="entradaForm.selectUDN.$error">
-                                        <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
-                                    </div>
+                                        </md-item-template>
+                                        <div ng-messages="entradaForm.selectUDN.$error">
+                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                        </div>
                                     </md-autocomplete>
 
                                 </div>
+
+                            </div>
+                            <div layout="row" layout-sm="column" layout-xs="column" layout-align="center center"
+                                 layout-align-sm="center stretch" layout-align-xs="center stretch">
+
+                                <md-input-container flex="100" class="md-block">
+                                    <label>{{'OUTPUT.FORM.LABEL.SUBSIDIARY'|translate}}</label>
+                                    <md-select name="selectSubsidiary" ng-model="vm.salida.sucursal" required=""
+                                               md-no-asterisk="">
+                                        <md-option ng-repeat="sucursal in vm.Sucursales" ng-value="sucursal.id">
+                                            {{sucursal.nombre}}
+                                        </md-option>
+                                    </md-select>
+                                    <div ng-messages="entradaForm.selectSubsidiary.$error">
+                                        <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                    </div>
+                                </md-input-container>
                                 <md-input-container flex="100" class="md-inline-form">
                                     <label>{{'OUTPUT.FORM.LABEL.TRANSPORT.LINE'|translate}}</label>
                                     <md-select name="selectTransportLine" ng-model="vm.salida.linea_transporte"
@@ -82,27 +91,12 @@
                             </div>
                             <div layout="row" layout-sm="column" layout-xs="column" layout-align="center center"
                                  layout-align-sm="center stretch" layout-align-xs="center stretch">
-                                <md-input-container flex="100" class="md-block">
-                                    <label>{{'OUTPUT.FORM.LABEL.SUBSIDIARY'|translate}}</label>
-                                    <md-select name="selectSubsidiary" ng-model="vm.salida.sucursal" required=""
-                                               md-no-asterisk="">
-                                        <md-option ng-repeat="sucursal in vm.Sucursales" ng-value="sucursal.id">
-                                            {{sucursal.nombre}}
-                                        </md-option>
-                                    </md-select>
-                                    <div ng-messages="entradaForm.selectSubsidiary.$error">
-                                        <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
-                                    </div>
-                                </md-input-container>
-                                <md-input-container flex="100" class="md-block">
-                                    <label>{{'OUTPUT.FORM.LABEL.PROJECT'|translate}}</label>
-                                    <md-select name="selectProject" ng-model="vm.salida.proyecto" required=""
-                                               md-no-asterisk="">
-                                        <md-option ng-repeat="proyecto in vm.Proyectos" ng-value="proyecto.id">
-                                            {{proyecto.descripcion}}
-                                        </md-option>
-                                    </md-select>
-                                    <div ng-messages="entradaForm.selectProject.$error">
+                                <md-input-container flex="100" flex-sm="100" flex-xs="100" class="md-block">
+                                    <label>{{'OUTPUT.FORM.LABEL.DRIVER.NAME'|translate}}</label>
+                                    <input name="DriverName" md-no-asterisk="" required="" type="text"
+                                           md-maxlength="100"
+                                           ng-model="vm.salida.nombre_chofer"/>
+                                    <div ng-messages="entradaForm.DriverName.$error">
                                         <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                     </div>
                                 </md-input-container>

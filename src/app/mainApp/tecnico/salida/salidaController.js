@@ -10,7 +10,7 @@
         .filter('salidaSearch', salidaSearch)
         .filter('tipoequipoSearch', tipoequipoSearch);
 
-    function salidaController(EntradaSalida, ModeloCabinet, $mdDialog, TipoEquipo, Helper, Translate, toastr, Sucursal, udn, Proyectos, CabinetEntradaSalida, TipoTransporte, $scope, LineaTransporte) {
+    function salidaController(EntradaSalida,OPTIONS, ModeloCabinet, $mdDialog, TipoEquipo, Helper, Translate, toastr, Sucursal, udn, Cabinet, CabinetEntradaSalida, TipoTransporte, $scope, LineaTransporte) {
         var vm = this;
         vm.guardar = guardar;
         vm.selectionFile = selectionFile;
@@ -22,8 +22,8 @@
         vm.clear = clear;
         vm.search = search;
         vm.lookupUDN = lookupUDN;
-
         vm.selection = selection;
+        vm.changeType=changeType;
 
         activate();
 
@@ -38,6 +38,7 @@
         vm.hideUnregisteredCabinets = true;
         vm.selectedCabinets = [];
         vm.loading = true;
+        vm.types=OPTIONS.type_out;
         //Models
 
         vm.cabinets = null;
@@ -47,10 +48,10 @@
             "fecha": "",
             "nombre_chofer": "",
             "ife_chofer": "",
-            "pedimento": "",
+            "pedimento": null,
             "accion": "entrada",
             "linea_transporte": "",
-            "proyecto": "",
+            "proyecto": null,
             "sucursal": "",
             "tipo_transporte": "",
             "udn": null,
@@ -77,10 +78,8 @@
             fd.append('sucursal', vm.salida.sucursal);
             fd.append('tipo_transporte', vm.salida.tipo_transporte);
             fd.append('udn', vm.salida.udn);
-
             if (vm.salida.id != null)
                 fd.append("id", vm.salida.id);
-
             if (vm.salida.ife_chofer != null)
                 fd.append('ife_chofer', vm.salida.ife_chofer);
             //Is massive upload
@@ -124,6 +123,18 @@
             }
 
         }
+        function changeType() {
+            if(!vm.hideManualUpload){
+                var status=vm.types[vm.selectedEntrada].value_service;
+                Cabinet.loadByStatus(status).then(function (res) {
+                    vm.cabinetsEntrada = Helper.filterDeleted(res, true);
+                    vm.cabinetsEntrada = _.sortBy(vm.cabinetsEntrada, 'economico');
+                    vm.loading = false;
+                }).catch(function(err){
+                    toastr.error(vm.errorMessage,vm.errorTitle);
+                });
+            }
+        }
 
         function entradaManual(fd) {
             EntradaSalida.postEntrada(fd).then(function (res) {
@@ -144,9 +155,9 @@
 
         function search(obj) {
             var tipo = _.findWhere(vm.modelos, {id: obj.modelo}).tipo;
-            if(tipo!=null){
+            if (tipo != null) {
                 return _.findWhere(vm.tipoEquipos, {id: tipo}).nombre;
-            }else{
+            } else {
                 return "No tiene";
             }
 
@@ -200,31 +211,38 @@
         function activate() {
 
             LineaTransporte.listObject().then(function (res) {
-                vm.lineasTransporte =Helper.filterDeleted(res,true);
-                vm.lineasTransporte=_.sortBy(vm.lineasTransporte, 'razon_social');
+                vm.lineasTransporte = Helper.filterDeleted(res, true);
+                vm.lineasTransporte = _.sortBy(vm.lineasTransporte, 'razon_social');
+            }).catch(function(err){
+                toastr.error(vm.errorMessage,vm.errorTitle);
             });
             TipoTransporte.listObject().then(function (res) {
-                vm.tiposTransporte =Helper.filterDeleted(res,true);
-                vm.tiposTransporte=_.sortBy(vm.tiposTransporte, 'descripcion');
+                vm.tiposTransporte = Helper.filterDeleted(res, true);
+                vm.tiposTransporte = _.sortBy(vm.tiposTransporte, 'descripcion');
+            }).catch(function(err){
+                toastr.error(vm.errorMessage,vm.errorTitle);
             });
             Sucursal.listObject().then(function (res) {
-                vm.Sucursales =Helper.filterDeleted(res,true);
-                vm.Sucursales=_.sortBy(vm.Sucursales, 'nombre');
+                vm.Sucursales = Helper.filterDeleted(res, true);
+                vm.Sucursales = _.sortBy(vm.Sucursales, 'nombre');
+            }).catch(function(err){
+                toastr.error(vm.errorMessage,vm.errorTitle);
             });
-             Proyectos.listObject().then(function (res) {
-                vm.Proyectos =Helper.filterDeleted(res,true);
-                vm.Proyectos=_.sortBy(vm.Proyectos, 'descripcion');
+
+            udn.listObject().then(function (res) {
+                vm.udns = Helper.filterDeleted(res, true);
+                vm.udns = _.sortBy(vm.udns, 'agencia');
+            }).catch(function(err){
+                toastr.error(vm.errorMessage,vm.errorTitle);
             });
-              udn.listObject().then(function (res) {
-                vm.udns  =Helper.filterDeleted(res,true);
-                vm.udns =_.sortBy(vm.udns , 'agencia');
+            ModeloCabinet.listWitout().then(function (res) {
+                vm.modelos = Helper.filterDeleted(res, true);
             });
-             ModeloCabinet.listWitout().then(function (res) {
-                vm.modelos  =Helper.filterDeleted(res,true);
-            });
-             TipoEquipo.listWitout().then(function (res) {
-                vm.tipoEquipos  =Helper.filterDeleted(res,true);
-                vm.tipoEquipos =_.sortBy(vm.tipoEquipos , 'nombre');
+            TipoEquipo.listWitout().then(function (res) {
+                vm.tipoEquipos = Helper.filterDeleted(res, true);
+                vm.tipoEquipos = _.sortBy(vm.tipoEquipos, 'nombre');
+            }).catch(function(err){
+                toastr.error(vm.errorMessage,vm.errorTitle);
             });
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
@@ -269,11 +287,15 @@
             vm.hideUnregisteredCabinets = true;
             vm.hideRegisteredCabinets = true;
             vm.loading = true;
-            EntradaSalida.getCabinetsEntrada().then(function (res) {
-                vm.cabinetsEntrada = Helper.filterDeleted(res,true);
-                vm.cabinetsEntrada =_.sortBy(vm.cabinetsEntrada , 'economico');
+            var status=vm.types[vm.selectedEntrada].value_service;
+            Cabinet.loadByStatus(status).then(function (res) {
+                vm.cabinetsEntrada = Helper.filterDeleted(res, true);
+                vm.cabinetsEntrada = _.sortBy(vm.cabinetsEntrada, 'economico');
                 vm.loading = false;
+            }).catch(function(err){
+                toastr.error(vm.errorMessage,vm.errorTitle);
             });
+
         }
 
         function cabinetSearch(query) {
@@ -287,8 +309,9 @@
             });
             return vm.search_items;
         }
-        function lookupUDN(search_text){
-            vm.search_items = _.filter(vm.udns,function(item){
+
+        function lookupUDN(search_text) {
+            vm.search_items = _.filter(vm.udns, function (item) {
                 return item.zona.toLowerCase().includes(search_text.toLowerCase()) || item.agencia.toLowerCase().includes(search_text.toLowerCase());
             });
             return vm.search_items;
