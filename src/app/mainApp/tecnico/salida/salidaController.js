@@ -71,13 +71,17 @@
 
             fd.append('accion', 'salida');
             fd.append('fecha', vm.salida.fecha);
-            fd.append('pedimento', vm.salida.pedimento);
+            if(vm.salida.pedimento!=null)
+                fd.append('pedimento', vm.salida.pedimento);
+
             fd.append('nombre_chofer', vm.salida.nombre_chofer);
             fd.append('linea_transporte', vm.salida.linea_transporte);
-            fd.append('proyecto', vm.salida.proyecto);
+
+            if(vm.salida.proyecto!=null)
+                fd.append('proyecto', vm.salida.proyecto);
             fd.append('sucursal', vm.salida.sucursal);
             fd.append('tipo_transporte', vm.salida.tipo_transporte);
-            fd.append('udn', vm.salida.udn);
+            fd.append('udn', vm.salida.udn.id);
             if (vm.salida.id != null)
                 fd.append("id", vm.salida.id);
             if (vm.salida.ife_chofer != null)
@@ -143,9 +147,13 @@
                     economico: vm.selectedCabinets
                 };
                 CabinetEntradaSalida.create(request).then(function () {
-                    toastr.success(vm.successMessage, vm.successTitle);
-                    clear();
-                }).catch(function (er) {
+                    EntradaSalida.normalizeCabinets(res.id).then(function () {
+                        toastr.success(vm.successMessage, vm.successTitle);
+                        clear();
+                    }).catch(function () {
+                        toastr.error(vm.errorMessage, vm.errorTitle);
+                    });
+                }).catch(function () {
                     toastr.error(vm.errorMessage, vm.errorTitle);
                 });
             }).catch(function () {

@@ -17,9 +17,14 @@
             postSalidaMasiva: postSalidaMasiva,
             getLastEntradaByCabinet: getLastEntradaByCabinet,
             byUdn: byUdn,
-            getCabinetsEntrada: getCabinetsEntrada
+            getCabinetsEntrada: getCabinetsEntrada,
+            normalizeCabinets:normalizeCabinets
         };
-        
+        function normalizeCabinets(idEntradaSalida) {
+            //one('normalize',idEntradaSalida)
+            return baseURL.one("normalize",idEntradaSalida).put();
+
+        }
         function getLastEntradaByCabinet(idCabinet) {
             return baseURL.one('cabinet').customGET(idCabinet);
         }
