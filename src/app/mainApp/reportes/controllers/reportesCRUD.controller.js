@@ -40,7 +40,6 @@
         }
 
         function clickCopy(item) {
-            vm.isNew=false;
             vm.selectedReport=item;
             vm.report=angular.copy(item);
             //$scope.formClient.$invalid=true;

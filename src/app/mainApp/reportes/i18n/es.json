@@ -1,16 +1,25 @@
 {
-  "REPORTS":{
-    "TITLE":"Reportes",
-    "INFORMATION":"Información del reporte",
-    "DIALOGS":{
-
+  "REPORTS": {
+    "TITLE": "Reportes",
+    "INFORMATION": "Información del reporte",
+    "FIELD_SET":"Campos",
+    "DIALOGS": {
     },
-    "FIELDS":{
-      "SEARCH":"Busqueda de reportes",
-      "INFORMATION":"Información del reporte"
+    "FIELDS": {
+      "SEARCH": "Busqueda de reportes",
+      "INFORMATION": "Información del reporte",
+      "NAME": "Nombre",
+      "MODIFIED": "Fecha de modificación",
+      "DESCRIPTION": "Descripción",
+      "ROOT_MODEL": "Modelo raíz"
     },
-    "ERRORS":{
-      "NOT_FOUND":"No se encontró ningun reporte"
+    "TABLE":{
+      "MODEL":"Modelo",
+      "FIELD":"Campo"
+    },
+    "ERRORS": {
+      "NOT_FOUND": "No se encontró ningun reporte",
+      "REQUIRED": "El campo es requeridp"
     }
   }
 }
