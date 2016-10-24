@@ -237,9 +237,10 @@
         }
 
         function showDiagnosticoDialog(ev) {
+            vm.cabinetid=vm.cabinet.id
             $mdDialog.show({
                 controller: 'DiagnosticController',
-                templateUrl: 'app/mainApp/tecnico/diagnostic/diagnostic.tpl.html',
+                templateUrl: 'app/mainApp/tecnico/diagnostic/diagnostic.dialog.tmpl.html',
                 controllerAs: 'vm',
                 parent: angular.element(document.body),
                 targetEvent: ev,
@@ -254,9 +255,10 @@
             });
         }
         function showPreCheckDialog(ev) {
+            vm.cabinetid=vm.cabinet.id
             $mdDialog.show({
-                controller: 'DiagnosticController',
-                templateUrl: 'app/mainApp/tecnico/diagnostic/diagnostic.tpl.html',
+                controller: 'checklistController',
+                templateUrl: 'app/mainApp/tecnico/checklist/checklist.dialog.tmpl.html',
                 controllerAs: 'vm',
                 parent: angular.element(document.body),
                 targetEvent: ev,
