@@ -31,7 +31,6 @@
         vm.showCabinetDialog=showCabinetDialog;
         vm.addCabinet = addCabinet;
         vm.removeNotFoundCabinet=removeNotFoundCabinet;
-        vm.clickCopy=clickCopy;
         vm.querySearch=querySearch;
         vm.selectedItemChange=selectedItemChange;
 
@@ -432,17 +431,12 @@
         }
 
         function search(text) {
-            if(text.length>0) {
+            //if(text.length>0) {
                 vm.filteredUDN = _.filter(vm.udns, function (item) {
                     return item.agencia.toLowerCase().startsWith(text.toLowerCase());
                 });
-            }
+            //}
             return vm.filteredUDN;
-        }
-
-        function clickCopy(item) {
-            console.log("item copied");
-            vm.entrada.udn=item;
         }
 
         function selectedItemChange(item)
@@ -451,7 +445,7 @@
                 vm.entrada.udn = angular.copy(item);
 
             }else{
-                //
+                
             }
         }
 
