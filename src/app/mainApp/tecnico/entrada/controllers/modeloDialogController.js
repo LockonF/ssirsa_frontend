@@ -9,7 +9,7 @@
         .controller('ModeloDialogController',ModeloDialogController);
     function ModeloDialogController($mdDialog, MarcaCabinet, ModeloCabinet, Helper, Translate, toastr){
         var vm = this;
-        
+
         //Translates
         vm.succesTitle=Translate.translate('MAIN.MSG.SUCCESS_TITLE');
         vm.successMessage=Translate.translate('MAIN.MSG.GENERIC_SUCCESS_CREATE');
@@ -26,8 +26,6 @@
             vm.modelo=null;
             MarcaCabinet.listObject().then(function(res){
                 vm.marcas=Helper.filterDeleted(res,true);
-                console.log(vm.marcas);
-                vm.marcas.forEach
             }).catch(function(err){
                 toastr.error(vm.errorMessage,vm.errorTitle);
                 vm.marcas=[];
