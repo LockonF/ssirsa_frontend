@@ -33,6 +33,7 @@
         vm.diagnostico = null;// Informacion del diagnostico que propicio que entrara a un proceso de servicio tecnico
         vm.etapa = null;
         vm.etapaActual = null;
+        vm.cabinetid = null;
         vm.insumo = {
             id: "",
             nombre: "",
@@ -65,7 +66,7 @@
         vm.eliminarInsumo = eliminarInsumo;
         vm.imprimirObjetoPrueba = imprimirObjetoPrueba;
         vm.showDiagnosticoDialog = showDiagnosticoDialog;
-        vm.showPreCheckDialog=showPreCheckDialog;
+        vm.showPreCheckDialog = showPreCheckDialog;
 
 
         // Funciones
@@ -112,6 +113,7 @@
 
 
         function buscar() {
+            cancelwithoutId();
             if (vm.idCabinet != null) {
                 var promise = Cabinet.get(vm.idCabinet);
                 promise.then(function (res) {
@@ -237,11 +239,14 @@
         }
 
         function showDiagnosticoDialog(ev) {
-            vm.cabinetid=vm.cabinet.id
+            vm.cabinetid = vm.idCabinet;
             $mdDialog.show({
                 controller: 'DiagnosticController',
                 templateUrl: 'app/mainApp/tecnico/diagnostic/diagnostic.dialog.tmpl.html',
                 controllerAs: 'vm',
+                locals: {
+                    cabinet: vm.idCabinet
+                },
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 fullscreen: false,
@@ -254,8 +259,9 @@
                 $mdDialog.cancel();
             });
         }
+
         function showPreCheckDialog(ev) {
-            vm.cabinetid=vm.cabinet.id
+            vm.cabinetid = vm.idCabinet;
             $mdDialog.show({
                 controller: 'checklistController',
                 templateUrl: 'app/mainApp/tecnico/checklist/checklist.dialog.tmpl.html',
@@ -263,7 +269,10 @@
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 fullscreen: false,
-                clickOutsideToClose: true
+                clickOutsideToClose: true,
+                locals: {
+                    cabinet: vm.idCabinet
+                }
             }).then(function (answer) {
                 //Accepted
                 $mdDialog.hide();
@@ -329,6 +338,39 @@
             });
         }
 
+        function cancelwithoutId() {
+            vm.etapa = {
+                diagnostico: '',
+                validado: false,
+                actual_etapa: '',
+                siguiente_etapa: ''
+
+            };
+            vm.showInsumosSection = true;
+            vm.catalogoInsumos = null;//array con todos los caatalogos de insumo disponibles de la etapa
+            vm.catalogoSelected = {};//Elemento del tipo Catalogo de Insumo del insumo que se deseará agregar
+            vm.editable = true;
+            vm.insumos = [];//Arreglo que poseera los Insumos que pueden ser usados en cierta etapa para md table
+            vm.insumosToArray = [];
+            vm.cabinet = null;// Informacion general del cabinet al cual se le asignara una nueva etapa
+            vm.diagnostico = null;// Informacion del diagnostico que propicio que entrara a un proceso de servicio tecnico
+            vm.etapa = null;
+            vm.etapaActual = null;
+            vm.insumo = {
+                id: "",
+                nombre: "",
+                cantidad: "",
+                catalogo: "",
+                notas: ""
+            };// Insumo por agregar al cabinet en cuestion
+            //Nuevas VariablesUsadas
+            vm.insumos_lote = [];// Arreglo que posera los Insumos de Lote que serán utilizados en la etapa de servicio
+            vm.insumoLote = {};
+            vm.insumos_loteUsados = [];//Arreglo que ya posee el arreglo como es necesario para agregar los insumos al formato de arreglo para agregarlos a la etapa
+            vm.dataEtapa = null;//Variable que posera los datos de la etapa para el precargado de Template (id etapa, idTipoEquipo)
+
+
+        }
 
         function cancel() {
             vm.etapa = {

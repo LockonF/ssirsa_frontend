@@ -13,6 +13,7 @@
         var vm = this;
         vm.diagnostico = {};
         vm.cabinets = null;
+        vm.cabinet=null;
         vm.status = 'idle';  // idle | uploading | complete
         vm.guardar = guardar;
         vm.searchCabinet = searchCabinet;
@@ -75,7 +76,11 @@
         }
 
         function activate() {
-            vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
+            console.log(cabinet);
+            if (cabinet!=null) {
+                vm.cabinet = cabinet;
+            }
+                vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
             vm.successCreateMessage = Translate.translate('MAIN.MSG.SUCCESS_DIAGNOSTIC_MESSAGE');
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');

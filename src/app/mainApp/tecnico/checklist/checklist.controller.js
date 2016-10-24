@@ -13,7 +13,8 @@
         var vm = this;
         vm.diagnostico = {};
         vm.cabinets = null;
-        vm.status = 'idle';  // idle | uploading | complete
+        vm.status = 'idle';// idle | uploading | complete
+        vm.cabinet = null;
         vm.guardar = guardar;
         vm.searchCabinet = searchCabinet;
         vm.selectionFile = selectionFile;
@@ -84,6 +85,11 @@
         }
 
         function activate() {
+            console.log(cabinet);
+            if (cabinet!=null) {
+                vm.cabinet=cabinet;
+                searchCabinet();
+            }
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
             vm.successCreateMessage = Translate.translate('MAIN.MSG.SUCCESS_TICKET_MESSAGE');
