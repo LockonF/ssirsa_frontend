@@ -122,7 +122,8 @@
             "ErrorNormal":"Error al registrar la entrada",
             "ErrorCabinet":"El cabinet ya ha sido añadido",
             "NotFoundCabinet":"Cabinet no encontrado",
-            "NotFoundUdn":"Sin resultados"
+            "NotFoundUdn":"Sin resultados",
+            "InvalidUDN":"Selecciona una UDN"
         },
 
         "Transport":{
