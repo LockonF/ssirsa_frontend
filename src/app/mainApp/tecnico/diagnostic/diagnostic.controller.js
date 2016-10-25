@@ -9,7 +9,7 @@
         .module('app.mainApp.tecnico')
         .controller('DiagnosticController', DiagnosticController);
 
-    function DiagnosticController(Cabinet,cabinet, OPTIONS, toastr,$scope, Translate, Helper, Upload, EnvironmentConfig, OAuthToken) {
+    function DiagnosticController(Cabinet,cabinet, OPTIONS, toastr,$scope, Translate,$mdDialog, Helper, Upload, EnvironmentConfig, OAuthToken) {
         var vm = this;
         vm.diagnostico = {};
         vm.cabinets = null;
@@ -52,7 +52,8 @@
             });
         }
         function cerrar(){
-            $mdDialog.hide();
+            console.log("voy a cerrar");
+            $mdDialog.cancel();
         }
         function clear() {
             if(cabinet){
