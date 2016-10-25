@@ -122,7 +122,8 @@
             "ErrorNormal":"Error al registrar la entrada",
             "ErrorCabinet":"El cabinet ya ha sido añadido",
             "NotFoundCabinet":"Cabinet no encontrado",
-            "NotFoundUdn":"Sin resultados"
+            "NotFoundUdn":"Sin resultados",
+            "InvalidUDN":"Selecciona una UDN"
         },
 
         "Transport":{
@@ -226,10 +227,14 @@
                 "TYPE":"Tipo:",
                 "CABINET":"Cabinets disponibles",
                 "NOT_FOUND":"No hay cabinets que puedan ser procesables.",
-                "SEARCH":"Búsqueda"
+                "SEARCH":"Búsqueda",
+                "FORMAT":"Formato",
+                "TYPE_OUTPUT":"Tipo de Salida",
+                "SELECT":"Selecciona",
+                "VALID_UDN":"No ingreso una UDN válida"
             },
             "BUTTON":{
-                "CHOOSE_FILE": "Seleccionar Archivo",
+                "CHOOSE_FILE": "Seleccionar",
                 "CHOOSE_IMAGE": "Seleccionar Imagen",
                 "NEXT": "Siguiente",
                 "CABINETS.MASSIVE.UPLOAD": "Carga masiva",
@@ -237,7 +242,8 @@
             },
             "DIALOG":{
                 "SEND_TITLE":"Confirmación de envío",
-                "SEND_MESSAGE":"¿Seguro que desea crear una salida sin ningún cabinet seleccionado?"
+                "SEND_MESSAGE":"¿Seguro que desea crear una salida sin ningún cabinet seleccionado?",
+                "SEND_INCONSISTENCE":"¿Seguro que de realizar la siguiente operación?, debido a que es una operación que sale fuera del flujo normal no se garantiza que sean consistentes los datos del cabinet"
             }
         }
     }

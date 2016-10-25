@@ -11,39 +11,64 @@
                         <form name="entradaForm" novalidate="">
                             <div layout-gt-md="row" layout="column" layout-align-gt-md="center center"
                                  layout-align="center stretch">
-                                <md-input-container flex="80" flex-sm="100" flex-xs="100" class="md-block">
-                                    <label>{{'OUTPUT.FORM.LABEL.DRIVER.NAME'|translate}}</label>
-                                    <input name="DriverName" md-no-asterisk="" required="" type="text"
-                                           md-maxlength="100"
-                                           ng-model="vm.salida.nombre_chofer"/>
-                                    <div ng-messages="entradaForm.DriverName.$error">
+                                <md-input-container flex="100" class="md-block">
+                                    <label>{{'OUTPUT.FORM.LABEL.TYPE_OUTPUT'|translate}}</label>
+                                    <md-select name="selectOutKind" ng-model="vm.selectedEntrada" required="" ng-change="vm.changeType()">
+                                        <md-option ng-repeat="option in vm.types" ng-value="option.id">{{option.value}}
+                                        </md-option>
+                                    </md-select>
+                                    <div ng-messages="entradaForm.selectOutKind.$error">
                                         <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                     </div>
                                 </md-input-container>
-                                <md-input-container flex="20" flex-sm="100" flex-xs="100" class="md-block">
-                                    <label>{{'OUTPUT.FORM.LABEL.PEDIMENT'|translate}}</label>
-                                    <input name="Pediment" md-no-asterisk="" required="" type="text"
-                                           md-maxlength="100"
-                                           ng-model="vm.salida.pedimento"/>
-                                    <div ng-messages="entradaForm.Pediment.$error">
-                                        <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
-                                    </div>
-                                </md-input-container>
+                                </div>
+                            <div layout-gt-md="row" layout="column" layout-align-gt-md="center center"
+                                 layout-align="center stretch">
+                                <div flex="100" class="md-inline-form">
+                                    <md-autocomplete md-selected-item="vm.salida.udn"
+                                                     md-selected-item-change="vm.selectedItemChange(vm.salida.udn)"
+                                                     md-items="item in vm.search_items" md-item-text="item.agencia"
+                                                     md-min-length="1"
+                                                     md-input-name="selectUDN"
+                                                     md-search-text-change="vm.lookupUDN(vm.searchText)"
+                                                     required
+                                                     md-input-id="udn"
+                                                     md-search-text="vm.searchText"
+                                                     md-menu-class="autocomplete-custom-template"
+                                                     md-require-match="true"
+                                                     md-floating-label="{{'OUTPUT.FORM.LABEL.UDN'| translate}}">
+                                        <md-item-template>
+                                        <span class="item-title">
+                                            <md-icon md-font-icon="zmdi zmdi-truck"></md-icon><span>{{item.zona}} -
+                                            {{item.agencia}}</span></span>
+                                        </md-item-template>
+                                        <div ng-messages="entradaForm.selectUDN.$error" ng-if="entradaForm.selectUDN.$touched">
+                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                            <div class="validate" ng-show="!vm.isValid" ng-class="{'slide':vm.isValid==false}">
+                                                <span>{{'OUTPUT.FORM.LABEL.VALID_UDN'| translate}}</span>
+                                            </div>
+                                        </div>
+                                    </md-autocomplete>
+
+                                </div>
+
                             </div>
                             <div layout="row" layout-sm="column" layout-xs="column" layout-align="center center"
                                  layout-align-sm="center stretch" layout-align-xs="center stretch">
+
                                 <md-input-container flex="100" class="md-block">
-                                    <label>{{'OUTPUT.FORM.LABEL.UDN'|translate}}</label>
-                                    <md-select name="selectUDN" ng-model="vm.salida.udn" required="" md-no-asterisk="">
-                                        <md-option ng-repeat="udn in vm.udns" ng-value="udn.id">{{udn.zona}} -
-                                            {{udn.agencia}}
+                                    <label>{{'OUTPUT.FORM.LABEL.SUBSIDIARY'|translate}}</label>
+                                    <md-select name="selectSubsidiary" ng-model="vm.salida.sucursal" required=""
+                                               md-no-asterisk="">
+                                        <md-option ng-repeat="sucursal in vm.Sucursales" ng-value="sucursal.id">
+                                            {{sucursal.nombre}}
                                         </md-option>
                                     </md-select>
-                                    <div ng-messages="entradaForm.selectUDN.$error">
+                                    <div ng-messages="entradaForm.selectSubsidiary.$error">
                                         <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                     </div>
                                 </md-input-container>
-                                <md-input-container flex="100" class="md-block">
+                                <md-input-container flex="100" class="md-inline-form">
                                     <label>{{'OUTPUT.FORM.LABEL.TRANSPORT.LINE'|translate}}</label>
                                     <md-select name="selectTransportLine" ng-model="vm.salida.linea_transporte"
                                                required="" md-no-asterisk="">
@@ -55,7 +80,7 @@
                                         <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                     </div>
                                 </md-input-container>
-                                <md-input-container flex="100" class="md-block">
+                                <md-input-container flex="100" class="md-inline-form">
                                     <label>{{'OUTPUT.FORM.LABEL.TRANSPORT.KIND'|translate}}</label>
                                     <md-select name="selectTransportKind" ng-model="vm.salida.tipo_transporte"
                                                required="" md-no-asterisk="">
@@ -70,27 +95,12 @@
                             </div>
                             <div layout="row" layout-sm="column" layout-xs="column" layout-align="center center"
                                  layout-align-sm="center stretch" layout-align-xs="center stretch">
-                                <md-input-container flex="100" class="md-block">
-                                    <label>{{'OUTPUT.FORM.LABEL.SUBSIDIARY'|translate}}</label>
-                                    <md-select name="selectSubsidiary" ng-model="vm.salida.sucursal" required=""
-                                               md-no-asterisk="">
-                                        <md-option ng-repeat="sucursal in vm.Sucursales" ng-value="sucursal.id">
-                                            {{sucursal.nombre}}
-                                        </md-option>
-                                    </md-select>
-                                    <div ng-messages="entradaForm.selectSubsidiary.$error">
-                                        <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
-                                    </div>
-                                </md-input-container>
-                                <md-input-container flex="100" class="md-block">
-                                    <label>{{'OUTPUT.FORM.LABEL.PROJECT'|translate}}</label>
-                                    <md-select name="selectProject" ng-model="vm.salida.proyecto" required=""
-                                               md-no-asterisk="">
-                                        <md-option ng-repeat="proyecto in vm.Proyectos" ng-value="proyecto.id">
-                                            {{proyecto.descripcion}}
-                                        </md-option>
-                                    </md-select>
-                                    <div ng-messages="entradaForm.selectProject.$error">
+                                <md-input-container flex="100" flex-sm="100" flex-xs="100" class="md-block">
+                                    <label>{{'OUTPUT.FORM.LABEL.DRIVER.NAME'|translate}}</label>
+                                    <input name="DriverName" md-no-asterisk="" required="" type="text"
+                                           md-maxlength="100"
+                                           ng-model="vm.salida.nombre_chofer"/>
+                                    <div ng-messages="entradaForm.DriverName.$error">
                                         <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                     </div>
                                 </md-input-container>
@@ -115,7 +125,7 @@
                             </div>
                         </form>
                         <div layout="row" layout-align="end center">
-                            <md-button ng-click="vm.nextTab()" ng-disabled="entradaForm.$invalid"
+                            <md-button ng-click="vm.nextTab()" ng-disabled="entradaForm.$invalid || !vm.isValid"
                                        class="md-raised md-primary">{{'OUTPUT.FORM.BUTTON.NEXT'|translate}}
                             </md-button>
 
@@ -123,7 +133,8 @@
                     </md-content>
                 </md-tab>
                 <!--Registro de cabinets-->
-                <md-tab label={{'OUTPUT.FORM.TABS.UPLOAD'|translate}} ng-disabled="entradaForm.$invalid">
+                <!--<md-tab label={{'OUTPUT.FORM.TABS.UPLOAD'|translate}} ng-disabled="entradaForm.$invalid">-->
+                <md-tab label={{'OUTPUT.FORM.TABS.UPLOAD'|translate}}>
                     <md-content layout-padding="">
                         <div layout-gt-md="row" layout="column" layout-align-gt-md="space-around center"
                              layout-align="center stretch">
@@ -142,11 +153,17 @@
                                     <input name="FileName" type="text" ng-model="vm.salida.file.name"
                                            ng-disabled="true"/>
                                 </md-input-container>
-                                <div flex="25" flex-sm="100" flex-xs="100" flex-md="100" layout="column">
+                                <div flex="12" flex-sm="100" flex-xs="100" flex-md="100" layout="column">
                                     <md-button ngf-select="vm.selectionFile($files)"
                                                accept=".xlsx, application/vnd.ms-excel" ng-model="vm.salida.file"
                                                class="md-primary md-raised">
                                         {{'OUTPUT.FORM.BUTTON.CHOOSE_FILE'|translate}}
+                                    </md-button>
+
+                                </div>
+                                <div flex="12" flex-sm="100" flex-xs="100" flex-md="100" layout="column">
+                                    <md-button ng-href="https://goo.gl/vZHNyv" target="_blank">
+                                        {{'OUTPUT.FORM.LABEL.FORMAT'|translate}}
                                     </md-button>
                                 </div>
                             </div>
@@ -189,15 +206,19 @@
                         </div>
                         <div ng-hide="vm.hideManualUpload">
                             <div layout="row" layout-sm="column" layout-xs="column" layout-md="column" flex="100"
-                                 layout-align="center center">
+                                 layout-align="center center"
+                                 layout-align-sm="center stretch"
+                                 layout-align-xs="center stretch">
                                 <md-input-container class="md-inline-form" flex="50" flex-sm="100" flex-xs="100">
                                     <label>{{'OUTPUT.FORM.PLACEHOLDER.SEARCH'|translate}}</label>
                                     <input type="text" ng-model="vm.economicoFilter"/>
                                 </md-input-container>
-                                <md-input-container class="md-inline-form" id="salidaSelect" flex="50" flex-sm="100" flex-xs="100">
+                                <md-input-container class="md-inline-form md-block" id="salidaSelect" flex="50" flex-sm="100"
+                                                    flex-xs="100">
                                     <md-select ng-model="vm.filtroTipo"
                                                placeholder="{{'OUTPUT.FORM.PLACEHOLDER.TYPE_EQUIPMENT'|translate}}"
                                     >
+                                        <md-option ng-value="">{{'OUTPUT.FORM.PLACEHOLDER.TYPE_EQUIPMENT'|translate}}</md-option>
                                         <md-option ng-repeat="tipo in vm.tipoEquipos" ng-value="tipo.id">{{tipo.nombre}}
                                         </md-option>
                                     </md-select>
@@ -214,8 +235,9 @@
                                     <tri-widget class="flex" flex="100"
                                                 title="{{'OUTPUT.FORM.LABEL.CABINET'|translate}}">
                                         <md-list flex>
-                                            <md-list-item ng-repeat="cabinet in vm.cabinetsEntrada | salidaSearch:vm.economicoFilter  | tipoequipoSearch:vm.filtroTipo:vm.tipoEquipos:vm.modelos"
-                                                          class="md-2-line"
+                                            <md-list-item
+                                                ng-repeat="cabinet in vm.cabinetsEntrada | salidaSearch:vm.economicoFilter  | tipoequipoSearch:vm.filtroTipo:vm.tipoEquipos:vm.modelos"
+                                                class="md-2-line"
                                             >
                                                 <div layout-padding layout="row"
                                                      layout-align="start center">

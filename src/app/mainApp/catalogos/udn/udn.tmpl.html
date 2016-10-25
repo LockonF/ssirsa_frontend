@@ -32,35 +32,35 @@
                 <form name="inputForm">
                     <md-input-container class="md-block">
                         <label>{{ 'UDN_CATALOG.zone' | translate }}</label>
-                        <input type="text" name="zona" ng-model="vm.udn.zona" ng-required="true"/>
+                        <input type="text" name="zona" ng-model="vm.selected_udn.zona" ng-required="true"/>
                         <div ng-messages="inputForm.zona.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>{{ 'UDN_CATALOG.agency' | translate }}</label>
-                        <input type="text" name="agencia" ng-model="vm.udn.agencia" ng-required="true"/>
+                        <input type="text" name="agencia" ng-model="vm.selected_udn.agencia" ng-required="true"/>
                         <div ng-messages="inputForm.agencia.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>{{ 'UDN_CATALOG.center' | translate }}</label>
-                        <input type="text" name="centro" ng-model="vm.udn.centro" ng-required="true"/>
+                        <input type="text" name="centro" ng-model="vm.selected_udn.centro" ng-required="true"/>
                         <div ng-messages="inputForm.centro.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>{{ 'UDN_CATALOG.address' | translate }}</label>
-                        <input type="text" name="centro" ng-model="vm.udn.direccion" ng-required="true"/>
+                        <input type="text" name="centro" ng-model="vm.selected_udn.direccion" ng-required="true"/>
                         <div ng-messages="inputForm.direccion.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>{{ 'UDN_CATALOG.phone' | translate }}</label>
-                        <input type="text" name="telefono" ng-model="vm.udn.telefono" ng-required="true"/>
+                        <input type="text" name="telefono" ng-model="vm.selected_udn.telefono" ng-required="true"/>
                         <div ng-messages="inputForm.telefono.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>
@@ -68,13 +68,13 @@
                 </form>
                 <div flex="flex" layout="row" layout-align="end end">
                     <md-button aria-label="fab button" ng-click="vm.cancel()" class="md-raised md-primary"><md-icon md-font-icon="fa fa-eraser"></md-icon></md-button>
-                    <md-button ng-if="vm.udn.id!=null &amp;&amp; vm.udn.id!=undefined" ng-disabled="inputForm.$invalid" ng-click="vm.update()" class="md-raised md-primary">
+                    <md-button ng-if="vm.selected_udn.id!=null &amp;&amp; vm.selected_udn.id!=undefined" ng-disabled="inputForm.$invalid" ng-click="vm.update()" class="md-raised md-primary">
                         <md-icon md-font-icon="fa fa-pencil"></md-icon>
                     </md-button>
-                    <md-button ng-if="vm.udn.id==null || vm.udn.id==undefined" ng-disabled="inputForm.$invalid" ng-click="vm.create()" class="md-raised md-primary">
+                    <md-button ng-if="vm.selected_udn.id==null || vm.selected_udn.id==undefined" ng-disabled="inputForm.$invalid" ng-click="vm.create()" class="md-raised md-primary">
                         <md-icon md-font-icon="fa fa-save"></md-icon>
                     </md-button>
-                    <md-button ng-if="vm.udn.id!=null &amp;&amp; vm.udn.id!=undefined" ng-click="vm.remove()" class="md-raised md-warn">
+                    <md-button ng-if="vm.selected_udn.id!=null &amp;&amp; vm.selected_udn.id!=undefined" ng-click="vm.remove()" class="md-raised md-warn">
                         <md-icon md-font-icon="fa fa-trash"></md-icon>
                     </md-button>
                 </div>

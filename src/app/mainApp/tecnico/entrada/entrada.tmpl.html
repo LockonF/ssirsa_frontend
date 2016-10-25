@@ -84,6 +84,7 @@
                                                          md-search-text-change="vm.search(vm.searchText)"
                                                          md-search-text="vm.searchText"
                                                          md-menu-class="autocomplete-custom-template"
+                                                         md-require-match="true"
                                                          md-floating-label="{{'INPUT.UDN'|translate}}">
                                             <span
                                                     md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.agencia}}</span>
@@ -103,6 +104,9 @@
                                         </md-autocomplete>
                                         <div ng-messages="entradaForm.selectUDN.$error">
                                             <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
+                                            <div class="validate" ng-show="!vm.isValid" ng-class="{'slide':vm.isValid==false}">
+                                                <span>{{'INPUT.Messages.InvalidUDN'| translate}}</span>
+                                            </div>
                                         </div>
                                     </div>
                                     <md-input-container flex="100"
