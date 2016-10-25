@@ -8,7 +8,7 @@
         .module('app.mainApp.inventario')
         .controller('cabinetController', cabinetController);
 
-    function cabinetController(Translate, OPTIONS, MarcaCabinet, ModeloCabinet, udn, Cabinet, toastr, $scope, EntradaSalida) {
+    function cabinetController(Translate, OPTIONS, MarcaCabinet, ModeloCabinet, udn, Cabinet, toastr, $scope, EntradaSalida, Helper) {
         var vm = this;
         vm.newCabinet = true;
         vm.marcas_cabinet = null;
@@ -31,7 +31,7 @@
             no_serie: null,
             tipo_entrada: 'manual',
             year: null,
-            no_incidencias: 1,
+            no_incidencias: null,
             linea_x: null,
             linea_y: null,
             linea_z: null,
@@ -71,7 +71,12 @@
 
         function activate() {
             vm.udns = udn.list();
-            vm.marcas_cabinet = MarcaCabinet.list();
+            MarcaCabinet.listObject().then(function(res){
+                vm.marcas_cabinet = Helper.sortByAttribute(res,'descripcion');
+                vm.marcas_cabinet = Helper.filterDeleted(vm.marcas_cabinet,true);
+            }).catch(function(err){
+
+            });
 
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
@@ -93,9 +98,13 @@
             vm.cabinet_list = null;
             vm.modelos_resolver = false;
             vm.modelos_cabinet = null;
+
+
             MarcaCabinet.getModels(marca.id).then(function (res) {
                 vm.modelos_resolver = true;
-                vm.modelos_cabinet = res;
+
+                vm.modelos_cabinet = Helper.sortByAttribute(res,'nombre');
+                vm.modelos_cabinet = Helper.filterDeleted(vm.modelos_cabinet,true);
             }).catch(function (err) {
                 vm.modelos_resolver = true;
             });
@@ -111,7 +120,7 @@
             vm.modelos_cabinet = null;
             vm.selected_cabinet.modelo = null;
             MarcaCabinet.getModels(vm.chosen_marca_cabinet).then(function (res) {
-                vm.modelos_choice_resolver = true;
+                vm.modelos_choice_resolver = false;
                 vm.modelos_choice_cabinet = res;
             }).catch(function (err) {
                 vm.modelos_choice_resolver = true;
@@ -120,9 +129,23 @@
 
 
         function selectedItemChange(cabinet) {
+            $scope.inputForm.$setPristine();
+            $scope.inputForm.$setUntouched();
+
             vm.newCabinet = false;
             vm.selected_cabinet = cabinet.clone();
             vm.modelos_choice_resolver = false;
+
+            if(vm.selected_cabinet.deleted)
+            {
+                MarcaCabinet.listObject().then(function(res){
+                    vm.marcas_cabinet  = res;
+                }).catch(function(err){
+
+                });
+            }
+
+
             ModeloCabinet.marca(vm.selected_cabinet.modelo).then(function (res) {
                 vm.chosen_marca_cabinet = res.id;
                 MarcaCabinet.getModels(vm.chosen_marca_cabinet).then(function (res) {
@@ -188,9 +211,12 @@
 
         function cancel() {
             $scope.inputForm.$setPristine();
+            $scope.inputForm.$setUntouched();
+
             vm.newCabinet = true;
             vm.chosen_marca_cabinet = null;
             vm.selected_cabinet = _.clone(vm.blank_selected_cabinet);
+            activate()
         }
 
 

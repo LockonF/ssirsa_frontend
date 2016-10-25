@@ -16,7 +16,8 @@
             get: get,
             create:create,
             getModels:getModels,
-            listPromise:listPromise
+            listPromise:listPromise,
+            listObject:listObject
         };
         function get(id) {
             return baseMarca.get(id);
@@ -28,6 +29,10 @@
 
         function list(){
             return baseMarca.getList().$object;
+        }
+
+        function listObject(){
+            return baseMarca.getList();
         }
 
         function update(object)
