@@ -24,6 +24,8 @@
         vm.lookupUDN = lookupUDN;
         vm.selection = selection;
         vm.changeType=changeType;
+        vm.selectedItemChange=selectedItemChange;
+
 
         activate();
 
@@ -39,6 +41,7 @@
         vm.selectedCabinets = [];
         vm.loading = true;
         vm.types=OPTIONS.type_out;
+        vm.isValid=false;
         //Models
 
         vm.cabinets = null;
@@ -116,12 +119,27 @@
                         .ok(vm.submitButton)
                         .cancel(vm.cancelButton);
                     $mdDialog.show(confirm).then(function () {
-                        entradaManual(fd);
+                            entradaManual(fd);
                     }, function () {
 
                     });
                 } else {
-                    entradaManual(fd);
+                    if(vm.selectedEntrada>=2 && vm.selectedEntrada<=4){
+                        var confirms = $mdDialog.confirm()
+                            .title(vm.dialogTitle)
+                            .textContent(vm.dialogSureMessage)
+                            .ariaLabel('Confirmar envío')
+                            .ok(vm.submitButton)
+                            .cancel(vm.cancelButton);
+                        $mdDialog.show(confirms).then(function () {
+                            entradaManual(fd);
+                        }, function () {
+
+                        });
+                    }else{
+                        entradaManual(fd);
+                    }
+
                 }
 
             }
@@ -141,6 +159,7 @@
         }
 
         function entradaManual(fd) {
+
             EntradaSalida.postEntrada(fd).then(function (res) {
                 var request = {
                     entrada_salida: res.id,
@@ -203,6 +222,9 @@
                     economico: cabinet.economico
                 });
             }
+        }
+        function selectedItemChange(item) {
+            vm.isValid =angular.isObject(item);
         }
 
         function selectionFile($files) {
@@ -270,6 +292,7 @@
             vm.cancelButton = Translate.translate('MAIN.BUTTONS.CANCEL');
             vm.dialogTitle = Translate.translate('OUTPUT.FORM.DIALOG.SEND_TITLE');
             vm.dialogMessage = Translate.translate('OUTPUT.FORM.DIALOG.SEND_MESSAGE');
+            vm.dialogSureMessage = Translate.translate('OUTPUT.FORM.DIALOG.SEND_INCONSISTENCE');
         }
 
         function showMassiveUpload() {
@@ -292,6 +315,8 @@
             vm.selectedCabinets = [];
             vm.hideMassiveUpload = true;
             vm.hideManualUpload = true;
+            vm.searchText=null;
+            vm.selectedEntrada=0;
         }
 
         function showManualUpload() {
@@ -317,17 +342,24 @@
         }
 
         function lookup(search_text) {
-            vm.search_items = _.filter(vm.cabinetsEntrada, function (item) {
-                return item.economico.toLowerCase().indexOf(search_text.toLowerCase()) >= 0;
-            });
-            return vm.search_items;
+            if(!angular.isUndefined(search_text)) {
+                vm.search_items = _.filter(vm.cabinetsEntrada, function (item) {
+                    return item.economico.toLowerCase().indexOf(search_text.toLowerCase()) >= 0;
+                });
+                return vm.search_items;
+            }
         }
 
         function lookupUDN(search_text) {
-            vm.search_items = _.filter(vm.udns, function (item) {
-                return item.zona.toLowerCase().includes(search_text.toLowerCase()) || item.agencia.toLowerCase().includes(search_text.toLowerCase());
-            });
-            return vm.search_items;
+            if(!angular.isUndefined(search_text)) {
+                vm.search_items = _.filter(vm.udns, function (item) {
+                    return item.zona.toLowerCase().includes(search_text.toLowerCase()) || item.agencia.toLowerCase().includes(search_text.toLowerCase());
+                });
+
+                vm.isValid = !((vm.search_items.length == 0 && search_text.length > 0)||(search_text.length > 0 && !angular.isObject(vm.salida.udn)));
+                return vm.search_items;
+            }
+
         }
 
 

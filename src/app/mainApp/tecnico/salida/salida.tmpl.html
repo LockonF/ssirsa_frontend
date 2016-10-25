@@ -35,14 +35,18 @@
                                                      md-input-id="udn"
                                                      md-search-text="vm.searchText"
                                                      md-menu-class="autocomplete-custom-template"
+                                                     md-require-match="true"
                                                      md-floating-label="{{'OUTPUT.FORM.LABEL.UDN'| translate}}">
                                         <md-item-template>
                                         <span class="item-title">
                                             <md-icon md-font-icon="zmdi zmdi-truck"></md-icon><span>{{item.zona}} -
                                             {{item.agencia}}</span></span>
                                         </md-item-template>
-                                        <div ng-messages="entradaForm.selectUDN.$error">
+                                        <div ng-messages="entradaForm.selectUDN.$error" ng-if="entradaForm.selectUDN.$touched">
                                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                            <div class="validate" ng-show="!vm.isValid" ng-class="{'slide':vm.isValid==false}">
+                                                <span>{{'OUTPUT.FORM.LABEL.VALID_UDN'| translate}}</span>
+                                            </div>
                                         </div>
                                     </md-autocomplete>
 
@@ -121,7 +125,7 @@
                             </div>
                         </form>
                         <div layout="row" layout-align="end center">
-                            <md-button ng-click="vm.nextTab()" ng-disabled="entradaForm.$invalid"
+                            <md-button ng-click="vm.nextTab()" ng-disabled="entradaForm.$invalid || !vm.isValid"
                                        class="md-raised md-primary">{{'OUTPUT.FORM.BUTTON.NEXT'|translate}}
                             </md-button>
 
