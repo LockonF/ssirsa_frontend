@@ -16,6 +16,7 @@
         vm.isGarantia = false;
         vm.isPedimento = false;
         vm.searchText = "";
+        vm.isValid=false;
 
         vm.guardar = guardar;
         vm.limpiar = limpiar;
@@ -31,8 +32,8 @@
         vm.showCabinetDialog = showCabinetDialog;
         vm.addCabinet = addCabinet;
         vm.removeNotFoundCabinet = removeNotFoundCabinet;
-        vm.querySearch = querySearch;
         vm.selectedItemChange = selectedItemChange;
+        vm.search=search;
 
         vm.options = ["Nuevos", "Garantías"];
         vm.selectedEntrada = null;
@@ -447,28 +448,20 @@
             });
         }
 
-        function querySearch(query) {
-            var results = query ? search(query) : vm.udns;
-            return results;
-
-        }
-
         function search(text) {
             //if(text.length>0) {
-            vm.filteredUDN = _.filter(vm.udns, function (item) {
-                return item.agencia.toLowerCase().startsWith(text.toLowerCase());
-            });
-            //}
-            return vm.filteredUDN;
+            if(!angular.isUndefined(text)) {
+                vm.filteredUDN = _.filter(vm.udns, function (item) {
+                    return item.agencia.toLowerCase().startsWith(text.toLowerCase()) || item.zona.toLowerCase().startsWith(text.toLowerCase());
+                });
+                //}
+                vm.isValid = !((vm.filteredUDN.length == 0 && text.length > 0) || (text.length > 0 && !angular.isObject(vm.entrada.udn)));
+                return vm.filteredUDN;
+            }
         }
 
         function selectedItemChange(item) {
-            if (item != null) {
-                vm.entrada.udn = angular.copy(item);
-
-            } else {
-
-            }
+            vm.isValid =angular.isObject(item);
         }
 
 

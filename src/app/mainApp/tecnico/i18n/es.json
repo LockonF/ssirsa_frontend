@@ -114,6 +114,7 @@
         "Create Brand":"Registrar marca",
         "Create Model":"Registrar modelo",
         "CabinetID":"Id del cabinet",
+        "Format":"Plantilla",
         "Messages":{
             "SuccessMassive":"Carga masiva registrada correctamente",
             "SuccessNormal":"Entrada registrada correctamente",

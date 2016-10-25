@@ -69,25 +69,18 @@
                                             flex="100"
                                             class="md-block"
                                             ng-if="vm.selectedEntrada === 'Garantías'">
-                                        <!--<md-select name="selectUDN" ng-model="vm.entrada.udn" required=""
-                                                   md-no-asterisk="">
-                                            <md-option ng-repeat="udn in vm.udns" value="{{udn.id}}">{{udn.zona}} -
-                                                {{udn.agencia}}
-                                            </md-option>
-                                        </md-select>-->
-                                        <md-autocomplete md-selected-item="vm.selectedUdn"
-                                                         name="selectUDN"
-                                                         md-selected-item-change="vm.selectedItemChange(vm.selectedUdn)"
-                                                         md-items="item in vm.querySearch(vm.searchText)"
-                                                         md-item-text="vm.selectedUdn.agencia"
-                                                         md-min-length="0"
+                                        <md-autocomplete md-selected-item="vm.entrada.udn"
+                                                         md-selected-item-change="vm.selectedItemChange(vm.entrada.udn)"
+                                                         md-items="item in vm.filteredUDN" md-item-text="item.agencia"
+                                                         md-min-length="1"
+                                                         md-input-name="selectUDN"
                                                          md-search-text-change="vm.search(vm.searchText)"
+                                                         required
+                                                         md-input-id="udn"
                                                          md-search-text="vm.searchText"
                                                          md-menu-class="autocomplete-custom-template"
                                                          md-require-match="true"
-                                                         md-floating-label="{{'INPUT.UDN'|translate}}">
-                                            <span
-                                                    md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.agencia}}</span>
+                                                         md-floating-label="{{'INPUT.UDN'| translate}}">
                                             <md-item-template>
                                                     <span class="item-title">
                                                         <md-icon md-font-icon="zmdi zmdi-city"></md-icon>
@@ -99,15 +92,14 @@
                                                         </span>
                                                     </span>
                                             </md-item-template>
-                                            <md-not-found><span translate="INPUT.Messages.NotFoundUdn"></span>
-                                            </md-not-found>
-                                        </md-autocomplete>
-                                        <div ng-messages="entradaForm.selectUDN.$error">
-                                            <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
-                                            <div class="validate" ng-show="!vm.isValid" ng-class="{'slide':vm.isValid==false}">
-                                                <span>{{'INPUT.Messages.InvalidUDN'| translate}}</span>
+                                            <md-not-found><span translate="INPUT.Messages.NotFoundUdn"></span></md-not-found>
+                                            <div ng-messages="entradaForm.selectUDN.$error" ng-if="entradaForm.selectUDN.$touched">
+                                                <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
+                                                <div class="validate" ng-show="!vm.isValid" ng-class="{'slide':vm.isValid==false}">
+                                                    <span>{{'INPUT.Messages.InvalidUDN'| translate}}</span>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </md-autocomplete>
                                     </div>
                                     <md-input-container flex="100"
                                                         class="md-block"
