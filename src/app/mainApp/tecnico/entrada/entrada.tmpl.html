@@ -65,7 +65,7 @@
                                 </div>
                                 <div layout="row" layout-sm="column" layout-xs="column" layout-align="center center"
                                      layout-align-sm="center stretch" layout-align-xs="center stretch">
-                                    <md-input-container
+                                    <div
                                             flex="100"
                                             class="md-block"
                                             ng-if="vm.selectedEntrada === 'Garantías'">
@@ -104,7 +104,7 @@
                                         <div ng-messages="entradaForm.selectUDN.$error">
                                             <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
                                         </div>
-                                    </md-input-container>
+                                    </div>
                                     <md-input-container flex="100"
                                                         class="md-block"
                                                         ng-if="vm.selectedEntrada ==='Nuevos' || vm.selectedEntrada === 'Garantías'">
@@ -236,11 +236,11 @@
                                      layout-align-gt-xs="space-around center"
                                      layout-align="space-around stretch"
                                      layout="column">
-                                    <div layout="column">
-                                        <md-button class="md-raised md-primary" ng-click="vm.showMarcaDialog(ev)">
+                                    <div layout="column" layout-gt-sm="row" layout-align="center center" layout-align-gt-sm="space-around center">
+                                        <md-button class="md-raised md-primary" ng-click="vm.showMarcaDialog(ev)" flex="flex" flex-gt-sm="100">
                                             {{'INPUT.Create Brand'|translate}}
                                         </md-button>
-                                        <md-button class="md-raised md-primary" ng-click="vm.showModeloDialog(ev)">
+                                        <md-button class="md-raised md-primary" ng-click="vm.showModeloDialog(ev)" flex="flex" flex-gt-sm="100">
                                             {{'INPUT.Create Model'|translate}}
                                         </md-button>
                                     </div>
@@ -265,11 +265,9 @@
                                         <table md-table="" md-row-select="" multiple="" ng-disabled="true">
                                             <thead md-head="">
                                             <tr md-row="">
-                                                <th md-column="">{{'INPUT.TableCabinets.Headers.Economic
-                                                    Num.'|translate}}
+                                                <th md-column="">{{'INPUT.TableCabinets.Headers.EconomicNum'|translate}}
                                                 </th>
-                                                <th md-column="">{{'INPUT.TableCabinets.Headers.Serial
-                                                    Num.'|translate}}
+                                                <th md-column="">{{'INPUT.TableCabinets.Headers.SerialNum'|translate}}
                                                 </th>
                                                 <th md-column="">{{'INPUT.TableCabinets.Headers.Brand'|translate}}</th>
                                                 <th md-column="">{{'INPUT.TableCabinets.Headers.Model'|translate}}</th>
@@ -304,10 +302,9 @@
                                         <table md-table="" md-row-select="" multiple="" ng-disabled="true">
                                             <thead md-head="">
                                             <tr md-row="">
-                                                <th md-column="">{{'INPUT.TableCabinets.Headers.Economic
-                                                    Num'|translate}}
+                                                <th md-column="">{{'INPUT.TableCabinets.Headers.EconomicNum'|translate}}
                                                 </th>
-                                                <th md-column="">{{'INPUT.TableCabinets.Headers.Serial Num'|translate}}
+                                                <th md-column="">{{'INPUT.TableCabinets.Headers.SerialNum'|translate}}
                                                 </th>
                                                 <th md-column="">{{'INPUT.TableCabinets.Headers.Brand'|translate}}</th>
                                                 <th md-column="">{{'INPUT.TableCabinets.Headers.Model'|translate}}</th>
@@ -326,11 +323,11 @@
                                     </md-table-container>
                                 </div>
                                 <div flex="" layout="column" ng-if="vm.notFoundCabinets.length > 0">
-                                    <div layout="column">
-                                        <md-button class="md-raised md-primary" ng-click="vm.showMarcaDialog(ev)">
+                                    <div layout="column" layout-gt-sm="row" layout-align="center center" layout-align-gt-sm="space-around center">
+                                        <md-button class="md-raised md-primary" ng-click="vm.showMarcaDialog(ev)" flex="flex" flex-gt-sm="100">
                                             {{'INPUT.Create Brand'|translate}}
                                         </md-button>
-                                        <md-button class="md-raised md-primary" ng-click="vm.showModeloDialog(ev)">
+                                        <md-button class="md-raised md-primary" ng-click="vm.showModeloDialog(ev)" flex="flex" flex-gt-sm="100">
                                             {{'INPUT.Create Model'|translate}}
                                         </md-button>
                                     </div>

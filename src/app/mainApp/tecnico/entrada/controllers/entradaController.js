@@ -173,7 +173,6 @@
                 fd.append('file', vm.entrada.file);
                 if (vm.entrada.id == null) {
                     EntradaSalida.postEntradaMasiva(fd).then(function (res) {
-                        console.log(res);
                         vm.entrada.id=res.id;
                         vm.entrada.creados = res.creados;
                         vm.entrada.no_creados = res.no_creados;
@@ -188,7 +187,10 @@
                             //limpiar();
                         }
                     }).catch(function (err) {
-                        console.log(err);
+                        if(err.data.no_creados.length>0) {
+                            //console.log(err)
+                            vm.entrada.no_creados = err.no_creados;
+                        }
                         toastr.error(vm.errorMassive, vm.errorTitle);
                     });
                 }
@@ -210,7 +212,10 @@
                             //limpiar();
                         }
                     }).catch(function (err) {
-                        console.log(err);
+                        if(err.data.no_creados.length>0) {
+                            //console.log(err)
+                            vm.entrada.no_creados = err.no_creados;
+                        }
                         toastr.error(vm.errorMassive, vm.errorTitle);
                     });
                 }

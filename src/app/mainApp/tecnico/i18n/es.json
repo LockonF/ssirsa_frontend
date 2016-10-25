@@ -105,8 +105,8 @@
         "Project":"Proyecto",
         "Upload Image":"Carga de Imagen",
         "Pediment":"Pedimento",
-        "Cabinets Massive Upload":"Carga masiva de cabinets",
-        "Cabinets Manual Upload":"Carga individual de cabinets",
+        "Cabinets Massive Upload":"Carga masiva",
+        "Cabinets Manual Upload":"Carga individual",
         "Choose File":"Seleccionar Archivo",
         "Choose Image":"Seleccionar Imagen",
         "Upload File":"Cargar Archivo",
@@ -137,8 +137,8 @@
         },
         "TableCabinets": {
             "Headers": {
-                "Economic Num": "No. Economico",
-                "Serial Num": "No. de Serie",
+                "EconomicNum": "No. Economico",
+                "SerialNum": "No. de Serie",
                 "Brand": "Marca",
                 "Model": "Modelo"
             }
@@ -232,8 +232,8 @@
                 "CHOOSE_FILE": "Seleccionar Archivo",
                 "CHOOSE_IMAGE": "Seleccionar Imagen",
                 "NEXT": "Siguiente",
-                "CABINETS.MASSIVE.UPLOAD": "Carga masiva de cabinets",
-                "CABINETS.MANUAL.UPLOAD": "Carga individual de cabinets"
+                "CABINETS.MASSIVE.UPLOAD": "Carga masiva",
+                "CABINETS.MANUAL.UPLOAD": "Carga individual"
             },
             "DIALOG":{
                 "SEND_TITLE":"Confirmación de envío",
