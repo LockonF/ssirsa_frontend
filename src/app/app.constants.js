@@ -171,12 +171,6 @@
                     value_service:"normal"
                 },
                 {
-                    id:1,
-                    value:"Garantia",
-                    value_service:"normal"
-
-                },
-                {
                     id:2,
                     value:"Fuga Interna",
                     value_service:"fuga_interna"
