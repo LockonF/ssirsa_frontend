@@ -174,9 +174,13 @@
                 fd.append('file', vm.entrada.file);
                 if (vm.entrada.id == null) {
                     EntradaSalida.postEntradaMasiva(fd).then(function (res) {
+                        console.log(res);
                         vm.entrada.id=res.id;
                         vm.entrada.creados = res.creados;
-                        vm.entrada.no_creados = res.no_creados;
+                        _.map({one: 1, two: 2, three: 3}, function(num, key){ return num * 3; });
+                        vm.entrada.no_creados=_.map(res.no_creados,function(id){
+                            return {"economico":id,"motivo":"Marca o modelo no existentes"};
+                        });
                         vm.hideRegisteredCabinets = false;
                         vm.hideUnregisteredCabinets = false;
                         if (vm.entrada.no_creados.length > 0) {
@@ -190,7 +194,7 @@
                     }).catch(function (err) {
                         if(err.data.no_creados.length>0) {
                             //console.log(err)
-                            vm.entrada.no_creados = err.no_creados;
+                            vm.entrada.no_creados = err.data.no_creados;
                         }
                         toastr.error(vm.errorMassive, vm.errorTitle);
                     });
@@ -213,9 +217,9 @@
                             //limpiar();
                         }
                     }).catch(function (err) {
+                        console.log(err);
                         if(err.data.no_creados.length>0) {
-                            //console.log(err)
-                            vm.entrada.no_creados = err.no_creados;
+                            vm.entrada.no_creados = err.data.no_creados;
                         }
                         toastr.error(vm.errorMassive, vm.errorTitle);
                     });
