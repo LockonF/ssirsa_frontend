@@ -18,8 +18,12 @@
             getLastEntradaByCabinet: getLastEntradaByCabinet,
             byUdn: byUdn,
             getCabinetsEntrada: getCabinetsEntrada,
-            normalizeCabinets:normalizeCabinets
+            normalizeCabinets:normalizeCabinets,
+            getRemision:getRemision
         };
+        function getRemision(idEntradaSalida) {
+            return baseURL.one('remision').customGET(idEntradaSalida);
+        }
         function normalizeCabinets(idEntradaSalida) {
             //one('normalize',idEntradaSalida)
             return baseURL.one("normalize",idEntradaSalida).put();
