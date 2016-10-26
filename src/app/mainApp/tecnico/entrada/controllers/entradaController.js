@@ -40,8 +40,8 @@
 
         vm.selectedTab = 0;
         vm.idEntrada = null;
-        vm.modelos = ModeloCabinet.list();
-        vm.marcas = MarcaCabinet.list();
+        vm.modelos=ModeloCabinet.list();
+        vm.marcas=MarcaCabinet.list();
 
         //Visualizations
         vm.hideMassiveUpload = true;
@@ -81,7 +81,7 @@
         vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
         vm.warningTitle = Translate.translate('MAIN.MSG.WARNING_TITLE');
         vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
-        vm.errorGeneric = Translate.translate('MAIN.MSG.ERROR_MSG');
+        vm.errorGeneric = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
         vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_CATALOG');
         vm.sucessMassive = Translate.translate('INPUT.Messages.SuccessMassive');
         vm.successNormal = Translate.translate('INPUT.Messages.SuccessNormal');
