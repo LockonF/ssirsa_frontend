@@ -8,7 +8,6 @@
         .module('app')
         .factory('Translate', Translate);
 
-    /* @ngInject */
     function Translate($translate,localStorageService) {
         var service ={
             translate:translate

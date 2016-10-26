@@ -19,6 +19,7 @@
             triMenu.menu = [];
             var role = Session.userRole;
             switch (role) {
+
                 case "Administrador":
                     loadAdminMenu();
                     break;
@@ -241,10 +242,8 @@
 
                     ]
                 }
-
             ];
-
-            triMenu.menu = adminMenu;
+            triMenu.menu=adminMenu;
         }
 
         function loadCapturistaMenu() {
@@ -344,11 +343,8 @@
                         }
                     ]
                 }
-
             ];
-
-            //triMenu.menu.unshift(adminMenu);
-            triMenu.menu = clienteMenu;
+            triMenu.menu=clienteMenu;
         }
 
         function loadTecnicoMenu() {
@@ -409,11 +405,8 @@
                         }
                     ]
                 }
-
             ];
-
-            //triMenu.menu.unshift(adminMenu);
-            triMenu.menu = tecnicoMenu;
+            triMenu.menu=tecnicoMenu;
         }
 
     }

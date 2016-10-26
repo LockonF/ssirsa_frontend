@@ -35,8 +35,8 @@
                 templateUrl: 'app/mainApp/inventarios/catalogoInsumo.tmpl.html', //Dirección del archivo a usar
                 controller: 'catalogoInsumoController', //nombre del controlador
                 controllerAs: 'vm' //se renombra al scope
-            });
 
+            });
     }
 
 } )();

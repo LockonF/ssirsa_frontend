@@ -17,17 +17,13 @@
         };
 
         function create(object){
-            //Forma canonica
-            var deferred=$q.defer();//Genera la promesa
-            //RestAngular
-            //all solo agrega una /
+            var deferred=$q.defer();
 
             Restangular.all('solicitud').customPOST(object).then(function(rest){
                 deferred.resolve(rest);
             }).catch(function(error){
                 deferred.reject(error);
             });
-            //Restangular.all('solicitud').customPOST(object) - Es una promesa
             return deferred.promise;
         }
 

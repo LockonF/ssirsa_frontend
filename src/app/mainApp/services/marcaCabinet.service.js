@@ -6,11 +6,12 @@
         .factory('MarcaCabinet', MarcaCabinet);
 
     /* @ngInject */
-    function MarcaCabinet($q, Restangular, toastr) {
+    function MarcaCabinet(Restangular) {
         var baseMarca = Restangular.all('marca_cabinet');
 
         return {
             list:list,
+            listObject:listObject,
             update:update,
             remove:remove,
             get: get,
@@ -30,6 +31,10 @@
             return baseMarca.getList().$object;
         }
 
+        function listObject(){
+            return baseMarca.getList();
+        }
+
         function update(object)
         {
             return baseMarca.all(object.id).customPUT(object);
@@ -44,7 +49,7 @@
         }
 
         function getModels(id){
-            return baseMarca.one('models',id).getList().$object;
+            return baseMarca.one('models',id).getList();
         }
 
     }

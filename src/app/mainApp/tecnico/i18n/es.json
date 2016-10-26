@@ -137,8 +137,8 @@
         },
         "TableCabinets": {
             "Headers": {
-                "Economic Num.": "No. Economico",
-                "Serial Num.": "No. de Serie",
+                "Economic Num": "No. Economico",
+                "Serial Num": "No. de Serie",
                 "Brand": "Marca",
                 "Model": "Modelo"
             }
@@ -164,7 +164,8 @@
                 "Serial":"Número de Serie",
                 "Brand":"Marca",
                 "Model":"Modelo",
-                "Year":"Año"
+                "Year":"Año",
+                "No_Model":"La marca no tiene modelos asignados"
             },
             "Confirm":{
                 "Title":"Confirmar Entrada",
@@ -182,7 +183,7 @@
         "Registered Cabinets":"Cabinets Registrados",
         "Unregistered Cabinets":"Cabinets No Registrados",
         "UDN": "Agencia",
-        "Year Field":"Año inválido"
+        "Year Field":"Formato de año inválido"
     },
     "OUTPUT": {
         "FORM": {
@@ -225,18 +226,23 @@
                 "TYPE":"Tipo:",
                 "CABINET":"Cabinets disponibles",
                 "NOT_FOUND":"No hay cabinets que puedan ser procesables.",
-                "SEARCH":"Búsqueda"
+                "SEARCH":"Búsqueda",
+                "FORMAT":"Formato",
+                "TYPE_OUTPUT":"Tipo de Salida",
+                "SELECT":"Selecciona",
+                "VALID_UDN":"No ingreso una UDN válida"
             },
             "BUTTON":{
-                "CHOOSE_FILE": "Seleccionar Archivo",
+                "CHOOSE_FILE": "Seleccionar",
                 "CHOOSE_IMAGE": "Seleccionar Imagen",
                 "NEXT": "Siguiente",
-                "CABINETS.MASSIVE.UPLOAD": "Carga masiva de cabinets",
-                "CABINETS.MANUAL.UPLOAD": "Carga individual de cabinets"
+                "CABINETS.MASSIVE.UPLOAD": "Carga masiva",
+                "CABINETS.MANUAL.UPLOAD": "Carga individual"
             },
             "DIALOG":{
                 "SEND_TITLE":"Confirmación de envío",
-                "SEND_MESSAGE":"¿Seguro que desea crear una salida sin ningún cabinet seleccionado?"
+                "SEND_MESSAGE":"¿Seguro que desea crear una salida sin ningún cabinet seleccionado?",
+                "SEND_INCONSISTENCE":"¿Seguro que de realizar la siguiente operación?, debido a que es una operación que sale fuera del flujo normal no se garantiza que sean consistentes los datos del cabinet"
             }
         }
     }

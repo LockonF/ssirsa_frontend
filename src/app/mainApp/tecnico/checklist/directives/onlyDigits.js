@@ -3,6 +3,7 @@
     angular
         .module('app.mainApp.tecnico')
         .directive('onlyDigits', page);
+    
     function page() {
         return {
             restrict: 'A',

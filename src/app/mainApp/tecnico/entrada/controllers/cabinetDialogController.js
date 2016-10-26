@@ -3,11 +3,11 @@
  */
 (function(){
     'use_strict';
-    
+
     angular
         .module('app.mainApp.tecnico')
         .controller('CabinetDialogController',CabinetDialogController);
-    function CabinetDialogController($mdDialog, Cabinet, MarcaCabinet, ModeloCabinet, cabinetID){
+    function CabinetDialogController($mdDialog, Cabinet, MarcaCabinet, cabinetID, Helper, Translate, toastr){
         var vm = this;
 
         //Functions
@@ -35,21 +35,38 @@
             "modelo": null,
             "insumo": null
         };
-                
+
+        //Translates
+        vm.errorTitle=Translate.translate('MAIN.MSG.ERROR_TITLE');
+        vm.errorMessage=Translate.translate('MAIN.MSG.ERROR_CATALOG');
+
         activate();
-        
+
         function activate(){
             vm.cabinet=angular.copy(cabinet);
             vm.marca=null;
             vm.cabinet.economico=cabinetID;
-            vm.marcas=MarcaCabinet.list();
+            MarcaCabinet.listObject().then(function(res){
+                vm.marcas=Helper.filterDeleted(res,true);
+            }).catch(function(err){
+                toastr.error(vm.errorMessage,vm.errorTitle);
+                vm.marcas=[];
+            });
             vm.modelos=[];
         }
 
         function filterModels(){
-            vm.modelos=MarcaCabinet.getModels(vm.marca);
+            if(vm.marca!=null) {
+                vm.modelos = MarcaCabinet.getModels(vm.marca).then(function(res){
+                    if(res.length>0) {
+                        vm.modelos = Helper.filterDeleted(res,true);
+                    }
+                }).catch(function(){
+                    vm.modelos=[];
+                });
+            }
         }
-        
+
         function create(){
             Cabinet.createClean(vm.cabinet).then(function(res){
                 $mdDialog.hide(vm.cabinet.economico);
@@ -61,6 +78,6 @@
         function cancelClick(){
             $mdDialog.cancel(null);
         }
-        
+
     }
 })();

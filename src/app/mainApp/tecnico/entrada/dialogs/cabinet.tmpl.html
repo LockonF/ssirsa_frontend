@@ -13,8 +13,8 @@
     <div layout="column" flex layout-padding layout-align="center stretch">
         <md-dialog-content layout="column">
             <form name="cabinetForm" novalidate="">
-                <div layout="row">
-                    <md-input-container class="md-block">
+                <div layout="row" flex="100">
+                    <md-input-container class="md-block" flex="50">
                         <label>{{'INPUT.Dialogs.Cabinet.Economic'|translate}}</label>
                         <input name="CabinetEconomic"
                                md-no-asterisk=""
@@ -26,7 +26,7 @@
                             <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
                         </div>
                     </md-input-container>
-                    <md-input-container class="md-block">
+                    <md-input-container class="md-block" flex="50">
                         <label>{{'INPUT.Dialogs.Cabinet.Active'|translate}}</label>
                         <input name="CabinetActive"
                                md-no-asterisk=""
@@ -40,18 +40,16 @@
                 </div>
                 <md-input-container class="md-block">
                     <label>{{'INPUT.Dialogs.Cabinet.Year'|translate}}</label>
-                    <input name="CabinetSerial"
-                           only-digit=""
+                    <input name="CabinetYear"
                            md-no-asterisk=""
-                           required=""
-                           type="number"
+                           type="text"
+                           ng-pattern="/^[0-9]{4}/"
+                           ng-required="true"
+                           numbers-only=""
                            ng-model="vm.cabinet.year"
-                           min="1900"
-                           max="2100"
                     />
-                    <div ng-messages="cabinetForm.CabinetSerial.$error">
-                        <div ng-message="min">{{'INPUT.Year Field'|translate}}</div>
-                        <div ng-message="max">{{'INPUT.Year Field'|translate}}</div>
+                    <div ng-messages="cabinetForm.CabinetYear.$error">
+                        <div ng-message="pattern">{{'INPUT.Year Field'|translate}}</div>
                         <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
                     </div>
                 </md-input-container>
@@ -85,7 +83,7 @@
                     <md-select name="selectModel"
                                ng-model="vm.cabinet.modelo"
                                required=""
-                               ng-disabled="vm.marca==null"
+                               ng-disabled="vm.marca==null || vm.modelos.length == 0"
                                md-no-asterisk="">
                         <md-option ng-repeat="modelo in vm.modelos" value="{{modelo.id}}">{{modelo.nombre}}
                         </md-option>
@@ -94,6 +92,9 @@
                         <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
                     </div>
                 </md-input-container>
+                <div ng-hide="!vm.modelos.length == 0||vm.marca==null ||vm.marca==undefined">
+                    <p>{{'INPUT.Dialogs.Cabinet.No_Model'|translate}}</p>
+                </div>
             </form>
         </md-dialog-content>
         <md-dialog-actions layout="row" layout-align="end center">

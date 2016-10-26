@@ -30,7 +30,6 @@
         vm.remove = remove;
         vm.clickRepeater = clickRepeater;
 
-
         activate();
 
 
@@ -52,9 +51,8 @@
         function listTipos()
         {
             TipoTransporte.listObject().then(function(res){
-                vm.tipo_transporte_list  = Helper.filterDeleted(res, true);
-                vm.tipo_transporte_list = Helper.sortByAttribute(vm.tipo_transporte_list, 'descripcion');
-
+                vm.tipo_transporte_list = Helper.filterDeleted(res, true);
+                vm.tipo_transporte_list = Helper.sortByAttribute(vm.tipo_transporte_list, 'descripcion')
             }).catch(function(err){
 
             });
@@ -62,23 +60,19 @@
 
         function lookup(search_text){
             vm.search_items = _.filter(vm.tipo_transporte_list,function(item){
-                return item.descripcion.toLowerCase().includes(search_text.toLowerCase());
+                return item.zona.toLowerCase().includes(search_text.toLowerCase()) || item.agencia.toLowerCase().includes(search_text.toLowerCase());
             });
             return vm.search_items;
         }
 
         function selectedItemChange(item)
         {
-            if (item!=null) {
-                vm.tipo_transporte = angular.copy(item);
 
-            }else{
-                cancel();
-            }
         }
 
-        function clickRepeater(tipo_transporte){
-            vm.tipo_transporte = tipo_transporte.clone();
+        function clickRepeater(item){
+            vm.selected_tipo_transporte = item.clone();
+            vm.tipo_transporte = vm.selected_tipo_transporte;
         }
 
         function  cancel(){
@@ -86,10 +80,11 @@
             $scope.inputForm.$setUntouched();
 
             vm.tipo_transporte = null;
+            vm.selected_tipo_transporte = null;
         }
 
         function update(){
-            TipoTransporte.update(vm.tipo_transporte).then(function(res){
+            TipoTransporte.update(vm.selected_tipo_transporte).then(function(res){
                 toastr.success(vm.successUpdateMessage,vm.successTitle);
                 listTipos();
             }).catch(function(err){
@@ -99,7 +94,7 @@
 
         function create()
         {
-            TipoTransporte.create(vm.tipo_transporte).then(function(res){
+            TipoTransporte.create(vm.selected_tipo_transporte).then(function(res){
                 listTipos();
                 toastr.success(vm.successCreateMessage,vm.successTitle);
             }).catch(function(err){
@@ -117,7 +112,7 @@
                 .ok(vm.deleteButton)
                 .cancel(vm.cancelButton);
             $mdDialog.show(confirm).then(function() {
-                TipoTransporte.remove(vm.tipo_transporte).then(function(res){
+                TipoTransporte.remove(vm.selected_tipo_transporte).then(function(res){
                     toastr.success(vm.successDeleteMessage, vm.successTitle);
                     cancel();
                     activate();
@@ -127,7 +122,6 @@
             }, function() {
 
             });
-
 
         }
 
