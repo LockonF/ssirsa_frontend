@@ -15,6 +15,7 @@
             postEntrada: postEntrada,
             postEntradaMasiva: postEntradaMasiva,
             postSalidaMasiva: postSalidaMasiva,
+            putEntradaMasiva: putEntradaMasiva,
             getLastEntradaByCabinet: getLastEntradaByCabinet,
             byUdn: byUdn,
             getCabinetsEntrada: getCabinetsEntrada,
@@ -37,6 +38,11 @@
         //entrada_salida/mass_upload
         function postEntradaMasiva(data) {
             return baseURL.all('mass_upload').withHttpConfig({transformRequest: angular.identity}).customPOST(data, "", {}, {'Content-type': undefined});
+        }
+
+        //entrada_salida/mass_upload
+        function putEntradaMasiva(data) {
+            return baseURL.one('mass_upload',data.id).withHttpConfig({transformRequest: angular.identity}).customPUT(data, "", {}, {'Content-type': undefined});
         }
 
         function postSalidaMasiva(data) {
