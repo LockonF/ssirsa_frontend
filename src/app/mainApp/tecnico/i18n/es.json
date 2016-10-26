@@ -244,5 +244,14 @@
                 "SEND_INCONSISTENCE":"¿Seguro que de realizar la siguiente operación?, debido a que es una operación que sale fuera del flujo normal no se garantiza que sean consistentes los datos del cabinet"
             }
         }
+    },
+    "REMISSION":{
+        "FORM":{
+            "LABEL":{
+                "TITLE":"Remisión de Salida",
+                "FOLIO":"Folio",
+                "DATE":"Fecha"
+            }
+        }
     }
 }

@@ -20,8 +20,12 @@
             getCabinetsEntrada: getCabinetsEntrada,
             normalizeCabinets:normalizeCabinets,
             getRemision:getRemision,
-            getAll:getAll
+            getAll:getAll,
+            getSalidas:getSalidas
         };
+        function getSalidas() {
+            return baseURL.all('exit').getList();
+        }
         function getAll() {
             return baseURL.getList().$object;
         }
