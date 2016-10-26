@@ -124,7 +124,7 @@
 
                     });
                 } else {
-                    if(vm.selectedEntrada>=2 && vm.selectedEntrada<=4){
+                    if(vm.selectedEntrada>=1 && vm.selectedEntrada<=3){
                         var confirms = $mdDialog.confirm()
                             .title(vm.dialogTitle)
                             .textContent(vm.dialogSureMessage)
@@ -172,7 +172,8 @@
                     }).catch(function () {
                         toastr.error(vm.errorMessage, vm.errorTitle);
                     });
-                }).catch(function () {
+                }).catch(function (err) {
+                    console.log(err);
                     toastr.error(vm.errorMessage, vm.errorTitle);
                 });
             }).catch(function () {

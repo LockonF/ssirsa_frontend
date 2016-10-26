@@ -171,17 +171,17 @@
                     value_service:"normal"
                 },
                 {
-                    id:2,
+                    id:1,
                     value:"Fuga Interna",
                     value_service:"fuga_interna"
                 },
                 {
-                    id:3,
+                    id:2,
                     value:"Obsoleto",
                     value_service:"obsoleto"
                 },
                 {
-                    id:4,
+                    id:3,
                     value:"No validada",
                     value_service:"all"
                 }
