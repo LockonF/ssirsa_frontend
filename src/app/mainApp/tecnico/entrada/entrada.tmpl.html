@@ -336,7 +336,7 @@
                                     <p>{{'INPUT.Unregistered Cabinets'|translate}}</p>
                                     <md-virtual-repeat-container flex="100" layout-fill ng-style='{"height":"250px"}'>
                                         <md-list>
-                                            <md-list-item ng-repeat="cabinet in vm.notFoundCabinets">
+                                            <md-list-item ng-repeat="cabinet in vm.notFoundCabinets" style="padding-right: 20px;">
                                                 <section layout="row"
                                                      layout-align="space-between center"
                                                      layout-fill
@@ -349,10 +349,11 @@
                                                     >
                                                         {{cabinet}}
                                                     </md-button>
-                                                    <section layout-wrap layout-align="center center">
+                                                    <section layout-wrap layout-align="center center" flex="flex">
                                                         <md-button layout-fill
                                                                    ng-click="vm.removeNotFoundCabinet(cabinet)"
-                                                                   class="md-fab md-warn md-mini">
+                                                                   flex="flex"
+                                                                   class="md-no-ink">
                                                             <md-icon md-font-icon="fa fa-times-circle"></md-icon>
                                                         </md-button>
                                                     </section>
