@@ -125,6 +125,10 @@
                             name: 'MAIN.MENU.OUT',
                             state: 'triangular.admin-default.salida',
                             type: 'link'
+                        },{
+                            name: 'MAIN.MENU.REMISSION',
+                            state: 'triangular.admin-default.remision',
+                            type: 'link'
                         },
                         {
                             name: 'MAIN.MENU.REGISTER_STEP',
@@ -369,6 +373,11 @@
                         {
                             name: 'MAIN.MENU.OUT',
                             state: 'triangular.admin-default.salida',
+                            type: 'link'
+                        },
+                        {
+                            name: 'MAIN.MENU.REMISSION',
+                            state: 'triangular.admin-default.remision',
                             type: 'link'
                         },
                         {
