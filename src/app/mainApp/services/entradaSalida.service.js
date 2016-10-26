@@ -19,8 +19,12 @@
             byUdn: byUdn,
             getCabinetsEntrada: getCabinetsEntrada,
             normalizeCabinets:normalizeCabinets,
-            getRemision:getRemision
+            getRemision:getRemision,
+            getAll:getAll
         };
+        function getAll() {
+            return baseURL.getList().$object;
+        }
         function getRemision(idEntradaSalida) {
             return baseURL.one('remision').customGET(idEntradaSalida);
         }
