@@ -87,7 +87,7 @@
             fd.append('udn', vm.salida.udn.id);
             if (vm.salida.id != null)
                 fd.append("id", vm.salida.id);
-            if (vm.salida.ife_chofer != null)
+            if (vm.salida.ife_chofer != null && vm.salida.ife_chofer != "")
                 fd.append('ife_chofer', vm.salida.ife_chofer);
             //Is massive upload
             if (vm.salida.file != null) {
@@ -173,10 +173,9 @@
                         toastr.error(vm.errorMessage, vm.errorTitle);
                     });
                 }).catch(function (err) {
-                    console.log(err);
                     toastr.error(vm.errorMessage, vm.errorTitle);
                 });
-            }).catch(function () {
+            }).catch(function (err) {
                 toastr.error(vm.errorMessage, vm.errorTitle);
             });
         }
