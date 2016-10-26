@@ -174,7 +174,6 @@
                 fd.append('file', vm.entrada.file);
                 if (vm.entrada.id == null) {
                     EntradaSalida.postEntradaMasiva(fd).then(function (res) {
-                        console.log(res);
                         vm.entrada.id=res.id;
                         vm.entrada.creados = res.creados;
                         _.map({one: 1, two: 2, three: 3}, function(num, key){ return num * 3; });
@@ -189,11 +188,9 @@
                         }
                         else {
                             toastr.success(vm.sucessMassive, vm.successTitle);
-                            //limpiar();
                         }
                     }).catch(function (err) {
                         if(err.data.no_creados.length>0) {
-                            //console.log(err)
                             vm.entrada.no_creados = err.data.no_creados;
                         }
                         toastr.error(vm.errorMassive, vm.errorTitle);
@@ -202,7 +199,6 @@
                 else{
                     fd.append('id', vm.entrada.id);
                     EntradaSalida.putEntradaMasiva(fd).then(function (res) {
-                        console.log(res);
                         vm.entrada.id=res.id;
                         vm.entrada.creados = res.creados;
                         vm.entrada.no_creados = res.no_creados;
@@ -214,10 +210,8 @@
                         }
                         else {
                             toastr.success(vm.sucessMassive, vm.successTitle);
-                            //limpiar();
                         }
                     }).catch(function (err) {
-                        console.log(err);
                         if(err.data.no_creados.length>0) {
                             vm.entrada.no_creados = err.data.no_creados;
                         }
@@ -453,12 +447,10 @@
         }
 
         function search(text) {
-            //if(text.length>0) {
             if(!angular.isUndefined(text)) {
                 vm.filteredUDN = _.filter(vm.udns, function (item) {
                     return item.agencia.toLowerCase().startsWith(text.toLowerCase()) || item.zona.toLowerCase().startsWith(text.toLowerCase());
                 });
-                //}
                 vm.isValid = !((vm.filteredUDN.length == 0 && text.length > 0) || (text.length > 0 && !angular.isObject(vm.entrada.udn)));
                 return vm.filteredUDN;
             }
