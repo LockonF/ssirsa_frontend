@@ -376,6 +376,11 @@
                             type: 'link'
                         },
                         {
+                            name: 'MAIN.MENU.REMISSION',
+                            state: 'triangular.admin-default.remision',
+                            type: 'link'
+                        },
+                        {
                             name: 'MAIN.MENU.REGISTER_STEP',
                             state: 'triangular.admin-default.etapa',
                             type: 'link'

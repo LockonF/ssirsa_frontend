@@ -132,9 +132,8 @@
                             "style": "decoracion"
                         }
                     ],
-                ["1", "2", "3", "3", "3", "3", "3"],
                 [{
-                    "colSpan": 3,
+                     "colSpan": 3,
                     "text": "Sello de entrega",
                     "style": "subheader",
                     "alignment": "center"
