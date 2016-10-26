@@ -10,7 +10,7 @@
         .filter('salidaSearch', salidaSearch)
         .filter('tipoequipoSearch', tipoequipoSearch);
 
-    function salidaController(EntradaSalida, ModeloCabinet, $mdDialog, TipoEquipo, Helper, Translate, toastr, Sucursal, udn, Proyectos, CabinetEntradaSalida, TipoTransporte, $scope, LineaTransporte) {
+    function salidaController(EntradaSalida,OPTIONS, ModeloCabinet, $mdDialog, TipoEquipo, Helper, Translate, toastr, Sucursal, udn, Cabinet, CabinetEntradaSalida, TipoTransporte, $scope, LineaTransporte) {
         var vm = this;
         vm.guardar = guardar;
         vm.selectionFile = selectionFile;
@@ -21,8 +21,11 @@
         vm.nextTab = nextTab;
         vm.clear = clear;
         vm.search = search;
-
+        vm.lookupUDN = lookupUDN;
         vm.selection = selection;
+        vm.changeType=changeType;
+        vm.selectedItemChange=selectedItemChange;
+
 
         activate();
 
@@ -37,6 +40,8 @@
         vm.hideUnregisteredCabinets = true;
         vm.selectedCabinets = [];
         vm.loading = true;
+        vm.types=OPTIONS.type_out;
+        vm.isValid=false;
         //Models
 
         vm.cabinets = null;
@@ -46,10 +51,10 @@
             "fecha": "",
             "nombre_chofer": "",
             "ife_chofer": "",
-            "pedimento": "",
+            "pedimento": null,
             "accion": "entrada",
             "linea_transporte": "",
-            "proyecto": "",
+            "proyecto": null,
             "sucursal": "",
             "tipo_transporte": "",
             "udn": null,
@@ -69,18 +74,20 @@
 
             fd.append('accion', 'salida');
             fd.append('fecha', vm.salida.fecha);
-            fd.append('pedimento', vm.salida.pedimento);
+            if(vm.salida.pedimento!=null)
+                fd.append('pedimento', vm.salida.pedimento);
+
             fd.append('nombre_chofer', vm.salida.nombre_chofer);
             fd.append('linea_transporte', vm.salida.linea_transporte);
-            fd.append('proyecto', vm.salida.proyecto);
+
+            if(vm.salida.proyecto!=null)
+                fd.append('proyecto', vm.salida.proyecto);
             fd.append('sucursal', vm.salida.sucursal);
             fd.append('tipo_transporte', vm.salida.tipo_transporte);
-            fd.append('udn', vm.salida.udn);
-
+            fd.append('udn', vm.salida.udn.id);
             if (vm.salida.id != null)
                 fd.append("id", vm.salida.id);
-
-            if (vm.salida.ife_chofer != null)
+            if (vm.salida.ife_chofer != null && vm.salida.ife_chofer != "")
                 fd.append('ife_chofer', vm.salida.ife_chofer);
             //Is massive upload
             if (vm.salida.file != null) {
@@ -112,40 +119,77 @@
                         .ok(vm.submitButton)
                         .cancel(vm.cancelButton);
                     $mdDialog.show(confirm).then(function () {
-                        entradaManual(fd);
+                            entradaManual(fd);
                     }, function () {
 
                     });
                 } else {
-                    entradaManual(fd);
+                    if(vm.selectedEntrada>=1 && vm.selectedEntrada<=3){
+                        var confirms = $mdDialog.confirm()
+                            .title(vm.dialogTitle)
+                            .textContent(vm.dialogSureMessage)
+                            .ariaLabel('Confirmar envío')
+                            .ok(vm.submitButton)
+                            .cancel(vm.cancelButton);
+                        $mdDialog.show(confirms).then(function () {
+                            entradaManual(fd);
+                        }, function () {
+
+                        });
+                    }else{
+                        entradaManual(fd);
+                    }
+
                 }
 
             }
 
         }
+        function changeType() {
+            if(!vm.hideManualUpload){
+                var status=vm.types[vm.selectedEntrada].value_service;
+                Cabinet.loadByStatus(status).then(function (res) {
+                    vm.cabinetsEntrada = Helper.filterDeleted(res, true);
+                    vm.cabinetsEntrada = _.sortBy(vm.cabinetsEntrada, 'economico');
+                    vm.loading = false;
+                }).catch(function(err){
+                    toastr.error(vm.errorMessage,vm.errorTitle);
+                });
+            }
+        }
 
         function entradaManual(fd) {
+
             EntradaSalida.postEntrada(fd).then(function (res) {
                 var request = {
                     entrada_salida: res.id,
                     economico: vm.selectedCabinets
                 };
                 CabinetEntradaSalida.create(request).then(function () {
-                    toastr.success(vm.successMessage, vm.successTitle);
-                    clear();
-                }).catch(function (er) {
+                    EntradaSalida.normalizeCabinets(res.id).then(function () {
+                        toastr.success(vm.successMessage, vm.successTitle);
+                        clear();
+                    }).catch(function () {
+                        toastr.error(vm.errorMessage, vm.errorTitle);
+                    });
+                }).catch(function (err) {
                     toastr.error(vm.errorMessage, vm.errorTitle);
                 });
-            }).catch(function () {
+            }).catch(function (err) {
                 toastr.error(vm.errorMessage, vm.errorTitle);
             });
         }
 
         function search(obj) {
             var tipo = _.findWhere(vm.modelos, {id: obj.modelo}).tipo;
-            if(tipo!=null){
-                return _.findWhere(vm.tipoEquipos, {id: tipo}).nombre;
-            }else{
+            if (tipo != null) {
+                var tiposEquipo=_.findWhere(vm.tipoEquipos, {id: tipo});
+                if(tiposEquipo!=null) {
+                    return tiposEquipo.nombre;
+                }else{
+                    return "No tiene";
+                }
+            } else {
                 return "No tiene";
             }
 
@@ -179,6 +223,9 @@
                 });
             }
         }
+        function selectedItemChange(item) {
+            vm.isValid =angular.isObject(item);
+        }
 
         function selectionFile($files) {
             if ($files.length > 0) {
@@ -199,31 +246,38 @@
         function activate() {
 
             LineaTransporte.listObject().then(function (res) {
-                vm.lineasTransporte =Helper.filterDeleted(res,true);
-                vm.lineasTransporte=_.sortBy(vm.lineasTransporte, 'razon_social');
+                vm.lineasTransporte = Helper.filterDeleted(res, true);
+                vm.lineasTransporte = _.sortBy(vm.lineasTransporte, 'razon_social');
+            }).catch(function(err){
+                toastr.error(vm.errorMessage,vm.errorTitle);
             });
             TipoTransporte.listObject().then(function (res) {
-                vm.tiposTransporte =Helper.filterDeleted(res,true);
-                vm.tiposTransporte=_.sortBy(vm.tiposTransporte, 'descripcion');
+                vm.tiposTransporte = Helper.filterDeleted(res, true);
+                vm.tiposTransporte = _.sortBy(vm.tiposTransporte, 'descripcion');
+            }).catch(function(err){
+                toastr.error(vm.errorMessage,vm.errorTitle);
             });
             Sucursal.listObject().then(function (res) {
-                vm.Sucursales =Helper.filterDeleted(res,true);
-                vm.Sucursales=_.sortBy(vm.Sucursales, 'nombre');
+                vm.Sucursales = Helper.filterDeleted(res, true);
+                vm.Sucursales = _.sortBy(vm.Sucursales, 'nombre');
+            }).catch(function(err){
+                toastr.error(vm.errorMessage,vm.errorTitle);
             });
-             Proyectos.listObject().then(function (res) {
-                vm.Proyectos =Helper.filterDeleted(res,true);
-                vm.Proyectos=_.sortBy(vm.Proyectos, 'descripcion');
+
+            udn.listObject().then(function (res) {
+                vm.udns = Helper.filterDeleted(res, true);
+                vm.udns = _.sortBy(vm.udns, 'agencia');
+            }).catch(function(err){
+                toastr.error(vm.errorMessage,vm.errorTitle);
             });
-              udn.listObject().then(function (res) {
-                vm.udns  =Helper.filterDeleted(res,true);
-                vm.udns =_.sortBy(vm.udns , 'agencia');
+            ModeloCabinet.listWitout().then(function (res) {
+                vm.modelos = Helper.filterDeleted(res, true);
             });
-             ModeloCabinet.listWitout().then(function (res) {
-                vm.modelos  =Helper.filterDeleted(res,true);
-            });
-             TipoEquipo.listWitout().then(function (res) {
-                vm.tipoEquipos  =Helper.filterDeleted(res,true);
-                vm.tipoEquipos =_.sortBy(vm.tipoEquipos , 'nombre');
+            TipoEquipo.listWitout().then(function (res) {
+                vm.tipoEquipos =res;
+                vm.tipoEquipos = _.sortBy(vm.tipoEquipos, 'nombre');
+            }).catch(function(err){
+                toastr.error(vm.errorMessage,vm.errorTitle);
             });
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
@@ -238,6 +292,7 @@
             vm.cancelButton = Translate.translate('MAIN.BUTTONS.CANCEL');
             vm.dialogTitle = Translate.translate('OUTPUT.FORM.DIALOG.SEND_TITLE');
             vm.dialogMessage = Translate.translate('OUTPUT.FORM.DIALOG.SEND_MESSAGE');
+            vm.dialogSureMessage = Translate.translate('OUTPUT.FORM.DIALOG.SEND_INCONSISTENCE');
         }
 
         function showMassiveUpload() {
@@ -260,6 +315,8 @@
             vm.selectedCabinets = [];
             vm.hideMassiveUpload = true;
             vm.hideManualUpload = true;
+            vm.searchText=null;
+            vm.selectedEntrada=0;
         }
 
         function showManualUpload() {
@@ -268,11 +325,15 @@
             vm.hideUnregisteredCabinets = true;
             vm.hideRegisteredCabinets = true;
             vm.loading = true;
-            EntradaSalida.getCabinetsEntrada().then(function (res) {
-                vm.cabinetsEntrada = Helper.filterDeleted(res,true);
-                vm.cabinetsEntrada =_.sortBy(vm.cabinetsEntrada , 'economico');
+            var status=vm.types[vm.selectedEntrada].value_service;
+            Cabinet.loadByStatus(status).then(function (res) {
+                vm.cabinetsEntrada = Helper.filterDeleted(res, true);
+                vm.cabinetsEntrada = _.sortBy(vm.cabinetsEntrada, 'economico');
                 vm.loading = false;
+            }).catch(function(err){
+                toastr.error(vm.errorMessage,vm.errorTitle);
             });
+
         }
 
         function cabinetSearch(query) {
@@ -281,10 +342,24 @@
         }
 
         function lookup(search_text) {
-            vm.search_items = _.filter(vm.cabinetsEntrada, function (item) {
-                return item.economico.toLowerCase().indexOf(search_text.toLowerCase()) >= 0;
-            });
-            return vm.search_items;
+            if(!angular.isUndefined(search_text)) {
+                vm.search_items = _.filter(vm.cabinetsEntrada, function (item) {
+                    return item.economico.toLowerCase().indexOf(search_text.toLowerCase()) >= 0;
+                });
+                return vm.search_items;
+            }
+        }
+
+        function lookupUDN(search_text) {
+            if(!angular.isUndefined(search_text)) {
+                vm.search_items = _.filter(vm.udns, function (item) {
+                    return item.zona.toLowerCase().includes(search_text.toLowerCase()) || item.agencia.toLowerCase().includes(search_text.toLowerCase());
+                });
+
+                vm.isValid = !((vm.search_items.length == 0 && search_text.length > 0)||(search_text.length > 0 && !angular.isObject(vm.salida.udn)));
+                return vm.search_items;
+            }
+
         }
 
 
@@ -300,10 +375,14 @@
             if (!angular.isNumber(text) || text === '') {
                 return input;
             }
-
-
             return _.filter(input, function (item) {
-                return tipos[modelos[item.modelo].tipo].id == text;
+                var tipo = _.findWhere(modelos, {id: item.modelo}).tipo;
+                if (tipo != null) {
+                    var tiposEquipo=_.findWhere(tipos, {id: tipo});
+                    if(tiposEquipo!=null) {
+                        return tiposEquipo.id==text;
+                    }
+                }
             });
 
         };
