@@ -7,7 +7,8 @@
         .module('app.mainApp.inventario')
         .config(moduleConfig);
 
-    function moduleConfig($stateProvider, triMenuProvider){
+    function moduleConfig($stateProvider, $translatePartialLoaderProvider){
+        $translatePartialLoaderProvider.addPart('app/mainApp/inventarios');
         $stateProvider
             .state('triangular.admin-default.cabinets', { //Nombre del state
                 url: '/cabinets', //Nombre que quiero en mi url

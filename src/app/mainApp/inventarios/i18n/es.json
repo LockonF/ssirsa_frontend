@@ -8,6 +8,8 @@
     "SELECT_BRAND":"Selecciona la marca",
     "SELECT_MODEL":"Selecciona el modelo",
     "ECONOMIC_NUMBER":"Número económico"
+  },
+  "SUPPLIES":{
+    "HEADER":"Inventario de Insumos"
   }
-
 }

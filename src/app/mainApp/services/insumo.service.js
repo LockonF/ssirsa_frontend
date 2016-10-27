@@ -17,7 +17,7 @@
             getNoUsedInsumos: getNotUsedInsumos,
             getAllInsumos: getAllInsumos
         };
-
+        var path=Restangular.all('insumo');
 
         function getInsumosByCatalogo(catalogo) {
             var deferred = $q.defer();
