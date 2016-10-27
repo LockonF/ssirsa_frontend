@@ -28,7 +28,7 @@
                                     <md-autocomplete md-selected-item="vm.salida.udn"
                                                      md-selected-item-change="vm.selectedItemChange(vm.salida.udn)"
                                                      md-items="item in vm.search_items" md-item-text="item.agencia"
-                                                     md-min-length="1"
+                                                     md-min-length="0"
                                                      md-input-name="selectUDN"
                                                      md-search-text-change="vm.lookupUDN(vm.searchText)"
                                                      required
@@ -133,8 +133,8 @@
                     </md-content>
                 </md-tab>
                 <!--Registro de cabinets-->
-                <!--<md-tab label={{'OUTPUT.FORM.TABS.UPLOAD'|translate}} ng-disabled="entradaForm.$invalid">-->
-                <md-tab label={{'OUTPUT.FORM.TABS.UPLOAD'|translate}}>
+                <md-tab label={{'OUTPUT.FORM.TABS.UPLOAD'|translate}} ng-disabled="entradaForm.$invalid">
+
                     <md-content layout-padding="">
                         <div layout-gt-md="row" layout="column" layout-align-gt-md="space-around center"
                              layout-align="center stretch">

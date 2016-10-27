@@ -87,7 +87,7 @@
             fd.append('udn', vm.salida.udn.id);
             if (vm.salida.id != null)
                 fd.append("id", vm.salida.id);
-            if (vm.salida.ife_chofer != null)
+            if (vm.salida.ife_chofer != null && vm.salida.ife_chofer != "")
                 fd.append('ife_chofer', vm.salida.ife_chofer);
             //Is massive upload
             if (vm.salida.file != null) {
@@ -124,7 +124,7 @@
 
                     });
                 } else {
-                    if(vm.selectedEntrada>=2 && vm.selectedEntrada<=4){
+                    if(vm.selectedEntrada>=1 && vm.selectedEntrada<=3){
                         var confirms = $mdDialog.confirm()
                             .title(vm.dialogTitle)
                             .textContent(vm.dialogSureMessage)
@@ -172,10 +172,10 @@
                     }).catch(function () {
                         toastr.error(vm.errorMessage, vm.errorTitle);
                     });
-                }).catch(function () {
+                }).catch(function (err) {
                     toastr.error(vm.errorMessage, vm.errorTitle);
                 });
-            }).catch(function () {
+            }).catch(function (err) {
                 toastr.error(vm.errorMessage, vm.errorTitle);
             });
         }

@@ -59,7 +59,8 @@
         "ARE_U_SURE": "¿Estás seguro que deseas eliminar el registro?",
         "ACCEPT": "Aceptar",
         "CANCEL": "Cancelar",
-        "INSUMO_NOTVALIDATED": "Etapa donde no se permite agregar Insumos"
+        "INSUMO_NOTVALIDATED": "Etapa donde no se permite agregar Insumos",
+        "INFO_ETAPA":"Información de Etapa"
     },
     "CABINET": {
         "LINE_ASSIGMENT": "Asignación de Linea",
@@ -245,6 +246,15 @@
                 "SEND_TITLE":"Confirmación de envío",
                 "SEND_MESSAGE":"¿Seguro que desea crear una salida sin ningún cabinet seleccionado?",
                 "SEND_INCONSISTENCE":"¿Seguro que de realizar la siguiente operación?, debido a que es una operación que sale fuera del flujo normal no se garantiza que sean consistentes los datos del cabinet"
+            }
+        }
+    },
+    "REMISSION":{
+        "FORM":{
+            "LABEL":{
+                "TITLE":"Remisión de Salida",
+                "FOLIO":"Folio",
+                "DATE":"Fecha"
             }
         }
     }
