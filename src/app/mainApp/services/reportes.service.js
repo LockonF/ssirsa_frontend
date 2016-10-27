@@ -11,10 +11,10 @@
     function Reportes(Restangular){
         var path= Restangular.all('report_builder').all('api');
         return {
+            getPartialReports:getPartialReports,
+            getPartialReport:getPartialReport,
             getReports:getReports,
             getReport:getReport,
-            getFullReports:getFullReports,
-            getFullReport:getFullReport,
             getModels:getModels,
             getRelatedModels:getRelatedModels,
             getFields:getFields,
@@ -22,19 +22,19 @@
         };
 
         //Obtiene todos los reportes existentes con su información básica
-        function getReports(){
+        function getPartialReports(){
             return path.all("reports").getList().$object;
         }
         //Obtiene la información básica de un reporte en específico
-        function getReport(id){
+        function getPartialReport(id){
             return path.one("reports",id).customGET();
         }
         //Obtiene todos los reportes existentes con su información completa (útil para guardar el reporte)
-        function getFullReports(){
+        function getReports(){
             return path.all("report").all("").getList().$object;
         }
         //Obtiene la información completa de un reporte en específico (útil para guardar un reporte)
-        function getFullReport(id){
+        function getReport(id){
             return path.one("report",id).customGET();
         }
         //Obtiene todos los modelos base sobre los cuales se pueden hacer reportes, filtros, obtener campos, etc.

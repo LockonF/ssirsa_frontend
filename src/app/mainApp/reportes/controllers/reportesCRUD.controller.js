@@ -24,8 +24,8 @@
         //Functions
         function activate(){
             vm.report="";
-            vm.reports=Reportes.getFullReports();
-            vm.filteredReports=Reportes.getFullReports();
+            vm.reports=Reportes.getReports();
+            vm.filteredReports=Reportes.getReports();
             vm.searchParameter='';
             console.log(vm.filteredReports);
         }
