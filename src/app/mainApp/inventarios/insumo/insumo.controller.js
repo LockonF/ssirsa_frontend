@@ -11,6 +11,11 @@
     function insumoController(Translate, CatalogoInsumo, Insumo, toastr, Helper) {
         //Variable definition
         var vm = this;
+        vm.choices=[
+            Translate.translate('SUPPLIES.FIELDS.KIND_CHOICES.UNIQUE'),
+            Translate.translate('SUPPLIES.FIELDS.KIND_CHOICES.LOT')
+        ];
+        vm.selectedIndex;
 
 
         //Translates
@@ -35,7 +40,16 @@
 
         function activate(){
             CatalogoInsumo.listObject().then(function(res){
-               vm.catalogoInsumos= Helper.filterDeleted(res,true);
+                vm.catalogoInsumos= Helper.filterDeleted(res,true);
+                vm.insumosUnicos = _.filter(vm.catalogoInsumos,function(element){
+                    return element.tipo=="U";
+                });
+                vm.insumosLote = _.filter(vm.catalogoInsumos,function(element){
+                    return element.tipo=="L";
+                });
+
+                console.log(vm.insumosUnicos);
+                console.log(vm.insumosLote);
             });
         }
 

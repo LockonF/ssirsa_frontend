@@ -3,6 +3,21 @@
         <md-title flex="100" layout-fill>
             <h3>{{'SUPPLIES.HEADER'|translate}}</h3>
         </md-title>
+        <md-content class="md-padding card1" flex="100" layout="column" layout-fill layout-align="center start">
+            <div layout="row">
+                <md-input-container flex="100" flex-gt-sm="20">
+                    <label>{{'SUPPLIES.FIELDS.KIND'|translate}}</label>
+                    <md-select ng-model="vm.selectedIndex">
+                        <md-option ng-repeat="option in vm.choices">
+                            {{option}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container flex="100" flex-gt-sm="80">
+
+                </md-input-container>
+            </div>
+        </md-content>
     </md-card>
 
 </div>

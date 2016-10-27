@@ -10,6 +10,18 @@
     "ECONOMIC_NUMBER":"Número económico"
   },
   "SUPPLIES":{
-    "HEADER":"Inventario de Insumos"
+    "HEADER":"Inventario de Insumos",
+    "FIELDS":{
+      "KIND":"Tipo de Insumo",
+      "KIND_CHOICES":{
+        "UNIQUE":"Unico",
+        "LOT":"Lote"
+      },
+      "REMISSION":"Remisión",
+      "LINE":"Linea",
+      "SERIAL":"Nppumero de serie",
+      "STOCK":"Elementos en existencia",
+      "QUANTITY":"Cantidad"
+    }
   }
 }
