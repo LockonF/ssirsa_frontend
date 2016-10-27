@@ -7,13 +7,13 @@
         .module('app.mainApp')
         .controller('solicitudDetailDialogController',solicitudDetailDialogController);
 
-    function solicitudDetailDialogController($mdDialog,OPTIONS,event,Persona_Admin,udn,tipoSol)
+    function solicitudDetailDialogController($mdDialog,OPTIONS,event,Persona_Admin,udn,tipoSol,TipoEquipo)
     {
         var vm = this;
-        console.log(event);
         vm.udn=null;
         vm.persona=null;
         vm.tipoSol=tipoSol;
+        vm.tipoEquipo=null;
         vm.solicitudData={
             "id": null,
             "udn": null,
@@ -24,7 +24,13 @@
             "tipo_solicitud": null,
             "status": null,
             "comentario": null,
-            "datos": [],
+            "datos": [
+                {
+                    "cantidad": null,
+                    "status_equipo": null,
+                    "tipo_equipo": null
+                }
+            ],
             "persona": null
         };
         vm.solicitudVentaData={
@@ -48,12 +54,25 @@
                     for (var i = 0, len = vm.udns.length; i < len; i++) {
                         if (vm.udns[i].id == event.udn) {
                             vm.udn = vm.udns[i];
-                            console.log(vm.udn);
                         }
                     }
                 }).catch(function (error) {
                 });
-                vm.solicitudData.comentario= event.comentario;
+                vm.solicitudData= event;
+                vm.datos = event.datos;
+                TipoEquipo.listWitout().then(function (res){
+                    for (var j=0, len1 = vm.datos.length; j < len1; j++) {
+                        for (var i = 0, len = res.length; i < len; i++) {
+                            if (res[i].id == vm.datos[j].tipo_equipo) {
+                                vm.tipoEquipo = res[i].nombre;
+                                vm.datos[j].tipo_equipoName=vm.tipoEquipo;
+
+                            }
+                        }
+                    }
+                }).catch(function(res){
+
+                })
             }
             else
             {
@@ -69,12 +88,10 @@
                 for (var i = 0, len = vm.personas_admin.length; i < len; i++) {
                     if (vm.personas_admin[i].id == event.persona) {
                         vm.persona = vm.personas_admin[i];
-                        console.log(vm.persona);
                     }
                 }
             }).catch(function(error){
             });
-            console.log("Hola dialog");
         }
 
         vm.status=OPTIONS.status_equipment;

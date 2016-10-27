@@ -23,6 +23,22 @@
                 <label>{{'SEARCH_REQUEST.FORM.LABEL.PERSONA'|translate}}</label>
                 <input type="text" ng-disabled=true ng-model="vm.persona.user.username" name="user" required="required" ng-pattern="/^[A-Za-zsáéíóúÁÉÍÓÚÑñ ]*$/"/>
             </md-input-container>
+            <md-list >
+                <md-list-item ng-repeat="dato in vm.datos">
+                    <md-input-container class="md-block">
+                        <label>{{'SEARCH_REQUEST.FORM.LABEL.CANTIDAD'|translate}}</label>
+                        <input type="text" ng-disabled=true ng-model="dato.cantidad" name="datos1"/>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>{{'SEARCH_REQUEST.FORM.LABEL.STATUS'|translate}}</label>
+                        <input type="text" ng-disabled=true ng-model="dato.status_equipo" name="datos1"/>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>{{'SEARCH_REQUEST.FORM.LABEL.TIPOEQUIPO'|translate}}</label>
+                        <input type="text" ng-disabled=true ng-model="dato.tipo_equipoName" name="datos1"/>
+                    </md-input-container>
+                </md-list-item>
+            </md-list>
             <md-input-container class="md-block">
                 <label>{{'CREATE_REQUEST.FORM.LABEL.COMMENT'|translate}}</label>
                                 <textarea ng-disabled=true ng-model="vm.solicitudData.comentario" md-maxlength="100" name="comentario"

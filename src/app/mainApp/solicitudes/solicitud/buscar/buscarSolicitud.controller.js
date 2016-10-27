@@ -333,7 +333,6 @@
             }
             vm.solicitudes = null;
             vm.solicitudesVentas=null;
-            vm.solicitudesVentasAdmin=null;
             vm.sol = null;
             vm.solicitudesArray = [];
             switch (vm.tipo_solicitud) {
@@ -348,6 +347,7 @@
                                         vm.sol.fecha_inicio = moment(vm.sol.fecha_inicio).format('DD/MM/YYYY');
                                         vm.sol.fecha_termino = moment(vm.sol.fecha_termino).format('DD/MM/YYYY');
                                         vm.sol.fecha_atendida = moment(vm.sol.fecha_atendida).format('DD/MM/YYYY HH:mm');
+                                        console.log(vm.sol);
                                     }
                                 }
                                 if (vm.sol != null) {
@@ -545,20 +545,20 @@
                 case 'Venta':
                     if (!vm.isClient) {
                         Solicitud_Servicio_Admin.list().then(function (rest) {
-                            vm.solicitudesVentasAdmin = rest;
+                            vm.solicitudesVentas = rest;
                             if (rest.length > 0) {
-                                vm.solicitudesVentasAdmin = rest;
-                                for (var i = 0, len = vm.solicitudesVentasAdmin.length; i < len; i++) {
+                                vm.solicitudesVentas = rest;
+                                for (var i = 0, len = vm.solicitudesVentas.length; i < len; i++) {
 
-                                    vm.sol = vm.solicitudesVentasAdmin[i];
+                                    vm.sol = vm.solicitudesVentas[i];
                                     vm.sol.fecha_atencion = moment(vm.sol.fecha_atencion).format('DD/MM/YYYY HH:mm');
                                     vm.solicitudesArray.push(vm.sol);
                                 }
 
-                                vm.solicitudesVentasAdmin = null;
-                                vm.solicitudesVentasAdmin = vm.solicitudesArray;
+                                vm.solicitudesVentas = null;
+                                vm.solicitudesVentas = vm.solicitudesArray;
                                 vm.solicitudesArray = [];
-                                if (vm.solicitudesVentasAdmin == null) {
+                                if (vm.solicitudesVentas == null) {
                                     toastr.warning('Solicitudes ' + vm.busqueda_status + 's no encontradas', 'Advertencia');
                                 }
                             } else {
@@ -572,27 +572,10 @@
                         })
                     } else {
                         Solicitud_Servicio.list().then(function (rest) {
-                            vm.solicitudesVentasAux = rest;
-                            Persona.listProfile().then(function(rest){
-                                vm.user_ini=rest;
-                                vm.solicitudesVentasAux = _.filter(vm.solicitudesVentasAux, function(item){
-                                    return item.persona == vm.user_ini.id;
-                                });
-                                if(vm.solicitudesVentasAux!=null) {
-                                    vm.solicitudesVentas = vm.solicitudesVentasAux;
-                                }else{
-                                    vm.solicitudesVentas =null;
-                                }
-                            }).catch(function (error){
-                                toastr.warning(vm.errorMessage, vm.errorTitle);
-                            });
+                            vm.solicitudesVentas = rest;
                         }).catch(function (error) {
                             toastr.warning(vm.errorMessage, vm.errorTitle);
                         })
-                        console.log(("VEnta"));
-                        console.log((vm.tipo_solicitud=='Venta'));
-                        console.log(("solicitudesVentas"));
-                        console.log((vm.solicitudesVentas!=null));
                     }
                     break;
             }
