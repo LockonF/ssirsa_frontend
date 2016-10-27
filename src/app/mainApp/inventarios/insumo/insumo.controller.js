@@ -11,18 +11,23 @@
     function insumoController(Translate, CatalogoInsumo, Insumo, toastr, Helper) {
         //Variable definition
         var vm = this;
+        vm.searchText="";
+        vm.showElements=false;
         vm.choices=[
             Translate.translate('SUPPLIES.FIELDS.KIND_CHOICES.UNIQUE'),
             Translate.translate('SUPPLIES.FIELDS.KIND_CHOICES.LOT')
         ];
-        vm.selectedIndex;
 
 
         //Translates
         vm.successTitle=Translate.translate('MAIN.MSG.SUCCESS_TITLE');
         vm.errorTitle=Translate.translate('MAIN.MSG.ERROR_TITLE');
         vm.errorGenericMesssage=Translate.translate('MAIN.MSG.ERROR_MESSAGE');
+        
         //Function parsing
+        vm.selectionChanged=selectionChanged;
+        vm.selectedItemChange=selectedItemChange;
+        vm.search=search;
 
         //Blank variables
         var insumo= {
@@ -40,19 +45,41 @@
 
         function activate(){
             CatalogoInsumo.listObject().then(function(res){
-                vm.catalogoInsumos= Helper.filterDeleted(res,true);
-                vm.insumosUnicos = _.filter(vm.catalogoInsumos,function(element){
-                    return element.tipo=="U";
+                vm.catalogoInsumos= Helper.filterDeleted(res,true);                
+                vm.filteredInsumos={};
+                vm.uniqueInsumos= _.filter(vm.catalogoInsumos,function(element){
+                    return element.tipo === "U";
                 });
-                vm.insumosLote = _.filter(vm.catalogoInsumos,function(element){
-                    return element.tipo=="L";
+                vm.lotInsumos= _.filter(vm.catalogoInsumos,function(element){
+                    return element.tipo === "L";
                 });
-
-                console.log(vm.insumosUnicos);
-                console.log(vm.insumosLote);
             });
+            vm.selectedInsumo=null;
+            vm.selectedKind;
+            vm.isValid=false;
+            vm.insumo=angular.copy(insumo);
         }
 
+        function selectionChanged(){
+            if(vm.selectedKind == Translate.translate('SUPPLIES.FIELDS.KIND_CHOICES.UNIQUE'))
+                vm.filteredInsumos=vm.uniqueInsumos;
+            if(vm.selectedKind == Translate.translate('SUPPLIES.FIELDS.KIND_CHOICES.LOT'))
+                vm.filteredInsumos=vm.lotInsumos;
+        }
+
+        function search(text) {
+            if(!angular.isUndefined(text)) {
+                    vm.filteredInsumos = _.filter(vm.catalogoInsumos, function (item) {
+                            return (item.palabra_clave.toLowerCase().startsWith(text.toLowerCase()) || item.descripcion.toLowerCase().includes(text.toLowerCase()));
+                    });
+                vm.isValid = !((vm.filteredInsumos.length == 0 && text.length > 0) || (text.length > 0 && !angular.isObject(vm.selectedInsumo)));
+                return vm.filteredInsumos;
+            }
+        }
+
+        function selectedItemChange(item) {
+            vm.isValid =angular.isObject(item);
+        }
 
     }
 

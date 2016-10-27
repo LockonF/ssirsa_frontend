@@ -12,6 +12,7 @@
   "SUPPLIES":{
     "HEADER":"Inventario de Insumos",
     "FIELDS":{
+      "SUPPLY":"Insumo",
       "KIND":"Tipo de Insumo",
       "KIND_CHOICES":{
         "UNIQUE":"Unico",
@@ -22,6 +23,10 @@
       "SERIAL":"Nppumero de serie",
       "STOCK":"Elementos en existencia",
       "QUANTITY":"Cantidad"
+    },
+    "MESSAGES":{
+      "NO_RESULTS":"Sin resultados",
+      "INVALID_SUPPLY":"Insumo inválido"
     }
   }
 }

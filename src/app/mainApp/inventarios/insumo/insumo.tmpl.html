@@ -1,22 +1,88 @@
 <div layout="column">
     <md-card class="md-padding card1" flex="100" flex-gt-sm="90" layout-align="center center">
-        <md-title flex="100" layout-fill>
-            <h3>{{'SUPPLIES.HEADER'|translate}}</h3>
-        </md-title>
+        <md-card-title flex="100" layout-fill>
+            <md-card-title-text>
+                    <span class="md-headline">
+                        {{'SUPPLIES.HEADER'|translate}}
+                    </span>
+            </md-card-title-text>
+        </md-card-title>
         <md-content class="md-padding card1" flex="100" layout="column" layout-fill layout-align="center start">
-            <div layout="row">
-                <md-input-container flex="100" flex-gt-sm="20">
-                    <label>{{'SUPPLIES.FIELDS.KIND'|translate}}</label>
-                    <md-select ng-model="vm.selectedIndex">
-                        <md-option ng-repeat="option in vm.choices">
-                            {{option}}
-                        </md-option>
-                    </md-select>
-                </md-input-container>
-                <md-input-container flex="100" flex-gt-sm="80">
-
-                </md-input-container>
-            </div>
+            <form name="supplyForm"
+                  layout-fill
+                  flex="100"
+                  no-validate
+            >
+                <div layout="row">
+                    <md-input-container flex="100" flex-gt-sm="20">
+                        <label>{{'SUPPLIES.FIELDS.KIND'|translate}}</label>
+                        <md-select ng-model="vm.selectedKind"
+                                   name="selectKindSuply"
+                                   md-on-close="vm.selectionChanged()"
+                                   required
+                        >
+                            <md-option ng-repeat="option in vm.choices" value="{{option}}">
+                                {{option}}
+                            </md-option>
+                            <div ng-messages="supplyForm.selectKindSupply.$error">
+                                <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                            </div>
+                        </md-select>
+                    </md-input-container>
+                    <div
+                            flex="100"
+                            flex-gt-sm="80"
+                            class="md-block"
+                            ng-if="vm.selectedKind!=undefined"
+                    >
+                        <md-autocomplete md-selected-item="vm.selectedInsumo"
+                                         md-selected-item-change="vm.selectedItemChange(item)"
+                                         md-items="item in vm.filteredInsumos"
+                                         md-item-text="item.palabra_clave"
+                                         md-min-length="0"
+                                         md-input-name="selectSupply"
+                                         md-search-text-change="vm.search(vm.searchText)"
+                                         required
+                                         md-input-id="suppply"
+                                         md-search-text="vm.searchText"
+                                         md-menu-class="autocomplete-custom-template"
+                                         md-require-match="true"
+                                         md-no-cache="true"
+                                         md-floating-label="{{'SUPPLIES.FIELDS.SUPPLY'| translate}}">
+                            <md-item-template>
+                                                    <span class="item-title">
+                                                        <md-icon md-font-icon="zmdi zmdi-developer-board"></md-icon>
+                                                        <span>&nbsp; {{item.palabra_clave}}</span>
+                                                    </span>
+                                                    <span class="item-metadata">
+                                                        <span class="item-metastat">
+                                                            <strong>{{item.descripcion}}</strong>
+                                                        </span>
+                                                    </span>
+                            </md-item-template>
+                            <md-not-found><span translate="SUPPLIES.MESSAGES.NO_RESULTS"></span></md-not-found>
+                            <div ng-messages="supplyForm.selectSupply.$error" ng-if="supplyForm.selectSupply.$touched">
+                                <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                <div class="validate" ng-show="!vm.isValid" ng-class="{'slide':vm.isValid==false}">
+                                    <span>{{'SUPPLIES.MESSAGES.INVALID_SUPPLY'| translate}}</span>
+                                </div>
+                            </div>
+                        </md-autocomplete>
+                    </div>
+                </div>
+                <div layout="column"
+                     ng-if="vm.selectedKind!=undefined"
+                >
+                    <md-input-container flex="100" flex-gt-sm="50">
+                        <label>{{SUPPLIES.FIELDS.REMISSION|translate}}</label>
+                        <input type="text"
+                               required
+                               name="inputRemision"
+                               ng-model="vm.insumo.no_remision"
+                        >
+                    </md-input-container>
+                </div>
+            </form>
         </md-content>
     </md-card>
 
