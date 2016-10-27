@@ -145,6 +145,11 @@
                             type: 'link'
                         },
                         {
+                            name: 'MAIN.MENU.SERVICEONSTORE',
+                            state: 'triangular.admin-default.servicioPuntoVenta',
+                            type: 'link'
+                        },
+                        {
                             name: 'MAIN.MENU.LINE',
                             state: 'triangular.admin-default.asignacionLinea',
                             type: 'link'

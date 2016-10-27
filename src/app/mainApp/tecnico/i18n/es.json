@@ -59,7 +59,8 @@
         "ARE_U_SURE": "¿Estás seguro que deseas eliminar el registro?",
         "ACCEPT": "Aceptar",
         "CANCEL": "Cancelar",
-        "INSUMO_NOTVALIDATED": "Etapa donde no se permite agregar Insumos"
+        "INSUMO_NOTVALIDATED": "Etapa donde no se permite agregar Insumos",
+        "INFO_ETAPA":"Información de Etapa"
     },
     "CABINET": {
         "LINE_ASSIGMENT": "Asignación de Linea",
