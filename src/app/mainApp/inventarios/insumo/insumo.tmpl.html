@@ -19,6 +19,7 @@
                         <md-select ng-model="vm.selectedKind"
                                    name="selectKindSuply"
                                    md-on-close="vm.selectionChanged()"
+                                   md-no-asterisk
                                    required
                         >
                             <md-option ng-repeat="option in vm.choices" value="{{option}}">
@@ -33,9 +34,9 @@
                             flex="100"
                             flex-gt-sm="80"
                             class="md-block"
-                            ng-if="vm.selectedKind!=undefined"
                     >
                         <md-autocomplete md-selected-item="vm.selectedInsumo"
+                                         ng-disabled="vm.selectedKind==undefined"
                                          md-selected-item-change="vm.selectedItemChange(item)"
                                          md-items="item in vm.filteredInsumos"
                                          md-item-text="item.palabra_clave"
@@ -48,6 +49,7 @@
                                          md-menu-class="autocomplete-custom-template"
                                          md-require-match="true"
                                          md-no-cache="true"
+                                         md-no-asterisk
                                          md-floating-label="{{'SUPPLIES.FIELDS.SUPPLY'| translate}}">
                             <md-item-template>
                                                     <span class="item-title">
@@ -71,16 +73,28 @@
                     </div>
                 </div>
                 <div layout="column"
-                     ng-if="vm.selectedKind!=undefined"
+                     ng-if="vm.selectedInsumo!=null"
                 >
-                    <md-input-container flex="100" flex-gt-sm="50">
-                        <label>{{SUPPLIES.FIELDS.REMISSION|translate}}</label>
-                        <input type="text"
-                               required
-                               name="inputRemision"
-                               ng-model="vm.insumo.no_remision"
-                        >
-                    </md-input-container>
+                    <div layout="column" layout-gt-sm="row">
+                        <md-input-container flex="100" flex-gt-sm="50">
+                            <label>{{'SUPPLIES.FIELDS.REMISSION'|translate}}</label>
+                            <input type="text"
+                                   required
+                                   name="inputRemision"
+                                   ng-model="vm.insumo.no_remision"
+                                   md-no-asterisk
+                            >
+                        </md-input-container>
+                        <md-input-container flex="100" flex-gt-sm="50">
+                            <label>{{'SUPPLIES.FIELDS.LINE'|translate}}</label>
+                            <input type="text"
+                                   required
+                                   name="inputRemision"
+                                   ng-model="vm.insumo.no_remision"
+                                   md-no-asterisk
+                            >
+                        </md-input-container>
+                    </div>
                 </div>
             </form>
         </md-content>
