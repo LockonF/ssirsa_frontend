@@ -139,7 +139,7 @@
             vm.selected_cabinet.modelo = null;
             MarcaCabinet.getModels(vm.chosen_marca_cabinet).then(function (res) {
                 vm.modelos_choice_resolver = true;
-                vm.modelos_choice_cabinet = res;
+                vm.modelos_choice_cabinet = Helper.sortByAttribute(res,'nombre');
             }).catch(function (err) {
                 vm.modelos_choice_resolver = true;
             });
@@ -276,6 +276,10 @@
              * Esto es un pedazo de magia que busca por fecha usando moment JS con las zonas
              * horarias que ya provee Django :D
              **/
+            vm.selected_cabinet.entrada_salida = null;
+            $scope.inputForm.entrada_salida.$pristine = true;
+            $scope.inputForm.entrada_salida.$dirty = false;
+
             vm.show_entries = _.filter(vm.entradas, function (entrada) {
                 var searchYear = moment(vm.selected_date).format('YYYY');
                 var searchMonth = moment(vm.selected_date).format('MM');
@@ -288,6 +292,11 @@
 
 
             });
+            if(vm.show_entries == null)
+            {
+                vm.show_entries = [];
+            }
+
         }
 
         function checkCapitalizado() {

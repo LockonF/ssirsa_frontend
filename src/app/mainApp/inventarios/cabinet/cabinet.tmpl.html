@@ -71,31 +71,29 @@ Created by lockonDaniel on 9/11/16.
                         </md-input-container>
                         <md-input-container class="md-block">
                             <label>{{ 'CABINET_CRUD.YEAR' | translate }}</label>
-                            <input type="text" name="year" ng-model="vm.selected_cabinet.year" ng-required="true" only-digits="true" ng-disabled="vm.selected_cabinet.deleted"/>
+                            <input type="text" name="year" ng-model="vm.selected_cabinet.year" ng-required="true" numbers-only="" ng-disabled="vm.selected_cabinet.deleted"/>
                             <div ng-messages="inputForm.year.$error">
                                 <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                             </div>
                         </md-input-container>
                         <md-input-container class="md-block">
                             <label>{{ 'CABINET_CRUD.ISSUES' | translate }}</label>
-                            <input ng-required="true" type="number" step="any" name="no_incidencias" ng-model="vm.selected_cabinet.no_incidencias" min="1"
-                                   max="4" ng-pattern="/^[1-4]$/" ng-disabled="vm.selected_cabinet.deleted"/>
+                            <input ng-required="true" type="text" step="any" name="no_incidencias" ng-model="vm.selected_cabinet.no_incidencias" min="1"
+                                   max="4" ng-pattern="/^[1-4]$/" ng-disabled="vm.selected_cabinet.deleted" numbers-only=""/>
                             <div ng-messages="inputForm.no_incidencias.$error">
-                                <div ng-message="max">{{'MAIN.GENERAL.MAX_NUMBER' | translate}} 4</div>
-                                <div ng-message="min">{{'MAIN.GENERAL.MIN_NUMBER' | translate}} 1</div>
-                                <div ng-message="pattern">{{'MAIN.GENERAL.JUST_INTEGERS' | translate}}</div>
+                                <div ng-message="pattern">{{'CABINET_CRUD.MAX_ISSUES' | translate}}</div>
                                 <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                             </div>
                         </md-input-container>
                         <md-input-container class="md-block">
                             <label>{{'CABINET_CRUD.SELECT_BRAND' | translate}}</label>
-                            <md-select ng-model="vm.chosen_marca_cabinet" md-on-close="vm.ƒa(vm.selected_marca)" ng-disabled="vm.selected_cabinet.deleted" multiple="false">
+                            <md-select ng-model="vm.chosen_marca_cabinet" md-on-close="vm.loadModelosToChoose(vm.selected_marca)" ng-disabled="vm.selected_cabinet.deleted" multiple="false">
                                 <md-option ng-repeat="marca in vm.marcas_cabinet_choice" ng-value="marca.id">{{marca.descripcion}}</md-option>
                             </md-select>
                         </md-input-container>
                         <md-input-container class="md-block">
                             <label>{{'CABINET_CRUD.SELECT_MODEL' | translate}}</label>
-                            <md-select ng-model="vm.selected_cabinet.modelo" ng-disabled=" vm.chosen_marca_cabinet==null || vm.modelos_choice_resolver==false || vm.selected_cabinet.deleted" multiple="false">
+                            <md-select ng-model="vm.selected_cabinet.modelo" ng-disabled=" vm.chosen_marca_cabinet==null || vm.modelos_choice_resolver==false || vm.selected_cabinet.deleted || vm.modelos_choice_cabinet.length==0" multiple="false">
                                 <md-option ng-repeat="modelo in vm.modelos_choice_cabinet" ng-value="modelo.id">{{modelo.descripcion}}</md-option>
                             </md-select>
                         </md-input-container>
@@ -133,9 +131,12 @@ Created by lockonDaniel on 9/11/16.
                             <md-datepicker placeholder="{{&quot;CABINET_CRUD.SELECT_DATE&quot;}}" ng-model="vm.selected_date" ng-change="vm.lookupEntriesByDate()" class="md-block"></md-datepicker>
                             <md-input-container class="md-block">
                                 <label>{{'CABINET_CRUD.SELECT_ENTRY' | translate}}</label>
-                                <md-select ng-model="vm.selected_cabinet.entrada_salida" ng-required="true" name="entrada_salida">
+                                <md-select name="entrada_salida" ng-model="vm.selected_cabinet.entrada_salida" ng-required="true" name="entrada_salida" ng-disabled="vm.show_entries.length==0">
                                     <md-option ng-repeat="entrada in vm.show_entries" ng-value="entrada.id">{{entrada.fecha| amUtc | amDateFormat:'DD/MM/YYYY HH:mm'}} - {{entrada.nombre_chofer}}</md-option>
                                 </md-select>
+                                <div ng-messages="inputForm.entrada_salida.$error">
+                                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
+                                </div>
                             </md-input-container>
                         </div>
                         <!--Pre Checklist-->
