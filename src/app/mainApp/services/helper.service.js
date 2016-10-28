@@ -68,7 +68,7 @@
          * @description Se encarga de mostrar una notificación al usuario.
          * @property {Object} info Un objeto con la información para la notificación.
          */
-        function showNotification(info) {
+        function showNotification(info,title) {
             if (!("Notification" in window)) {
                 $log.info("Este navegador no soporta notificaciones de escritorio");
             }
@@ -76,12 +76,23 @@
                 Notification.requestPermission()
             }
             else if (Notification.permission === "granted") {
-                var options = {
+                console.log("notificación");
+                /*var options = {
                     body: info,
                     icon: "https://s3-us-west-2.amazonaws.com/resources-sssirsa/logo.png",
                     dir: "ltr"
                 };
-                new Notification("SSSIRSA", options);
+                new Notification("SSSIRSA", options);*/
+                Push.create(title, {
+                    body:info,
+                    icon: 'https://resources-sssirsa.s3.amazonaws.com/logo_icon_32.png',
+                    timeout: 10000,
+                    onClick: function () {
+                        window.focus();
+                        this.close();
+                    }
+                });
+
             }
         }
 
