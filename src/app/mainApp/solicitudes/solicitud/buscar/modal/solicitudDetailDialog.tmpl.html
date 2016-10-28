@@ -12,77 +12,74 @@
         </div>
     </md-toolbar>
 
-    <md-dialog-content class="md-dialog-content card1 md-blue-grey-theme" ng-if="vm.tipoSol=='Envio'||vm.tipoSol=='Recoleccion'">
-        <form name="updateSolicitudform">
-
-            <md-input-container class="md-block">
-                <label>{{'SEARCH_REQUEST.FORM.LABEL.UDN'|translate}}</label>
-                <input type="text" ng-disabled=true ng-model="vm.udn.agencia" name="udn" required="required" ng-pattern="/^[A-Za-zsáéíóúÁÉÍÓÚÑñ ]*$/"/>
-            </md-input-container>
-            <md-input-container class="md-block">
-                <label>{{'SEARCH_REQUEST.FORM.LABEL.PERSONA'|translate}}</label>
-                <input type="text" ng-disabled=true ng-model="vm.persona.user.username" name="user" required="required" ng-pattern="/^[A-Za-zsáéíóúÁÉÍÓÚÑñ ]*$/"/>
-            </md-input-container>
-            <md-list >
-                <md-list-item ng-repeat="dato in vm.datos">
-                    <md-input-container class="md-block">
-                        <label>{{'SEARCH_REQUEST.FORM.LABEL.CANTIDAD'|translate}}</label>
-                        <input type="text" ng-disabled=true ng-model="dato.cantidad" name="datos1"/>
-                    </md-input-container>
-                    <md-input-container class="md-block">
-                        <label>{{'SEARCH_REQUEST.FORM.LABEL.STATUS'|translate}}</label>
-                        <input type="text" ng-disabled=true ng-model="dato.status_equipo" name="datos1"/>
-                    </md-input-container>
-                    <md-input-container class="md-block">
-                        <label>{{'SEARCH_REQUEST.FORM.LABEL.TIPOEQUIPO'|translate}}</label>
-                        <input type="text" ng-disabled=true ng-model="dato.tipo_equipoName" name="datos1"/>
-                    </md-input-container>
-                </md-list-item>
-            </md-list>
-            <md-input-container class="md-block">
-                <label>{{'CREATE_REQUEST.FORM.LABEL.COMMENT'|translate}}</label>
+    <md-content class="md-dialog-content card1 md-blue-grey-theme" ng-if="vm.tipoSol=='Envio'||vm.tipoSol=='Recoleccion'" style="overflow-y: scroll;">
+        <div>
+                <md-input-container class="md-block">
+                    <label>{{'SEARCH_REQUEST.FORM.LABEL.UDN'|translate}}</label>
+                    <input type="text" ng-disabled=true ng-model="vm.udn.agencia" name="udn" required="required" ng-pattern="/^[A-Za-zsáéíóúÁÉÍÓÚÑñ ]*$/"/>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>{{'SEARCH_REQUEST.FORM.LABEL.PERSONA'|translate}}</label>
+                    <input type="text" ng-disabled=true ng-model="vm.persona.user.username" name="user" required="required" ng-pattern="/^[A-Za-zsáéíóúÁÉÍÓÚÑñ ]*$/"/>
+                </md-input-container>
+                <md-list >
+                    <md-list-item ng-repeat="dato in vm.datos">
+                        <md-input-container class="md-block">
+                            <label>{{'SEARCH_REQUEST.FORM.LABEL.CANTIDAD'|translate}}</label>
+                            <input type="text" ng-disabled=true ng-model="dato.cantidad" name="datos1"/>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>{{'SEARCH_REQUEST.FORM.LABEL.STATUS'|translate}}</label>
+                            <input type="text" ng-disabled=true ng-model="dato.status_equipo" name="datos1"/>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>{{'SEARCH_REQUEST.FORM.LABEL.TIPOEQUIPO'|translate}}</label>
+                            <input type="text" ng-disabled=true ng-model="dato.tipo_equipoName" name="datos1"/>
+                        </md-input-container>
+                    </md-list-item>
+                </md-list>
+                <md-input-container class="md-block">
+                    <label>{{'CREATE_REQUEST.FORM.LABEL.COMMENT'|translate}}</label>
                                 <textarea ng-disabled=true ng-model="vm.solicitudData.comentario" md-maxlength="100" name="comentario"
                                 ></textarea>
-                <div ng-messages="solicitudForm.comentario.$error">
-                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
-                </div>
-            </md-input-container>
-        </form>
-    </md-dialog-content>
+                    <div ng-messages="solicitudForm.comentario.$error">
+                        <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                    </div>
+                </md-input-container>
+        </div>
+    </md-content>
 
-    <md-dialog-content class="md-dialog-content card1 md-blue-grey-theme" ng-if="vm.tipoSol=='Venta'">
-        <form name="updateSolicitudform">
+    <md-content class="md-dialog-content card1 md-blue-grey-theme" ng-if="vm.tipoSol=='Venta'" style="overflow-y: scroll;">
+        <md-input-container class="md-block">
+            <label>{{'SEARCH_REQUEST.FORM.LABEL.FOLIO'|translate}}</label>
+            <input type="text" ng-disabled=true ng-model="vm.solicitudVentaData.id" name="id" />
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>{{'SEARCH_REQUEST.FORM.LABEL.PERSONA'|translate}}</label>
+            <input type="text" ng-disabled=true ng-model="vm.persona.user.username" name="user" />
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>{{'SEARCH_REQUEST.FORM.LABEL.TIPO_SERVICIO'|translate}}</label>
+            <input type="text" ng-disabled=true ng-model="vm.solicitudVentaData.tipo_servicio" name="id" />
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>{{'SEARCH_REQUEST.FORM.LABEL.CEDIS'|translate}}</label>
+            <input type="text" ng-disabled=true ng-model="vm.solicitudVentaData.cedis" name="id" />
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>{{'SEARCH_REQUEST.FORM.LABEL.NO_SERIE'|translate}}</label>
+            <input type="text" ng-disabled=true ng-model="vm.solicitudVentaData.no_serie" name="id" />
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>{{'SEARCH_REQUEST.FORM.LABEL.FECHA_REALIZACION'|translate}}</label>
+            <input type="text" ng-disabled=true ng-model="vm.solicitudVentaData.fecha_realizacion" name="id" />
+        </md-input-container>
+        <md-input-container class="md-block">
+            <label>{{'SEARCH_REQUEST.FORM.LABEL.MODELO'|translate}}</label>
+            <input type="text" ng-disabled=true ng-model="vm.solicitudVentaData.modelo" name="id" />
+        </md-input-container>
+    </md-content>
 
-            <md-input-container class="md-block">
-                <label>{{'SEARCH_REQUEST.FORM.LABEL.FOLIO'|translate}}</label>
-                <input type="text" ng-disabled=true ng-model="vm.solicitudVentaData.id" name="id" />
-            </md-input-container>
-            <md-input-container class="md-block">
-                <label>{{'SEARCH_REQUEST.FORM.LABEL.PERSONA'|translate}}</label>
-                <input type="text" ng-disabled=true ng-model="vm.persona.user.username" name="user" />
-            </md-input-container>
-            <md-input-container class="md-block">
-                <label>{{'SEARCH_REQUEST.FORM.LABEL.TIPO_SERVICIO'|translate}}</label>
-                <input type="text" ng-disabled=true ng-model="vm.solicitudVentaData.tipo_servicio" name="id" />
-            </md-input-container>
-            <md-input-container class="md-block">
-                <label>{{'SEARCH_REQUEST.FORM.LABEL.CEDIS'|translate}}</label>
-                <input type="text" ng-disabled=true ng-model="vm.solicitudVentaData.cedis" name="id" />
-            </md-input-container>
-            <md-input-container class="md-block">
-                <label>{{'SEARCH_REQUEST.FORM.LABEL.NO_SERIE'|translate}}</label>
-                <input type="text" ng-disabled=true ng-model="vm.solicitudVentaData.no_serie" name="id" />
-            </md-input-container>
-            <md-input-container class="md-block">
-                <label>{{'SEARCH_REQUEST.FORM.LABEL.FECHA_REALIZACION'|translate}}</label>
-                <input type="text" ng-disabled=true ng-model="vm.solicitudVentaData.fecha_realizacion" name="id" />
-            </md-input-container>
-            <md-input-container class="md-block">
-                <label>{{'SEARCH_REQUEST.FORM.LABEL.MODELO'|translate}}</label>
-                <input type="text" ng-disabled=true ng-model="vm.solicitudVentaData.modelo" name="id" />
-            </md-input-container>
-        </form>
-    </md-dialog-content>
     <md-dialog-actions layout="row" layout-align="end center">
         <md-button ng-click="vm.cancel()" md-no-ink class="md-primary">
             {{'MAIN.BUTTONS.CANCEL'|translate}}

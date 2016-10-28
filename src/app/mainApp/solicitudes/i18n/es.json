@@ -87,7 +87,8 @@
                 "CANTIDAD":"Cantidad",
                 "STATUS":"Estatus del equipo",
                 "TIPOEQUIPO":"Tipo del equipo",
-                "MODELO":"Modelo"
+                "MODELO":"Modelo",
+                "PATTERNMESSAGE":"Favor de introducir solo caracteres validos"
             }
         }
     }

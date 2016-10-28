@@ -51,7 +51,9 @@
         vm.borrarSolicitud = borrarSolicitud;
         vm.edit = edit;
         vm.editVenta = editVenta;
+        vm.editVentaTel=editVentaTel;
         vm.editSelect = editSelect;
+        vm.editSelectVenta=editSelectVenta;
         vm.editCalendar = editCalendar;
         vm.editVentaCalendar = editVentaCalendar;
         vm.showCreateDialog=showCreateDialog;
@@ -74,6 +76,7 @@
             vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
             vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
             vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
+            vm.PatternMessage=Translate.translate('SEARCH_REQUEST.FORM.LABEL.PATTERNMESSAGE');
         }
 
         function activate() {
@@ -171,6 +174,14 @@
             })
         }
 
+        function editSelectVenta(obj) {
+            Solicitud_Servicio_Admin.updateSolicitud(obj).then(function () {
+                toastr.success(vm.successUpdateMessage, vm.successTitle);
+            }).catch(function (res) {
+                toastr.error(vm.errorMessage, vm.errorTitle);
+            })
+        }
+
         function borrarSolicitudVenta(id) {
             Solicitud_Servicio_Admin.borrarSol(id).then(function (resp) {
                 vm.busqueda();
@@ -192,33 +203,76 @@
         }
 
         function editVenta(event, object, field) {
-            var config =
-            {
-                modelValue: object[field],
-                placeholder: 'Edita el campo',
-                save: function (input) {
+            if(!vm.isClient) {
+                var config =
+                {
+                    modelValue: object[field],
+                    placeholder: 'Edita el campo',
+                    save: function (input) {
 
-                    object[field] = input.$modelValue;
-                    updateObject(object);
-                },
-                targetEvent: event,
-                validators: {
-                    'md-maxlength': 30
+                        object[field] = input.$modelValue;
+                        updateObject(object);
+                    },
+                    targetEvent: event,
+
+                    validators: {
+                        'pattern': "^[A-Za-z_ 0-9áéíóúÁÉÍÓÚñN#\.]*$",
+                        'md-maxlength': 30,
+                        'oninvalid': "setCustomValidity(Favor de introducir solo caracteres validos)",
+                        'onchange': "try{setCustomValidity('')}catch(e){}"
+                    }
+                };
+
+                function updateObject(obj) {
+                    Solicitud_Servicio_Admin.updateSolicitud(obj).then(function () {
+                        toastr.success(vm.successUpdateMessage, vm.successTitle);
+                    }).catch(function (res) {
+                        toastr.error(vm.errorMessage, vm.errorTitle);
+                    })
                 }
-            };
 
-            function updateObject(obj) {
-                Solicitud_Servicio_Admin.updateSolicitud(obj).then(function () {
-                    toastr.success(vm.successUpdateMessage, vm.successTitle);
-                }).catch(function (res) {
-                    toastr.error(vm.errorMessage, vm.errorTitle);
-                })
+                $mdEditDialog.small(config).then(function (ctrl) {
+                }).catch(function (err) {
+                    toastr.warning(vm.errorMessage, vm.errorTitle);
+                });
             }
+        }
 
-            $mdEditDialog.small(config).then(function (ctrl) {
-            }).catch(function (err) {
-                toastr.warning(vm.errorMessage, vm.errorTitle);
-            });
+        function editVentaTel(event, object, field) {
+            if(!vm.isClient) {
+                var config =
+                {
+                    modelValue: object[field],
+                    placeholder: 'Edita el campo',
+                    save: function (input) {
+
+                        object[field] = input.$modelValue;
+                        updateObject(object);
+                    },
+                    targetEvent: event,
+
+                    validators: {
+                        'pattern': "^[A-Za-z_ 0-9áéíóúÁÉÍÓÚñN#\.]*$",
+                        'md-maxlength': 30,
+                        'oninvalid': "setCustomValidity(Favor de introducir solo caracteres validos)",
+                        'onchange': "try{setCustomValidity('')}catch(e){}",
+                        'only-digits': "true"
+                    }
+                };
+
+                function updateObject(obj) {
+                    Solicitud_Servicio_Admin.updateSolicitud(obj).then(function () {
+                        toastr.success(vm.successUpdateMessage, vm.successTitle);
+                    }).catch(function (res) {
+                        toastr.error(vm.errorMessage, vm.errorTitle);
+                    })
+                }
+
+                $mdEditDialog.small(config).then(function (ctrl) {
+                }).catch(function (err) {
+                    toastr.warning(vm.errorMessage, vm.errorTitle);
+                });
+            }
         }
 
         function editVentaCalendar(obj) {
@@ -347,7 +401,6 @@
                                         vm.sol.fecha_inicio = moment(vm.sol.fecha_inicio).format('DD/MM/YYYY');
                                         vm.sol.fecha_termino = moment(vm.sol.fecha_termino).format('DD/MM/YYYY');
                                         vm.sol.fecha_atendida = moment(vm.sol.fecha_atendida).format('DD/MM/YYYY HH:mm');
-                                        console.log(vm.sol);
                                     }
                                 }
                                 if (vm.sol != null) {
