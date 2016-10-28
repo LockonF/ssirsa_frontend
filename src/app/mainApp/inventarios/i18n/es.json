@@ -7,7 +7,8 @@
     "TITLE":"Gestión de Cabinets",
     "SELECT_BRAND":"Selecciona la marca",
     "SELECT_MODEL":"Selecciona el modelo",
-    "ECONOMIC_NUMBER":"Número económico"
+    "ECONOMIC_NUMBER":"Número económico",
+    "PREVIOUS_ECONOMIC_NUMBER":"Número económico anterior"
   },
   "SUPPLIES":{
     "HEADER":"Inventario de Insumos",

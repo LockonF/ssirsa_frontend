@@ -8,9 +8,12 @@
     /* @ngInject */
     function Cabinet($q, Restangular) {
         var urlbase=Restangular.all("cabinet");
+        var urlbase_clean=Restangular.all("cabinet_clean");
         return {
             create: create,
             createClean:createClean,
+            updateClean:updateClean,
+            removeClean:removeClean,
             get: get,
             getAll: getAll,
             getEconomics:getEconomics,
@@ -34,7 +37,13 @@
         }
 
         function createClean(data){
-            return urlbase.all('clean').customPOST(data);
+            return urlbase_clean.customPOST(data);
+        }
+        function updateClean(data){
+            return urlbase.one(data.economico).customPUT(data);
+        }
+        function removeClean(data){
+            return urlbase.customDELETE(cabinet.economico,null,{'content-type':'application/json'});
         }
 
         function get(no_serie) {
@@ -56,14 +65,8 @@
         }
 
         function remove(cabinet) {
-            var deferred = $q.defer();
+            return urlbase.customDELETE(cabinet.economico,null,{'content-type':'application/json'});
 
-            Restangular.one('cabinet', cabinet.economico).customDELETE().then(function (res) {
-                deferred.resolve(res);
-            }).catch(function (err) {
-                deferred.reject(err);
-            });
-            return deferred.promise;
         }
 
 

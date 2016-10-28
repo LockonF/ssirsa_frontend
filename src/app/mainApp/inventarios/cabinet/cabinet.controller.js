@@ -8,7 +8,7 @@
         .module('app.mainApp.inventario')
         .controller('cabinetController', cabinetController);
 
-    function cabinetController(Translate, OPTIONS, MarcaCabinet, ModeloCabinet, udn, Cabinet, toastr, $scope, EntradaSalida, Helper) {
+    function cabinetController(Translate, OPTIONS, MarcaCabinet, ModeloCabinet, udn, Cabinet, toastr, $scope, EntradaSalida, Helper, $timeout) {
         var vm = this;
         vm.newCabinet = true;
         vm.marcas_cabinet = null;
@@ -22,6 +22,7 @@
         vm.cabinet_list = null;
         vm.entradas = null;
         vm.show_entries = null;
+        vm.marcas_cabinet_choice = null;
 
         vm.blank_selected_cabinet = {
             economico: null,
@@ -66,18 +67,12 @@
         vm.cancel = cancel;
         vm.update = update;
         vm.remove = remove;
+        vm.checkCapitalizado = checkCapitalizado;
         activate();
 
 
         function activate() {
             vm.udns = udn.list();
-            MarcaCabinet.listObject().then(function(res){
-                vm.marcas_cabinet = Helper.sortByAttribute(res,'descripcion');
-                vm.marcas_cabinet = Helper.filterDeleted(vm.marcas_cabinet,true);
-            }).catch(function(err){
-
-            });
-
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
             vm.successCreateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_CREATE');
@@ -88,7 +83,29 @@
             vm.notFoundInput = Translate.translate('MAIN.MSG.NOT_FOUND_INPUT');
             vm.errorTypeFile = Translate.translate('MAIN.MSG.ERORR_TYPE_FILE');
             vm.errorSize = Translate.translate('MAIN.MSG.FILE_SIZE');
+            loadMarcas();
+            loadMarcasChoiceFiltered();
 
+
+        }
+
+        function loadMarcas() {
+            MarcaCabinet.listObject().then(function(res){
+                vm.marcas_cabinet = Helper.sortByAttribute(res,'descripcion');
+                //vm.marcas_cabinet = Helper.filterDeleted(vm.marcas_cabinet,true);
+            }).catch(function(err){
+
+            });
+
+        }
+
+        function loadMarcasChoiceFiltered() {
+            MarcaCabinet.listObject().then(function(res){
+                vm.marcas_cabinet_choice = Helper.sortByAttribute(res,'descripcion');
+                vm.marcas_cabinet_choice = Helper.filterDeleted(vm.marcas_cabinet_choice,true);
+            }).catch(function(err){
+
+            });
 
         }
 
@@ -104,7 +121,7 @@
                 vm.modelos_resolver = true;
 
                 vm.modelos_cabinet = Helper.sortByAttribute(res,'nombre');
-                vm.modelos_cabinet = Helper.filterDeleted(vm.modelos_cabinet,true);
+                //vm.modelos_cabinet = Helper.filterDeleted(vm.modelos_cabinet,true);
             }).catch(function (err) {
                 vm.modelos_resolver = true;
             });
@@ -120,13 +137,12 @@
             vm.modelos_cabinet = null;
             vm.selected_cabinet.modelo = null;
             MarcaCabinet.getModels(vm.chosen_marca_cabinet).then(function (res) {
-                vm.modelos_choice_resolver = false;
+                vm.modelos_choice_resolver = true;
                 vm.modelos_choice_cabinet = res;
             }).catch(function (err) {
                 vm.modelos_choice_resolver = true;
             });
         }
-
 
         function selectedItemChange(cabinet) {
             $scope.inputForm.$setPristine();
@@ -134,19 +150,22 @@
 
             vm.newCabinet = false;
             vm.selected_cabinet = cabinet.clone();
-            vm.modelos_choice_resolver = false;
-
+            vm.modelos_choice_cabinet = null;
+            vm.chosen_marca_cabinet = null;
+            vm.marcas_cabinet_choice = null;
             if(vm.selected_cabinet.deleted)
             {
+
                 MarcaCabinet.listObject().then(function(res){
-                    vm.marcas_cabinet  = res;
+                    vm.marcas_cabinet_choice = res;
                 }).catch(function(err){
 
                 });
             }
-
-
-            ModeloCabinet.marca(vm.selected_cabinet.modelo).then(function (res) {
+            else{
+                vm.marcas_cabinet_choice = vm.marcas_cabinet;
+            }
+            ModeloCabinet.marca(cabinet.modelo).then(function (res) {
                 vm.chosen_marca_cabinet = res.id;
                 MarcaCabinet.getModels(vm.chosen_marca_cabinet).then(function (res) {
                     vm.modelos_choice_resolver = true;
@@ -158,6 +177,8 @@
             }).catch(function (err) {
                 vm.modelos_choice_resolver = true;
             });
+
+
         }
 
 
@@ -166,10 +187,11 @@
             delete vm.selected_cabinet.diagnostico;
             vm.create_update_resolver = false;
             vm.selected_cabinet.partial = true;
-            Cabinet.modify(vm.selected_cabinet).then(function (res) {
+            Cabinet.updateClean(vm.selected_cabinet).then(function (res) {
                 toastr.success(vm.successUpdateMessage, vm.successTitle);
                 vm.selected_cabinet = res;
                 vm.create_update_resolver = true;
+                loadCabinets(vm.selected_modelo);
             }).catch(function (err) {
                 toastr.error(err.data, vm.errorTitle);
                 vm.create_update_resolver = true;
@@ -197,7 +219,7 @@
         }
 
         function remove() {
-            Cabinet.remove(vm.selected_cabinet).then(function (res) {
+            Cabinet.removeClean(vm.selected_cabinet).then(function (res) {
                 toastr.success(vm.successDeleteMessage, vm.successTitle);
                 cancel();
                 if (vm.selected_modelo != null) {
@@ -216,6 +238,7 @@
             vm.newCabinet = true;
             vm.chosen_marca_cabinet = null;
             vm.selected_cabinet = _.clone(vm.blank_selected_cabinet);
+            loadMarcasChoiceFiltered();
             activate()
         }
 
@@ -243,6 +266,16 @@
 
             });
         }
+
+        function checkCapitalizado() {
+            if(vm.selected_cabinet.id_unilever!=undefined && vm.selected_cabinet.id_unilever!=''){
+                vm.selected_cabinet.capitalizado=true;
+            }
+            else{
+                vm.selected_cabinet.capitalizado=false;
+            }
+        }
+
     }
 
 
