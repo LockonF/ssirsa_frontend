@@ -8,11 +8,11 @@
         .module('app.mainApp.inventario')
         .controller('insumoController', insumoController);
 
-    function insumoController(Translate, CatalogoInsumo, Insumo, toastr, Helper) {
+    function insumoController($scope, Translate, CatalogoInsumo, Insumo, toastr, Helper) {
         //Variable definition
         var vm = this;
         vm.searchText = "";
-        vm.cantidaad="1";
+        vm.cantidad="1";
         vm.showElements = false;
         vm.choices = [
             Translate.translate('SUPPLIES.FIELDS.KIND_CHOICES.UNIQUE'),
@@ -22,17 +22,19 @@
 
         //Translates
         vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
+        vm.successMessage = Translate.translate('SUPPLIES.MESSAGES.SUCCESS_CREATE');
         vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
-        vm.errorGenericMesssage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
+        vm.errorMesssage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
 
         //Function parsing
         vm.selectionChanged = selectionChanged;
         vm.selectedItemChange = selectedItemChange;
         vm.search = search;
+        vm.clear=clear;
+        vm.create=create;
 
         //Blank variables
         var insumo = {
-            "cantidad": null,
             "no_remision": "",
             "usado": false,
             "fecha_alta": null,
@@ -57,7 +59,7 @@
             });
             vm.selectedInsumos = {};
             vm.selectedInsumo = null;
-            vm.selectedKind;
+            vm.selectedKind=null;
             vm.isValid = false;
             vm.insumo = angular.copy(insumo);
         }
@@ -88,10 +90,53 @@
             vm.isValid = angular.isObject(item);
         }
 
+        function getToday() {
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1; //January is 0!
+            var yyyy = today.getFullYear();
+
+            if (dd < 10) {
+                dd = '0' + dd
+            }
+
+            if (mm < 10) {
+                mm = '0' + mm
+            }
+
+            return yyyy + '-' + mm + '-' + dd;
+        }
+
         function clear(){
             vm.cantidad="1";
-            vm.selectedInsumo=null;
+            vm.selectedInsumos = {};
+            vm.selectedInsumo = null;
+            vm.selectedKind=null;
+            vm.isValid = false;
+            vm.insumo = angular.copy(insumo);
 
+            $scope.supplyForm.$setPristine();
+            $scope.supplyForm.$setUntouched();
+            $scope.supplyForm.$invalid = true;
+        }
+
+        function create(){
+            vm.selectedInsumo.cantidad=String(parseInt(vm.selectedInsumo.cantidad)+parseInt(vm.cantidad));
+            vm.insumo.catalogo=vm.selectedInsumo.id;
+            vm.insumo.fecha_alta=getToday();
+            console.log(vm.insumo);
+            CatalogoInsumo.update(vm.selectedInsumo).then(function(){
+                Insumo.create(vm.insumo).then(function(){
+                   toastr.success(vm.successMessage,vm.successTitle);
+                    clear();
+                }).catch(function(err){
+                    console.log(err);
+                    vm.selectedInsumo.cantidad=String(parseInt(vm.selectedInsumo.cantidad)-parseInt(vm.cantidad));
+                    CatalogoInsumo.update(vm.selectedInsumo);
+                });
+            }).catch(function(){
+                toastr.error(vm.errorMesssage,vm.errorTitle);
+            });
         }
 
     }

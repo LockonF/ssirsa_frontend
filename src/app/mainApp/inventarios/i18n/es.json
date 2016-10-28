@@ -26,7 +26,8 @@
     },
     "MESSAGES":{
       "NO_RESULTS":"Sin resultados",
-      "INVALID_SUPPLY":"Insumo inválido"
+      "INVALID_SUPPLY":"Insumo inválido",
+      "SUCCES_CREATE":"Éxito al actualizar el inventario"
     }
   }
 }

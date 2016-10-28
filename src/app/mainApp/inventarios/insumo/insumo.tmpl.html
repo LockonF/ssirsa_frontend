@@ -36,7 +36,7 @@
                             class="md-block"
                     >
                         <md-autocomplete md-selected-item="vm.selectedInsumo"
-                                         ng-disabled="vm.selectedKind==undefined"
+                                         ng-disabled="vm.selectedKind==undefined||vm.selectedKind==null"
                                          md-selected-item-change="vm.selectedItemChange(item)"
                                          md-items="item in vm.filteredInsumos"
                                          md-item-text="item.palabra_clave"
@@ -94,7 +94,7 @@
                             <input type="text"
                                    required
                                    name="inputLinea"
-                                   ng-model="vm.insumo.no_remision"
+                                   ng-model="vm.insumo.linea"
                                    md-no-asterisk
                             >
                             <div ng-messages="supplyForm.inputLinea.$error">
@@ -146,6 +146,14 @@
                 </div>
             </form>
         </md-content>
+        <md-actions flex="100" layout="row" layout-align="end center" ng-if="vm.selectedInsumo!=null">
+            <md-button ng-click="vm.clear()" md-no-ink class="md-raised md-primary" aria-label="clear">
+                <md-icon md-font-icon="fa fa-eraser"></md-icon>
+            </md-button>
+            <md-button ng-click="vm.create()" md-no-ink class="md-raised md-primary" ng-disabled="supplyForm.$invalid" aria-label="save">
+                <md-icon md-font-icon="fa fa-save"></md-icon>
+            </md-button>
+        </md-actions>
     </md-card>
 
 </div>
