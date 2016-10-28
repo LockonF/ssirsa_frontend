@@ -20,7 +20,8 @@ Created by lockonDaniel on 9/11/16.
                             <md-option ng-repeat="modelo in vm.modelos_cabinet" ng-value="modelo">{{modelo.descripcion}}</md-option>
                         </md-select>
                     </md-input-container>
-                    <md-autocomplete ng-if="vm.cabinet_list !=null" md-selected-item="vm.cabinet" md-selected-item-change="vm.selectedItemChange(vm.cabinet)" md-items="item in vm.cabinet_list" md-item-text="item.economico" md-min-length="0" md-search-text-change="vm.lookup(vm.searchText)" md-search-text="vm.searchText" md-menu-class="autocomplete-custom-template" md-floating-label="{{&quot;CABINET_CRUD.LOOKUP&quot; | translate}}">
+                    <md-autocomplete
+                            md-no-cache="true", ng-if="vm.cabinet_list !=null" md-selected-item="vm.cabinet" md-selected-item-change="vm.selectedItemChange(vm.cabinet)" md-items="item in vm.cabinet_list" md-item-text="item.economico" md-min-length="0" md-search-text-change="vm.lookup(vm.searchText)" md-search-text="vm.searchText" md-menu-class="autocomplete-custom-template" md-floating-label="{{&quot;CABINET_CRUD.LOOKUP&quot; | translate}}">
                         <md-item-template><span class="item-title">
                 <md-icon md-font-icon="zmdi zmdi-developer-board"></md-icon><span>{{item.economico}}</span></span></md-item-template>
                     </md-autocomplete>
@@ -88,7 +89,7 @@ Created by lockonDaniel on 9/11/16.
                         </md-input-container>
                         <md-input-container class="md-block">
                             <label>{{'CABINET_CRUD.SELECT_BRAND' | translate}}</label>
-                            <md-select ng-model="vm.chosen_marca_cabinet" md-on-close="vm.loadModelosToChoose(vm.selected_marca)" ng-disabled="vm.selected_cabinet.deleted" multiple="false">
+                            <md-select ng-model="vm.chosen_marca_cabinet" md-on-close="vm.ƒa(vm.selected_marca)" ng-disabled="vm.selected_cabinet.deleted" multiple="false">
                                 <md-option ng-repeat="marca in vm.marcas_cabinet_choice" ng-value="marca.id">{{marca.descripcion}}</md-option>
                             </md-select>
                         </md-input-container>

@@ -8,7 +8,7 @@
         .module('app.mainApp.inventario')
         .controller('cabinetController', cabinetController);
 
-    function cabinetController(Translate, OPTIONS, MarcaCabinet, ModeloCabinet, udn, Cabinet, toastr, $scope, EntradaSalida, Helper, $timeout) {
+    function cabinetController(Translate, OPTIONS, MarcaCabinet, ModeloCabinet, udn, Cabinet, toastr, $scope, EntradaSalida, Helper, $mdDialog) {
         var vm = this;
         vm.newCabinet = true;
         vm.marcas_cabinet = null;
@@ -76,13 +76,13 @@
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
             vm.successCreateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_CREATE');
+            vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
             vm.successUpdateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_UPDATE');
             vm.successDeleteMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_DELETE');
-            vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
-            vm.notFoundMessage = Translate.translate('MAIN.MSG.NOT_FOUND');
-            vm.notFoundInput = Translate.translate('MAIN.MSG.NOT_FOUND_INPUT');
-            vm.errorTypeFile = Translate.translate('MAIN.MSG.ERORR_TYPE_FILE');
-            vm.errorSize = Translate.translate('MAIN.MSG.FILE_SIZE');
+            vm.deleteButton=Translate.translate('MAIN.BUTTONS.DELETE');
+            vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
+            vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
+            vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
             loadMarcas();
             loadMarcasChoiceFiltered();
 
@@ -193,7 +193,7 @@
                 vm.create_update_resolver = true;
                 loadCabinets(vm.selected_modelo);
             }).catch(function (err) {
-                toastr.error(err.data, vm.errorTitle);
+                toastr.error(vm.errorMessage,vm.errorTitle);
                 vm.create_update_resolver = true;
 
             });
@@ -219,16 +219,30 @@
         }
 
         function remove() {
-            Cabinet.removeClean(vm.selected_cabinet).then(function (res) {
-                toastr.success(vm.successDeleteMessage, vm.successTitle);
-                cancel();
-                if (vm.selected_modelo != null) {
-                    loadCabinets(vm.selected_modelo);
-                }
-            }).catch(function (err) {
-                toastr.error(vm.errorMessage, vm.errorTitle);
+
+            var confirm = $mdDialog.confirm()
+                .title(vm.dialogTitle)
+                .textContent(vm.dialogMessage)
+                .ariaLabel('Confirmar eliminación')
+                .ok(vm.deleteButton)
+                .cancel(vm.cancelButton);
+            $mdDialog.show(confirm).then(function() {
+                Cabinet.removeClean(vm.selected_cabinet).then(function (res) {
+                    toastr.success(vm.successDeleteMessage, vm.successTitle);
+                    cancel();
+                    if (vm.selected_modelo != null) {
+                        loadCabinets(vm.selected_modelo);
+                    }
+                }).catch(function (err) {
+                    toastr.error(vm.errorMessage, vm.errorTitle);
+
+                });
+            }, function() {
 
             });
+
+
+
         }
 
         function cancel() {

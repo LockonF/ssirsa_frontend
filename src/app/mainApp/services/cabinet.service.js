@@ -40,10 +40,10 @@
             return urlbase_clean.customPOST(data);
         }
         function updateClean(data){
-            return urlbase.one(data.economico).customPUT(data);
+            return urlbase_clean.one(data.economico).customPUT(data);
         }
         function removeClean(data){
-            return urlbase.customDELETE(cabinet.economico,null,{'content-type':'application/json'});
+            return urlbase_clean.customDELETE(data.economico,null,{'content-type':'application/json'});
         }
 
         function get(no_serie) {
