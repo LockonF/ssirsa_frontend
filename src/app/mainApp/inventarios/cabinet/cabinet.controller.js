@@ -270,7 +270,13 @@
 
 
         function loadEntradas(udn) {
-            vm.entradas = EntradaSalida.byUdn(udn);
+            EntradaSalida.byUdnObject(udn).then(function(res){
+                vm.entradas =res;
+                lookupEntriesByDate();
+            }).catch(function(err){
+
+            });
+
         }
 
         function lookup(text) {
