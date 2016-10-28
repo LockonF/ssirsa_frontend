@@ -65,7 +65,7 @@
         }
 
         function selectionChanged() {
-            
+
             if (vm.selectedKind == Translate.translate('SUPPLIES.FIELDS.KIND_CHOICES.UNIQUE')) {
                 vm.selectedInsumos = vm.uniqueInsumos;
                 vm.filteredInsumos = vm.uniqueInsumos;
@@ -125,13 +125,11 @@
             vm.selectedInsumo.cantidad=String(parseInt(vm.selectedInsumo.cantidad)+parseInt(vm.cantidad));
             vm.insumo.catalogo=vm.selectedInsumo.id;
             vm.insumo.fecha_alta=getToday();
-            console.log(vm.insumo);
             CatalogoInsumo.update(vm.selectedInsumo).then(function(){
                 Insumo.create(vm.insumo).then(function(){
                    toastr.success(vm.successMessage,vm.successTitle);
                     clear();
-                }).catch(function(err){
-                    console.log(err);
+                }).catch(function(){
                     vm.selectedInsumo.cantidad=String(parseInt(vm.selectedInsumo.cantidad)-parseInt(vm.cantidad));
                     CatalogoInsumo.update(vm.selectedInsumo);
                 });
