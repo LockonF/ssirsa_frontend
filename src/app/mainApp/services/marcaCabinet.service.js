@@ -11,7 +11,6 @@
 
         return {
             list:list,
-            listObject:listObject,
             update:update,
             remove:remove,
             get: get,
