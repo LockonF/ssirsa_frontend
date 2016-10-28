@@ -65,6 +65,7 @@
         }
 
         function selectionChanged() {
+            
             if (vm.selectedKind == Translate.translate('SUPPLIES.FIELDS.KIND_CHOICES.UNIQUE')) {
                 vm.selectedInsumos = vm.uniqueInsumos;
                 vm.filteredInsumos = vm.uniqueInsumos;
