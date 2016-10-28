@@ -16,7 +16,7 @@ Created by lockonDaniel on 9/11/16.
                     <md-progress-circular md-mode="indeterminate" ng-if="vm.modelos_resolver==false"></md-progress-circular>
                     <md-input-container ng-if="vm.selected_marca!=null && vm.modelos_resolver==true">
                         <label>{{'CABINET_CRUD.SELECT_MODEL' | translate}}</label>
-                        <md-select ng-model="vm.selected_modelo" md-on-close="vm.loadCabinets(vm.selected_modelo)">
+                        <md-select ng-model="vm.selected_modelo" md-on-close="vm.loadCabinets(vm.selected_modelo)" ng-disabled="vm.modelos_cabinet==null || vm.modelos_cabinet.length==0">
                             <md-option ng-repeat="modelo in vm.modelos_cabinet" ng-value="modelo">{{modelo.descripcion}}</md-option>
                         </md-select>
                     </md-input-container>

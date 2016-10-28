@@ -213,10 +213,12 @@
                 vm.selected_cabinet = res;
                 vm.newCabinet = false;
                 vm.create_update_resolver = true;
+                cancel();
             }).catch(function (err) {
                 toastr.error(vm.errorMessage, vm.errorTitle);
                 vm.create_update_resolver = true;
             });
+
         }
 
         function remove() {
