@@ -18,6 +18,7 @@
             putEntradaMasiva: putEntradaMasiva,
             getLastEntradaByCabinet: getLastEntradaByCabinet,
             byUdn: byUdn,
+            byUdnObject:byUdnObject,
             getCabinetsEntrada: getCabinetsEntrada,
             normalizeCabinets:normalizeCabinets,
             getRemision:getRemision,
@@ -63,6 +64,10 @@
 
         function byUdn(id) {
             return baseURL.one('udn', id).getList().$object;
+        }
+
+        function byUdnObject(id) {
+            return baseURL.one('udn', id).getList();
         }
 
         function getCabinetsEntrada() {

@@ -7,7 +7,12 @@
     "TITLE":"Gestión de Cabinets",
     "SELECT_BRAND":"Selecciona la marca",
     "SELECT_MODEL":"Selecciona el modelo",
-    "ECONOMIC_NUMBER":"Número económico"
+    "ECONOMIC_NUMBER":"Número económico",
+    "PREVIOUS_ECONOMIC_NUMBER":"Número económico anterior",
+    "MAX_ISSUES":"Solo se permiten entre 1 y 6 incidencias",
+    "MAX_GRIDS":"Solo se permiten entre 1 y 6 rejillas",
+    "MAX_LAYETTES":"Solo se permiten entre 1 y 6 canastillas",
+    "MAX_WHEELS":"Solo se permiten entre 1 y 6 rodajas"
   },
   "SUPPLIES":{
     "HEADER":"Inventario de Insumos",

@@ -11,13 +11,13 @@
 
         return {
             list:list,
-            listObject:listObject,
             update:update,
             remove:remove,
             get: get,
             create:create,
             getModels:getModels,
-            listPromise:listPromise
+            listPromise:listPromise,
+            listObject:listObject
         };
         function get(id) {
             return baseMarca.get(id);
