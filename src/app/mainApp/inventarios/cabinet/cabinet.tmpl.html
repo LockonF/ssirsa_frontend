@@ -21,7 +21,7 @@ Created by lockonDaniel on 9/11/16.
                         </md-select>
                     </md-input-container>
                     <md-autocomplete
-                            md-no-cache="true", ng-if="vm.cabinet_list !=null" md-selected-item="vm.cabinet" md-selected-item-change="vm.selectedItemChange(vm.cabinet)" md-items="item in vm.cabinet_list" md-item-text="item.economico" md-min-length="0" md-search-text-change="vm.lookup(vm.searchText)" md-search-text="vm.searchText" md-menu-class="autocomplete-custom-template" md-floating-label="{{&quot;CABINET_CRUD.LOOKUP&quot; | translate}}">
+                            md-no-cache="true", ng-if="vm.cabinet_list !=null" md-selected-item="vm.cabinet" md-selected-item-change="vm.selectedItemChange(vm.cabinet)" md-items="item in vm.search_items" md-item-text="item.economico" md-min-length="0" md-search-text-change="vm.lookup(vm.searchText)" md-search-text="vm.searchText" md-menu-class="autocomplete-custom-template" md-floating-label="{{&quot;CABINET_CRUD.LOOKUP&quot; | translate}}">
                         <md-item-template><span class="item-title">
                 <md-icon md-font-icon="zmdi zmdi-developer-board"></md-icon><span>{{item.economico}}</span></span></md-item-template>
                     </md-autocomplete>

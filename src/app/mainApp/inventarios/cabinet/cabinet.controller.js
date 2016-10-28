@@ -68,6 +68,7 @@
         vm.update = update;
         vm.remove = remove;
         vm.checkCapitalizado = checkCapitalizado;
+        vm.lookup = lookup;
         activate();
 
 
@@ -259,6 +260,14 @@
 
         function loadEntradas(udn) {
             vm.entradas = EntradaSalida.byUdn(udn);
+        }
+
+        function lookup(text) {
+            vm.search_items = _.filter(vm.cabinet_list,function (item) {
+                return item.economico.includes(text)
+            });
+
+            return vm.search_items;
         }
 
 
