@@ -78,8 +78,7 @@ Created by lockonDaniel on 9/11/16.
                         </md-input-container>
                         <md-input-container class="md-block">
                             <label>{{ 'CABINET_CRUD.ISSUES' | translate }}</label>
-                            <input ng-required="true" type="text" step="any" name="no_incidencias" ng-model="vm.selected_cabinet.no_incidencias" min="1"
-                                   max="6" ng-pattern="/^[1-6]$/" ng-disabled="vm.selected_cabinet.deleted" numbers-only=""/>
+                            <input ng-required="true" type="text" step="any" name="no_incidencias" ng-model="vm.selected_cabinet.no_incidencias" ng-pattern="/^[1-6]$/" ng-disabled="vm.selected_cabinet.deleted" numbers-only=""/>
                             <div ng-messages="inputForm.no_incidencias.$error">
                                 <div ng-message="pattern">{{'CABINET_CRUD.MAX_ISSUES' | translate}}</div>
                                 <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
