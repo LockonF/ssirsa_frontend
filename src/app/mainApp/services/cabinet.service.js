@@ -7,23 +7,34 @@
 
     /* @ngInject */
     function Cabinet($q, Restangular) {
+        var urlbase=Restangular.all("cabinet");
         return {
             create: create,
+            createClean:createClean,
             get: get,
             getAll: getAll,
+            getEconomics:getEconomics,
             remove: remove,
             modify: modify,
-            loadByModel:loadByModel
+            loadByModel:loadByModel,
+            loadByStatus:loadByStatus
         };
 
+        function loadByStatus(status) {
+            return urlbase.one("status",status).getList();
+        }
         function create(request) {
             var deferred = $q.defer();
-            Restangular.all('cabinet').customPOST(request).then(function (res) {
+            urlbase.customPOST(request).then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);
             });
             return deferred.promise;
+        }
+
+        function createClean(data){
+            return urlbase.all('clean').customPOST(data);
         }
 
         function get(no_serie) {
@@ -37,13 +48,11 @@
         }
 
         function getAll() {
-            var deferred = $q.defer();
-            Restangular.all('cabinet').customGET().then(function (res) {
-                deferred.resolve(res);
-            }).catch(function (err) {
-                deferred.reject(err);
-            });
-            return deferred.promise;
+            return urlbase.getList().$object;
+        }
+
+        function getEconomics(){
+            return urlbase.all("clean").all("economico").getList().$object;
         }
 
         function remove(cabinet) {
@@ -70,7 +79,7 @@
         }
 
         function loadByModel(model){
-            return Restangular.all('cabinet').one('model',model.id).getList().$object;
+            return urlbase.one('model',model.id).getList().$object;
         }
     }
 })();

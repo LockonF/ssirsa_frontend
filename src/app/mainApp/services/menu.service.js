@@ -19,6 +19,7 @@
             triMenu.menu = [];
             var role = Session.userRole;
             switch (role) {
+
                 case "Administrador":
                     loadAdminMenu();
                     break;
@@ -124,6 +125,10 @@
                             name: 'MAIN.MENU.OUT',
                             state: 'triangular.admin-default.salida',
                             type: 'link'
+                        },{
+                            name: 'MAIN.MENU.REMISSION',
+                            state: 'triangular.admin-default.remision',
+                            type: 'link'
                         },
                         {
                             name: 'MAIN.MENU.REGISTER_STEP',
@@ -137,6 +142,11 @@
                         }, {
                             name: 'MAIN.MENU.DIAGNOSTIC',
                             state: 'triangular.admin-default.diagnostic',
+                            type: 'link'
+                        },
+                        {
+                            name: 'MAIN.MENU.SERVICEONSTORE',
+                            state: 'triangular.admin-default.servicioPuntoVenta',
                             type: 'link'
                         },
                         {
@@ -228,10 +238,8 @@
 
                     ]
                 }
-
             ];
-
-            triMenu.menu = adminMenu;
+            triMenu.menu=adminMenu;
         }
 
         function loadCapturistaMenu() {
@@ -331,11 +339,8 @@
                         }
                     ]
                 }
-
             ];
-
-            //triMenu.menu.unshift(adminMenu);
-            triMenu.menu = clienteMenu;
+            triMenu.menu=clienteMenu;
         }
 
         function loadTecnicoMenu() {
@@ -376,6 +381,11 @@
                             type: 'link'
                         },
                         {
+                            name: 'MAIN.MENU.REMISSION',
+                            state: 'triangular.admin-default.remision',
+                            type: 'link'
+                        },
+                        {
                             name: 'MAIN.MENU.REGISTER_STEP',
                             state: 'triangular.admin-default.etapa',
                             type: 'link'
@@ -396,11 +406,8 @@
                         }
                     ]
                 }
-
             ];
-
-            //triMenu.menu.unshift(adminMenu);
-            triMenu.menu = tecnicoMenu;
+            triMenu.menu=tecnicoMenu;
         }
 
     }

@@ -4,19 +4,32 @@
         .module('app.mainApp')
         .factory('AuthService', AuthService);
     /* @ngInject */
-    function AuthService(Session, $q, Restangular, OAuth,$rootScope,AUTH_EVENTS,Socket) {
+    function AuthService(Session, $q, Restangular, OAuth,$rootScope,AUTH_EVENTS,Socket,OAuthToken) {
         var authService = {
             isAuthenticated: isAuthenticated,
             login: login,
             isAuthorized: isAuthorized,
             logout: logout,
             getUser:getUser,
-            isIdentityResolved:isIdentityResolved
+            isIdentityResolved:isIdentityResolved,
+            refreshToken:refreshToken,
+            getToken:getToken
         };
 
-        var error_messages = {
-            unknown: '¡Ups! Parece que algo no está funcionando correctamente.'
-        };
+        function getToken() {
+            var deferred = $q.defer();
+            if (isAuthenticated()) {
+                deferred.resolve(OAuthToken.getAccessToken());
+            } else {
+                this.refreshToken().then(function(data) {
+                    deferred.resolve();
+                });
+            }
+            return deferred.promise;
+        }
+        function refreshToken() {
+            return OAuth.getRefreshToken();
+        }
         function getPersona() {
             return Restangular.all('persona').customGET().then(function (res) {
                 return res;
