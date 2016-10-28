@@ -255,6 +255,15 @@
             vm.newCabinet = true;
             vm.chosen_marca_cabinet = null;
             vm.selected_cabinet = _.clone(vm.blank_selected_cabinet);
+            vm.selected_cabinet.diagnostico.puertas = false;
+            vm.selected_cabinet.diagnostico.rejillas = 0;
+            vm.selected_cabinet.diagnostico.canastillas = 0;
+            vm.selected_cabinet.diagnostico.rodajas = 0;
+            vm.selected_cabinet.entrada_salida = null;
+
+            vm.selected_udn = null;
+            vm.selected_date = new Date();
+
             loadMarcasChoiceFiltered();
             activate()
         }
