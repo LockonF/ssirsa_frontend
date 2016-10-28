@@ -8,7 +8,7 @@
         .module('app.mainApp.catalogos')
         .controller('proyectosController', proyectosController);
 
-    function proyectosController(Proyectos, toastr, $scope, Translate, $mdDialog) {
+    function proyectosController(Proyectos, toastr, $scope, Translate, $mdDialog, Helper) {
         var vm = this;
 
 
@@ -39,15 +39,23 @@
         vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
         vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
         vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
+        vm.errorMessage=Translate.translate('MAIN.MSG.ERROR_MESSAGE');
         
         function activate() {
             vm.project=null;
-            vm.projects=Proyectos.list();
-            vm.filteredProjects=vm.projects;
+            Proyectos.listObject().then(function(res){
+                console.log(res);
+                vm.projects=Helper.filterDeleted(res,true);
+                vm.filteredProjects=vm.projects;
+            }).catch(function(){
+                toastr.error(vm.errorMessage,vm.errorTitle);
+                vm.projects={};
+                vm.filteredProjects={};
+            });
         }
 
         function create() {
-            Proyectos.create(vm.project).then(function(res){
+            Proyectos.create(vm.project).then(function(){
                 toastr.success(vm.succesCreate,vm.successTitle);
                 vm.clear();
                 activate();
