@@ -19,9 +19,6 @@
             eliminarEtapaServicio: eliminarEtapaServicio,
             consultarAllEtapaServicioDiagnostico: consultarAllEtapaServicioDiagnostico,
             consultarEtapaServicioDiagnostico:consultarEtapaServicioDiagnostico,
-            verEtapaNoValidada:verEtapaNoValidada,
-            verEtapaValidada:verEtapaValidada,
-            etapasValidablesByPerson:etapasValidablesByPerson,
             consultarInsumosEtapa:consultarInsumosEtapa,
             consultarAllInsumosCabinetEtapa:consultarAllInsumosCabinetEtapa,
             getEtapaValidable:getEtapaValidable,
@@ -31,7 +28,11 @@
             eliminarInsumo:eliminarInsumo,
             consultarInfoCabinet:consultarInfoCabinet,
             consultarInsumobyNombre:consultarInsumobyNombre,
-            getCatalogoInsumoById:getCatalogoInsumoById
+            getCatalogoInsumoById:getCatalogoInsumoById,
+            BusquedaCatalogoTypeStep:BusquedaCatalogoTypeStep,
+            etapaList:etapaList,
+            BusquedaInsumosTypeStep:BusquedaInsumosTypeStep,
+            cabinetByEconomic:cabinetByEconomic
 
         };
 
@@ -107,57 +108,15 @@
             return deferred.promise;
         }
 
-        
-//Endpoints no utiles desde ek cambio de sssirsa de quitar supervisiones
-        function verEtapaNoValidada(etapa) {
-
-            var deferred = $q.defer();
-
-            Restangular.all('etapa_servicio').all('diagnostic').one('notvalidated', etapa.id).customGET().then(function (res) {
-                deferred.resolve(res);
-            }).catch(function (err) {
-                deferred.reject(err);
-            });
-            return deferred.promise;
-        }
-        function verEtapaValidada(etapa) {
-
-            var deferred = $q.defer();
-
-            Restangular.all('etapa_servicio').all('diagnostic').one('validated', etapa.id).customGET().then(function (res) {
-                deferred.resolve(res);
-            }).catch(function (err) {
-                deferred.reject(err);
-            });
-            return deferred.promise;
-
-        }
-        function etapasValidablesByPerson(etapa) {
-
-            var deferred = $q.defer();
-
-            Restangular.all('etapa_servicio').all('user').one('stage', etapa.id).customGET().then(function (res) {
-                deferred.resolve(res);
-            }).catch(function (err) {
-                deferred.reject(err);
-            });
-            return deferred.promise;
-
-        }
-///Terminan los endpoints No utilizados
-
-
-
         function consultarAllInsumosCabinetEtapa(etapa) {
             var deferred = $q.defer();
             Restangular.all('etapa_servicio').one('insumos', etapa.id).customGET().then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);
+                
             });
-
-
-
+            
             return deferred.promise;
         }
 
@@ -243,6 +202,7 @@
             })
 
         }
+       
         function consultarInsumosEtapa(etapa) {
             var deferred = $q.defer();
             //checar rutas :D
@@ -256,6 +216,49 @@
 
             return deferred.promise;
         }
+        //Nuevos Endpoints por nuevos requerimentos y reeconstruccion Etapa Servicio
+        function BusquedaCatalogoTypeStep(data){
+            var deferred =$q.defer();
+            Restangular.all("catalogo_insumos").one("tipo", data.idTipo).all("etapa").customGET(data.idEtapa).then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+
+            });
+            return deferred.promise;
+        }
+        function BusquedaInsumosTypeStep(data){
+            var deferred =$q.defer();
+            Restangular.all("insumo").one("tipo", data.idTipo).one("etapa", data.idEtapa).customGET().then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+
+            });
+            return deferred.promise;
+
+        }
+         function etapaList(){
+             var deferred=$q.defer();
+             Restangular.all("etapa").customGET().then(function (res) {
+                 deferred.resolve(res);
+             }).catch(function (err) {
+                 deferred.reject(err);
+             });
+             return deferred.promise;
+         }
+        function cabinetByEconomic(economico){
+            var deferred=$q.defer();
+            Restangular.all("model").one("cabinet",economico).customGET().then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            });
+            return deferred.promise;
+
+        }
+
+
         return service;
 
     }

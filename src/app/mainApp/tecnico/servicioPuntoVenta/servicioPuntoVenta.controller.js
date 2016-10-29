@@ -1,15 +1,14 @@
 /**
- * Created by franciscojaviercerdamartinez on 12/07/16.
+ * Created by franciscojaviercerdamartinez on 24/10/16.
  */
-
 (function () {
     'use strict';
 
     angular
         .module('app.mainApp.tecnico')
-        .controller('etapaController', etapaController);
+        .controller('servicioPuntoVentaController', servicioPuntoVentaController);
 
-    function etapaController(Cabinet, Servicios, $mdDialog, $scope, Insumo, Translate, toastr) {
+    function servicioPuntoVentaController(Cabinet, Servicios, $mdDialog, $scope, Insumo, Translate, toastr) {
         var vm = this;
         vm.activate = activate();
 
@@ -184,11 +183,7 @@
                 notifyError(res.status);
             });
         }
-        function eliminaNoSeleccionados(){
 
-            var paraAgregar = _.where(vm.insumos_loteUsados, {agregar: true });
-            console.log(paraAgregar);
-        }
 
         function buscarInsumosByCatalogo() {
             vm.insumostmp;
@@ -253,9 +248,8 @@
                 },
                 parent: angular.element(document.body),
                 targetEvent: ev,
-                fullscreen: true,
-                focusOnOpen: false,
-
+                fullscreen: false,
+                clickOutsideToClose: true
             }).then(function (answer) {
                 //Accepted
                 $mdDialog.hide();
@@ -273,8 +267,8 @@
                 controllerAs: 'vm',
                 parent: angular.element(document.body),
                 targetEvent: ev,
-                fullscreen: true,
-
+                fullscreen: false,
+                clickOutsideToClose: true,
                 locals: {
                     cabinet: vm.idCabinet
                 }
@@ -408,7 +402,8 @@
             vm.insumoLote = {};
             vm.insumos_loteUsados = [];//Arreglo que ya posee el arreglo como es necesario para agregar los insumos al formato de arreglo para agregarlos a la etapa
             vm.dataEtapa = null;//Variable que posera los datos de la etapa para el precargado de Template (id etapa, idTipoEquipo)
-
+            $scope.insumoFormEtapa.$setPristine();
+            $scope.insumoFormEtapa.$setUntouched();
 
 
         }
@@ -447,9 +442,6 @@
 
 
             if (vm.etapaActual.id == null) {
-                console.log(vm.insumos_loteUsados);
-                eliminaNoSeleccionados();
-
                 vm.etapaActual.insumos_lote = vm.insumos_loteUsados;
                 vm.etapaActual.insumos = vm.insumos;
 
@@ -466,8 +458,7 @@
                 });
             }
             else {
-                console.log(vm.insumos_loteUsados);
-                eliminaNoSeleccionados();
+
                 var promise = Servicios.editarEtapaServicio(vm.etapaActual);
                 promise.then(function (res) {
 
@@ -496,6 +487,8 @@
                 notifyError(404);
             vm.catalogoSelected = null;
             vm.insumo = null;
+            $scope.form.insumoFormEtapa.$setPristine();
+            $scope.form.insumoFormEtapa.$setUntouched();
 
 
         }
@@ -515,7 +508,8 @@
                 notifyError(404);
             vm.catalogoSelected = null;
             vm.insumo = null;
-
+            $scope.form.insumoFormEtapa.$setPristine();
+            $scope.form.insumoFormEtapa.$setUntouched();
 
 
         }
@@ -554,7 +548,8 @@
                 notifyError(404);
             vm.catalogoSelected = null;
             vm.insumo = null;
-
+            $scope.form.insumoFormEtapa.$setPristine();
+            $scope.form.insumoFormEtapa.$setUntouched();
 
 
         }

@@ -1,0 +1,221 @@
+<div layout="column" flex>
+    <div layout="column" layout-align="center center" class="full-image-background mb-bg-fb-02 overlay-40"></div>
+    <div flex layout="column">
+        <md-toolbar class="md-primary">
+            <div flex layout="column" class="md-toolbar-tools">
+                <h2 translate="">FONDEOS.CALL.CHOOSE</h2>
+            </div>
+        </md-toolbar>
+        <div flex layout="row" class="wizard">
+            <md-button ng-click="vm.getConvocatoria()" ng-class="editar" aria-label="fab button" class="md-fab">
+                <md-icon md-font-icon="fa fa-pencil"></md-icon>
+            </md-button>
+            <md-button ng-click="vm.cancel()" ng-class="cancelar" aria-label="fab button" ng-show="vm.Convocatoria.id!=null" class="md-fab md-warn md-raised">
+                <md-icon md-font-icon="zmdi zmdi-close-circle-o"></md-icon>
+            </md-button>
+            <md-input-container>
+                <label translate>FONDEOS.CALL.CHOOSE</label>
+                <md-select ng-model="vm.selectedConvocatoria" name="select" ng-show="vm.Convocatorias!= null">
+                    <md-option ng-repeat="convo in vm.Convocatorias" ng-value="convo">{{convo.Nombre}}</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+        <div layout="row" layout-align="center center"></div>
+        <p flex="70" flex-sm="90" translate="" class="md-headline font-weight-300 text-center text-light">FONDEOS.CALL.INTRO</p>
+    </div>
+    <div flex="" layout="row" layout-align="center center" layout-fill="">
+        <div flex="80" layout="column" tri-wizard="" class="md-w hiteframe-z1 margin-bottom-100">
+            <md-toolbar class="md-primary">
+                <div flex="" layout="row" layout-align="space-between center" class="md-toolbar-tools">
+                    <h2 translate="">FONDEOS.CALL.TITLE</h2>
+                    <h2>{{triWizard.progress}}%<span translate="">FONDEOS.WIZARD.COMPLETED</span></h2>
+                </div>
+                <md-progress-linear md-mode="determinate" ng-value="triWizard.progress" class="md-accent padding-bottom-10"></md-progress-linear>
+            </md-toolbar>
+            <md-tabs layout-fill="" md-selected="triWizard.currentStep" md-dynamic-height="" md-stretch-tabs="always" class="md-primary">
+                <md-tab id="info">
+                    <md-tab-label><span class="oxy-step-label">1</span><span translate="">FONDEOS.CALL.GENERAL</span></md-tab-label>
+                    <md-tab-body>
+                        <div class="wizard layout-padding">
+                            <form name="convocatoriaInfo" tri-wizard-form="" novalidate="">
+                                <div layout="column" flex="">
+                                    <md-input-container>
+                                        <label translate="">FONDEOS.CALL.NAME</label>
+                                        <input name="Nombre" required="" type="text" ng-model="vm.Convocatoria.Nombre">
+                                        <div ng-messages="convocatoriaInfo.Nombre.$error">
+                                            <div ng-message="" when="required"><span translate="">FONDEOS.WIZARD.REQUIRED-FIELD</span></div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container flex>
+                                        <label translate="">FONDEOS.CALL.BEGIN_DATE_CALL</label>
+                                        <input mdc-datetime-picker date="true" lang="{{vm.language}}" time="false" type="text" id="time" short-time="false" format="DD-MM-YYYY" cancel-text="{{ 'DIALOGS.CANCEL' | translate }}" ok-text="{{ 'DIALOGS.ACCEPT' | translate }}" ng-model="vm.Convocatoria.FechaInicio">
+                                    </md-input-container>
+                                    <md-input-container flex>
+                                        <label translate="">FONDEOS.CALL.END_DATE_CALL</label>
+                                        <input mdc-datetime-picker date="true" lang="{{vm.language}}" time="false" type="text" id="time2" short-time="false" format="DD-MM-YYYY" cancel-text="{{ 'DIALOGS.CANCEL' | translate }}" ok-text="{{ 'DIALOGS.ACCEPT' | translate }}" ng-model="vm.Convocatoria.FechaTermino">
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label translate="">FONDEOS.CALL.MAX_AMOUNT</label>
+                                        <input name="money" required="" type="number" ng-model="vm.Convocatoria.MontosMaximosTotales" min="0" max="10000000000">
+                                        <div ng-messages="convocatoriaInfo.descripcion.$error">
+                                            <div ng-message="" when="required"><span translate="">FONDEOS.WIZARD.REQUIRED-FIELD</span></div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label translate="">FONDEOS.MODALITY.FONDEOS</label>
+                                        <md-select ng-model="vm.selectedFondeo" required="" name="fondo">
+                                            <md-option ng-repeat="fondeo in vm.Fondeos" ng-value="fondeo">| {{fondeo.Titulo}}</md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label translate="">FONDEOS.MODALITY.STATUS</label>
+                                        <md-select ng-model="vm.Convocatoria.Activo" required="" name="activo">
+                                            <md-option ng-repeat="status in vm.Validator" value="{{status.value}}">{{status.title}}</md-option>
+                                            <div ng-messages="convocatoriaInfo.activo.$error">
+                                                <div ng-message="" when="required"><span translate="">FONDEOS.WIZARD.REQUIRED-FIELD</span></div>
+                                            </div>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>
+                            </form>
+                        </div>
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="call" ng-disabled="convocatoriaInfo.$invalid">
+                    <md-tab-label><span class="oxy-step-label">2</span><span translate="">FONDEOS.CALL.REQUERIMENTS</span></md-tab-label>
+                    <md-tab-body>
+                        <div class="wizard layout-padding">
+                            <form name="fondeoRequeriments" tri-wizard-form="">
+                                <div layout="column" flex="">
+                                    <div flex="">
+                                        <md-input-container>
+                                            <label translate="">FONDEOS.CALL.REQUERIMENTNAME</label>
+                                            <input name="reqname" ng-model="vm.requisito.Nombre" md-maxlength="15">
+                                        </md-input-container>
+                                        <md-input-container>
+                                            <label translate="">FONDEOS.CALL.REQUERIMENTDESC</label>
+                                            <textarea name="reqDesc" ng-model="vm.requisito.Descripcion" md-maxlength="250"></textarea>
+                                            <div ng-messages="convocatoriaInfo.descripcion.$error">
+                                                <div ng-message="" when="required"><span translate="">FONDEOS.WIZARD.REQUIRED-FIELD</span></div>
+                                            </div>
+                                        </md-input-container>
+                                    </div>
+                                    <md-button ng-click="vm.crearRequisito()" ng-class="guardar" aria-label="fab button" class="md-fab md-primary md-raised">
+                                        <md-icon md-font-icon="fa fa-save"></md-icon>
+                                    </md-button>
+                                    <div layout="row" layout-sm="column" layout-md="column" ng-show="vm.Requisitos!=null">
+                                        <md-table-container>
+                                            <table md-table="" md-row-select="" ng-model="vm.requisito">
+                                                <thead md-head="" md-order="vm.query.order">
+                                                <tr md-row="md-row">
+                                                    <th md-column="md-column" md-order-by="Nombre"><span translate="">FONDEOS.TABLE.NAME</span></th>
+                                                    <th md-column="md-column" md-order-by="Descripcion"><span translate="">FONDEOS.TABLE.DESCRIPTION</span>
+                                                        <!-- Cuerpo de la tabla-->
+                                                    </th>
+                                                </tr>
+                                                </thead>
+                                                <tbody md-body="md-body">
+                                                <tr md-row="md-row" md-select="requisito" md-select-id="{{requisito.Nombre}}" ng-repeat="requisito in vm.Requisitos | orderBy:vm.query.order">
+                                                    <td md-cell="md-cell">{{requisito.Nombre}}</td>
+                                                    <td md-cell="md-cell">{{requisito.Descripcion}}</td>
+                                                    <td md-cell="md-cell" ng-click="$event.stopPropagation()">
+                                                        <md-button ng-click="vm.eliminarRequisito(requisito)" class="md-fab md-warn md-mini">
+                                                            <md-icon md-font-icon="fa fa-times-circle"></md-icon>
+                                                        </md-button>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </md-table-container>
+                                    </div>
+                                </div>
+                            </form>
+                            <label translate="">FONDEOS.FEATURES.CLICK_TO_EDIT
+                                <md-divider></md-divider>
+                            </label>
+                        </div>
+                    </md-tab-body>
+                </md-tab>
+            </md-tabs>
+            <div layout-fill="" layout-padding="" layout="row" layout-align="end center" class="wizard-navbar">
+                <md-button ng-click="triWizard.prevStep()" ng-hide="triWizard.currentStep &gt; 0" ng-disabled="triWizard.prevStepDisabled()" translate="FONDEOS.WIZARD.PREV" class="md-primary md-raised"></md-button>
+                <md-button ng-click="triWizard.nextStep()" ng-hide="triWizard.currentStep &gt;= 1" ng-disabled="triWizard.nextStepDisabled()" translate="FONDEOS.WIZARD.NEXT" class="md-primary md-raised"></md-button>
+                <md-button ng-click="vm.registrarConvocatoria()" ng-show="triWizard.currentStep &gt;= 1 " translate="FONDEOS.WIZARD.SEND" class="md-accent md-raised"></md-button>
+                <md-button ng-click="vm.createDialog()" ng-show="vm.Convocatoria.id!=null" translate="FONDEOS.WIZARD.DELETE" class="md-warn md-raised"></md-button>
+                <md-button ng-click="vm.cancel()" ng-show="vm.Convocatoria.id!=null" translate="FONDEOS.WIZARD.STOP_EDIT" class="md-primary md-raised"></md-button>
+            </div>
+        </div>
+    </div>
+    </body>
+    </html>
+    <md-tabs md-selected="selectedTabIndex" md-stretch-tabs="always" ng-show="vm.Convocatoria!=null" class="md-primary">
+        <md-tab label="Modalidades Disponibles">
+            <md-content class="md-padding">
+                <h2 translate="">FONDEOS.CALL.INSTRUCTIONSMODALITY</h2>
+                <md-table-container>
+                    <table md-table="" md-row-select="" ng-model="Modalidades">
+                        <thead md-head="" md-order="vm.query.order">
+                        <tr md-row="md-row">
+                            <th md-column="md-column" md-order-by="Nombre"><span translate="">FONDEOS.TABLE.NAME</span></th>
+                            <th md-column="md-column" md-order-by="Montos"><span translate="">FONDEOS.TABLE.AMOUNT</span></th>
+                            <th md-column="md-column" md-order-by="CriteriosEvaluacion"><span translate="">FONDEOS.TABLE.EVALUATION</span></th>
+                            <th md-column="md-column" md-order-by="Entregables"><span translate="">FONDEOS.TABLE.FILES</span></th>
+                            <th md-column="md-column" md-order-by="FigurasApoyo"><span translate="">FONDEOS.TABLE.SUPPORT</span></th>
+                            <th md-column="md-column"><span translate="">FONDEOS.TABLE.ADD
+                                <!-- Cuerpo de la tabla--></span></th>
+                        </tr>
+                        </thead>
+                        <tbody md-body="md-body">
+                        <tr md-row="md-row" md-select-id="{{modal.id}}" md-on-select="vm.addConvocatoriaModalidad()" ng-repeat="modal in vm.Modalidades | orderBy:vm.query.order">
+                            <td md-cell="md-cell"><span>{{modal.Nombre}}</span></td>
+                            <td md-cell="md-cell"><span>{{modal.Montos}}</span></td>
+                            <td md-cell="md-cell">{{modal.CriteriosEvaluacion|htmlToString}}</td>
+                            <td md-cell="md-cell">{{modal.Entregables|htmlToString}}</td>
+                            <td md-cell="md-cell">{{modal.FigurasApoyo|htmlToString}}</td>
+                            <td md-cell="md-cell" ng-click="$event.stopPropagation()">
+                                <md-button ng-click="vm.addConvocatoriaModalidad(modal)" class="md-fab md-primary md-mini">
+                                    <md-icon md-font-icon="zmdi zmdi-plus-circle"></md-icon>
+                                </md-button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </md-table-container>
+            </md-content>
+        </md-tab>
+        <md-tab label="Modalidades Asociadas">
+            <md-content class="md-padding">
+                <h2 translate="">FONDEOS.CALL.INSTRUCTIONSMODALITYRELATION</h2>
+                <md-table-container>
+                    <table md-table="" md-row-select="" ng-model="vm.ModalidadesAsociadas">
+                        <thead md-head="" md-order="vm.query.order">
+                        <tr md-row="md-row">
+                            <th md-column="md-column" md-order-by="Nombre"><span translate="">FONDEOS.TABLE.NAME</span></th>
+                            <th md-column="md-column" md-order-by="Montos"><span translate="">FONDEOS.TABLE.AMOUNT</span></th>
+                            <th md-column="md-column" md-order-by="CriteriosEvaluacion"><span translate="">FONDEOS.TABLE.EVALUATION</span></th>
+                            <th md-column="md-column" md-order-by="Entregables"><span translate="">FONDEOS.TABLE.FILES</span></th>
+                            <th md-column="md-column" md-order-by="FigurasApoyo"><span translate="">FONDEOS.TABLE.SUPPORT</span></th>
+                            <th md-column="md-column"><span translate="">FONDEOS.TABLE.ADD
+                                <!-- Cuerpo de la tabla--></span></th>
+                        </tr>
+                        </thead>
+                        <tbody md-body="md-body">
+                        <tr md-row="md-row" md-select-id="{{modality.id}}" md-on-select="vm.quitarModalidadConvocatoria()" ng-repeat="modality in vm.ModalidadesAsociadas | orderBy:vm.query.order">
+                            <td md-cell="md-cell"><span>{{modality.Nombre}}</span></td>
+                            <td md-cell="md-cell"><span>{{modality.Montos}}</span></td>
+                            <td md-cell="md-cell">{{modality.CriteriosEvaluacion|htmlToString}}</td>
+                            <td md-cell="md-cell">{{modality.Entregables|htmlToString}}</td>
+                            <td md-cell="md-cell">{{modality.FigurasApoyo|htmlToString}}</td>
+                            <td md-cell="md-cell" ng-click="$event.stopPropagation()">
+                                <md-button ng-click="vm.quitarModalidadConvocatoria(modality)" class="md-fab md-warn md-mini">
+                                    <md-icon md-font-icon="fa fa-times-circle-o"></md-icon>
+                                </md-button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </md-table-container>
+            </md-content>
+        </md-tab>
+    </md-tabs>
+</div>

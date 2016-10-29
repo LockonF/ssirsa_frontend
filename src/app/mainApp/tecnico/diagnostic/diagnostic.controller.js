@@ -9,11 +9,13 @@
         .module('app.mainApp.tecnico')
         .controller('DiagnosticController', DiagnosticController);
 
-    function DiagnosticController(Cabinet, OPTIONS, toastr,$scope, Translate, Helper, Upload, EnvironmentConfig, OAuthToken) {
+    function DiagnosticController(Cabinet,cabinet, OPTIONS, toastr,$scope, Translate,$mdDialog, Helper, Upload, EnvironmentConfig, OAuthToken) {
         var vm = this;
         vm.diagnostico = {};
         vm.cabinets = null;
+        vm.cabinet=null;
         vm.status = 'idle';  // idle | uploading | complete
+        vm.cerrar=cerrar;
         vm.guardar = guardar;
         vm.searchCabinet = searchCabinet;
         vm.selectionFile = selectionFile;
@@ -49,11 +51,17 @@
 
             });
         }
+        function cerrar(){
+            console.log("voy a cerrar");
+            $mdDialog.cancel();
+        }
         function clear() {
+            if(cabinet){
             $scope.registerForm.$setPristine();
             $scope.registerForm.$setUntouched();
             $scope.searchCabinetForm.$setPristine();
             $scope.searchCabinetForm.$setUntouched();
+            }   
             vm.cabinet = null;
             vm.cabinets = null;
             vm.diagnostico = null;
@@ -75,7 +83,12 @@
         }
 
         function activate() {
-            vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
+            console.log(cabinet);
+            if (cabinet!=null) {
+                vm.cabinet = cabinet;
+                vm.searchCabinet();
+            }
+                vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
             vm.successCreateMessage = Translate.translate('MAIN.MSG.SUCCESS_DIAGNOSTIC_MESSAGE');
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
