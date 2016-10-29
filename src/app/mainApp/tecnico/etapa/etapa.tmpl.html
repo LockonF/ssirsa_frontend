@@ -206,9 +206,9 @@
                                     </md-switch>
                                 </div>
                                 <div layout="column" flex>
-                                    <div><b>Insumo: </b> {{insu.nombre}}</div>
-                                    <div><b>Cantidad:</b>{{insu.cantidad}}</div>
-                                    <div><b>Notas: </b> {{insu.notas}}</div>
+                                    <div><b translate>ETAPA_SERVICIO.INSUM </b>: {{insu.nombre}}</div>
+                                    <div><b translate>ETAPA_SERVICIO.CANTITY</b>:{{insu.cantidad}}</div>
+                                    <div><b translate>ETAPA_SERVICIO.NOTES </b> :{{insu.notas}}</div>
                                 </div>
 
                             </div>
@@ -226,19 +226,19 @@
                 </md-input-container>
                 -->
                 <md-content layout="row" ng-if="vm.etapaActual.actual_etapa">
-                    <md-switch ng-model="inputDisabled">
-                        Agregar Micro motor o Compresor
+                    <md-switch ng-model="inputDisabled" >
+                        <span translate>ETAPA_SERVICIO.ADD_MICRO</span>
                     </md-switch>
                     <md-input-container flex="40" ng-if="inputDisabled||vm.etapaActual.insumos[0].no_serie">
-                        <label>Escanea el No de serie</label>
+                        <label><span translate>ETAPA_SERVICIO.SCAN</span></label>
                         <input type="text" ng-model="vm.etapaActual.insumos[0].no_serie">
                     </md-input-container>
                     <md-input-container flex="35" ng-if="inputDisabled">
-                        <label>Notas</label>
+                        <label><span translate>ETAPA_SERVICIO.NOTES</span></label>
                         <input type="text" ng-model="vm.etapaActual.insumos[0].notas">
                     </md-input-container>
                     <md-input-container flex="15" ng-if="inputDisabled">
-                        <label>Cantidad</label>
+                        <label><span translate>ETAPA_SERVICIO.CANTITY</span></label>
                         <input type="number" value="1" disabled>
                     </md-input-container>
                     <md-input-container ng-if="inputDisabled"  flex="10">

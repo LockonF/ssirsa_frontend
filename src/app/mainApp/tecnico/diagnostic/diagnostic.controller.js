@@ -40,6 +40,7 @@
             }).then(function () {
                 vm.status = 'idle';
                 clear();
+                cerrarDialog();
                 toastr.success(vm.successCreateMessage, vm.successTitle);
             }, function (err) {
                 if(err.status==400){

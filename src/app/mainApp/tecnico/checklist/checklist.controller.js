@@ -59,6 +59,7 @@
                 vm.picFile = null;
                 vm.statusReady = 0;
                 clear();
+                cerrarDialog();
                 toastr.success(vm.successCreateMessage, vm.successTitle);
                 vm.diagnostico = angular.copy(diagnostico);
             }, function (resp) {
