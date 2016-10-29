@@ -18,7 +18,7 @@
         vm.search_items = [];
         vm.selected=[];
         vm.catalogo_insumo_list = null;
-        vm.catalogo_insumo =  {
+        var catalogo_insumo =  {
             cantidad: null,
             unidades: null,
             descripcion: null,
@@ -46,7 +46,7 @@
         vm.showSteps=showSteps;
         vm.showEquipment=showEquipment;
         vm.disabled=disabled;
-
+        vm.catalogo_insumo=angular.copy(catalogo_insumo);
         activate();
 
 
@@ -158,7 +158,8 @@
 
         function  cancel(){
             $scope.inputForm.$setPristine();
-            vm.catalogo_insumo = null;
+            $scope.inputForm.$setUntouched(); 
+            vm.catalogo_insumo=angular.copy(catalogo_insumo);
         }
 
         function update(){

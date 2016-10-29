@@ -48,7 +48,6 @@
                     toastr.warning(vm.errorMessage, vm.errorTitle);
                 }
                 vm.status = 'idle';
-
             });
         }
         function cerrarDialog(){
@@ -61,7 +60,7 @@
             $scope.registerForm.$setUntouched();
             $scope.searchCabinetForm.$setPristine();
             $scope.searchCabinetForm.$setUntouched();
-            }   
+            }
             vm.cabinet = null;
             vm.cabinets = null;
             vm.diagnostico = null;

@@ -33,7 +33,7 @@
             emplayado: false,
             lubricacion: false,
             listo_mercado: false,
-            fecha: moment().format('YYYY-MM-DD'),
+            fecha: moment().toISOString(),
             tipo_insumo: 'bicicleta',
             cabinet_entrada_salida: null
         };
@@ -62,6 +62,7 @@
                 toastr.success(vm.successCreateMessage, vm.successTitle);
                 vm.diagnostico = angular.copy(diagnostico);
             }, function (resp) {
+                console.log(resp);
                 vm.status = 'idle';
                 toastr.warning(vm.errorMessage, vm.errorTitle);
             });
