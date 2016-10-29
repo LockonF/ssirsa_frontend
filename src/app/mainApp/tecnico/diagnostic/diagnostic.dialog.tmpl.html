@@ -1,0 +1,156 @@
+<md-dialog class="mobile-fullwidth-dialog" flex="100" flex-xs="100">
+    <div flex>
+        <md-toolbar class="md-medium-tall">
+            <div class="md-toolbar-tools" layout-align="space-between center" layout="row" layout-sm="column"
+                 layout-xs="column">
+                <div>
+                    <h2>
+                        <span translate>MAIN.MENU.DIAGNOSTIC</span>
+                    </h2>
+                </div>
+                <div layout="row" layout-align="space-between end">
+                    <md-button
+                            ng-click="vm.cerrarDialog()">
+                        <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+                    </md-button>
+                </div>
+            </div>
+        </md-toolbar>
+        <md-card class="md-padding card1" flex="100" flex-xs="100" flex-sm="100" flex-gt-xs="100">
+
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">{{'TECNICO.FORM.LABEL.SEARCH'|translate}}</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>x
+                <form name="registerForm" id="registerForm" novalidate>
+                    <div ng-if="vm.cabinets!=null">
+                        <div layout="row" layout-xs="column" layout-align-xs="center center" layout-sm="column"
+                             layout-align-sm="center center" layout-wrap>
+                            <div flex="50" flex-xs="100" flex-sm="100">
+                                <h3>{{'TECNICO.FORM.LABEL.ECONOMIC'|translate}}</h3>
+                                <div layout="row" layout-xs="column" layout-align-xs="center center" layout-sm="column"
+                                     layout-align-sm="center center">
+                                    <span>{{vm.cabinets.economico}}</span>
+                                </div>
+                            </div>
+                            <div flex="50" flex-xs="100" flex-sm="100">
+                                <h3>{{'TECNICO.FORM.LABEL.SERIE'|translate}}</h3>
+                                <div layout="row" layout-xs="column" layout-align-xs="center center" layout-sm="column"
+                                     layout-align-sm="center center">
+                                    <span>{{vm.cabinets.no_serie}}</span>
+                                </div>
+                            </div>
+                            <div flex="50" flex-xs="100" flex-sm="100">
+                                <h3>{{'TECNICO.FORM.LABEL.TYPE_INPUT'|translate}}</h3>
+                                <div layout="row" layout-xs="column" layout-align-xs="center center" layout-sm="column"
+                                     layout-align-sm="center center">
+                                    <span>{{vm.cabinets.tipo_entrada}}</span>
+                                </div>
+                            </div>
+                            <div flex="50" flex-xs="100" flex-sm="100">
+                                <h3>{{'TECNICO.FORM.LABEL.YEAR'|translate}}</h3>
+                                <div layout="row" layout-xs="column" layout-align-xs="center center" layout-sm="column"
+                                     layout-align-sm="center center">
+                                    <span>{{vm.cabinets.year}}</span>
+                                </div>
+                            </div>
+
+                            <div flex="50" flex-xs="100" flex-sm="100">
+                                <h3>{{'TECNICO.FORM.LABEL.NO_INCIDENTS'|translate}}</h3>
+                                <div layout="row" layout-xs="column" layout-align-xs="center center" layout-sm="column"
+                                     layout-align-sm="center center">
+                                    <span>{{vm.cabinets.no_incidencias}}</span>
+                                </div>
+                            </div>
+                            <div flex="50" flex-xs="100" flex-sm="100">
+                                <md-input-container class="md-inline-form md-block">
+                                    <label translate>CABINET.AGE</label>
+                                    <md-select name="status" ng-model="vm.cabinets.antiguedad" ng-required="true">
+                                        <md-option ng-repeat="antiguedad in vm.antiguedad" ng-model="antiguedad.id">
+                                            {{antiguedad.value}}
+                                        </md-option>
+                                    </md-select>
+                                    <div ng-messages="inputForm.antiguedad.$error">
+                                        <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                            <div flex="50" flex-xs="100" flex-sm="100">
+                                <md-input-container>
+                                    <md-switch class="md-primary" ng-model="vm.cabinets.capitalizado"
+
+                                               aria-label="Primary Switch"
+                                               ng-init="switches.primary = true">
+                                        {{'TECNICO.FORM.LABEL.CAPITAL'|translate}}
+                                    </md-switch>
+                                </md-input-container>
+                            </div>
+                            <div flex="50" flex-xs="100" flex-sm="100" ng-if="vm.cabinets.capitalizado">
+                                <md-input-container class="md-inline-form md-block">
+                                    <label translate>TECNICO.FORM.LABEL.STATUS</label>
+                                    <md-select ng-model="vm.cabinets.status"
+                                               placeholder="{{'TECNICO.FORM.LABEL.STATUS'|translate}}"
+                                               ng-required="vm.cabinets.capitalizado">
+                                        <md-option ng-repeat="status in vm.statu" ng-value="status.value">
+                                            {{status.display}}
+                                        </md-option>
+                                    </md-select>
+                                    <div ng-messages="inputForm.antiguedad.$error">
+                                        <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
+                                    </div>
+                                </md-input-container>
+
+
+                            </div>
+                            <div flex="50" flex-xs="100" flex-sm="100" ng-if="vm.cabinets.capitalizado">
+                                <md-input-container class="md-inline-form md-block">
+                                    <label translate>TECNICO.FORM.LABEL.UNILEVER</label>
+                                    <input aria-label="fab button" ng-model="vm.cabinets.id_unilever"
+                                           ng-required="vm.cabinets.capitalizado" name="id_unilever">
+                                    <div ng-messages="inputForm.id_unilever.$error">
+                                        <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                        </div>
+
+                        <div layout="row" layout-xs="column" layout-align-xs="center center" layout-sm="column"
+                             layout-align-sm="center center"
+                             ng-if="vm.cabinets.capitalizado && (vm.cabinets.status=='Fuga Interna' || vm.cabinets.status=='Obsoleto')">
+                            <div flex="50" flex-xs="100" flex-sm="100">
+                                <md-button aria-label="fab button" ngf-select="vm.selectionFile($files)"
+                                           ngf-accept="'image/*'"
+                                           class="md-primary md-raised"
+                                           ng-disabled="vm.status != 'idle'" ngf-multiple="false"
+                                           ng-model="vm.cabinets.foto"
+                                           aria-label="upload">
+                                    <md-icon md-font-icon
+                                             ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}"></md-icon>
+                                </md-button>
+                            </div>
+
+                            <div flex="50" flex-xs="100" flex-sm="100" ng-if="vm.cabinets.foto!=null">
+                                <div class="md-media-md card-media">
+                                    <img ngf-src="vm.cabinets.foto" class="thumb" width="180px" height="180px">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" flex="flex">
+                            <div class="pull-right">
+                                <md-button aria-label="fab button" type="submit" ng-disabled='registerForm.$invalid'
+                                           ng-click="vm.guardar()"
+                                           class="md-primary md-raised">
+                                    <md-icon md-font-icon="fa fa-save">
+                                </md-button>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </form>
+            </md-card-content>
+        </md-card>
+    </div>
+</md-dialog>
