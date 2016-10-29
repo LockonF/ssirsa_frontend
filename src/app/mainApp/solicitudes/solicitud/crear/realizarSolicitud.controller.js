@@ -81,7 +81,7 @@
         vm.guardar=guardar;
         vm.search=search;
         vm.selectedItemChange=selectedItemChange;
-        vm.isValid=null;
+        vm.isValid=false;
         vm.udnObject=null;
         vm.searchText = "";
         activate();
@@ -89,13 +89,18 @@
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
             vm.successCreateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_CREATE');
+            vm.sucessMassive=Translate.translate('INPUT.Messages.SuccessMassive');
+            vm.errorMassive=Translate.translate('INPUT.Messages.ErrorMassive');
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
             udn.listObject().then(function (res) {
                 vm.udns=Helper.filterDeleted(res,true);
                 vm.udns=_.sortBy(vm.udns, 'agencia');
             });
             vm.personas = PersonaCapturista.list();
-            vm.tiposEquipo=TipoEquipo.list();
+            TipoEquipo.listWitout().then(function (res) {
+                vm.tiposEquipo=Helper.filterDeleted(res,true);
+                vm.tiposEquipo=_.sortBy(vm.tiposEquipo, 'nombre');
+            });
             vm.isClient = Session.userRole === 'Cliente';
             vm.requisitoVenta.fecha_atencion=moment();
         }
@@ -126,9 +131,9 @@
                     vm.entrada = res;
                     vm.hideRegisteredSolicitud = false;
                     vm.hideUnregisteredSolicitud = true;
-                    toastr.success('Exito en la carga masiva', 'Exito');
+                    toastr.success(vm.sucessMassive, vm.successTitle);
                 }).catch(function (err) {
-                    toastr.error('Error en la carga masiva', 'Error');
+                    toastr.error(vm.errorMassive, vm.errorTitle);
                 });
             }
             else {
@@ -177,6 +182,8 @@
             vm.isClient = Session.userRole === 'Cliente';
             vm.requisitoVenta.fecha_atencion=moment();
             vm.entrada = angular.copy(entrada);
+            vm.udnObject=null;
+            vm.searchText=null;
         }
 
         function guardarSolicitudAdmin() {
@@ -275,7 +282,7 @@
                 vm.udns = _.filter(vm.udns, function (item) {
                     return item.agencia.toLowerCase().startsWith(text.toLowerCase()) || item.zona.toLowerCase().startsWith(text.toLowerCase());
                 });
-                vm.isValid = !((vm.udns.length == 0 && text.length > 0) || (text.length > 0 && !angular.isObject(vm.entrada.udn)));
+                vm.isValid = !((vm.udns.length == 0 && text.length > 0) || (text.length > 0 && !angular.isObject(vm.udnObject)));
                 return vm.udns;
             }
         }

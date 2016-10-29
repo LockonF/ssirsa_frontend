@@ -46,6 +46,9 @@
                 "PERSON":"Elige una persona",
                 "STATUS":"Elige un estatus",
                 "DATE_TERMINATE":"Ingrese la fecha de atención"
+            },
+            "TAB":{
+                "REQUEST":"Carga de solicitudes"
             }
         }
     },

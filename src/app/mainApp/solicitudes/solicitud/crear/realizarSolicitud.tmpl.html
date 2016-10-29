@@ -26,7 +26,7 @@
                                          md-min-length="0"
                                          md-input-name="selectUDN"
                                          md-search-text-change="vm.search(vm.searchText)"
-                                         required='required'
+                                         required
                                          md-input-id="udn"
                                          md-search-text="vm.searchText"
                                          md-menu-class="autocomplete-custom-template"
@@ -44,7 +44,7 @@
                                                     </span>
                             </md-item-template>
                             <md-not-found><span translate="">{{'CREATE_REQUEST.FORM.LABEL.NOTFOUNDUDN'|translate}}</span></md-not-found>
-                            <div ng-messages="solicitudForm.udn.$error" ng-if="solicitudForm.udn.$touched">
+                            <div ng-messages="solicitudForm.selectUDN.$error" ng-if="solicitudForm.selectUDN.$touched">
                                 <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                 <div class="validate" ng-show="!vm.isValid" ng-class="{'slide':vm.isValid==false}">
                                     <span>{{'CREATE_REQUEST.FORM.LABEL.INVALIDUDN'| translate}}</span>
@@ -62,7 +62,7 @@
                                         {{persona.nombre}}
                                     </md-option>
                                 </md-select>
-                                <div ng-messages="solicitudForm.udn.$error">
+                                <div ng-messages="solicitudForm.persona.$error">
                                     <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                 </div>
                             </md-input-container>
@@ -282,16 +282,17 @@
                                            ng-disabled="true"
                                            ng-required="vm.requisito.tipo_solicitud==2"
                                            class=" md-input">
-                                    <div ng-messages="solicitudForm.date_terminate.$error">
+                                    <div ng-messages="solicitudForm.date_terminate.$error" ng-if="entradaForm.selectUDN.$touched">
 
                                         <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+
                                     </div>
 
                                 </md-input-container>
                             </div>
 
-                            <md-tabs layout-padding="true" md-dynamic-height="100" md-border-bottom="100" md-selected="vm.selectedTab">
-                                <md-tab label = {{'INPUT.Tabs.CabinetsUpload'|translate}}>
+                            <md-tabs layout-padding="false" md-dynamic-height="100" md-border-bottom="100" md-selected="vm.selectedTab">
+                                <md-tab label = {{'CREATE_REQUEST.FORM.TAB.REQUEST'|translate}}>
                                     <md-content layout-padding="">
                                         <div layout-gt-md="row" layout="column" layout-align-gt-md="space-around center" layout-align="center stretch">
                                             <md-button ng-click="vm.showMassiveUpload()" class="md-raised md-primary">{{'CREATE_REQUEST.FORM.LABEL.CARGA_MASIVA_SOLICITUDES'|translate}}</md-button>
@@ -311,19 +312,20 @@
                                                     </md-button>
                                                 </div>
                                             </div>
-                                            <div layout="row" layout-align="end end">
+                                            <div layout="row" layout-align="end end"  layout-xs="column" layout-sm="column" layout-align-xs="start stretch" layout-align-sm="start stretch">
                                                 <md-button class="md-raised md-primary"
+                                                           flex-sm="100" flex-xs="100"
                                                            href="https://goo.gl/tbfSJX"
                                                 >
                                                     <md-icon md-font-icon="fa fa-cloud-download"></md-icon>
                                                 </md-button>
 
-                                                <md-button class="md-raised md-primary" aria-label="{{'CREATE_REQUEST.FORM.LABEL.ERASE'|translate}}"
+                                                <md-button class="md-raised md-primary" flex-sm="100" flex-xs="100" aria-label="{{'CREATE_REQUEST.FORM.LABEL.ERASE'|translate}}"
                                                            ng-click="vm.cancel()">
                                                     <md-icon md-font-icon="fa fa-eraser"></md-icon>
                                                 </md-button>
 
-                                                <md-button class="md-raised md-primary" aria-label="{{'CREATE_REQUEST.FORM.LABEL.SAVE'|translate}}"
+                                                <md-button class="md-raised md-primary" flex-sm="100" flex-xs="100" aria-label="{{'CREATE_REQUEST.FORM.LABEL.SAVE'|translate}}"
                                                            ng-disabled="(vm.entrada.file==null)||(solicitudForm.$invalid)"
                                                            ng-click='vm.guardar()'>
                                                     <md-icon md-font-icon="fa fa-save"></md-icon>
