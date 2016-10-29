@@ -1,6 +1,6 @@
 # SSSIRSA frontend
 
-Este proyecto está enfocado a la gestión del negocia de SSSIRSA
+Este proyecto está enfocado a la gestión del negocio de SSSIRSA
 ### Version
 1.0.0
 
