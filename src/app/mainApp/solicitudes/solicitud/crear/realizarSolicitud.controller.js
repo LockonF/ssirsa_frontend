@@ -220,9 +220,11 @@
         function guardarSolicitudCliente() {
             vm.udn=vm.udnObject.id;
             vm.requisito.fecha_inicio = moment(vm.requisito.fecha_inicio).format('YYYY-MM-DD');
-            vm.requisito.fecha_termino = moment(vm.requisito.fecha_termino).format('YYYY-MM-DD');
+            vm.requisito.fecha_termino = moment(vm.requisito.fecha_termino).add(1,'days').format('YYYY-MM-DD');
             vm.requisito.udn = vm.udn;
+            delete  vm.requisito.persona;
             vm.requisito.tipo_solicitud=OPTIONS.type_request[vm.requisito.tipo_solicitud].value_id;
+            console.log(vm.requisito);
             Solicitudes.create(vm.requisito).then(function () {
                 cancel();
 
@@ -230,6 +232,7 @@
 
 
             }).catch(function (res)  {
+                console.log(res);
                 toastr.error(vm.errorMessage, vm.errorTitle);
             })
         }
