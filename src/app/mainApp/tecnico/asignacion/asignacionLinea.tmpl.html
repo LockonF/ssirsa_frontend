@@ -62,9 +62,9 @@
                             <h5 translate>CABINET.EJEX</h5>
                         </md-input-container>
                         <md-input-container flex="30">
-                            <loopify-number-picker value="vm.cabinet.linea_x" step="1" min="1" max="100" label="kg"></loopify-number-picker>
+                            <loopify-number-picker value="vm.cabinet.linea_x" ng-model="vm.cabinet.linea_x"  step="1" min="1" max="100"></loopify-number-picker>
                             <!--<input name="ejex" flex type="number" max="100" min="0" required
-                                   ng-model="vm.cabinet.linea_x" aria-label="Posición en Eje X"
+                                   aria-label="Posición en Eje X"
                                    aria-controls="Y-slider" ng-disabled="false">
                             <div ng-messages="form.asignaLinea.ejex.$error">
                                 <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
@@ -79,20 +79,17 @@
                         </md-slider>
 
                     </md-slider-container>
-                    <!--<md-slider-container flex>
+                    <md-slider-container flex>
                         <md-input-container flex="20">
                             <h5 translate>CABINET.EJEY</h5>
                         </md-input-container>
-                        <md-input-container flex="10">
-                            <input name="ejey" flex type="number"  ng-disabled="false" max="100" min="0" ng-model="vm.cabinet.linea_y"
+                        <md-input-container flex="30">
+                           <!-- <input name="ejey" flex type="number"  ng-disabled="false" max="100" min="0"
                                    aria-label="Posición en Eje Y"
                                    aria-controls="Y-slider">
-                            <div ng-messages="form.asignaLinea.ejey.$error">
-                                <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
-                                <div ng-message="max">{{'MAIN.GENERAL.MAX_NUMBER' | translate}} 100
-                                </div>
+                                   -->
+                            <loopify-number-picker value="vm.cabinet.linea_y"   ng-model="vm.cabinet.linea_y" step="1" min="1" max="100" label=""></loopify-number-picker>
 
-                            </div>
                         </md-input-container>
                         <md-slider class="md-accent" md-discrete ng-model="vm.cabinet.linea_y" min="0" max="100" step="1"
                                    aria-label="Nivel"
@@ -103,7 +100,8 @@
                         <md-input-container flex="10">
                             <h5 translate>CABINET.EJEZ</h5>
                         </md-input-container>
-                        <md-input-container flex="10">
+                        <md-input-container flex="30">
+                            <!--
                             <input name="ejez" flex type="number"  ng-disabled="false" max="100" min="0" ng-model="vm.cabinet.linea_z"
                                    aria-label="Posición en Eje Z"
                                    aria-controls="Y-slider">
@@ -112,7 +110,8 @@
                                 <div ng-message="max">{{'MAIN.GENERAL.MAX_NUMBER' | translate}} 100
                                 </div>
 
-                            </div>
+                            </div>-->
+                            <loopify-number-picker value="vm.cabinet.linea_z"   ng-model="vm.cabinet.linea_z" step="1" min="1" max="100" label=""></loopify-number-picker>
                         </md-input-container>
                         <md-slider class="md-accent" md-discrete ng-model="vm.cabinet.linea_z" min="0" max="100" step="1"
                                    aria-label="Nivel"
@@ -120,7 +119,7 @@
                         </md-slider>
 
 
-                    </md-slider-container>-->
+                    </md-slider-container>
                 </form>
             </div>
 
