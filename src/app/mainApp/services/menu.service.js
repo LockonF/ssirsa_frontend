@@ -144,12 +144,12 @@
                             name: 'MAIN.MENU.DIAGNOSTIC',
                             state: 'triangular.admin-default.diagnostic',
                             type: 'link'
-                        },*/
+                        },
                         {
                             name: 'MAIN.MENU.SERVICEONSTORE',
                             state: 'triangular.admin-default.servicioPuntoVenta',
                             type: 'link'
-                        },
+                        },*/
                         {
                             name: 'MAIN.MENU.LINE',
                             state: 'triangular.admin-default.asignacionLinea',
