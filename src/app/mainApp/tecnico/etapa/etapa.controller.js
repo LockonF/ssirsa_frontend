@@ -107,6 +107,7 @@
             vm.dialogMessage = Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
             vm.dialogMessage = Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
             vm.notStepsMessage = Translate.translate('MAIN.DIALOG.NOT_STEPS');
+            vm.cabinetDeleted = Translate.translate('MAIN.MSG.ERROR_DISABLED_CABINET');
             getEtapasList();
 
         }
@@ -118,54 +119,61 @@
                 var promise = Cabinet.get(vm.idCabinet);
                 promise.then(function (res) {
                     vm.cabinet = res;
-                    getModelByCabinet();
-                    promise = Servicios.getDiagnosticoFromCabinet(vm.idCabinet);
-                    promise.then(function (res) {
-                        vm.diagnostico = res;
-                        promise = Servicios.consultarEtapaServicioDiagnostico(vm.diagnostico);
+                    if (vm.cabinet.deleted = true) {
+                        notifyError(999);
+                        vm.cancel();
+                    }
+                    else {
+                        getModelByCabinet();
+                        promise = Servicios.getDiagnosticoFromCabinet(vm.idCabinet);
                         promise.then(function (res) {
-                            vm.etapa = res;
-                            if (vm.etapa.validado == false) {
+                            vm.diagnostico = res;
+                            promise = Servicios.consultarEtapaServicioDiagnostico(vm.diagnostico);
+                            promise.then(function (res) {
+                                vm.etapa = res;
+                                if (vm.etapa.validado == false) {
 
-                                vm.etapaActual = vm.etapa;
-                                if (vm.etapaActual.insumos === undefined) {
-                                    vm.etapaActual.insumos = [];
+                                    vm.etapaActual = vm.etapa;
+
+                                    if (vm.etapaActual.insumos === undefined) {
+                                        vm.etapaActual.insumos = [];
+                                    }
+                                    promise = Servicios.consultarAllInsumosCabinetEtapa(vm.etapaActual);
+                                    promise.then(function (res) {
+
+                                        vm.insumos = res;
+                                        getInsumosLote();
+
+
+                                    }).catch(function (res) {
+                                        notifyError(res.status);
+                                    });
+                                    vm.insumos = vm.etapaActual.insumos;
+
+                                    if ((vm.etapaActual.actual_etapa == 'EC') || (vm.etapaActual.actual_etapa == 'ED') || (vm.etapaActual.actual_etapa == 'EO')) {
+
+                                        vm.showInsumosSection = false;
+                                    }
+                                    else
+                                        vm.showInsumosSection = true;
                                 }
-                                promise = Servicios.consultarAllInsumosCabinetEtapa(vm.etapaActual);
-                                promise.then(function (res) {
+                                else {
 
-                                    vm.insumos = res;
-                                    getInsumosLote();
-
-
-                                }).catch(function (res) {
-                                    notifyError(res.status);
-                                });
-                                vm.insumos = vm.etapaActual.insumos;
-
-                                if ((vm.etapaActual.actual_etapa == 'EC') || (vm.etapaActual.actual_etapa == 'ED') || (vm.etapaActual.actual_etapa == 'EO')) {
-
-                                    vm.showInsumosSection = false;
+                                    vm.etapaActual = vm.etapa;
+                                    vm.etapaActual.id = null;
+                                    vm.etapaActual.actual_etapa = vm.etapa.siguiente_etapa;
+                                    vm.etapaActual.siguiente_etapa = null;
+                                    vm.etapaActual.insumos = null;
                                 }
-                                else
-                                    vm.showInsumosSection = true;
-                            }
-                            else {
-
-                                vm.etapaActual = vm.etapa;
-                                vm.etapaActual.id = null;
-                                vm.etapaActual.actual_etapa = vm.etapa.siguiente_etapa;
-                                vm.etapaActual.siguiente_etapa = null;
-                                vm.etapaActual.insumos = null;
-                            }
 
 
+                            }).catch(function (res) {
+                                notifyError(res.status);
+                            })
                         }).catch(function (res) {
                             notifyError(res.status);
                         })
-                    }).catch(function (res) {
-                        notifyError(res.status);
-                    })
+                    }
                 }).catch(function (res) {
                     notifyError(res.status);
                 });
@@ -184,9 +192,10 @@
                 notifyError(res.status);
             });
         }
-        function eliminaNoSeleccionados(){
 
-            var paraAgregar = _.where(vm.insumos_loteUsados, {agregar: true });
+        function eliminaNoSeleccionados() {
+
+            var paraAgregar = _.where(vm.insumos_loteUsados, {agregar: true});
             console.log(paraAgregar);
         }
 
@@ -325,6 +334,9 @@
                 case 900:
                     toastr.warning(vm.notInsumos, vm.errorMessage);
                     break;
+                case 999:
+                    toastr.warning(vm.cabinetDeleted, vm.errorMessage);
+                    break;
                 case 1000:
                     toastr.warning(vm.notFoundMessage, vm.notStepsMessage);
                     break;
@@ -408,7 +420,6 @@
             vm.insumoLote = {};
             vm.insumos_loteUsados = [];//Arreglo que ya posee el arreglo como es necesario para agregar los insumos al formato de arreglo para agregarlos a la etapa
             vm.dataEtapa = null;//Variable que posera los datos de la etapa para el precargado de Template (id etapa, idTipoEquipo)
-
 
 
         }
@@ -517,7 +528,6 @@
             vm.insumo = null;
 
 
-
         }
 
         function editCatalogoInsumo(insu) {
@@ -554,7 +564,6 @@
                 notifyError(404);
             vm.catalogoSelected = null;
             vm.insumo = null;
-
 
 
         }
