@@ -16,8 +16,10 @@
         vm.deleteTipoEquipo = deleteTipoEquipo;
         vm.addTipoEquipo = addTipoEquipo;
         vm.search = search;
+        vm.selectedItemChange=selectedItemChange;
         vm.catalogo = catalogo;
         vm.equipos = [];
+        vm.isValid=false;
         var tipos_equipo = {
             tipo_equipo: null,
             cantidad: null,
@@ -31,7 +33,9 @@
 
             });
         }
-
+        function selectedItemChange(item) {
+            vm.isValid =angular.isObject(item);
+        }
         function search(obj) {
             if (vm.equipos.length > 0) {
                 var res = _.findWhere(vm.equipos, {id: obj}).nombre;
@@ -85,6 +89,7 @@
             vm.search_items = _.filter(vm.equipos, function (item) {
                 return item.descripcion.toLowerCase().indexOf(search_text.toLowerCase()) >= 0;
             });
+            vm.isValid = !((vm.search_items.length == 0 && search_text.length > 0)||(search_text.length > 0 && !angular.isObject(vm.selectedTipoEquipo)));
             return vm.search_items;
         }
     }

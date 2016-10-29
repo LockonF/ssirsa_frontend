@@ -158,7 +158,7 @@
 
         function  cancel(){
             $scope.inputForm.$setPristine();
-            $scope.inputForm.$setUntouched(); 
+            $scope.inputForm.$setUntouched();
             vm.catalogo_insumo=angular.copy(catalogo_insumo);
         }
 
@@ -168,6 +168,7 @@
                 vm.catalogo_insumo.costo = parseFloat(vm.catalogo_insumo.costo);
                 vm.catalogo_insumo.cantidad =parseFloat(vm.catalogo_insumo.cantidad);
                 toastr.success(vm.successUpdateMessage,vm.successTitle);
+                cancel();
                 listCatalogoInsumos();
             }).catch(function(err){
                 toastr.error(vm.errorMessage,vm.errorTitle);
@@ -178,7 +179,9 @@
         {
             CatalogoInsumo.create(vm.catalogo_insumo).then(function(res){
                 listCatalogoInsumos();
+                cancel();
                 toastr.success(vm.successCreateMessage,vm.successTitle);
+
             }).catch(function(err){
                 toastr.error(vm.errorMessage,vm.errorTitle);
             });
