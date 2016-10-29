@@ -83,7 +83,9 @@
         vm.selectedItemChange=selectedItemChange;
         vm.isValid=false;
         vm.udnObject=null;
+        vm.filterUDNs= null;
         vm.searchText = "";
+        vm.isValid=false;
         activate();
         function activate() {
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
@@ -95,6 +97,7 @@
             udn.listObject().then(function (res) {
                 vm.udns=Helper.filterDeleted(res,true);
                 vm.udns=_.sortBy(vm.udns, 'agencia');
+                vm.filterUDNs= angular.copy(vm.udns);
             });
             vm.personas = PersonaCapturista.list();
             TipoEquipo.listWitout().then(function (res) {
@@ -279,11 +282,11 @@
 
         function search(text) {
             if(!angular.isUndefined(text)) {
-                vm.udns = _.filter(vm.udns, function (item) {
+                vm.filterUDNs = _.filter(vm.udns, function (item) {
                     return item.agencia.toLowerCase().startsWith(text.toLowerCase()) || item.zona.toLowerCase().startsWith(text.toLowerCase());
                 });
                 vm.isValid = !((vm.udns.length == 0 && text.length > 0) || (text.length > 0 && !angular.isObject(vm.udnObject)));
-                return vm.udns;
+                return vm.filterUDNs;
             }
         }
 
