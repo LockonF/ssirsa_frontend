@@ -64,9 +64,9 @@
         vm.addCatalogoInsumo = addCatalogoInsumo;
         vm.eliminarCatalogoInsumo = eliminarCatalogoInsumo;
         vm.eliminarInsumo = eliminarInsumo;
-        vm.imprimirObjetoPrueba = imprimirObjetoPrueba;
         vm.showDiagnosticoDialog = showDiagnosticoDialog;
         vm.showPreCheckDialog = showPreCheckDialog;
+        vm.crearInsumo=crearInsumo;
 
 
         // Funciones
@@ -197,7 +197,8 @@
         function eliminaNoSeleccionados() {
 
             var paraAgregar = _.where(vm.insumos_loteUsados, {agregar: true});
-            console.log(paraAgregar);
+            vm.etapaActual.insumos_lote=paraAgregar;
+           // console.log(paraAgregar);
         }
 
         function buscarInsumosByCatalogo() {
@@ -251,7 +252,14 @@
                 vm.insumoLote = {};
             })
         }
-
+        function crearInsumo(){
+            if(vm.etapaActual.insumos[0].no_serie){
+            vm.etapaActual.insumos[0].cantidad=1;
+               // console.log(vm.etapaActual);
+                vm.etapaActual.validado=false;
+                vm.crearEtapaServicio();
+            }
+        }
         function showDiagnosticoDialog(ev) {
             vm.cabinetid = vm.idCabinet;
             $mdDialog.show({
@@ -448,10 +456,11 @@
                 });
             }
         }
-
+/*
         function imprimirObjetoPrueba() {
             console.log(vm.insumos_loteUsados);
         }
+        */
 
         function crearEtapaServicio() {
             vm.etapaActual.insumos = vm.insumos;
@@ -459,7 +468,9 @@
 
 
             if (vm.etapaActual.id == null) {
-                console.log(vm.insumos_loteUsados);
+
+                //console.log(vm.insumos_loteUsados);
+
                 eliminaNoSeleccionados();
 
                 vm.etapaActual.insumos_lote = vm.insumos_loteUsados;
@@ -478,7 +489,7 @@
                 });
             }
             else {
-                console.log(vm.insumos_loteUsados);
+               // console.log(vm.insumos_loteUsados);
                 eliminaNoSeleccionados();
                 var promise = Servicios.editarEtapaServicio(vm.etapaActual);
                 promise.then(function (res) {
@@ -547,14 +558,14 @@
                 }]
             }
             if (insu != null) {
-                console.log("voy a editar");
-                console.log(insu);
+                //console.log("voy a editar");
+                //console.log(insu);
 
                 vm.catalogoSelected.id = insu.id;
                 vm.catalogoSelected.descripcion = insu.nombre;
                 vm.catalogoSelected.tipos_equipo[0].cantidad = parseFloat(insu.cantidad);
                 vm.catalogoSelected.tipos_equipo[0].descripcion = insu.notas;
-                console.log(vm.catalogoSelected);
+                //console.log(vm.catalogoSelected);
 
                 newCatalogoInsumo.id = vm.catalogoSelected.id;
                 newCatalogoInsumo.nombre = vm.catalogoSelected.descripcion;
