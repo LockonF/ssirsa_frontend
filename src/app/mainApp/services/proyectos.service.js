@@ -18,11 +18,10 @@
             remove: remove,
             listObject:listObject
         };
+        
         function listObject() {
             return baseURL.getList();
         }
-
-
 
         function list(){
             return baseURL.getList().$object;
