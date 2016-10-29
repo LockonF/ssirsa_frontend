@@ -119,7 +119,7 @@
                 var promise = Cabinet.get(vm.idCabinet);
                 promise.then(function (res) {
                     vm.cabinet = res;
-                    if (vm.cabinet.deleted = true) {
+                    if (vm.cabinet.deleted == true) {
                         notifyError(999);
                         vm.cancel();
                     }
@@ -164,6 +164,7 @@
                                     vm.etapaActual.actual_etapa = vm.etapa.siguiente_etapa;
                                     vm.etapaActual.siguiente_etapa = null;
                                     vm.etapaActual.insumos = null;
+                                    getInsumosLote();
                                 }
 
 

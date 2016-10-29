@@ -75,11 +75,13 @@
                 var promise = Cabinet.get(vm.idCabinet);
                 promise.then(function (res) {
                     vm.cabinet = res;
-                    if (vm.cabinet.deleted = true) {
+                    vm.ver = true;
+                    if (vm.cabinet.deleted == true) {
                         notifyError(999);
                         vm.limpiar();
+                        vm.ver = false;
                     }
-                    vm.ver = true;
+
 
 
                 }).catch(function (res) {
