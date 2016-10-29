@@ -79,6 +79,11 @@
         vm.showManualUpload = showManualUpload;
         vm.selectionFile = selectionFile;
         vm.guardar=guardar;
+        vm.search=search;
+        vm.selectedItemChange=selectedItemChange;
+        vm.isValid=null;
+        vm.udnObject=null;
+        vm.searchText = "";
         activate();
         function activate() {
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
@@ -114,6 +119,7 @@
             var fd = new FormData();
             //Is massive upload
             if (vm.entrada.file != null) {
+                vm.udn=vm.udnObject.id;
                 fd.append('file', vm.entrada.file);
                 fd.append('udn', vm.udn);
                 Solicitud_Servicio.postEntradaMasiva(fd).then(function (res) {
@@ -121,11 +127,8 @@
                     vm.hideRegisteredSolicitud = false;
                     vm.hideUnregisteredSolicitud = true;
                     toastr.success('Exito en la carga masiva', 'Exito');
-                    console.log("vm.entrada");
-                    console.log(vm.entrada);
                 }).catch(function (err) {
                     toastr.error('Error en la carga masiva', 'Error');
-                    console.log(err);
                 });
             }
             else {
@@ -177,6 +180,7 @@
         }
 
         function guardarSolicitudAdmin() {
+            vm.udn=vm.udnObject.id;
             vm.requisito.fecha_inicio = moment(vm.requisito.fecha_inicio).format('YYYY-MM-DD');
             vm.requisito.fecha_termino = moment(vm.requisito.fecha_termino).format('YYYY-MM-DD');
             vm.requisito.fecha_atendida = moment(vm.requisito.fecha_atendida).toISOString();
@@ -207,6 +211,7 @@
         }
 
         function guardarSolicitudCliente() {
+            vm.udn=vm.udnObject.id;
             vm.requisito.fecha_inicio = moment(vm.requisito.fecha_inicio).format('YYYY-MM-DD');
             vm.requisito.fecha_termino = moment(vm.requisito.fecha_termino).format('YYYY-MM-DD');
             vm.requisito.udn = vm.udn;
@@ -237,6 +242,7 @@
             });
         }
         function guardarSolicitudVenta() {
+            vm.udn=vm.udnObject.id;
             vm.requisitoVenta.fecha_atencion = moment(vm.requisitoVenta.fecha_atencion).format('YYYY-MM-DD');
             vm.requisitoVenta.created_at = moment(vm.requisitoVenta.created_at).format('YYYY-MM-DD');
             vm.requisitoVenta.updated_at = moment(vm.requisitoVenta.updated_at).format('YYYY-MM-DD');
@@ -263,6 +269,21 @@
                 toastr.error(vm.errorMessage, vm.errorTitle);
             });
         }
+
+        function search(text) {
+            if(!angular.isUndefined(text)) {
+                vm.udns = _.filter(vm.udns, function (item) {
+                    return item.agencia.toLowerCase().startsWith(text.toLowerCase()) || item.zona.toLowerCase().startsWith(text.toLowerCase());
+                });
+                vm.isValid = !((vm.udns.length == 0 && text.length > 0) || (text.length > 0 && !angular.isObject(vm.entrada.udn)));
+                return vm.udns;
+            }
+        }
+
+        function selectedItemChange(item) {
+            vm.isValid =angular.isObject(item);
+        }
+
     }
 
 })();

@@ -31,11 +31,14 @@
                 "PHONE":"Teléfono",
                 "BUSINESS_CONTACT":"Contacto del negocio",
                 "STATUS":"Estatus",
-                "CARGA_MASIVA_SOLICITUDES":"Carga masiva de solicitudes",
-                "CARGA_INDIVIDUAL_SOLICITUDES":"Carga individual de solicitudes",
+                "CARGA_MASIVA_SOLICITUDES":"Carga masiva",
+                "CARGA_INDIVIDUAL_SOLICITUDES":"Carga individual",
                 "ARCHIVO":"Seleccionar Archivo",
                 "REGISTRADOS":"Solicitudes Registradas",
-                "NO_REGISTRADOS":"Solicitudes no Registradas"
+                "NO_REGISTRADOS":"Solicitudes no Registradas",
+                "CARGASOL":"Carga de Solicitudes",
+                "INVALIDUDN":"La UDN es invalida",
+                "NOTFOUNDUDN":"La UDN no se encuentra"
             },
             "PLACEHOLDER":{
                 "UDN":"Seleccione la UDN",
