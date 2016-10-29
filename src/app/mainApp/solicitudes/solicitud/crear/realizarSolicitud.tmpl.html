@@ -5,21 +5,9 @@
                 <div layout="row" flex="" layout-align="space-around stretch" id="cabecera">
                     <h2 flex="100" flex-sm="100" flex-gt-xs="100"
                         class="md-headline-1 text-center">{{'CREATE_REQUEST.FORM.TITLE.CREATE'|translate}}</h2>
-
                 </div>
                 <form name="solicitudForm">
                     <div layout="column" layout-xs="column" layout-sm="column" layout-align="start stretch">
-                        <md-input-container class="md-block">
-                            <md-select placeholder="{{'CREATE_REQUEST.FORM.PLACEHOLDER.UDN'|translate}}"
-                                       ng-model="vm.udn"
-                                       name="udn" required='required'>
-                                <md-option ng-value="udn.id" ng-repeat='udn in vm.udns'>{{udn.zona}} - {{udn.agencia}}
-                                </md-option>
-                            </md-select>
-                            <div ng-messages="solicitudForm.udn.$error">
-                                <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
-                            </div>
-                        </md-input-container>
                         <md-input-container class="md-block">
                             <md-select ng-model="vm.requisito.tipo_solicitud"
                                        name="tipo_solicitud"
@@ -32,6 +20,37 @@
                                 <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                             </div>
                         </md-input-container>
+                        <md-autocomplete md-selected-item="vm.udnObject"
+                                         md-selected-item-change="vm.selectedItemChange(vm.udnObject)"
+                                         md-items="item in vm.udns" md-item-text="item.agencia"
+                                         md-min-length="0"
+                                         md-input-name="selectUDN"
+                                         md-search-text-change="vm.search(vm.searchText)"
+                                         required
+                                         md-input-id="udn"
+                                         md-search-text="vm.searchText"
+                                         md-menu-class="autocomplete-custom-template"
+                                         md-require-match="true"
+                                         md-floating-label="{{'INPUT.UDN'| translate}}">
+                            <md-item-template>
+                                                    <span class="item-title">
+                                                        <md-icon md-font-icon="zmdi zmdi-city"></md-icon>
+                                                        <span>&nbsp; {{item.agencia}}</span>
+                                                    </span>
+                                                    <span class="item-metadata">
+                                                        <span class="item-metastat">
+                                                            <strong>{{item.zona}}</strong>
+                                                        </span>
+                                                    </span>
+                            </md-item-template>
+                            <md-not-found><span translate="">{{'CREATE_REQUEST.FORM.LABEL.NOTFOUNDUDN'|translate}}</span></md-not-found>
+                            <div ng-messages="solicitudForm.selectUDN.$error" ng-if="solicitudForm.selectUDN.$touched">
+                                <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                <div class="validate" ng-show="!vm.isValid" ng-class="{'slide':vm.isValid==false}">
+                                    <span>{{'CREATE_REQUEST.FORM.LABEL.INVALIDUDN'| translate}}</span>
+                                </div>
+                            </div>
+                        </md-autocomplete>
                         <!-- opc 1 Solicitud de Envio-->
                         <div flex="" layout-sm="column" layout-gt-md="column"
                              ng-show="vm.requisito.tipo_solicitud==0 ||vm.requisito.tipo_solicitud==1  ">
@@ -43,7 +62,7 @@
                                         {{persona.nombre}}
                                     </md-option>
                                 </md-select>
-                                <div ng-messages="solicitudForm.udn.$error">
+                                <div ng-messages="solicitudForm.persona.$error">
                                     <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                 </div>
                             </md-input-container>
@@ -233,6 +252,7 @@
                                 </md-button>
                             </div>
                             <div layout="row" layout-align="end end" ng-if="vm.isClient">
+
                                 <md-button class="md-raised md-primary" aria-label="Borrar"
                                            ng-click="vm.cancel()">
                                     <md-icon md-font-icon="fa fa-eraser"></md-icon>
@@ -262,16 +282,17 @@
                                            ng-disabled="true"
                                            ng-required="vm.requisito.tipo_solicitud==2"
                                            class=" md-input">
-                                    <div ng-messages="solicitudForm.date_terminate.$error">
+                                    <div ng-messages="solicitudForm.date_terminate.$error" ng-if="entradaForm.selectUDN.$touched">
 
                                         <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+
                                     </div>
 
                                 </md-input-container>
                             </div>
 
-                            <md-tabs layout-padding="true" md-dynamic-height="100" md-border-bottom="100" md-selected="vm.selectedTab">
-                                <md-tab label = {{'INPUT.Tabs.CabinetsUpload'|translate}}>
+                            <md-tabs layout-padding="false" md-dynamic-height="100" md-border-bottom="100" md-selected="vm.selectedTab">
+                                <md-tab label = {{'CREATE_REQUEST.FORM.TAB.REQUEST'|translate}}>
                                     <md-content layout-padding="">
                                         <div layout-gt-md="row" layout="column" layout-align-gt-md="space-around center" layout-align="center stretch">
                                             <md-button ng-click="vm.showMassiveUpload()" class="md-raised md-primary">{{'CREATE_REQUEST.FORM.LABEL.CARGA_MASIVA_SOLICITUDES'|translate}}</md-button>
@@ -280,122 +301,151 @@
                                         <div layout="column" ng-hide="vm.hideMassiveUpload">
                                             <!-- Massive Upload-->
                                             <div layout="row" layout-sm="column" layout-xs="column" layout-md="column" flex="100" ng-hide="vm.hideMassiveUpload">
-                                                <md-input-container flex="75" flex-sm="100" flex-xs="100" flex-md="100">
+                                                <md-input-container flex="80" flex-sm="100" flex-xs="100" flex-md="100">
                                                     <input name="FileName" type="text" ng-model="vm.entrada.file.name" ng-disabled="true"/>
                                                 </md-input-container>
-                                                <div flex="25" flex-sm="100" flex-xs="100" flex-md="100" layout="column">
-                                                    <md-button ngf-select="vm.selectionFile($file)" accept=".xlsx, application/vnd.ms-excel" ngf-max-size="10MB" ng-model="vm.entrada.file" class="md-primary md-raised">{{'CREATE_REQUEST.FORM.LABEL.ARCHIVO'|translate}}</md-button>
+                                                <div flex="20" flex-sm="100" flex-xs="100" flex-md="100" layout="column">
+                                                    <md-button ngf-select="vm.selectionFile($file)" class="md-raised md-primary"
+                                                               accept=".xlsx, application/vnd.ms-excel" ngf-max-size="10MB"
+                                                               ng-model="vm.entrada.file" class="md-primary md-raised">
+                                                        <md-icon md-font-icon="fa  fa-folder-open-o"></md-icon>
+                                                    </md-button>
                                                 </div>
                                             </div>
+                                            <div layout="row" layout-align="end end"  layout-xs="column" layout-sm="column" layout-align-xs="start stretch" layout-align-sm="start stretch">
+                                                <md-button class="md-raised md-primary"
+                                                           flex-sm="100" flex-xs="100"
+                                                           href="https://goo.gl/tbfSJX"
+                                                >
+                                                    <md-icon md-font-icon="fa fa-cloud-download"></md-icon>
+                                                </md-button>
+
+                                                <md-button class="md-raised md-primary" flex-sm="100" flex-xs="100" aria-label="{{'CREATE_REQUEST.FORM.LABEL.ERASE'|translate}}"
+                                                           ng-click="vm.cancel()">
+                                                    <md-icon md-font-icon="fa fa-eraser"></md-icon>
+                                                </md-button>
+
+                                                <md-button class="md-raised md-primary" flex-sm="100" flex-xs="100" aria-label="{{'CREATE_REQUEST.FORM.LABEL.SAVE'|translate}}"
+                                                           ng-disabled="(vm.entrada.file==null)||(solicitudForm.$invalid)"
+                                                           ng-click='vm.guardar()'>
+                                                    <md-icon md-font-icon="fa fa-save"></md-icon>
+                                                </md-button>
+                                            </div>
                                         </div>
-                                        <div flex="" layout="column"  ng-hide="vm.hideRegisteredSolicitud">
+                                        <div layout="column" ng-if="!vm.hideManualUpload">
+                                            <md-input-container class="md-block">
+                                                <label>{{'CREATE_REQUEST.FORM.LABEL.RAZON'|translate}}</label>
+                                                <textarea ng-model="vm.requisitoVenta.razon_social" name="razon"
+                                                          ng-required="vm.requisito.tipo_solicitud==2"></textarea>
+                                                <div ng-messages="solicitudForm.razon.$error">
+                                                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                                </div>
+                                            </md-input-container>
+                                            <md-input-container class="md-block">
+                                                <label>{{'CREATE_REQUEST.FORM.LABEL.BUSINESS_NAME'|translate}}</label>
+                                                <textarea ng-model="vm.requisitoVenta.nombre_negocio" name="business"
+                                                          ng-required="vm.requisito.tipo_solicitud==2"></textarea>
+                                                <div ng-messages="solicitudForm.business.$error">
+                                                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                                </div>
+                                            </md-input-container>
+                                            <md-input-container class="md-block">
+                                                <label>{{'CREATE_REQUEST.FORM.LABEL.ADDRESS'|translate}}</label>
+                                                <textarea ng-model="vm.requisitoVenta.direccion" name="address"
+                                                          ng-required="vm.requisito.tipo_solicitud==2"></textarea>
+                                                <div ng-messages="solicitudForm.address.$error">
+                                                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                                </div>
+                                            </md-input-container>
+                                            <md-input-container class="md-block">
+                                                <label>{{'CREATE_REQUEST.FORM.LABEL.PHONE'|translate}}</label>
+                                                <textarea ng-model="vm.requisitoVenta.telefono" name="phone"
+                                                          ng-required="vm.requisito.tipo_solicitud==2"></textarea>
+                                                <div ng-messages="solicitudForm.phone.$error">
+                                                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                                </div>
+                                            </md-input-container>
+                                            <md-input-container class="md-block">
+                                                <label>{{'CREATE_REQUEST.FORM.LABEL.BUSINESS_CONTACT'|translate}}</label>
+                                                <textarea ng-model="vm.requisitoVenta.contacto_negocio" name="contact"
+                                                          ng-required="vm.requisito.tipo_solicitud==2"></textarea>
+                                                <div ng-messages="solicitudForm.contact.$error">
+                                                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                                </div>
+                                            </md-input-container>
+                                            <md-input-container class="md-block">
+                                                <label>{{'CREATE_REQUEST.FORM.LABEL.STATUS'|translate}}</label>
+                                                <textarea ng-model="vm.requisitoVenta.status" name="status"
+                                                          ng-required="vm.requisito.tipo_solicitud==2"></textarea>
+                                                <div ng-messages="solicitudForm.status.$error">
+                                                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                                </div>
+                                            </md-input-container>
+                                            <div layout="row" layout-align="end end">
+                                                <md-button class="md-raised md-primary" aria-label="{{'CREATE_REQUEST.FORM.LABEL.ERASE'|translate}}"
+                                                           ng-click="vm.cancel()">
+                                                    <md-icon md-font-icon="fa fa-eraser"></md-icon>
+                                                </md-button>
+
+                                                <md-button class="md-raised md-primary" aria-label="{{'CREATE_REQUEST.FORM.LABEL.SAVE'|translate}}"
+                                                           ng-disabled="solicitudForm.$invalid"
+                                                           ng-click='vm.guardarSolicitudVenta()'>
+                                                    <md-icon md-font-icon="fa fa-save"></md-icon>
+                                                </md-button>
+                                            </div>
+                                        </div>
+                                        <div flex="" layout="column"  ng-if="!vm.hideRegisteredSolicitud">
                                             <p>{{'CREATE_REQUEST.FORM.LABEL.REGISTRADOS'|translate}}</p>
                                             <md-table-container>
                                                 <table md-table="" md-row-select="" multiple="" ng-disabled="true">
-                                                    <thead md-head="">
-                                                    <tr md-row="">
-                                                        <th md-column="">{{'INPUT.TableCabinets.Headers.Economic Num.'|translate}}</th>
-                                                        <th md-column="">{{'INPUT.TableCabinets.Headers.Serial Num.'|translate}}</th>
-                                                        <th md-column="">{{'INPUT.TableCabinets.Headers.Brand'|translate}}</th>
-                                                        <th md-column="">{{'INPUT.TableCabinets.Headers.Model'|translate}}</th>
+                                                    <thead md-head="" md-order="vm.query.order">
+                                                    <tr md-row="md-row">
+                                                        <th md-column="md-column" md-order-by="id"><span translate="SEARCH_REQUEST.FORM.LABEL.FOLIO"></span>
+                                                        </th>
+                                                        <th md-column="md-column" md-order-by="razon_social"><span translate="SEARCH_REQUEST.FORM.LABEL.RAZON_SOCIAL"></span>
+                                                        </th>
+                                                        <th md-column="md-column" md-order-by="direccion"><span translate="SEARCH_REQUEST.FORM.LABEL.DIRECCION"></span>
+                                                        </th>
+                                                        <th md-column="md-column" md-order-by="responsable"><span translate="SEARCH_REQUEST.FORM.LABEL.RESPONSABLE"></span>
+                                                        </th>
+                                                        <th md-column="md-column" md-order-by="telefono"><span translate="SEARCH_REQUEST.FORM.LABEL.TELEFONO"></span>
+                                                        </th>
                                                     </tr>
                                                     </thead>
-                                                    <tbody md-body="">
-                                                    <tr md-row="" ng-repeat="registeredCabinet in vm.entrada.creados">
-                                                        <td md-cell="">{{registeredCabinet.economico}}</td>
-                                                        <td md-cell="">{{registeredCabinet.no_serie}}</td>
-                                                        <td md-cell="">{{registeredCabinet.modelo.marca.descripcion}}</td>
-                                                        <td md-cell="">{{registeredCabinet.modelo.nombre}}</td>
+                                                    <tbody md-body="md-body">
+                                                    <tr md-row="md-row" ng-repeat="SolicitudRegistrada in vm.entrada | orderBy:vm.query.order | offset: (vm.query.page-1)*vm.query.limit | limitTo: vm.query.limit"">
+                                                    <td md-cell="md-cell" >{{SolicitudRegistrada.id}}</td>
+                                                    <td md-cell="md-cell" >{{SolicitudRegistrada.razon_social}}</td>
+                                                    <td md-cell="md-cell" >{{SolicitudRegistrada.municipio}} {{SolicitudRegistrada.colonia}} {{SolicitudRegistrada.calle}} {{SolicitudRegistrada.cp}}</td>
+                                                    <td md-cell="md-cell" >{{SolicitudRegistrada.responsable}}</td>
+                                                    <td md-cell="md-cell" >{{SolicitudRegistrada.telefono}}</td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
                                             </md-table-container>
+                                            <md-table-pagination label="textoprub" md-limit="vm.query.limit" md-page="vm.query.page" md-total="{{vm.entrada.length}}" md-on-paginate="onPaginate" md-page-select="md-page-select"></md-table-pagination>
                                         </div>
-                                        <div flex="" layout="column"  ng-hide="vm.hideUnregisteredSolicitud">
+                                        <div flex="" layout="column"  ng-if="!vm.hideUnregisteredSolicitud">
                                             <p>{{'CREATE_REQUEST.FORM.LABEL.NO_REGISTRADOS'|translate}}</p>
                                             <md-table-container>
                                                 <table md-table="" md-row-select="" multiple="" ng-disabled="true">
                                                     <thead md-head="">
                                                     <tr md-row="">
-                                                        <th md-column="">{{'INPUT.TableCabinets.Headers.Economic Num.'|translate}}</th>
+                                                        <th md-column="">{{'CREATE_REQUEST.FORM.LABEL.CARGASOL'|translate}}</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody md-body="">
-                                                    <tr md-row="" ng-repeat="unregisteredCabinet in vm.entrada.no_creados">
-                                                        <td md-cell="">{{unregisteredCabinet}}</td>
+                                                    <tr md-row="" ng-repeat="unSolicitudRegistrada in vm.entrada.no_creados">
+                                                        <td md-cell="">{{unSolicitudRegistrada}}</td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
                                             </md-table-container>
                                         </div>
-
-                                        <div layout="row" layout-align="end center">
-                                            <md-button ng-disabled="entradaForm.$invalid" ng-click="vm.guardar()" class="md-raised md-primary">{{'INPUT.Save'|translate}}</md-button>
-                                        </div>
+                                        <!--boton-->
                                     </md-content>
                                 </md-tab>
                             </md-tabs>
-
-                            <md-input-container class="md-block">
-                                <label>{{'CREATE_REQUEST.FORM.LABEL.RAZON'|translate}}</label>
-                                <textarea ng-model="vm.requisitoVenta.razon_social" name="razon"
-                                          ng-required="vm.requisito.tipo_solicitud==2"></textarea>
-                                <div ng-messages="solicitudForm.razon.$error">
-                                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
-                                </div>
-                            </md-input-container>
-                            <md-input-container class="md-block">
-                                <label>{{'CREATE_REQUEST.FORM.LABEL.BUSINESS_NAME'|translate}}</label>
-                                <textarea ng-model="vm.requisitoVenta.nombre_negocio" name="business"
-                                          ng-required="vm.requisito.tipo_solicitud==2"></textarea>
-                                <div ng-messages="solicitudForm.business.$error">
-                                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
-                                </div>
-                            </md-input-container>
-                            <md-input-container class="md-block">
-                                <label>{{'CREATE_REQUEST.FORM.LABEL.ADDRESS'|translate}}</label>
-                                <textarea ng-model="vm.requisitoVenta.direccion" name="address"
-                                          ng-required="vm.requisito.tipo_solicitud==2"></textarea>
-                                <div ng-messages="solicitudForm.address.$error">
-                                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
-                                </div>
-                            </md-input-container>
-                            <md-input-container class="md-block">
-                                <label>{{'CREATE_REQUEST.FORM.LABEL.PHONE'|translate}}</label>
-                                <textarea ng-model="vm.requisitoVenta.telefono" name="phone"
-                                          ng-required="vm.requisito.tipo_solicitud==2"></textarea>
-                                <div ng-messages="solicitudForm.phone.$error">
-                                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
-                                </div>
-                            </md-input-container>
-                            <md-input-container class="md-block">
-                                <label>{{'CREATE_REQUEST.FORM.LABEL.BUSINESS_CONTACT'|translate}}</label>
-                                <textarea ng-model="vm.requisitoVenta.contacto_negocio" name="contact"
-                                          ng-required="vm.requisito.tipo_solicitud==2"></textarea>
-                                <div ng-messages="solicitudForm.contact.$error">
-                                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
-                                </div>
-                            </md-input-container>
-                            <md-input-container class="md-block">
-                                <label>{{'CREATE_REQUEST.FORM.LABEL.STATUS'|translate}}</label>
-                                <textarea ng-model="vm.requisitoVenta.status" name="status"
-                                          ng-required="vm.requisito.tipo_solicitud==2"></textarea>
-                                <div ng-messages="solicitudForm.status.$error">
-                                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
-                                </div>
-                            </md-input-container>
-                            <div layout="row" layout-align="end end">
-                                <md-button class="md-raised md-primary" aria-label="Borrar"
-                                           ng-click="vm.cancel()">
-                                    <md-icon md-font-icon="fa fa-eraser"></md-icon>
-                                </md-button>
-
-                                <md-button class="md-raised md-primary" aria-label="Guardar"
-                                           ng-disabled="solicitudForm.$invalid"
-                                           ng-click='vm.guardarSolicitudVenta()'>
-                                    <md-icon md-font-icon="fa fa-save"></md-icon>
-                                </md-button>
-                            </div>
                         </div>
                     </div>
                 </form>
