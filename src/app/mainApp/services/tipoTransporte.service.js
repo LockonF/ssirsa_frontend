@@ -8,7 +8,7 @@
         .module('app.mainApp')
         .factory('TipoTransporte',TipoTransporte);
 
-    function TipoTransporte(Restangular)
+    function TipoTransporte(Restangular,Helper, $mdDialog)
     {
         var baseTipoTransporte = Restangular.all('tipo_transporte');
 

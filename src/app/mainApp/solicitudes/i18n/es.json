@@ -90,7 +90,11 @@
                 "CEDIS":"Centro de Distribución",
                 "NO_SERIE":"N° de Serie",
                 "FECHA_REALIZACION":"Fecha de Realización",
-                "MODELO":"Modelo"
+                "CANTIDAD":"Cantidad",
+                "STATUS":"Estatus del equipo",
+                "TIPOEQUIPO":"Tipo del equipo",
+                "MODELO":"Modelo",
+                "PATTERNMESSAGE":"Favor de introducir solo caracteres validos"
             }
         }
     }

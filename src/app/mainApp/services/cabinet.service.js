@@ -7,20 +7,28 @@
 
     /* @ngInject */
     function Cabinet($q, Restangular) {
+        var urlbase=Restangular.all("cabinet");
+        var urlbase_clean=Restangular.all("cabinet_clean");
         return {
             create: create,
             createClean:createClean,
+            updateClean:updateClean,
+            removeClean:removeClean,
             get: get,
             getAll: getAll,
             getEconomics:getEconomics,
             remove: remove,
             modify: modify,
-            loadByModel:loadByModel
+            loadByModel:loadByModel,
+            loadByStatus:loadByStatus
         };
 
+        function loadByStatus(status) {
+            return urlbase.one("status",status).getList();
+        }
         function create(request) {
             var deferred = $q.defer();
-            Restangular.all('cabinet').customPOST(request).then(function (res) {
+            urlbase.customPOST(request).then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);
@@ -29,7 +37,13 @@
         }
 
         function createClean(data){
-            return Restangular.all('cabinet').all('clean').customPOST(data);
+            return urlbase_clean.customPOST(data);
+        }
+        function updateClean(data){
+            return urlbase_clean.one(data.economico).customPUT(data);
+        }
+        function removeClean(data){
+            return urlbase_clean.customDELETE(data.economico,null,{'content-type':'application/json'});
         }
 
         function get(no_serie) {
@@ -43,28 +57,16 @@
         }
 
         function getAll() {
-            var deferred = $q.defer();
-            Restangular.all('cabinet').customGET().then(function (res) {
-                deferred.resolve(res);
-            }).catch(function (err) {
-                deferred.reject(err);
-            });
-            return deferred.promise;
+            return urlbase.getList().$object;
         }
 
         function getEconomics(){
-            return Restangular.all("cabinet").all("clean").all("economico").getList().$object;
+            return urlbase.all("clean").all("economico").getList().$object;
         }
 
         function remove(cabinet) {
-            var deferred = $q.defer();
+            return urlbase.customDELETE(cabinet.economico,null,{'content-type':'application/json'});
 
-            Restangular.one('cabinet', cabinet.economico).customDELETE().then(function (res) {
-                deferred.resolve(res);
-            }).catch(function (err) {
-                deferred.reject(err);
-            });
-            return deferred.promise;
         }
 
 
@@ -80,7 +82,7 @@
         }
 
         function loadByModel(model){
-            return Restangular.all('cabinet').one('model',model.id).getList().$object;
+            return urlbase.one('model',model.id).getList().$object;
         }
     }
 })();

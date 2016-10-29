@@ -11,15 +11,20 @@
 
         return {
             list:list,
-            listObject:listObject,
             update:update,
             remove:remove,
             get: get,
             create:create,
-            getModels:getModels
+            getModels:getModels,
+            listPromise:listPromise,
+            listObject:listObject
         };
         function get(id) {
             return baseMarca.get(id);
+        }
+
+        function listPromise() {
+            return baseMarca.getList();
         }
 
         function list(){
