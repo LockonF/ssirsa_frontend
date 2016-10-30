@@ -167,7 +167,7 @@
                                         vm.showInsumosSection = true;
                                 }
                                 else {
-
+                                  
                                     vm.etapaActual = vm.etapa;
                                     vm.etapaActual.id = null;
                                     vm.etapaActual.actual_etapa = vm.etapa.siguiente_etapa;
@@ -467,7 +467,7 @@
                 });
             }
         }
-        function eliminarSinModal() {
+        function eliminarSinModal() {e
             var promise = Servicios.eliminarEtapaServicio(vm.etapaActual);
             promise.then(function (res) {
                 vm.diagnostico = res;
