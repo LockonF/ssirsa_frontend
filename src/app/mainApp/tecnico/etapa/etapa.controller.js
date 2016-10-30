@@ -67,6 +67,7 @@
         vm.showDiagnosticoDialog = showDiagnosticoDialog;
         vm.showPreCheckDialog = showPreCheckDialog;
         vm.crearInsumo=crearInsumo;
+        vm.eliminarSinModal=eliminarSinModal;
 
 
         // Funciones
@@ -466,7 +467,15 @@
                 });
             }
         }
-
+        function eliminarSinModal() {
+            var promise = Servicios.eliminarEtapaServicio(vm.etapaActual);
+            promise.then(function (res) {
+                vm.diagnostico = res;
+                vm.cancel();
+            }).catch(function (res) {
+                notifyError(res.status);
+            })
+        }
 
 
         function crearEtapaServicio() {
@@ -571,7 +580,7 @@
                 vm.catalogoSelected.descripcion = insu.nombre;
                 vm.catalogoSelected.tipos_equipo[0].cantidad = parseFloat(insu.cantidad);
                 vm.catalogoSelected.tipos_equipo[0].descripcion = insu.notas;
-                
+
 
                 newCatalogoInsumo.id = vm.catalogoSelected.id;
                 newCatalogoInsumo.nombre = vm.catalogoSelected.descripcion;
