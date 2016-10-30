@@ -9,7 +9,7 @@
         .module('app.mainApp.tecnico')
         .controller('etapaController', etapaController);
 
-    function etapaController(Cabinet, Servicios, $mdDialog, $scope, Insumo, Translate, toastr) {
+    function etapaController(Cabinet,Helper, Servicios, $mdDialog, $scope, Insumo, Translate, toastr) {
         var vm = this;
         vm.activate = activate();
 
@@ -78,7 +78,8 @@
         function getEtapasList() {
             var promise = Servicios.etapaList();
             promise.then(function (res) {
-                vm.etapas = res;
+                //vm.etapas = res;
+                vm.etapas=Helper.filterDeleted(res,true);
                 if (_.size(vm.etapas) == 0) {
                     notifyError(1000);
                 }
@@ -110,6 +111,7 @@
             vm.cabinetDeleted = Translate.translate('MAIN.MSG.ERROR_DISABLED_CABINET');
             vm.errorNotInsumos=Translate.translate('MAIN.MSG.NOT_INSUMOS');
             getEtapasList();
+
 
         }
 
