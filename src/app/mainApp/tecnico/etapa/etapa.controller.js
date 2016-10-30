@@ -108,6 +108,7 @@
             vm.dialogMessage = Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
             vm.notStepsMessage = Translate.translate('MAIN.DIALOG.NOT_STEPS');
             vm.cabinetDeleted = Translate.translate('MAIN.MSG.ERROR_DISABLED_CABINET');
+            vm.errorNotInsumos=Translate.translate('MAIN.MSG.NOT_INSUMOS');
             getEtapasList();
 
         }
@@ -143,6 +144,11 @@
 
                                         vm.insumos = res;
                                         getInsumosLote();
+                                        console.log(vm.insumos_lote.length);
+                                        if(vm.insumos_lote.length==0){
+                                            console.log("Entre a la excepcion");
+                                            notifyError(998);
+                                        }
 
 
                                     }).catch(function (res) {
@@ -343,6 +349,8 @@
                 case 900:
                     toastr.warning(vm.notInsumos, vm.errorMessage);
                     break;
+                case 998:
+                    toastr.warning(vm.errorMessage,vm.errorNotInsumos);
                 case 999:
                     toastr.warning(vm.cabinetDeleted, vm.errorMessage);
                     break;

@@ -50,7 +50,7 @@
                     <md-input-container flex>
                         <form name="Buscar" ng-submit="vm.buscar()">
                             <label translate>ETAPA_SERVICIO.ID_CABINET</label>
-                            <input type="text" ng-model="vm.idCabinet"/>
+                            <input type="text" pattern="[A-Za-z0-9._ +-]" ng-model="vm.idCabinet"/>
                         </form>
                     </md-input-container>
                 </div>
@@ -207,8 +207,8 @@
                                 </div>
                                 <div layout="column" flex>
                                     <div><b translate>ETAPA_SERVICIO.INSUM </b>: {{insu.nombre}}</div>
-                                    <div><b translate>ETAPA_SERVICIO.CANTITY</b>:{{insu.cantidad}}</div>
-                                    <div><b translate>ETAPA_SERVICIO.NOTES </b> :{{insu.notas}}</div>
+                                  <!--  <div><b translate>ETAPA_SERVICIO.CANTITY</b>:{{insu.cantidad}}</div>
+                                    <div><b translate>ETAPA_SERVICIO.NOTES </b> :{{insu.notas}}</div>-->
                                 </div>
 
                             </div>
