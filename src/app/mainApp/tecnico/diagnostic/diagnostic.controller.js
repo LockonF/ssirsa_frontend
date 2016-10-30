@@ -39,8 +39,9 @@
                 data: vm.cabinets
             }).then(function () {
                 vm.status = 'idle';
-                clear();
                 cerrarDialog();
+                clear();
+
                 toastr.success(vm.successCreateMessage, vm.successTitle);
             }, function (err) {
                 if(err.status==400){
