@@ -466,11 +466,8 @@
                 });
             }
         }
-/*
-        function imprimirObjetoPrueba() {
-            console.log(vm.insumos_loteUsados);
-        }
-        */
+
+
 
         function crearEtapaServicio() {
             vm.etapaActual.insumos = vm.insumos;
@@ -479,7 +476,7 @@
 
             if (vm.etapaActual.id == null) {
 
-                //console.log(vm.insumos_loteUsados);
+
 
                 eliminaNoSeleccionados();
 
@@ -568,14 +565,13 @@
                 }]
             }
             if (insu != null) {
-                //console.log("voy a editar");
-                //console.log(insu);
+
 
                 vm.catalogoSelected.id = insu.id;
                 vm.catalogoSelected.descripcion = insu.nombre;
                 vm.catalogoSelected.tipos_equipo[0].cantidad = parseFloat(insu.cantidad);
                 vm.catalogoSelected.tipos_equipo[0].descripcion = insu.notas;
-                //console.log(vm.catalogoSelected);
+                
 
                 newCatalogoInsumo.id = vm.catalogoSelected.id;
                 newCatalogoInsumo.nombre = vm.catalogoSelected.descripcion;
