@@ -11,16 +11,22 @@
              layout-align="center center">
 
             <md-input-container flex="60">
-                <form name="Buscar" ng-submit="vm.buscar()">
+                <form name="Buscar2" ng-submit="vm.buscar()">
                     <label translate>CABINET.ID_CABINET</label>
-                    <input type="text" ng-model="vm.idCabinet"/>
+                    <input type="text" ng-model="vm.idCabinet" pattern="[0-9a-zA-Z-_ ]+" name="idCabinet2" required/>
+                    <div ng-messages="Buscar2.idCabinet2.$error">
+                        <div ng-message="pattern">
+                            {{'MAIN.LABEL.ALFANUMERICONLY'|translate}}
+                        </div>
+                        <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
+                    </div>
                 </form>
             </md-input-container>
 
 
             <div layout="row">
                 <md-input-container>
-                    <md-button class="md-fab" aria-label="fab button" ng-click="vm.buscar()">
+                    <md-button class="md-fab" aria-label="fab button"  ng-disabled="Buscar2.$invalid " ng-click="vm.buscar()">
                         <md-icon md-font-icon="zmdi zmdi-zoom-in"></md-icon>
                     </md-button>
                 </md-input-container>
