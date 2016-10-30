@@ -99,7 +99,8 @@
       "SUCCESS_MASSIVE":"Se realizó la carga masiva exitosamente",
       "SUCCESS_MANUAL":"Se realizó las salidas exitosamente",
       "ERROR_DISABLED_CABINET":"Error este cabinet ha sido eliminado.",
-      "NOT_INSUMOS":"El modelo de cabinet o carrito seleccionado no posee insumos asociados en esta etapa"
+      "NOT_INSUMOS":"El modelo de cabinet o carrito seleccionado no posee insumos asociados en esta etapa",
+      "NOT_STEPCREATED":"No puedes eliminar esta etapa porque aún no la creas"
     },
     "BUTTONS": {
       "SUBMIT": "Enviar",

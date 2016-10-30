@@ -111,6 +111,7 @@
             vm.notStepsMessage = Translate.translate('MAIN.DIALOG.NOT_STEPS');
             vm.cabinetDeleted = Translate.translate('MAIN.MSG.ERROR_DISABLED_CABINET');
             vm.errorNotInsumos=Translate.translate('MAIN.MSG.NOT_INSUMOS');
+            vm.errorNotEtapaActual=Translate.translate('MAIN.MSG.NOT_STEPCREATED');
             getEtapasList();
 
 
@@ -349,11 +350,15 @@
                 case 405:
                     toastr.warning(vm.notAllow, vm.errorTitle);
                     break;
+                case 444:
+                    toastr.warning(vm.notAllow,vm.errorNotEtapaActual);
+                    break;
                 case 900:
                     toastr.warning(vm.notInsumos, vm.errorMessage);
                     break;
                 case 998:
                     toastr.warning(vm.errorMessage,vm.errorNotInsumos);
+                    break;
                 case 999:
                     toastr.warning(vm.cabinetDeleted, vm.errorMessage);
                     break;
@@ -447,6 +452,7 @@
 
         function eliminarEtapaServicio(ev) {
             if (vm.etapaActual != null) {
+                if(vm.etapaActual.id!=null){
 
                 var confirm = $mdDialog.confirm()
                     .title(vm.delete)
@@ -464,8 +470,12 @@
                     }).catch(function (res) {
                         notifyError(res.status);
                     })
-                });
+                });}
+                else{
+                    notifyError(444);
+                }
             }
+                
         }
         function eliminarSinModal() {e
             var promise = Servicios.eliminarEtapaServicio(vm.etapaActual);
