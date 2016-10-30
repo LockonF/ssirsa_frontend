@@ -12,7 +12,7 @@
 
                         <md-input-container flex="80">
                             <label>{{'TECNICO.FORM.LABEL.ID_CABINET'|translate}}</label>
-                            <input ng-model="vm.cabinet" required minlength="0">
+                            <input ng-model="vm.cabinet" allow-pattern="[0-9a-zA-Z-_]+" required minlength="0">
                         </md-input-container>
 
                         <md-input-container flex>
