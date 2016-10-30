@@ -14,6 +14,7 @@
         vm.selected=selected;
         vm.lookup=lookup;
         vm.querySearch=querySearch;
+        vm.selectedItemChange=selectedItemChange;
         activate();
         function activate() {
             vm.reports=Reportes.getFullReports();
@@ -21,6 +22,15 @@
         function querySearch(query) {
             return query ? lookup(query) : vm.reports;
 
+        }
+        function selectedItemChange(item)
+        {
+            if (item!=null) {
+                vm.report=angular.copy(item);
+
+            }else{
+                //cancel();
+            }
         }
         function lookup(search_text) {
             vm.search_items = _.filter(vm.reports, function (item) {

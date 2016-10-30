@@ -7,16 +7,16 @@
         </div>
         <div layout-gt-sm="row" layout="column">
             <div layout="column" layout-align="space-between stretch" flex-gt-sm="40" flex="100">
-               <md-autocomplete
+                <md-autocomplete
                     md-items="item in vm.querySearch(vm.searchParameter)"
-                    md-selected-item="vm.report"
-                    md-selected-item-change="vm.selectedItemChange(vm.report)"
+                    md-selected-item="vm.reportSelected"
+                    md-selected-item-change="vm.selectedItemChange(vm.reportSelected)"
                     md-search-text-change="vm.lookup(vm.searchParameter)"
                     md-search-text="vm.searchParameter"
                     md-item-text="item.name"
                     md-min-length="1"
                     md-floating-label="{{'REPORTS.FIELDS.SEARCH'|translate}}">
-                    <span md-highlight-text="vm.searchParameter"  md-highlight-flags="^i">{{item.name}}</span>
+                    <span md-highlight-text="vm.searchParameter" md-highlight-flags="^i">{{item.name}}</span>
                     <md-item-template>
                          <span class="item-title">
                             <md-icon md-font-icon="fa fa-file-text-o"></md-icon>
@@ -43,11 +43,37 @@
                         </md-list-item>
                     </md-list>
                 </md-virtual-repeat-container>
-
-
+            </div>
+            <!--Content div-->
+            <div layout="column" flex-gt-sm="60" flex="100">
+                <h2>{{'REPORTS.FIELDS.INFORMATION'|translate}}</h2>
+                <form name="formReport" novalidate>
+                    <md-input-container class="md-block">
+                        <label>{{'Projects.Fields.ProjectName'|translate}}</label>
+                        <input name="ProjectName" type="text" required="" md-no-asterisk=""
+                               ng-model="vm.project.descripcion">
+                        <div ng-messages="formProject.ProjectName.$error">
+                            <div ng-message="required">{{'Projects.Errors.Required'|translate}}</div>
+                        </div>
+                    </md-input-container>
+                </form>
             </div>
 
         </div>
+        <md-actions layout="row" layout-align="end center">
+            <md-button ng-click="vm.clear()" md-no-ink class="md-raised md-primary" aria-label="clear">
+                <md-icon md-font-icon="fa fa-eraser"></md-icon>
+            </md-button>
+            <md-button ng-if="vm.project.id!=null && vm.project.id!=undefined" ng-click="vm.remove()" md-no-ink class="md-raised md-primary" aria-label="delete">
+                <md-icon md-font-icon="fa fa-trash"></md-icon>
+            </md-button>
+            <md-button ng-if="vm.project.id==null || vm.project.id==undefined" ng-click="vm.create()" md-no-ink class="md-raised md-primary" ng-disabled="formClient.$invalid" aria-label="save">
+                <md-icon md-font-icon="fa fa-save"></md-icon>
+            </md-button>
+            <md-button ng-if="vm.project.id!=null && vm.project.id!=undefined" ng-click="vm.update()" md-no-ink class="md-raised md-primary" ng-disabled="formClient.$invalid" aria-label="modify">
+                <md-icon md-font-icon="fa fa-pencil"></md-icon>
+            </md-button>
+        </md-actions>
 
-        </md-card>
-    </div>
+    </md-card>
+</div>
