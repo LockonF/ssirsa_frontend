@@ -11,6 +11,11 @@
     },
     "ERRORS":{
       "NOT_FOUND":"No se encontró ningun reporte"
+    },
+    "TOOLTIP":{
+        "NEW":"Nuevo",
+        "CLONE":"Duplicar",
+        "EDIT":"Editar"
     }
   }
 }

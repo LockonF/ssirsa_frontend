@@ -10,11 +10,14 @@
         .filter('reportSearch', reportSearch);
     function ReportsCrudController(toastr, Reportes) {
         var vm=this;
+        vm.isOpen = false;
+        vm.hidden=false;
         vm.report=null;
         vm.selected=selected;
         vm.lookup=lookup;
         vm.querySearch=querySearch;
         vm.selectedItemChange=selectedItemChange;
+        vm.operacion=operacion;
         activate();
         function activate() {
             vm.reports=Reportes.getFullReports();
@@ -37,6 +40,9 @@
                 return item.name.toLowerCase().indexOf(search_text.toLowerCase()) >= 0;
             });
             return vm.search_items;
+        }
+        function operacion($event,id) {
+            console.log(id);
         }
         function selected(item) {
             vm.selectedReport=item;
