@@ -12,9 +12,9 @@
             .state('triangular.admin-default.reportes', {
                 url: '/reportes',
                 data: {
-                    roles: ['Administrador','Capturista']
+                    roles: ['Administrador']
                 },
-                templateUrl: 'app/mainApp/reportes/reportesCRUD.tmpl.html',
+                templateUrl: 'app/mainApp/reportes/manager/reportesCRUD.tmpl.html',
                 controller: 'ReportesCrudController',
                 controllerAs: 'vm'
             });

@@ -31,6 +31,11 @@
       "STOCK":"Inventarios",
       "CABINETS":"Cabinets",
       "INSUMS":"Insumos",
+        "REPORTS":{
+          "TITLE":"Reportes",
+           "ADMIN":"Gestión",
+            "LIST":"Listado de Reportes"
+        },
       "CATEGORY_INSUMS":"Categoria de Insumos",
       "BOOK_INSUMS":"Cátalogo de Insumos",
       "PROVIDER":"Proveedor",
@@ -51,6 +56,7 @@
           "STAGE": "Etapas"
 
       },
+
       "INVENTORY":{
         "TITLE": "Inventarios",
 

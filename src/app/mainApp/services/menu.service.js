@@ -237,6 +237,23 @@
                     }
 
                     ]
+                },{
+                    name: 'MAIN.MENU.REPORTS.TITLE',
+                    icon: 'fa fa-line-chart',
+                    type: 'dropdown',
+                    priority:7,
+                    children: [
+                        {
+                            name: 'MAIN.MENU.REPORTS.ADMIN',
+                            state: 'triangular.admin-default.reportes',
+                            type: 'link'
+                        },
+                        {
+                            name: 'MAIN.MENU.REPORTS.LIST',
+                            state: 'triangular.admin-default.',
+                            type: 'link'
+                        }
+                    ]
                 }
             ];
             triMenu.menu=adminMenu;
