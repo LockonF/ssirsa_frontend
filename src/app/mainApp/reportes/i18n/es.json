@@ -19,7 +19,16 @@
     },
     "ERRORS": {
       "NOT_FOUND": "No se encontró ningun reporte",
-      "REQUIRED": "El campo es requeridp"
+      "REQUIRED": "El campo es requerido"
+    },
+    "DIALOGS":{
+      "CREATE":{
+        "TITLE":"Crear Reporte",
+        "NAME":"Nombre",
+        "DESCRIPTION":"Descripción",
+        "ROOT_MODEL":"Modelo base",
+        "ERROR_PATTERN":"El campo solo puede contener caracteres alfanuméricos"
+      }
     }
   }
 }
