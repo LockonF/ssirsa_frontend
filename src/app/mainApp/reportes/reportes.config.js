@@ -17,7 +17,17 @@
                 templateUrl: 'app/mainApp/reportes/manager/reportesCRUD.tmpl.html',
                 controller: 'ReportesCrudController',
                 controllerAs: 'vm'
-            });
+            })
+            .state('triangular.admin-default.reportModify',{
+                url:'/reportesCrear',
+                date:{
+                    roles:['Administrador']
+                },
+                templateUrl:'app/mainApp/reportes/edicion/reportEdicion.tmpl.html',
+                controller:'reportEdicionController',
+                controllerAs:'vm'
+            })
+        ;
 
     }
 })();
