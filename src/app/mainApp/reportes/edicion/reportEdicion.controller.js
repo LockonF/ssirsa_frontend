@@ -8,8 +8,11 @@
         .module('app.mainApp.reportes')
         .controller('reportEditionController',reportEditionController);
 
-    function reportEditionController (Reportes, Translate, ReportId){
+    function reportEditionController (Reportes, Translate, $stateParams){
         var vm=this;
+        var reportID= $stateParams.id;
+
+        activate();
 
         //Variables
 
@@ -18,5 +21,9 @@
         //Blank templates
 
         //Functions
+        function activate(){
+            vm.report=Reportes.getReport(reportID);
+            console.log(vm.report);
+        }
     }
 })();
