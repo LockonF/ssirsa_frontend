@@ -22,7 +22,7 @@
         //Translates
         vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
         vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
-        vm.successCreate=Translate.translate('REPORTS.MESSAGES.REPORT_CREATE_SUCCES');
+        vm.successCreate=Translate.translate('REPORTS.MESSAGES.REPORT_CREATE_SUCCESS');
         vm.errorCreate=Translate.translate('REPORTS.MESSAGES.REPORT_CREATE_ERROR');
 
         activate();
