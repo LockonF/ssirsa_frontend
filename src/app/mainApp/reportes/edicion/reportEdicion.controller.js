@@ -9,12 +9,13 @@
         .controller('reportEditionController',reportEditionController);
 
     function reportEditionController (Reportes, Translate, $stateParams){
+        //Variables
         var vm=this;
         var reportID= $stateParams.id;
+        vm.myHeight=window.innerHeight-250;
+        vm.myStyle={"min-height":""+vm.myHeight+"px"};
 
         activate();
-
-        //Variables
 
         //Translates
 
