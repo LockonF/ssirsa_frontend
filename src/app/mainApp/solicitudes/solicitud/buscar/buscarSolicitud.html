@@ -6,13 +6,11 @@
                     <h2>{{'SEARCH_REQUEST.FORM.LABEL.TITLE'|translate}}</h2>
                     <form name="objectForm">
                         <div  layout="row" layout-xs="column">
-
                             <md-input-container flex="" class="md-inline-form md-block">
                                 <md-select placeholder="Elige tipo de solicitud" ng-model="vm.tipo_solicitud">
                                     <md-option ng-value="tipoSol.value" ng-repeat="tipoSol in vm.tipoSols">{{tipoSol.name}}</md-option>
                                 </md-select>
                             </md-input-container>
-
                             <md-button class="md-fab"  aria-label="fab button" ng-click="vm.busqueda()" ng-disabled="!vm.tipo_solicitud" ng-if="!((vm.filtro_busqueda=='Por Folio')&&((vm.tipo_solicitud=='Envio')||(vm.tipo_solicitud=='Recoleccion')))">
                                 <md-icon md-font-icon="zmdi zmdi-zoom-in"></md-icon>
                             </md-button>
@@ -39,17 +37,15 @@
                                     <md-option ng-value="estatusSol.value" ng-repeat="estatusSol in vm.estatusSols">{{estatusSol.name}}</md-option>
                                 </md-select>
                             </md-input-container>
-
                         </div>
                     </form>
                 </md-card-title-text>
             </md-card-title>
 
-
             <div ng-if="(vm.solicitudes!=null) && (vm.tipo_solicitud=='Envio'||vm.tipo_solicitud=='Recoleccion')">
                 <md-card-title>
                     <md-card-title-text>
-                        <h2  ng-if="vm.solicitudes!=null ">{{'SEARCH_REQUEST.FORM.LABEL.STIPO'|translate}} {{vm.tipo_solicitud}}</h2>
+                        <h2>{{'SEARCH_REQUEST.FORM.LABEL.STIPO'|translate}} {{vm.tipo_solicitud}}</h2>
                     </md-card-title-text>
                 </md-card-title>
 
@@ -73,8 +69,6 @@
                                             </th>
                                             <th md-column="md-column" md-order-by="status"><span translate="SEARCH_REQUEST.FORM.LABEL.ESTATUS"></span>
                                             </th>
-                                            <th md-column="md-column" md-order-by="comentario"><span translate="SEARCH_REQUEST.FORM.LABEL.COMENTARIO"></span>
-                                            </th>
                                         </tr>
                                         </thead>
                                         <tbody md-body="md-body" flex="">
@@ -90,9 +84,10 @@
                                                                  cancel-text="Cancelar"
                                                                  ok-text="Aceptar"
                                                                  format="DD/MM/YYYY"
-                                                                 ng-disabled="(solicitud.fecha_atendida!=null)&&(vm.isClient)"
+                                                                 ng-disabled="(vm.isClient)"
                                                                  ng-change='vm.editCalendar(solicitud)'
                                                                  name="date_initial"
+                                                                 size="8"
                                                                  ng-required="(vm.requisito.tipo_solicitud==0 ||vm.requisito.tipo_solicitud==1)"
                                                                  class=" md-input">
                                                         <div ng-messages="solicitudForm.date_initial.$error">
@@ -110,9 +105,10 @@
                                                                  cancel-text="Cancelar"
                                                                  ok-text="Aceptar"
                                                                  format="DD/MM/YYYY"
-                                                                 ng-disabled="(solicitud.fecha_atendida!=null)&&(vm.isClient)"
+                                                                 ng-disabled="(vm.isClient)"
                                                                  ng-change='vm.editCalendar(solicitud)'
                                                                  name="date_initial"
+                                                                 size="8"
                                                                  ng-required="(vm.requisito.tipo_solicitud==0 ||vm.requisito.tipo_solicitud==1)"
                                                                  class=" md-input">
 
@@ -133,6 +129,7 @@
                                                                 ng-change='vm.editCalendar(solicitud)'
                                                                 format="DD/MM/YYYY HH:mm"
                                                                 name="date_terminate"
+                                                                size="14"
                                                                 required
                                                                 class=" md-input">
                                                         <div ng-messages="solicitudForm.date_terminate.$error">
@@ -147,11 +144,15 @@
                                                 </md-select>
                                             </td>
                                             <td md-cell="md-cell">
-                                                <md-select ng-change='vm.editSelect(solicitud)' ng-model=solicitud.status placeholder="Other" ng-disabled="(solicitud.fecha_atendida!=null)&&(vm.isClient)">
+                                                <md-select ng-change='vm.editSelect(solicitud)' ng-model=solicitud.status placeholder="Other" ng-disabled="(vm.isClient)">
                                                     <md-option ng-value="estatus.value" ng-repeat="estatus in vm.estatusSols">{{estatus.value}}</md-option>
                                                 </md-select>
                                             </td>
-                                            <td md-cell="md-cell" ng-click='vm.edit($event,solicitud,"comentario")' ng-disabled="(solicitud.fecha_atendida!=null)&&(vm.isClient)">{{solicitud.comentario}}</td>
+                                            <td md-cell="md-cell" ng-click="$event.stopPropagation()">
+                                                <md-button ng-click="vm.showCreateDialog($event,solicitud)" class="md-fab md-warn md-mini">
+                                                    <md-icon md-font-icon="fa fa-search-plus"></md-icon>
+                                                </md-button>
+                                            </td>
                                             <td md-cell="md-cell" ng-click="$event.stopPropagation()">
                                                 <md-button ng-click="vm.remove($event,solicitud.id)" class="md-fab md-warn md-mini" ng-disabled="(solicitud.fecha_atendida!=null)&&(vm.isClient)">
                                                     <md-icon md-font-icon="fa fa-times-circle"></md-icon>
@@ -169,7 +170,11 @@
             </div>
 
             <div ng-if="(vm.solicitudesVentas!=null) && (vm.tipo_solicitud=='Venta')">
-                <h2  ng-if="vm.solicitudesVentas!=null ">{{'SEARCH_REQUEST.FORM.LABEL.STIPO'|translate}} {{vm.tipo_solicitud}}</h2>
+                <md-card-title>
+                    <md-card-title-text>
+                        <h2>{{'SEARCH_REQUEST.FORM.LABEL.STIPO'|translate}} {{vm.tipo_solicitud}}</h2>
+                    </md-card-title-text>
+                </md-card-title>
                 <div layout="row" flex="" layout-padding layout-fill layout-align="center center" >
                     <div flex="">
                         <md-card>
@@ -182,15 +187,13 @@
                                             </th>
                                             <th md-column="md-column" md-order-by="razon_social"><span translate="SEARCH_REQUEST.FORM.LABEL.RAZON_SOCIAL"></span>
                                             </th>
-                                            <th md-column="md-column" md-order-by="nombre_negocio"><span translate="SEARCH_REQUEST.FORM.LABEL.NOMBRE_NEGOCIO"></span>
+                                            <th md-column="md-column" md-order-by="nombre_negocio"><span translate="SEARCH_REQUEST.FORM.LABEL.DIRECCION"></span>
                                             </th>
-                                            <th md-column="md-column" md-order-by="direccion"><span translate="SEARCH_REQUEST.FORM.LABEL.DIRECCION"></span>
+                                            <th md-column="md-column" md-order-by="direccion"><span translate="SEARCH_REQUEST.FORM.LABEL.RESPONSABLE"></span>
                                             </th>
                                             <th md-column="md-column" md-order-by="telefono"><span translate="SEARCH_REQUEST.FORM.LABEL.TELEFONO"></span>
                                             </th>
-                                            <th md-column="md-column" md-order-by="contacto_negocio"><span translate="SEARCH_REQUEST.FORM.LABEL.CONTACTO_NEGOCIO"></span>
-                                            </th>
-                                            <th md-column="md-column" md-order-by="fecha_atencion" ng-if="!vm.isClient"><span translate="SEARCH_REQUEST.FORM.LABEL.FECHAATE"></span>
+                                            <th md-column="md-column" md-order-by="status" ng-if="!vm.isClient"><span translate="SEARCH_REQUEST.FORM.LABEL.STATUS"></span>
                                             </th>
                                         </tr>
                                         </thead>
@@ -199,28 +202,21 @@
                                             ng-repeat="solicitudVenta in vm.solicitudesVentas | orderBy:vm.query.order | offset: (vm.query.page-1)*vm.query.limit | limitTo: vm.query.limit">
                                             <td md-cell="md-cell" >{{solicitudVenta.id}}</td>
                                             <td md-cell="md-cell" ng-click='vm.editVenta($event,solicitudVenta,"razon_social")'>{{solicitudVenta.razon_social}}</td>
-                                            <td md-cell="md-cell" ng-click='vm.editVenta($event,solicitudVenta,"nombre_negocio")'>{{solicitudVenta.nombre_negocio}}</td>
-                                            <td md-cell="md-cell" ng-click='vm.editVenta($event,solicitudVenta,"direccion")'>{{solicitudVenta.direccion}}</td>
-                                            <td md-cell="md-cell" ng-click='vm.editVenta($event,solicitudVenta,"telefono")'>{{solicitudVenta.telefono}}</td>
-                                            <td md-cell="md-cell" ng-click='vm.editVenta($event,solicitudVenta,"contacto_negocio")'>{{solicitudVenta.contacto_negocio}}</td>
-                                            <td md-cell="md-cell" ng-if="!vm.isClient">
-                                                <div class="md-inline-form">
-                                                    <md-input-container>
-                                                        <md-icon md-font-icon="zmdi zmdi-calendar"></md-icon>
-
-                                                        <input  type="text" ng-model="solicitud.fecha_atencion" mdc-datetime-picker=""
-                                                                time="true" date="true" min-date="minDate" max-date="maxDate" lang="es-mx"
-                                                                cancel-text="Cancelar"
-                                                                ok-text="Aceptar"
-                                                                ng-change='vm.editVentaCalendar(solicitudVenta)'
-                                                                format="DD/MM/YYYY HH:mm"
-                                                                name="date_terminate"
-                                                                class=" md-input">
-                                                    </md-input-container>
-                                                </div>
+                                            <td md-cell="md-cell">{{solicitudVenta.municipio}} {{solicitudVenta.colonia}} {{solicitudVenta.calle}} {{solicitudVenta.cp}}</td>
+                                            <td md-cell="md-cell" ng-click='vm.editVenta($event,solicitudVenta,"responsable")'>{{solicitudVenta.responsable}}</td>
+                                            <td md-cell="md-cell" ng-click='vm.editVentaTel($event,solicitudVenta,"telefono")'>{{solicitudVenta.telefono}}</td>
+                                            <td md-cell="md-cell">
+                                                <md-select ng-change='vm.editSelectVenta(solicitudVenta)' ng-model=solicitudVenta.status placeholder="Other" ng-disabled="(vm.isClient)">
+                                                    <md-option ng-value="estatus.value" ng-repeat="estatus in vm.estatusSols">{{estatus.value}}</md-option>
+                                                </md-select>
                                             </td>
                                             <td md-cell="md-cell" ng-click="$event.stopPropagation()">
-                                                <md-button ng-click="vm.removeVenta($event,solicitudVenta.id)" class="md-fab md-warn md-mini">
+                                                <md-button ng-click="vm.showCreateDialog($event,solicitudVenta)" class="md-fab md-warn md-mini">
+                                                    <md-icon md-font-icon="fa fa-search-plus"></md-icon>
+                                                </md-button>
+                                            </td>
+                                            <td md-cell="md-cell" ng-click="$event.stopPropagation()">
+                                                <md-button ng-click="vm.removeVenta($event,solicitudVenta.id)" class="md-fab md-warn md-mini" ng-disabled="(solicitudVenta.status=='Confirmada')&&(vm.isClient)">
                                                     <md-icon md-font-icon="fa fa-times-circle"></md-icon>
                                                 </md-button>
                                             </td>
@@ -234,6 +230,7 @@
                     </div>
                 </div>
             </div>
+            &nbsp
         </md-card>
 
 
@@ -252,5 +249,10 @@
 <style>
     .md-inline-form {
         margin-top: 19px;
+    }
+
+    table.md-table:not(.md-row-select) td.md-cell:nth-child(n+2):nth-last-child(n+2),
+    table.md-table:not(.md-row-select) th.md-column:nth-child(n+2):nth-last-child(n+2) {
+        padding: 0 20px 0 0;
     }
 </style>

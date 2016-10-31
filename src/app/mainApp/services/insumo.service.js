@@ -10,14 +10,16 @@
 
     /* @ngInject */
     function Insumo($q, Restangular) {
+        var path=Restangular.all('insumo');
+        
         return {
 
             getInsumosByCatalogo: getInsumosByCatalogo,
             getUsedInsumos: getUsedInsumos,
             getNoUsedInsumos: getNotUsedInsumos,
-            getAllInsumos: getAllInsumos
+            getAllInsumos: getAllInsumos, 
+            create:create
         };
-
 
         function getInsumosByCatalogo(catalogo) {
             var deferred = $q.defer();
@@ -63,6 +65,9 @@
             return deferred.promise;
         }
 
+        function create(object){
+            return path.post(object);
+        }
 
     }
 })();

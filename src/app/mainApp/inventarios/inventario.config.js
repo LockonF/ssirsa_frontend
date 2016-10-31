@@ -7,7 +7,8 @@
         .module('app.mainApp.inventario')
         .config(moduleConfig);
 
-    function moduleConfig($stateProvider, triMenuProvider){
+    function moduleConfig($stateProvider, $translatePartialLoaderProvider){
+        $translatePartialLoaderProvider.addPart('app/mainApp/inventarios');
         $stateProvider
             .state('triangular.admin-default.cabinets', { //Nombre del state
                 url: '/cabinets', //Nombre que quiero en mi url
@@ -26,16 +27,6 @@
                 templateUrl: 'app/mainApp/inventarios/insumo/insumo.tmpl.html', //Dirección del archivo a usar
                 controller: 'insumoController', //nombre del controlador
                 controllerAs: 'vm' //se renombra al scope
-            })
-            .state('triangular.admin-default.catalogoInsumos', { //Nombre del state
-                url: '/catalogoInsumo', //Nombre que quiero en mi url
-                data: {
-                    roles: ['Administrador']
-                },
-                templateUrl: 'app/mainApp/inventarios/catalogoInsumo.tmpl.html', //Dirección del archivo a usar
-                controller: 'catalogoInsumoController', //nombre del controlador
-                controllerAs: 'vm' //se renombra al scope
-
             });
     }
 

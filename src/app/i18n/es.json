@@ -13,7 +13,8 @@
       "CALENDAR":"Calendario",
       "SERVICES":"Servicios",
       "IN":"Entradas",
-        "OUT":"Salidas",
+      "OUT":"Salidas",
+      "REMISSION":"Remisión de salida",
       "REGISTER_STEP":"Registro de Etapa",
       "PRECHECK":"Pre - Checklist",
       "DIAGNOSTIC":"Diagnostico",
@@ -100,7 +101,8 @@
       "ERROR_MASSIVE":"Error en la carga masiva, favor de revisar su excel",
       "SUCCESS_MASSIVE":"Se realizó la carga masiva exitosamente",
         "SUCCESS_MANUAL":"Se realizó las salidas exitosamente",
-      "ERROR_DISABLED_CABINET":"Error este cabinet ha sido eliminado."
+      "ERROR_DISABLED_CABINET":"Error este cabinet ha sido eliminado.",
+        "SUCCESS_REMISSION":"Se realizó la remisión de salida exitosamente"
     },
     "BUTTONS": {
       "SUBMIT": "Enviar",
@@ -117,7 +119,9 @@
       "MAX_NUMBER": "Se necesita que el número sea a lo más  ",
       "PHONE_REGEX": "El campo debe tener un formato (xx)xxxxxxxx",
       "PATTERN_EMAIL_FIELD": "El campo debe ser un correo electrónico",
-      "PATTERN_RFC_FIELD": "El campo debe tener formato RFC"
+      "PATTERN_RFC_FIELD": "El campo debe tener formato RFC",
+      "YEAR_FIELD":"Formato de año inválido"
+
     },
     "DIALOG":{
       "DELETE_TITLE":"Confirmación de eliminación",

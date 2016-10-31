@@ -125,6 +125,10 @@
                             name: 'MAIN.MENU.OUT',
                             state: 'triangular.admin-default.salida',
                             type: 'link'
+                        },{
+                            name: 'MAIN.MENU.REMISSION',
+                            state: 'triangular.admin-default.remision',
+                            type: 'link'
                         },
                         {
                             name: 'MAIN.MENU.REGISTER_STEP',
@@ -138,6 +142,11 @@
                         }, {
                             name: 'MAIN.MENU.DIAGNOSTIC',
                             state: 'triangular.admin-default.diagnostic',
+                            type: 'link'
+                        },
+                        {
+                            name: 'MAIN.MENU.SERVICEONSTORE',
+                            state: 'triangular.admin-default.servicioPuntoVenta',
                             type: 'link'
                         },
                         {
@@ -382,6 +391,11 @@
                         {
                             name: 'MAIN.MENU.OUT',
                             state: 'triangular.admin-default.salida',
+                            type: 'link'
+                        },
+                        {
+                            name: 'MAIN.MENU.REMISSION',
+                            state: 'triangular.admin-default.remision',
                             type: 'link'
                         },
                         {

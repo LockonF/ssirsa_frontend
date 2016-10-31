@@ -4,7 +4,7 @@
         .module('app.mainApp.solicitudes')
         .controller('realizarSolicitudController', realizarSolicitudController);
 
-    function realizarSolicitudController(OPTIONS, udn,TipoEquipo,$mdEditDialog, $mdDialog, Translate,toastr, Solicitudes, Solicitud_Servicio, Solicitudes_Admin, PersonaCapturista, Session, Socket,$scope) {
+    function realizarSolicitudController(OPTIONS, udn,TipoEquipo,Helper,$mdEditDialog, $mdDialog, Translate,toastr, Solicitudes, Solicitud_Servicio, Solicitudes_Admin, PersonaCapturista, Session, Socket,$scope) {
         var vm = this;
 
         var requisito = {
@@ -46,6 +46,12 @@
             "updated_at": new Date(),
             "file":null
         };
+
+        vm.query = {
+            order: 'id',
+            limit: 5,
+            page: 1
+        };
         vm.minDate = moment();
         vm.hideManualUpload = true;
         vm.hideMassiveUpload = false;
@@ -73,15 +79,28 @@
         vm.showManualUpload = showManualUpload;
         vm.selectionFile = selectionFile;
         vm.guardar=guardar;
+        vm.search=search;
+        vm.selectedItemChange=selectedItemChange;
+        vm.isValid=false;
+        vm.udnObject=null;
+        vm.searchText = "";
         activate();
         function activate() {
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
             vm.successCreateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_CREATE');
+            vm.sucessMassive=Translate.translate('INPUT.Messages.SuccessMassive');
+            vm.errorMassive=Translate.translate('INPUT.Messages.ErrorMassive');
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
-            vm.udns = udn.list();
+            udn.listObject().then(function (res) {
+                vm.udns=Helper.filterDeleted(res,true);
+                vm.udns=_.sortBy(vm.udns, 'agencia');
+            });
             vm.personas = PersonaCapturista.list();
-            vm.tiposEquipo=TipoEquipo.list();
+            TipoEquipo.listWitout().then(function (res) {
+                vm.tiposEquipo=Helper.filterDeleted(res,true);
+                vm.tiposEquipo=_.sortBy(vm.tiposEquipo, 'nombre');
+            });
             vm.isClient = Session.userRole === 'Cliente';
             vm.requisitoVenta.fecha_atencion=moment();
         }
@@ -105,17 +124,16 @@
             var fd = new FormData();
             //Is massive upload
             if (vm.entrada.file != null) {
+                vm.udn=vm.udnObject.id;
                 fd.append('file', vm.entrada.file);
+                fd.append('udn', vm.udn);
                 Solicitud_Servicio.postEntradaMasiva(fd).then(function (res) {
                     vm.entrada = res;
                     vm.hideRegisteredSolicitud = false;
                     vm.hideUnregisteredSolicitud = true;
-                    toastr.success('Exito en la carga masiva', 'Exito');
-                    console.log("vm.entrada");
-                    console.log(vm.entrada);
+                    toastr.success(vm.sucessMassive, vm.successTitle);
                 }).catch(function (err) {
-                    toastr.error('Error en la carga masiva', 'Error');
-                    console.log(err);
+                    toastr.error(vm.errorMassive, vm.errorTitle);
                 });
             }
             else {
@@ -164,9 +182,12 @@
             vm.isClient = Session.userRole === 'Cliente';
             vm.requisitoVenta.fecha_atencion=moment();
             vm.entrada = angular.copy(entrada);
+            vm.udnObject=null;
+            vm.searchText=null;
         }
 
         function guardarSolicitudAdmin() {
+            vm.udn=vm.udnObject.id;
             vm.requisito.fecha_inicio = moment(vm.requisito.fecha_inicio).format('YYYY-MM-DD');
             vm.requisito.fecha_termino = moment(vm.requisito.fecha_termino).format('YYYY-MM-DD');
             vm.requisito.fecha_atendida = moment(vm.requisito.fecha_atendida).toISOString();
@@ -197,10 +218,13 @@
         }
 
         function guardarSolicitudCliente() {
+            vm.udn=vm.udnObject.id;
             vm.requisito.fecha_inicio = moment(vm.requisito.fecha_inicio).format('YYYY-MM-DD');
-            vm.requisito.fecha_termino = moment(vm.requisito.fecha_termino).format('YYYY-MM-DD');
+            vm.requisito.fecha_termino = moment(vm.requisito.fecha_termino).add(1,'days').format('YYYY-MM-DD');
             vm.requisito.udn = vm.udn;
+            delete  vm.requisito.persona;
             vm.requisito.tipo_solicitud=OPTIONS.type_request[vm.requisito.tipo_solicitud].value_id;
+            console.log(vm.requisito);
             Solicitudes.create(vm.requisito).then(function () {
                 cancel();
 
@@ -208,6 +232,7 @@
 
 
             }).catch(function (res)  {
+                console.log(res);
                 toastr.error(vm.errorMessage, vm.errorTitle);
             })
         }
@@ -227,6 +252,7 @@
             });
         }
         function guardarSolicitudVenta() {
+            vm.udn=vm.udnObject.id;
             vm.requisitoVenta.fecha_atencion = moment(vm.requisitoVenta.fecha_atencion).format('YYYY-MM-DD');
             vm.requisitoVenta.created_at = moment(vm.requisitoVenta.created_at).format('YYYY-MM-DD');
             vm.requisitoVenta.updated_at = moment(vm.requisitoVenta.updated_at).format('YYYY-MM-DD');
@@ -253,6 +279,21 @@
                 toastr.error(vm.errorMessage, vm.errorTitle);
             });
         }
+
+        function search(text) {
+            if(!angular.isUndefined(text)) {
+                vm.udns = _.filter(vm.udns, function (item) {
+                    return item.agencia.toLowerCase().startsWith(text.toLowerCase()) || item.zona.toLowerCase().startsWith(text.toLowerCase());
+                });
+                vm.isValid = !((vm.udns.length == 0 && text.length > 0) || (text.length > 0 && !angular.isObject(vm.udnObject)));
+                return vm.udns;
+            }
+        }
+
+        function selectedItemChange(item) {
+            vm.isValid =angular.isObject(item);
+        }
+
     }
 
 })();

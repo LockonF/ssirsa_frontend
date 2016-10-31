@@ -1,0 +1,36 @@
+<div layout="column" flex="100" layout-padding layout-fill>
+    <md-card class="md-padding card1" flex="flex">
+        <h2 class="md-headline-1 text-center">
+            {{'REMISSION.FORM.LABEL.TITLE'|translate}}</h2>
+
+        <md-virtual-repeat-container class="vertical-container" flex="flex">
+            <md-list>
+                <md-list-item ng-repeat="entrada in vm.entradas" class="md-2-line" >
+                    <md-button ng-click="vm.selectedEntrada(entrada)"
+                               layout-padding layout="row"
+                               layout-align="start center"
+                               ng-class="{'inbox-list__email--active' : entrada === vm.selectedEntradaList }">
+                        <md-icon md-svg-icon="assets/images/remission.svg" class="avatar"></md-icon>
+                        <div class="md-list-item-text" layout="column">
+                            <h3><b>{{'REMISSION.FORM.LABEL.FOLIO'|translate}}</b> {{entrada.id }}</h3>
+                            <h4><b>{{'REMISSION.FORM.LABEL.DATE'|translate}}</b> {{entrada.fecha | date:'dd-MM-yyyy HH:mm:ss'}}</h4>
+                        </div>
+                    </md-button>
+                    <md-divider></md-divider>
+
+                </md-list-item>
+
+            </md-list>
+
+        </md-virtual-repeat-container>
+        <div layout="row" layout-align="end end" layout-sm="column" layout-xs="column" layout-align-sm="start stretch" layout-align-xs="start stretch">
+
+            <md-button aria-label="fab button"
+                       ng-click="vm.generarRemision()"
+                       ng-disabled="vm.selectedEntradaList==null || vm.selectedEntradaList==undefined"
+                       class="md-raised md-primary">
+                <md-icon md-font-icon="fa fa-file-pdf-o "></md-icon>
+            </md-button>
+        </div>
+    </md-card>
+</div>
