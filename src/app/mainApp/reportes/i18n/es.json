@@ -1,27 +1,47 @@
 {
-  "REPORTS":{
-    "TITLE":"Reportes",
-    "INFORMATION":"Información del reporte",
-    "DIALOGS":{
-
-    },
-    "FIELDS":{
-      "SEARCH":"Busqueda de reportes",
-      "INFORMATION":"Información del reporte"
-    },
-    "ERRORS":{
-      "NOT_FOUND":"No se encontró ningun reporte"
-    },
-    "TOOLTIP":{
-        "NEW":"Nuevo",
-        "CLONE":"Duplicar",
-        "EDIT":"Editar"
-    },
-      "MODAL":{
-          "CREATE":{
-              "TITLE":"Crear reporte",
-              "NAME":"Nombre"
-          }
-      }
-  }
+    "REPORTS": {
+        "TITLE": "Reportes",
+        "INFORMATION": "Información del reporte",
+        "FIELD_SET": "Campos",
+        "FIELDS": {
+            "SEARCH": "Busqueda de reportes",
+            "INFORMATION": "Información del reporte",
+            "NAME": "Nombre",
+            "MODIFIED": "Fecha de modificación",
+            "DESCRIPTION": "Descripción",
+            "ROOT_MODEL": "Modelo raíz"
+        },
+        "TABLE": {
+            "MODEL": "Modelo",
+            "FIELD": "Campo"
+        },
+        "TOOLTIP": {
+            "NEW": "Nuevo",
+            "CLONE": "Duplicar",
+            "EDIT": "Editar"
+        },
+        "MODAL": {
+            "CREATE": {
+                "TITLE": "Crear reporte",
+                "NAME": "Nombre"
+            }
+        },
+        "ERRORS": {
+            "NOT_FOUND": "No se encontró ningun reporte",
+            "REQUIRED": "El campo es requerido"
+        },
+        "DIALOG": {
+            "CREATE": {
+                "TITLE": "Crear Reporte",
+                "NAME": "Nombre",
+                "DESCRIPTION": "Descripción",
+                "ROOT_MODEL": "Modelo base",
+                "ERROR_PATTERN": "El campo solo puede contener caracteres alfanuméricos"
+            }
+        },
+        "MESSAGES": {
+            "REPORT_CREATE_SUCCESS": "Reporte creado correctamente",
+            "REPORT_CREATE_ERROR": "Error al crear el reporte"
+        }
+    }
 }

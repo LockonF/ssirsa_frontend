@@ -10,32 +10,62 @@
             </md-button>
         </div>
     </md-toolbar>
-
     <md-divider></md-divider>
-    <form name="updateSolicitudform">
-        <md-dialog-content class="md-dialog-content card1 md-blue-grey-theme">
-            <form name="reportForm">
-                <div layout="row" layout-sm="column" layout-xs="column" layout-md="column" flex="100"
-                     layout-align="space-around stretch" layout-align-xs="space-around stretch" layout-align-sm="space-around stretch">
-
-                    <md-input-container class="md-block" flex="100" flex-sm="100" flex-xs="100">
-                        <label>{{'REPORTS.MODAL.CREATE.NAME'|translate}}</label>
-                        <input type="text" name="report_name" ng-model="vm.nombre" required/>
-                        <div ng-messages="reportForm.report_name.$error">
-                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
-                        </div>
-                    </md-input-container>
+    <md-dialog-content class="md-dialog-content card1 md-blue-grey-theme">
+        <form name="formNewReport"
+              novalidate>
+            <md-input-container flex="100" class="md-block">
+                <label>{{'REPORTS.DIALOG.CREATE.NAME'|translate}}</label>
+                <input type="text"
+                       name="inputName"
+                       required
+                       md-no-asterisk
+                       ng-pattern="/^[ A-Za-z0-9]+$/"
+                       md-maxlength="100"
+                       ng-model="vm.report.name"
+                >
+                <div ng-messages="formNewReport.inputName.$error">
+                    <div ng-message="required">{{'REPORTS.ERRORS.REQUIRED'|translate}}</div>
+                    <div ng-message="pattern">{{'REPORTS.DIALOGS.CREATE.ERROR_PATTERN'|translate}}</div>
                 </div>
-            </form>
+            </md-input-container>
+            <md-input-container flex="100" class="md-block">
+                <label>{{'REPORTS.DIALOG.CREATE.DESCRIPTION'|translate}}</label>
+                <input type="text"
+                       name="inputDescription"
+                       required
+                       md-no-asterisk
+                       ng-pattern="/^[ A-Za-z0-9]+$/"
+                       md-maxlength="500"
+                       ng-model="vm.report.description"
+                >
+                <div ng-messages="formNewReport.inputDescription.$error">
+                    <div ng-message="required">{{'REPORTS.ERRORS.REQUIRED'|translate}}</div>
+                    <div ng-message="pattern">{{'REPORTS.DIALOGS.CREATE.ERROR_PATTERN'|translate}}</div>
+                </div>
+            </md-input-container>
+            <md-input-container flex="100" class="md-block">
+                <label>{{'REPORTS.DIALOG.CREATE.ROOT_MODEL'|translate}}</label>
+                <md-select name="selectModel"
+                           ng-model="vm.report.root_model"
+                           required
+                           md-no-asterisk=""
+                >
+                    <md-option ng-repeat="modelo in vm.modelos" value="{{modelo.pk}}">{{modelo.name}}
+                    </md-option>
+                </md-select>
+                <div ng-messages="formNewReport.selectModel.$error">
+                    <div ng-message="required">{{'REPORTS.ERRORS.REQUIRED'|translate}}</div>
+                </div>
+            </md-input-container>
+        </form>
         </md-dialog-content>
-        <md-dialog-actions layout="row" class="card1 md-blue-grey-theme">
-
-            <span flex></span>
-            <md-button ng-click="vm.cancelClick()" aria-label="{{'Cancel' | triTranslate}}"
-                       translate="MAIN.BUTTONS.CANCEL"></md-button>
-            <md-button ng-click="vm.okClick()" class="md-primary" ng-disabled="reportForm.$invalid"
-                       aria-label="{{vm.dialogData.confirmButtonText | triTranslate}}"
-                       translate="MAIN.BUTTONS.SUBMIT"></md-button>
-        </md-dialog-actions>
-    </form>
+    <md-dialog-actions layout="row" class="card1 md-blue-grey-theme">
+        <md-button ng-click="vm.cancel()" md-no-ink class="md-primary">
+            {{'MAIN.BUTTONS.CANCEL'|translate}}
+        </md-button>
+        <md-button ng-click="vm.create()" ng-disabled="cabinetForm.$invalid" md-no-ink class="md-primary">
+            {{'MAIN.BUTTONS.SUBMIT'|translate}}
+        </md-button>
+    </md-dialog-actions>
 </md-dialog>

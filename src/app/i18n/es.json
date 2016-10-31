@@ -96,6 +96,7 @@
       "FILE_SIZE_10": "Solo se pueden subir un archivo con un peso máximo de 10MB",
       "SUCCESS_DELETE_FOLLOWER": "Se eliminó el seguidor de manera exitosa",
       "NOT_FOUND": "No se encontró el elemento que se buscaba",
+      "NOT_STEPS":"No se encontrarón leer etapas de Servicio",
       "NOT_ALLOWED": "No se posee el permiso para realizar dicha Acción",
       "NOT_FOUND_INPUT": "No se puede realizar el pre-checklist por que el cabinet no cuenta con una Entrada",
       "ERROR_NOTINSUMOSTITLE":"No existen insumos Registrados Para esta etapa, verifique UDN u Stock",

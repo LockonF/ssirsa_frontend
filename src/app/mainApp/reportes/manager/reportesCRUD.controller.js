@@ -8,7 +8,7 @@
         .module('app.mainApp.reportes')
         .controller('ReportesCrudController', ReportsCrudController)
         .filter('reportSearch', reportSearch);
-    function ReportsCrudController(toastr,$mdDialog, Reportes) {
+    function ReportsCrudController(toastr,$mdDialog, Reportes,Translate) {
         var vm=this;
         vm.isOpen = false;
         vm.hidden=false;
@@ -20,7 +20,12 @@
         vm.operacion=operacion;
         activate();
         function activate() {
-            vm.reports=Reportes.getFullReports();
+            vm.reports=Reportes.getReports();
+            vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
+            vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
+            vm.successCreate=Translate.translate('REPORTS.MESSAGES.REPORT_CREATE_SUCCESS');
+            vm.errorCreate=Translate.translate('REPORTS.MESSAGES.REPORT_CREATE_ERROR');
+
         }
         function querySearch(query) {
             return query ? lookup(query) : vm.reports;
@@ -47,10 +52,15 @@
                     controller: 'CreateReportModalController',
                     controllerAs: 'vm',
                     templateUrl: 'app/mainApp/reportes/manager/modal/createReport.modal.tmpl.html',
-                    focusOnOpen: false
-                }).then(function (res) {
-
-                    //vm.catalogo_insumo.tipos_equipo=res;
+                    fullscreen: true,
+                    clickOutsideToClose: true,
+                    focusOnOpen: true
+                }).then(function () {
+                    toastr.success(vm.successCreate,vm.successTitle);
+                }).catch(function (err) {
+                    if (err != null) {
+                        toastr.error(vm.errorCreate,vm.errorTitle);
+                    }
                 });
             }
         }

@@ -11,15 +11,35 @@
         .module('app.mainApp.reportes')
         .controller('CreateReportModalController', CreateReportModalController);
 
-    function CreateReportModalController(toastr, Reportes,$mdDialog) {
-        var vm=this;
-        vm.cancelClick = cancelClick;
-        activate();
-        function activate() {
+    function CreateReportModalController( Reportes,$mdDialog) {
+        var vm = this;
+        //Function parsing
+        vm.create = create;
+        vm.cancel = cancel;
 
+        var report = {
+            "name": "",
+            "description": "",
+            "root_model": ""
+        };
+
+        activate();
+
+        function activate() {
+            vm.modelos = Reportes.getModels();
+            vm.report = report;
         }
-        function cancelClick() {
-            $mdDialog.cancel();
+
+        function create() {
+            Reportes.createReport(vm.report).then(function () {
+                $mdDialog.hide();
+            }).catch(function (err) {
+                $mdDialog.cancel(err);
+            });
+        }
+
+        function cancel() {
+            $mdDialog.cancel(null);
         }
 
     }

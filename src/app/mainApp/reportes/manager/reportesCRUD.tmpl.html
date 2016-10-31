@@ -12,19 +12,19 @@
                     </md-button>
                 </md-fab-trigger>
                 <md-fab-actions>
-                    <md-button aria-label="Nuevo" ng-click="vm.operacion($event,0)"  class="md-fab md-raised md-mini">
-                        <md-icon md-font-icon="fa fa-file-o" >
-                            <md-tooltip md-direction="left" md-autohide="false" md-visible="vm.tooltipVisible " >{{'REPORTS.TOOLTIP.NEW'|translate }}</md-tooltip>
+                    <md-button aria-label="Nuevo" ng-click="vm.operacion($event,0)" class="md-fab md-raised md-mini">
+                        <md-icon md-font-icon="fa fa-file-o">
+                            <md-tooltip md-direction="left" md-autohide="false" md-visible="vm.tooltipVisible ">{{'REPORTS.TOOLTIP.NEW'|translate }}</md-tooltip>
                         </md-icon>
                     </md-button>
                     <md-button ng-if="vm.report.id!=null" aria-label="Duplicar" ng-click="vm.operacion($event,1)" class="md-fab md-raised md-mini">
-                        <md-icon md-font-icon="fa fa-files-o" >
-                            <md-tooltip md-direction="left" md-autohide="false" md-visible="vm.tooltipVisible" >{{'REPORTS.TOOLTIP.CLONE'|translate }}</md-tooltip>
+                        <md-icon md-font-icon="fa fa-files-o">
+                            <md-tooltip md-direction="left" md-autohide="false" md-visible="vm.tooltipVisible">{{'REPORTS.TOOLTIP.CLONE'|translate }}</md-tooltip>
                         </md-icon>
                     </md-button>
                     <md-button ng-if="vm.report.id!=null" aria-label="Editar" ng-click="vm.operacion($event,2)" class="md-fab md-raised md-mini">
-                        <md-icon md-font-icon="fa fa-pencil" >
-                            <md-tooltip md-direction="left" md-autohide="false" md-visible="vm.tooltipVisible" >{{'REPORTS.TOOLTIP.EDIT'|translate }}</md-tooltip>
+                        <md-icon md-font-icon="fa fa-pencil">
+                            <md-tooltip md-direction="left" md-autohide="false" md-visible="vm.tooltipVisible">{{'REPORTS.TOOLTIP.EDIT'|translate }}</md-tooltip>
                         </md-icon>
                     </md-button>
                 </md-fab-actions>
@@ -74,12 +74,30 @@
             <div layout="column" flex-gt-sm="60" flex="100">
                 <h2>{{'REPORTS.FIELDS.INFORMATION'|translate}}</h2>
                 <form name="formReport" novalidate>
-                    <md-input-container class="md-block">
-                        <label>{{'Projects.Fields.ProjectName'|translate}}</label>
-                        <input name="ProjectName" type="text" required="" md-no-asterisk=""
-                               ng-model="vm.project.descripcion">
-                        <div ng-messages="formProject.ProjectName.$error">
-                            <div ng-message="required">{{'Projects.Errors.Required'|translate}}</div>
+                    <div layout="column" layout-gt-sm="row">
+                        <md-input-container class="md-block" flex="100" flex-gt-sm="60">
+                            <label>{{'REPORTS.FIELDS.NAME'|translate}}</label>
+                            <input name="ProjectName" type="text" required="" md-no-asterisk=""
+                                   ng-model="vm.report.name">
+                            <div ng-messages="formProject.ProjectName.$error">
+                                <div ng-message="required">{{'REPORTS.ERRORS.REQUIRED'|translate}}</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block" flex="100" flex-gt-sm="40">
+                            <label>{{'REPORTS.FIELDS.MODIFIED'|translate}}</label>
+                            <input name="ProjectModified" type="text" required="" md-no-asterisk=""
+                                   ng-model="vm.report.modified">
+                            <div ng-messages="formProject.ProjectModified.$error">
+                                <div ng-message="required">{{'REPORTS.ERRORS.REQUIRED'|translate}}</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <md-input-container class="md-block" flex="100" flex-gt-sm="40">
+                        <label>{{'REPORTS.FIELDS.ROOT_MODEL'|translate}}</label>
+                        <input name="ProjectModel" type="text" required="" md-no-asterisk=""
+                               ng-model="vm.report.root_model_name">
+                        <div ng-messages="formProject.ProjectModel.$error">
+                            <div ng-message="required">{{'REPORTS.ERRORS.REQUIRED'|translate}}</div>
                         </div>
                     </md-input-container>
                 </form>
