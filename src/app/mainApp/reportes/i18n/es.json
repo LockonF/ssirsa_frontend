@@ -16,6 +16,12 @@
         "NEW":"Nuevo",
         "CLONE":"Duplicar",
         "EDIT":"Editar"
-    }
+    },
+      "MODAL":{
+          "CREATE":{
+              "TITLE":"Crear reporte",
+              "NAME":"Nombre"
+          }
+      }
   }
 }

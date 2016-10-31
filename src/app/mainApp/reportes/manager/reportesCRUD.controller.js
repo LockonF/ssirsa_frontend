@@ -8,7 +8,7 @@
         .module('app.mainApp.reportes')
         .controller('ReportesCrudController', ReportsCrudController)
         .filter('reportSearch', reportSearch);
-    function ReportsCrudController(toastr, Reportes) {
+    function ReportsCrudController(toastr,$mdDialog, Reportes) {
         var vm=this;
         vm.isOpen = false;
         vm.hidden=false;
@@ -42,7 +42,17 @@
             return vm.search_items;
         }
         function operacion($event,id) {
-            console.log(id);
+            if(id==0){
+                $mdDialog.show({
+                    controller: 'CreateReportModalController',
+                    controllerAs: 'vm',
+                    templateUrl: 'app/mainApp/reportes/manager/modal/createReport.modal.tmpl.html',
+                    focusOnOpen: false
+                }).then(function (res) {
+
+                    //vm.catalogo_insumo.tipos_equipo=res;
+                });
+            }
         }
         function selected(item) {
             vm.selectedReport=item;

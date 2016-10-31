@@ -1,0 +1,41 @@
+<md-dialog class="mobile-fullwidth-dialog" flex="40" flex-xs="100">
+    <md-toolbar class="toolbar-default">
+        <div class="md-toolbar-tools">
+            <h2>
+                <span>{{'REPORTS.MODAL.CREATE.TITLE'|translate}}</span>
+            </h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="vm.cancelClick()" aria-label="cancel">
+                <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <md-divider></md-divider>
+    <form name="updateSolicitudform">
+        <md-dialog-content class="md-dialog-content card1 md-blue-grey-theme">
+            <form name="reportForm">
+                <div layout="row" layout-sm="column" layout-xs="column" layout-md="column" flex="100"
+                     layout-align="space-around stretch" layout-align-xs="space-around stretch" layout-align-sm="space-around stretch">
+
+                    <md-input-container class="md-block" flex="100" flex-sm="100" flex-xs="100">
+                        <label>{{'REPORTS.MODAL.CREATE.NAME'|translate}}</label>
+                        <input type="text" name="report_name" ng-model="vm.nombre" required/>
+                        <div ng-messages="reportForm.report_name.$error">
+                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
+                        </div>
+                    </md-input-container>
+                </div>
+            </form>
+        </md-dialog-content>
+        <md-dialog-actions layout="row" class="card1 md-blue-grey-theme">
+
+            <span flex></span>
+            <md-button ng-click="vm.cancelClick()" aria-label="{{'Cancel' | triTranslate}}"
+                       translate="MAIN.BUTTONS.CANCEL"></md-button>
+            <md-button ng-click="vm.okClick()" class="md-primary" ng-disabled="reportForm.$invalid"
+                       aria-label="{{vm.dialogData.confirmButtonText | triTranslate}}"
+                       translate="MAIN.BUTTONS.SUBMIT"></md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
