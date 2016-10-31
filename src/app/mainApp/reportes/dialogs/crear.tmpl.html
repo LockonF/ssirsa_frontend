@@ -13,7 +13,7 @@
     <md-content layout-fill layout="column">
         <form name="formNewReport"
               novalidate>
-            <md-input-container>
+            <md-input-container flex="100" class="md-block">
                 <label>{{'REPORTS.DIALOG.CREATE.NAME'|translate}}</label>
                 <input type="text"
                        name="inputName"
@@ -23,12 +23,12 @@
                        md-maxlength="100"
                        ng-model="vm.report.name"
                        >
-                <div ng-messages="formNwReport.inputName.$error">
+                <div ng-messages="formNewReport.inputName.$error">
                     <div ng-message="required">{{'REPORTS.ERRORS.REQUIRED'|translate}}</div>
                     <div ng-message="pattern">{{'REPORTS.DIALOGS.CREATE.ERROR_PATTERN'|translate}}</div>
                 </div>
             </md-input-container>
-            <md-input-container>
+            <md-input-container flex="100" class="md-block">
                 <label>{{'REPORTS.DIALOG.CREATE.NAME'|translate}}</label>
                 <input type="text"
                        name="inputDescription"
@@ -38,11 +38,32 @@
                        md-maxlength="500"
                        ng-model="vm.report.description"
                 >
-                <div ng-messages="formNwReport.inputName.$error">
+                <div ng-messages="formNewReport.inputName.$error">
                     <div ng-message="required">{{'REPORTS.ERRORS.REQUIRED'|translate}}</div>
                     <div ng-message="pattern">{{'REPORTS.DIALOGS.CREATE.ERROR_PATTERN'|translate}}</div>
                 </div>
             </md-input-container>
+            <md-input-container flex="100" class="md-block">
+                <label>{{'REPORTS.DIALOG.CREATE.ROOT_MODEL'|translate}}</label>
+                <md-select name="selectModel"
+                           ng-model="vm.report.root_model"
+                           required
+                           md-no-asterisk="">
+                    <md-option ng-repeat="modelo in vm.modelos" value="{{modelo.pk}}">{{modelo.name}}
+                    </md-option>
+                </md-select>
+                <div ng-messages="formNewReport.selectModel.$error">
+                    <div ng-message="required">{{'REPORTS.ERRORS.REQUIRED'|translate}}</div>
+                </div>
+            </md-input-container>
         </form>
     </md-content>
+    <md-actions layout="row" layout-align="end center">
+        <md-button ng-click="vm.cancel()" md-no-ink class="md-primary">
+            {{'MAIN.BUTTONS.CANCEL'|translate}}
+        </md-button>
+        <md-button ng-click="vm.create()" ng-disabled="cabinetForm.$invalid" md-no-ink class="md-primary">
+            {{'MAIN.BUTTONS.SUBMIT'|translate}}
+        </md-button>
+    </md-actions>
 </md-dialog>
