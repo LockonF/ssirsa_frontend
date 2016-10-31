@@ -8,24 +8,36 @@
         .module('app.mainApp.reportes')
         .controller('ReportesCrudController', ReportsCrudController)
         .filter('reportSearch', reportSearch);
-    function ReportsCrudController(toastr,$mdDialog, Reportes,Translate) {
+    function ReportsCrudController(toastr, $mdDialog, Reportes, Translate) {
+        //Variable declaration
         var vm=this;
         vm.isOpen = false;
         vm.hidden=false;
         vm.report=null;
+
+        //Function parse
         vm.selected=selected;
         vm.lookup=lookup;
         vm.querySearch=querySearch;
         vm.selectedItemChange=selectedItemChange;
         vm.operacion=operacion;
+        vm.remove=remove;
+
+        //Translates
+        vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
+        vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
+        vm.successCreate=Translate.translate('REPORTS.MESSAGES.REPORT_CREATE_SUCCESS');
+        vm.errorCreate=Translate.translate('REPORTS.MESSAGES.REPORT_CREATE_ERROR');
+        vm.successDelete=Translate.translate('REPORTS.MESSAGES.REPORT_DELETE_SUCCESS');
+        vm.errorDelete=Translate.translate('REPORTS.MESSAGES.REPORT_DELETE_ERROR');
+        vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
+        vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
+        vm.deleteButton=Translate.translate('MAIN.BUTTONS.DELETE');
+        vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
+
         activate();
         function activate() {
             vm.reports=Reportes.getReports();
-            vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
-            vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
-            vm.successCreate=Translate.translate('REPORTS.MESSAGES.REPORT_CREATE_SUCCESS');
-            vm.errorCreate=Translate.translate('REPORTS.MESSAGES.REPORT_CREATE_ERROR');
-
         }
         function querySearch(query) {
             return query ? lookup(query) : vm.reports;
@@ -68,6 +80,26 @@
             vm.selectedReport=item;
             vm.report=angular.copy(item);
         }
+        function remove(){
+            var confirm = $mdDialog.confirm()
+                .title(vm.dialogTitle)
+                .textContent(vm.dialogMessage)
+                .ariaLabel('Confirmar eliminación')
+                .ok(vm.deleteButton)
+                .cancel(vm.cancelButton);
+            $mdDialog.show(confirm).then(function() {
+                Reportes.deleteReport(vm.report).then(function(){
+                    toastr.success(vm.successDelete,vm.successTitle);
+                    activate();
+                }).catch(function(){
+                    toastr.error(vm.errorDelete,vm.errorTitle);
+                });
+            }, function (){
+                //Cancelled
+            });
+
+        }
+
     }
 
     function reportSearch() {
@@ -81,7 +113,8 @@
             });
 
         };
-
-
     }
+
+
+
 })();

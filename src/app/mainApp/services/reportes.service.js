@@ -20,7 +20,8 @@
             getFields:getFields,
             saveReport:saveReport,
             createReport:createReport,
-            generatePreview:generatePreview
+            generatePreview:generatePreview,
+            deleteReport:deleteReport
         };
 
         //Obtiene todos los reportes existentes con su información básica (util para listado en CRUD)
@@ -120,6 +121,10 @@
         //Permite crear una previsualización en JSON del reporte con el ID dado
         function generatePreview(id){
             return path.one("report",id).all("generate").customGET();
+        }
+        //Permite borrar un reporte dado un id
+        function deleteReport(object) {
+            return path.one("report",object.id).all("").customDELETE("",null,{'content-type':'application/json'});
         }
     }
 })();

@@ -108,14 +108,8 @@
             <md-button ng-click="vm.clear()" md-no-ink class="md-raised md-primary" aria-label="clear">
                 <md-icon md-font-icon="fa fa-eraser"></md-icon>
             </md-button>
-            <md-button ng-if="vm.project.id!=null && vm.project.id!=undefined" ng-click="vm.remove()" md-no-ink class="md-raised md-primary" aria-label="delete">
+            <md-button ng-if="vm.report.id!=null && vm.report.id!=undefined" ng-click="vm.remove()" md-no-ink class="md-raised md-primary md-warn" aria-label="delete">
                 <md-icon md-font-icon="fa fa-trash"></md-icon>
-            </md-button>
-            <md-button ng-if="vm.project.id==null || vm.project.id==undefined" ng-click="vm.create()" md-no-ink class="md-raised md-primary" ng-disabled="formClient.$invalid" aria-label="save">
-                <md-icon md-font-icon="fa fa-save"></md-icon>
-            </md-button>
-            <md-button ng-if="vm.project.id!=null && vm.project.id!=undefined" ng-click="vm.update()" md-no-ink class="md-raised md-primary" ng-disabled="formClient.$invalid" aria-label="modify">
-                <md-icon md-font-icon="fa fa-pencil"></md-icon>
             </md-button>
         </md-actions>
 
