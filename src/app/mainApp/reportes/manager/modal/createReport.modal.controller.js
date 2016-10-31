@@ -11,7 +11,7 @@
         .module('app.mainApp.reportes')
         .controller('CreateReportModalController', CreateReportModalController);
 
-    function CreateReportModalController( Reportes,$mdDialog) {
+    function CreateReportModalController( Reportes, $mdDialog, $state) {
         var vm = this;
         //Function parsing
         vm.create = create;
@@ -33,6 +33,7 @@
         function create() {
             Reportes.createReport(vm.report).then(function () {
                 $mdDialog.hide();
+                $state.go('triangular.admin-default.reportModify');
             }).catch(function (err) {
                 $mdDialog.cancel(err);
             });
