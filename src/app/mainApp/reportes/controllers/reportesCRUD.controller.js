@@ -8,17 +8,22 @@
         .module('app.mainApp.reportes')
         .controller('ReportesCrudController',ReportsCrudController);
 
-    function ReportsCrudController(toastr, Reportes, $scope){
+    function ReportsCrudController(toastr, Reportes, $scope,$mdDialog, Translate){
         var vm=this;
 
         //Function parse
         vm.search=search;
         vm.clickCopy=clickCopy;
         vm.querySearch=querySearch;
+        vm.newReport=newReport;
 
         //Empty variables
 
         //Translates
+        vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
+        vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
+        vm.successCreate=Translate.translate('REPORTS.MESSAGES.REPORT_CREATE_SUCCES');
+        vm.errorCreate=Translate.translate('REPORTS.MESSAGES.REPORT_CREATE_ERROR');
 
         activate();
         //Functions
@@ -48,7 +53,23 @@
         function querySearch(query) {
             var results = query ? search(query) : vm.reports;
             return results;
+        }
 
+        function newReport(){
+            $mdDialog.show({
+                controller: 'DialogCrearReporteController',
+                controllerAs: 'vm',
+                templateUrl: 'app/mainApp/reportes/dialogs/crear.tmpl.html',
+                fullscreen: true,
+                clickOutsideToClose: true,
+                focusOnOpen: true
+            }).then(function () {
+                toastr.success(vm.successCreate,vm.successTitle);
+            }).catch(function (err) {
+                if (err != null) {
+                    toastr.error(vm.errorCreate,vm.errorTitle);
+                }
+            });
         }
 
     }

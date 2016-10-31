@@ -3,8 +3,6 @@
     "TITLE": "Reportes",
     "INFORMATION": "Información del reporte",
     "FIELD_SET":"Campos",
-    "DIALOGS": {
-    },
     "FIELDS": {
       "SEARCH": "Busqueda de reportes",
       "INFORMATION": "Información del reporte",
@@ -21,7 +19,7 @@
       "NOT_FOUND": "No se encontró ningun reporte",
       "REQUIRED": "El campo es requerido"
     },
-    "DIALOGS":{
+    "DIALOG":{
       "CREATE":{
         "TITLE":"Crear Reporte",
         "NAME":"Nombre",
@@ -29,6 +27,10 @@
         "ROOT_MODEL":"Modelo base",
         "ERROR_PATTERN":"El campo solo puede contener caracteres alfanuméricos"
       }
+    },
+    "MESSAGES":{
+      "REPORT_CREATE_SUCCESS":"Reporte creado correctamente",
+      "REPORT_CREATE_ERROR":"Error al crear el reporte"
     }
   }
 }

@@ -41,7 +41,7 @@
         }
         //Obtiene todos los modelos base sobre los cuales se pueden hacer reportes, se usa solo al crearlo
         function getModels(){
-            return path.all("contenttypes").getList();
+            return path.all("contenttypes").all("").getList().$object;
         }
         //Obtiene solamnte los modelos relacionados (campos que son llave primaria de otro modelo)
         // con un modelo, dado un ID de modelo, y como opcion una ruta (path) y un nombre de campo (field)
@@ -115,7 +115,7 @@
         }
         //Permite crear un reporte nuevo con su nombre, descripción y modelo base
         function createReport(data){
-            return path.all(report).post(data);
+            return path.all("report").all("").post(data);
         }
         //Permite crear una previsualización en JSON del reporte con el ID dado
         function generatePreview(id){
