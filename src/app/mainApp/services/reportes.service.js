@@ -26,11 +26,11 @@
 
         //Obtiene todos los reportes existentes con su información básica (util para listado en CRUD)
         function getPartialReports(){
-            return path.all("reports").getList().$object;
+            return path.all("reports").all("").getList().$object;
         }
         //Obtiene la información básica de un reporte en específico
         function getPartialReport(id){
-            return path.one("reports",id).customGET();
+            return path.one("reports",id).all("").customGET();
         }
         //Obtiene todos los reportes existentes con su información completa
         function getReports(){
@@ -38,7 +38,7 @@
         }
         //Obtiene la información completa de un reporte en específico (útil para ver, modificar y guardar un reporte)
         function getReport(id){
-            return path.one("report",id).customGET();
+            return path.one("report",id).all("").customGET();
         }
         //Obtiene todos los modelos base sobre los cuales se pueden hacer reportes, se usa solo al crearlo
         function getModels(){
@@ -74,7 +74,7 @@
                     "field": ""
                 };
             }
-            return path.one("related_fields").post(request);
+            return path.one("related_fields").all("").post(request);
         }
         //Obtiene todos los campos de un modelo, dado un ID de modelo, y como opcion una ruta (path)
         // y un nombre de campo (field) para mapear la ruta necesaria al crear el fieldset
@@ -106,13 +106,13 @@
                     "field": ""
                 };
             }
-            return path.one("fields").post(request);
+            return path.one("fields").all("").post(request);
         }
         //Guardar un reporte (Incluso aunque sea nuevo, primero se crea vacio, luego se modifica
         // con los campos que se requiere)
         //Utilizar como entrada un reporte obtenido mediante fullReport
         function saveReport(report){
-            return path.all(report.id).customPUT(report);
+            return path.all(report.id).all("").customPUT(report);
         }
         //Permite crear un reporte nuevo con su nombre, descripción y modelo base
         function createReport(data){
@@ -120,7 +120,7 @@
         }
         //Permite crear una previsualización en JSON del reporte con el ID dado
         function generatePreview(id){
-            return path.one("report",id).all("generate").customGET();
+            return path.one("report",id).all("generate").all("").customGET();
         }
         //Permite borrar un reporte dado un id
         function deleteReport(object) {
