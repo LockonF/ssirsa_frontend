@@ -26,11 +26,11 @@
 
         //Obtiene todos los reportes existentes con su información básica (util para listado en CRUD)
         function getPartialReports(){
-            return path.all("reports").getList().$object;
+            return path.all("reports").all("").getList().$object;
         }
         //Obtiene la información básica de un reporte en específico
         function getPartialReport(id){
-            return path.one("reports",id).customGET();
+            return path.one("reports",id).all("").customGET();
         }
         //Obtiene todos los reportes existentes con su información completa
         function getReports(){
@@ -38,7 +38,7 @@
         }
         //Obtiene la información completa de un reporte en específico (útil para ver, modificar y guardar un reporte)
         function getReport(id){
-            return path.one("report",id).customGET();
+            return path.one("report",id).all("").customGET();
         }
         //Obtiene todos los modelos base sobre los cuales se pueden hacer reportes, se usa solo al crearlo
         function getModels(){
