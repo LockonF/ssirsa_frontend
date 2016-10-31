@@ -106,15 +106,16 @@
         "Project":"Proyecto",
         "Upload Image":"Carga de Imagen",
         "Pediment":"Pedimento",
-        "Cabinets Massive Upload":"Carga masiva de cabinets",
-        "Cabinets Manual Upload":"Carga individual de cabinets",
-        "Choose File":"Seleccionar Archivo",
+        "Cabinets Massive Upload":"Carga masiva",
+        "Cabinets Manual Upload":"Carga individual",
+        "Choose File":"Archivo",
         "Choose Image":"Seleccionar Imagen",
         "Upload File":"Cargar Archivo",
         "Next":"Siguiente",
         "Create Brand":"Registrar marca",
         "Create Model":"Registrar modelo",
         "CabinetID":"Id del cabinet",
+        "Format":"Plantilla",
         "Messages":{
             "SuccessMassive":"Carga masiva registrada correctamente",
             "SuccessNormal":"Entrada registrada correctamente",
@@ -122,7 +123,9 @@
             "ErrorMassive":"Error en la carga masiva",
             "ErrorNormal":"Error al registrar la entrada",
             "ErrorCabinet":"El cabinet ya ha sido añadido",
-            "NotFoundCabinet":"Cabinet no encontrado"
+            "NotFoundCabinet":"Cabinet no encontrado",
+            "NotFoundUdn":"Sin resultados",
+            "InvalidUDN":"Selecciona una UDN"
         },
 
         "Transport":{
@@ -137,8 +140,8 @@
         },
         "TableCabinets": {
             "Headers": {
-                "Economic Num": "No. Economico",
-                "Serial Num": "No. de Serie",
+                "EconomicNum": "No. Economico",
+                "SerialNum": "No. de Serie",
                 "Brand": "Marca",
                 "Model": "Modelo"
             }
@@ -243,6 +246,15 @@
                 "SEND_TITLE":"Confirmación de envío",
                 "SEND_MESSAGE":"¿Seguro que desea crear una salida sin ningún cabinet seleccionado?",
                 "SEND_INCONSISTENCE":"¿Seguro que de realizar la siguiente operación?, debido a que es una operación que sale fuera del flujo normal no se garantiza que sean consistentes los datos del cabinet"
+            }
+        }
+    },
+    "REMISSION":{
+        "FORM":{
+            "LABEL":{
+                "TITLE":"Remisión de Salida",
+                "FOLIO":"Folio",
+                "DATE":"Fecha"
             }
         }
     }

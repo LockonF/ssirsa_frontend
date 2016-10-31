@@ -13,8 +13,7 @@
             create:create,
             list:list,
             updateSolicitud:updateSolicitud,
-            borrarSolVenta:borrarSolVenta,
-            updateSolicitud:updateSolicitud
+            borrarSolVenta:borrarSolVenta
         };
 
         function create(object){

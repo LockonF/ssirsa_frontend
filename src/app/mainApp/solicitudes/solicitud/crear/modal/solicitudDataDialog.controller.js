@@ -6,7 +6,7 @@
     angular
         .module('app.mainApp')
         .controller('solicitudDataDialogController',solicitudDataDialogController);
-    function solicitudDataDialogController($mdDialog,TipoEquipo,OPTIONS)
+    function solicitudDataDialogController(Helper,$mdDialog,TipoEquipo,OPTIONS)
     {
         var vm = this;
         vm.status=OPTIONS.status_equipment;
@@ -15,7 +15,10 @@
         vm.tiposEquipo=null;
         activate();
         function activate(){
-            vm.tiposEquipo=TipoEquipo.list();
+             TipoEquipo.listWitout().then(function (res) {
+                 vm.tiposEquipo=Helper.filterDeleted(res,true);
+                 vm.tiposEquipo=_.sortBy(vm.tiposEquipo, 'nombre');
+            });
         }
         function submit()
         {
