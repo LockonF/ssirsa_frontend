@@ -117,7 +117,7 @@
         function createReport(data){
             return path.all(report).post(data);
         }
-
+        //Permite crear una previsualización en JSON del reporte con el ID dado
         function generatePreview(id){
             return path.one("report",id).all("generate").customGET();
         }
