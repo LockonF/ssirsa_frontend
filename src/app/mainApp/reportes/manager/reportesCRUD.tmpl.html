@@ -1,37 +1,53 @@
 <div layout="column" flex="100" layout-padding layout-fill>
     <md-card class="md-padding-card1" flex-gt-sm="90" flex="100" layout="column">
-        <div layout="row" flex="" layout-align="space-around stretch">
+        <div layout="row" flex="" class="fabOperationReport" layout-align="space-around stretch">
             <h2 flex="70" flex-sm="100" flex-gt-xs="100" class="md-headline-1 text-center" translate="">
                 REPORTS.TITLE
             </h2>
-            <!--<md-button  aria-label="fab button" class="md-fab md-scale md-fab-top-right" ng-click="vm.clear()">
-                <md-icon md-font-icon="fa fa-plus" ng-style="{color: 'white'}">
 
-                </md-icon>
-            </md-button>-->
+            <md-fab-speed-dial ng-hide="vm.hidden" md-open="vm.isOpen" md-direction="down" ng-class="{ 'md-hover-full': vm.hover }" ng-mouseover="vm.isOpen=true" ng-mouseleave="vm.isOpen=false" class="md-scale md-fab-top-right">
+                <md-fab-trigger>
+                    <md-button aria-label="menu" class="md-fab md-warn md-fab-principal">
+                        <md-icon md-font-icon="fa fa-bars" ng-style="{color: 'white'}"></md-icon>
+                    </md-button>
+                </md-fab-trigger>
+                <md-fab-actions>
+                    <md-button aria-label="Nuevo" ng-click="vm.operacion($event,0)"  class="md-fab md-raised md-mini">
+                        <md-icon md-font-icon="fa fa-file-o" >
+                            <md-tooltip md-direction="left" md-autohide="false" md-visible="vm.tooltipVisible " >{{'REPORTS.TOOLTIP.NEW'|translate }}</md-tooltip>
+                        </md-icon>
+                    </md-button>
+                    <md-button ng-if="vm.report.id!=null" aria-label="Duplicar" ng-click="vm.operacion($event,1)" class="md-fab md-raised md-mini">
+                        <md-icon md-font-icon="fa fa-files-o" >
+                            <md-tooltip md-direction="left" md-autohide="false" md-visible="vm.tooltipVisible" >{{'REPORTS.TOOLTIP.CLONE'|translate }}</md-tooltip>
+                        </md-icon>
+                    </md-button>
+                    <md-button ng-if="vm.report.id!=null" aria-label="Editar" ng-click="vm.operacion($event,2)" class="md-fab md-raised md-mini">
+                        <md-icon md-font-icon="fa fa-pencil" >
+                            <md-tooltip md-direction="left" md-autohide="false" md-visible="vm.tooltipVisible" >{{'REPORTS.TOOLTIP.EDIT'|translate }}</md-tooltip>
+                        </md-icon>
+                    </md-button>
+                </md-fab-actions>
+            </md-fab-speed-dial>
+
         </div>
         <div layout-gt-sm="row" layout="column">
-            <!--Autocomplete div-->
             <div layout="column" layout-align="space-between stretch" flex-gt-sm="40" flex="100">
                 <md-autocomplete
-                        md-items="item in vm.querySearch(vm.searchParameter)"
-                        md-selected-item="vm.report"
-                        md-selected-item-change="vm.selectedItemChange(vm.report)"
-                        md-search-text-change="vm.search(vm.searchParameter)"
-                        md-search-text="vm.searchParameter"
-                        md-item-text="item.name"
-                        md-min-length="1"
-                        md-floating-label="{{'REPORTS.FIELDS.SEARCH'|translate}}">
-                    <span md-highlight-text="vm.searchParameter"  md-highlight-flags="^i">{{item.name}}</span>
+                    md-items="item in vm.querySearch(vm.searchParameter)"
+                    md-selected-item="vm.reportSelected"
+                    md-selected-item-change="vm.selectedItemChange(vm.reportSelected)"
+                    md-search-text-change="vm.lookup(vm.searchParameter)"
+                    md-search-text="vm.searchParameter"
+                    md-item-text="item.name"
+                    md-min-length="1"
+                    md-floating-label="{{'REPORTS.FIELDS.SEARCH'|translate}}">
+                    <span md-highlight-text="vm.searchParameter" md-highlight-flags="^i">{{item.name}}</span>
                     <md-item-template>
-                        <div layout-fill  ng-click="vm.clickCopy(item)">
+                         <span class="item-title">
                             <md-icon md-font-icon="fa fa-file-text-o"></md-icon>
-                            <span>{{item.name}}</span>
-                        </div><!--
-                            <span class="item-title">
-                                <md-icon md-font-icon="fa fa-folder"></md-icon>
-                                <span>&nbsp; {{item.descripcion}}</span>
-                            </span>-->
+                            <span>&nbsp; {{item.name}}</span>
+                        </span>
                     </md-item-template>
                     <md-not-found><span translate="REPORTS.ERROR.NOT_FOUND"></span></md-not-found>
                 </md-autocomplete>
@@ -42,10 +58,10 @@
                                              layout-fill
                                              class="vr-min-height">
                     <md-list flex="flex">
-                        <md-list-item flex="flex" ng-repeat="item in vm.filteredReports">
+                        <md-list-item flex="flex" ng-repeat="item in vm.reports | reportSearch:vm.searchParameter">
                             <md-button
-                                    ng-click="vm.clickCopy(item)"
-                                    ng-class="{'selected':item.id === vm.selectedReport.id}">
+                                ng-click="vm.selected(item)"
+                                ng-class="{'selected':item.id == vm.selectedReport.id}">
                                 <img ng-src="assets/images/report.png" class="avatar"/>
                                 <span>{{item.name}}</span>
                             </md-button>
@@ -53,8 +69,6 @@
                         </md-list-item>
                     </md-list>
                 </md-virtual-repeat-container>
-
-
             </div>
             <!--Content div-->
             <div layout="column" flex-gt-sm="60" flex="100">
@@ -70,6 +84,7 @@
                     </md-input-container>
                 </form>
             </div>
+
         </div>
         <md-actions layout="row" layout-align="end center">
             <md-button ng-click="vm.clear()" md-no-ink class="md-raised md-primary" aria-label="clear">
@@ -85,5 +100,6 @@
                 <md-icon md-font-icon="fa fa-pencil"></md-icon>
             </md-button>
         </md-actions>
+
     </md-card>
 </div>
