@@ -246,7 +246,7 @@
                 vm.insumoLote.cantidad = insulote.tipos_equipo[0].cantidad;
                 vm.insumoLote.nombre = insulote.descripcion;
                 vm.insumoLote.notas = insulote.tipos_equipo[0].cantidad;
-                vm.insumoLote.agregar = true;
+                vm.insumoLote.agregar = false;
 
                 vm.insumos_loteUsados.push(vm.insumoLote);
                 vm.insumoLote = null;
