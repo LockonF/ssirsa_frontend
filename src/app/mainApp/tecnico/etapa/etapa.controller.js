@@ -147,7 +147,6 @@
                                     getInsumosLote();
 
 
-
                                     vm.insumos = vm.etapaActual.insumos;
 
                                     if ((vm.etapaActual.actual_etapa == 'EC') || (vm.etapaActual.actual_etapa == 'ED') || (vm.etapaActual.actual_etapa == 'EO')) {
@@ -168,11 +167,11 @@
                                 }
                                 console.log(vm.etapaActual);
                                 console.log(vm.diagnostico);
-                                if(vm.etapaActual.actual_etapa.nombre=='E1') {
+                                if (vm.etapaActual.actual_etapa.nombre == 'E1') {
                                     vm.diagnostico.tipo = 'entrada';
-                                    vm.etapaActual.siguiente_etapa.nombre='E2';
+                                    vm.etapaActual.siguiente_etapa.nombre = 'E2';
                                 }
-                                if(vm.etapaActual.actual_etapa.nombre=='E4') {
+                                if (vm.etapaActual.actual_etapa.nombre == 'E4') {
                                     vm.diagnostico.tipo = 'salida';
                                 }
                                 console.log(vm.diagnostico);
@@ -313,7 +312,7 @@
 
                 locals: {
                     cabinet: vm.idCabinet,
-                    diagnostico:vm.diagnostico
+                    diagnostico: vm.diagnostico
                 }
             }).then(function (answer) {
                 //Accepted
