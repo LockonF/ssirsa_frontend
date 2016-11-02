@@ -242,7 +242,14 @@
             }).catch(function (res) {
                 notifyError(res.status);
             })
+        }
+        //function filter para determinar las cantidades adecuadas del catalogo insumos porq endpoint regresa los valores para todos los tipo de equipo
 
+        function filterInsumosLotebyType(tipos_equipo){
+            var elemento;
+            elemento=_.findWhere(tipos_equipo,{tipo_equipo:vm.modelo.tipo});
+            console.log(elemento);
+            return elemento;
 
         }
 
@@ -250,11 +257,12 @@
 
             vm.insumosLote.forEach(function (insulote, index) {
 
-
+                var elemento;
                 vm.insumoLote.id = insulote.id;
-                vm.insumoLote.cantidad = insulote.tipos_equipo[0].cantidad;
+                elemento=filterInsumosLotebyType(tipos_equipo);
+                vm.insumoLote.cantidad = elemento.cantidad;
                 vm.insumoLote.nombre = insulote.descripcion;
-                vm.insumoLote.notas = insulote.tipos_equipo[0].cantidad;
+                vm.insumoLote.notas = elemento.descripcion;
                 vm.insumoLote.agregar = false;
 
                 vm.insumos_loteUsados.push(vm.insumoLote);
