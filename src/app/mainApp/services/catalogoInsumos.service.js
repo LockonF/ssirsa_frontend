@@ -83,7 +83,7 @@
 
         function update(object)
         {
-            return object.put();
+            return baseCatalogoInsumo.all(object.id).customPUT(object);
         }
 
         function create(object){

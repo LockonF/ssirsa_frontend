@@ -163,6 +163,28 @@
                 {display:'Fuga Interna',value:'Fuga Interna'},
                 {display:'Obsoleto',value:'Obsoleto'},
                 {display:'N/A',value:'N/A'}
+            ],
+            type_out:[
+                {
+                    id:0,
+                    value:"Normal",
+                    value_service:"normal"
+                },
+                {
+                    id:1,
+                    value:"Fuga Interna",
+                    value_service:"fuga_interna"
+                },
+                {
+                    id:2,
+                    value:"Obsoleto",
+                    value_service:"obsoleto"
+                },
+                {
+                    id:3,
+                    value:"No validada",
+                    value_service:"all"
+                }
             ]
         });
 })();

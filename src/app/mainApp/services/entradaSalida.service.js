@@ -15,10 +15,30 @@
             postEntrada: postEntrada,
             postEntradaMasiva: postEntradaMasiva,
             postSalidaMasiva: postSalidaMasiva,
+            putEntradaMasiva: putEntradaMasiva,
             getLastEntradaByCabinet: getLastEntradaByCabinet,
             byUdn: byUdn,
-            getCabinetsEntrada: getCabinetsEntrada
+            byUdnObject:byUdnObject,
+            getCabinetsEntrada: getCabinetsEntrada,
+            normalizeCabinets:normalizeCabinets,
+            getRemision:getRemision,
+            getAll:getAll,
+            getSalidas:getSalidas
         };
+        function getSalidas() {
+            return baseURL.all('exit').getList();
+        }
+        function getAll() {
+            return baseURL.getList().$object;
+        }
+        function getRemision(idEntradaSalida) {
+            return baseURL.one('remision').customGET(idEntradaSalida);
+        }
+        function normalizeCabinets(idEntradaSalida) {
+            //one('normalize',idEntradaSalida)
+            return baseURL.one("normalize",idEntradaSalida).put();
+
+        }
         function getLastEntradaByCabinet(idCabinet) {
             return baseURL.one('cabinet').customGET(idCabinet);
         }
@@ -33,12 +53,21 @@
             return baseURL.all('mass_upload').withHttpConfig({transformRequest: angular.identity}).customPOST(data, "", {}, {'Content-type': undefined});
         }
 
+        //entrada_salida/mass_upload
+        function putEntradaMasiva(data) {
+            return baseURL.one('mass_upload',data.id).withHttpConfig({transformRequest: angular.identity}).customPUT(data, "", {}, {'Content-type': undefined});
+        }
+
         function postSalidaMasiva(data) {
             return baseURL.all('mass_exit').withHttpConfig({transformRequest: angular.identity}).customPOST(data, "", {}, {'Content-type': undefined});
         }
 
         function byUdn(id) {
             return baseURL.one('udn', id).getList().$object;
+        }
+
+        function byUdnObject(id) {
+            return baseURL.one('udn', id).getList();
         }
 
         function getCabinetsEntrada() {

@@ -69,7 +69,7 @@
                 <md-input-container class="md-block">
                     <label>{{'ADMIN_PERSONA.PROPERTY.DIRECCION'|translate}}</label>
                     <md-icon md-font-icon="zmdi zmdi-pin"></md-icon>
-                    <input type="text" ng-model="vm.user_ini.direccion" name="direccion" required="required" ng-pattern="/^[A-Za-z_ 0-9áéíóúÁÉÍÓÚñN#]*$/"/>
+                    <input type="text" ng-model="vm.user_ini.direccion" name="direccion" required="required" ng-pattern="/^[A-Za-z_ 0-9áéíóúÁÉÍÓÚñN#\.]*$/"/>
                     <div ng-messages="objectForm.direccion.$error">
                         <div ng-message="pattern">{{'ADMIN_PERSONA.ERROR_MESSAGE.DIRECCION'|translate}}</div>
                         <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
@@ -125,7 +125,7 @@
                             <md-button flex="flex" ngf-select="vm.selectionIFE($files)" ngf-accept="'image/*'" required="required" ng-disabled="false" ngf-multiple="false" ng-model="vm.picIFE" aria-label="upload" class="md-primary md-raised">
                                 <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>                                    {{'ADMIN_PERSONA.PROPERTY.ARCHIVO'|translate}}
                                 <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>
-                            </md-button><img src="assets/images/dashboards/weather.jpg" alt="Card Image" ng-show="vm.picIFE==null" width="120" height="120"/><img ngf-src="vm.picIFE" width="120" height="120" ng-show="vm.picIFE!=null"/>
+                            </md-button><img src="assets/images/dashboards/weather.jpg" alt="Card Image" ng-show="vm.picIFE==null" width="120" height="120"/><img ngf-src="vm.picIFE" width="120" height="120" ng-if="vm.picIFE!=null"/>
                         </div>
                     </div>
 

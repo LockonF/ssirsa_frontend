@@ -1,6 +1,6 @@
 <!--   Created by Emmanuel on 02/09/2016.-->
 <div layout="column">
-    <div layout="row" flex="" layout-padding="" layout-fill="" layout-align="center center" >
+    <div layout="row" flex="" layout-padding="" layout-fill="" layout-align="center center">
         <md-card flex-gt-xs="90" flex="100" class="md-padding-card1">
             <md-card-title>
                 <md-card-title-text>
@@ -10,14 +10,16 @@
                 </md-card-title-text>
             </md-card-title>
             <md-content layout-fill="">
-                <md-tabs layout-padding="true" md-dynamic-height="100" md-border-bottom="100" md-selected="vm.selectedTab">
+                <md-tabs layout-padding="true" md-dynamic-height="100" md-border-bottom="100"
+                         md-selected="vm.selectedTab">
                     <md-tab label={{'INPUT.Tabs.GeneralData'|translate}}>
                         <md-content layout-padding="">
                             <form name="entradaForm" novalidate="">
                                 <md-input-container flex="100" class="md-block">
                                     <label>{{'INPUT.Entrance_Kind'|translate}}</label>
                                     <md-select name="selectEntranceKind" ng-model="vm.selectedEntrada" required="">
-                                        <md-option ng-repeat="option in vm.options" value="{{option}}">{{option}}</md-option>
+                                        <md-option ng-repeat="option in vm.options" value="{{option}}">{{option}}
+                                        </md-option>
                                     </md-select>
                                     <div ng-messages="entradaForm.selectEntranceKind.$error">
                                         <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
@@ -61,25 +63,53 @@
                                         </div>
                                     </md-input-container>
                                 </div>
-                                <div layout="row" layout-sm="column" layout-xs="column" layout-align="center center" layout-align-sm="center stretch" layout-align-xs="center stretch">
-                                    <md-input-container
+                                <div layout="row" layout-sm="column" layout-xs="column" layout-align="center center"
+                                     layout-align-sm="center stretch" layout-align-xs="center stretch">
+                                    <div
                                             flex="100"
                                             class="md-block"
                                             ng-if="vm.selectedEntrada === 'Garantías'">
-                                        <label>{{'INPUT.UDN'|translate}}</label>
-                                        <md-select name="selectUDN" ng-model="vm.entrada.udn" required="" md-no-asterisk="">
-                                            <md-option ng-repeat="udn in vm.udns" value="{{udn.id}}">{{udn.zona}} - {{udn.agencia}}</md-option>
-                                        </md-select>
-                                        <div ng-messages="entradaForm.selectUDN.$error">
-                                            <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
-                                        </div>
-                                    </md-input-container>
+                                        <md-autocomplete md-selected-item="vm.entrada.udn"
+                                                         md-selected-item-change="vm.selectedItemChange(vm.entrada.udn)"
+                                                         md-items="item in vm.filteredUDN" md-item-text="item.agencia"
+                                                         md-min-length="0"
+                                                         md-input-name="selectUDN"
+                                                         md-search-text-change="vm.search(vm.searchText)"
+                                                         required
+                                                         md-input-id="udn"
+                                                         md-search-text="vm.searchText"
+                                                         md-menu-class="autocomplete-custom-template"
+                                                         md-require-match="true"
+                                                         md-floating-label="{{'INPUT.UDN'| translate}}">
+                                            <md-item-template>
+                                                    <span class="item-title">
+                                                        <md-icon md-font-icon="zmdi zmdi-city"></md-icon>
+                                                        <span>&nbsp; {{item.agencia}}</span>
+                                                    </span>
+                                                    <span class="item-metadata">
+                                                        <span class="item-metastat">
+                                                            <strong>{{item.zona}}</strong>
+                                                        </span>
+                                                    </span>
+                                            </md-item-template>
+                                            <md-not-found><span translate="INPUT.Messages.NotFoundUdn"></span></md-not-found>
+                                            <div ng-messages="entradaForm.selectUDN.$error" ng-if="entradaForm.selectUDN.$touched">
+                                                <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
+                                                <div class="validate" ng-show="!vm.isValid" ng-class="{'slide':vm.isValid==false}">
+                                                    <span>{{'INPUT.Messages.InvalidUDN'| translate}}</span>
+                                                </div>
+                                            </div>
+                                        </md-autocomplete>
+                                    </div>
                                     <md-input-container flex="100"
                                                         class="md-block"
                                                         ng-if="vm.selectedEntrada ==='Nuevos' || vm.selectedEntrada === 'Garantías'">
                                         <label>{{'INPUT.Transport.Line'|translate}}</label>
-                                        <md-select name="selectTransportLine" ng-model="vm.entrada.linea_transporte" required="" md-no-asterisk="">
-                                            <md-option ng-repeat="linea in vm.lineasTransporte" value="{{linea.id}}">{{linea.razon_social}}</md-option>
+                                        <md-select name="selectTransportLine" ng-model="vm.entrada.linea_transporte"
+                                                   required="" md-no-asterisk="">
+                                            <md-option ng-repeat="linea in vm.lineasTransporte" value="{{linea.id}}">
+                                                {{linea.razon_social}}
+                                            </md-option>
                                         </md-select>
                                         <div ng-messages="entradaForm.selectTransportLine.$error">
                                             <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
@@ -90,22 +120,29 @@
                                             class="md-block"
                                             ng-if="vm.selectedEntrada ==='Nuevos' || vm.selectedEntrada === 'Garantías'">
                                         <label>{{'INPUT.Transport.Kind'|translate}}</label>
-                                        <md-select name="selectTransportKind" ng-model="vm.entrada.tipo_transporte" required="" md-no-asterisk="">
-                                            <md-option ng-repeat="tipo in vm.tiposTransporte" value="{{tipo.id}}">{{tipo.descripcion}}</md-option>
+                                        <md-select name="selectTransportKind" ng-model="vm.entrada.tipo_transporte"
+                                                   required="" md-no-asterisk="">
+                                            <md-option ng-repeat="tipo in vm.tiposTransporte" value="{{tipo.id}}">
+                                                {{tipo.descripcion}}
+                                            </md-option>
                                         </md-select>
                                         <div ng-messages="entradaForm.selectTransportKind.$error">
                                             <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
                                         </div>
                                     </md-input-container>
                                 </div>
-                                <div layout-gt-xs="row" layout="column" layout-align-gt-xs="center center" layout-align="center stretch">
+                                <div layout-gt-xs="row" layout="column" layout-align-gt-xs="center center"
+                                     layout-align="center stretch">
                                     <md-input-container
                                             flex="100"
                                             class="md-block"
                                             ng-if="vm.selectedEntrada ==='Nuevos' || vm.selectedEntrada === 'Garantías'">
                                         <label>{{'INPUT.Subsidiary'|translate}}</label>
-                                        <md-select name="selectSubsidiary" ng-model="vm.entrada.sucursal" required="" md-no-asterisk="">
-                                            <md-option ng-repeat="sucursal in vm.Sucursales" value="{{sucursal.id}}">{{sucursal.nombre}}</md-option>
+                                        <md-select name="selectSubsidiary" ng-model="vm.entrada.sucursal" required=""
+                                                   md-no-asterisk="">
+                                            <md-option ng-repeat="sucursal in vm.Sucursales" value="{{sucursal.id}}">
+                                                {{sucursal.nombre}}
+                                            </md-option>
                                         </md-select>
                                         <div ng-messages="entradaForm.selectSubsidiary.$error">
                                             <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
@@ -116,8 +153,11 @@
                                             class="md-block"
                                             ng-if="vm.selectedEntrada ==='Nuevos'">
                                         <label>{{'INPUT.Project'|translate}}</label>
-                                        <md-select name="selectProject" ng-model="vm.entrada.proyecto" required="" md-no-asterisk="">
-                                            <md-option ng-repeat="proyecto in vm.Proyectos" value="{{proyecto.id}}">{{proyecto.descripcion}}</md-option>
+                                        <md-select name="selectProject" ng-model="vm.entrada.proyecto" required=""
+                                                   md-no-asterisk="">
+                                            <md-option ng-repeat="proyecto in vm.Proyectos" value="{{proyecto.id}}">
+                                                {{proyecto.descripcion}}
+                                            </md-option>
                                         </md-select>
                                         <div ng-messages="entradaForm.selectProject.$error">
                                             <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
@@ -139,7 +179,8 @@
                                             ngf-select="vm.selectionImage($file)"
                                             accept="image/*"
                                             ngf-max-size="1MB"
-                                            class="md-primary md-raised">{{'INPUT.Choose Image'|translate}}</md-button>
+                                            class="md-primary md-raised">{{'INPUT.Choose Image'|translate}}
+                                    </md-button>
                                 </div>
                             </div>
                             <div flex="80">
@@ -150,24 +191,33 @@
                             <div layout="row"
                                  layout-align="end center"
                                  ng-if="vm.selectedEntrada ==='Nuevos' || vm.selectedEntrada === 'Garantías'">
-                                <md-button ng-click="vm.nextTab()" ng-disabled="entradaForm.$invalid" class="md-raised md-primary">{{'INPUT.Next'|translate}}</md-button>
+                                <md-button ng-click="vm.nextTab()" ng-disabled="entradaForm.$invalid"
+                                           class="md-raised md-primary">{{'INPUT.Next'|translate}}
+                                </md-button>
                             </div>
                         </md-content>
                     </md-tab>
                     <!--Registro de cabinets-->
-                    <md-tab label = {{'INPUT.Tabs.CabinetsUpload'|translate}} ng-disabled="entradaForm.$invalid">
+                    <!--ng-disabled="entradaForm.$invalid"-->
+                    <md-tab label={{'INPUT.Tabs.CabinetsUpload'|translate}} ng-disabled="entradaForm.$invalid">
                         <md-content layout-padding="">
-                            <div layout-gt-xs="row" layout="column" layout-align-gt-xs="space-around center" layout-align="center stretch">
-                                <md-button ng-click="vm.showMassiveUpload()" class="md-raised md-primary">{{'INPUT.Cabinets Massive Upload'|translate}}</md-button>
-                                <md-button ng-click="vm.showManualUpload()" class="md-raised md-primary">{{'INPUT.Cabinets Manual Upload'|translate}}</md-button>
+                            <div layout-gt-xs="row" layout="column" layout-align-gt-xs="space-around center"
+                                 layout-align="center stretch">
+                                <md-button ng-click="vm.showMassiveUpload()" class="md-raised md-primary">
+                                    {{'INPUT.Cabinets Massive Upload'|translate}}
+                                </md-button>
+                                <md-button ng-click="vm.showManualUpload()" class="md-raised md-primary">
+                                    {{'INPUT.Cabinets Manual Upload'|translate}}
+                                </md-button>
                             </div>
                             <div layout="column" ng-hide="vm.hideMassiveUpload">
                                 <!-- Massive Upload-->
                                 <div layout-gt-xs="row" layout="column" flex="100" ng-hide="vm.hideMassiveUpload">
-                                    <md-input-container flex-gt-xs="75" flex="100">
-                                        <input name="FileName" type="text" ng-model="vm.entrada.file.name" ng-disabled="true"/>
+                                    <md-input-container flex-gt-sm="75" flex-gt-xs="50" flex="100">
+                                        <input name="FileName" type="text" ng-model="vm.entrada.file.name"
+                                               ng-disabled="true"/>
                                     </md-input-container>
-                                    <div flex-gt-xs="25" flex="100" layout="column">
+                                    <div flex-gt-sm="13" flex-gt-xs="25" flex="100" layout="column">
                                         <md-button ngf-select="vm.selectionFile($file)"
                                                    accept=".xlsx, application/vnd.ms-excel"
                                                    ngf-max-size="5MB"
@@ -176,14 +226,65 @@
                                             {{'INPUT.Choose File'|translate}}
                                         </md-button>
                                     </div>
+                                    <div flex-gt-sm="12" flex-gt-xs="25" flex="100" layout="column">
+                                        <md-button class="md-raised" ng-href="https://goo.gl/4tNU0d" target="_blank">
+                                            {{'INPUT.Format'|translate}}
+                                        </md-button>
+                                    </div>
                                 </div>
-                                <div ng-if="vm.entrada.no_creados.lenght > 0"
+                                <div ng-if="vm.entrada.no_creados.length > 0"
                                      layout-gt-xs="row"
                                      layout-align-gt-xs="space-around center"
                                      layout-align="space-around stretch"
                                      layout="column">
-                                    <md-button class="md-raised md-primary" ng-click="vm.showMarcaDialog(ev)">{{'INPUT.Create Brand'|translate}}</md-button>
-                                    <md-button class="md-raised md-primary" ng-click="vm.showModeloDialog(ev)">{{'INPUT.Create Model'|translate}}</md-button>
+                                    <div layout="column" layout-gt-sm="row" layout-align="center center" layout-align-gt-sm="space-around center">
+                                        <md-button class="md-raised md-primary" ng-click="vm.showMarcaDialog(ev)" flex="flex" flex-gt-sm="100">
+                                            {{'INPUT.Create Brand'|translate}}
+                                        </md-button>
+                                        <md-button class="md-raised md-primary" ng-click="vm.showModeloDialog(ev)" flex="flex" flex-gt-sm="100">
+                                            {{'INPUT.Create Model'|translate}}
+                                        </md-button>
+                                    </div>
+                                    <div layout="column">
+                                        <p>{{'INPUT.Unregistered Cabinets'|translate}}</p>
+                                        <md-virtual-repeat-container flex="100" layout-fill
+                                                                     ng-style='{"height":"250px"}'>
+                                            <md-list>
+                                                <md-list-item ng-repeat="cabinet in vm.entrada.no_creados">
+                                                    <div layout="row" flex="100">
+                                                        <strong>{{cabinet.economico}}</strong>
+                                                        <p>{{cabinet.motivo}}</p>
+                                                    </div>
+                                                    <md-divider></md-divider>
+                                                </md-list-item>
+                                            </md-list>
+                                        </md-virtual-repeat-container>
+                                    </div>
+                                </div>
+                                <div flex="" layout="column" ng-if="vm.entrada.creados.length > 0">
+                                    <p>{{'INPUT.Registered Cabinets'|translate}}</p>
+                                    <md-table-container>
+                                        <table md-table="" md-row-select="" multiple="" ng-disabled="true">
+                                            <thead md-head="">
+                                            <tr md-row="">
+                                                <th md-column="">{{'INPUT.TableCabinets.Headers.EconomicNum'|translate}}
+                                                </th>
+                                                <th md-column="">{{'INPUT.TableCabinets.Headers.SerialNum'|translate}}
+                                                </th>
+                                                <th md-column="">{{'INPUT.TableCabinets.Headers.Brand'|translate}}</th>
+                                                <th md-column="">{{'INPUT.TableCabinets.Headers.Model'|translate}}</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody md-body="">
+                                            <tr md-row="" ng-repeat="registeredCabinet in vm.entrada.creados track by $index">
+                                                <td md-cell="">{{registeredCabinet.economico}}</td>
+                                                <td md-cell="">{{registeredCabinet.no_serie}}</td>
+                                                <td md-cell="">{{registeredCabinet.modelo.marca.descripcion}}</td>
+                                                <td md-cell="">{{registeredCabinet.modelo.nombre}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </md-table-container>
                                 </div>
                             </div>
                             <div layout="column" ng-hide="vm.hideManualUpload" flex="100">
@@ -193,69 +294,87 @@
                                             <label>{{'INPUT.CabinetID'|translate}}</label>
                                             <input name="CabinetInput"
                                                    type="text"
-                                                   ng-model="vm.cabinet">
+                                                   ng-model="vm.cabinetID">
                                         </md-input-container>
                                     </form>
-                                    <md-virtual-repeat-container flex="100" layout-fill ng-style='{"height":"150px"}'>
-                                        <md-list ng-disabled="true">
-                                            <md-list-item ng-repeat="cabinet in vm.cabinets">
-                                                <div layout="row" flex="100">
-                                                    <span flex="flex">{{cabinet}}</span>
-                                                </div>
+                                </div>
+                                <div flex="" layout="column" ng-if="vm.cabinets.length > 0">
+                                    <p>{{'INPUT.Registered Cabinets'|translate}}</p>
+                                    <md-table-container>
+                                        <table md-table="" md-row-select="" multiple="" ng-disabled="true">
+                                            <thead md-head="">
+                                            <tr md-row="">
+                                                <th md-column="">{{'INPUT.TableCabinets.Headers.EconomicNum'|translate}}
+                                                </th>
+                                                <th md-column="">{{'INPUT.TableCabinets.Headers.SerialNum'|translate}}
+                                                </th>
+                                                <th md-column="">{{'INPUT.TableCabinets.Headers.Brand'|translate}}</th>
+                                                <th md-column="">{{'INPUT.TableCabinets.Headers.Model'|translate}}</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody md-body="">
+                                            <tr md-row=""
+                                                ng-repeat="registeredCabinet in vm.cabinets">
+                                                <td md-cell="">{{registeredCabinet.economico}}</td>
+                                                <td md-cell="">{{registeredCabinet.no_serie}}</td>
+                                                <td md-cell="">{{registeredCabinet.marca}}</td>
+                                                <td md-cell="">{{registeredCabinet.modelo}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </md-table-container>
+                                </div>
+                                <div flex="" layout="column" ng-if="vm.notFoundCabinets.length > 0">
+                                    <div layout="column" layout-gt-sm="row" layout-align="center center" layout-align-gt-sm="space-around center">
+                                        <md-button class="md-raised md-primary" ng-click="vm.showMarcaDialog(ev)" flex="flex" flex-gt-sm="100">
+                                            {{'INPUT.Create Brand'|translate}}
+                                        </md-button>
+                                        <md-button class="md-raised md-primary" ng-click="vm.showModeloDialog(ev)" flex="flex" flex-gt-sm="100">
+                                            {{'INPUT.Create Model'|translate}}
+                                        </md-button>
+                                    </div>
+                                    <p>{{'INPUT.Unregistered Cabinets'|translate}}</p>
+                                    <md-virtual-repeat-container flex="100" layout-fill ng-style='{"height":"250px"}'>
+                                        <md-list>
+                                            <md-list-item ng-repeat="cabinet in vm.notFoundCabinets" style="padding-right: 20px;">
+                                                <section layout="row"
+                                                     layout-align="space-between center"
+                                                     layout-fill
+                                                     md-swipe-left="vm.removeNotFoundCabinet(cabinet)"
+                                                     md-swipe-right="vm.removeNotFoundCabinet(cabinet)"
+                                                >
+                                                    <md-button ng-click="vm.showCabinetDialog(cabinet)"
+                                                               layout-fill
+
+                                                    >
+                                                        {{cabinet}}
+                                                    </md-button>
+                                                    <section layout-wrap layout-align="center center" flex="flex">
+                                                        <md-button layout-fill
+                                                                   ng-click="vm.removeNotFoundCabinet(cabinet)"
+                                                                   flex="flex"
+                                                                   class="md-no-ink">
+                                                            <md-icon md-font-icon="fa fa-times-circle"></md-icon>
+                                                        </md-button>
+                                                    </section>
+                                                </section>
                                                 <md-divider></md-divider>
                                             </md-list-item>
                                         </md-list>
                                     </md-virtual-repeat-container>
                                 </div>
                             </div>
-                            <div flex="" layout="column" ng-hide="vm.hideRegisteredCabinets">
-                                <p>{{'INPUT.Registered Cabinets'|translate}}</p>
-                                <md-table-container>
-                                    <table md-table="" md-row-select="" multiple="" ng-disabled="true">
-                                        <thead md-head="">
-                                        <tr md-row="">
-                                            <th md-column="">{{'INPUT.TableCabinets.Headers.Economic Num.'|translate}}</th>
-                                            <th md-column="">{{'INPUT.TableCabinets.Headers.Serial Num.'|translate}}</th>
-                                            <th md-column="">{{'INPUT.TableCabinets.Headers.Brand'|translate}}</th>
-                                            <th md-column="">{{'INPUT.TableCabinets.Headers.Model'|translate}}</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody md-body="">
-                                        <tr md-row="" ng-repeat="registeredCabinet in vm.entrada.creados track by $index">
-                                            <td md-cell="">{{registeredCabinet.economico}}</td>
-                                            <td md-cell="">{{registeredCabinet.no_serie}}</td>
-                                            <td md-cell="">{{registeredCabinet.modelo.marca.descripcion}}</td>
-                                            <td md-cell="">{{registeredCabinet.modelo.nombre}}</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </md-table-container>
-                            </div>
-                            <div flex="flex" layout="column" ng-hide="vm.hideUnregisteredCabinets">
-                                <p>{{'INPUT.Unregistered Cabinets'|translate}}</p>
-                                <md-table-container>
-                                    <table md-table="" md-row-select="" multiple="" ng-disabled="true">
-                                        <thead md-head="">
-                                        <tr md-row="">
-                                            <th md-column="">{{'INPUT.TableCabinets.Headers.Economic Num.'|translate}}</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody md-body="">
-                                        <tr md-row="" ng-repeat="unregisteredCabinet in vm.entrada.no_creados track by $index">
-                                            <td md-cell="">{{unregisteredCabinet}}</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </md-table-container>
-                            </div>
+
 
                             <div layout="row" layout-align="end center">
-                                <md-button ng-disabled="entradaForm.$invalid" ng-click="vm.guardar()" class="md-raised md-primary">{{'INPUT.Save'|translate}}</md-button>
+                                <md-button ng-disabled="entradaForm.$invalid" ng-click="vm.guardar()"
+                                           class="md-raised md-primary">{{'INPUT.Save'|translate}}
+                                </md-button>
                             </div>
                         </md-content>
                     </md-tab>
                 </md-tabs>
-                </md-content>
+            </md-content>
         </md-card>
     </div>
 </div>
