@@ -30,11 +30,11 @@
                     <md-icon md-font-icon="fa fa-trash"></md-icon>
 
                 </md-button>
-                <md-button ng-if="vm.etapaActual.actual_etapa.nombre===E1" class="md-raised md-primary"
+                <md-button ng-if="vm.etapaActual.actual_etapa.nombre==E1||vm.etapaActual.actual_etapa.nombre==E4" class="md-raised md-primary"
                            ng-click="vm.showPreCheckDialog(ev)">
                     <md-icon md-font-icon="fa fa-check-square"></md-icon>
                 </md-button>
-                <md-button ng-if="vm.etapaActual.actual_etapa.nombre===E2" class="md-raised md-primary"
+                <md-button ng-if="vm.etapaActual.actual_etapa.nombre==E2" class="md-raised md-primary"
                            ng-click="vm.showDiagnosticoDialog(ev)">
                     <md-icon md-font-icon="fa fa-check-square"></md-icon>
                 </md-button>

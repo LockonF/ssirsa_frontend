@@ -167,6 +167,14 @@
                                     getInsumosLote();
                                 }
                                 console.log(vm.etapaActual);
+                                console.log(vm.diagnostico);
+                                if(vm.etapaActual.actual_etapa.nombre=='E1') {
+                                    vm.diagnostico.tipo = 'entrada';
+                                }
+                                if(vm.etapaActual.actual_etapa.nombre=='E4') {
+                                    vm.diagnostico.tipo = 'salida';
+                                }
+                                console.log(vm.diagnostico);
 
 
                             }).catch(function (res) {
