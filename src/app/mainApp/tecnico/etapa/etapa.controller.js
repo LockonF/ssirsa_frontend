@@ -9,7 +9,7 @@
         .module('app.mainApp.tecnico')
         .controller('etapaController', etapaController);
 
-    function etapaController(Cabinet,Helper, Servicios, $mdDialog, $scope, Insumo, Translate, toastr) {
+    function etapaController(Cabinet, Helper, Servicios, $mdDialog, $scope, Insumo, Translate, toastr) {
         var vm = this;
         vm.activate = activate();
 
@@ -66,8 +66,8 @@
         vm.eliminarInsumo = eliminarInsumo;
         vm.showDiagnosticoDialog = showDiagnosticoDialog;
         vm.showPreCheckDialog = showPreCheckDialog;
-        vm.crearInsumo=crearInsumo;
-        vm.eliminarSinModal=eliminarSinModal;
+        vm.crearInsumo = crearInsumo;
+        vm.eliminarSinModal = eliminarSinModal;
 
 
         // Funciones
@@ -80,7 +80,7 @@
             var promise = Servicios.etapaList();
             promise.then(function (res) {
                 //vm.etapas = res;
-                vm.etapas=Helper.filterDeleted(res,true);
+                vm.etapas = Helper.filterDeleted(res, true);
                 if (_.size(vm.etapas) == 0) {
                     notifyError(1000);
                 }
@@ -110,8 +110,8 @@
             vm.dialogMessage = Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
             vm.notStepsMessage = Translate.translate('MAIN.DIALOG.NOT_STEPS');
             vm.cabinetDeleted = Translate.translate('MAIN.MSG.ERROR_DISABLED_CABINET');
-            vm.errorNotInsumos=Translate.translate('MAIN.MSG.NOT_INSUMOS');
-            vm.errorNotEtapaActual=Translate.translate('MAIN.MSG.NOT_STEPCREATED');
+            vm.errorNotInsumos = Translate.translate('MAIN.MSG.NOT_INSUMOS');
+            vm.errorNotEtapaActual = Translate.translate('MAIN.MSG.NOT_STEPCREATED');
             getEtapasList();
 
 
@@ -143,21 +143,11 @@
                                     if (vm.etapaActual.insumos === undefined) {
                                         vm.etapaActual.insumos = [];
                                     }
-                                    promise = Servicios.consultarAllInsumosCabinetEtapa(vm.etapaActual);
-                                    promise.then(function (res) {
-
-                                        vm.insumos = res;
-                                        getInsumosLote();
-                                        console.log(vm.insumos_lote.length);
-                                        if(vm.insumos_lote.length==0){
-                                            console.log("Entre a la excepcion");
-                                            notifyError(998);
-                                        }
+                                    vm.insumos = res;
+                                    getInsumosLote();
 
 
-                                    }).catch(function (res) {
-                                        notifyError(res.status);
-                                    });
+
                                     vm.insumos = vm.etapaActual.insumos;
 
                                     if ((vm.etapaActual.actual_etapa == 'EC') || (vm.etapaActual.actual_etapa == 'ED') || (vm.etapaActual.actual_etapa == 'EO')) {
@@ -168,7 +158,7 @@
                                         vm.showInsumosSection = true;
                                 }
                                 else {
-                                  
+
                                     vm.etapaActual = vm.etapa;
                                     vm.etapaActual.id = null;
                                     vm.etapaActual.actual_etapa = vm.etapa.siguiente_etapa;
@@ -186,11 +176,11 @@
                         })
                     }
                 }).catch(function (res) {
-                    notifyError(res.status);
+                    notifyError(404);
                 });
             }
             else {
-                notifyError(404);
+                notifyError(res.status);
             }
 
         }
@@ -207,8 +197,8 @@
         function eliminaNoSeleccionados() {
 
             var paraAgregar = _.where(vm.insumos_loteUsados, {agregar: true});
-            vm.etapaActual.insumos_lote=paraAgregar;
-           // console.log(paraAgregar);
+            vm.etapaActual.insumos_lote = paraAgregar;
+            // console.log(paraAgregar);
         }
 
         function buscarInsumosByCatalogo() {
@@ -248,6 +238,7 @@
         }
 
         function transformArrayCatalogoInsumos() {
+
             vm.insumosLote.forEach(function (insulote, index) {
 
 
@@ -261,15 +252,22 @@
                 vm.insumoLote = null;
                 vm.insumoLote = {};
             })
+            console.log(vm.insumos_lote.length);
+            if (vm.insumos_loteUsados.length == 0) {
+                console.log("Entre a la excepcion");
+                notifyError(998);
+            }
         }
-        function crearInsumo(){
-            if(vm.etapaActual.insumos[0].no_serie){
-            vm.etapaActual.insumos[0].cantidad=1;
-               // console.log(vm.etapaActual);
-                vm.etapaActual.validado=false;
+
+        function crearInsumo() {
+            if (vm.etapaActual.insumos[0].no_serie) {
+                vm.etapaActual.insumos[0].cantidad = 1;
+                // console.log(vm.etapaActual);
+                vm.etapaActual.validado = false;
                 vm.crearEtapaServicio();
             }
         }
+
         function showDiagnosticoDialog(ev) {
             vm.cabinetid = vm.idCabinet;
             $mdDialog.show({
@@ -351,13 +349,13 @@
                     toastr.warning(vm.notAllow, vm.errorTitle);
                     break;
                 case 444:
-                    toastr.warning(vm.notAllow,vm.errorNotEtapaActual);
+                    toastr.warning(vm.notAllow, vm.errorNotEtapaActual);
                     break;
                 case 900:
                     toastr.warning(vm.notInsumos, vm.errorMessage);
                     break;
                 case 998:
-                    toastr.warning(vm.errorMessage,vm.errorNotInsumos);
+                    toastr.warning(vm.errorMessage, vm.errorNotInsumos);
                     break;
                 case 999:
                     toastr.warning(vm.cabinetDeleted, vm.errorMessage);
@@ -452,32 +450,35 @@
 
         function eliminarEtapaServicio(ev) {
             if (vm.etapaActual != null) {
-                if(vm.etapaActual.id!=null){
+                if (vm.etapaActual.id != null) {
 
-                var confirm = $mdDialog.confirm()
-                    .title(vm.delete)
-                    .textContent(vm.confirmDelete)
-                    .ariaLabel('Lucky day')
-                    .targetEvent(ev)
-                    .ok(vm.accepted)
-                    .cancel(vm.cancelar);
-                $mdDialog.show(confirm).then(function () {
+                    var confirm = $mdDialog.confirm()
+                        .title(vm.delete)
+                        .textContent(vm.confirmDelete)
+                        .ariaLabel('Lucky day')
+                        .targetEvent(ev)
+                        .ok(vm.accepted)
+                        .cancel(vm.cancelar);
+                    $mdDialog.show(confirm).then(function () {
 
-                    var promise = Servicios.eliminarEtapaServicio(vm.etapaActual);
-                    promise.then(function (res) {
-                        vm.diagnostico = res;
-                        vm.cancel();
-                    }).catch(function (res) {
-                        notifyError(res.status);
-                    })
-                });}
-                else{
+                        var promise = Servicios.eliminarEtapaServicio(vm.etapaActual);
+                        promise.then(function (res) {
+                            vm.diagnostico = res;
+                            vm.cancel();
+                        }).catch(function (res) {
+                            notifyError(res.status);
+                        })
+                    });
+                }
+                else {
                     notifyError(444);
                 }
             }
-                
+
         }
-        function eliminarSinModal() {e
+
+        function eliminarSinModal() {
+            e
             var promise = Servicios.eliminarEtapaServicio(vm.etapaActual);
             promise.then(function (res) {
                 vm.diagnostico = res;
@@ -494,7 +495,6 @@
 
 
             if (vm.etapaActual.id == null) {
-
 
 
                 eliminaNoSeleccionados();
@@ -515,7 +515,7 @@
                 });
             }
             else {
-               // console.log(vm.insumos_loteUsados);
+                // console.log(vm.insumos_loteUsados);
                 eliminaNoSeleccionados();
                 var promise = Servicios.editarEtapaServicio(vm.etapaActual);
                 promise.then(function (res) {

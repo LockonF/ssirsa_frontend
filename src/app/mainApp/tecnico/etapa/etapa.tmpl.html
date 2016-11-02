@@ -101,9 +101,9 @@
 
                     <div ng-repeat="insu in vm.insumos_loteUsados track by $index" flex="50">
                         <div column>
-                            <div layout="row">
-                                <div flex="20">
-                                    <md-switch flex class="md-primary" ng-model="vm.insumos_loteUsados[$index].agregar"
+                            <div layout="row" layout-align="center center">
+                                <div flex="20" >
+                                    <md-switch flex  class="md-primary" ng-model="vm.insumos_loteUsados[$index].agregar"
                                                aria-label="Primary Switch">
                                     </md-switch>
                                 </div>
