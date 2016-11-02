@@ -10,6 +10,7 @@
 
     function Reportes(Restangular){
         var path= Restangular.all('report_builder').all('api');
+        var pathReport= Restangular.all('report_builder').all('report');
         return {
             getPartialReports:getPartialReports,
             getPartialReport:getPartialReport,
@@ -21,16 +22,20 @@
             saveReport:saveReport,
             createReport:createReport,
             generatePreview:generatePreview,
-            deleteReport:deleteReport
+            deleteReport:deleteReport,
+            cloneReport:cloneReport
         };
-
+        //Clona un reporte pasando el id del reporte y el nombre
+        function cloneReport(request) {
+            return pathReport.all("clone_report").all("").post(request)
+        }
         //Obtiene todos los reportes existentes con su información básica (util para listado en CRUD)
         function getPartialReports(){
-            return path.all("reports").getList().$object;
+            return path.all("reports").all("").getList().$object;
         }
         //Obtiene la información básica de un reporte en específico
         function getPartialReport(id){
-            return path.one("reports",id).customGET();
+            return path.one("reports",id).all("").customGET();
         }
         //Obtiene todos los reportes existentes con su información completa
         function getReports(){
@@ -38,7 +43,7 @@
         }
         //Obtiene la información completa de un reporte en específico (útil para ver, modificar y guardar un reporte)
         function getReport(id){
-            return path.one("report",id).customGET();
+            return path.one("report",id).all("").customGET();
         }
         //Obtiene todos los modelos base sobre los cuales se pueden hacer reportes, se usa solo al crearlo
         function getModels(){

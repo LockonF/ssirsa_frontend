@@ -1,7 +1,7 @@
 /**
  * Created by Emmanuel on 16/10/2016.
  */
-(function() {
+(function () {
     'use_strict';
 
     angular
@@ -10,91 +10,122 @@
         .filter('reportSearch', reportSearch);
     function ReportsCrudController(toastr, $mdDialog, Reportes, Translate) {
         //Variable declaration
-        var vm=this;
+        var vm = this;
         vm.isOpen = false;
-        vm.hidden=false;
-        vm.report=null;
+        vm.hidden = false;
+        vm.report = null;
 
         //Function parse
-        vm.selected=selected;
-        vm.lookup=lookup;
-        vm.querySearch=querySearch;
-        vm.selectedItemChange=selectedItemChange;
-        vm.operacion=operacion;
-        vm.remove=remove;
+        vm.selected = selected;
+        vm.lookup = lookup;
+        vm.querySearch = querySearch;
+        vm.selectedItemChange = selectedItemChange;
+        vm.createReport = createReport;
+        vm.duplicateReport = duplicateReport;
+        vm.remove = remove;
 
         //Translates
         vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
         vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
-        vm.successCreate=Translate.translate('REPORTS.MESSAGES.REPORT_CREATE_SUCCESS');
-        vm.errorCreate=Translate.translate('REPORTS.MESSAGES.REPORT_CREATE_ERROR');
-        vm.successDelete=Translate.translate('REPORTS.MESSAGES.REPORT_DELETE_SUCCESS');
-        vm.errorDelete=Translate.translate('REPORTS.MESSAGES.REPORT_DELETE_ERROR');
-        vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
-        vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
-        vm.deleteButton=Translate.translate('MAIN.BUTTONS.DELETE');
-        vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
+        vm.successCreate = Translate.translate('REPORTS.MESSAGES.REPORT_CREATE_SUCCESS');
+        vm.errorCreate = Translate.translate('REPORTS.MESSAGES.REPORT_CREATE_ERROR');
+        vm.successDelete = Translate.translate('REPORTS.MESSAGES.REPORT_DELETE_SUCCESS');
+        vm.errorDelete = Translate.translate('REPORTS.MESSAGES.REPORT_DELETE_ERROR');
+        vm.successClone = Translate.translate('REPORTS.MESSAGES.REPORT_CLONE_SUCCESS');
+        vm.errorClone = Translate.translate('REPORTS.MESSAGES.REPORT_CLONE_ERROR');
+        vm.dialogTitle = Translate.translate('MAIN.DIALOG.DELETE_TITLE');
+        vm.dialogMessage = Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
+        vm.deleteButton = Translate.translate('MAIN.BUTTONS.DELETE');
+        vm.cancelButton = Translate.translate('MAIN.BUTTONS.CANCEL');
 
         activate();
         function activate() {
-            vm.reports=Reportes.getReports();
+            vm.reports = Reportes.getPartialReports();
         }
+
         function querySearch(query) {
             return query ? lookup(query) : vm.reports;
 
         }
-        function selectedItemChange(item)
-        {
-            if (item!=null) {
-                vm.report=angular.copy(item);
 
-            }else{
+        function selectedItemChange(item) {
+            if (item != null) {
+                vm.report = angular.copy(item);
+
+            } else {
                 //cancel();
             }
         }
+
         function lookup(search_text) {
             vm.search_items = _.filter(vm.reports, function (item) {
                 return item.name.toLowerCase().indexOf(search_text.toLowerCase()) >= 0;
             });
             return vm.search_items;
         }
-        function operacion($event,id) {
-            if(id==0){
-                $mdDialog.show({
-                    controller: 'CreateReportModalController',
-                    controllerAs: 'vm',
-                    templateUrl: 'app/mainApp/reportes/manager/modal/createReport.modal.tmpl.html',
-                    fullscreen: true,
-                    clickOutsideToClose: true,
-                    focusOnOpen: true
-                }).then(function () {
-                    toastr.success(vm.successCreate,vm.successTitle);
-                }).catch(function (err) {
-                    if (err != null) {
-                        toastr.error(vm.errorCreate,vm.errorTitle);
-                    }
-                });
-            }
+
+        function duplicateReport() {
+            $mdDialog.show({
+                controller: 'CloneReportModalController',
+                controllerAs: 'vm',
+                templateUrl: 'app/mainApp/reportes/manager/modal/clone/cloneReport.modal.tmpl.html',
+                fullscreen: true,
+                clickOutsideToClose: true,
+                focusOnOpen: true,
+                locals: {
+                    reporte: vm.report
+                }
+            }).then(function () {
+                activate();
+                toastr.success(vm.successClone, vm.successTitle);
+            }).catch(function (err) {
+                if (err != null) {
+                    toastr.error(vm.errorClone, vm.errorTitle);
+                }
+            });
         }
+
+        function createReport() {
+
+            $mdDialog.show({
+                controller: 'CreateReportModalController',
+                controllerAs: 'vm',
+                templateUrl: 'app/mainApp/reportes/manager/modal/create/createReport.modal.tmpl.html',
+                fullscreen: true,
+                clickOutsideToClose: true,
+                focusOnOpen: true
+            }).then(function () {
+
+                toastr.success(vm.successCreate, vm.successTitle);
+            }).catch(function (err) {
+                if (err != null) {
+                    toastr.error(vm.errorCreate, vm.errorTitle);
+                }
+            });
+        }
+
         function selected(item) {
-            vm.selectedReport=item;
-            vm.report=angular.copy(item);
+            vm.selectedReport = item;
+            Reportes.getReport(item.id).then(function (res) {
+                vm.report = res;
+            })
         }
-        function remove(){
+
+        function remove() {
             var confirm = $mdDialog.confirm()
                 .title(vm.dialogTitle)
                 .textContent(vm.dialogMessage)
                 .ariaLabel('Confirmar eliminación')
                 .ok(vm.deleteButton)
                 .cancel(vm.cancelButton);
-            $mdDialog.show(confirm).then(function() {
-                Reportes.deleteReport(vm.report).then(function(){
-                    toastr.success(vm.successDelete,vm.successTitle);
+            $mdDialog.show(confirm).then(function () {
+                Reportes.deleteReport(vm.report).then(function () {
+                    toastr.success(vm.successDelete, vm.successTitle);
                     activate();
-                }).catch(function(){
-                    toastr.error(vm.errorDelete,vm.errorTitle);
+                }).catch(function () {
+                    toastr.error(vm.errorDelete, vm.errorTitle);
                 });
-            }, function (){
+            }, function () {
                 //Cancelled
             });
 
@@ -114,7 +145,6 @@
 
         };
     }
-
 
 
 })();

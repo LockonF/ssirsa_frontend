@@ -26,8 +26,7 @@
                 templateUrl:'app/mainApp/reportes/edicion/reportEdicion.tmpl.html',
                 controller:'reportEdicionController',
                 controllerAs:'vm'
-            })
-        ;
+            });
 
     }
 })();
