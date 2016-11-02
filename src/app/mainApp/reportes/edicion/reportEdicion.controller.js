@@ -20,6 +20,7 @@
 
         //Functions
         function activate(){
+            console.log($stateParams.id);
             vm.report=Reportes.getReport($stateParams.id);
             console.log(vm.report);
         }
