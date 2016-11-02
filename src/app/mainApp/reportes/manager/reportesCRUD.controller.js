@@ -50,8 +50,7 @@
 
         function selectedItemChange(item) {
             if (item != null) {
-                vm.report = angular.copy(item);
-
+                vm.report = Reportes.getReport(item.id);
             } else {
                 //cancel();
             }
@@ -106,9 +105,7 @@
 
         function selected(item) {
             vm.selectedReport = item;
-            Reportes.getReport(item.id).then(function (res) {
-                vm.report = res;
-            })
+            vm.report = Reportes.getReport(item.id);
         }
 
         function remove() {
