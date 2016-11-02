@@ -143,7 +143,7 @@
                                     if (vm.etapaActual.insumos === undefined) {
                                         vm.etapaActual.insumos = [];
                                     }
-                                    vm.insumos = res;
+
                                     getInsumosLote();
 
 
@@ -166,6 +166,7 @@
                                     vm.etapaActual.insumos = null;
                                     getInsumosLote();
                                 }
+                                console.log(vm.etapaActual);
 
 
                             }).catch(function (res) {
@@ -342,6 +343,9 @@
 
         function notifyError(status) {
             switch (status) {
+                case 400:
+                    toastr.warning(vm.errorMessage, vm.errorTitle);
+                    break;
                 case 404:
                     toastr.info(vm.notFoundMessage, vm.errorTitle);
                     break;

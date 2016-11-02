@@ -14,7 +14,7 @@
         </md-input-container>
         <md-input-container flex="35">
             <label translate>ETAPA_SERVICIO.ETAPA_ACTUAL</label>
-            <md-select ng-model="vm.parent.etapaActual.actual_etapa" name="select"
+            <md-select ng-model="vm.parent.etapaActual.actual_etapa.id" name="select"
                        ng-disabled="vm.parent.editable">
                 <md-option ng-repeat="etap in vm.parent.etapas" ng-value="etap.id">{{etap.nombre}} : {{etap.descripcion}}
                 </md-option>
