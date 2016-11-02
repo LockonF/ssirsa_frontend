@@ -1,0 +1,68 @@
+<div layout="column" flex="100" class="md-padding-card1" layout-padding layout-fill>
+    <md-card class="md-padding-card1" flex-gt-sm="90" flex="100" layout="column" >
+        <div layout="row" flex="" layout-align="space-around stretch">
+            <md-button aria-label="fab button" class="md-fab md-scale md-fab-top-right" ng-click="vm.clear()">
+                <md-icon md-font-icon="fa fa-plus" ng-style="{color: 'white'}">
+
+                </md-icon>
+            </md-button>
+            <h2 flex="70" flex-sm="100" flex-gt-xs="100" class="md-headline-1 text-center" translate="">
+                REPORTS.MODIFY.TITLE
+            </h2>
+            <md-button aria-label="fab button" class="md-fab md-scale md-fab-top-right" ng-click="vm.clear()">
+                <md-icon md-font-icon="fa fa-plus" ng-style="{color: 'white'}">
+
+                </md-icon>
+            </md-button>
+        </div>
+        <md-content>
+            <md-tabs layout-padding="true"
+                     md-dynamic-height="100"
+                     md-border-bottom="100"
+                     md-selected="vm.selectedTab">
+                <md-tab label={{'REPORTS.MODIFY.FIELDS'|translate}}>
+                    <md-content>
+                        <md-virtual-repeat-container flex="100" layout-fill
+                                                     ng-style='{"height":"350px"}'>
+                            <md-list>
+                                <md-list-item ng-repeat="field in vm.report.displayfield_set">
+                                    <div layout="row" flex="100">
+                                        <p>{{field.field_verbose}}</p>
+                                    </div>
+                                    <md-divider></md-divider>
+                                </md-list-item>
+                            </md-list>
+                        </md-virtual-repeat-container>
+                    </md-content>
+                </md-tab>
+                <md-tab label={{'REPORTS.MODIFY.FILTERS'|translate}}>
+                    <md-content>
+                        <md-virtual-repeat-container flex="100" layout-fill
+                                                     ng-style='{"height":"350px"}'>
+                            <md-list>
+                                <md-list-item ng-repeat="field in vm.report.filterfield_set">
+                                    <div layout="row" flex="100">
+                                        <p>{{field.field_verbose}}</p>
+                                    </div>
+                                    <md-divider></md-divider>
+                                </md-list-item>
+                            </md-list>
+                        </md-virtual-repeat-container>
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+        </md-content>
+
+        <md-actions layout="row" layout-align="space-between center">
+            <md-button ng-click="vm.clear()" md-no-ink class="md-raised md-primary" aria-label="clear">
+                {{'REPORTS.MODIFY.RETURN'|translate}}
+            </md-button>
+            <md-button ng-click="vm.update()"
+                       class="md-raised md-primary"
+                       ng-disabled="formClient.$invalid"
+                       aria-label="modify">
+                <md-icon md-font-icon="fa fa-pencil"></md-icon>
+            </md-button>
+        </md-actions>
+    </md-card>
+</div>

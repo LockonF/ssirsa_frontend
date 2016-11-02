@@ -33,7 +33,7 @@
         function create() {
             Reportes.createReport(vm.report).then(function () {
                 $mdDialog.hide();
-                $state.go('triangular.admin-default.reportModify');
+                $state.go('triangular.admin-default.reportModify',{id:2});
             }).catch(function (err) {
                 $mdDialog.cancel(err);
             });

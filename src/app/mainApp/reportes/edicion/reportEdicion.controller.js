@@ -8,15 +8,23 @@
         .module('app.mainApp.reportes')
         .controller('reportEditionController',reportEditionController);
 
-    function reportEditionController (Reportes, Translate, ReportId){
-        var vm=this;
-
+    function reportEditionController (Reportes, Translate, $stateParams){
         //Variables
+        var vm=this;
+        var reportID= $stateParams.id;
+        vm.myHeight=window.innerHeight-250;
+        vm.myStyle={"min-height":""+vm.myHeight+"px"};
+
+        activate();
 
         //Translates
 
         //Blank templates
 
         //Functions
+        function activate(){
+            vm.report=Reportes.getReport(reportID);
+            console.log(vm.report);
+        }
     }
 })();

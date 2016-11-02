@@ -48,9 +48,15 @@
             "REPORT_CREATE_SUCCESS": "Reporte creado correctamente",
             "REPORT_CREATE_ERROR": "Error al crear el reporte",
             "REPORT_DELETE_SUCCESS":"Reporte eliminado correctamente",
-            "REPORT_DELETE_ERROR":"Error al eliminar el reporte",
             "REPORT_CLONE_SUCCESS":"Reporte clonado correctamente",
-            "REPORT_CLONE_ERROR":"Error al clonar el reporte"
+            "REPORT_CLONE_ERROR":"Error al clonar el reporte",
+            "REPORT_DELETE_ERROR":"Error al eliminar el reporte"
+        },
+        "MODIFY":{
+            "TITLE":"Edición de reporte",
+            "FIELDS":"Campos",
+            "FILTERS":"Filtros",
+            "RETURN":"Volver"
         }
     }
 }
