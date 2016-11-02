@@ -12,12 +12,12 @@
                     </md-button>
                 </md-fab-trigger>
                 <md-fab-actions>
-                    <md-button aria-label="Nuevo" ng-click="vm.operacion($event,0)" class="md-fab md-raised md-mini">
+                    <md-button aria-label="Nuevo" ng-click="vm.createReport()" class="md-fab md-raised md-mini">
                         <md-icon md-font-icon="fa fa-file-o">
                             <md-tooltip md-direction="left" md-autohide="false" md-visible="vm.tooltipVisible ">{{'REPORTS.TOOLTIP.NEW'|translate }}</md-tooltip>
                         </md-icon>
                     </md-button>
-                    <md-button ng-if="vm.report.id!=null" aria-label="Duplicar" ng-click="vm.operacion($event,1)" class="md-fab md-raised md-mini">
+                    <md-button ng-if="vm.report.id!=null" aria-label="Duplicar" ng-click="vm.duplicateReport()" class="md-fab md-raised md-mini">
                         <md-icon md-font-icon="fa fa-files-o">
                             <md-tooltip md-direction="left" md-autohide="false" md-visible="vm.tooltipVisible">{{'REPORTS.TOOLTIP.CLONE'|translate }}</md-tooltip>
                         </md-icon>
