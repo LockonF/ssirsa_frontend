@@ -1,13 +1,17 @@
 <!--
 Created by Emmanuel on 03/09/2016.
 -->
-<div layout="column" flex layout-padding layout-align-gt-md="center center" layout-align="space-between stretch">
+<div layout="column"
+     flex
+     layout-padding
+     layout-align-gt-md="center center"
+     layout-align="space-between stretch">
     <md-toolbar>
         <div class="md-toolbar-tools">
             <h2>{{'INPUT.Create Model'|translate}}</h2>
         </div>
     </md-toolbar>
-    <md-dialog-content>
+    <md-content>
         <form name="modelForm" novalidate="">
             <div layout="column" layout-gt-sm="row" layout-align-gt-sm="center start" layout-align="center stretch">
                 <div layout="column">
@@ -74,7 +78,7 @@ Created by Emmanuel on 03/09/2016.
                 </div>
             </div>
         </form>
-    </md-dialog-content>
+    </md-content>
     <md-dialog-actions layout="row" layout-align="end center">
         <md-button ng-click="vm.cancel()" md-no-ink class="md-primary">
             {{'INPUT.Cancel'|translate}}
