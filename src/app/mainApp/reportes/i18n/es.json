@@ -57,6 +57,11 @@
             "FIELDS":"Campos",
             "FILTERS":"Filtros",
             "RETURN":"Volver"
+        },
+        "TAB":{
+            "PREVIEW":"Vista previa",
+            "FILTERS":"Filtros",
+            "INFORMATION":"Información"
         }
     }
 }
