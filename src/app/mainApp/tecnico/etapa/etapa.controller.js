@@ -170,6 +170,7 @@
                                 console.log(vm.diagnostico);
                                 if(vm.etapaActual.actual_etapa.nombre=='E1') {
                                     vm.diagnostico.tipo = 'entrada';
+                                    vm.etapaActual.siguiente_etapa.nombre='E2';
                                 }
                                 if(vm.etapaActual.actual_etapa.nombre=='E4') {
                                     vm.diagnostico.tipo = 'salida';

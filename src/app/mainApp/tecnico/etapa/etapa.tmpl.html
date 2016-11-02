@@ -30,11 +30,11 @@
                     <md-icon md-font-icon="fa fa-trash"></md-icon>
 
                 </md-button>
-                <md-button ng-if="vm.etapaActual.actual_etapa.nombre==E1||vm.etapaActual.actual_etapa.nombre==E4" class="md-raised md-primary"
+                <md-button ng-if="vm.etapaActual.actual_etapa.nombre=='E1'||vm.etapaActual.actual_etapa.nombre=='E4'" class="md-raised md-primary"
                            ng-click="vm.showPreCheckDialog(ev)">
                     <md-icon md-font-icon="fa fa-check-square"></md-icon>
                 </md-button>
-                <md-button ng-if="vm.etapaActual.actual_etapa.nombre==E2" class="md-raised md-primary"
+                <md-button ng-if="vm.etapaActual.actual_etapa.nombre=='E2'" class="md-raised md-primary"
                            ng-click="vm.showDiagnosticoDialog(ev)">
                     <md-icon md-font-icon="fa fa-check-square"></md-icon>
                 </md-button>
@@ -64,8 +64,8 @@
                 </div>
                 <md-input-container flex="40">
                     <label translate>ETAPA_SERVICIO.NEXT_ETAPA</label>
-                    <md-select ng-model="vm.etapaActual.siguiente_etapa.id" name="select"
-                               ng-disabled="vm.editable">
+                    <md-select ng-model="vm.etapaActual.siguiente_etapa.nombre" name="select"
+                               ng-disabled="vm.editable||vm.etapaActual.actual_etapa=='E1'">
                         <md-option ng-repeat="etap in vm.etapas" ng-value="etap.id">{{etap.nombre}} :
                             {{etap.descripcion}}
                         </md-option>
