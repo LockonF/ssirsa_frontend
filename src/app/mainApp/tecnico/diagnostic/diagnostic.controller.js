@@ -9,7 +9,7 @@
         .module('app.mainApp.tecnico')
         .controller('DiagnosticController', DiagnosticController);
 
-    function DiagnosticController(Cabinet,cabinet, OPTIONS, toastr,$scope, Translate,$mdDialog, Helper, Upload, EnvironmentConfig, OAuthToken) {
+    function DiagnosticController(Cabinet,cabinet,diagnostico ,OPTIONS, toastr,$scope, Translate,$mdDialog, Helper, Upload, EnvironmentConfig, OAuthToken) {
         var vm = this;
         vm.diagnostico = {};
         vm.cabinets = null;
@@ -39,10 +39,10 @@
                 data: vm.cabinets
             }).then(function () {
                 vm.status = 'idle';
-                cerrarDialog();
                 clear();
 
                 toastr.success(vm.successCreateMessage, vm.successTitle);
+                cerrarDialog();
             }, function (err) {
                 if(err.status==400){
                     toastr.warning(err.data[0], vm.errorTitle);
@@ -88,6 +88,7 @@
             if (cabinet!=null) {
                 vm.cabinet = cabinet;
                 vm.searchCabinet();
+                vm.diagnostico =diagnostico;
             }
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');

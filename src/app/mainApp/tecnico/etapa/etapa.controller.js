@@ -303,7 +303,8 @@
                 fullscreen: true,
 
                 locals: {
-                    cabinet: vm.idCabinet
+                    cabinet: vm.idCabinet,
+                    diagnostico:vm.diagnostico
                 }
             }).then(function (answer) {
                 //Accepted

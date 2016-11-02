@@ -43,31 +43,64 @@
 
         function guardar() {
             vm.status = 'uploading';
-            if (vm.picFile != null) {
-                vm.diagnostico.foto = vm.picFile;
-            }
-            vm.diagnostico.tipo_insumo = vm.diagnostico.isCabinet == true ? 'cabinet' : 'bicicleta';
-            vm.diagnostico.tipo = vm.diagnostico.isSalida == true ? 'salida' : 'entrada';
-            Upload.upload({
-                url: EnvironmentConfig.site.rest.api + 'diagnostico_cabinet',
-                headers: {'Authorization': OAuthToken.getAuthorizationHeader()},
-                method: 'POST',
-                data: vm.diagnostico
-            }).then(function (res) {
-                vm.status = 'idle';
-                vm.cabinet = null;
-                vm.picFile = null;
-                vm.statusReady = 0;
-                cerrarDialog();
-                clear();
+            if (diagnostico.id==null) {
+                if (vm.picFile != null) {
+                    vm.diagnostico.foto = vm.picFile;
+                }
+                vm.diagnostico.tipo_insumo = vm.diagnostico.isCabinet == true ? 'cabinet' : 'bicicleta';
+                vm.diagnostico.tipo = vm.diagnostico.isSalida == true ? 'salida' : 'entrada';
+                Upload.upload({
+                    url: EnvironmentConfig.site.rest.api + 'diagnostico_cabinet',
+                    headers: {'Authorization': OAuthToken.getAuthorizationHeader()},
+                    method: 'POST',
+                    data: vm.diagnostico
+                }).then(function (res) {
+                    vm.status = 'idle';
+                    vm.cabinet = null;
+                    vm.picFile = null;
+                    vm.statusReady = 0;
 
-                toastr.success(vm.successCreateMessage, vm.successTitle);
-                vm.diagnostico = angular.copy(diagnostico);
-            }, function (resp) {
-                console.log(resp);
-                vm.status = 'idle';
-                toastr.warning(vm.errorMessage, vm.errorTitle);
-            });
+                    clear();
+
+                    toastr.success(vm.successCreateMessage, vm.successTitle);
+                    vm.diagnostico = angular.copy(diagnostico);
+                    cerrarDialog();
+                }, function (resp) {
+                    console.log(resp);
+                    vm.status = 'idle';
+                    toastr.warning(vm.errorMessage, vm.errorTitle);
+                    cerrarDialog();
+                });
+            }
+            else{
+                if (vm.picFile != null) {
+                    vm.diagnostico.foto = vm.picFile;
+                }
+                vm.diagnostico.tipo_insumo = vm.diagnostico.isCabinet == true ? 'cabinet' : 'bicicleta';
+                vm.diagnostico.tipo = vm.diagnostico.isSalida == true ? 'salida' : 'entrada';
+                Upload.upload({
+                    url: EnvironmentConfig.site.rest.api + 'diagnostico_cabinet',
+                    headers: {'Authorization': OAuthToken.getAuthorizationHeader()},
+                    method: 'PUT',
+                    data: vm.diagnostico
+                }).then(function (res) {
+                    vm.status = 'idle';
+                    vm.cabinet = null;
+                    vm.picFile = null;
+                    vm.statusReady = 0;
+
+                    clear();
+
+                    toastr.success(vm.successCreateMessage, vm.successTitle);
+                    vm.diagnostico = angular.copy(diagnostico);
+                    cerrarDialog();
+                }, function (resp) {
+                    console.log(resp);
+                    vm.status = 'idle';
+                    toastr.warning(vm.errorMessage, vm.errorTitle);
+                    cerrarDialog();
+                });
+            }
         }
 
         function selectionFile($files) {
