@@ -31,9 +31,8 @@
 
         function create() {
             vm.report.id=reporte.id;
-            Reportes.cloneReport(vm.report).then(function (res) {
+            Reportes.cloneReport(vm.report).then(function () {
                 $mdDialog.hide();
-                $state.go('triangular.admin-default.reportModify',res.id);
             }).catch(function (err) {
                 $mdDialog.cancel(err);
             });
