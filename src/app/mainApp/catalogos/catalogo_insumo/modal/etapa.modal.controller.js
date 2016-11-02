@@ -35,8 +35,8 @@
                             });
                         }
                     });
-                    vm.etapas=Helper.filterDeleted(res,true);
                 }
+                vm.etapas=Helper.filterDeleted(res,true);
             });
         }
         function selectedItemChange(item) {
