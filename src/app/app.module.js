@@ -16,7 +16,6 @@
             'angular-oauth2',
             'toastr',
             'restangular',
-            'ui.tree',
 
             // only need one language?  if you want to turn off translations
             // comment out or remove the 'app.translate', line above
