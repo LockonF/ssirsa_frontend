@@ -8,13 +8,15 @@
         .module('app.mainApp.reportes')
         .controller('ReportesCrudController', ReportsCrudController)
         .filter('reportSearch', reportSearch);
-    function ReportsCrudController(toastr, $mdDialog, Reportes, Translate) {
+    function ReportsCrudController(toastr, OPTIONS, $mdDialog, Reportes, Translate, $state) {
         //Variable declaration
         var vm = this;
         vm.isOpen = false;
         vm.hidden = false;
         vm.report = null;
-        vm.formato="DD-MM-YYYY";
+        vm.formato = "DD-MM-YYYY";
+        vm.filterType = OPTIONS.filter;
+        vm.days = OPTIONS.days;
 
         //Function parse
         vm.selected = selected;
@@ -24,8 +26,11 @@
         vm.createReport = createReport;
         vm.duplicateReport = duplicateReport;
         vm.remove = remove;
-        vm.update=update;
-        vm.onTabPreview=onTabPreview;
+        vm.update = update;
+        vm.onTabPreview = onTabPreview;
+        vm.editReport = editReport;
+        vm.clear = clear;
+        vm.exportar=exportar;
 
         //Translates
         vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
@@ -38,6 +43,11 @@
         vm.successClone = Translate.translate('REPORTS.MESSAGES.REPORT_CLONE_SUCCESS');
         vm.errorClone = Translate.translate('REPORTS.MESSAGES.REPORT_CLONE_ERROR');
         vm.errorPreview = Translate.translate('REPORTS.MESSAGES.REPORT_PREVIEW_ERROR');
+        vm.errorExport = Translate.translate('REPORTS.MESSAGES.REPORT_EXPORT_ERROR');
+
+        vm.successTitleExport = Translate.translate('REPORTS.MESSAGES.REPORT_EXPORT_TITLE_SUCCESS');
+        vm.successExport = Translate.translate('REPORTS.MESSAGES.REPORT_EXPORT_MSG_SUCCESS');
+
         vm.dialogTitle = Translate.translate('MAIN.DIALOG.DELETE_TITLE');
         vm.dialogMessage = Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
         vm.deleteButton = Translate.translate('MAIN.BUTTONS.DELETE');
@@ -45,20 +55,25 @@
 
         activate();
         function activate() {
-            vm.reports = Reportes.getPartialReports();
+            Reportes.getPartialReports().then(function (res) {
+                vm.reports = res;
+                vm.reports = _.sortBy(vm.reports, 'name');
+            })
+
         }
 
         function querySearch(query) {
             return query ? lookup(query) : vm.reports;
 
         }
+
         function onTabPreview() {
-             Reportes.generatePreview(vm.report.id).then(function (res) {
-                 vm.preview=res;
+            Reportes.generatePreview(vm.report.id).then(function (res) {
+                vm.preview = res;
 
             }).catch(function () {
-                 toastr.warning(vm.errorPreview, vm.errorTitle);
-             });
+                toastr.warning(vm.errorPreview, vm.errorTitle);
+            });
         }
 
         function selectedItemChange(item) {
@@ -68,8 +83,33 @@
                 //cancel();
             }
         }
+        function exportar() {
+            $mdDialog.show({
+                controller: 'GenerateReportModalController',
+                controllerAs: 'vm',
+                templateUrl: 'app/mainApp/reportes/manager/modal/generate/generateReport.modal.tmpl.html',
+                fullscreen: true,
+                clickOutsideToClose: true,
+                focusOnOpen: true,
+                locals: {
+                    reporte: vm.report
+                }
+            }).then(function () {
+                toastr.success(vm.successExport, vm.successTitleExport);
+            }).catch(function (err) {
+                if (err != null) {
+                    toastr.error(vm.errorExport, vm.errorTitle);
+                }
+            });
+        }
+
+        function clear() {
+            vm.report=null;
+            vm.selectedReport =null;
+        }
+
         function update() {
-            Reportes.updateReport(vm.report ).then(function (res) {
+            Reportes.updateReport(vm.report).then(function (res) {
                 toastr.success(vm.successUpdate, vm.successTitle);
                 activate();
             }).catch(function (res) {
@@ -147,6 +187,11 @@
                 //Cancelled
             });
 
+
+        }
+
+        function editReport() {
+            $state.go('triangular.admin-default.reportModify', {id: vm.report.id});
         }
 
     }

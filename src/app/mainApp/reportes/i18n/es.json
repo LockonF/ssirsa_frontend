@@ -42,6 +42,11 @@
                 "TITLE":"Clonar reporte",
                 "NAME": "Nombre",
                 "FROM":"Reporte base"
+            },
+            "EXPORT":{
+                "TITLE":"Exportar reporte",
+                "NAME": "Nombre",
+                "FORMATS":"Formato de Salida"
             }
         },
         "MESSAGES": {
@@ -50,8 +55,11 @@
             "REPORT_CREATE_ERROR": "Error al crear el reporte",
             "REPORT_DELETE_SUCCESS":"Reporte eliminado correctamente",
             "REPORT_CLONE_SUCCESS":"Reporte clonado correctamente",
+            "REPORT_EXPORT_TITLE_SUCCESS":"Se solicito el reporte exitosamente",
+            "REPORT_EXPORT_MSG_SUCCESS":"Se enviará un correo o notificación cuando se haya generado el reporte",
             "REPORT_CLONE_ERROR":"Error al clonar el reporte",
             "REPORT_DELETE_ERROR":"Error al eliminar el reporte",
+            "REPORT_EXPORT_ERROR":"Error al exportar el reporte",
             "REPORT_PREVIEW_ERROR":"No se pudo obtener el preview para este reporte"
 
         },
@@ -59,12 +67,23 @@
             "TITLE":"Edición de reporte",
             "FIELDS":"Campos",
             "FILTERS":"Filtros",
-            "RETURN":"Volver"
+            "RETURN":"Volver",
+            "FIELD_NAME":"Nombre del campo:",
+            "FIELD_VERBOSE":"Etiqueta del campo:",
+            "FIELD_TYPE":"Tipo:"
         },
         "TAB":{
             "PREVIEW":"Vista previa",
             "FILTERS":"Filtros",
             "INFORMATION":"Información"
+        },
+        "TABLE_FILTER":{
+            "NAME":"Nombre",
+            "TYPE":"Tipo",
+            "FILTER_TYPE":"Tipo de filtro",
+            "VALUE":"Valor",
+            "EXCLUDE":"Excluir"
+
         }
     }
 }

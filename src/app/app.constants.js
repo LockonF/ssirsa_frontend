@@ -185,6 +185,39 @@
                     value:"No validada",
                     value_service:"all"
                 }
+            ],
+            filter:[
+                {id:'exact',value:"Igual"},
+                {id:'iexact',value:"Igual (Exacto)"},
+                {id:'contains',value:"Contiene"},
+                {id:'icontains',value:"Contine (Exacto)"},
+                {id:'in',value:"Lista de valores"},
+                {id:'gt',value:"Mayor que"},
+                {id:'gte',value:"Mayor igual que"},
+                {id:'lt',value:"Menor que"},
+                {id:'lte',value:"Menor igual que"},
+                {id:'startswith',value:"Comienza con"},
+                {id:'istartswith',value:"Comienza con (Exacto)"},
+                {id:'endswith',value:"Termina con"},
+                {id:'iendswith',value:"Termina con (Exacto)"},
+                {id:'range',value:"Rango"},
+                {id:'week_day',value:"Día de la semana"},
+                {id:'isnull',value:"Es vacio"},
+                {id:'max',value:"Máximo"},
+                {id:'min',value:"Mínimo"}
+            ],
+            days:[
+                {id:0,value:"Lunes"},
+                {id:1,value:"Martes"},
+                {id:2,value:"Miércoles"},
+                {id:3,value:"Jueves"},
+                {id:4,value:"Viernes"},
+                {id:5,value:"Sábado"},
+                {id:6,value:"Domingo"}
+            ],
+            formats:[
+                {value:"xlsx"},
+                {value:"csv"}
             ]
         });
 })();
