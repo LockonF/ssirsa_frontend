@@ -169,7 +169,7 @@
                                 console.log(vm.diagnostico);
                                 if (vm.etapaActual.actual_etapa.nombre == 'E1') {
                                     vm.diagnostico.tipo = 'entrada';
-                                    vm.etapaActual.siguiente_etapa.nombre = 'E2';
+                                    vm.etapaActual.siguiente_etapa.id = 2;
                                 }
                                 if (vm.etapaActual.actual_etapa.nombre == 'E4') {
                                     vm.diagnostico.tipo = 'salida';
@@ -510,12 +510,17 @@
 
 
         function crearEtapaServicio() {
+            var sigetapa, etapaactual;
             vm.etapaActual.insumos = vm.insumos;
             vm.etapaActual.diagnostico = vm.diagnostico.id;
-
+            etapaactual=vm.etapaActual.actual_etapa.id;
+            sigetapa=vm.etapaActual.siguiente_etapa.id;
+            vm.etapaActual.actual_etapa=null;
+            vm.etapaActual.siguiente_etapa=null;
+            vm.etapaActual.actual_etapa=etapaactual;
+            vm.etapaActual.siguiente_etapa=sigetapa;
 
             if (vm.etapaActual.id == null) {
-
 
                 eliminaNoSeleccionados();
 
