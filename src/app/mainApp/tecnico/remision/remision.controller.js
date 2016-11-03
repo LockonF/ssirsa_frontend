@@ -37,14 +37,20 @@
 
             $http.get('app/mainApp/tecnico/remision/formato.json').success(function (col) {
                 EntradaSalida.getRemision(vm.selectedEntradaList.id).then(function (res) {
-                    
-                    col.content[0].table.body[1][0].stack[2].text = res.oficinas_generales;//oficinas generales
-                    col.content[0].table.body[1][1].stack[2].text = res.udn.agencia + "\n" + res.udn.direccion;//Direccion UDN
-                    col.content[0].table.body[1][2].stack[2].text = res.almacen_general;//Almacen general
-                    col.content[0].table.body[2][1].stack[2].text = res.cliente==null?"No tiene":res.cliente;//Datos del cliente
-                    col.content[0].table.body[2][2].stack[2].text = moment(res.fecha, "YYYY-MM-DD").format("DD-MM-YYYY HH:mm:ss");//Fecha de envio
-                    col.content[0].table.body[2][3].stack[2].text = res.id.toString();//Remisión No.
+                    col.content[0].table.body[1][0].stack[2].text = res.udn.agencia + "\n" + res.udn.direccion;//Direccion UDN
+                    col.content[0].table.body[1][1].stack[2].text = res.sucursal.nombre+"\n "+res.sucursal.direccion;//Almacen general
+                    col.content[0].table.body[2][0].stack[2].text = res.cliente==null?"No tiene":res.cliente;//Datos del cliente
+                    col.content[0].table.body[2][1].stack[2].text = moment(res.fecha, "YYYY-MM-DD").format("DD-MM-YYYY HH:mm:ss");//Fecha de envio
+                    col.content[0].table.body[2][2].stack[2].text = res.id.toString();//Remisión No.
                     col.content[4].table.body[1][4].text = "Sello de recepción " + res.udn.agencia + "\n \n \n \n \n \n \n \n \n \n";  //add cabinets
+                    if(res.ife_chofer!=null) {
+                        col.content[8].columns[0].stack[0].image = "data:image/jpeg;base64," + res.ife_chofer;
+                    }else{
+                        col.content.splice(8, 1);
+                    }
+                    if(res.cabinets.length==0){
+                        col.content[4].table.body.splice(0, 1);
+                    }
                     res.cabinets.forEach(function (value, index) {
 
                         var arreglo = [];
@@ -56,6 +62,7 @@
                         }
                         col.content[4].table.body.splice(1, 0, arreglo);
                     });
+
                     toastr.success(vm.successRemission, vm.successTitle);
                     pdfMake.createPdf(col).download("Remision-Folio-" + vm.selectedEntradaList.id.toString() + ".pdf");
                 }).catch(function (err) {
