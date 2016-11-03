@@ -23,7 +23,8 @@
             createReport:createReport,
             generatePreview:generatePreview,
             deleteReport:deleteReport,
-            cloneReport:cloneReport
+            cloneReport:cloneReport,
+            updateReport:updateReport
         };
         //Clona un reporte pasando el id del reporte y el nombre
         function cloneReport(request) {
@@ -130,6 +131,10 @@
         //Permite borrar un reporte dado un id
         function deleteReport(object) {
             return path.one("report",object.id).all("").customDELETE("",null,{'content-type':'application/json'});
+        }
+
+        function updateReport(object) {
+            return path.one("report",object.id).all("").customPUT(object);
         }
     }
 })();
