@@ -14,6 +14,7 @@
         vm.isOpen = false;
         vm.hidden = false;
         vm.report = null;
+        vm.formato="DD-MM-YYYY";
 
         //Function parse
         vm.selected = selected;
@@ -23,17 +24,21 @@
         vm.createReport = createReport;
         vm.duplicateReport = duplicateReport;
         vm.remove = remove;
+        vm.update=update;
+        vm.onTabPreview=onTabPreview;
         vm.editReport=editReport;
 
         //Translates
         vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
         vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
         vm.successCreate = Translate.translate('REPORTS.MESSAGES.REPORT_CREATE_SUCCESS');
+        vm.successUpdate = Translate.translate('REPORTS.MESSAGES.REPORT_UPDATE_SUCCESS');
         vm.errorCreate = Translate.translate('REPORTS.MESSAGES.REPORT_CREATE_ERROR');
         vm.successDelete = Translate.translate('REPORTS.MESSAGES.REPORT_DELETE_SUCCESS');
         vm.errorDelete = Translate.translate('REPORTS.MESSAGES.REPORT_DELETE_ERROR');
         vm.successClone = Translate.translate('REPORTS.MESSAGES.REPORT_CLONE_SUCCESS');
         vm.errorClone = Translate.translate('REPORTS.MESSAGES.REPORT_CLONE_ERROR');
+        vm.errorPreview = Translate.translate('REPORTS.MESSAGES.REPORT_PREVIEW_ERROR');
         vm.dialogTitle = Translate.translate('MAIN.DIALOG.DELETE_TITLE');
         vm.dialogMessage = Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
         vm.deleteButton = Translate.translate('MAIN.BUTTONS.DELETE');
@@ -48,6 +53,14 @@
             return query ? lookup(query) : vm.reports;
 
         }
+        function onTabPreview() {
+             Reportes.generatePreview(vm.report.id).then(function (res) {
+                 vm.preview=res;
+
+            }).catch(function () {
+                 toastr.warning(vm.errorPreview, vm.errorTitle);
+             });
+        }
 
         function selectedItemChange(item) {
             if (item != null) {
@@ -55,6 +68,14 @@
             } else {
                 //cancel();
             }
+        }
+        function update() {
+            Reportes.updateReport(vm.report ).then(function (res) {
+                toastr.success(vm.successUpdate, vm.successTitle);
+                activate();
+            }).catch(function (res) {
+                toastr.warning(vm.errorMessage, vm.errorTitle);
+            });
         }
 
         function lookup(search_text) {

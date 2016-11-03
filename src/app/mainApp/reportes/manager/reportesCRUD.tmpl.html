@@ -72,41 +72,91 @@
             </div>
             <!--Content div-->
             <div layout="column" flex-gt-sm="60" flex="100">
-                <h2>{{'REPORTS.FIELDS.INFORMATION'|translate}}</h2>
-                <form name="formReport" novalidate>
-                    <div layout="column" layout-gt-sm="row">
-                        <md-input-container class="md-block" flex="100" flex-gt-sm="60">
-                            <label>{{'REPORTS.FIELDS.NAME'|translate}}</label>
-                            <input name="ProjectName" type="text" required="" md-no-asterisk=""
-                                   ng-model="vm.report.name">
-                            <div ng-messages="formProject.ProjectName.$error">
-                                <div ng-message="required">{{'REPORTS.ERRORS.REQUIRED'|translate}}</div>
-                            </div>
-                        </md-input-container>
-                        <md-input-container class="md-block" flex="100" flex-gt-sm="40">
-                            <label>{{'REPORTS.FIELDS.MODIFIED'|translate}}</label>
-                            <input name="ProjectModified" type="text" required="" md-no-asterisk=""
-                                   ng-model="vm.report.modified">
-                            <div ng-messages="formProject.ProjectModified.$error">
-                                <div ng-message="required">{{'REPORTS.ERRORS.REQUIRED'|translate}}</div>
-                            </div>
-                        </md-input-container>
-                    </div>
-                    <md-input-container class="md-block" flex="100" flex-gt-sm="40">
-                        <label>{{'REPORTS.FIELDS.ROOT_MODEL'|translate}}</label>
-                        <input name="ProjectModel" type="text" required="" md-no-asterisk=""
-                               ng-model="vm.report.root_model_name">
-                        <div ng-messages="formProject.ProjectModel.$error">
-                            <div ng-message="required">{{'REPORTS.ERRORS.REQUIRED'|translate}}</div>
-                        </div>
-                    </md-input-container>
-                </form>
+                <md-tabs ng-if="vm.report.id!=null" layout-padding="true" md-dynamic-height="100" md-border-bottom="100" md-selected="vm.selectedTab">
+                    <md-tab label={{'REPORTS.TAB.INFORMATION'|translate}}>
+                        <md-content layout-padding="">
+
+                            <h2>{{'REPORTS.FIELDS.INFORMATION'|translate}}</h2>
+                            <form name="formReport" novalidate>
+                                <div layout="column" layout-gt-sm="row">
+                                    <md-input-container class="md-block" flex="100" flex-gt-sm="60">
+                                        <label>{{'REPORTS.FIELDS.NAME'|translate}}</label>
+                                        <input name="ProjectName" type="text" required="" md-no-asterisk=""
+                                               ng-model="vm.report.name">
+                                        <div ng-messages="formProject.ProjectName.$error">
+                                            <div ng-message="required">{{'REPORTS.ERRORS.REQUIRED'|translate}}</div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container class="md-block" flex="100" flex-gt-sm="40">
+                                        <label>{{'REPORTS.FIELDS.MODIFIED'|translate}}</label>
+                                        <input name="ProjectModified" type="text" required="" md-no-asterisk=""
+                                               mo-date-input="{{vm.formato}}"
+                                               disabled
+                                               ng-model="vm.report.modified">
+                                        <div ng-messages="formProject.ProjectModified.$error">
+                                            <div ng-message="required">{{'REPORTS.ERRORS.REQUIRED'|translate}}</div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                                <md-input-container class="md-block" flex="100" flex-gt-sm="40">
+                                    <label>{{'REPORTS.FIELDS.ROOT_MODEL'|translate}}</label>
+                                    <input name="ProjectModel" type="text" required="" md-no-asterisk=""
+                                           disabled
+                                           ng-model="vm.report.root_model_name">
+                                    <div ng-messages="formProject.ProjectModel.$error">
+                                        <div ng-message="required">{{'REPORTS.ERRORS.REQUIRED'|translate}}</div>
+                                    </div>
+                                </md-input-container>
+                            </form>
+                        </md-content>
+                    </md-tab>
+                    <md-tab label={{'REPORTS.TAB.FILTERS'|translate}}>
+                        <md-content layout-padding="">
+
+                        </md-content>
+
+                    </md-tab>
+                    <md-tab label={{'REPORTS.TAB.PREVIEW'|translate}} md-on-select="vm.onTabPreview()">
+                        <md-content layout-padding="">
+                            <md-virtual-repeat-container flex="100"
+                                                         layout="column"
+                                                         layout-align="center center"
+                                                         class="vr-min-height">
+                                <div id="tabla" layout-align="center center">
+                                    <div class="table-responsive-vertical shadow-z-1" layout-align="space-around center">
+                                        <!-- Table starts here -->
+                                        <table id="table" class="table table-hover table-mc-light-blue" layout-align="center center">
+                                            <thead>
+                                            <tr>
+                                                <th ng-repeat="meta in vm.preview.meta.titles">{{meta}}</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="data in vm.preview.data">
+                                                <td data-title="{{vm.preview.meta.titles[$index]}}" ng-repeat="datos in data">{{datos}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+
+                                </div>
+                            </md-virtual-repeat-container>
+                        </md-content>
+                    </md-tab>
+                </md-tabs>
             </div>
 
         </div>
         <md-actions layout="row" layout-align="end center">
             <md-button ng-click="vm.clear()" md-no-ink class="md-raised md-primary" aria-label="clear">
                 <md-icon md-font-icon="fa fa-eraser"></md-icon>
+            </md-button>
+            <md-button aria-label="fab button"
+                       ng-if="vm.report.id!=null && vm.report.id!=undefined"
+                       ng-disabled="formReport.$invalid" ng-click="vm.update()"
+                       class="md-raised md-primary">
+                <md-icon md-font-icon="fa fa-pencil"></md-icon>
             </md-button>
             <md-button ng-if="vm.report.id!=null && vm.report.id!=undefined" ng-click="vm.remove()" md-no-ink class="md-raised md-primary md-warn" aria-label="delete">
                 <md-icon md-font-icon="fa fa-trash"></md-icon>
