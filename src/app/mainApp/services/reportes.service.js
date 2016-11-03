@@ -32,7 +32,7 @@
         }
         //Obtiene todos los reportes existentes con su información básica (util para listado en CRUD)
         function getPartialReports(){
-            return path.all("reports").all("").getList().$object;
+            return path.all("reports").all("").getList();
         }
         //Obtiene la información básica de un reporte en específico
         function getPartialReport(id){

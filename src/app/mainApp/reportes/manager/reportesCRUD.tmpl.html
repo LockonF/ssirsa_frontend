@@ -32,7 +32,7 @@
 
         </div>
         <div layout-gt-sm="row" layout="column">
-            <div layout="column" layout-align="space-between stretch" flex-gt-sm="40" flex="100">
+            <div layout="column" layout-align="space-between stretch" flex-lg="35" flex-gt-lg="35" flex-xl="35" flex-gt-sm="100" flex-md="100">
                 <md-autocomplete
                     md-items="item in vm.querySearch(vm.searchParameter)"
                     md-selected-item="vm.reportSelected"
@@ -71,7 +71,7 @@
                 </md-virtual-repeat-container>
             </div>
             <!--Content div-->
-            <div layout="column" flex-gt-sm="60" flex="100">
+            <div layout="column" flex-lg="65" flex-gt-lg="65" flex-xl="65" flex-gt-sm="100" flex-md="100">
                 <md-tabs ng-if="vm.report.id!=null" layout-padding="true" md-dynamic-height="100" md-border-bottom="100" md-selected="vm.selectedTab">
                     <md-tab label={{'REPORTS.TAB.INFORMATION'|translate}}>
                         <md-content layout-padding="">
@@ -147,7 +147,7 @@
                                                          class="vr-min-height">
                                 <div class="tabla" layout-align="center center">
 
-                                    <div class="table-responsive-vertical shadow-z-1" layout-align="space-around center">
+                                    <div class="table-responsive-vertical shadow-z-1">
                                         <!-- Table starts here -->
                                         <table id="tableFiltros" class="table table-hover table-mc-light-blue" layout-align="center center">
                                             <thead>
@@ -160,8 +160,49 @@
                                             </thead>
                                             <tbody>
                                             <tr ng-repeat="data in vm.report.filterfield_set">
-                                                <td data-title="{{'REPORTS.TABLE_FILTER.NAME'|translate}}">{{data.field_verbose}}</td>
-                                                <td data-title="{{'REPORTS.TABLE_FILTER.TYPE'|translate}}">{{data.field_type}}</td>
+                                                <td data-title="{{'REPORTS.TABLE_FILTER.NAME'|translate}}"><p>{{data.field_verbose}}</p></td>
+                                                <td data-title="{{'REPORTS.TABLE_FILTER.FILTER_TYPE'|translate}}">
+
+                                                    <md-select aria-label="tipo" ng-model="data.filter_type" disabled="" layout-align="space-around start">
+                                                        <md-option ng-repeat="filtro in  vm.filterType" ng-value="filtro.id">
+                                                            {{filtro.value}}
+                                                        </md-option>
+                                                    </md-select>
+                                                </td>
+                                                <td data-title="{{'REPORTS.TABLE_FILTER.VALUE'|translate}}">
+                                                    <div aria-label="maximo" ng-if="data.filter_type=='max' || data.filter_type=='min'">
+                                                        <md-checkbox ng-model="data.filter_value"></md-checkbox>
+                                                    </div>
+                                                    <div ng-if="data.filter_type=='week_day'">
+                                                        <md-select aria-label="dia de la semana" ng-model="data.filter_value"  layout-align="space-around start">
+                                                            <md-option ng-repeat="dia in  vm.days" ng-value="dia.id">
+                                                                {{dia.value}}
+                                                            </md-option>
+                                                        </md-select>
+                                                    </div>
+                                                    <div ng-if="data.filter_type=='range'">
+                                                        <md-input-container>
+                                                            <input type="text" aria-label="Fecha start" ng-model="data.filter_value" mdp-date-picker
+                                                                   mdp-format="{{vm.formato}}"
+                                                                   mo-date-input="{{vm.formato}}" name="fecha_start"/>
+                                                        </md-input-container>
+                                                        <md-input-container>
+                                                            <input type="text" aria-label="Fecha end" ng-model="data.filter_value2" mdp-date-picker
+                                                                   mdp-format="{{vm.formato}}"
+                                                                   mo-date-input="{{vm.formato}}" name="fecha_end"/>
+                                                        </md-input-container>
+                                                    </div>
+                                                    <div ng-if="data.filter_type!='range' && data.filter_type!='week_day' && data.filter_type!='max' && data.filter_type!='min' ">
+                                                        <md-input-container>
+                                                            <input type="text" aria-label="Fecha start" ng-model="data.filter_value"
+                                                                    name="filtro"/>
+                                                        </md-input-container>
+                                                    </div>
+
+                                                </td>
+                                                <td data-title="{{'REPORTS.TABLE_FILTER.EXCLUDE'|translate}}">
+                                                    <md-checkbox aria-label="exclude" ng-model="data.exclude"></md-checkbox>
+                                                </td>
                                             </tr>
                                             </tbody>
                                         </table>

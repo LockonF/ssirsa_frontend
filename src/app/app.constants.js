@@ -205,6 +205,15 @@
                 {id:'isnull',value:"Es vacio"},
                 {id:'max',value:"Máximo"},
                 {id:'min',value:"Mínimo"}
+            ],
+            days:[
+                {id:0,value:"Lunes"},
+                {id:1,value:"Martes"},
+                {id:2,value:"Miércoles"},
+                {id:3,value:"Jueves"},
+                {id:4,value:"Viernes"},
+                {id:5,value:"Sábado"},
+                {id:6,value:"Domingo"}
             ]
         });
 })();

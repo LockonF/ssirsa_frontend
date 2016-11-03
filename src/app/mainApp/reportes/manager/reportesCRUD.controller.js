@@ -8,13 +8,15 @@
         .module('app.mainApp.reportes')
         .controller('ReportesCrudController', ReportsCrudController)
         .filter('reportSearch', reportSearch);
-    function ReportsCrudController(toastr, $mdDialog, Reportes, Translate, $state) {
+    function ReportsCrudController(toastr, OPTIONS, $mdDialog, Reportes, Translate, $state) {
         //Variable declaration
         var vm = this;
         vm.isOpen = false;
         vm.hidden = false;
         vm.report = null;
-        vm.formato="DD-MM-YYYY";
+        vm.formato = "DD-MM-YYYY";
+        vm.filterType = OPTIONS.filter;
+        vm.days=OPTIONS.days;
 
         //Function parse
         vm.selected = selected;
@@ -24,9 +26,9 @@
         vm.createReport = createReport;
         vm.duplicateReport = duplicateReport;
         vm.remove = remove;
-        vm.update=update;
-        vm.onTabPreview=onTabPreview;
-        vm.editReport=editReport;
+        vm.update = update;
+        vm.onTabPreview = onTabPreview;
+        vm.editReport = editReport;
 
         //Translates
         vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
@@ -46,20 +48,25 @@
 
         activate();
         function activate() {
-            vm.reports = Reportes.getPartialReports();
+            Reportes.getPartialReports().then(function (res) {
+                vm.reports = res;
+                vm.reports = _.sortBy(vm.reports, 'name');
+            })
+
         }
 
         function querySearch(query) {
             return query ? lookup(query) : vm.reports;
 
         }
+
         function onTabPreview() {
-             Reportes.generatePreview(vm.report.id).then(function (res) {
-                 vm.preview=res;
+            Reportes.generatePreview(vm.report.id).then(function (res) {
+                vm.preview = res;
 
             }).catch(function () {
-                 toastr.warning(vm.errorPreview, vm.errorTitle);
-             });
+                toastr.warning(vm.errorPreview, vm.errorTitle);
+            });
         }
 
         function selectedItemChange(item) {
@@ -69,8 +76,9 @@
                 //cancel();
             }
         }
+
         function update() {
-            Reportes.updateReport(vm.report ).then(function (res) {
+            Reportes.updateReport(vm.report).then(function (res) {
                 toastr.success(vm.successUpdate, vm.successTitle);
                 activate();
             }).catch(function (res) {
@@ -151,8 +159,8 @@
 
         }
 
-        function editReport(){
-            $state.go('triangular.admin-default.reportModify',{id:vm.report.id});
+        function editReport() {
+            $state.go('triangular.admin-default.reportModify', {id: vm.report.id});
         }
 
     }
@@ -169,7 +177,6 @@
 
         };
     }
-
 
 
 })();
