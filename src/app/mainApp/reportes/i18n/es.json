@@ -68,7 +68,10 @@
         },
         "TABLE_FILTER":{
             "NAME":"Nombre",
-            "TYPE":"Tipo"
+            "TYPE":"Tipo",
+            "FILTER_TYPE":"Tipo de filtro",
+            "VALUE":"Valor",
+            "EXCLUDE":"Excluir"
 
         }
     }

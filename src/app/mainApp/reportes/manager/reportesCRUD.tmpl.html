@@ -141,7 +141,35 @@
                     </md-tab>
                     <md-tab label={{'REPORTS.TAB.FILTERS'|translate}}>
                         <md-content layout-padding="">
+                            <md-virtual-repeat-container flex="100"
+                                                         layout="column"
+                                                         layout-align="center center"
+                                                         class="vr-min-height">
+                                <div class="tabla" layout-align="center center">
 
+                                    <div class="table-responsive-vertical shadow-z-1" layout-align="space-around center">
+                                        <!-- Table starts here -->
+                                        <table id="tableFiltros" class="table table-hover table-mc-light-blue" layout-align="center center">
+                                            <thead>
+                                            <tr>
+                                                <th>{{'REPORTS.TABLE_FILTER.NAME'|translate}}</th>
+                                                <th>{{'REPORTS.TABLE_FILTER.FILTER_TYPE'|translate}}</th>
+                                                <th>{{'REPORTS.TABLE_FILTER.VALUE'|translate}}</th>
+                                                <th>{{'REPORTS.TABLE_FILTER.EXCLUDE'|translate}}</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="data in vm.report.filterfield_set">
+                                                <td data-title="{{'REPORTS.TABLE_FILTER.NAME'|translate}}">{{data.field_verbose}}</td>
+                                                <td data-title="{{'REPORTS.TABLE_FILTER.TYPE'|translate}}">{{data.field_type}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+
+                                </div>
+                            </md-virtual-repeat-container>
                         </md-content>
 
                     </md-tab>
