@@ -24,7 +24,8 @@
             generatePreview:generatePreview,
             deleteReport:deleteReport,
             cloneReport:cloneReport,
-            updateReport:updateReport
+            updateReport:updateReport,
+            requestReport:requestReport
         };
         //Clona un reporte pasando el id del reporte y el nombre
         function cloneReport(request) {
@@ -32,7 +33,7 @@
         }
         //Obtiene todos los reportes existentes con su información básica (util para listado en CRUD)
         function getPartialReports(){
-            return path.all("reports").all("").getList().$object;
+            return path.all("reports").all("").getList();
         }
         //Obtiene la información básica de un reporte en específico
         function getPartialReport(id){
@@ -135,6 +136,9 @@
 
         function updateReport(object) {
             return path.one("report",object.id).all("").customPUT(object);
+        }
+        function requestReport(id,format) {
+            return path.one("report",id).one("download_file",format).all("").customGET();
         }
     }
 })();
