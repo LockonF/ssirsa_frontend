@@ -21,7 +21,7 @@
                      md-border-bottom="100"
                      md-selected="vm.selectedTab">
                 <md-tab label={{'REPORTS.MODIFY.FIELDS'|translate}}>
-                    <md-content>
+                    <!--<md-content>
                         <md-virtual-repeat-container flex="100" layout-fill
                                                      ng-style='{"height":"350px"}'>
                             <md-list>
@@ -44,6 +44,47 @@
                                 </md-list-item>
                             </md-list>
                         </md-virtual-repeat-container>
+                    </md-content>-->
+                    <md-content layout-padding="">
+                        <md-virtual-repeat-container flex="100"
+                                                     layout="column"
+                                                     layout-align="center center"
+                                                     class="vr-min-height">
+                            <div id="tabla" layout-align="center center">
+                                <div class="table-responsive-vertical shadow-z-1" layout-align="space-around center">
+                                    <!-- Table starts here -->
+                                    <table id="table" class="table table-hover table-mc-light-blue"
+                                           layout-align="center center">
+                                        <thead>
+                                        <tr>
+                                            <th ng-repeat="header in vm.tableHeaders">{{header}}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="field in vm.report.displayfield_set">
+                                            <td data-title="{{vm.tableHeaders[0]}}">
+                                                {{field.field}}
+                                            </td>
+                                            <td data-title="{{vm.tableHeaders[1]}}">
+                                                <md-input-container>
+                                                    <input name="inputFieldVerbose"
+                                                           required=""
+                                                           type="text"
+                                                           md-no-asterisk
+                                                           ng-model="field.field_verbose"
+                                                           aria-label="field verbose"
+                                                    >
+                                                </md-input-container>
+                                            </td>
+                                            <td data-title="{{vm.tableHeaders[2]}}">
+                                                {{field.field_type}}
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </md-virtual-repeat-container>
                     </md-content>
                 </md-tab>
                 <md-tab label={{'REPORTS.MODIFY.FILTERS'|translate}}>
@@ -60,6 +101,7 @@
                             </md-list>
                         </md-virtual-repeat-container>
                     </md-content>
+
                 </md-tab>
             </md-tabs>
         </md-content>

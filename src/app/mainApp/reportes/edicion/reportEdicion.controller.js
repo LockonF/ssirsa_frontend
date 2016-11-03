@@ -15,6 +15,11 @@
         activate();
 
         //Translates
+        vm.tableHeaders=[
+            Translate.translate('REPORTS.MODIFY.FIELD_NAME'),
+            Translate.translate('REPORTS.MODIFY.FIELD_VERBOSE'),
+            Translate.translate('REPORTS.MODIFY.FIELD_TYPE')
+        ];
 
         //Blank templates
 

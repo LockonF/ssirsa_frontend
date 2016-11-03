@@ -62,7 +62,7 @@
             "RETURN":"Volver",
             "FIELD_NAME":"Nombre del campo:",
             "FIELD_VERBOSE":"Etiqueta del campo:",
-            "FIELD_TYPE":"Tipo:"
+            "FIELD_TYPE":"Tipo:",
             "RETURN":"Volver"
         },
         "TAB":{
