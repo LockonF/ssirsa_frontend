@@ -1,5 +1,5 @@
 <div layout="column" flex="100" class="md-padding-card1" layout-padding layout-fill>
-    <md-card class="md-padding-card1" flex-gt-sm="90" flex="100" layout="column" >
+    <md-card class="md-padding-card1" flex-gt-sm="90" flex="100" layout="column">
         <div layout="row" flex="" layout-align="space-around stretch">
             <md-button aria-label="fab button" class="md-fab md-scale md-fab-top-right" ng-click="vm.clear()">
                 <md-icon md-font-icon="fa fa-plus" ng-style="{color: 'white'}">
@@ -26,8 +26,19 @@
                                                      ng-style='{"height":"350px"}'>
                             <md-list>
                                 <md-list-item ng-repeat="field in vm.report.displayfield_set">
-                                    <div layout="row" flex="100">
-                                        <p>{{field.field_verbose}}</p>
+                                    <div layout-gt-sm="row" layout="column" flex="100" layout-align-gt-sm="space-between center">
+                                        <div layout="column">
+                                            <strong>{{'REPORTS.MODIFY.FIELD_NAME'|translate}}</strong>
+                                            <p>{{field.field}}</p>
+                                        </div>
+                                        <div layout="column">
+                                            <strong>{{'REPORTS.MODIFY.FIELD_VERBOSE'|translate}}</strong>
+                                            <p>{{field.field_verbose}}</p>
+                                        </div>
+                                        <div layout="column">
+                                            <strong>{{'REPORTS.MODIFY.FIELD_TYPE'|translate}}</strong>
+                                            <p>{{field.field_type}}</p>
+                                        </div>
                                     </div>
                                     <md-divider></md-divider>
                                 </md-list-item>
