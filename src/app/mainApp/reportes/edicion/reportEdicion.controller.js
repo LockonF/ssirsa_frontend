@@ -15,7 +15,13 @@
         activate();
 
         //Translates
-        vm.tableHeaders=[
+        vm.tableDisplayHeaders=[
+            Translate.translate('REPORTS.MODIFY.FIELD_NAME'),
+            Translate.translate('REPORTS.MODIFY.FIELD_VERBOSE'),
+            Translate.translate('REPORTS.MODIFY.FIELD_TYPE')
+        ];
+
+        vm.tableFilterHeaders=[
             Translate.translate('REPORTS.MODIFY.FIELD_NAME'),
             Translate.translate('REPORTS.MODIFY.FIELD_VERBOSE'),
             Translate.translate('REPORTS.MODIFY.FIELD_TYPE')

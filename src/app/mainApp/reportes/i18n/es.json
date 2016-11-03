@@ -60,8 +60,8 @@
             "FIELDS":"Campos",
             "FILTERS":"Filtros",
             "RETURN":"Volver",
-            "FIELD_NAME":"Nombre del campo:",
-            "FIELD_VERBOSE":"Etiqueta del campo:",
+            "FIELD_NAME":"Campo:",
+            "FIELD_VERBOSE":"Etiqueta:",
             "FIELD_TYPE":"Tipo:",
             "RETURN":"Volver"
         },
