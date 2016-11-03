@@ -44,7 +44,7 @@
         }
 
         function responseError(response) {
-            if (response.status === 401) {
+            if (response.status === 401 && response.data.error!=='invalid_grant') {
                 var deferred = $q.defer();
                 var $http = $injector.get('$http');
                 if (!inFlightRefresh) {
