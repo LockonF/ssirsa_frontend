@@ -65,6 +65,11 @@
             "PREVIEW":"Vista previa",
             "FILTERS":"Filtros",
             "INFORMATION":"Información"
+        },
+        "TABLE_FILTER":{
+            "NAME":"Nombre",
+            "TYPE":"Tipo"
+
         }
     }
 }
