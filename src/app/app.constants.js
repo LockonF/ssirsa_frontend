@@ -214,6 +214,10 @@
                 {id:4,value:"Viernes"},
                 {id:5,value:"Sábado"},
                 {id:6,value:"Domingo"}
+            ],
+            formats:[
+                {value:"xlsx"},
+                {value:"csv"}
             ]
         });
 })();

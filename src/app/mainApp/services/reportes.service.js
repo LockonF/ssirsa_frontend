@@ -24,7 +24,8 @@
             generatePreview:generatePreview,
             deleteReport:deleteReport,
             cloneReport:cloneReport,
-            updateReport:updateReport
+            updateReport:updateReport,
+            requestReport:requestReport
         };
         //Clona un reporte pasando el id del reporte y el nombre
         function cloneReport(request) {
@@ -135,6 +136,9 @@
 
         function updateReport(object) {
             return path.one("report",object.id).all("").customPUT(object);
+        }
+        function requestReport(id,format) {
+            return path.one("report",id).one("download_file",format).all("").customGET();
         }
     }
 })();
