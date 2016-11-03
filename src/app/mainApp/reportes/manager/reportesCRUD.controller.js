@@ -8,7 +8,7 @@
         .module('app.mainApp.reportes')
         .controller('ReportesCrudController', ReportsCrudController)
         .filter('reportSearch', reportSearch);
-    function ReportsCrudController(toastr, $mdDialog, Reportes, Translate) {
+    function ReportsCrudController(toastr, $mdDialog, Reportes, Translate, $state) {
         //Variable declaration
         var vm = this;
         vm.isOpen = false;
@@ -26,6 +26,7 @@
         vm.remove = remove;
         vm.update=update;
         vm.onTabPreview=onTabPreview;
+        vm.editReport=editReport;
 
         //Translates
         vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
@@ -147,6 +148,11 @@
                 //Cancelled
             });
 
+
+        }
+
+        function editReport(){
+            $state.go('triangular.admin-default.reportModify',{id:vm.report.id});
         }
 
     }
@@ -163,6 +169,7 @@
 
         };
     }
+
 
 
 })();

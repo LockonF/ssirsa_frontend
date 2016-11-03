@@ -11,19 +11,21 @@
     function reportEditionController (Reportes, Translate, $stateParams){
         //Variables
         var vm=this;
-        var reportID= $stateParams.id;
-        vm.myHeight=window.innerHeight-250;
-        vm.myStyle={"min-height":""+vm.myHeight+"px"};
 
         activate();
 
         //Translates
+        vm.tableHeaders=[
+            Translate.translate('REPORTS.MODIFY.FIELD_NAME'),
+            Translate.translate('REPORTS.MODIFY.FIELD_VERBOSE'),
+            Translate.translate('REPORTS.MODIFY.FIELD_TYPE')
+        ];
 
         //Blank templates
 
         //Functions
         function activate(){
-            vm.report=Reportes.getReport(reportID);
+            vm.report=Reportes.getReport($stateParams.id);
             console.log(vm.report);
         }
     }
