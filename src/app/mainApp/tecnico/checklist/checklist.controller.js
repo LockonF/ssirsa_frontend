@@ -9,7 +9,7 @@
         .module('app.mainApp.tecnico')
         .controller('checklistController', checklistController);
 
-    function checklistController($mdDialog,Cabinet, $scope, ModeloCabinet,cabinet, toastr, Translate, Helper, Upload, EnvironmentConfig, OAuthToken, MarcaCabinet, CabinetEntradaSalida) {
+    function checklistController($mdDialog, Cabinet, $scope, ModeloCabinet, diagnosticoEtapa, cabinet, toastr, Translate, Helper, Upload, EnvironmentConfig, OAuthToken, MarcaCabinet, CabinetEntradaSalida) {
         var vm = this;
         vm.diagnostico = {};
         vm.cabinets = null;
@@ -18,32 +18,57 @@
         vm.guardar = guardar;
         vm.searchCabinet = searchCabinet;
         vm.selectionFile = selectionFile;
-        vm.cerrarDialog=cerrarDialog;
+        vm.cerrarDialog = cerrarDialog;
         vm.change = change;
         activate();
-        var diagnostico = {
-            tipo: 'entrada',
-            rodajas: null,
-            canastillas: null,
-            puertas: null,
-            rejillas: null,
-            sticker: false,
-            pintura: false,
-            lavado: false,
-            emplayado: false,
-            lubricacion: false,
-            listo_mercado: false,
-            fecha: moment().toISOString(),
-            tipo_insumo: 'bicicleta',
-            cabinet_entrada_salida: null
-        };
+        if (diagnosticoEtapa.id != null) {
+            var diagnostico = {
+                id: vm.diagnostico.id,
+                tipo: 'entrada',
+                rodajas: null,
+                canastillas: null,
+                puertas: null,
+                rejillas: null,
+                sticker: false,
+                pintura: false,
+                lavado: false,
+                emplayado: false,
+                lubricacion: false,
+                listo_mercado: false,
+                fecha: moment().toISOString(),
+                tipo_insumo: '',
+                cabinet_entrada_salida: null
+            };
+        }
+        else {
+            var diagnostico = {
+                tipo: 'entrada',
+                rodajas: null,
+                canastillas: null,
+                puertas: null,
+                rejillas: null,
+                sticker: false,
+                pintura: false,
+                lavado: false,
+                emplayado: false,
+                lubricacion: false,
+                listo_mercado: false,
+                fecha: moment().toISOString(),
+                tipo_insumo: '',
+                cabinet_entrada_salida: null
+            };
+            diagnostico=diagnosticoEtapa;
+            vm.diagnostico=diagnosticoEtapa;
+        }
         vm.diagnostico = angular.copy(diagnostico);
         function change() {
         }
 
         function guardar() {
             vm.status = 'uploading';
-            if (diagnostico.id==null) {
+            console.log(vm.diagnostico)
+            console.log(vm.diagnostico.id);
+            if (vm.diagnostico.id == null) {
                 if (vm.picFile != null) {
                     vm.diagnostico.foto = vm.picFile;
                 }
@@ -72,14 +97,15 @@
                     cerrarDialog();
                 });
             }
-            else{
+            else {
                 if (vm.picFile != null) {
                     vm.diagnostico.foto = vm.picFile;
                 }
                 vm.diagnostico.tipo_insumo = vm.diagnostico.isCabinet == true ? 'cabinet' : 'bicicleta';
                 vm.diagnostico.tipo = vm.diagnostico.isSalida == true ? 'salida' : 'entrada';
+                console.log(vm.diagnostico);
                 Upload.upload({
-                    url: EnvironmentConfig.site.rest.api + 'diagnostico_cabinet',
+                    url: EnvironmentConfig.site.rest.api + 'diagnostico_cabinet/' + vm.diagnostico.id,
                     headers: {'Authorization': OAuthToken.getAuthorizationHeader()},
                     method: 'PUT',
                     data: vm.diagnostico
@@ -120,16 +146,23 @@
             }
 
         }
-        function cerrarDialog(){
+
+        function cerrarDialog() {
             console.log("voy a cerrar");
             $mdDialog.cancel();
         }
 
         function activate() {
             console.log(cabinet);
-            if (cabinet!=null) {
-                vm.cabinet=cabinet;
+            if (cabinet != null) {
+                vm.cabinet = cabinet;
+                vm.diagnostico = diagnosticoEtapa;
+                console.log("Lo que le mando desde etapa de Servicio")
+                console.log(diagnosticoEtapa);
+                console.log("Lo que quedo de mi objeto");
+                console.log(vm.diagnostico);
                 vm.searchCabinet();
+
             }
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');

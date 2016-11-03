@@ -320,7 +320,7 @@
 
                 locals: {
                     cabinet: vm.idCabinet,
-                    diagnostico: vm.diagnostico
+                    diagnosticoEtapa: vm.diagnostico
                 }
             }).then(function (answer) {
                 //Accepted
@@ -499,7 +499,6 @@
         }
 
         function eliminarSinModal() {
-            e
             var promise = Servicios.eliminarEtapaServicio(vm.etapaActual);
             promise.then(function (res) {
                 vm.diagnostico = res;

@@ -90,8 +90,13 @@
             console.log(cabinet);
             if (cabinet != null) {
                 vm.cabinet = cabinet;
-                vm.searchCabinet();
                 vm.diagnostico = diagnostico;
+                console.log("Lo que le mando desde etapa de Servicio")
+                console.log(diagnostico);
+                console.log("Lo que quedo de mi objeto");
+                console.log(vm.diagnostico);
+                vm.searchCabinet();
+
             }
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
