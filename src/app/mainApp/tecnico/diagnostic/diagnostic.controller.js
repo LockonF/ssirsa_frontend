@@ -9,7 +9,7 @@
         .module('app.mainApp.tecnico')
         .controller('DiagnosticController', DiagnosticController);
 
-    function DiagnosticController(Cabinet, cabinet, diagnostico, OPTIONS, toastr, $scope, Translate, $mdDialog, Helper, Upload, EnvironmentConfig, OAuthToken) {
+    function DiagnosticController(Cabinet, cabinet, OPTIONS, toastr, $scope, Translate, $mdDialog, Helper, Upload, EnvironmentConfig, OAuthToken) {
         var vm = this;
         vm.diagnostico = {};
         vm.cabinets = null;
@@ -39,10 +39,11 @@
                 data: vm.cabinets
             }).then(function () {
                 vm.status = 'idle';
-                clear();
+
 
                 toastr.success(vm.successCreateMessage, vm.successTitle);
                 cerrarDialog();
+                clear();
             }, function (err) {
                 if (err.status == 400) {
                     toastr.warning(err.data[0], vm.errorTitle);
@@ -90,11 +91,6 @@
             console.log(cabinet);
             if (cabinet != null) {
                 vm.cabinet = cabinet;
-                vm.diagnostico = diagnostico;
-                console.log("Lo que le mando desde etapa de Servicio")
-                console.log(diagnostico);
-                console.log("Lo que quedo de mi objeto");
-                console.log(vm.diagnostico);
                 vm.searchCabinet();
 
             }
