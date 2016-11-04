@@ -62,8 +62,9 @@
         "CANCEL": "Cancelar",
         "INSUMO_NOTVALIDATED": "Etapa donde no se permite agregar Insumos",
         "INFO_ETAPA":"Información de Etapa",
-        "ADD_MICRO":"Agregar Micro motor o Compresor",
-        "SCAN":"Escanea el No de serie"
+        "ADD_MICRO":"Agregar Compresor",
+        "SCAN":"Escanea el No de serie",
+        "NO_SERIE":"No de Serie:"
 
     },
     "CABINET": {

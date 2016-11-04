@@ -26,6 +26,7 @@
         vm.catalogoInsumos = null;//array con todos los caatalogos de insumo disponibles de la etapa
         vm.catalogoSelected = {};//Elemento del tipo Catalogo de Insumo del insumo que se deseará agregar
         vm.editable = true;
+        vm.showInsumo=false;
         vm.idCabinet = null;
         vm.insumos = [];//Arreglo que poseera los Insumos que pueden ser usados en cierta etapa para md table
         vm.insumosToArray = [];
@@ -68,6 +69,8 @@
         vm.showPreCheckDialog = showPreCheckDialog;
         vm.crearInsumo = crearInsumo;
         vm.eliminarSinModal = eliminarSinModal;
+        vm.AddInsumoArray=AddInsumoArray;
+        vm.DeleteInsumoArray=DeleteInsumoArray;
 
 
         // Funciones
@@ -112,6 +115,7 @@
             vm.cabinetDeleted = Translate.translate('MAIN.MSG.ERROR_DISABLED_CABINET');
             vm.errorNotInsumos = Translate.translate('MAIN.MSG.NOT_INSUMOS');
             vm.errorNotEtapaActual = Translate.translate('MAIN.MSG.NOT_STEPCREATED');
+            vm.successAddInsumo=Translate.translate('MAIN.MSG.INSUMOADDED');
             getEtapasList();
 
 
@@ -390,6 +394,9 @@
                 case 1000:
                     toastr.warning(vm.notFoundMessage, vm.notStepsMessage);
                     break;
+                case 1001:
+                    toastr.success(vm.successCreateMessage, vm.successAddInsumo);
+                    break;
                 case 500:
                     toastr.warning(vm.errorMessage, vm.errorTitle);
                     break;
@@ -397,8 +404,19 @@
 
             }
         }
-
-
+        function AddInsumoArray(){
+            vm.showInsumo=true;
+            if (vm.etapaActual.insumos[0].no_serie!=null){
+                vm.etapaActual.insumos[0].cantidad=1;
+                console.log(vm.etapaActual.insumos[0]);
+                notifyError(1001);
+            }
+        }
+        function DeleteInsumoArray(){
+            vm.etapaActual.insumos[0].no_serie=null;
+            vm.etapaActual.insumos[0].notas=null;
+            vm.etapaActual.insumos[0].cantidad=null;
+        }
         function getInsumos() {
             var promise = Servicios.consultarInsumosEtapa(vm.diagnostico);
             promise.then(function (res) {
@@ -546,7 +564,6 @@
                 });
             }
             else {
-                // console.log(vm.insumos_loteUsados);
                 eliminaNoSeleccionados();
                 var promise = Servicios.editarEtapaServicio(vm.etapaActual);
                 promise.then(function (res) {
