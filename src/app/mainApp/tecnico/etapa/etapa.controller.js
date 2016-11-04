@@ -149,6 +149,7 @@
                                     }
                                     console.log("ya obtuve insumos Lote");
                                     getInsumosLote();
+                                    console.log(vm.diagnostico);
 
 
 
@@ -335,7 +336,12 @@
                 }
             }).then(function (answer) {
                 //Accepted
+                promise = Servicios.getDiagnosticoFromCabinet(vm.idCabinet);
+                promise.then(function (res) {
+                    vm.diagnostico = res;
+                });
                 $mdDialog.hide();
+
             }, function () {
                 //Cancelled
                 $mdDialog.cancel();
