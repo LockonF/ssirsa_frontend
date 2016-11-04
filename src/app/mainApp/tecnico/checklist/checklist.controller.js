@@ -22,7 +22,7 @@
         vm.change = change;
         activate();
         if (diagnosticoEtapa.id != null) {
-            var diagnostico =_.clone(diagnosticoEtapa);
+            var diagnostico = _.clone(diagnosticoEtapa);
         }
         else {
             var diagnostico = {
@@ -41,8 +41,8 @@
                 tipo_insumo: '',
                 cabinet_entrada_salida: null
             };
-            diagnostico=diagnosticoEtapa;
-            vm.diagnostico=diagnosticoEtapa;
+            diagnostico = diagnosticoEtapa;
+            vm.diagnostico = diagnosticoEtapa;
         }
         vm.diagnostico = angular.copy(diagnostico);
         function change() {

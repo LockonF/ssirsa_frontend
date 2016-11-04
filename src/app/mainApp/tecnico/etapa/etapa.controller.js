@@ -143,7 +143,7 @@
                                     if (vm.etapaActual.insumos === undefined) {
                                         vm.etapaActual.insumos = [];
                                     }
-
+                                    console.log("ya obtuve insumos Lote");
                                     getInsumosLote();
 
 
@@ -238,28 +238,31 @@
             var promise = Servicios.BusquedaCatalogoTypeStep(data);
             promise.then(function (res) {
                 vm.insumosLote = res;
+                console.log ("Insumos lote obtenidos");
+                console.log(vm.insumosLote);
                 transformArrayCatalogoInsumos();
             }).catch(function (res) {
                 notifyError(res.status);
             })
         }
+
         //function filter para determinar las cantidades adecuadas del catalogo insumos porq endpoint regresa los valores para todos los tipo de equipo
 
-        function filterInsumosLotebyType(tipos_equipo){
+        function filterInsumosLotebyType(tipos_equipo) {
             var elemento;
-            elemento=_.findWhere(tipos_equipo,{tipo_equipo:vm.modelo.tipo});
+            elemento = _.findWhere(tipos_equipo, {tipo_equipo: vm.modelo.tipo});
             console.log(elemento);
             return elemento;
 
         }
 
         function transformArrayCatalogoInsumos() {
-
+            var elemento;
             vm.insumosLote.forEach(function (insulote, index) {
 
-                var elemento;
+
                 vm.insumoLote.id = insulote.id;
-                elemento=filterInsumosLotebyType(tipos_equipo);
+                elemento = filterInsumosLotebyType(insulote.tipos_equipo);
                 vm.insumoLote.cantidad = elemento.cantidad;
                 vm.insumoLote.nombre = insulote.descripcion;
                 vm.insumoLote.notas = elemento.descripcion;
@@ -269,6 +272,8 @@
                 vm.insumoLote = null;
                 vm.insumoLote = {};
             })
+            console.log ("Insumos lote obtenidos en array");
+            console.log(vm.insumos_loteUsados);
             console.log(vm.insumos_lote.length);
             if (vm.insumos_loteUsados.length == 0) {
                 console.log("Entre a la excepcion");
@@ -513,12 +518,12 @@
             var sigetapa, etapaactual;
             vm.etapaActual.insumos = vm.insumos;
             vm.etapaActual.diagnostico = vm.diagnostico.id;
-            etapaactual=vm.etapaActual.actual_etapa.id;
-            sigetapa=vm.etapaActual.siguiente_etapa.id;
-            vm.etapaActual.actual_etapa=null;
-            vm.etapaActual.siguiente_etapa=null;
-            vm.etapaActual.actual_etapa=etapaactual;
-            vm.etapaActual.siguiente_etapa=sigetapa;
+            etapaactual = vm.etapaActual.actual_etapa.id;
+            sigetapa = vm.etapaActual.siguiente_etapa.id;
+            vm.etapaActual.actual_etapa = null;
+            vm.etapaActual.siguiente_etapa = null;
+            vm.etapaActual.actual_etapa = etapaactual;
+            vm.etapaActual.siguiente_etapa = sigetapa;
 
             if (vm.etapaActual.id == null) {
 

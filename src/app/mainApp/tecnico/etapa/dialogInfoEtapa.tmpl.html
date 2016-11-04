@@ -1,9 +1,9 @@
 <md-toolbar class="md-medium-tall">
     <div class="md-toolbar-tools" layout="row" layout-sm="column" layout-xs="column"
          layout-align="space-between end">
-            <h2>
-                <span translate>ETAPA_SERVICIO.INFO_ETAPA</span>
-            </h2>
+        <h2>
+            <span translate>ETAPA_SERVICIO.INFO_ETAPA</span>
+        </h2>
     </div>
 </md-toolbar>
 <md-card class="card1" flex="100" layout-fill>
@@ -16,7 +16,8 @@
             <label translate>ETAPA_SERVICIO.ETAPA_ACTUAL</label>
             <md-select ng-model="vm.parent.etapaActual.actual_etapa.id" name="select"
                        ng-disabled="vm.parent.editable">
-                <md-option ng-repeat="etap in vm.parent.etapas" ng-value="etap.id">{{etap.nombre}} : {{etap.descripcion}}
+                <md-option ng-repeat="etap in vm.parent.etapas" ng-value="etap.id">{{etap.nombre}} :
+                    {{etap.descripcion}}
                 </md-option>
             </md-select>
         </md-input-container>
