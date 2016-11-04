@@ -1,5 +1,5 @@
 <!-- Created by lockonDaniel on 9/8/16.-->
-<md-card flex="flex">
+<md-card flex="flex" class="md-padding card1" >
     <md-card-content>
         <div layout-xs="row">
             <h2 flex="flex" class="md-display-2">{{'UDN_CATALOG.title' | translate}}</h2>
@@ -32,7 +32,11 @@
                 <form name="inputForm">
                     <md-input-container class="md-block">
                         <label>{{ 'UDN_CATALOG.zone' | translate }}</label>
-                        <input type="text" name="zona" ng-model="vm.selected_udn.zona" ng-required="true"/>
+                        <md-select ng-model="vm.selected_udn.zona" name="zona" ng-required="true" >
+                            <md-option ng-repeat="udn in vm.udns" ng-value="udn.value" >
+                                {{udn.value}}
+                            </md-option>
+                        </md-select>
                         <div ng-messages="inputForm.zona.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>
