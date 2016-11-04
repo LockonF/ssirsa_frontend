@@ -22,23 +22,7 @@
         vm.change = change;
         activate();
         if (diagnosticoEtapa.id != null) {
-            var diagnostico = {
-                id: vm.diagnostico.id,
-                tipo: 'entrada',
-                rodajas: null,
-                canastillas: null,
-                puertas: null,
-                rejillas: null,
-                sticker: false,
-                pintura: false,
-                lavado: false,
-                emplayado: false,
-                lubricacion: false,
-                listo_mercado: false,
-                fecha: moment().toISOString(),
-                tipo_insumo: '',
-                cabinet_entrada_salida: null
-            };
+            var diagnostico =_.clone(diagnosticoEtapa);
         }
         else {
             var diagnostico = {
@@ -66,8 +50,6 @@
 
         function guardar() {
             vm.status = 'uploading';
-            console.log(vm.diagnostico)
-            console.log(vm.diagnostico.id);
             if (vm.diagnostico.id == null) {
                 if (vm.picFile != null) {
                     vm.diagnostico.foto = vm.picFile;
@@ -91,7 +73,6 @@
                     vm.diagnostico = angular.copy(diagnostico);
                     cerrarDialog();
                 }, function (resp) {
-                    console.log(resp);
                     vm.status = 'idle';
                     toastr.warning(vm.errorMessage, vm.errorTitle);
                     cerrarDialog();
@@ -103,7 +84,7 @@
                 }
                 vm.diagnostico.tipo_insumo = vm.diagnostico.isCabinet == true ? 'cabinet' : 'bicicleta';
                 vm.diagnostico.tipo = vm.diagnostico.isSalida == true ? 'salida' : 'entrada';
-                console.log(vm.diagnostico);
+
                 Upload.upload({
                     url: EnvironmentConfig.site.rest.api + 'diagnostico_cabinet/' + vm.diagnostico.id,
                     headers: {'Authorization': OAuthToken.getAuthorizationHeader()},
@@ -121,7 +102,7 @@
                     vm.diagnostico = angular.copy(diagnostico);
                     cerrarDialog();
                 }, function (resp) {
-                    console.log(resp);
+
                     vm.status = 'idle';
                     toastr.warning(vm.errorMessage, vm.errorTitle);
                     cerrarDialog();
@@ -148,12 +129,12 @@
         }
 
         function cerrarDialog() {
-            console.log("voy a cerrar");
+
             $mdDialog.cancel();
         }
 
         function activate() {
-            console.log(cabinet);
+
             if (cabinet != null) {
                 vm.cabinet = cabinet;
                 vm.diagnostico = diagnosticoEtapa;

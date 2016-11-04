@@ -16,7 +16,7 @@
                 </div>
             </div>
         </md-toolbar>
-        <md-card class="md-padding card1" flex="100" flex-xs="100" flex-sm="100" flex-gt-xs="100">
+        <md-card class="md-padding card1" flex="100" flex-xs="100" flex-sm="100" flex-gt-xs="100" layout-fill>
 
             <md-card-title>
                 <md-card-title-text>
@@ -84,6 +84,14 @@
                                                aria-label="Primary Switch"
                                                ng-init="switches.primary = true">
                                         {{'TECNICO.FORM.LABEL.CAPITAL'|translate}}
+                                    </md-switch>
+                                </md-input-container>
+                                <md-input-container>
+                                    <md-switch class="md-primary" ng-model="vm.cabinets.etiqueta"
+
+                                               aria-label="Primary Switch"
+                                               ng-init="switches.primary = true">
+                                        {{'TECNICO.FORM.LABEL.ETIQUETA'|translate}}
                                     </md-switch>
                                 </md-input-container>
                             </div>
