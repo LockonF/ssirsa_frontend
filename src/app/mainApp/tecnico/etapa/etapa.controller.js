@@ -151,7 +151,8 @@
                                     getInsumosLote();
 
 
-                                    vm.insumos = vm.etapaActual.insumos;
+
+                                    vm.etapaActual.validado=true;
 
                                     if ((vm.etapaActual.actual_etapa == 'EC') || (vm.etapaActual.actual_etapa == 'ED') || (vm.etapaActual.actual_etapa == 'EO')) {
 

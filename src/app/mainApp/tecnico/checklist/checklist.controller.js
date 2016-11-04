@@ -67,15 +67,16 @@
                     vm.picFile = null;
                     vm.statusReady = 0;
 
-                    clear();
+
 
                     toastr.success(vm.successCreateMessage, vm.successTitle);
-                    vm.diagnostico = angular.copy(diagnostico);
                     cerrarDialog();
+                    vm.diagnostico = angular.copy(diagnostico);
+
                 }, function (resp) {
                     vm.status = 'idle';
                     toastr.warning(vm.errorMessage, vm.errorTitle);
-                    cerrarDialog();
+
                 });
             }
             else {
@@ -95,14 +96,11 @@
                     vm.cabinet = null;
                     vm.picFile = null;
                     vm.statusReady = 0;
-
-                    clear();
-
                     toastr.success(vm.successCreateMessage, vm.successTitle);
                     vm.diagnostico = angular.copy(diagnostico);
                     cerrarDialog();
                 }, function (resp) {
-
+                    console.log(resp);
                     vm.status = 'idle';
                     toastr.warning(vm.errorMessage, vm.errorTitle);
                     cerrarDialog();
