@@ -66,7 +66,7 @@
                 <md-input-container flex="40">
                     <label translate>ETAPA_SERVICIO.NEXT_ETAPA</label>
                     <md-select ng-model="vm.etapaActual.siguiente_etapa.id" name="select"
-                               ng-disabled="vm.editable">
+                               ng-disabled="vm.editable" ng-required="vm.etapaActual.validado==true">
                         <md-option ng-repeat="etap in vm.etapas" ng-value="etap.id">{{etap.nombre}} :
                             {{etap.descripcion}}
                         </md-option>
