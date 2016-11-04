@@ -234,7 +234,7 @@
                 idEtapa: ''
             };
             data.idTipo = vm.modelo.tipo;
-            data.idEtapa = vm.etapaActual.actual_etapa;
+            data.idEtapa = vm.etapaActual.actual_etapa.id;
             console.log (data);
             var promise = Servicios.BusquedaCatalogoTypeStep(data);
             promise.then(function (res) {
