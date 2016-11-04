@@ -99,33 +99,6 @@
                             </div>
                         </md-input-container>
                         <md-input-container class="md-block">
-                            <label>{{'MODEL_CABINET.FORM.LABEL.TYPE_REFRIGERANT'|translate}}</label>
-                            <input md-no-asterisk="" required="" type="text" name="refrigerante"
-                                   ng-disabled="vm.editable"
-                                   ng-model="vm.modelo.tipo_refrigerante"/>
-                            <div ng-messages="ModelCabinetForm.refrigerante.$error">
-                                <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
-                            </div>
-                        </md-input-container>
-                        <md-input-container class="md-block">
-                            <label>{{'MODEL_CABINET.FORM.LABEL.QUANTITY'|translate}}</label>
-                            <input md-no-asterisk="" required="" type="number" name="cantidad"
-                                   ng-disabled="vm.editable"
-                                   ng-model="vm.modelo.cantidad"/>
-                            <div ng-messages="ModelCabinetForm.cantidad.$error">
-                                <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
-                            </div>
-                        </md-input-container>
-                        <md-input-container class="md-block">
-                            <label>{{'MODEL_CABINET.FORM.LABEL.COMPRESSOR_TYPE'|translate}}</label>
-                            <input md-no-asterisk="" required="" type="text" name="compresor"
-                                   ng-disabled="vm.editable"
-                                   ng-model="vm.modelo.tipo_compresor"/>
-                            <div ng-messages="ModelCabinetForm.compresor.$error">
-                                <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
-                            </div>
-                        </md-input-container>
-                        <md-input-container class="md-block">
                             <label>{{'MODEL_CABINET.FORM.LABEL.BRAND'|translate}}</label>
 
                             <md-select ng-model="vm.modelo.marca"
@@ -134,7 +107,7 @@
                                        required=""
                                        ng-disabled="vm.disabled(vm.modelo.marca,'marca')"
                             >
- 
+
                                 <md-option ng-repeat="marca in vm.marcas" ng-value="marca.id" ng-if="marca.deleted==false || marca.id==vm.modelo.marca">{{marca.descripcion}}
 
                                 </md-option>
