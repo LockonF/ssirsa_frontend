@@ -1,21 +1,21 @@
 <div layout="column" flex="100" class="md-padding-card1" layout-fill>
     <md-card class="md-padding-card1" flex-gt-sm="90" flex="100" layout="column">
         <md-toolbar layout-padding>
-        <div layout="row" flex="" layout-align="space-around stretch">
-            <md-button aria-label="fab button" class="md-fab md-scale md-fab-top-right" ng-click="vm.clear()">
-                <md-icon md-font-icon="fa fa-plus" ng-style="{color: 'white'}">
+            <div layout="row" flex="" layout-align="space-around stretch">
+                <md-button aria-label="fab button" class="md-fab md-scale md-fab-top-right" ng-click="vm.clear()">
+                    <md-icon md-font-icon="fa fa-plus" ng-style="{color: 'white'}">
 
-                </md-icon>
-            </md-button>
-            <h2 flex="70" flex-sm="100" flex-gt-xs="100" class="md-headline-1 text-center" translate="">
-                REPORTS.MODIFY.TITLE
-            </h2>
-            <md-button aria-label="fab button" class="md-fab md-scale md-fab-top-right" ng-click="vm.clear()">
-                <md-icon md-font-icon="fa fa-plus" ng-style="{color: 'white'}">
+                    </md-icon>
+                </md-button>
+                <h2 flex="70" flex-sm="100" flex-gt-xs="100" class="md-headline-1 text-center" translate="">
+                    REPORTS.MODIFY.TITLE
+                </h2>
+                <md-button aria-label="fab button" class="md-fab md-scale md-fab-top-right" ng-click="vm.clear()">
+                    <md-icon md-font-icon="fa fa-plus" ng-style="{color: 'white'}">
 
-                </md-icon>
-            </md-button>
-        </div>
+                    </md-icon>
+                </md-button>
+            </div>
             <strong>{{vm.report.name}}</strong> {{vm.report.description}}
         </md-toolbar>
         <md-content>
@@ -58,6 +58,15 @@
                                             <td data-title="{{vm.tableDisplayHeaders[2]}}">
                                                 {{field.field_type}}
                                             </td>
+                                            <td data-title="{{vm.tableDisplayHeaders[3]}}">
+                                                <md-button aria-label="fab button"
+                                                           class="md-fab md-scale md-mini"
+                                                           ng-click="vm.clear()">
+                                                    <md-icon md-font-icon="fa fa-trash" ng-style="{color: 'white'}">
+
+                                                    </md-icon>
+                                                </md-button>
+                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -68,45 +77,46 @@
                 </md-tab>
                 <md-tab label={{'REPORTS.MODIFY.FILTERS'|translate}}>
                     <md-content>
-                            <md-virtual-repeat-container flex="100"
-                                                         layout="column"
-                                                         layout-align="center center"
-                                                         class="vr-min-height">
-                                <div id="tabla" layout-align="center center">
-                                    <div class="table-responsive-vertical shadow-z-1" layout-align="space-around center">
-                                        <!-- Table starts here -->
-                                        <table id="table" class="table table-hover table-mc-light-blue"
-                                               layout-align="center center">
-                                            <thead>
-                                            <tr>
-                                                <th ng-repeat="header in vm.tableFilterHeaders">{{header}}</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr ng-repeat="field in vm.report.filterfield_set">
-                                                <td data-title="{{vm.tableFilterHeaders[0]}}">
-                                                    {{field.field}}
-                                                </td>
-                                                <td data-title="{{vm.tableFilterHeaders[1]}}">
-                                                    <md-input-container>
-                                                        <input name="inputFieldVerbose"
-                                                               required=""
-                                                               type="text"
-                                                               md-no-asterisk
-                                                               ng-model="field.field_verbose"
-                                                               aria-label="field verbose"
-                                                        >
-                                                    </md-input-container>
-                                                </td>
-                                                <td data-title="{{vm.tableFilterHeaders[2]}}">
-                                                    {{field.field_type}}
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                        <md-virtual-repeat-container flex="100"
+                                                     layout="column"
+                                                     layout-align="center center"
+                                                     class="vr-min-height">
+
+                            <div id="tabla" layout-align="center center">
+                                <div class="table-responsive-vertical shadow-z-1" layout-align="space-around center">
+                                    <table id="table" class="table table-hover table-mc-light-blue"
+                                           layout-align="center center">
+                                        <thead>
+                                        <tr>
+                                            <th ng-repeat="header in vm.tableFilterHeaders">{{header}}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="field in vm.report.filterfield_set">
+                                            <td data-title="{{vm.tableFilterHeaders[0]}}">
+                                                {{field.field}}
+                                            </td>
+                                            <td data-title="{{vm.tableFilterHeaders[1]}}">
+                                                <md-input-container>
+                                                    <input name="inputFieldVerbose"
+                                                           required=""
+                                                           type="text"
+                                                           md-no-asterisk
+                                                           ng-model="field.field_verbose"
+                                                           aria-label="field verbose"
+                                                    >
+                                                </md-input-container>
+                                            </td>
+                                            <td data-title="{{vm.tableFilterHeaders[2]}}">
+                                                {{field.field_type}}
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
-                            </md-virtual-repeat-container>
+
+                            </div>
+                        </md-virtual-repeat-container>
                     </md-content>
 
                 </md-tab>

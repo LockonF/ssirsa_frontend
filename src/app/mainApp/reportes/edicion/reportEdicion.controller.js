@@ -8,9 +8,12 @@
         .module('app.mainApp.reportes')
         .controller('reportEditionController',reportEditionController);
 
-    function reportEditionController (Reportes, Translate, $stateParams){
+    function reportEditionController (Reportes, Translate, $stateParams, OPTIONS){
         //Variables
         var vm=this;
+        vm.formato = "DD-MM-YYYY";
+        vm.filterType = OPTIONS.filter;
+        vm.days = OPTIONS.days;
 
         activate();
 
@@ -18,13 +21,15 @@
         vm.tableDisplayHeaders=[
             Translate.translate('REPORTS.MODIFY.FIELD_NAME'),
             Translate.translate('REPORTS.MODIFY.FIELD_VERBOSE'),
-            Translate.translate('REPORTS.MODIFY.FIELD_TYPE')
+            Translate.translate('REPORTS.MODIFY.FIELD_TYPE'),
+            Translate.translate('REPORTS.MODIFY.DELETE')
         ];
 
         vm.tableFilterHeaders=[
             Translate.translate('REPORTS.MODIFY.FIELD_NAME'),
             Translate.translate('REPORTS.MODIFY.FIELD_VERBOSE'),
-            Translate.translate('REPORTS.MODIFY.FIELD_TYPE')
+            Translate.translate('REPORTS.MODIFY.FIELD_TYPE'),
+            Translate.translate('REPORTS.MODIFY.DELETE')
         ];
 
         //Blank templates
