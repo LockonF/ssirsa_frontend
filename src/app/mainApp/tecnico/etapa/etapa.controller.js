@@ -235,6 +235,7 @@
             };
             data.idTipo = vm.modelo.tipo;
             data.idEtapa = vm.etapaActual.actual_etapa;
+            console.log (data);
             var promise = Servicios.BusquedaCatalogoTypeStep(data);
             promise.then(function (res) {
                 vm.insumosLote = res;
