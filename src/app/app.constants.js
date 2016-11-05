@@ -12,7 +12,8 @@
         })
         .constant('EVENTS_GENERAL', {
             notFound: 'not-found',
-            notFount_select: 'not-found-select'
+            notFount_select: 'not-found-select',
+            load_report_menu:'load-menu-report'
         })
         .constant('OPTIONS', {
             status: [
