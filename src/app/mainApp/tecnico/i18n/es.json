@@ -67,7 +67,7 @@
         "ADD_MICRO":"Agregar Compresor",
         "SCAN":"Escanea el No de serie",
         "NO_SERIE":"No de Serie:",
-        "NOTSTOCK_INSUMO":"Insumos sin Stock suficiente"
+        "NOTSTOCK_INSUMO":"Sin Stock"
 
     },
     "CABINET": {

@@ -129,10 +129,11 @@
                     <md-divider></md-divider>
                     <div ng-repeat="insu2 in vm.insumos_sinStock track by $index" flex="50">
                         <div column>
-                            <h2 translate>ETAPA_SERVICIO.NOTSTOCK_INSUMO</h2>
+
                             <div layout="row" layout-align="center center">
                                 <div flex="20">
                                     <md-icon md-font-icon="fa fa-ban"></md-icon>
+                                    <b><span style="color: #FF1B28;" translate>ETAPA_SERVICIO.NOTSTOCK_INSUMO</span></b>
                                 </div>
                                 <div layout="column" flex>
                                     <div><b translate>ETAPA_SERVICIO.INSUM </b>: {{insu2.nombre}}</div>
