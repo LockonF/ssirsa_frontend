@@ -117,8 +117,6 @@
             vm.errorNotEtapaActual = Translate.translate('MAIN.MSG.NOT_STEPCREATED');
             vm.successAddInsumo=Translate.translate('MAIN.MSG.INSUMOADDED');
             getEtapasList();
-
-
         }
 
 
@@ -155,7 +153,7 @@
 
                                     vm.etapaActual.validado=true;
 
-                                    if ((vm.etapaActual.actual_etapa == 'EC') || (vm.etapaActual.actual_etapa == 'ED') || (vm.etapaActual.actual_etapa == 'EO')) {
+                                    if ((vm.etapaActual.actual_etapa.nombre == 'EC') || (vm.etapaActual.actual_etapa.nombre == 'ED') || (vm.etapaActual.actual_etapa.nombre == 'EO')) {
 
                                         vm.showInsumosSection = false;
                                     }
@@ -322,6 +320,9 @@
 
         function showPreCheckDialog(ev) {
             vm.cabinetid = vm.idCabinet;
+            if(vm.etapaActual.actual_etapa.nombre == 'E4'){
+            vm.diagnostico.tipo='salida';
+            }
             $mdDialog.show({
                 controller: 'checklistController',
                 templateUrl: 'app/mainApp/tecnico/checklist/checklist.dialog.tmpl.html',
@@ -411,6 +412,7 @@
 
             }
         }
+        
         function AddInsumoArray(){
             vm.showInsumo=true;
             if (vm.etapaActual.insumos[0].no_serie!=null){
@@ -419,11 +421,13 @@
                 notifyError(1001);
             }
         }
+        
         function DeleteInsumoArray(){
             vm.etapaActual.insumos[0].no_serie=null;
             vm.etapaActual.insumos[0].notas=null;
             vm.etapaActual.insumos[0].cantidad=null;
         }
+        
         function getInsumos() {
             var promise = Servicios.consultarInsumosEtapa(vm.diagnostico);
             promise.then(function (res) {
@@ -526,7 +530,6 @@
                     notifyError(444);
                 }
             }
-
         }
 
         function eliminarSinModal() {
@@ -623,6 +626,7 @@
 
         }
 
+        
         function editCatalogoInsumo(insu) {
             var newCatalogoInsumo = {
                 id: null,

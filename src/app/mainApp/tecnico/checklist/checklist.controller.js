@@ -23,6 +23,7 @@
         activate();
         if (diagnosticoEtapa.id != null) {
             var diagnostico = _.clone(diagnosticoEtapa);
+
         }
         else {
             var diagnostico = {
@@ -136,12 +137,34 @@
             if (cabinet != null) {
                 vm.cabinet = cabinet;
                 vm.diagnostico = diagnosticoEtapa;
+                if(vm.diagnostico.tipo=='salida'){
+                    console.log("entre porq es de salida")
+                    vm.diagnostico.id=null;
+                    vm.diagnostico.tipo='salida';
+                    vm.diagnostico.sticker=false;
+                    vm.diagnostico.pintura=false;
+                    vm.diagnostico.lavado=false;
+                    vm.diagnostico.emplayado=false;
+                    vm.diagnostico.lubricacion=false;
+                    vm.diagnostico.listo_mercado=false;
+                    vm.diagnostico.fecha=moment().toISOString();
+                    vm.diagnostico.isSalida=true;
+
+
+                }
                 console.log("Lo que le mando desde etapa de Servicio")
                 console.log(diagnosticoEtapa);
                 console.log("Lo que quedo de mi objeto");
                 console.log(vm.diagnostico);
+                if(vm.diagnostico.tipo_insumo=='cabinet'){
+                    vm.diagnostico.isCabinet=true;
+                }
+                else{
+                    vm.diagnostico.isCabinet=false;
+                }
+                console.log("Lo que quedo de mi objeto");
+                console.log(vm.diagnostico);
                 vm.searchCabinet();
-
             }
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');

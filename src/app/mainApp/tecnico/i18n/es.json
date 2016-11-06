@@ -4,6 +4,7 @@
             "MANAGEMENT_USER": "Administración de Usuarios"
         }
     },
+
     "TECNICO": {
         "FORM": {
             "LABEL": {
@@ -40,6 +41,7 @@
             }
         }
     },
+
     "ETAPA_SERVICIO": {
         "TITLE": "Registro de Servicio",
         "ID_CABINET": "Id de Cabinet",
@@ -193,6 +195,7 @@
         "UDN": "Agencia",
         "Year Field":"Formato de año inválido"
     },
+
     "OUTPUT": {
         "FORM": {
             "PLACEHOLDER":{
@@ -254,6 +257,7 @@
             }
         }
     },
+
     "REMISSION":{
         "FORM":{
             "LABEL":{
