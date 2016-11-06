@@ -1,5 +1,6 @@
 {
   "MAIN": {
+
     "MENU": {
       "WELCOME":"Bienvenida",
       "START":"Inicio",
@@ -101,7 +102,9 @@
       "ERROR_DISABLED_CABINET":"Error este cabinet ha sido eliminado.",
       "NOT_INSUMOS":"El modelo de cabinet o carrito seleccionado no posee insumos asociados en esta etapa",
       "NOT_STEPCREATED":"No puedes eliminar esta etapa porque aún no la creas",
-      "INSUMOADDED":"El Compresor a sido agregado de forma Correcta"
+      "INSUMOADDED":"El Compresor a sido agregado de forma Correcta",
+      "MSGNOTENTRADA":"No se Puede Registrar la Etapa, Ya que no tiene una entrada regisrada o bien ya se le hizo un diagnostico de Salida",
+      "NOTTIPOEQUIPO":"Ese equipo no tiene un tipo por lo cual no se pueden cargar insumos asociados"
     },
     "BUTTONS": {
       "SUBMIT": "Enviar",
