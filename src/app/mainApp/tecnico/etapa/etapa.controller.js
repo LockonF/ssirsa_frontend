@@ -26,7 +26,7 @@
         vm.catalogoInsumos = null;//array con todos los caatalogos de insumo disponibles de la etapa
         vm.catalogoSelected = {};//Elemento del tipo Catalogo de Insumo del insumo que se deseará agregar
         vm.editable = true;
-        vm.showInsumo=false;
+        vm.showInsumo = false;
         vm.idCabinet = null;
         vm.insumos = [];//Arreglo que poseera los Insumos que pueden ser usados en cierta etapa para md table
         vm.insumosToArray = [];
@@ -46,7 +46,7 @@
         vm.insumos_lote = [];// Arreglo que posera los Insumos de Lote que serán utilizados en la etapa de servicio
         vm.insumoLote = {};
         vm.insumos_loteUsados = [];//Arreglo que ya posee el arreglo como es necesario para agregar los insumos al formato de arreglo para agregarlos a la etapa
-        vm.insumos_sinStock=[];
+        vm.insumos_sinStock = [];
         vm.dataEtapa = null;//Variable que posera los datos de la etapa para el precargado de Template (id etapa, idTipoEquipo)
         vm.etapas;//Arreglo de las diferentes etapas que componen el proceso de fabricacion de Cabinets
         //Declaracion de Funciones
@@ -70,8 +70,8 @@
         vm.showPreCheckDialog = showPreCheckDialog;
         vm.crearInsumo = crearInsumo;
         vm.eliminarSinModal = eliminarSinModal;
-        vm.AddInsumoArray=AddInsumoArray;
-        vm.DeleteInsumoArray=DeleteInsumoArray;
+        vm.AddInsumoArray = AddInsumoArray;
+        vm.DeleteInsumoArray = DeleteInsumoArray;
 
 
         // Funciones
@@ -116,10 +116,10 @@
             vm.cabinetDeleted = Translate.translate('MAIN.MSG.ERROR_DISABLED_CABINET');
             vm.errorNotInsumos = Translate.translate('MAIN.MSG.NOT_INSUMOS');
             vm.errorNotEtapaActual = Translate.translate('MAIN.MSG.NOT_STEPCREATED');
-            vm.successAddInsumo=Translate.translate('MAIN.MSG.INSUMOADDED');
+            vm.successAddInsumo = Translate.translate('MAIN.MSG.INSUMOADDED');
             vm.successDeleteMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_DELETE');
-            vm.messageNotEntrada=Translate.translate('MAIN.MSG.MSGNOTENTRADA');
-            vm.messageNotTipoEquipo=Translate.translate('MAIN.MSG.NOTTIPOEQUIPO');
+            vm.messageNotEntrada = Translate.translate('MAIN.MSG.MSGNOTENTRADA');
+            vm.messageNotTipoEquipo = Translate.translate('MAIN.MSG.NOTTIPOEQUIPO');
             getEtapasList();
         }
 
@@ -154,9 +154,7 @@
                                     getInsumosLote();
 
 
-
-
-                                    vm.etapaActual.validado=true;
+                                    vm.etapaActual.validado = true;
 
                                     if ((vm.etapaActual.actual_etapa.nombre == 'EC') || (vm.etapaActual.actual_etapa.nombre == 'ED') || (vm.etapaActual.actual_etapa.nombre == 'EO')) {
 
@@ -184,17 +182,18 @@
                                 }
 
 
-
                             }).catch(function (res) {
                                 notifyError(res.status);
                             })
                         }).catch(function (res) {
-                            notifyError(res.status);
+
                             notifyError(406);
+
                         })
                     }
                 }).catch(function (res) {
                     notifyError(404);
+                    vm.cancel();
                 });
             }
             else {
@@ -245,18 +244,18 @@
             };
             data.idTipo = vm.modelo.tipo;
             data.idEtapa = vm.etapaActual.actual_etapa.id;
-            if(data.idTipo){
+            if (data.idTipo) {
 
             }
-            else{
+            else {
 
                 notifyError(407);
             }
-            console.log (data);
+            console.log(data);
             var promise = Servicios.BusquedaCatalogoTypeStep(data);
             promise.then(function (res) {
                 vm.insumosLote = res;
-                console.log ("Insumos lote obtenidos");
+                console.log("Insumos lote obtenidos");
                 console.log(vm.insumosLote);
                 transformArrayCatalogoInsumos();
             }).catch(function (res) {
@@ -287,16 +286,16 @@
                 vm.insumoLote.nombre = insulote.descripcion;
                 vm.insumoLote.notas = elemento.descripcion;
                 vm.insumoLote.agregar = false;
-                if(insulote.cantidad>=vm.insumoLote.cantidad){
-                vm.insumos_loteUsados.push(vm.insumoLote);
+                if (insulote.cantidad >= vm.insumoLote.cantidad) {
+                    vm.insumos_loteUsados.push(vm.insumoLote);
                 }
-                else{
+                else {
                     vm.insumos_sinStock.push(vm.insumoLote);
                 }
                 vm.insumoLote = null;
                 vm.insumoLote = {};
             })
-            console.log ("Insumos lote obtenidos en array");
+            console.log("Insumos lote obtenidos en array");
             console.log(vm.insumos_loteUsados);
             console.log(vm.insumos_lote.length);
             if (vm.insumos_loteUsados.length == 0) {
@@ -338,8 +337,8 @@
 
         function showPreCheckDialog(ev) {
             vm.cabinetid = vm.idCabinet;
-            if(vm.etapaActual.actual_etapa.nombre == 'E4'){
-            vm.diagnostico.tipo='salida';
+            if (vm.etapaActual.actual_etapa.nombre == 'E4') {
+                vm.diagnostico.tipo = 'salida';
             }
             $mdDialog.show({
                 controller: 'checklistController',
@@ -401,15 +400,17 @@
                     break;
                 case 404:
                     toastr.info(vm.notFoundMessage, vm.errorTitle);
+                    cancel();
                     break;
                 case 405:
                     toastr.warning(vm.notAllow, vm.errorTitle);
                     break;
                 case 406:
-                    toastr.warning(vm.messageNotEntrada,vm.errorTitle);
+                    toastr.warning(vm.messageNotEntrada, vm.errorTitle);
+                    cancel();
                     break;
                 case 407:
-                    toastr.warning(vm.messageNotTipoEquipo,vm.errorTitle);
+                    toastr.warning(vm.messageNotTipoEquipo, vm.errorTitle);
                     break;
                 case 444:
                     toastr.warning(vm.notAllow, vm.errorNotEtapaActual);
@@ -436,22 +437,22 @@
 
             }
         }
-        
-        function AddInsumoArray(){
-            vm.showInsumo=true;
-            if (vm.etapaActual.insumos[0].no_serie!=null){
-                vm.etapaActual.insumos[0].cantidad=1;
+
+        function AddInsumoArray() {
+            vm.showInsumo = true;
+            if (vm.etapaActual.insumos[0].no_serie != null) {
+                vm.etapaActual.insumos[0].cantidad = 1;
                 console.log(vm.etapaActual.insumos[0]);
                 notifyError(1001);
             }
         }
-        
-        function DeleteInsumoArray(){
-            vm.etapaActual.insumos[0].no_serie=null;
-            vm.etapaActual.insumos[0].notas=null;
-            vm.etapaActual.insumos[0].cantidad=null;
+
+        function DeleteInsumoArray() {
+            vm.etapaActual.insumos[0].no_serie = null;
+            vm.etapaActual.insumos[0].notas = null;
+            vm.etapaActual.insumos[0].cantidad = null;
         }
-        
+
         function getInsumos() {
             var promise = Servicios.consultarInsumosEtapa(vm.diagnostico);
             promise.then(function (res) {
@@ -487,7 +488,12 @@
             vm.insumos_lote = [];// Arreglo que posera los Insumos de Lote que serán utilizados en la etapa de servicio
             vm.insumoLote = {};
             vm.insumos_loteUsados = [];//Arreglo que ya posee el arreglo como es necesario para agregar los insumos al formato de arreglo para agregarlos a la etapa
+            vm.insumos_sinStock = [];
             vm.dataEtapa = null;//Variable que posera los datos de la etapa para el precargado de Template (id etapa, idTipoEquipo)
+            $scope.Buscar.$setPristine();
+            $scope.Buscar.$setUntouched();
+            $scope.sigStep.$setPristine();
+            $scope.sigStep.$setUntouched();
 
 
         }
@@ -522,7 +528,7 @@
             vm.insumos_lote = [];// Arreglo que posera los Insumos de Lote que serán utilizados en la etapa de servicio
             vm.insumoLote = {};
             vm.insumos_loteUsados = [];//Arreglo que ya posee el arreglo como es necesario para agregar los insumos al formato de arreglo para agregarlos a la etapa
-            vm.insumos_sinStock=[];
+            vm.insumos_sinStock = [];
             vm.dataEtapa = null;//Variable que posera los datos de la etapa para el precargado de Template (id etapa, idTipoEquipo)
             $scope.Buscar.$setPristine();
             $scope.Buscar.$setUntouched();
@@ -549,7 +555,7 @@
                         var promise = Servicios.eliminarEtapaServicio(vm.etapaActual);
                         promise.then(function (res) {
                             vm.diagnostico = res;
-                            toastr.success(vm.successDeleteMessage,vm.successTitle);
+                            toastr.success(vm.successDeleteMessage, vm.successTitle);
                             vm.cancel();
                         }).catch(function (res) {
                             notifyError(res.status);
@@ -656,7 +662,7 @@
 
         }
 
-        
+
         function editCatalogoInsumo(insu) {
             var newCatalogoInsumo = {
                 id: null,
