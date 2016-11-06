@@ -16,7 +16,7 @@
 
                 </md-button>
                 <md-button class="md-raised" aria-label="Guardar"
-                           ng-disabled="vm.diagnostico.rejillas==null || sigStep.$invalid "
+                           ng-disabled="vm.diagnostico.rejillas==null || vm.diagnostico.rejillas==0 || sigStep.$invalid "
                            ng-click='vm.crearEtapaServicio()'>
                     <md-icon md-font-icon="fa fa-save"></md-icon>
 
