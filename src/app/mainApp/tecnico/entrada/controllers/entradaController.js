@@ -102,38 +102,42 @@
             vm.cabinets = [];
             vm.cabinetID = "";
             vm.notFoundCabinets = [];
-            vm.existingCabinets = Cabinet.getEconomics();
+            Cabinet.getEconomics().then(function(res){
+                vm.existingCabinets = _.pluck(res, "economico");
+            }).catch(function () {
+                toastr.error(vm.errorMessage, vm.errorTitle);
+            });
 
             vm.entrada = angular.copy(entrada);
             LineaTransporte.listObject().then(function (res) {
                 vm.lineasTransporte = Helper.filterDeleted(res, true);
                 vm.lineasTransporte = _.sortBy(vm.lineasTransporte, 'razon_social');
-            }).catch(function (err) {
+            }).catch(function () {
                 toastr.error(vm.errorMessage, vm.errorTitle);
             });
             TipoTransporte.listObject().then(function (res) {
                 vm.tiposTransporte = Helper.filterDeleted(res, true);
                 vm.tiposTransporte = _.sortBy(vm.tiposTransporte, 'descripcion');
-            }).catch(function (err) {
+            }).catch(function () {
                 toastr.error(vm.errorMessage, vm.errorTitle);
             });
             Sucursal.listObject().then(function (res) {
                 vm.Sucursales = Helper.filterDeleted(res, true);
                 vm.Sucursales = _.sortBy(vm.Sucursales, 'nombre');
-            }).catch(function (err) {
+            }).catch(function () {
                 toastr.error(vm.errorMessage, vm.errorTitle);
             });
             Proyectos.listObject().then(function (res) {
                 vm.Proyectos = Helper.filterDeleted(res, true);
                 vm.Proyectos = _.sortBy(vm.Proyectos, 'descripcion');
-            }).catch(function (err) {
+            }).catch(function () {
                 toastr.error(vm.errorMessage, vm.errorTitle);
             });
             udn.listObject().then(function (res) {
                 vm.udns = Helper.filterDeleted(res, true);
                 vm.udns = _.sortBy(vm.udns, 'agencia');
                 vm.filteredUDN = angular.copy(vm.udns);
-            }).catch(function (err) {
+            }).catch(function () {
                 toastr.error(vm.errorMessage, vm.errorTitle);
             });
         }
@@ -315,7 +319,6 @@
         function showManualUpload() {
             vm.hideManualUpload = false;
             vm.hideMassiveUpload = true;
-            vm.existingCabinets = _.pluck(vm.existingCabinets, "economico");
             partialClean();
         }
 
@@ -373,7 +376,10 @@
         function addCabinet() {
             if (_.contains(vm.existingCabinets, vm.cabinetID)) {
                 Cabinet.get(vm.cabinetID).then(function (res) {
-                    if (vm.cabinets.indexOf(res) != -1) {
+                    var index = vm.cabinets.map(function(elem) {
+                        return elem.economico;
+                    }).indexOf(res.economico);
+                    if (index != -1) {
                         toastr.warning(vm.errorCabinet, vm.warning);
                     }
                     else {
