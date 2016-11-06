@@ -376,7 +376,10 @@
         function addCabinet() {
             if (_.contains(vm.existingCabinets, vm.cabinetID)) {
                 Cabinet.get(vm.cabinetID).then(function (res) {
-                    if (vm.cabinets.indexOf(res) != -1) {
+                    var index = vm.cabinets.map(function(elem) {
+                        return elem.economico;
+                    }).indexOf(res.economico);
+                    if (index != -1) {
                         toastr.warning(vm.errorCabinet, vm.warning);
                     }
                     else {
