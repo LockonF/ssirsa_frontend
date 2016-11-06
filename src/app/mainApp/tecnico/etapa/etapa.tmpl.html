@@ -68,7 +68,8 @@
                 <div layout="column" flex="40">
 
                     <form name="sigStep">
-                        <md-input-container layout="row" flex="100">
+                        <div layout="row"layout-fill >
+                        <md-input-container layout="row" flex="100" >
                             <label translate>ETAPA_SERVICIO.NEXT_ETAPA</label>
                             <md-select ng-model="vm.etapaActual.siguiente_etapa.id" name="select"
                                        ng-disabled="vm.editable" ng-required="vm.etapaActual.validado==true">
@@ -77,6 +78,7 @@
                                 </md-option>
                             </md-select>
                         </md-input-container>
+                        </div>
                     </form>
 
                 </div>
@@ -118,6 +120,22 @@
                                 </div>
                                 <div layout="column" flex>
                                     <div><b translate>ETAPA_SERVICIO.INSUM </b>: {{insu.nombre}}</div>
+                                </div>
+
+                            </div>
+                            <md-divider></md-divider>
+                        </div>
+                    </div>
+                    <md-divider></md-divider>
+                    <div ng-repeat="insu2 in vm.insumos_sinStock track by $index" flex="50">
+                        <div column>
+                            <h2 translate>ETAPA_SERVICIO.NOTSTOCK_INSUMO</h2>
+                            <div layout="row" layout-align="center center">
+                                <div flex="20">
+                                    <md-icon md-font-icon="fa fa-ban"></md-icon>
+                                </div>
+                                <div layout="column" flex>
+                                    <div><b translate>ETAPA_SERVICIO.INSUM </b>: {{insu2.nombre}}</div>
                                 </div>
 
                             </div>

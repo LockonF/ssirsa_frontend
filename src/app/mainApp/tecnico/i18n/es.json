@@ -66,7 +66,8 @@
         "INFO_ETAPA":"Información de Etapa",
         "ADD_MICRO":"Agregar Compresor",
         "SCAN":"Escanea el No de serie",
-        "NO_SERIE":"No de Serie:"
+        "NO_SERIE":"No de Serie:",
+        "NOTSTOCK_INSUMO":"Insumos sin Stock suficiente"
 
     },
     "CABINET": {

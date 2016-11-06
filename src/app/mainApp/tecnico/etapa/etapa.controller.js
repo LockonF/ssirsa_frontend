@@ -46,6 +46,7 @@
         vm.insumos_lote = [];// Arreglo que posera los Insumos de Lote que serán utilizados en la etapa de servicio
         vm.insumoLote = {};
         vm.insumos_loteUsados = [];//Arreglo que ya posee el arreglo como es necesario para agregar los insumos al formato de arreglo para agregarlos a la etapa
+        vm.insumos_sinStock=[];
         vm.dataEtapa = null;//Variable que posera los datos de la etapa para el precargado de Template (id etapa, idTipoEquipo)
         vm.etapas;//Arreglo de las diferentes etapas que componen el proceso de fabricacion de Cabinets
         //Declaracion de Funciones
@@ -280,12 +281,18 @@
 
                 vm.insumoLote.id = insulote.id;
                 elemento = filterInsumosLotebyType(insulote.tipos_equipo);
+
                 vm.insumoLote.cantidad = elemento.cantidad;
+
                 vm.insumoLote.nombre = insulote.descripcion;
                 vm.insumoLote.notas = elemento.descripcion;
                 vm.insumoLote.agregar = false;
-
+                if(insulote.cantidad>=vm.insumoLote.cantidad){
                 vm.insumos_loteUsados.push(vm.insumoLote);
+                }
+                else{
+                    vm.insumos_sinStock.push(vm.insumoLote);
+                }
                 vm.insumoLote = null;
                 vm.insumoLote = {};
             })
@@ -515,6 +522,7 @@
             vm.insumos_lote = [];// Arreglo que posera los Insumos de Lote que serán utilizados en la etapa de servicio
             vm.insumoLote = {};
             vm.insumos_loteUsados = [];//Arreglo que ya posee el arreglo como es necesario para agregar los insumos al formato de arreglo para agregarlos a la etapa
+            vm.insumos_sinStock=[];
             vm.dataEtapa = null;//Variable que posera los datos de la etapa para el precargado de Template (id etapa, idTipoEquipo)
             $scope.Buscar.$setPristine();
             $scope.Buscar.$setUntouched();
