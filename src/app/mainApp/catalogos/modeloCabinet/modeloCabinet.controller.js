@@ -26,9 +26,6 @@
             nombre: null,
             descripcion: null,
             palabra_clave: null,
-            cantidad: null,
-            tipo_compresor: null,
-            tipo_refrigerante: null,
             tipo: null,
             marca: null
         };

@@ -9,7 +9,7 @@
         .module('app.mainApp.catalogos')
         .controller('CatalogoInsumoController',CatalogoInsumoController);
 
-    function CatalogoInsumoController(Helper,CatalogoInsumo,Etapa,$mdDialog,Categoria,Proveedor, toastr, Translate, $scope)
+    function CatalogoInsumoController(Helper,OPTIONS,Sucursal,CatalogoInsumo,Session,$mdDialog,Categoria,Proveedor, toastr, Translate, $scope)
     {
         var vm = this;
 
@@ -46,9 +46,10 @@
         vm.showSteps=showSteps;
         vm.showEquipment=showEquipment;
         vm.disabled=disabled;
+        vm.profile=Session.userInformation;
+        vm.unidades=OPTIONS.units;
 
         activate();
-
 
         function activate(){
 
@@ -69,6 +70,7 @@
             listCatalogoInsumos();
             listCategorias();
             listProveedores();
+            listSucursales();
         }
         function showSteps() {
             $mdDialog.show({
@@ -133,6 +135,13 @@
                 vm.proveedor_list  =res;
             });
         }
+        function listSucursales()
+        {
+            Sucursal.listObject().then(function (res) {
+                vm.sucursal_list  =Helper.filterDeleted(res,true);
+                vm.sucursal_list=_.sortBy( vm.sucursal_list, 'nombre');
+            });
+        }
 
         function lookup(search_text){
             vm.search_items = _.filter(vm.catalogo_insumo_list,function(item){
@@ -158,8 +167,10 @@
 
         function  cancel(){
             $scope.inputForm.$setPristine();
-            vm.catalogo_insumo = null;
+            $scope.inputForm.$setUntouched();
+            vm.catalogo_insumo=angular.copy(catalogo_insumo);
         }
+
 
         function update(){
             CatalogoInsumo.update(vm.catalogo_insumo).then(function(res){
@@ -175,10 +186,12 @@
 
         function create()
         {
+            vm.catalogo_insumo.sucursal=Session.userInformation.sucursal!=null?Session.userInformation.sucursal:vm.catalogo_insumo.sucursal;
             CatalogoInsumo.create(vm.catalogo_insumo).then(function(res){
                 listCatalogoInsumos();
                 toastr.success(vm.successCreateMessage,vm.successTitle);
-            }).catch(function(err){
+                cancel();
+            }).catch(function(){
                 toastr.error(vm.errorMessage,vm.errorTitle);
             });
         }
