@@ -48,6 +48,7 @@
         vm.hideManualUpload = true;
         vm.hideRegisteredCabinets = true;
         vm.hideUnregisteredCabinets = true;
+        vm.inputWasCorrect=false;
 
 
         vm.responseMassiveUpload = {
@@ -192,6 +193,7 @@
                         }
                         else {
                             toastr.success(vm.sucessMassive, vm.successTitle);
+                            vm.inputWasCorrect=true;
                         }
                     }).catch(function (err) {
                         if(err.data.no_creados.length>0) {
@@ -215,6 +217,7 @@
                         }
                         else {
                             toastr.success(vm.sucessMassive, vm.successTitle);
+                            vm.inputWasCorrect=true;
                         }
                     }).catch(function (err) {
                         if(err.data.no_creados.length>0) {
@@ -278,6 +281,7 @@
             $scope.entradaForm.$setUntouched();
             $scope.entradaForm.$invalid = true;
             vm.selectedTab = 0;
+            vm.inputWasCorrect=false;
         }
 
         function partialClean() {

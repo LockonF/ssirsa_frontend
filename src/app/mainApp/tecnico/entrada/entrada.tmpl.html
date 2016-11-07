@@ -12,7 +12,7 @@
             <md-content layout-fill="">
                 <md-tabs layout-padding="true" md-dynamic-height="100" md-border-bottom="100"
                          md-selected="vm.selectedTab">
-                    <md-tab label={{'INPUT.Tabs.GeneralData'|translate}}>
+                    <md-tab label={{'INPUT.Tabs.GeneralData'|translate}} ng-disabled="vm.inputWasCorrect">
                         <md-content layout-padding="">
                             <form name="entradaForm" novalidate="">
                                 <md-input-container flex="100" class="md-block">
@@ -204,8 +204,12 @@
                     <!--ng-disabled="entradaForm.$invalid"-->
                     <md-tab label={{'INPUT.Tabs.CabinetsUpload'|translate}} ng-disabled="entradaForm.$invalid">
                         <md-content layout-padding="">
-                            <div layout-gt-xs="row" layout="column" layout-align-gt-xs="space-around start"
-                                 layout-align="center stretch">
+                            <div layout-gt-xs="row"
+                                 layout="column"
+                                 layout-align-gt-xs="space-around start"
+                                 layout-align="center stretch"
+                                 ng-if="!vm.inputWasCorrect"
+                            >
                                 <md-button ng-click="vm.showMassiveUpload()" class="md-raised md-primary">
                                     {{'INPUT.Cabinets Massive Upload'|translate}}
                                 </md-button>
@@ -215,7 +219,12 @@
                             </div>
                             <div layout="column" ng-hide="vm.hideMassiveUpload">
                                 <!-- Massive Upload-->
-                                <div layout-gt-xs="row" layout="column" flex="100" ng-hide="vm.hideMassiveUpload">
+                                <div layout-gt-xs="row"
+                                     layout="column"
+                                     flex="100"
+                                     ng-hide="vm.hideMassiveUpload"
+                                     ng-if="!vm.inputWasCorrect"
+                                >
                                     <md-input-container flex-gt-sm="75" flex-gt-xs="50" flex="100">
                                         <input name="FileName" type="text" ng-model="vm.entrada.file.name"
                                                ng-disabled="true"/>
@@ -424,7 +433,10 @@
                                 </div>
                             </div>
                             <div layout="row" layout-align="end center">
-                                <md-button ng-disabled="entradaForm.$invalid" ng-click="vm.guardar()"
+                                <md-button ng-click="vm.limpiar()" md-no-ink class="md-raised md-primary" aria-label="clear">
+                                    <md-icon md-font-icon="fa fa-eraser"></md-icon>
+                                </md-button>
+                                <md-button ng-disabled="entradaForm.$invalid || vm.inputWasCorrect" ng-click="vm.guardar()"
                                            class="md-raised md-primary">{{'INPUT.Save'|translate}}
                                 </md-button>
                             </div>
