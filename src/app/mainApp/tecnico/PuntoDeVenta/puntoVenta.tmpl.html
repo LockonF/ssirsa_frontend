@@ -9,8 +9,8 @@
                     <div flex layout="column">
                         <div flex layout="row" layout-sm="column" layout-align-sm="center center"
                              layout-align="space-between center">
-                            <h2 translate="">PUNTOVENTA.TITLE</h2>
-                            <h2>{{triWizard.progress}}%<span translate="">PUNTOVENTA.COMPLETED</span></h2>
+                            <h5 translate="">PUNTOVENTA.SERVICEDATA</h5>
+                            <h5>{{triWizard.progress}}%<span translate="">PUNTOVENTA.COMPLETED</span></h5>
                         </div>
                         <div flex layout="row" layout-sm="column" layout-align-sm="center center"
                              layout-align="space-between center">
@@ -31,20 +31,17 @@
                         <div class="wizard layout-padding">
                             <form name="generalInfo" tri-wizard-form="" novalidate="">
                                 <div layout="column" flex="">
-                                    <md-input-container>
+                                    <md-input-container flex="100">
                                         <label translate="">PUNTOVENTA.WEEK</label>
-                                        <input name="week" required="" type="text" ng-model="vm.fondeo.Titulo">
+                                            <loopify-number-picker name="week" ng-required="true" value="vm.servicio.semana"   ng-model="vm.servicio.semana" step="1" min="1" max="52" label=""></loopify-number-picker>
                                         <div ng-messages="generalInfo.week.$error">
-                                            <div ng-message="pattern">
-                                                {{'MAIN.LABEL.ALFANUMERICONLY'|translate}}
-                                            </div>
                                             <div ng-message="" when="required">
                                                 <span translate="">MAIN.LABEL.REQUIRED</span>
                                             </div>
                                         </div>
                                     </md-input-container>
                                     <md-input-container>
-                                        <label translate="">FONDEOS.FEATURES.FONDEO_TOTAL</label>
+                                        <label translate="">PUNTOVENTA.RECEPTIONHOUR</label>
                                         <input type="number" name="descripcion" required=""
                                                ng-model="vm.fondeo.FondoTotal" min="0" max="10000000000">
                                         <div ng-messages="projectInfo.descripcion.$error">
