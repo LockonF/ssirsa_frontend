@@ -71,6 +71,7 @@
 
     },
     "PUNTOVENTA":{
+        "TITLE":"Servicio en Punto de Venta",
         "ATENTIONDATE":"Fecha de Atención",
         "USEDINSUM":"Insumos Usados",
         "WEEK":"Semana",

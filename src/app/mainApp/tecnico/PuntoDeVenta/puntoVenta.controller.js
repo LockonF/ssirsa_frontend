@@ -23,6 +23,7 @@
             siguiente_etapa: ''
 
         };
+        
         vm.showInsumosSection = true;
         vm.catalogoInsumos = null;//array con todos los caatalogos de insumo disponibles de la etapa
         vm.catalogoSelected = {};//Elemento del tipo Catalogo de Insumo del insumo que se deseará agregar
@@ -177,9 +178,9 @@
 
 
                                 console.log(vm.etapaActual.actual_etapa);
-                                if(_.findWhere(vm.etapas,{nombre:vm.etapaActual.actual_etapa.nombre})==undefined) {
+                                if (_.findWhere(vm.etapas, {nombre: vm.etapaActual.actual_etapa.nombre}) == undefined) {
                                     console.log("Entre por el soft Delete")
-                                    vm.etapaActual.actual_etapa=_.findWhere(vm.etapas,{nombre:'E1'})
+                                    vm.etapaActual.actual_etapa = _.findWhere(vm.etapas, {nombre: 'E1'})
                                 }
                                 if (vm.etapaActual.actual_etapa.nombre == 'E1') {
                                     vm.diagnostico.tipo = 'entrada';
@@ -459,7 +460,7 @@
             vm.etapaActual.insumos[0].no_serie = null;
             vm.etapaActual.insumos[0].notas = null;
             vm.etapaActual.insumos[0].cantidad = null;
-            vm.showInsumo=false;
+            vm.showInsumo = false;
         }
 
         function getInsumos() {
