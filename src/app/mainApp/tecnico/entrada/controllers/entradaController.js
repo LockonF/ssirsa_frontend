@@ -281,6 +281,7 @@
 
         function limpiar() {
             vm.entrada = angular.copy(entrada);
+            vm.entrada.sucursal=vm.sucursal;
             vm.hideRegisteredCabinets = true;
             vm.hideUnregisteredCabinets = true;
             vm.hideMassiveUpload = true;
