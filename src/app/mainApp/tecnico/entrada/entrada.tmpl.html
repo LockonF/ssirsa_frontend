@@ -294,29 +294,52 @@
                                 </div>
                                 <div flex="" layout="column" ng-if="vm.entrada.creados.length > 0">
                                     <p>{{'INPUT.Registered Cabinets'|translate}}</p>
-                                    <md-table-container>
-                                        <table md-table="" md-row-select="" multiple="" ng-disabled="true">
-                                            <thead md-head="">
-                                            <tr md-row="">
-                                                <th md-column="">{{'INPUT.TableCabinets.Headers.EconomicNum'|translate}}
-                                                </th>
-                                                <th md-column="">{{'INPUT.TableCabinets.Headers.SerialNum'|translate}}
-                                                </th>
-                                                <th md-column="">{{'INPUT.TableCabinets.Headers.Brand'|translate}}</th>
-                                                <th md-column="">{{'INPUT.TableCabinets.Headers.Model'|translate}}</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody md-body="">
-                                            <tr md-row=""
-                                                ng-repeat="registeredCabinet in vm.entrada.creados track by $index">
-                                                <td md-cell="">{{registeredCabinet.economico}}</td>
-                                                <td md-cell="">{{registeredCabinet.no_serie}}</td>
-                                                <td md-cell="">{{registeredCabinet.modelo.marca.descripcion}}</td>
-                                                <td md-cell="">{{registeredCabinet.modelo.nombre}}</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </md-table-container>
+                                    <md-virtual-repeat-container flex="100"
+                                                                 layout="column"
+                                                                 layout-align="center center"
+                                                                 class="vr-min-height">
+                                        <div id="tabla" layout-align="center center">
+                                            <div class="table-responsive-vertical shadow-z-1"
+                                                 layout-align="space-around center">
+                                                <!-- Table starts here -->
+                                                <table id="table" class="table table-hover table-mc-light-blue"
+                                                       layout-align="center center">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>
+                                                            {{'INPUT.TableCabinets.Headers.EconomicNum'|translate}}
+                                                        </th>
+                                                        <th>
+                                                            {{'INPUT.TableCabinets.Headers.SerialNum'|translate}}
+                                                        </th>
+                                                        <th>
+                                                            {{'INPUT.TableCabinets.Headers.Brand'|translate}}
+                                                        </th>
+                                                        <th>
+                                                            {{'INPUT.TableCabinets.Headers.Model'|translate}}
+                                                        </th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr ng-repeat="cabinet in vm.entrada.creados">
+                                                        <td data-title="{{'INPUT.TableCabinets.Headers.EconomicNum'|translate}}">
+                                                            {{cabinet.economico}}
+                                                        </td>
+                                                        <td data-title="{{'INPUT.TableCabinets.Headers.SerialNum'|translate}}">
+                                                            {{cabinet.no_serie}}
+                                                        </td>
+                                                        <td data-title="{{'INPUT.TableCabinets.Headers.Brand'|translate}}">
+                                                            {{cabinet.modelo.marca.descripcion}}
+                                                        </td>
+                                                        <td data-title="{{'INPUT.TableCabinets.Headers.Model'|translate}}">
+                                                            {{cabinet.modelo.nombre}}
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </md-virtual-repeat-container>
                                 </div>
                             </div>
                             <div layout="column" ng-hide="vm.hideManualUpload" flex="100">

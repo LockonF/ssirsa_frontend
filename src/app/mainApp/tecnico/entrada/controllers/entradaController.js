@@ -197,6 +197,7 @@
                         if(err.data.no_creados.length>0) {
                             vm.entrada.no_creados = err.data.no_creados;
                         }
+                        vm.entrada.file = null;
                         toastr.error(vm.errorMassive, vm.errorTitle);
                     });
                 }
@@ -219,6 +220,7 @@
                         if(err.data.no_creados.length>0) {
                             vm.entrada.no_creados = err.data.no_creados;
                         }
+                        vm.entrada.file = null;
                         toastr.error(vm.errorMassive, vm.errorTitle);
                     });
                 }
