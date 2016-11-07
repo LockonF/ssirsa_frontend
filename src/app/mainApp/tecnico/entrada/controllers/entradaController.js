@@ -181,7 +181,6 @@
                     EntradaSalida.postEntradaMasiva(fd).then(function (res) {
                         vm.entrada.id=res.id;
                         vm.entrada.creados = res.creados;
-                        _.map({one: 1, two: 2, three: 3}, function(num, key){ return num * 3; });
                         vm.entrada.no_creados=_.map(res.no_creados,function(id){
                             return {"economico":id,"motivo":"Marca o modelo no existentes"};
                         });
