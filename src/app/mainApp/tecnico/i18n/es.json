@@ -70,6 +70,26 @@
         "NOTSTOCK_INSUMO":"Sin Stock"
 
     },
+    "PUNTOVENTA":{
+        "ATENTIONDATE":"Fecha de Atención",
+        "USEDINSUM":"Insumos Usados",
+        "WEEK":"Semana",
+        "RECEPTIONHOUR":"Hora de Recepcion",
+        "FLOOR":"Piso",
+        "FIELD":"Campo",
+        "MOVEMENT":"Movimiento",
+        "DELIVERY":"Entrega",
+        "KM":"Km",
+        "TYPEOFJOB":"Tipo de Trabajo",
+        "STABLISHED":"Nombre de Establecimiento",
+        "ADDRESS":"Direccion",
+        "DATEREPORT":"Fecha de Reporte",
+        "CLIENTOBSERVATION":"Observaciones del Cliente",
+        "TECHNICALOBSERVATIONS":"Observaciones Técnicas",
+        "CABINET":"cabinet",
+        "PERSON":"persona",
+        "COMPRESSOR":"Compresor"
+    },
     "CABINET": {
         "LINE_ASSIGMENT": "Asignación de Linea",
         "ID_CABINET": "Id de Cabinet",
