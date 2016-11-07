@@ -198,7 +198,7 @@
                         })
                     }
                 }).catch(function (res) {
-                    notifyError(404);
+                    notifyError(res);
                     vm.cancel();
                 });
             }
@@ -251,23 +251,25 @@
             data.idTipo = vm.modelo.tipo;
             data.idEtapa = vm.etapaActual.actual_etapa.id;
             console.log(data);
-            if (data.idTipo) {
-
+            if (angular.isUndefined(data.idTipo) || data.idTipo==null) {
+                notifyError(407);
+                cancel();
             }
             else {
 
-                notifyError(407);
+
+                console.log(data);
+                var promise = Servicios.BusquedaCatalogoTypeStep(data);
+                promise.then(function (res) {
+                    vm.insumosLote = res;
+                    console.log("Insumos lote obtenidos");
+                    console.log(vm.insumosLote);
+                    transformArrayCatalogoInsumos();
+                }).catch(function (res) {
+                    console.log(res);
+                    notifyError(res.status);
+                });
             }
-            console.log(data);
-            var promise = Servicios.BusquedaCatalogoTypeStep(data);
-            promise.then(function (res) {
-                vm.insumosLote = res;
-                console.log("Insumos lote obtenidos");
-                console.log(vm.insumosLote);
-                transformArrayCatalogoInsumos();
-            }).catch(function (res) {
-                notifyError(res.status);
-            })
         }
 
         //function filter para determinar las cantidades adecuadas del catalogo insumos porq endpoint regresa los valores para todos los tipo de equipo
