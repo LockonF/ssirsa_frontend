@@ -319,6 +319,7 @@
             vm.hideUnregisteredCabinets = true;
             vm.hideRegisteredCabinets = true;
             vm.salida = angular.copy(salida);
+            vm.salida.sucursal=vm.sucursal;
             $scope.entradaForm.$setPristine();
             $scope.entradaForm.$setUntouched();
             vm.salida.no_creados = null;
@@ -329,6 +330,7 @@
             vm.searchText=null;
             vm.selectedEntrada=0;
             vm.outputWasCorrect=false;
+
         }
 
         function showManualUpload() {
