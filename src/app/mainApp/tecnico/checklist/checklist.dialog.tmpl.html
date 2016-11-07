@@ -1,0 +1,217 @@
+<md-dialog class="mobile-fullwidth-dialog" flex="100" flex-xs="100">
+    <div flex>
+        <md-toolbar class="md-medium-tall">
+            <div class="md-toolbar-tools" layout-align="space-between center"
+
+                 layout="row" layout-sm="column" layout-xs="column">
+                <div>
+                    <h2>
+                        <span translate>MAIN.MENU.CHECKLIST</span>
+                    </h2>
+                </div>
+                <div layout="row" layout-align="space-between end">
+                    <md-button
+                            ng-click="vm.cerrarDialog()">
+                        <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+                    </md-button>
+                </div>
+            </div>
+        </md-toolbar>
+        <div layout="column">
+            <div layout="row" flex layout-fill layout-align="center center">
+                <md-card class="card1" flex="100" flex-xs="100" layout-fill>
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">{{'TECNICO.FORM.LABEL.SEARCH'|translate}}</span>
+                        </md-card-title-text>
+                    </md-card-title>
+                    <md-card-content>
+                        <div ng-if="vm.cabinets!=null && vm.statusReady==1">
+                            <div layout="row" layout-xs="column" layout-align-xs="center center">
+                                <div flex="50">
+                                    <h2>{{'TECNICO.FORM.LABEL.MARCA'|translate}}</h2>
+                                    <div layout="row" layout-align-xs="center center">
+                                        <span>{{vm.marca}}</span>
+                                    </div>
+                                </div>
+                                <div flex="50">
+                                    <h2>{{'TECNICO.FORM.LABEL.DESCRIPTION'|translate}}</h2>
+                                    <div layout="row" layout-align-xs="center center">
+                                        <span>{{vm.cabinets.descripcion}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div layout="row" layout-xs="column" layout-align-xs="center center">
+                                <div flex="50">
+                                    <md-input-container>
+                                        <md-switch class="md-primary" ng-model="vm.diagnostico.isSalida"
+                                                   ng-disabled="true"
+                                                   aria-label="Primary Switch"
+                                                   ng-init="switches.primary = true">
+                                            {{'TECNICO.FORM.LABEL.OUTPUT'|translate}}
+                                        </md-switch>
+                                    </md-input-container>
+
+                                </div>
+                                <div flex="50">
+                                    <md-input-container>
+                                        <md-switch class="md-primary" ng-model="vm.diagnostico.isCabinet"
+                                                   aria-label="Es un Cabinet"
+                                                   ng-disabled="true">
+                                            {{'TECNICO.FORM.LABEL.CABINET'|translate}}
+                                        </md-switch>
+                                    </md-input-container>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </md-card-content>
+                    <form name="registerForm" id="registerForm" novalidate>
+                        <md-card-content ng-if="vm.cabinets!=null && vm.statusReady==1">
+                            <div layout="row" layout-xs="column" layout-align-xs="center center">
+                                <div flex="50" flex-xs="100" flex-sm="100">
+                                    <span class="md-subhead">{{'TECNICO.FORM.SUBHEAD.PIECES'|translate}}</span>
+                                    <div layout="column">
+                                        <md-input-container>
+                                            <label>{{'TECNICO.FORM.LABEL.SLICED'|translate}}</label>
+                                            <input type="number" required='required' name="rodajas"
+                                                   ng-model="vm.diagnostico.rodajas" step="any" ng-pattern="/^[0-6]{1}/"
+                                                   ng-minlength="1" ng-maxlength="1" min="0" max="6"
+                                            />
+                                            <div ng-messages="registerForm.rodajas.$error">
+                                                <div ng-message="max">{{'MAIN.GENERAL.MAX_NUMBER' | translate}} 6</div>
+                                                <div ng-message="min">{{'MAIN.GENERAL.MIN_NUMBER' | translate}} 0</div>
+                                                <div ng-message="pattern">{{'MAIN.GENERAL.JUST_INTEGERS' | translate}}
+                                                </div>
+                                                <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}
+                                                </div>
+                                            </div>
+                                        </md-input-container>
+                                        <md-input-container>
+                                            <label>{{'TECNICO.FORM.LABEL.LAYETTES'|translate}}</label>
+                                            <input type="number" required='required' name="canastillas"
+                                                   ng-model="vm.diagnostico.canastillas"
+                                                   step="any"
+                                                   ng-pattern="/^[0-6]{1}/"
+                                                   ng-minlength="1" ng-maxlength="1" min="0" max="6"/>
+                                            <div ng-messages="registerForm.canastillas.$error">
+                                                <div ng-message="max">{{'MAIN.GENERAL.MAX_NUMBER' | translate}} 6</div>
+                                                <div ng-message="min">{{'MAIN.GENERAL.MIN_NUMBER' | translate}} 0</div>
+                                                <div ng-message="pattern">{{'MAIN.GENERAL.JUST_INTEGERS' | translate}}
+                                                </div>
+                                                <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}
+                                                </div>
+                                            </div>
+                                        </md-input-container>
+                                        <md-input-container>
+                                            <md-switch class="md-primary" ng-model="vm.diagnostico.puertas"
+                                                       required='required'
+                                                       name="puertas">
+                                                {{'TECNICO.FORM.LABEL.DOORS'|translate}}
+                                            </md-switch>
+
+                                            <div ng-messages="registerForm.puertas.$error">
+                                                <div ng-message='required'>{{'MAIN.LABEL.REQUIRED'|translate}}</div>
+                                            </div>
+                                        </md-input-container>
+                                        <md-input-container>
+                                            <label>{{'TECNICO.FORM.LABEL.GRIDS'|translate}}</label>
+                                            <input type="number" required='required' name="rejillas"
+                                                   ng-model="vm.diagnostico.rejillas"
+                                                   step="any"
+                                                   ng-minlength="1" ng-maxlength="1" min="0" max="6"
+                                                   ng-pattern="/^[0-6]{1}/"/>
+                                            <div ng-messages="registerForm.rejillas.$error">
+                                                <div ng-message="max">{{'MAIN.GENERAL.MAX_NUMBER' | translate}} 6</div>
+                                                <div ng-message="min">{{'MAIN.GENERAL.MIN_NUMBER' | translate}} 0</div>
+                                                <div ng-message="pattern">{{'MAIN.GENERAL.JUST_INTEGERS' | translate}}
+                                                </div>
+                                                <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}
+                                                </div>
+                                            </div>
+                                        </md-input-container>
+                                    </div>
+                                </div>
+                                <div flex="50" flex-xs="100" flex-sm="100">
+                                    <div ng-show="vm.diagnostico.isSalida">
+                                        <span class="md-subhead">{{'TECNICO.FORM.SUBHEAD.VALIDATION'|translate}}</span>
+                                        <div layout="row" flex="flex" layout-xs="column" layout-align-xs="center center"
+                                             layout-wrap>
+                                            <md-input-container flex="50" flex-xs="100" flex-sm="100">
+                                                <md-switch class="md-primary" ng-model="vm.diagnostico.sticker"
+                                                           aria-label="Sticker Correcto">
+                                                    {{'TECNICO.FORM.LABEL.STICKER'|translate}}
+                                                </md-switch>
+                                            </md-input-container>
+                                            <md-input-container flex="50" flex-xs="100" flex-sm="100">
+                                                <md-switch class="md-primary" ng-model="vm.diagnostico.pintura"
+                                                           aria-label="Pintura Correcto">
+                                                    {{'TECNICO.FORM.LABEL.PAINTING'|translate}}
+                                                </md-switch>
+                                            </md-input-container>
+                                            <md-input-container flex="50" flex-xs="100" flex-sm="100">
+                                                <md-switch class="md-primary" ng-model="vm.diagnostico.lavado"
+                                                           aria-label="Lavado Correcto">
+                                                    {{'TECNICO.FORM.LABEL.WASHED'|translate}}
+                                                </md-switch>
+                                            </md-input-container>
+                                            <md-input-container flex="50" flex-xs="100" flex-sm="100">
+                                                <md-switch class="md-primary" ng-model="vm.diagnostico.emplayado"
+                                                           aria-label="Emplayado Correcto">
+                                                    {{'TECNICO.FORM.LABEL.STRETCH_WRAP'|translate}}
+                                                </md-switch>
+                                            </md-input-container>
+                                            <md-input-container flex="50" flex-xs="100" flex-sm="100">
+                                                <md-switch class="md-primary" ng-model="vm.diagnostico.lubricacion"
+                                                           aria-label="Lubricación Correcta">
+                                                    {{'TECNICO.FORM.LABEL.LUBRICATION'|translate}}
+                                                </md-switch>
+                                            </md-input-container>
+                                            <md-input-container flex="50" flex-xs="100" flex-sm="100">
+                                                <md-switch class="md-primary" ng-model="vm.diagnostico.listo_mercado"
+                                                           aria-label="Listo para Mercado">
+                                                    {{'TECNICO.FORM.LABEL.READY_MARKET'|translate}}
+                                                </md-switch>
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                    <div layout="row" flex="100" layout-sm="column" layout-align-sm="center center"
+                                         layout-xs="column" layout-align-xs="center center">
+                                        <p>{{'TECNICO.FORM.SUBHEAD.EVIDENCE'|translate}}</p>
+                                        <div flex="30" layout="column" layout-align="space-around center">
+                                            <md-button ngf-select="vm.selectionFile($files)"
+                                                       ngf-accept="'image/*'"
+                                                       class="md-primary md-raised"
+                                                       ng-disabled="vm.status != 'idle'" ngf-multiple="false"
+                                                       ng-model="vm.picFile"
+                                                       aria-label="upload">
+                                                <md-icon md-font-icon
+                                                         ng-class="{ 'zmdi zmdi-cloud-upload': vm.status == 'idle', 'fa fa-spinner fa-pulse': vm.status == 'uploading', 'zmdi zmdi-check': vm.status == 'complete'}"></md-icon>
+                                            </md-button>
+                                        </div>
+                                    </div>
+                                    <div flex="80" layout-sm="column" layout-align-sm="center center" layout-xs="column"
+                                         layout-align-xs="center center">
+                                        <div class="md-media-md card-media">
+                                            <img ngf-src="vm.picFile" class="thumb" width="120px" height="120px">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div layout="row" layout-align="end center">
+                                <md-button type="submit" ng-disabled='registerForm.$invalid' ng-click="vm.guardar()"
+                                           class="md-primary md-raised">
+                                    <md-icon md-font-icon="fa fa-save">
+                                </md-button>
+                            </div>
+                        </md-card-content>
+                    </form>
+                </md-card>
+            </div>
+        </div>
+    </div>
+</md-dialog>

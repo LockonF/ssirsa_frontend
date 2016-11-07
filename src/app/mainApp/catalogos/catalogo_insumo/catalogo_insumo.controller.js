@@ -9,7 +9,7 @@
         .module('app.mainApp.catalogos')
         .controller('CatalogoInsumoController',CatalogoInsumoController);
 
-    function CatalogoInsumoController(Helper,OPTIONS,Sucursal,CatalogoInsumo,Session,$mdDialog,Categoria,Proveedor, toastr, Translate, $scope)
+    function CatalogoInsumoController(Helper,CatalogoInsumo,Etapa,$mdDialog,Categoria,Proveedor, toastr, Translate, $scope)
     {
         var vm = this;
 
@@ -18,7 +18,7 @@
         vm.search_items = [];
         vm.selected=[];
         vm.catalogo_insumo_list = null;
-        vm.catalogo_insumo =  {
+        var catalogo_insumo =  {
             cantidad: null,
             unidades: null,
             descripcion: null,
@@ -46,10 +46,9 @@
         vm.showSteps=showSteps;
         vm.showEquipment=showEquipment;
         vm.disabled=disabled;
-        vm.profile=Session.userInformation;
-        vm.unidades=OPTIONS.units;
-
+        vm.catalogo_insumo=angular.copy(catalogo_insumo);
         activate();
+
 
         function activate(){
 
@@ -70,7 +69,6 @@
             listCatalogoInsumos();
             listCategorias();
             listProveedores();
-            listSucursales();
         }
         function showSteps() {
             $mdDialog.show({
@@ -135,13 +133,6 @@
                 vm.proveedor_list  =res;
             });
         }
-        function listSucursales()
-        {
-            Sucursal.listObject().then(function (res) {
-                vm.sucursal_list  =Helper.filterDeleted(res,true);
-                vm.sucursal_list=_.sortBy( vm.sucursal_list, 'nombre');
-            });
-        }
 
         function lookup(search_text){
             vm.search_items = _.filter(vm.catalogo_insumo_list,function(item){
@@ -171,13 +162,13 @@
             vm.catalogo_insumo=angular.copy(catalogo_insumo);
         }
 
-
         function update(){
             CatalogoInsumo.update(vm.catalogo_insumo).then(function(res){
                 vm.catalogo_insumo = res;
                 vm.catalogo_insumo.costo = parseFloat(vm.catalogo_insumo.costo);
                 vm.catalogo_insumo.cantidad =parseFloat(vm.catalogo_insumo.cantidad);
                 toastr.success(vm.successUpdateMessage,vm.successTitle);
+                cancel();
                 listCatalogoInsumos();
             }).catch(function(err){
                 toastr.error(vm.errorMessage,vm.errorTitle);
@@ -186,12 +177,12 @@
 
         function create()
         {
-            vm.catalogo_insumo.sucursal=Session.userInformation.sucursal!=null?Session.userInformation.sucursal:vm.catalogo_insumo.sucursal;
             CatalogoInsumo.create(vm.catalogo_insumo).then(function(res){
                 listCatalogoInsumos();
-                toastr.success(vm.successCreateMessage,vm.successTitle);
                 cancel();
-            }).catch(function(){
+                toastr.success(vm.successCreateMessage,vm.successTitle);
+
+            }).catch(function(err){
                 toastr.error(vm.errorMessage,vm.errorTitle);
             });
         }

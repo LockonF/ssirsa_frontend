@@ -1,15 +1,16 @@
 /**
- * Created by franciscojaviercerdamartinez on 12/07/16.
+ * Created by franciscojaviercerdamartinez on 04/11/16.
  */
+
 
 (function () {
     'use strict';
 
     angular
         .module('app.mainApp.tecnico')
-        .controller('etapaController', etapaController);
+        .controller('PuntoVentaController', PuntoVentaController);
 
-    function etapaController(Cabinet, Helper, Servicios, $mdDialog, $scope, Insumo, Translate, toastr) {
+    function PuntoVentaController(Cabinet, Helper, Servicios, $mdDialog, $scope, Insumo, Translate, toastr) {
         var vm = this;
         vm.activate = activate();
 
@@ -177,8 +178,8 @@
 
                                 console.log(vm.etapaActual.actual_etapa);
                                 if(_.findWhere(vm.etapas,{nombre:vm.etapaActual.actual_etapa.nombre})==undefined) {
-                                        console.log("Entre por el soft Delete")
-                                        vm.etapaActual.actual_etapa=_.findWhere(vm.etapas,{nombre:'E1'})
+                                    console.log("Entre por el soft Delete")
+                                    vm.etapaActual.actual_etapa=_.findWhere(vm.etapas,{nombre:'E1'})
                                 }
                                 if (vm.etapaActual.actual_etapa.nombre == 'E1') {
                                     vm.diagnostico.tipo = 'entrada';

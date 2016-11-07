@@ -22,8 +22,8 @@
         vm.searchText = '';
         var etapa = {
             nombre: null,
-            descripcion: null
-
+            descripcion: null,
+            taller:null
         };
         vm.etapa = angular.copy(etapa);
         activate();

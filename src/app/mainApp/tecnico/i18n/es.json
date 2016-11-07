@@ -4,12 +4,14 @@
             "MANAGEMENT_USER": "Administración de Usuarios"
         }
     },
+
     "TECNICO": {
         "FORM": {
             "LABEL": {
                 "SEARCH": "Búsqueda de Cabinet",
                 "ID_CABINET": "Id Cabinet",
                 "MARCA": "Marca",
+                "ETIQUETA":"Etiqueta",
                 "DESCRIPTION": "Descripción",
                 "SLICED": "No. de Rodajas",
                 "LAYETTES": "No. de Canastillas",
@@ -39,6 +41,7 @@
             }
         }
     },
+
     "ETAPA_SERVICIO": {
         "TITLE": "Registro de Servicio",
         "ID_CABINET": "Id de Cabinet",
@@ -60,7 +63,32 @@
         "ACCEPT": "Aceptar",
         "CANCEL": "Cancelar",
         "INSUMO_NOTVALIDATED": "Etapa donde no se permite agregar Insumos",
-        "INFO_ETAPA":"Información de Etapa"
+        "INFO_ETAPA":"Información de Etapa",
+        "ADD_MICRO":"Agregar Compresor",
+        "SCAN":"Escanea el No de serie",
+        "NO_SERIE":"No de Serie:",
+        "NOTSTOCK_INSUMO":"Sin Stock"
+
+    },
+    "PUNTOVENTA":{
+        "ATENTIONDATE":"Fecha de Atención",
+        "USEDINSUM":"Insumos Usados",
+        "WEEK":"Semana",
+        "RECEPTIONHOUR":"Hora de Recepcion",
+        "FLOOR":"Piso",
+        "FIELD":"Campo",
+        "MOVEMENT":"Movimiento",
+        "DELIVERY":"Entrega",
+        "KM":"Km",
+        "TYPEOFJOB":"Tipo de Trabajo",
+        "STABLISHED":"Nombre de Establecimiento",
+        "ADDRESS":"Direccion",
+        "DATEREPORT":"Fecha de Reporte",
+        "CLIENTOBSERVATION":"Observaciones del Cliente",
+        "TECHNICALOBSERVATIONS":"Observaciones Técnicas",
+        "CABINET":"cabinet",
+        "PERSON":"persona",
+        "COMPRESSOR":"Compresor"
     },
     "CABINET": {
         "LINE_ASSIGMENT": "Asignación de Linea",
@@ -188,6 +216,7 @@
         "UDN": "Agencia",
         "Year Field":"Formato de año inválido"
     },
+
     "OUTPUT": {
         "FORM": {
             "PLACEHOLDER":{
@@ -249,6 +278,7 @@
             }
         }
     },
+
     "REMISSION":{
         "FORM":{
             "LABEL":{
