@@ -152,8 +152,6 @@
                                         vm.etapaActual.insumos = [];
                                     }
 
-                                    getInsumosLote();
-
 
                                     vm.etapaActual.validado = true;
 
@@ -163,6 +161,7 @@
                                     }
                                     else
                                         vm.showInsumosSection = true;
+
                                 }
                                 else {
 
@@ -171,14 +170,14 @@
                                     vm.etapaActual.actual_etapa = vm.etapa.siguiente_etapa;
                                     vm.etapaActual.siguiente_etapa = null;
                                     vm.etapaActual.insumos = null;
-                                    getInsumosLote();
+
                                 }
 
-
+                                getInsumosLote();
                                 console.log(vm.etapaActual.actual_etapa);
-                                if(_.findWhere(vm.etapas,{nombre:vm.etapaActual.actual_etapa.nombre})==undefined) {
-                                        console.log("Entre por el soft Delete")
-                                        vm.etapaActual.actual_etapa=_.findWhere(vm.etapas,{nombre:'E1'})
+                                if (_.findWhere(vm.etapas, {nombre: vm.etapaActual.actual_etapa.nombre}) == undefined) {
+                                    console.log("Entre por el soft Delete")
+                                    vm.etapaActual.actual_etapa = _.findWhere(vm.etapas, {nombre: 'E1'})
                                 }
                                 if (vm.etapaActual.actual_etapa.nombre == 'E1') {
                                     vm.diagnostico.tipo = 'entrada';
@@ -244,13 +243,14 @@
 
 
         function getInsumosLote() {
-
+            console.log("Estoy Jalando los Insumos");
             var data = {
                 idTipo: '',
                 idEtapa: ''
             };
             data.idTipo = vm.modelo.tipo;
             data.idEtapa = vm.etapaActual.actual_etapa.id;
+            console.log(data);
             if (data.idTipo) {
 
             }
@@ -294,18 +294,23 @@
                 vm.insumoLote.notas = elemento.descripcion;
                 vm.insumoLote.agregar = false;
                 if (insulote.cantidad >= vm.insumoLote.cantidad) {
+                    console.log("entre al IF");
                     vm.insumos_loteUsados.push(vm.insumoLote);
+                    vm.insumoLote = null;
+                    vm.insumoLote = {};
                 }
                 else {
                     vm.insumos_sinStock.push(vm.insumoLote);
+                    vm.insumoLote = null;
+                    vm.insumoLote = {};
+                    console.log("entre al ELSE");
                 }
-                vm.insumoLote = null;
-                vm.insumoLote = {};
+
             })
             console.log("Insumos lote obtenidos en array");
             console.log(vm.insumos_loteUsados);
             console.log(vm.insumos_lote.length);
-            if (vm.insumos_loteUsados.length == 0) {
+            if (vm.insumos_loteUsados.length == 0 && vm.insumos_sinStock.lenght==0) {
 
                 notifyError(998);
             }
@@ -458,7 +463,7 @@
             vm.etapaActual.insumos[0].no_serie = null;
             vm.etapaActual.insumos[0].notas = null;
             vm.etapaActual.insumos[0].cantidad = null;
-            vm.showInsumo=false;
+            vm.showInsumo = false;
         }
 
         function getInsumos() {
