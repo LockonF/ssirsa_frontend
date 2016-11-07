@@ -1,0 +1,176 @@
+<div layout="row" layout-align="center center">
+    <p flex="100" translate="" class="md-headline font-weight-300 text-center text-light">PUNTOVENTA.TITLE</p>
+</div>
+<md-card>
+    <div flex="" layout="row" layout-align="center center" layout-fill>
+        <div flex="100" layout="column" tri-wizard="" class="md-whiteframe-z1 margin-bottom-100" layout-fill>
+            <md-toolbar class="md-primary">
+                <div flex layout="column" class="md-toolbar-tools">
+                    <div flex layout="column">
+                        <div flex layout="row" layout-sm="column" layout-align-sm="center center"
+                             layout-align="space-between center">
+                            <h5 translate="">PUNTOVENTA.SERVICEDATA</h5>
+                            <h5>{{triWizard.progress}}%<span translate="">PUNTOVENTA.COMPLETED</span></h5>
+                        </div>
+                        <div flex layout="row" layout-sm="column" layout-align-sm="center center"
+                             layout-align="space-between center">
+                            <h3 translate="">{{vm.steps[triWizard.currentStep]}}</h3>
+                            <h3 translate="">{{vm.PuntoVentaLabel}}</h3>
+                        </div>
+                    </div>
+                </div>
+                <md-progress-linear md-mode="determinate" ng-value="vm.completed"
+                                    class="md-accent padding-bottom-10"></md-progress-linear>
+            </md-toolbar>
+            <md-tabs layout-fill="" md-selected="triWizard.currentStep" md-dynamic-height="" md-stretch-tabs="always"
+                     class="md-primary">
+                <md-tab id="info">
+                    <md-tab-label><span class="oxy-step-label">1</span><span
+                            translate="">PUNTOVENTA.SERVICEDATA</span></md-tab-label>
+                    <md-tab-body>
+                        <div class="wizard layout-padding">
+                            <form name="generalInfo" tri-wizard-form="" novalidate="">
+                                <div layout="column" flex="">
+                                    <md-input-container flex="100">
+                                        <label translate="">PUNTOVENTA.WEEK</label>
+                                            <loopify-number-picker name="week" ng-required="true" value="vm.servicio.semana"   ng-model="vm.servicio.semana" step="1" min="1" max="52" label=""></loopify-number-picker>
+                                        <div ng-messages="generalInfo.week.$error">
+                                            <div ng-message="" when="required">
+                                                <span translate="">MAIN.LABEL.REQUIRED</span>
+                                            </div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label translate="">PUNTOVENTA.RECEPTIONHOUR</label>
+                                        <input type="number" name="descripcion" required=""
+                                               ng-model="vm.fondeo.FondoTotal" min="0" max="10000000000">
+                                        <div ng-messages="projectInfo.descripcion.$error">
+                                            <div ng-message="" when="required"><span translate="">FONDEOS.WIZARD.REQUIRED-FIELD</span>
+                                            </div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label translate="">FONDEOS.FEATURES.FONDEO_TARGET</label>
+                                        <textarea name="target" required="" ng-model="vm.fondeo.PublicoObjetivo"
+                                                  md-maxlength="500"></textarea>
+                                        <div ng-messages="projectInfo.descripcion.$error">
+                                            <div ng-message="" when="required"><span translate="">FONDEOS.WIZARD.REQUIRED-FIELD</span>
+                                            </div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                            </form>
+                        </div>
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="fondeoT" ng-disabled="projectInfo.$invalid">
+                    <md-tab-label><span class="oxy-step-label">2</span><span translate="">FONDEOS.FEATURES.FONDEO_DESCRIPTION</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <div class="wizard layout-padding">
+                            <form name="fondeoFondeoDesc" tri-wizard-form="">
+                                <div flex="" layout="column" layout-wrap="">
+                                    <md-input-container>
+                                        <div text-angular="" required="" ng-model="vm.fondeo.Descripcion"
+                                             ta-toolbar="[['bold','italics','ul','ol']]"></div>
+                                        <label translate="">FONDEOS.FEATURES.CLICK_TO_WRITE</label>
+                                        <md-divider></md-divider>
+                                    </md-input-container>
+                                </div>
+                            </form>
+                            <div layout="column" flex="">
+                                <form name="DescripcionFile" tri-wizard-form="">
+                                    <div ng-model="vm.file" name="file" ngf-select="vm.uploadFile('DescripcionFile')"
+                                         class="button">
+                                        <md-button class="md-fab md-primary">
+                                            <ng-md-icon icon="attach_file"></ng-md-icon>
+                                        </md-button>
+                                    </div>
+                                </form>
+                                <div ng-show="vm.fondeo.Archivos.DescripcionFile!=null"><a
+                                        href="{{vm.fileRoute+vm.fondeo.Archivos.DescripcionFile}}"><span>{{vm.fondeo.Archivos.DescripcionFile | routeFilter}}</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="aims" ng-disabled="projectInfo.$invalid">
+                    <md-tab-label><span class="oxy-step-label">3</span><span translate="">FONDEOS.FEATURES.FONDEO_SUPPORT</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <div class="wizard layout-padding">
+                            <form name="fondeoSupport" tri-wizard-form="">
+                                <md-input-container>
+                                    <div text-angular="" required="" ng-model="vm.fondeo.RubrosDeApoyo"
+                                         ta-toolbar="[['bold','italics','ul','ol']]"></div>
+                                    <label translate="">FONDEOS.FEATURES.CLICK_TO_WRITE</label>
+                                    <md-divider></md-divider>
+                                </md-input-container>
+                            </form>
+                            <div layout="column" flex="">
+                                <form name="RubrosDeApoyoFile" tri-wizard-form="">
+                                    <div ng-model="vm.file" name="file" ngf-select="vm.uploadFile('RubrosDeApoyoFile')"
+                                         class="button">
+                                        <md-button class="md-fab md-primary">
+                                            <ng-md-icon icon="attach_file"></ng-md-icon>
+                                        </md-button>
+                                    </div>
+                                </form>
+                                <div ng-show="vm.fondeo.Archivos.RubrosDeApoyoFile!=null"><a
+                                        href="{{vm.fileRoute+vm.fondeo.Archivos.RubrosDeApoyoFile}}"><span>{{vm.fondeo.Archivos.RubrosDeApoyoFile | routeFilter}}</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="reach" ng-disabled="projectInfo.$invalid">
+                    <md-tab-label><span class="oxy-step-label">4</span><span translate="">FONDEOS.FEATURES.FONDEO_SELECTED</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <div class="wizard layout-padding">
+                            <form name="fondeoSelected" tri-wizard-form="">
+                                <md-input-container>
+                                    <div text-angular="" required="" ng-model="vm.fondeo.CriteriosElegibilidad"
+                                         ta-toolbar="[['bold','italics','ul','ol']]"></div>
+                                    <label translate="">FONDEOS.FEATURES.CLICK_TO_WRITE</label>
+                                    <md-divider></md-divider>
+                                </md-input-container>
+                            </form>
+                            <div layout="column" flex="">
+                                <form name="CriteriosDeElegibilidadFile" tri-wizard-form="">
+                                    <div ng-model="vm.file" name="file"
+                                         ngf-select="vm.uploadFile('CriteriosDeElegibilidadFile')" class="button">
+                                        <md-button class="md-fab md-primary">
+                                            <ng-md-icon icon="attach_file"></ng-md-icon>
+                                        </md-button>
+                                    </div>
+                                </form>
+                                <div ng-show="vm.fondeo.Archivos.CriteriosDeElegibilidadFile!=null"><a
+                                        href="{{vm.fileRoute+vm.fondeo.Archivos.CriteriosDeElegibilidadFile}}"><span>{{vm.fondeo.Archivos.CriteriosDeElegibilidadFile | routeFilter}}</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </md-tab-body>
+                </md-tab>
+            </md-tabs>
+            <div layout-fill="" layout-padding="" layout="row" layout-align="end center" class="wizard-navbar">
+                <md-button ng-click="triWizard.prevStep()" ng-hide="triWizard.currentStep &gt; 3"
+                           ng-disabled="triWizard.prevStepDisabled()" translate="FONDEOS.WIZARD.PREV"
+                           class="md-primary md-raised"></md-button>
+                <md-button ng-click="triWizard.nextStep()"
+                           ng-hide="triWizard.progress == 100 &amp;&amp; triWizard.currentStep &gt;= 3"
+                           ng-disabled="triWizard.nextStepDisabled()" translate="FONDEOS.WIZARD.NEXT"
+                           class="md-primary md-raised"></md-button>
+                <md-button ng-click="vm.registrarFondeo()"
+                           ng-show="triWizard.progress == 100 &amp;&amp; triWizard.currentStep &gt;= 3 "
+                           translate="FONDEOS.WIZARD.SEND" class="md-accent md-raised"></md-button>
+                <md-button ng-click="vm.createDialog()" ng-show="vm.fondeo.id!=null" translate="FONDEOS.WIZARD.DELETE"
+                           class="md-warn md-raised"></md-button>
+                <md-button ng-click="vm.cancel()" ng-show="vm.fondeo.id!=null" translate="FONDEOS.WIZARD.STOP_EDIT"
+                           class="md-primary md-raised"></md-button>
+                <md-button ng-click="vm.cancel()" ng-show="vm.fondeo.id==null" translate="FONDEOS.WIZARD.CLEAR_FIELDS"
+                           class="md-primary md-raised"></md-button>
+            </div>
+        </div>
+    </div>
+</md-card>

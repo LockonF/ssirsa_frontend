@@ -60,6 +60,7 @@
             vm.notFoundInput = Translate.translate('MAIN.MSG.NOT_FOUND_INPUT');
             vm.errorTypeFile = Translate.translate('MAIN.MSG.ERORR_TYPE_FILE');
             vm.errorSize = Translate.translate('MAIN.MSG.FILE_SIZE');
+            vm.cabinetDeleted = Translate.translate('MAIN.MSG.ERROR_DISABLED_CABINET');
             buscarModelos();
         }
 
@@ -75,6 +76,12 @@
                 promise.then(function (res) {
                     vm.cabinet = res;
                     vm.ver = true;
+                    if (vm.cabinet.deleted == true) {
+                        notifyError(999);
+                        vm.limpiar();
+                        vm.ver = false;
+                    }
+
 
 
                 }).catch(function (res) {
@@ -92,6 +99,9 @@
             switch (status) {
                 case 404:
                     toastr.info(vm.notFoundMessage, vm.errorTitle);
+                    break;
+                case 999:
+                    toastr.warning(vm.cabinetDeleted, vm.errorMessage);
                     break;
                 default:
                     toastr.warning(vm.errorMessage, vm.errorTitle);

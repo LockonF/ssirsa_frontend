@@ -135,7 +135,8 @@
                             state: 'triangular.admin-default.etapa',
                             type: 'link'
                         },
-                        {
+                       /* Comentado por si acaso vuelven a pedir que este en el menu pero ya lo absorvio etapa servicio
+                       {
                             name: 'MAIN.MENU.PRECHECK',
                             state: 'triangular.admin-default.checklist',
                             type: 'link'
@@ -148,7 +149,7 @@
                             name: 'MAIN.MENU.SERVICEONSTORE',
                             state: 'triangular.admin-default.servicioPuntoVenta',
                             type: 'link'
-                        },
+                        },*/
                         {
                             name: 'MAIN.MENU.LINE',
                             state: 'triangular.admin-default.asignacionLinea',
@@ -375,6 +376,7 @@
                             state: 'triangular.admin-default.etapa',
                             type: 'link'
                         },
+                        /* lo mismo de arriba
                         {
                             name: 'MAIN.MENU.PRECHECK',
                             state: 'triangular.admin-default.checklist',
@@ -384,6 +386,7 @@
                             state: 'triangular.admin-default.diagnostic',
                             type: 'link'
                         },
+                        */
                         {
                             name: 'MAIN.MENU.LINE',
                             state: 'triangular.admin-default.asignacionLinea',

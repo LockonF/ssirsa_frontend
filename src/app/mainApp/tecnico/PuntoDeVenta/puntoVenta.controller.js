@@ -1,15 +1,16 @@
 /**
- * Created by franciscojaviercerdamartinez on 12/07/16.
+ * Created by franciscojaviercerdamartinez on 04/11/16.
  */
+
 
 (function () {
     'use strict';
 
     angular
         .module('app.mainApp.tecnico')
-        .controller('etapaController', etapaController);
+        .controller('PuntoVentaController', PuntoVentaController);
 
-    function etapaController(Cabinet, Helper, Servicios, $mdDialog, $scope, Insumo, Translate, toastr) {
+    function PuntoVentaController(Cabinet, Helper, Servicios, $mdDialog, $scope, Insumo, Translate, toastr) {
         var vm = this;
         vm.activate = activate();
 
@@ -22,6 +23,7 @@
             siguiente_etapa: ''
 
         };
+        
         vm.showInsumosSection = true;
         vm.catalogoInsumos = null;//array con todos los caatalogos de insumo disponibles de la etapa
         vm.catalogoSelected = {};//Elemento del tipo Catalogo de Insumo del insumo que se deseará agregar
@@ -152,6 +154,8 @@
                                         vm.etapaActual.insumos = [];
                                     }
 
+                                    getInsumosLote();
+
 
                                     vm.etapaActual.validado = true;
 
@@ -161,7 +165,6 @@
                                     }
                                     else
                                         vm.showInsumosSection = true;
-
                                 }
                                 else {
 
@@ -170,10 +173,10 @@
                                     vm.etapaActual.actual_etapa = vm.etapa.siguiente_etapa;
                                     vm.etapaActual.siguiente_etapa = null;
                                     vm.etapaActual.insumos = null;
-
+                                    getInsumosLote();
                                 }
 
-                                getInsumosLote();
+
                                 console.log(vm.etapaActual.actual_etapa);
                                 if (_.findWhere(vm.etapas, {nombre: vm.etapaActual.actual_etapa.nombre}) == undefined) {
                                     console.log("Entre por el soft Delete")
@@ -243,14 +246,13 @@
 
 
         function getInsumosLote() {
-            console.log("Estoy Jalando los Insumos");
+
             var data = {
                 idTipo: '',
                 idEtapa: ''
             };
             data.idTipo = vm.modelo.tipo;
             data.idEtapa = vm.etapaActual.actual_etapa.id;
-            console.log(data);
             if (data.idTipo) {
 
             }
@@ -294,23 +296,18 @@
                 vm.insumoLote.notas = elemento.descripcion;
                 vm.insumoLote.agregar = false;
                 if (insulote.cantidad >= vm.insumoLote.cantidad) {
-                    console.log("entre al IF");
                     vm.insumos_loteUsados.push(vm.insumoLote);
-                    vm.insumoLote = null;
-                    vm.insumoLote = {};
                 }
                 else {
                     vm.insumos_sinStock.push(vm.insumoLote);
-                    vm.insumoLote = null;
-                    vm.insumoLote = {};
-                    console.log("entre al ELSE");
                 }
-
+                vm.insumoLote = null;
+                vm.insumoLote = {};
             })
             console.log("Insumos lote obtenidos en array");
             console.log(vm.insumos_loteUsados);
             console.log(vm.insumos_lote.length);
-            if (vm.insumos_loteUsados.length == 0 && vm.insumos_sinStock.lenght==0) {
+            if (vm.insumos_loteUsados.length == 0) {
 
                 notifyError(998);
             }
