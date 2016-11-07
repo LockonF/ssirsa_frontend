@@ -107,6 +107,7 @@
                     if (err.status == 400) {
                         toastr.error(vm.errorMassive, vm.errorTitle);
                         vm.salida.no_creados = err.data;
+                        vm.salida.file=null;
                     } else {
                         toastr.error(vm.errorMessage, vm.errorTitle);
                     }
