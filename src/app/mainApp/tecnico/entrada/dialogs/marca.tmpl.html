@@ -1,36 +1,37 @@
-<md-dialog class="mobile-fullwidth-dialog" flex="40" flex-xs="100">
-    <div layout="column" flex layout-padding layout-align-gt-md="center center" layout-align="center stretch">
-        <md-toolbar>
-            <div class="md-toolbar-tools">
-                <h2>{{'INPUT.Create Brand'|translate}}</h2>
-            </div>
-        </md-toolbar>
-        <md-dialog-content flex="100" layout-fill>
-            <form name="brandForm" novalidate="" flex="100">
-                <md-input-container class="md-block" flex="100">
-                    <label>{{'INPUT.Dialogs.Brand.Category'|translate}}</label>
-                    <input name="BrandCategory" md-no-asterisk="" required="" type="text" ng-model="vm.marca.categoria"/>
-                    <div ng-messages="brandForm.ModelDescription.$error">
-                        <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
-                    </div>
-                </md-input-container>
-                <md-input-container class="md-block" flex="100">
-                    <label>{{'INPUT.Dialogs.Brand.Description'|translate}}</label>
-                    <input name="BrandDescription" md-no-asterisk="" required="" type="text"
-                           ng-model="vm.marca.descripcion"/>
-                    <div ng-messages="brandForm.ModelKeyword.$error">
-                        <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
-                    </div>
-                </md-input-container>
-            </form>
-        </md-dialog-content>
-        <md-dialog-actions layout="row" layout-align="end center">
-            <md-button ng-click="vm.cancel()" md-no-ink class="md-primary">
-                {{'INPUT.Cancel'|translate}}
-            </md-button>
-            <md-button ng-click="vm.create()" ng-disabled="brandForm.$invalid" md-no-ink class="md-primary">
-                {{'INPUT.Save'|translate}}
-            </md-button>
-        </md-dialog-actions>
-    </div>
-</md-dialog>
+<div layout="column"
+     layout-fill
+     layout-align-gt-md="center center"
+     layout-align="center stretch">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>{{'INPUT.Create Brand'|translate}}</h2>
+        </div>
+    </md-toolbar>
+    <md-content flex="100" layout-padding layout-fill>
+        <form name="brandForm" novalidate="" flex="100">
+            <md-input-container class="md-block" flex="100">
+                <label>{{'INPUT.Dialogs.Brand.Category'|translate}}</label>
+                <input name="BrandCategory" md-no-asterisk="" required="" type="text" ng-model="vm.marca.categoria"/>
+                <div ng-messages="brandForm.ModelDescription.$error">
+                    <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block" flex="100">
+                <label>{{'INPUT.Dialogs.Brand.Description'|translate}}</label>
+                <input name="BrandDescription" md-no-asterisk="" required="" type="text"
+                       ng-model="vm.marca.descripcion"/>
+                <div ng-messages="brandForm.ModelKeyword.$error">
+                    <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
+                </div>
+            </md-input-container>
+        </form>
+    </md-content>
+    <md-actions layout="row" layout-align="end center">
+        <md-button ng-click="vm.cancel()" md-no-ink class="md-primary">
+            {{'INPUT.Cancel'|translate}}
+        </md-button>
+        <md-button ng-click="vm.create()" ng-disabled="brandForm.$invalid" md-no-ink class="md-primary">
+            {{'INPUT.Save'|translate}}
+        </md-button>
+    </md-actions>
+</div>
