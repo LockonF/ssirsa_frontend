@@ -107,7 +107,7 @@
         <md-content class="md-padding" ng-if="vm.etapaActual.actual_etapa">
             <div layout="column" flex>
                 <div layout="row" layout-sm="column" layout-xs="column" layout-align=""
-                     ng-show="vm.insumos_loteUsados.length!=0" flex="100" layout-wrap>
+                     ng-show="vm.insumos_loteUsados.length!=0 || vm.insumos_sinStock.lenght!=0" flex="100" layout-wrap>
 
 
                     <div ng-repeat="insu in vm.insumos_loteUsados track by $index" flex="50">
@@ -129,7 +129,6 @@
                     <md-divider></md-divider>
                     <div ng-repeat="insu2 in vm.insumos_sinStock track by $index" flex="50">
                         <div column>
-
                             <div layout="row" layout-align="center center">
                                 <div flex="20">
                                     <md-icon md-font-icon="fa fa-ban"></md-icon>
