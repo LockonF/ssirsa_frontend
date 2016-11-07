@@ -125,7 +125,7 @@
       "ErrorCabinet": "El cabinet ya ha sido añadido",
       "NotFoundCabinet": "Cabinet no encontrado",
       "NotFoundUdn": "Sin resultados",
-      "InvalidUDN": "Selecciona una UDN"
+      "InvalidUDN": "Selecciona una Agencia"
     },
     "Transport": {
       "Line": "Linea de transporte",
