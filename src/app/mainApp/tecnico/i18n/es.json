@@ -217,7 +217,7 @@
           "INFORMATION": "Información del operador"
         },
         "PEDIMENT": "Pedimento",
-        "UDN": "UDN",
+        "UDN": "Agencia",
         "TRANSPORT": {
           "LINE": "Linea de transporte",
           "KIND": "Tipo de transporte"

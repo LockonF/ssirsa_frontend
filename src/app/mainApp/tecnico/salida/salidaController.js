@@ -10,7 +10,7 @@
         .filter('salidaSearch', salidaSearch)
         .filter('tipoequipoSearch', tipoequipoSearch);
 
-    function salidaController(EntradaSalida,OPTIONS, ModeloCabinet, $mdDialog, TipoEquipo, Helper, Translate, toastr, Sucursal, udn, Cabinet, CabinetEntradaSalida, TipoTransporte, $scope, LineaTransporte) {
+    function salidaController(EntradaSalida,OPTIONS, ModeloCabinet,Persona, $mdDialog, TipoEquipo, Helper, Translate, toastr, Sucursal, udn, Cabinet, CabinetEntradaSalida, TipoTransporte, $scope, LineaTransporte) {
         var vm = this;
         vm.guardar = guardar;
         vm.selectionFile = selectionFile;
@@ -42,6 +42,7 @@
         vm.loading = true;
         vm.types=OPTIONS.type_out;
         vm.isValid=false;
+        vm.outputWasCorrect=false;
         //Models
 
         vm.cabinets = null;
@@ -99,6 +100,7 @@
                     vm.hideUnregisteredCabinets = true;
                     vm.salida.creados = res.creados;
                     toastr.success(vm.successMassive, vm.successTitle);
+                    vm.outputWasCorrect=true;
                 }).catch(function (err) {
                     vm.hideUnregisteredCabinets = false;
                     vm.hideRegisteredCabinets = true;
@@ -293,6 +295,14 @@
             vm.dialogTitle = Translate.translate('OUTPUT.FORM.DIALOG.SEND_TITLE');
             vm.dialogMessage = Translate.translate('OUTPUT.FORM.DIALOG.SEND_MESSAGE');
             vm.dialogSureMessage = Translate.translate('OUTPUT.FORM.DIALOG.SEND_INCONSISTENCE');
+            Persona.listProfile().then(function(res){
+                if(res.sucursal!=null){
+                    vm.sucursal=res.sucursal;
+                    vm.salida.sucursal=res.sucursal;
+                }
+            }).catch(function () {
+                toastr.error(vm.errorMessage, vm.errorTitle);
+            });
         }
 
         function showMassiveUpload() {
@@ -317,6 +327,7 @@
             vm.hideManualUpload = true;
             vm.searchText=null;
             vm.selectedEntrada=0;
+            vm.outputWasCorrect=false;
         }
 
         function showManualUpload() {
