@@ -172,7 +172,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div flex="" layout="column" ng-hide="vm.hideRegisteredCabinets">
+                            <div flex="" layout="column" ng-hide="vm.hideRegisteredCabinets" ng-if="vm.salida.creados.length>0">
                                 <p>{{'OUTPUT.FORM.TITLES.REGISTERED'|translate}}</p>
                                 <md-table-container>
                                     <table md-table="" md-row-select="" multiple="" ng-disabled="true">
@@ -189,7 +189,7 @@
                                     </table>
                                 </md-table-container>
                             </div>
-                            <div flex="" layout="column" ng-hide="vm.hideUnregisteredCabinets">
+                            <div flex="" layout="column" ng-hide="vm.hideUnregisteredCabinets" ng-if="vm.salida.no_creados.length>0">
                                 <p>{{'OUTPUT.FORM.TITLES.UNREGISTERED'|translate}}</p>
                                 <md-table-container>
                                     <table md-table="" md-row-select="" multiple="" ng-disabled="true">
