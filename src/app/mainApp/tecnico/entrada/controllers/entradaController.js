@@ -40,6 +40,7 @@
 
         vm.selectedTab = 0;
         vm.idEntrada = null;
+        vm.sucursal=null;
         vm.modelos = ModeloCabinet.list();
         vm.marcas = MarcaCabinet.list();
 
@@ -103,13 +104,12 @@
             vm.cabinets = [];
             vm.cabinetID = "";
             vm.notFoundCabinets = [];
+
             Cabinet.getEconomics().then(function (res) {
                 vm.existingCabinets = _.pluck(res, "economico");
             }).catch(function () {
                 toastr.error(vm.errorMessage, vm.errorTitle);
             });
-
-            vm.entrada = angular.copy(entrada);
             LineaTransporte.listObject().then(function (res) {
                 vm.lineasTransporte = Helper.filterDeleted(res, true);
                 vm.lineasTransporte = _.sortBy(vm.lineasTransporte, 'razon_social');
@@ -138,6 +138,15 @@
                 vm.udns = Helper.filterDeleted(res, true);
                 vm.udns = _.sortBy(vm.udns, 'agencia');
                 vm.filteredUDN = angular.copy(vm.udns);
+            }).catch(function () {
+                toastr.error(vm.errorMessage, vm.errorTitle);
+            });
+            vm.entrada = angular.copy(entrada);
+            Persona.listProfile().then(function(res){
+                if(res.sucursal!=null){
+                    vm.sucursal=res.sucursal;
+                    vm.entrada.sucursal=res.sucursal;
+                }
             }).catch(function () {
                 toastr.error(vm.errorMessage, vm.errorTitle);
             });

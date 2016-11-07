@@ -141,7 +141,10 @@
                                             class="md-block"
                                             ng-if="vm.selectedEntrada ==='Nuevos' || vm.selectedEntrada === 'Garantías'">
                                         <label>{{'INPUT.Subsidiary'|translate}}</label>
-                                        <md-select name="selectSubsidiary" ng-model="vm.entrada.sucursal" required=""
+                                        <md-select name="selectSubsidiary"
+                                                   ng-model="vm.entrada.sucursal"
+                                                   required=""
+                                                   ng-disabled="vm.sucursal!=null"
                                                    md-no-asterisk="">
                                             <md-option ng-repeat="sucursal in vm.Sucursales" value="{{sucursal.id}}">
                                                 {{sucursal.nombre}}
