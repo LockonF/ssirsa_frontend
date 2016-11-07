@@ -72,6 +72,9 @@
     },
     "PUNTOVENTA":{
         "TITLE":"Servicio en Punto de Venta",
+        "SERVICEDATA":"Datos del Servicio",
+        "CABINETDATA":"Datos del Cabinet",
+        "SERVICEOBSERVATION":"Observaciones durante el Servicio",
         "ATENTIONDATE":"Fecha de Atención",
         "USEDINSUM":"Insumos Usados",
         "WEEK":"Semana",
@@ -89,7 +92,8 @@
         "TECHNICALOBSERVATIONS":"Observaciones Técnicas",
         "CABINET":"cabinet",
         "PERSON":"persona",
-        "COMPRESSOR":"Compresor"
+        "COMPRESSOR":"Compresor",
+        "COMPLETED":"Completado"
     },
     "CABINET": {
         "LINE_ASSIGMENT": "Asignación de Linea",
