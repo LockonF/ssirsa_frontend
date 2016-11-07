@@ -16,7 +16,7 @@
         vm.isGarantia = false;
         vm.isPedimento = false;
         vm.searchText = "";
-        vm.isValid=false;
+        vm.isValid = false;
 
         vm.guardar = guardar;
         vm.limpiar = limpiar;
@@ -33,22 +33,22 @@
         vm.addCabinet = addCabinet;
         vm.removeNotFoundCabinet = removeNotFoundCabinet;
         vm.selectedItemChange = selectedItemChange;
-        vm.search=search;
+        vm.search = search;
 
         vm.options = ["Nuevos", "Garantías"];
         vm.selectedEntrada = null;
 
         vm.selectedTab = 0;
         vm.idEntrada = null;
-        vm.modelos=ModeloCabinet.list();
-        vm.marcas=MarcaCabinet.list();
+        vm.modelos = ModeloCabinet.list();
+        vm.marcas = MarcaCabinet.list();
 
         //Visualizations
         vm.hideMassiveUpload = true;
         vm.hideManualUpload = true;
         vm.hideRegisteredCabinets = true;
         vm.hideUnregisteredCabinets = true;
-        vm.inputWasCorrect=false;
+        vm.inputWasCorrect = false;
 
 
         vm.responseMassiveUpload = {
@@ -103,7 +103,7 @@
             vm.cabinets = [];
             vm.cabinetID = "";
             vm.notFoundCabinets = [];
-            Cabinet.getEconomics().then(function(res){
+            Cabinet.getEconomics().then(function (res) {
                 vm.existingCabinets = _.pluck(res, "economico");
             }).catch(function () {
                 toastr.error(vm.errorMessage, vm.errorTitle);
@@ -179,10 +179,10 @@
                 fd.append('file', vm.entrada.file);
                 if (vm.entrada.id == null) {
                     EntradaSalida.postEntradaMasiva(fd).then(function (res) {
-                        vm.entrada.id=res.id;
+                        vm.entrada.id = res.id;
                         vm.entrada.creados = res.creados;
-                        vm.entrada.no_creados=_.map(res.no_creados,function(id){
-                            return {"economico":id,"motivo":"Marca o modelo no existentes"};
+                        vm.entrada.no_creados = _.map(res.no_creados, function (id) {
+                            return {"economico": id, "motivo": "Marca o modelo no existentes"};
                         });
                         vm.hideRegisteredCabinets = false;
                         vm.hideUnregisteredCabinets = false;
@@ -192,20 +192,20 @@
                         }
                         else {
                             toastr.success(vm.sucessMassive, vm.successTitle);
-                            vm.inputWasCorrect=true;
+                            vm.inputWasCorrect = true;
                         }
                     }).catch(function (err) {
-                        if(err.data.no_creados.length>0) {
+                        if (err.data.no_creados.length > 0) {
                             vm.entrada.no_creados = err.data.no_creados;
                         }
                         vm.entrada.file = null;
                         toastr.error(vm.errorMassive, vm.errorTitle);
                     });
                 }
-                else{
+                else {
                     fd.append('id', vm.entrada.id);
                     EntradaSalida.putEntradaMasiva(fd).then(function (res) {
-                        vm.entrada.id=res.id;
+                        vm.entrada.id = res.id;
                         vm.entrada.creados = res.creados;
                         vm.entrada.no_creados = res.no_creados;
                         vm.hideRegisteredCabinets = false;
@@ -216,10 +216,10 @@
                         }
                         else {
                             toastr.success(vm.sucessMassive, vm.successTitle);
-                            vm.inputWasCorrect=true;
+                            vm.inputWasCorrect = true;
                         }
                     }).catch(function (err) {
-                        if(err.data.no_creados.length>0) {
+                        if (err.data.no_creados.length > 0) {
                             vm.entrada.no_creados = err.data.no_creados;
                         }
                         vm.entrada.file = null;
@@ -280,10 +280,11 @@
             $scope.entradaForm.$setUntouched();
             $scope.entradaForm.$invalid = true;
             vm.selectedTab = 0;
-            vm.inputWasCorrect=false;
+            vm.inputWasCorrect = false;
         }
 
         function partialClean() {
+            vm.entrada.id = null;
             vm.cabinets = [];
             vm.entrada.creados = [];
             vm.entrada.no_creados = [];
@@ -295,6 +296,7 @@
         }
 
         function selectionFile($file) {
+            partialClean();
             vm.entrada.file = $file;
         }
 
@@ -381,7 +383,7 @@
         function addCabinet() {
             if (_.contains(vm.existingCabinets, vm.cabinetID)) {
                 Cabinet.get(vm.cabinetID).then(function (res) {
-                    var index = vm.cabinets.map(function(elem) {
+                    var index = vm.cabinets.map(function (elem) {
                         return elem.economico;
                     }).indexOf(res.economico);
                     if (index != -1) {
@@ -458,7 +460,7 @@
         }
 
         function search(text) {
-            if(!angular.isUndefined(text)) {
+            if (!angular.isUndefined(text)) {
                 vm.filteredUDN = _.filter(vm.udns, function (item) {
                     return item.agencia.toLowerCase().startsWith(text.toLowerCase()) || item.zona.toLowerCase().startsWith(text.toLowerCase());
                 });
@@ -468,7 +470,7 @@
         }
 
         function selectedItemChange(item) {
-            vm.isValid =angular.isObject(item);
+            vm.isValid = angular.isObject(item);
         }
 
 
