@@ -1,7 +1,7 @@
 <!--   Created by Emmanuel on 02/09/2016.-->
 <div layout="column">
-    <div layout="row" flex="" layout-padding="" layout-fill="" layout-align="center center">
-        <md-card flex-gt-xs="90" flex="100" class="md-padding-card1">
+    <div layout="row" flex="" layout-fill="" layout-align="center center">
+        <md-card flex-gt-xs="90" flex="100" class="md-padding-card1" >
             <md-card-title>
                 <md-card-title-text>
                     <span class="md-headline">
@@ -12,7 +12,7 @@
             <md-content layout-fill="">
                 <md-tabs layout-padding="true" md-dynamic-height="100" md-border-bottom="100"
                          md-selected="vm.selectedTab">
-                    <md-tab label={{'INPUT.Tabs.GeneralData'|translate}}>
+                    <md-tab label={{'INPUT.Tabs.GeneralData'|translate}} ng-disabled="vm.inputWasCorrect">
                         <md-content layout-padding="">
                             <form name="entradaForm" novalidate="">
                                 <md-input-container flex="100" class="md-block">
@@ -92,10 +92,13 @@
                                                         </span>
                                                     </span>
                                             </md-item-template>
-                                            <md-not-found><span translate="INPUT.Messages.NotFoundUdn"></span></md-not-found>
-                                            <div ng-messages="entradaForm.selectUDN.$error" ng-if="entradaForm.selectUDN.$touched">
+                                            <md-not-found><span translate="INPUT.Messages.NotFoundUdn"></span>
+                                            </md-not-found>
+                                            <div ng-messages="entradaForm.selectUDN.$error"
+                                                 ng-if="entradaForm.selectUDN.$touched">
                                                 <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
-                                                <div class="validate" ng-show="!vm.isValid" ng-class="{'slide':vm.isValid==false}">
+                                                <div class="validate" ng-show="!vm.isValid"
+                                                     ng-class="{'slide':vm.isValid==false}">
                                                     <span>{{'INPUT.Messages.InvalidUDN'| translate}}</span>
                                                 </div>
                                             </div>
@@ -138,7 +141,10 @@
                                             class="md-block"
                                             ng-if="vm.selectedEntrada ==='Nuevos' || vm.selectedEntrada === 'Garantías'">
                                         <label>{{'INPUT.Subsidiary'|translate}}</label>
-                                        <md-select name="selectSubsidiary" ng-model="vm.entrada.sucursal" required=""
+                                        <md-select name="selectSubsidiary"
+                                                   ng-model="vm.entrada.sucursal"
+                                                   required=""
+                                                   ng-disabled="vm.sucursal!=null"
                                                    md-no-asterisk="">
                                             <md-option ng-repeat="sucursal in vm.Sucursales" value="{{sucursal.id}}">
                                                 {{sucursal.nombre}}
@@ -201,8 +207,12 @@
                     <!--ng-disabled="entradaForm.$invalid"-->
                     <md-tab label={{'INPUT.Tabs.CabinetsUpload'|translate}} ng-disabled="entradaForm.$invalid">
                         <md-content layout-padding="">
-                            <div layout-gt-xs="row" layout="column" layout-align-gt-xs="space-around center"
-                                 layout-align="center stretch">
+                            <div layout-gt-xs="row"
+                                 layout="column"
+                                 layout-align-gt-xs="space-around start"
+                                 layout-align="center stretch"
+                                 ng-if="!vm.inputWasCorrect"
+                            >
                                 <md-button ng-click="vm.showMassiveUpload()" class="md-raised md-primary">
                                     {{'INPUT.Cabinets Massive Upload'|translate}}
                                 </md-button>
@@ -212,9 +222,17 @@
                             </div>
                             <div layout="column" ng-hide="vm.hideMassiveUpload">
                                 <!-- Massive Upload-->
-                                <div layout-gt-xs="row" layout="column" flex="100" ng-hide="vm.hideMassiveUpload">
+                                <div layout-gt-xs="row"
+                                     layout="column"
+                                     flex="100"
+                                     ng-hide="vm.hideMassiveUpload"
+                                     ng-if="!vm.inputWasCorrect"
+                                >
                                     <md-input-container flex-gt-sm="75" flex-gt-xs="50" flex="100">
-                                        <input name="FileName" type="text" ng-model="vm.entrada.file.name"
+                                        <input name="FileName"
+                                               aria-label="FileName"
+                                               type="text"
+                                               ng-model="vm.entrada.file.name"
                                                ng-disabled="true"/>
                                     </md-input-container>
                                     <div flex-gt-sm="13" flex-gt-xs="25" flex="100" layout="column">
@@ -233,58 +251,111 @@
                                     </div>
                                 </div>
                                 <div ng-if="vm.entrada.no_creados.length > 0"
-                                     layout-gt-xs="row"
-                                     layout-align-gt-xs="space-around center"
                                      layout-align="space-around stretch"
                                      layout="column">
-                                    <div layout="column" layout-gt-sm="row" layout-align="center center" layout-align-gt-sm="space-around center">
-                                        <md-button class="md-raised md-primary" ng-click="vm.showMarcaDialog(ev)" flex="flex" flex-gt-sm="100">
+                                    <div layout="column"
+                                         layout-gt-xs="row"
+                                         layout-align="center stretch"
+                                         layout-align-gt-xs="space-around center"
+                                         flex="100"
+                                         ng-if="vm.entrada.id!=null"
+                                    >
+                                        <md-button class="md-raised md-primary" ng-click="vm.showMarcaDialog(ev)"
+                                                   flex="flex" flex-gt-sm="100">
                                             {{'INPUT.Create Brand'|translate}}
                                         </md-button>
-                                        <md-button class="md-raised md-primary" ng-click="vm.showModeloDialog(ev)" flex="flex" flex-gt-sm="100">
+                                        <md-button class="md-raised md-primary" ng-click="vm.showModeloDialog(ev)"
+                                                   flex="flex" flex-gt-sm="100">
                                             {{'INPUT.Create Model'|translate}}
                                         </md-button>
                                     </div>
-                                    <div layout="column">
+                                    <div layout="column"
+                                         flex="100"
+                                    >
                                         <p>{{'INPUT.Unregistered Cabinets'|translate}}</p>
-                                        <md-virtual-repeat-container flex="100" layout-fill
-                                                                     ng-style='{"height":"250px"}'>
-                                            <md-list>
-                                                <md-list-item ng-repeat="cabinet in vm.entrada.no_creados">
-                                                    <div layout="row" flex="100">
-                                                        <strong>{{cabinet.economico}}</strong>
-                                                        <p>{{cabinet.motivo}}</p>
-                                                    </div>
-                                                    <md-divider></md-divider>
-                                                </md-list-item>
-                                            </md-list>
+                                        <md-virtual-repeat-container flex="100"
+                                                                     layout="column"
+                                                                     layout-align="center center"
+                                                                     class="vr-min-height">
+                                            <div id="tabla" layout-align="center center">
+                                                <div class="table-responsive-vertical shadow-z-1"
+                                                     layout-align="space-around center">
+                                                    <!-- Table starts here -->
+                                                    <table id="table" class="table table-hover table-mc-light-blue"
+                                                           layout-align="center center">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>
+                                                                {{'INPUT.TableUnregisteredCabinets.Economic'|translate}}
+                                                            </th>
+                                                            <th>{{'INPUT.TableUnregisteredCabinets.Reason'|translate}}
+                                                            </th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr ng-repeat="cabinet in vm.entrada.no_creados">
+                                                            <td data-title="{{'INPUT.TableUnregisteredCabinets.Economic'|translate}}">
+                                                                {{cabinet.economico}}
+                                                            </td>
+                                                            <td data-title="{{'INPUT.TableUnregisteredCabinets.Reason'|translate}}">
+                                                                {{cabinet.motivo}}
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
                                         </md-virtual-repeat-container>
                                     </div>
                                 </div>
                                 <div flex="" layout="column" ng-if="vm.entrada.creados.length > 0">
                                     <p>{{'INPUT.Registered Cabinets'|translate}}</p>
-                                    <md-table-container>
-                                        <table md-table="" md-row-select="" multiple="" ng-disabled="true">
-                                            <thead md-head="">
-                                            <tr md-row="">
-                                                <th md-column="">{{'INPUT.TableCabinets.Headers.EconomicNum'|translate}}
-                                                </th>
-                                                <th md-column="">{{'INPUT.TableCabinets.Headers.SerialNum'|translate}}
-                                                </th>
-                                                <th md-column="">{{'INPUT.TableCabinets.Headers.Brand'|translate}}</th>
-                                                <th md-column="">{{'INPUT.TableCabinets.Headers.Model'|translate}}</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody md-body="">
-                                            <tr md-row="" ng-repeat="registeredCabinet in vm.entrada.creados track by $index">
-                                                <td md-cell="">{{registeredCabinet.economico}}</td>
-                                                <td md-cell="">{{registeredCabinet.no_serie}}</td>
-                                                <td md-cell="">{{registeredCabinet.modelo.marca.descripcion}}</td>
-                                                <td md-cell="">{{registeredCabinet.modelo.nombre}}</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </md-table-container>
+                                    <md-virtual-repeat-container flex="100"
+                                                                 layout="column"
+                                                                 layout-align="center center"
+                                                                 class="vr-min-height">
+                                        <div id="tabla" layout-align="center center">
+                                            <div class="table-responsive-vertical shadow-z-1"
+                                                 layout-align="space-around center">
+                                                <!-- Table starts here -->
+                                                <table id="table" class="table table-hover table-mc-light-blue"
+                                                       layout-align="center center">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>
+                                                            {{'INPUT.TableCabinets.Headers.EconomicNum'|translate}}
+                                                        </th>
+                                                        <th>
+                                                            {{'INPUT.TableCabinets.Headers.SerialNum'|translate}}
+                                                        </th>
+                                                        <th>
+                                                            {{'INPUT.TableCabinets.Headers.Brand'|translate}}
+                                                        </th>
+                                                        <th>
+                                                            {{'INPUT.TableCabinets.Headers.Model'|translate}}
+                                                        </th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr ng-repeat="cabinet in vm.entrada.creados">
+                                                        <td data-title="{{'INPUT.TableCabinets.Headers.EconomicNum'|translate}}">
+                                                            {{cabinet.economico}}
+                                                        </td>
+                                                        <td data-title="{{'INPUT.TableCabinets.Headers.SerialNum'|translate}}">
+                                                            {{cabinet.no_serie}}
+                                                        </td>
+                                                        <td data-title="{{'INPUT.TableCabinets.Headers.Brand'|translate}}">
+                                                            {{cabinet.modelo.marca.descripcion}}
+                                                        </td>
+                                                        <td data-title="{{'INPUT.TableCabinets.Headers.Model'|translate}}">
+                                                            {{cabinet.modelo.nombre}}
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </md-virtual-repeat-container>
                                 </div>
                             </div>
                             <div layout="column" ng-hide="vm.hideManualUpload" flex="100">
@@ -325,23 +396,27 @@
                                     </md-table-container>
                                 </div>
                                 <div flex="" layout="column" ng-if="vm.notFoundCabinets.length > 0">
-                                    <div layout="column" layout-gt-sm="row" layout-align="center center" layout-align-gt-sm="space-around center">
-                                        <md-button class="md-raised md-primary" ng-click="vm.showMarcaDialog(ev)" flex="flex" flex-gt-sm="100">
+                                    <div layout="column" layout-gt-sm="row" layout-align="center center"
+                                         layout-align-gt-sm="space-around center">
+                                        <md-button class="md-raised md-primary" ng-click="vm.showMarcaDialog(ev)"
+                                                   flex="flex" flex-gt-sm="100">
                                             {{'INPUT.Create Brand'|translate}}
                                         </md-button>
-                                        <md-button class="md-raised md-primary" ng-click="vm.showModeloDialog(ev)" flex="flex" flex-gt-sm="100">
+                                        <md-button class="md-raised md-primary" ng-click="vm.showModeloDialog(ev)"
+                                                   flex="flex" flex-gt-sm="100">
                                             {{'INPUT.Create Model'|translate}}
                                         </md-button>
                                     </div>
                                     <p>{{'INPUT.Unregistered Cabinets'|translate}}</p>
                                     <md-virtual-repeat-container flex="100" layout-fill ng-style='{"height":"250px"}'>
                                         <md-list>
-                                            <md-list-item ng-repeat="cabinet in vm.notFoundCabinets" style="padding-right: 20px;">
+                                            <md-list-item ng-repeat="cabinet in vm.notFoundCabinets"
+                                                          style="padding-right: 20px;">
                                                 <section layout="row"
-                                                     layout-align="space-between center"
-                                                     layout-fill
-                                                     md-swipe-left="vm.removeNotFoundCabinet(cabinet)"
-                                                     md-swipe-right="vm.removeNotFoundCabinet(cabinet)"
+                                                         layout-align="space-between center"
+                                                         layout-fill
+                                                         md-swipe-left="vm.removeNotFoundCabinet(cabinet)"
+                                                         md-swipe-right="vm.removeNotFoundCabinet(cabinet)"
                                                 >
                                                     <md-button ng-click="vm.showCabinetDialog(cabinet)"
                                                                layout-fill
@@ -364,10 +439,11 @@
                                     </md-virtual-repeat-container>
                                 </div>
                             </div>
-
-
                             <div layout="row" layout-align="end center">
-                                <md-button ng-disabled="entradaForm.$invalid" ng-click="vm.guardar()"
+                                <md-button ng-click="vm.limpiar()" md-no-ink class="md-raised md-primary" aria-label="clear">
+                                    <md-icon md-font-icon="fa fa-eraser"></md-icon>
+                                </md-button>
+                                <md-button ng-disabled="entradaForm.$invalid || vm.inputWasCorrect || (vm.entrada.file==null && vm.hideManualUpload==true)" ng-click="vm.guardar()"
                                            class="md-raised md-primary">{{'INPUT.Save'|translate}}
                                 </md-button>
                             </div>
