@@ -32,6 +32,7 @@
         vm.showCabinetDialog = showCabinetDialog;
         vm.addCabinet = addCabinet;
         vm.removeNotFoundCabinet = removeNotFoundCabinet;
+        vm.removeCabinet = removeCabinet;
         vm.selectedItemChange = selectedItemChange;
         vm.search = search;
 
@@ -430,6 +431,13 @@
             var index = vm.notFoundCabinets.indexOf(id);
             if (index > -1) {
                 vm.notFoundCabinets.splice(index, 1);
+            }
+        }
+        
+        function removeCabinet(id){
+            var index = vm.cabinets.indexOf(id);
+            if (index > -1) {
+                vm.cabinets.splice(index, 1);
             }
         }
 

@@ -1,7 +1,7 @@
 <!--   Created by Emmanuel on 02/09/2016.-->
 <div layout="column">
     <div layout="row" flex="" layout-fill="" layout-align="center center">
-        <md-card flex-sm="100" flex="100" flex-xs="100" class="md-padding-card1" >
+        <md-card flex-sm="100" flex="100" flex-xs="100" class="md-padding-card1">
             <md-card-title>
                 <md-card-title-text>
                     <span class="md-headline">
@@ -359,7 +359,7 @@
                                 </div>
                             </div>
                             <div layout="column" ng-hide="vm.hideManualUpload" flex="100">
-                                <div layout="column" layout-align="space-around center">
+                                <div layout="row" layout-align="center center">
                                     <form name="formCabinets" ng-submit="vm.addCabinet()">
                                         <md-input-container flex-gt-xs="80" flex="100">
                                             <label>{{'INPUT.CabinetID'|translate}}</label>
@@ -368,6 +368,13 @@
                                                    ng-model="vm.cabinetID">
                                         </md-input-container>
                                     </form>
+                                    <md-button aria-label="fab button"
+                                               class="md-fab md-scale md-mini  md-fab-principal"
+                                               ng-click="vm.addCabinet()">
+                                        <md-icon md-font-icon="fa fa-plus" ng-style="{color: 'white'}">
+
+                                        </md-icon>
+                                    </md-button>
                                 </div>
                                 <div flex="" layout="column" ng-if="vm.cabinets.length > 0">
                                     <p>{{'INPUT.Registered Cabinets'|translate}}</p>
@@ -381,15 +388,28 @@
                                                 </th>
                                                 <th md-column="">{{'INPUT.TableCabinets.Headers.Brand'|translate}}</th>
                                                 <th md-column="">{{'INPUT.TableCabinets.Headers.Model'|translate}}</th>
+                                                <th md-column=""></th>
                                             </tr>
                                             </thead>
                                             <tbody md-body="">
                                             <tr md-row=""
-                                                ng-repeat="registeredCabinet in vm.cabinets">
+                                                ng-repeat="registeredCabinet in vm.cabinets"
+                                                md-swipe-left="vm.removeCabinet(registeredCabinet)"
+                                                md-swipe-right="vm.removeCabinet(registeredCabinet)"
+                                            >
                                                 <td md-cell="">{{registeredCabinet.economico}}</td>
                                                 <td md-cell="">{{registeredCabinet.no_serie}}</td>
                                                 <td md-cell="">{{registeredCabinet.marca}}</td>
                                                 <td md-cell="">{{registeredCabinet.modelo}}</td>
+                                                <td md-cell="">
+                                                    <md-button aria-label="fab button"
+                                                               class="md-fab md-scale md-mini md-fab-principal"
+                                                               ng-click="vm.removeCabinet(registeredCabinet)">
+                                                        <md-icon md-font-icon="fa fa-trash" ng-style="{color: 'white'}">
+
+                                                        </md-icon>
+                                                    </md-button>
+                                                </td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -440,11 +460,14 @@
                                 </div>
                             </div>
                             <div layout="row" layout-align="end center">
-                                <md-button ng-click="vm.limpiar()" md-no-ink class="md-raised md-primary" aria-label="clear">
+                                <md-button ng-click="vm.limpiar()" md-no-ink class="md-raised md-primary"
+                                           aria-label="clear">
                                     <md-icon md-font-icon="fa fa-eraser"></md-icon>
                                 </md-button>
-                                <md-button ng-disabled="entradaForm.$invalid || vm.inputWasCorrect || (vm.entrada.file==null && vm.hideManualUpload==true)" ng-click="vm.guardar()"
-                                           class="md-raised md-primary">{{'INPUT.Save'|translate}}
+                                <md-button
+                                        ng-disabled="entradaForm.$invalid || vm.inputWasCorrect || (vm.entrada.file==null && vm.hideManualUpload==true)"
+                                        ng-click="vm.guardar()"
+                                        class="md-raised md-primary">{{'INPUT.Save'|translate}}
                                 </md-button>
                             </div>
                         </md-content>
