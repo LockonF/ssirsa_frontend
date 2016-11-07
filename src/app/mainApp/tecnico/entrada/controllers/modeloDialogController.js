@@ -7,7 +7,7 @@
     angular
         .module('app.mainApp.tecnico')
         .controller('ModeloDialogController', ModeloDialogController);
-    function ModeloDialogController($mdDialog, MarcaCabinet, ModeloCabinet, Helper, Translate, toastr) {
+    function ModeloDialogController($mdDialog, MarcaCabinet, ModeloCabinet, Helper, Translate, toastr, TipoEquipo) {
         var vm = this;
 
         //Translates
@@ -24,6 +24,7 @@
             "nombre": "",
             "descripcion": "",
             "palabra_clave": "",
+            "tipo":"",
             "marca": ""
         };
 
@@ -37,15 +38,22 @@
                 toastr.error(vm.errorMessage, vm.errorTitle);
                 vm.marcas = [];
             });
+            TipoEquipo.listWitout().then(function (res) {
+                vm.tipos = Helper.filterDeleted(res, true);
+            }).catch(function () {
+                toastr.error(vm.errorMessage, vm.errorTitle);
+                vm.tipos = [];
+            });
         }
 
 
         function create() {
-            ModeloCabinet.create(vm.cabinet).then(function (res) {
+            console.log()
+            ModeloCabinet.create(vm.modelo).then(function (res) {
                 toastr.success(vm.successMessage, vm.succesTitle);
-                $mdDialog.hide(vm.cabinet.economico);
+                $mdDialog.hide();
             }).catch(function (err) {
-                toastr.error(vm.errorMessage, vm.errorTitle);
+                console.log(err);
                 $mdDialog.cancel(err);
             });
         }

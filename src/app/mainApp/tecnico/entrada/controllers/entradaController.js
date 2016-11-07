@@ -11,7 +11,7 @@
     function entradaController(EntradaSalida, toastr, $mdDialog, MarcaCabinet,
                                ModeloCabinet, Sucursal, udn, CabinetEntradaSalida,
                                Proyectos, TipoTransporte, LineaTransporte, Translate,
-                               $scope, Cabinet, Helper) {
+                               $scope, Cabinet, Helper, Persona) {
         var vm = this;
         vm.isGarantia = false;
         vm.isPedimento = false;

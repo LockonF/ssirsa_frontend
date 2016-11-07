@@ -154,9 +154,7 @@
         "Name": "Nombre",
         "Description": "Descripcion",
         "Keyword": "Palabra clave",
-        "Refrigerant type": "Tipo de refrigerante",
-        "Refrigerant quantity": "Cantidad de refrigerante",
-        "Compressor type": "Tipo de compresor",
+        "Type": "Tipo de equipo",
         "Brand": "Marca"
       },
       "Brand": {
