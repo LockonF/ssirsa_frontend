@@ -226,7 +226,10 @@
                                      ng-if="!vm.inputWasCorrect"
                                 >
                                     <md-input-container flex-gt-sm="75" flex-gt-xs="50" flex="100">
-                                        <input name="FileName" type="text" ng-model="vm.entrada.file.name"
+                                        <input name="FileName"
+                                               aria-label="FileName"
+                                               type="text"
+                                               ng-model="vm.entrada.file.name"
                                                ng-disabled="true"/>
                                     </md-input-container>
                                     <div flex-gt-sm="13" flex-gt-xs="25" flex="100" layout="column">
