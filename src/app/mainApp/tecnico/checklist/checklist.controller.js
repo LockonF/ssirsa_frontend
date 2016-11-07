@@ -22,7 +22,7 @@
         vm.change = change;
         activate();
         if (diagnosticoEtapa.id != null) {
-            var diagnostico = _.clone(diagnosticoEtapa);
+            var diagnostico = _.clone(_.omit(diagnosticoEtapa,diagnosticoEtapa.foto));
 
         }
         else {
@@ -136,7 +136,8 @@
 
             if (cabinet != null) {
                 vm.cabinet = cabinet;
-                vm.diagnostico = diagnosticoEtapa;
+
+                vm.diagnostico =  _.clone(_.omit(diagnosticoEtapa,diagnosticoEtapa.foto));
                 if(vm.diagnostico.tipo=='salida'){
                     console.log("entre porq es de salida")
                     vm.diagnostico.id=null;

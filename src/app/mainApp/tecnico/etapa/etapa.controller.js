@@ -174,6 +174,12 @@
                                     getInsumosLote();
                                 }
 
+
+                                console.log(vm.etapaActual.actual_etapa);
+                                if(_.findWhere(vm.etapas,{nombre:vm.etapaActual.actual_etapa.nombre})==undefined) {
+                                        console.log("Entre por el soft Delete")
+                                        vm.etapaActual.actual_etapa=_.findWhere(vm.etapas,{nombre:'E1'})
+                                }
                                 if (vm.etapaActual.actual_etapa.nombre == 'E1') {
                                     vm.diagnostico.tipo = 'entrada';
                                     vm.etapaActual.siguiente_etapa.id = 2;
@@ -452,6 +458,7 @@
             vm.etapaActual.insumos[0].no_serie = null;
             vm.etapaActual.insumos[0].notas = null;
             vm.etapaActual.insumos[0].cantidad = null;
+            vm.showInsumo=false;
         }
 
         function getInsumos() {
