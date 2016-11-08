@@ -14,7 +14,9 @@
     <md-divider></md-divider>
     <form name="updateSolicitudform">
         <md-dialog-content class="md-dialog-content card1 md-blue-grey-theme">
-            <md-autocomplete md-selected-item="vm.selectedEtapa"
+            <md-autocomplete
+                            id="etapas"
+                            md-selected-item="vm.selectedEtapa"
                              md-selected-item-change="vm.selectedItemChange(vm.selectedEtapa)"
                              md-items="item in vm.querySearch(vm.searchText)"
                              md-item-text="item.descripcion"

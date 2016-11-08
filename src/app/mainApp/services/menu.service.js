@@ -8,11 +8,32 @@
         .module('app.mainApp')
         .factory('dynamicMenu', dynamicMenu);
 
-    function dynamicMenu(triMenu, Session) {
+    function dynamicMenu(triMenu, Session,menuReport) {
 
         return {
-            loadMenu: loadMenu
+            loadMenu: loadMenu,
+            loadMenuReport:loadMenuReport
         };
+        function loadMenuReport() {
+            menuReport.menu = [];
+            var capturistaMenu = [
+                {
+                    name: 'MAIN.MENU.WELCOME',
+                    icon: 'zmdi zmdi-home',
+                    type: 'dropdown',
+                    priority: 1,
+                    children: [
+                        {
+                            name: 'MAIN.MENU.START',
+                            state: 'triangular.admin-default.bienvenida',
+                            type: 'link'
+                        }
+                    ]
+                }
+            ];
+            menuReport.menu = capturistaMenu;
+
+        }
 
 
         function loadMenu() {
@@ -385,21 +406,6 @@
                         {
                             name: 'MAIN.MENU.START',
                             state: 'triangular.admin-default.tecnico',
-                            type: 'link'
-                        },
-                        {
-                            name: 'MAIN.MENU.IN',
-                            state: 'triangular.admin-default.entrada',
-                            type: 'link'
-                        },
-                        {
-                            name: 'MAIN.MENU.OUT',
-                            state: 'triangular.admin-default.salida',
-                            type: 'link'
-                        },
-                        {
-                            name: 'MAIN.MENU.REMISSION',
-                            state: 'triangular.admin-default.remision',
                             type: 'link'
                         },
                         {
