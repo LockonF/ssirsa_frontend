@@ -61,7 +61,7 @@
         }
 
         function getEconomics(){
-            return urlbase.all("clean").all("economico").getList().$object;
+            return urlbase.all("clean").all("economico").getList();
         }
 
         function remove(cabinet) {
