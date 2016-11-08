@@ -1,5 +1,5 @@
 <!--Created by lockonDaniel on 9/8/16.-->
-<md-card flex="flex">
+<md-card flex="flex"  class="md-padding card1">
     <md-card-content>
         <div flex="flex" layout-xs="row">
             <h2 flex="flex" class="md-display-2">{{'Category.title' | translate}}</h2>
@@ -46,6 +46,8 @@
                     </md-input-container>
                 </form>
                 <div flex="flex" layout="row" layout-align="end end">
+                    <md-button aria-label="fab button" ng-click="vm.cancel()" class="md-raised md-primary"><md-icon md-font-icon="fa fa-eraser"></md-icon></md-button>
+
                     <md-button ng-if="vm.categoria.id!=null &amp;&amp; vm.categoria.id!=undefined" ng-disabled="inputForm.$invalid" ng-click="vm.update()" class="md-raised md-primary">
                         <md-icon md-font-icon="fa fa-pencil"></md-icon>
                     </md-button>

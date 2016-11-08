@@ -34,7 +34,7 @@
                     value: "Cerrada"
                 }
             ],
-            type_request:[
+            type_request: [
                 {
                     id: 0,
                     value: "Solicitud de envío",
@@ -50,7 +50,7 @@
                     value: "Solicitud de punto de venta"
                 }
             ],
-            status_equipment:[
+            status_equipment: [
                 {
                     id: 0,
                     value: "Nuevo"
@@ -63,55 +63,55 @@
             tipoSolicitud: [
                 {
                     id: 0,
-                    name:"Solicitud de envió",
+                    name: "Solicitud de envió",
                     value: "Envio"
                 },
                 {
                     id: 1,
-                    name:"Solicitud de recolección",
+                    name: "Solicitud de recolección",
                     value: "Recoleccion"
                 },
                 {
                     id: 2,
-                    name:"Solicitud de punto de venta",
+                    name: "Solicitud de punto de venta",
                     value: "Venta"
                 }
             ],
             filtrarSolicitud: [
                 {
 
-                    name:"Todas las solicitudes de esté tipo",
+                    name: "Todas las solicitudes de esté tipo",
                     value: "Todas"
                 },
                 {
 
-                    name:"Por Folio",
+                    name: "Por Folio",
                     value: "Por Folio"
                 },
                 {
-                    name:"Por Estatus",
+                    name: "Por Estatus",
                     value: "Por Estatus"
                 }
             ],
             estatusSol: [
                 {
-                    name:"Confirmada",
+                    name: "Confirmada",
                     value: "Confirmada"
                 },
                 {
-                    name:"No Confirmada",
+                    name: "No Confirmada",
                     value: "No Confirmada"
                 },
                 {
-                    name:"Cancelada",
+                    name: "Cancelada",
                     value: "Cancelada"
                 },
                 {
-                    name:"Cerrada",
+                    name: "Cerrada",
                     value: "Cerrada"
                 }
             ],
-            steps:[{
+            steps: [{
                 nombre: 'Depuración',
                 value: 'E1'
             }, {
@@ -148,43 +148,88 @@
                 nombre: 'Destrucción',
                 value: 'ED'
             }],
-            antiguedad:[
-                {id:'A',value:'A'},
-                {id:'B',value:'B'},
-                {id:'C',value:'C'},
-                {id:'D',value:'D'},
-                {id:'E',value:'E'},
-                {id:'F',value:'F'}
+            antiguedad: [
+                {id: 'A', value: 'A'},
+                {id: 'B', value: 'B'},
+                {id: 'C', value: 'C'},
+                {id: 'D', value: 'D'},
+                {id: 'E', value: 'E'},
+                {id: 'F', value: 'F'}
             ],
-            estatus_cabinet:[
-                {display:'Reparación Mayor',value:'Reparacion Mayor'},
-                {display:'Sistema Tapado',value:'Sistema Tapado'},
-                {display:'Reparación Media',value:'Reparacion Media'},
-                {display:'Reparación Menor',value:'Reparacion Menor'},
-                {display:'Fuga Interna',value:'Fuga Interna'},
-                {display:'Obsoleto',value:'Obsoleto'},
-                {display:'N/A',value:'N/A'}
+            estatus_cabinet: [
+                {display: 'Reparación Mayor', value: 'Reparacion Mayor'},
+                {display: 'Sistema Tapado', value: 'Sistema Tapado'},
+                {display: 'Reparación Media', value: 'Reparacion Media'},
+                {display: 'Reparación Menor', value: 'Reparacion Menor'},
+                {display: 'Fuga Interna', value: 'Fuga Interna'},
+                {display: 'Obsoleto', value: 'Obsoleto'},
+                {display: 'N/A', value: 'N/A'}
             ],
-            type_out:[
+            type_out: [
                 {
-                    id:0,
-                    value:"Normal",
-                    value_service:"normal"
+                    id: 0,
+                    value: "Normal",
+                    value_service: "normal"
                 },
                 {
-                    id:1,
-                    value:"Fuga Interna",
-                    value_service:"fuga_interna"
+                    id: 1,
+                    value: "Fuga Interna",
+                    value_service: "fuga_interna"
                 },
                 {
-                    id:2,
-                    value:"Obsoleto",
-                    value_service:"obsoleto"
+                    id: 2,
+                    value: "Obsoleto",
+                    value_service: "obsoleto"
                 },
                 {
-                    id:3,
-                    value:"No validada",
-                    value_service:"all"
+                    id: 3,
+                    value: "No validada",
+                    value_service: "all"
+                }
+            ],
+            units: [
+                {
+                    id: "Kg",
+                    value: "Kg"
+                },
+                {
+                    id: "g",
+                    value: "g"
+                },
+                {
+                    id: "mg",
+                    value: "mg"
+                },
+                {
+                    id: "L",
+                    value: "L"
+                },
+                {
+                    id: "mL",
+                    value: "mL"
+                },
+                {
+                    id: "piezas",
+                    value: "piezas"
+                }],
+            zone:[
+                {
+                    value: "Metro"
+                },
+                {
+                    value: "Centro"
+                },
+                {
+                    value: "Sur"
+                },
+                {
+                    value: "Norte"
+                },
+                {
+                    value: "Occidente"
+                },
+                {
+                    value: "Oriente"
                 }
             ],
             filter:[

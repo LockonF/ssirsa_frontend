@@ -36,8 +36,11 @@
                             <span>&nbsp; {{item.nombre}} - {{item.descripcion}}</span>
                         </span>
                     </md-item-template>
-                    <div ng-messages="addTipoEquipoForm.tipoEquipo.$error">
+                    <div ng-messages="addTipoEquipoForm.tipoEquipo.$error" ng-if="addTipoEquipoForm.tipoEquipo.$touched">
                         <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
+                        <div class="validate" ng-show="!vm.isValid" ng-class="{'slide':vm.isValid==false}">
+                            <span>{{'MODAL_CATALOG_CONSUMABLE.FORM.MESSAGE.EQUIPMENT'| translate}}</span>
+                        </div>
                     </div>
                     <md-not-found><span translate="MODAL_CATALOG_CONSUMABLE.FORM.LABEL.NOT_FOUND_TYPE"></span>
                     </md-not-found>
@@ -56,7 +59,12 @@
                 </md-input-container>
                 <md-input-container class="md-inline-form" flex="50" flex-sm="100" flex-xs="100">
                     <label>{{'MODAL_CATALOG_CONSUMABLE.FORM.PLACEHOLDER.DESCRIPTION'|translate}}</label>
-                    <input type="text" ng-model="vm.tipos_equipo.descripcion"/>
+
+                    <md-select ng-model="vm.tipos_equipo.descripcion" >
+                        <md-option ng-repeat="unidad in vm.unidades" ng-value="unidad.id" >
+                            {{unidad.value}}
+                        </md-option>
+                    </md-select>
                 </md-input-container>
             </div>
             <div layout="column" layout-sm="column" layout-xs="column" layout-md="column" flex="100"

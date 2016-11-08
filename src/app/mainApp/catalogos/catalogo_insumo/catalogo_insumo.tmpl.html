@@ -1,6 +1,6 @@
 <!--Created by lockonDaniel on 9/8/16.
 -->
-<md-card flex="flex">
+<md-card flex="flex" class="md-padding card1" >
     <md-card-content>
         <div flex="flex" layout-xs="row">
             <h2 flex="flex" class="md-display-2">{{'Consumable_Catalog.title' | translate}}</h2>
@@ -49,6 +49,14 @@
                             <div ng-message="belowminimum">{{'MAIN.GENERAL.MIN_NUMBER' | translate}} 0</div>
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>{{ 'Consumable_Catalog.units' | translate }}</label>
+                        <md-select ng-model="vm.catalogo_insumo.unidades" >
+                            <md-option ng-repeat="unidad in vm.unidades" ng-value="unidad.id" >
+                                {{unidad.value}}
+                            </md-option>
+                        </md-select>
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>{{ 'Consumable_Catalog.description' | translate }}</label>
@@ -106,6 +114,14 @@
                         <md-select ng-model="vm.catalogo_insumo.proveedor" ng-required="true" ng-disabled="vm.disabled(vm.catalogo_insumo.proveedor,'proveedor')">
                             <md-option ng-repeat="proveedor in vm.proveedor_list" ng-value="proveedor.id" ng-if="proveedor.deleted==false || proveedor.id==vm.catalogo_insumo.proveedor">
                                 {{proveedor.razon_social}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container class="md-block" ng-if="vm.catalogo_insumo.id==null && vm.profile.sucursal==null">
+                        <label>{{ 'Consumable_Catalog.office' | translate }}</label>
+                        <md-select ng-model="vm.catalogo_insumo.sucursal" ng-required="vm.catalogo_insumo.id==null && vm.profile.sucursal==null" >
+                            <md-option ng-repeat="sucursal in vm.sucursal_list" ng-value="sucursal.id" >
+                                {{sucursal.nombre}}
                             </md-option>
                         </md-select>
                     </md-input-container>
