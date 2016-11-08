@@ -8,7 +8,7 @@
         .module('app.mainApp.reportes')
         .controller('FieldsReportModalController', FieldsReportModalController);
 
-    function FieldsReportModalController( $rootScope,EVENTS_GENERAL, $mdDialog) {
+    function FieldsReportModalController( Reportes,EVENTS_GENERAL, $mdDialog) {
         var vm = this;
         //Function parsing
         vm.cancel = cancel;
@@ -59,7 +59,9 @@
         activate();
 
         function activate() {
-            $rootScope.$broadcast(EVENTS_GENERAL.load_report_menu);
+            Reportes.getRelatedModels(26,'entradasalida__').then(function (res) {
+                console.log(res);
+            });
         }
 
 

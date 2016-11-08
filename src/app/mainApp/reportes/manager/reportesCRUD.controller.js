@@ -31,6 +31,7 @@
         vm.editReport = editReport;
         vm.clear = clear;
         vm.exportar=exportar;
+        vm.test=test;
 
         //Translates
         vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
@@ -65,6 +66,16 @@
         function querySearch(query) {
             return query ? lookup(query) : vm.reports;
 
+        }
+        function test() {
+            $mdDialog.show({
+                controller: 'FieldsReportModalController',
+                controllerAs: 'vm',
+                templateUrl: 'app/mainApp/reportes/edicion/modal/fields.modal.tmpl.html',
+                fullscreen: true,
+                clickOutsideToClose: true,
+                focusOnOpen: true
+            }) ;
         }
 
         function onTabPreview() {
