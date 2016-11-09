@@ -33,18 +33,17 @@
                                 <div layout="column" flex="">
                                     <md-input-container flex="100">
                                         <label translate="">PUNTOVENTA.WEEK</label>
-                                            <loopify-number-picker name="week" ng-required="true" value="vm.servicio.semana"   ng-model="vm.servicio.semana" step="1" min="1" max="52" label=""></loopify-number-picker>
+                                        <input type="number" name="week" required=""
+                                               ng-model="vm.fondeo.FondoTotal" min="1" step="1" max="52">
                                         <div ng-messages="generalInfo.week.$error">
-                                            <div ng-message="" when="required">
-                                                <span translate="">MAIN.LABEL.REQUIRED</span>
-                                            </div>
+                                            <div ng-message="required"><span translate>MAIN.LABEL.REQUIRED</span> </div>
                                         </div>
                                     </md-input-container>
                                     <md-input-container>
                                         <label translate="">PUNTOVENTA.RECEPTIONHOUR</label>
                                         <input type="number" name="descripcion" required=""
                                                ng-model="vm.fondeo.FondoTotal" min="0" max="10000000000">
-                                        <div ng-messages="projectInfo.descripcion.$error">
+                                        <div ng-messages="generalInfo.descripcion.$error">
                                             <div ng-message="" when="required"><span translate="">FONDEOS.WIZARD.REQUIRED-FIELD</span>
                                             </div>
                                         </div>
