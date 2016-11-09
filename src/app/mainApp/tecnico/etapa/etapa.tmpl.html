@@ -16,7 +16,7 @@
 
                 </md-button>
                 <md-button class="md-raised" aria-label="Guardar"
-                           ng-disabled="vm.diagnostico.rejillas==null || vm.diagnostico.rejillas==0 || sigStep.$invalid "
+                           ng-disabled="vm.diagnostico.vacio || sigStep.$invalid "
                            ng-click='vm.crearEtapaServicio()'>
                     <md-icon md-font-icon="fa fa-save"></md-icon>
 
@@ -49,7 +49,7 @@
 
                 <div layout="column" flex="45">
                     <form name="Buscar" ng-submit="vm.buscar()">
-                        <md-input-container layout="row" flex="100">
+                        <md-input-container layout="column" layout-fill="true" flex="100">
 
                             <label translate>ETAPA_SERVICIO.ID_CABINET</label>
                             <input type="text" pattern="[0-9a-zA-Z-_ ]+" name="idCabinet" ng-model="vm.idCabinet"
@@ -69,15 +69,19 @@
 
                     <form name="sigStep">
                         <div layout="row"layout-fill >
-                        <md-input-container layout="row" flex="100" >
+                        <md-input-container layout="column" layout-fill="true" flex="100" >
                             <label translate>ETAPA_SERVICIO.NEXT_ETAPA</label>
                             <md-select ng-model="vm.etapaActual.siguiente_etapa.id" name="select"
-                                       ng-disabled="vm.editable" ng-required="vm.etapaActual.validado==true">
+                                       ng-disabled="vm.editable || vm.diagnostico.vacio" ng-required="vm.etapaActual.validado==true">
                                 <md-option ng-repeat="etap in vm.etapas" ng-value="etap.id">{{etap.nombre}} :
                                     {{etap.descripcion}}
                                 </md-option>
                             </md-select>
                         </md-input-container>
+                            <div ng-if="vm.diagnostico.vacio">
+                                <md-icon md-font-icon="fa fa-ban"></md-icon>
+                                <b><span style="color: #FF1B28;" translate>ETAPA_SERVICIO.NOT_PRECHECK</span></b>
+                            </div>
                         </div>
                     </form>
 

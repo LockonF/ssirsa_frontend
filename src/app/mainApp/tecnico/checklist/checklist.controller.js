@@ -21,37 +21,17 @@
         vm.cerrarDialog = cerrarDialog;
         vm.change = change;
         activate();
-        if (diagnosticoEtapa.id != null) {
-            var diagnostico = _.clone(_.omit(diagnosticoEtapa,diagnosticoEtapa.foto));
+        vm.editable=true;
 
-        }
-        else {
-            var diagnostico = {
-                tipo: 'entrada',
-                rodajas: null,
-                canastillas: null,
-                puertas: null,
-                rejillas: null,
-                sticker: false,
-                pintura: false,
-                lavado: false,
-                emplayado: false,
-                lubricacion: false,
-                listo_mercado: false,
-                fecha: moment().toISOString(),
-                tipo_insumo: '',
-                cabinet_entrada_salida: null
-            };
-            diagnostico = diagnosticoEtapa;
-            vm.diagnostico = diagnosticoEtapa;
-        }
-        vm.diagnostico = angular.copy(diagnostico);
+
         function change() {
         }
 
         function guardar() {
             vm.status = 'uploading';
+            vm.diagnostico.vacio=false;
             if (vm.diagnostico.id == null) {
+                console.log(vm.diagnostico)
                 if (vm.picFile != null) {
                     vm.diagnostico.foto = vm.picFile;
                 }
@@ -98,7 +78,6 @@
                     vm.picFile = null;
                     vm.statusReady = 0;
                     toastr.success(vm.successCreateMessage, vm.successTitle);
-                    vm.diagnostico = angular.copy(diagnostico);
                     cerrarDialog();
                 }, function (resp) {
                     console.log(resp);
@@ -137,7 +116,36 @@
             if (cabinet != null) {
                 vm.cabinet = cabinet;
 
-                vm.diagnostico =  _.clone(_.omit(diagnosticoEtapa,diagnosticoEtapa.foto));
+
+                if (diagnosticoEtapa.id != null) {
+                    var diagnostico = _.clone(_.omit(diagnosticoEtapa,diagnosticoEtapa.foto));
+
+                }
+                else {
+                    var diagnostico = {
+                        tipo: 'entrada',
+                        rodajas: null,
+                        canastillas: null,
+                        puertas: null,
+                        rejillas: null,
+                        sticker: false,
+                        pintura: false,
+                        lavado: false,
+                        emplayado: false,
+                        lubricacion: false,
+                        listo_mercado: false,
+                        fecha: moment().toISOString(),
+                        tipo_insumo: '',
+                        cabinet_entrada_salida: null
+                    };
+                }
+                vm.diagnostico =_.clone(diagnosticoEtapa);
+                if(vm.diagnostico.vacio===true){
+                    vm.editable=false;
+                }
+                else{
+                    vm.editable=true;
+                }
                 if(vm.diagnostico.tipo=='salida'){
                     console.log("entre porq es de salida")
                     vm.diagnostico.id=null;
@@ -150,13 +158,10 @@
                     vm.diagnostico.listo_mercado=false;
                     vm.diagnostico.fecha=moment().toISOString();
                     vm.diagnostico.isSalida=true;
+                    vm.editable=false;
 
 
                 }
-                console.log("Lo que le mando desde etapa de Servicio")
-                console.log(diagnosticoEtapa);
-                console.log("Lo que quedo de mi objeto");
-                console.log(vm.diagnostico);
                 if(vm.diagnostico.tipo_insumo=='cabinet'){
                     vm.diagnostico.isCabinet=true;
                 }

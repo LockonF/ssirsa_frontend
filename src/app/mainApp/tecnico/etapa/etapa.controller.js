@@ -198,7 +198,7 @@
                         })
                     }
                 }).catch(function (res) {
-                    notifyError(res);
+                    notifyError(res.status);
                     vm.cancel();
                 });
             }
@@ -353,6 +353,7 @@
             vm.cabinetid = vm.idCabinet;
             if (vm.etapaActual.actual_etapa.nombre == 'E4') {
                 vm.diagnostico.tipo = 'salida';
+                vm.diagnostico.isSalida=true;
             }
             $mdDialog.show({
                 controller: 'checklistController',
