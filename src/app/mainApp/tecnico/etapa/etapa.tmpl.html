@@ -72,12 +72,12 @@
                         <md-input-container layout="column" layout-fill="true" flex="100" >
                             <label translate>ETAPA_SERVICIO.NEXT_ETAPA</label>
                             <md-select ng-model="vm.etapaActual.siguiente_etapa.id" name="select"
-                                       ng-disabled="vm.editable || vm.diagnostico.vacio" ng-required="vm.etapaActual.validado==true">
+                                       ng-disabled="vm.editable || vm.diagnostico.vacio" ng-required="vm.etapaActual.validado">
                                 <md-option ng-repeat="etap in vm.etapas" ng-value="etap.id">{{etap.nombre}} :
                                     {{etap.descripcion}}
                                 </md-option>
                             </md-select>
-                            <div ng-messages="form2.sigStep.idCabinet.$error">
+                            <div ng-messages="form2.sigStep.select.$error">
                                 <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
                             </div>
                         </md-input-container>

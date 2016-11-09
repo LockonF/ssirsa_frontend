@@ -175,12 +175,14 @@
                                     vm.etapaActual.insumos = null;
 
                                 }
-                                vm.etapaActual.validado = true;
+
 
                                 getInsumosLote();
-                                console.log(vm.etapaActual.actual_etapa);
+                                vm.etapaActual.validado = true;
+                                console.log(vm.etapaActual);
+
                                 if (_.findWhere(vm.etapas, {nombre: vm.etapaActual.actual_etapa.nombre}) == undefined) {
-                                    console.log("Entre por el soft Delete")
+
                                     vm.etapaActual.actual_etapa = _.findWhere(vm.etapas, {nombre: 'E1'})
                                 }
                                 if (vm.etapaActual.actual_etapa.nombre == 'E1') {
@@ -190,7 +192,6 @@
                                 if (vm.etapaActual.actual_etapa.nombre == 'E4') {
                                     vm.diagnostico.tipo = 'salida';
                                 }
-
 
                             }).catch(function (res) {
                                 notifyError(res.status);
@@ -207,7 +208,7 @@
                 });
             }
             else {
-                notifyError(res.status);
+                notifyError(404);
             }
 
         }
@@ -247,30 +248,24 @@
 
 
         function getInsumosLote() {
-            console.log("Estoy Jalando los Insumos");
+
             var data = {
                 idTipo: '',
                 idEtapa: ''
             };
             data.idTipo = vm.modelo.tipo;
             data.idEtapa = vm.etapaActual.actual_etapa.id;
-            console.log(data);
+
             if (angular.isUndefined(data.idTipo) || data.idTipo == null) {
                 notifyError(407);
                 cancel();
             }
             else {
-
-
-                console.log(data);
                 var promise = Servicios.BusquedaCatalogoTypeStep(data);
                 promise.then(function (res) {
                     vm.insumosLote = res;
-                    console.log("Insumos lote obtenidos");
-                    console.log(vm.insumosLote);
                     transformArrayCatalogoInsumos();
                 }).catch(function (res) {
-                    console.log(res);
                     notifyError(res.status);
                 });
             }
@@ -281,7 +276,6 @@
         function filterInsumosLotebyType(tipos_equipo) {
             var elemento;
             elemento = _.findWhere(tipos_equipo, {tipo_equipo: vm.modelo.tipo});
-            console.log(elemento);
             return elemento;
 
         }
@@ -300,7 +294,6 @@
                 vm.insumoLote.notas = elemento.descripcion;
                 vm.insumoLote.agregar = false;
                 if (insulote.cantidad >= vm.insumoLote.cantidad) {
-                    console.log("entre al IF");
                     vm.insumos_loteUsados.push(vm.insumoLote);
                     vm.insumoLote = null;
                     vm.insumoLote = {};
@@ -309,13 +302,9 @@
                     vm.insumos_sinStock.push(vm.insumoLote);
                     vm.insumoLote = null;
                     vm.insumoLote = {};
-                    console.log("entre al ELSE");
                 }
 
             })
-            console.log("Insumos lote obtenidos en array");
-            console.log(vm.insumos_loteUsados);
-            console.log(vm.insumos_lote.length);
             if (vm.insumos_loteUsados.length == 0 && vm.insumos_sinStock.lenght == 0) {
 
                 notifyError(998);
@@ -383,6 +372,7 @@
                 //Cancelled
                 $mdDialog.cancel();
             });
+            vm.buscar();
         }
 
         function selectInsumo(insumotmp) {
@@ -464,7 +454,6 @@
             vm.showInsumo = true;
             if (vm.etapaActual.insumos[0].no_serie != null) {
                 vm.etapaActual.insumos[0].cantidad = 1;
-                console.log(vm.etapaActual.insumos[0]);
                 notifyError(1001);
             }
         }
@@ -582,7 +571,7 @@
                                 .cancel(vm.cancelar);
                             $mdDialog.show(confirm).then(function () {
 
-                                var promise = Servicios.eliminarEtapaServicio(vm.etapaActual);
+                                promise = Servicios.eliminarEtapaServicio(vm.etapaActual);
                                 promise.then(function (res) {
                                     vm.diagnostico = res;
                                     toastr.success(vm.successDeleteMessage, vm.successTitle);

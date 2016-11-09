@@ -33,7 +33,7 @@
             etapaList: etapaList,
             BusquedaInsumosTypeStep: BusquedaInsumosTypeStep,
             cabinetByEconomic: cabinetByEconomic,
-            firstStepByDiagnostic : firstStepByDiagnostic
+            firstStepByDiagnostic: firstStepByDiagnostic
 
         };
         var baseModelo = Restangular.all('etapa_servicio');
@@ -260,14 +260,16 @@
             return deferred.promise;
 
         }
+
         // /etapa_servicio/first/
-        function firstStepByDiagnostic (diagnostico){
-            var deferred = $.defer();
-            Restangular.all("etapa_servicio").one("first",diagnostico.id).customGET().then(function (res) {
+        function firstStepByDiagnostic(diagnostico) {
+            var deferred = $q.defer();
+            Restangular.all("etapa_servicio").one("first", diagnostico.id).customGET().then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
-                return deferred.promise;
+                deferred.reject(err);
             })
+            return deferred.promise;
         }
 
 

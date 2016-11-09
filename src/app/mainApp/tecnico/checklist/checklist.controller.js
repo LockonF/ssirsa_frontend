@@ -15,13 +15,14 @@
         vm.cabinets = null;
         vm.status = 'idle';// idle | uploading | complete
         vm.cabinet = null;
+        vm.NotEditable = false;
         vm.guardar = guardar;
         vm.searchCabinet = searchCabinet;
         vm.selectionFile = selectionFile;
         vm.cerrarDialog = cerrarDialog;
         vm.change = change;
         activate();
-        vm.editable=true;
+
 
 
         function change() {
@@ -30,11 +31,13 @@
         function guardar() {
             vm.status = 'uploading';
             vm.diagnostico.vacio=false;
+            console.log(vm.diagnostico);
             if (vm.diagnostico.id == null) {
                 console.log(vm.diagnostico)
                 if (vm.picFile != null) {
                     vm.diagnostico.foto = vm.picFile;
                 }
+                vm.diagnostico.vacio = false;
                 vm.diagnostico.tipo_insumo = vm.diagnostico.isCabinet == true ? 'cabinet' : 'bicicleta';
                 vm.diagnostico.tipo = vm.diagnostico.isSalida == true ? 'salida' : 'entrada';
                 Upload.upload({
@@ -66,7 +69,7 @@
                 }
                 vm.diagnostico.tipo_insumo = vm.diagnostico.isCabinet == true ? 'cabinet' : 'bicicleta';
                 vm.diagnostico.tipo = vm.diagnostico.isSalida == true ? 'salida' : 'entrada';
-
+                vm.diagnostico.vacio = false;
                 Upload.upload({
                     url: EnvironmentConfig.site.rest.api + 'diagnostico_cabinet/' + vm.diagnostico.id,
                     headers: {'Authorization': OAuthToken.getAuthorizationHeader()},
@@ -118,7 +121,8 @@
 
 
                 if (diagnosticoEtapa.id != null) {
-                    var diagnostico = _.clone(_.omit(diagnosticoEtapa,diagnosticoEtapa.foto));
+                    var diagnostico = _.clone(diagnosticoEtapa);
+                    diagnostico.foto=null;
 
                 }
                 else {
@@ -131,6 +135,7 @@
                         sticker: false,
                         pintura: false,
                         lavado: false,
+                        foto:null,
                         emplayado: false,
                         lubricacion: false,
                         listo_mercado: false,
@@ -140,11 +145,15 @@
                     };
                 }
                 vm.diagnostico =_.clone(diagnosticoEtapa);
-                if(vm.diagnostico.vacio===true){
-                    vm.editable=false;
+                if(vm.diagnostico.vacio==true){
+                    console.log("Estoy Vacío");
+                    vm.NotEditable = false;
+                    console.log(vm.notEditable);
                 }
                 else{
-                    vm.editable=true;
+                    console.log("Estoy Lleno");
+                    vm.NotEditable = true;
+                    console.log(vm.notEditable);
                 }
                 if(vm.diagnostico.tipo=='salida'){
                     console.log("entre porq es de salida")
@@ -158,20 +167,21 @@
                     vm.diagnostico.listo_mercado=false;
                     vm.diagnostico.fecha=moment().toISOString();
                     vm.diagnostico.isSalida=true;
-                    vm.editable=false;
+                    vm.NotEditable = false;
 
 
                 }
                 if(vm.diagnostico.tipo_insumo=='cabinet'){
-                    vm.diagnostico.isCabinet=true;
+                    vm.diagnostico.isCabinet = true;
                 }
                 else{
-                    vm.diagnostico.isCabinet=false;
+                    vm.diagnostico.isCabinet = false;
                 }
                 console.log("Lo que quedo de mi objeto");
                 console.log(vm.diagnostico);
                 vm.searchCabinet();
             }
+            console.log(vm.notEditable);
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
             vm.successCreateMessage = Translate.translate('MAIN.MSG.SUCCESS_TICKET_MESSAGE');
