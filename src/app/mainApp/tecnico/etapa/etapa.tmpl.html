@@ -48,13 +48,13 @@
             <div flex="100" layout="row">
 
                 <div layout="column" flex="45">
-                    <form name="Buscar" ng-submit="vm.buscar()">
+                    <form name="form2.Buscar" ng-submit="vm.buscar()">
                         <md-input-container layout="column" layout-fill="true" flex="100">
 
                             <label translate>ETAPA_SERVICIO.ID_CABINET</label>
                             <input type="text" pattern="[0-9a-zA-Z-_ ]+" name="idCabinet" ng-model="vm.idCabinet"
                                    required/>
-                            <div ng-messages="Buscar.idCabinet.$error">
+                            <div ng-messages="form2.Buscar.idCabinet.$error">
                                 <div ng-message="pattern">
                                     {{'MAIN.LABEL.ALFANUMERICONLY'|translate}}
                                 </div>
@@ -67,7 +67,7 @@
                 </div>
                 <div layout="column" flex="40">
 
-                    <form name="sigStep">
+                    <form name="form2.sigStep">
                         <div layout="row"layout-fill >
                         <md-input-container layout="column" layout-fill="true" flex="100" >
                             <label translate>ETAPA_SERVICIO.NEXT_ETAPA</label>
@@ -77,6 +77,9 @@
                                     {{etap.descripcion}}
                                 </md-option>
                             </md-select>
+                            <div ng-messages="form2.sigStep.idCabinet.$error">
+                                <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
+                            </div>
                         </md-input-container>
                             <div ng-if="vm.diagnostico.vacio">
                                 <md-icon md-font-icon="fa fa-ban"></md-icon>

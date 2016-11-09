@@ -14,7 +14,7 @@
         vm.activate = activate();
 
         //Inicializando Variables
-        $scope.form = {};
+        $scope.form2 = {};
         vm.etapa = {
             diagnostico: '',
             validado: false,
@@ -49,6 +49,8 @@
         vm.insumos_sinStock = [];
         vm.dataEtapa = null;//Variable que posera los datos de la etapa para el precargado de Template (id etapa, idTipoEquipo)
         vm.etapas;//Arreglo de las diferentes etapas que componen el proceso de fabricacion de Cabinets
+        vm.firstEtapa = {};
+
         //Declaracion de Funciones
 
 
@@ -120,6 +122,7 @@
             vm.successDeleteMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_DELETE');
             vm.messageNotEntrada = Translate.translate('MAIN.MSG.MSGNOTENTRADA');
             vm.messageNotTipoEquipo = Translate.translate('MAIN.MSG.NOTTIPOEQUIPO');
+            vm.errorNotDeleteFirstStep= Translate.translate('MAIN.MSG.NOTFIRSTSTEP')
             getEtapasList();
         }
 
@@ -251,7 +254,7 @@
             data.idTipo = vm.modelo.tipo;
             data.idEtapa = vm.etapaActual.actual_etapa.id;
             console.log(data);
-            if (angular.isUndefined(data.idTipo) || data.idTipo==null) {
+            if (angular.isUndefined(data.idTipo) || data.idTipo == null) {
                 notifyError(407);
                 cancel();
             }
@@ -312,7 +315,7 @@
             console.log("Insumos lote obtenidos en array");
             console.log(vm.insumos_loteUsados);
             console.log(vm.insumos_lote.length);
-            if (vm.insumos_loteUsados.length == 0 && vm.insumos_sinStock.lenght==0) {
+            if (vm.insumos_loteUsados.length == 0 && vm.insumos_sinStock.lenght == 0) {
 
                 notifyError(998);
             }
@@ -353,7 +356,7 @@
             vm.cabinetid = vm.idCabinet;
             if (vm.etapaActual.actual_etapa.nombre == 'E4') {
                 vm.diagnostico.tipo = 'salida';
-                vm.diagnostico.isSalida=true;
+                vm.diagnostico.isSalida = true;
             }
             $mdDialog.show({
                 controller: 'checklistController',
@@ -429,6 +432,9 @@
                     break;
                 case 444:
                     toastr.warning(vm.notAllow, vm.errorNotEtapaActual);
+                    break;
+                case 555:
+                    toastr.warning(vm.notAllow, vm.errorNotDeleteFirstStep);
                     break;
                 case 900:
                     toastr.warning(vm.notInsumos, vm.errorMessage);
@@ -506,10 +512,11 @@
             vm.insumos_loteUsados = [];//Arreglo que ya posee el arreglo como es necesario para agregar los insumos al formato de arreglo para agregarlos a la etapa
             vm.insumos_sinStock = [];
             vm.dataEtapa = null;//Variable que posera los datos de la etapa para el precargado de Template (id etapa, idTipoEquipo)
-            $scope.Buscar.$setPristine();
-            $scope.Buscar.$setUntouched();
-            $scope.sigStep.$setPristine();
-            $scope.sigStep.$setUntouched();
+            vm.firstEtapa = {};
+            $scope.form2.Buscar.$setPristine();
+            $scope.form2.Buscar.$setUntouched();
+            $scope.form2.sigStep.$setPristine();
+            $scope.form2.sigStep.$setUntouched();
 
 
         }
@@ -546,42 +553,56 @@
             vm.insumos_loteUsados = [];//Arreglo que ya posee el arreglo como es necesario para agregar los insumos al formato de arreglo para agregarlos a la etapa
             vm.insumos_sinStock = [];
             vm.dataEtapa = null;//Variable que posera los datos de la etapa para el precargado de Template (id etapa, idTipoEquipo)
-            $scope.Buscar.$setPristine();
-            $scope.Buscar.$setUntouched();
-            $scope.sigStep.$setPristine();
-            $scope.sigStep.$setUntouched();
+            vm.firstEtapa = {};
+            $scope.form2.Buscar.$setPristine();
+            $scope.form2.Buscar.$setUntouched();
+            $scope.form2.sigStep.$setPristine();
+            $scope.form2.sigStep.$setUntouched();
 
 
         }
 
 
         function eliminarEtapaServicio(ev) {
-            if (vm.etapaActual != null) {
-                if (vm.etapaActual.id != null) {
+            var promise = Servicios.firstStepByDiagnostic(vm.diagnostico);
+            promise.then(function (res) {
+                vm.firstEtapa = res;
+                if (vm.etapaActual.id != vm.firstEtapa.id) {
 
-                    var confirm = $mdDialog.confirm()
-                        .title(vm.delete)
-                        .textContent(vm.confirmDelete)
-                        .ariaLabel('Lucky day')
-                        .targetEvent(ev)
-                        .ok(vm.accepted)
-                        .cancel(vm.cancelar);
-                    $mdDialog.show(confirm).then(function () {
+                    if (vm.etapaActual != null) {
+                        if (vm.etapaActual.id != null) {
 
-                        var promise = Servicios.eliminarEtapaServicio(vm.etapaActual);
-                        promise.then(function (res) {
-                            vm.diagnostico = res;
-                            toastr.success(vm.successDeleteMessage, vm.successTitle);
-                            vm.cancel();
-                        }).catch(function (res) {
-                            notifyError(res.status);
-                        })
-                    });
+                            var confirm = $mdDialog.confirm()
+                                .title(vm.delete)
+                                .textContent(vm.confirmDelete)
+                                .ariaLabel('Lucky day')
+                                .targetEvent(ev)
+                                .ok(vm.accepted)
+                                .cancel(vm.cancelar);
+                            $mdDialog.show(confirm).then(function () {
+
+                                var promise = Servicios.eliminarEtapaServicio(vm.etapaActual);
+                                promise.then(function (res) {
+                                    vm.diagnostico = res;
+                                    toastr.success(vm.successDeleteMessage, vm.successTitle);
+                                    vm.cancel();
+                                }).catch(function (res) {
+                                    notifyError(res.status);
+                                })
+                            });
+                        }
+                        else {
+                            notifyError(444);
+                        }
+                    }
                 }
                 else {
-                    notifyError(444);
+                    notifyError(555);
                 }
-            }
+            }).catch(function (res) {
+                notifyError(res.status);
+            });
+
         }
 
         function eliminarSinModal() {

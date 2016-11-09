@@ -101,10 +101,11 @@
       "SUCCESS_MANUAL":"Se realizó las salidas exitosamente",
       "ERROR_DISABLED_CABINET":"Error este cabinet ha sido eliminado.",
       "NOT_INSUMOS":"El modelo de cabinet o carrito seleccionado no posee insumos asociados en esta etapa",
-      "NOT_STEPCREATED":"No puedes eliminar esta etapa porque aún no la creas",
+      "NOT_STEPCREATED":"No es posible eliminar una etapa que aún no ha sido creada",
       "INSUMOADDED":"El Compresor a sido agregado de forma Correcta",
-      "MSGNOTENTRADA":"No se Puede Registrar la Etapa, Ya que no tiene una entrada regisrada o bien ya se le hizo un diagnostico de Salida",
-      "NOTTIPOEQUIPO":"Ese equipo no tiene un tipo por lo cual no se pueden cargar insumos asociados"
+      "MSGNOTENTRADA":"No es posible Registrar la Etapa, Ya que no tiene una entrada regisrada o bien ya se le hizo un diagnostico de Salida",
+      "NOTTIPOEQUIPO":"Ese equipo no tiene un tipo por lo cual no se pueden cargar insumos asociados",
+      "NOTFIRSTSTEP":"No es posible Eliminar la primer Etapa de Servicio"
     },
     "BUTTONS": {
       "SUBMIT": "Enviar",

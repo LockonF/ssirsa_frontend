@@ -32,7 +32,8 @@
             BusquedaCatalogoTypeStep: BusquedaCatalogoTypeStep,
             etapaList: etapaList,
             BusquedaInsumosTypeStep: BusquedaInsumosTypeStep,
-            cabinetByEconomic: cabinetByEconomic
+            cabinetByEconomic: cabinetByEconomic,
+            firstStepByDiagnostic : firstStepByDiagnostic
 
         };
         var baseModelo = Restangular.all('etapa_servicio');
@@ -258,6 +259,15 @@
             });
             return deferred.promise;
 
+        }
+        // /etapa_servicio/first/
+        function firstStepByDiagnostic (diagnostico){
+            var deferred = $.defer();
+            Restangular.all("etapa_servicio").one("first",diagnostico.id).customGET().then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                return deferred.promise;
+            })
         }
 
 
