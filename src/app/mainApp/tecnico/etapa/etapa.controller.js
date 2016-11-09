@@ -156,7 +156,7 @@
                                     }
 
 
-                                    vm.etapaActual.validado = true;
+
 
                                     if ((vm.etapaActual.actual_etapa.nombre == 'EC') || (vm.etapaActual.actual_etapa.nombre == 'ED') || (vm.etapaActual.actual_etapa.nombre == 'EO')) {
 
@@ -175,6 +175,7 @@
                                     vm.etapaActual.insumos = null;
 
                                 }
+                                vm.etapaActual.validado = true;
 
                                 getInsumosLote();
                                 console.log(vm.etapaActual.actual_etapa);

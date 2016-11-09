@@ -68,7 +68,7 @@
                 <div layout="column" flex="40">
 
                     <form name="form2.sigStep">
-                        <div layout="row"layout-fill >
+                        <div layout="column"layout-fill >
                         <md-input-container layout="column" layout-fill="true" flex="100" >
                             <label translate>ETAPA_SERVICIO.NEXT_ETAPA</label>
                             <md-select ng-model="vm.etapaActual.siguiente_etapa.id" name="select"
@@ -82,7 +82,6 @@
                             </div>
                         </md-input-container>
                             <div ng-if="vm.diagnostico.vacio">
-                                <md-icon md-font-icon="fa fa-ban"></md-icon>
                                 <b><span style="color: #FF1B28;" translate>ETAPA_SERVICIO.NOT_PRECHECK</span></b>
                             </div>
                         </div>
