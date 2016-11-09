@@ -31,9 +31,9 @@
         function guardar() {
             vm.status = 'uploading';
             vm.diagnostico.vacio=false;
-            console.log(vm.diagnostico);
+           
             if (vm.diagnostico.id == null) {
-                console.log(vm.diagnostico)
+               
                 if (vm.picFile != null) {
                     vm.diagnostico.foto = vm.picFile;
                 }
@@ -83,7 +83,7 @@
                     toastr.success(vm.successCreateMessage, vm.successTitle);
                     cerrarDialog();
                 }, function (resp) {
-                    console.log(resp);
+                   
                     vm.status = 'idle';
                     toastr.warning(vm.errorMessage, vm.errorTitle);
                     cerrarDialog();
@@ -146,17 +146,17 @@
                 }
                 vm.diagnostico =_.clone(diagnosticoEtapa);
                 if(vm.diagnostico.vacio==true){
-                    console.log("Estoy Vacío");
+                   
                     vm.NotEditable = false;
-                    console.log(vm.notEditable);
+                   
                 }
                 else{
-                    console.log("Estoy Lleno");
+                   
                     vm.NotEditable = true;
-                    console.log(vm.notEditable);
+                   
                 }
                 if(vm.diagnostico.tipo=='salida'){
-                    console.log("entre porq es de salida")
+                    
                     vm.diagnostico.id=null;
                     vm.diagnostico.tipo='salida';
                     vm.diagnostico.sticker=false;
@@ -177,11 +177,10 @@
                 else{
                     vm.diagnostico.isCabinet = false;
                 }
-                console.log("Lo que quedo de mi objeto");
-                console.log(vm.diagnostico);
+               
                 vm.searchCabinet();
             }
-            console.log(vm.notEditable);
+           
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
             vm.successCreateMessage = Translate.translate('MAIN.MSG.SUCCESS_TICKET_MESSAGE');

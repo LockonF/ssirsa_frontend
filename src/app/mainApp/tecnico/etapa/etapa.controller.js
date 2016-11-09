@@ -143,7 +143,7 @@
                         promise = Servicios.getDiagnosticoFromCabinet(vm.idCabinet);
                         promise.then(function (res) {
                             vm.diagnostico = res;
-                            console.log(vm.diagnostico);
+                          
                             promise = Servicios.consultarEtapaServicioDiagnostico(vm.diagnostico);
                             promise.then(function (res) {
                                 vm.etapa = res;
@@ -362,6 +362,7 @@
                 }
             }).then(function (answer) {
                 //Accepted
+                vm.buscar();
                 promise = Servicios.getDiagnosticoFromCabinet(vm.idCabinet);
                 promise.then(function (res) {
                     vm.diagnostico = res;
