@@ -61,7 +61,7 @@
                                             <td data-title="{{vm.tableDisplayHeaders[3]}}">
                                                 <md-button aria-label="fab button"
                                                            class="md-fab md-scale md-mini"
-                                                           ng-click="vm.removeDisplay()">
+                                                           ng-click="vm.removeField(field.position)">
                                                     <md-icon md-font-icon="fa fa-trash" ng-style="{color: 'white'}">
 
                                                     </md-icon>
@@ -110,15 +110,22 @@
                                             <td data-title="{{vm.tableFilterHeaders[2]}}">
                                                 {{field.field_type}}
                                             </td>
+                                            <td data-title="{{vm.tableFilterHeaders[3]}}">
+                                                <md-button aria-label="fab button"
+                                                           class="md-fab md-scale md-mini"
+                                                           ng-click="vm.removeFilter(field.position)">
+                                                    <md-icon md-font-icon="fa fa-trash" ng-style="{color: 'white'}">
+
+                                                    </md-icon>
+                                                </md-button>
+                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>
                                 </div>
-
                             </div>
                         </md-virtual-repeat-container>
                     </md-content>
-
                 </md-tab>
             </md-tabs>
         </md-content>
@@ -130,7 +137,8 @@
             <md-button ng-click="vm.update()"
                        class="md-raised md-primary"
                        ng-disabled="formClient.$invalid"
-                       aria-label="modify">
+                       aria-label="modify"
+            >
                 <md-icon md-font-icon="fa fa-pencil"></md-icon>
             </md-button>
         </md-actions>
