@@ -37,6 +37,9 @@
                 if (vm.picFile != null) {
                     vm.diagnostico.foto = vm.picFile;
                 }
+                else{
+                    vm.diagnostico.foto = null;
+                }
                 vm.diagnostico.vacio = false;
                 vm.diagnostico.tipo_insumo = vm.diagnostico.isCabinet == true ? 'cabinet' : 'bicicleta';
                 vm.diagnostico.tipo = vm.diagnostico.isSalida == true ? 'salida' : 'entrada';
@@ -67,6 +70,9 @@
                 if (vm.picFile != null) {
                     vm.diagnostico.foto = vm.picFile;
                 }
+                else{
+                    vm.diagnostico.foto = null;
+                }
                 vm.diagnostico.tipo_insumo = vm.diagnostico.isCabinet == true ? 'cabinet' : 'bicicleta';
                 vm.diagnostico.tipo = vm.diagnostico.isSalida == true ? 'salida' : 'entrada';
                 vm.diagnostico.vacio = false;
@@ -83,7 +89,7 @@
                     toastr.success(vm.successCreateMessage, vm.successTitle);
                     cerrarDialog();
                 }, function (resp) {
-                   
+                   console.log(resp);
                     vm.status = 'idle';
                     toastr.warning(vm.errorMessage, vm.errorTitle);
                     cerrarDialog();
