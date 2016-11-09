@@ -10,7 +10,7 @@
         .filter('salidaSearch', salidaSearch)
         .filter('tipoequipoSearch', tipoequipoSearch);
 
-    function salidaController(EntradaSalida,OPTIONS, ModeloCabinet, $mdDialog, TipoEquipo, Helper, Translate, toastr, Sucursal, udn, Cabinet, CabinetEntradaSalida, TipoTransporte, $scope, LineaTransporte) {
+    function salidaController(EntradaSalida,OPTIONS, ModeloCabinet,Persona, $mdDialog, TipoEquipo, Helper, Translate, toastr, Sucursal, udn, Cabinet, CabinetEntradaSalida, TipoTransporte, $scope, LineaTransporte) {
         var vm = this;
         vm.guardar = guardar;
         vm.selectionFile = selectionFile;
@@ -42,6 +42,7 @@
         vm.loading = true;
         vm.types=OPTIONS.type_out;
         vm.isValid=false;
+        vm.outputWasCorrect=false;
         //Models
 
         vm.cabinets = null;
@@ -99,12 +100,14 @@
                     vm.hideUnregisteredCabinets = true;
                     vm.salida.creados = res.creados;
                     toastr.success(vm.successMassive, vm.successTitle);
+                    vm.outputWasCorrect=true;
                 }).catch(function (err) {
                     vm.hideUnregisteredCabinets = false;
                     vm.hideRegisteredCabinets = true;
                     if (err.status == 400) {
                         toastr.error(vm.errorMassive, vm.errorTitle);
                         vm.salida.no_creados = err.data;
+                        vm.salida.file=null;
                     } else {
                         toastr.error(vm.errorMessage, vm.errorTitle);
                     }
@@ -293,6 +296,14 @@
             vm.dialogTitle = Translate.translate('OUTPUT.FORM.DIALOG.SEND_TITLE');
             vm.dialogMessage = Translate.translate('OUTPUT.FORM.DIALOG.SEND_MESSAGE');
             vm.dialogSureMessage = Translate.translate('OUTPUT.FORM.DIALOG.SEND_INCONSISTENCE');
+            Persona.listProfile().then(function(res){
+                if(res.sucursal!=null){
+                    vm.sucursal=res.sucursal;
+                    vm.salida.sucursal=res.sucursal;
+                }
+            }).catch(function () {
+                toastr.error(vm.errorMessage, vm.errorTitle);
+            });
         }
 
         function showMassiveUpload() {
@@ -308,6 +319,7 @@
             vm.hideUnregisteredCabinets = true;
             vm.hideRegisteredCabinets = true;
             vm.salida = angular.copy(salida);
+            vm.salida.sucursal=vm.sucursal;
             $scope.entradaForm.$setPristine();
             $scope.entradaForm.$setUntouched();
             vm.salida.no_creados = null;
@@ -317,6 +329,8 @@
             vm.hideManualUpload = true;
             vm.searchText=null;
             vm.selectedEntrada=0;
+            vm.outputWasCorrect=false;
+
         }
 
         function showManualUpload() {

@@ -32,6 +32,7 @@
         vm.showCabinetDialog = showCabinetDialog;
         vm.addCabinet = addCabinet;
         vm.removeNotFoundCabinet = removeNotFoundCabinet;
+        vm.removeCabinet = removeCabinet;
         vm.selectedItemChange = selectedItemChange;
         vm.search = search;
 
@@ -281,6 +282,7 @@
 
         function limpiar() {
             vm.entrada = angular.copy(entrada);
+            vm.entrada.sucursal=vm.sucursal;
             vm.hideRegisteredCabinets = true;
             vm.hideUnregisteredCabinets = true;
             vm.hideMassiveUpload = true;
@@ -429,6 +431,13 @@
             var index = vm.notFoundCabinets.indexOf(id);
             if (index > -1) {
                 vm.notFoundCabinets.splice(index, 1);
+            }
+        }
+        
+        function removeCabinet(id){
+            var index = vm.cabinets.indexOf(id);
+            if (index > -1) {
+                vm.cabinets.splice(index, 1);
             }
         }
 
