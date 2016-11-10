@@ -41,14 +41,19 @@
         }
         function showEditionFields() {
             $mdDialog.show({
-                controller: 'FieldsReportModalController',
+                controller: 'ModelsReportModalController',
                 controllerAs: 'vm',
-                templateUrl: 'app/mainApp/reportes/edicion/modal/fields.modal.tmpl.html',
+                templateUrl: 'app/mainApp/reportes/edicion/modal/models/models.modal.tmpl.html',
                 fullscreen: true,
                 clickOutsideToClose: true,
                 focusOnOpen: true,
                 locals: {
                     reporte: vm.report
+                }
+            }).then(function () {
+            }).catch(function (err) {
+                if (err != null) {
+                    //Marcar error
                 }
             });
         }

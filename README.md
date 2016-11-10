@@ -51,10 +51,11 @@ los archivos de testing
 
 
 ###Colaboradores:
-- Daniel Zuriel Franco Rodríguez (https://github.com/LockonF)
-- Francisco Javier Cerda Martinez (https://github.com/DarkXavier) 
 - Amezcua Aguilar Christian Adan Israel (https://github.com/adan92)
-- Luis Enrique Hernandez Olvera(https://github.com/FENIX2605)
+- Cerda Martinez Francisco Javier  (https://github.com/DarkXavier)
+- Franco Rodríguez Daniel Zuriel (https://github.com/LockonF)
+- Hernandez Olvera Luis Enrique (https://github.com/FENIX2605)
+- Plata Negrete Emmanuel (https://github.com/Platae93)
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
