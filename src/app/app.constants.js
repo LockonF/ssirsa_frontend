@@ -13,7 +13,7 @@
         .constant('EVENTS_GENERAL', {
             notFound: 'not-found',
             notFount_select: 'not-found-select',
-            load_report_menu:'load-menu-report'
+            load_fields:'load-data-fields'
         })
         .constant('OPTIONS', {
             status: [

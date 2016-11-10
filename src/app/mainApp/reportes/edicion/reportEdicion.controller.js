@@ -8,12 +8,14 @@
         .module('app.mainApp.reportes')
         .controller('reportEditionController', reportEditionController);
 
-    function reportEditionController(Reportes, Translate, $stateParams, OPTIONS) {
+    function reportEditionController (Reportes, $mdDialog,Translate, $stateParams, OPTIONS){
+
         //Variables
         var vm = this;
         vm.formato = "DD-MM-YYYY";
         vm.filterType = OPTIONS.filter;
         vm.days = OPTIONS.days;
+        vm.showEditionFields=showEditionFields;
 
         //Function parse
         vm.removeField = removeField;
@@ -37,12 +39,8 @@
             Translate.translate('REPORTS.MODIFY.DELETE')
         ];
 
-        //Blank templates
-
-        //Functions
         function activate() {
             vm.report = Reportes.getReport($stateParams.id);
-            console.log(Reportes.getReport($stateParams.id));
         }
 
         function removeField(id) {
@@ -60,6 +58,24 @@
                 fields[i].position = i;
             }
             return fields;
+        }
+        function showEditionFields() {
+            $mdDialog.show({
+                controller: 'ModelsReportModalController',
+                controllerAs: 'vm',
+                templateUrl: 'app/mainApp/reportes/edicion/modal/models/models.modal.tmpl.html',
+                fullscreen: true,
+                clickOutsideToClose: true,
+                focusOnOpen: true,
+                locals: {
+                    reporte: vm.report
+                }
+            }).then(function () {
+            }).catch(function (err) {
+                if (err != null) {
+                    //Marcar error
+                }
+            });
         }
     }
 })();

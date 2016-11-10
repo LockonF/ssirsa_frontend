@@ -1,0 +1,85 @@
+<md-dialog class="fullscreen-dialog mobile-fullwidth-dialog" flex="100" flex-xs="100">
+    <md-toolbar class="toolbar-default">
+        <div class="md-toolbar-tools">
+            <h2>
+                <span>{{'REPORTS.DIALOG.CLONE.TITLE'|translate}}</span>
+            </h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="vm.cancel()" aria-label="cancel">
+                <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <div layout="row" flex class="card1 md-blue-grey-theme">
+        <md-sidenav layout-fill class="md-sidenav-left " id="siteMenu" md-component-id=" left" md-is-locked-open="$mdMedia('gt-sm')">
+            <md-content flex="">
+                <report-menu-item ng-repeat="item in vm.related_models" item="item"></report-menu-item>
+            </md-content>
+        </md-sidenav>
+        <div>
+            <md-input-container class="md-block">
+                <label>{{'CREATE_REQUEST.FORM.LABEL.COMMENT'|translate}}</label>
+                <textarea ng-model="vm.requisito.comentario" md-maxlength="100" name="comentario"
+                ></textarea>
+                <div ng-messages="solicitudForm.comentario.$error">
+                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                </div>
+            </md-input-container>
+            <md-virtual-repeat-container flex="100"
+                                         class="vr-min-height">
+                <div id="tabla" layout-align="center center">
+                    <div class="table-responsive-vertical shadow-z-1" layout-align="space-around center">
+                        <!-- Table starts here -->
+                        <table id="table" class="table table-hover table-mc-light-blue"
+                               layout-align="center center">
+                            <thead>
+                            <tr>
+                                <th ng-repeat="header in vm.tableDisplayHeaders">{{header}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="field in vm.report.displayfield_set">
+                                <td data-title="{{vm.tableDisplayHeaders[0]}}">
+                                    {{field.field}}
+                                </td>
+                                <td data-title="{{vm.tableDisplayHeaders[1]}}">
+                                    <md-input-container>
+                                        <input name="inputFieldVerbose"
+                                               required=""
+                                               type="text"
+                                               md-no-asterisk
+                                               ng-model="field.field_verbose"
+                                               aria-label="field verbose"
+                                        >
+                                    </md-input-container>
+                                </td>
+                                <td data-title="{{vm.tableDisplayHeaders[2]}}">
+                                    {{field.field_type}}
+                                </td>
+                                <td data-title="{{vm.tableDisplayHeaders[3]}}">
+                                    <md-button aria-label="fab button"
+                                               class="md-fab md-scale md-mini md-fab-principal"
+                                               ng-click="vm.removeDisplay()">
+                                        <md-icon md-font-icon="fa fa-trash" ng-style="{color: 'white'}">
+
+                                        </md-icon>
+                                    </md-button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </md-virtual-repeat-container>
+        </div>
+    </div>
+
+    <md-dialog-actions layout="row" class="card1 md-blue-grey-theme">
+        <md-button ng-click="vm.cancel()" md-no-ink class="md-primary">
+            {{'MAIN.BUTTONS.CANCEL'|translate}}
+        </md-button>
+        <md-button ng-click="vm.create()" ng-disabled="cabinetForm.$invalid" md-no-ink class="md-primary">
+            {{'MAIN.BUTTONS.SUBMIT'|translate}}
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>
