@@ -260,6 +260,7 @@
     },
     "PUNTOVENTA":{
         "TITLE":"Servicio en Punto de Venta",
+        "PROGRESSREGISTER":"Progreso de Registro",
         "SERVICEDATA":"Datos del Servicio",
         "LOCALDATA":"Datos del Establecimiento",
         "CABINETDATA":"Datos del Cabinet",

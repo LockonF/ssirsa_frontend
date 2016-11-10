@@ -7,10 +7,16 @@
             <md-toolbar class="md-primary">
                 <div flex layout="column" class="md-toolbar-tools">
                     <div flex layout="column">
-                        <div flex layout="row" layout-sm="column" layout-fill="true" layout-align-sm="center center"
+                        <div flex layout="row" flex="100" layout-sm="row" layout-fill="true"
                              layout-align="space-between center">
-                            <h5 translate="">PUNTOVENTA.SERVICEDATA</h5>
-                            <h5>{{triWizard.progress}}%<span translate="">PUNTOVENTA.COMPLETED</span></h5>
+                            <div layout="row" flex="100" layout-fill>
+                                <div flex="50"layout-fill>
+                                    <h5 translate="">PUNTOVENTA.PROGRESSREGISTER</h5>
+                                </div>
+                                <div flex="50" layout-fill>
+                                    <h5>{{triWizard.progress}}% <span translate="">PUNTOVENTA.COMPLETED</span></h5>
+                                </div>
+                            </div>
                         </div>
                         <div flex layout="row" layout-sm="column" layout-align-sm="center center"
                              layout-align="space-between center">
@@ -178,17 +184,20 @@
                             <form name="observationsData" tri-wizard-form="">
                                 <div flex="" layout="column" layout-wrap="">
                                     <div layout="row" layout-sm="column" layout-xs="column" layout-align=""
-                                         ng-show="vm.insumos_loteUsados.length!=0 || vm.insumos_sinStock.lenght!=0" flex="100" layout-wrap>
+                                         ng-show="vm.insumos_loteUsados.length!=0 || vm.insumos_sinStock.lenght!=0"
+                                         flex="100" layout-wrap>
                                         <div ng-repeat="insu in vm.insumos_loteUsados track by $index" flex="50">
                                             <div column>
                                                 <div layout="row" layout-align="center center">
                                                     <div flex="20">
-                                                        <md-switch flex class="md-primary" ng-model="vm.insumos_loteUsados[$index].agregar"
+                                                        <md-switch flex class="md-primary"
+                                                                   ng-model="vm.insumos_loteUsados[$index].agregar"
                                                                    aria-label="Primary Switch">
                                                         </md-switch>
                                                     </div>
                                                     <div layout="column" flex>
-                                                        <div><b translate>ETAPA_SERVICIO.INSUM </b>: {{insu.nombre}}</div>
+                                                        <div><b translate>ETAPA_SERVICIO.INSUM </b>: {{insu.nombre}}
+                                                        </div>
                                                     </div>
 
                                                 </div>
@@ -204,7 +213,8 @@
                                                         <b><span style="color: #FF1B28;" translate>ETAPA_SERVICIO.NOTSTOCK_INSUMO</span></b>
                                                     </div>
                                                     <div layout="column" flex>
-                                                        <div><b translate>ETAPA_SERVICIO.INSUM </b>: {{insu2.nombre}}</div>
+                                                        <div><b translate>ETAPA_SERVICIO.INSUM </b>: {{insu2.nombre}}
+                                                        </div>
                                                     </div>
 
                                                 </div>
@@ -226,10 +236,20 @@
                             <form name="observationsData" tri-wizard-form="">
                                 <div flex="" layout="column" layout-wrap="">
                                     <md-input-container>
-                                        <label translate="">PUNTOVENTA.ADDRESS</label>
-                                        <textarea name="direccion" required="" ng-model="vm.puntoVenta.direccion"
-                                                  md-maxlength="400"></textarea>
-                                        <div ng-messages="localData.direccion.$error">
+                                        <label translate="">PUNTOVENTA.CLIENTOBSERVATION</label>
+                                        <textarea name="observaciones_cliente" required=""
+                                                  ng-model="vm.puntoVenta.observaciones_cliente"
+                                                  md-maxlength="500"></textarea>
+                                        <div ng-messages="observationsData.observaciones_cliente.$error">
+                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label translate="">PUNTOVENTA.TECHNICALOBSERVATIONS</label>
+                                        <textarea name="observaciones_tecnicas" required=""
+                                                  ng-model="vm.puntoVenta.observaciones_tecnicas"
+                                                  md-maxlength="500"></textarea>
+                                        <div ng-messages="observationsData.observaciones_tecnicas.$error">
                                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                         </div>
                                     </md-input-container>
@@ -240,22 +260,20 @@
                 </md-tab>
             </md-tabs>
             <div layout-fill="" layout-padding="" layout="row" layout-align="end center" class="wizard-navbar">
-                <md-button ng-click="triWizard.prevStep()" ng-hide="triWizard.currentStep &gt; 3"
-                           ng-disabled="triWizard.prevStepDisabled()" translate="FONDEOS.WIZARD.PREV"
-                           class="md-primary md-raised"></md-button>
+                <md-button ng-click="triWizard.prevStep()" ng-hide="triWizard.currentStep &gt; 5"
+                           ng-disabled="triWizard.prevStepDisabled()"
+                           class="md-primary md-raised"><md-icon md-font-icon="fa fa-hand-o-left"></md-icon></md-button>
                 <md-button ng-click="triWizard.nextStep()"
-                           ng-hide="triWizard.progress == 100 &amp;&amp; triWizard.currentStep &gt;= 3"
-                           ng-disabled="triWizard.nextStepDisabled()" translate="FONDEOS.WIZARD.NEXT"
-                           class="md-primary md-raised"></md-button>
+                           ng-hide="triWizard.progress == 100 &amp;&amp; triWizard.currentStep &gt;= 5"
+                           ng-disabled="triWizard.nextStepDisabled()"
+                           class="md-primary md-raised"><md-icon md-font-icon="fa fa-hand-o-right"></md-icon></md-button>
                 <md-button ng-click="vm.registrarFondeo()"
-                           ng-show="triWizard.progress == 100 &amp;&amp; triWizard.currentStep &gt;= 3 "
-                           translate="FONDEOS.WIZARD.SEND" class="md-accent md-raised"></md-button>
-                <md-button ng-click="vm.createDialog()" ng-show="vm.fondeo.id!=null" translate="FONDEOS.WIZARD.DELETE"
-                           class="md-warn md-raised"></md-button>
-                <md-button ng-click="vm.cancel()" ng-show="vm.fondeo.id!=null" translate="FONDEOS.WIZARD.STOP_EDIT"
-                           class="md-primary md-raised"></md-button>
-                <md-button ng-click="vm.cancel()" ng-show="vm.fondeo.id==null" translate="FONDEOS.WIZARD.CLEAR_FIELDS"
-                           class="md-primary md-raised"></md-button>
+                           ng-show="triWizard.progress == 100 &amp;&amp; triWizard.currentStep &gt;= 5"
+                           translate="FONDEOS.WIZARD.SEND" class="md-accent md-raised"><md-icon md-font-icon="fa fa-save"></md-icon></md-button>
+                <md-button ng-click="vm.createDialog()" ng-show="vm.fondeo.id!=null"
+                           class="md-warn md-raised"><md-icon md-font-icon="fa fa-trash"></md-icon></md-button>
+                <md-button ng-click="vm.cancel()" ng-show="vm.fondeo.id==null"
+                           class="md-primary md-raised"><md-icon md-font-icon="fa fa-eraser"></md-icon></md-button>
             </div>
         </div>
     </div>
