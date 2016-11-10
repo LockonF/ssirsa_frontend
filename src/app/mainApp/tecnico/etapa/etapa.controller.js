@@ -199,7 +199,7 @@
                                 }
 
                             }).catch(function (res) {
-                                notifyError(res.status);
+                                notifyError(406);
                             })
                         }).catch(function (res) {
 

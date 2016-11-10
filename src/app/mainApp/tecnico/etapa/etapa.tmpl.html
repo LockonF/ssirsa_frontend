@@ -8,7 +8,7 @@
                 </h2>
             </div>
 
-            <div layout="row" ng-if="vm.cabinet">
+            <div layout="row" ng-if="vm.cabinet" >
 
                 <md-button class="md-raised" aria-label="Editar"
                            ng-click="vm.editar()">
@@ -45,9 +45,9 @@
     </md-toolbar>
     <md-content>
         <md-content class="md-padding">
-            <div flex="100" layout="row">
+            <div flex="100" layout="row" style="overflow-x: hidden;">
 
-                <div layout="column" flex="45">
+                <div layout="column" flex="40">
                     <form name="form2.Buscar" ng-submit="vm.buscar()">
                         <md-input-container layout="column" layout-fill="true" flex="100">
 
@@ -88,7 +88,7 @@
                     </form>
 
                 </div>
-                <div layout="row" flex="15">
+                <div layout="row" flex="20">
                     <div layout="column">
                         <div layout="row" layout-sm="row" layout-xs="column">
                             <md-input-container flex>
@@ -111,7 +111,7 @@
         </md-content>
 
         <md-content class="md-padding" ng-if="vm.etapaActual.actual_etapa">
-            <div layout="column" flex>
+            <div layout="column" flex style="overflow-x: hidden;">
                 <div layout="row" layout-sm="column" layout-xs="column" layout-align=""
                      ng-show="vm.insumos_loteUsados.length!=0 || vm.insumos_sinStock.lenght!=0" flex="100" layout-wrap>
 
