@@ -125,8 +125,8 @@
                                             </thead>
                                             <tbody>
                                             <tr ng-repeat="data in vm.report.displayfield_set">
-                                                <td data-title="{{'REPORTS.TABLE_FILTER.NAME'|translate}}">{{data.field_verbose}}</td>
-                                                <td data-title="{{'REPORTS.TABLE_FILTER.TYPE'|translate}}">{{data.field_type}}</td>
+                                                <td data-title="{{'REPORTS.TABLE_FILTER.NAME'|translate}}">{{data.field_verbose  }}</td>
+                                                <td data-title="{{'REPORTS.TABLE_FILTER.TYPE'|translate}}">{{data.field_type  | tipoDato}}</td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -171,7 +171,7 @@
                                                         <md-checkbox ng-model="data.filter_value"></md-checkbox>
                                                     </div>
                                                     <div ng-if="data.filter_type=='week_day'">
-                                                        <md-select aria-label="dia de la semana" ng-model="data.filter_value"  layout-align="space-around start">
+                                                        <md-select aria-label="dia de la semana" ng-model="data.filter_value" layout-align="space-around start">
                                                             <md-option ng-repeat="dia in  vm.days" ng-value="dia.id">
                                                                 {{dia.value}}
                                                             </md-option>
@@ -189,10 +189,20 @@
                                                                    mo-date-input="{{vm.formato}}" name="fecha_end"/>
                                                         </md-input-container>
                                                     </div>
+                                                    <div ng-if="data.filter_type=='gt' || field.filter_type=='gte' || field.filter_type=='lt' || field.filter_type=='lte' "
+                                                    >
+                                                        <md-input-container>
+                                                            <input type="text"
+                                                                   numbers-only
+                                                                   aria-label="text filter"
+                                                                   ng-model="data.filter_value"
+                                                                   name="textFilter"/>
+                                                        </md-input-container>
+                                                    </div>
                                                     <div ng-if="data.filter_type!='range' && data.filter_type!='week_day' && data.filter_type!='max' && data.filter_type!='min' ">
                                                         <md-input-container>
                                                             <input type="text" aria-label="Fecha start" ng-model="data.filter_value"
-                                                                    name="filtro"/>
+                                                                   name="filtro"/>
                                                         </md-input-container>
                                                     </div>
                                                 </td>
