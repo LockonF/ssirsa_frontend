@@ -170,6 +170,7 @@
                                     else
                                         vm.showInsumosSection = true;
 
+
                                 }
                                 else {
 
@@ -177,6 +178,7 @@
                                     vm.etapaActual.id = null;
                                     vm.etapaActual.actual_etapa = vm.etapa.siguiente_etapa;
                                     vm.etapaActual.siguiente_etapa = null;
+                                    vm.etapaActual.validado = true;
                                     vm.etapaActual.insumos = null;
 
                                 }
