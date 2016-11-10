@@ -124,7 +124,6 @@
                                                    required="">
                                             <md-option ng-repeat="tipo in vm.tiposTrabajo" ng-value="tipo.value">
                                                 {{tipo.display_name}} :
-                                                {{etap.descripcion}}
                                             </md-option>
                                         </md-select>
                                     </md-input-container>
@@ -167,8 +166,55 @@
                     </md-tab-label>
                     <md-tab-body>
                         <div class="wizard layout-padding">
-                            <form name="localData" tri-wizard-form="">
+                            <form name="cabinetInfo" tri-wizard-form="">
                                 <div flex="" layout="column" layout-wrap="">
+                                    <md-input-container>
+                                        <label translate="">PUNTOVENTA.ACTIVE</label>
+                                        <textarea name="activo" required=""
+                                                  ng-model="vm.puntoVenta.activo"
+                                                  md-maxlength="100"></textarea>
+                                        <div ng-messages="cabinetInfo.activo.$error">
+                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label translate="">PUNTOVENTA.SERIE</label>
+                                        <textarea name="serie" required=""
+                                                  ng-model="vm.puntoVenta.serie"
+                                                  md-maxlength="100"></textarea>
+                                        <div ng-messages="cabinetInfo.serie.$error">
+                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container flex="100" class="md-block">
+                                        <label>{{'INPUT.Dialogs.Cabinet.Brand'|translate}}</label>
+                                        <md-select name="selectBrand"
+                                                   ng-model="vm.puntoVenta.brand"
+                                                   required=""
+                                                   md-on-close="vm.filterModels()"
+                                                   md-no-asterisk="">
+                                            <md-option ng-repeat="marca in vm.marcas" value="{{marca.id}}">{{marca.descripcion}}
+                                            </md-option>
+                                        </md-select>
+                                        <div ng-messages="cabinetInfo.selectBrand.$error">
+                                            <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container flex="100" class="md-block">
+                                        <label>{{'INPUT.Dialogs.Cabinet.Model'|translate}}</label>
+                                        <md-select name="selectModel"
+                                                   ng-model="vm.cabinet.modelo"
+                                                   required=""
+                                                   ng-disabled="vm.marca==null || vm.modelos.length == 0"
+                                                   md-no-asterisk="">
+                                            <md-option ng-repeat="modelo in vm.modelos" value="{{modelo.id}}">{{modelo.nombre}}
+                                            </md-option>
+                                        </md-select>
+                                        <div ng-messages="cabinetInfo.selectModel.$error">
+                                            <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
+                                        </div>
+                                    </md-input-container>
+
                                 </div>
                             </form>
                         </div>
@@ -236,6 +282,15 @@
                             <form name="observationsData" tri-wizard-form="">
                                 <div flex="" layout="column" layout-wrap="">
                                     <md-input-container>
+                                        <label translate="">PUNTOVENTA.DESCRIPTION</label>
+                                        <textarea name="observaciones_tecnicas" required=""
+                                                  ng-model="vm.puntoVenta.observaciones_tecnicas"
+                                                  md-maxlength="500"></textarea>
+                                        <div ng-messages="observationsData.observaciones_tecnicas.$error">
+                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container>
                                         <label translate="">PUNTOVENTA.CLIENTOBSERVATION</label>
                                         <textarea name="observaciones_cliente" required=""
                                                   ng-model="vm.puntoVenta.observaciones_cliente"
@@ -253,28 +308,27 @@
                                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                         </div>
                                     </md-input-container>
+
                                 </div>
                             </form>
                         </div>
                     </md-tab-body>
                 </md-tab>
             </md-tabs>
-            <div layout-fill="" layout-padding="" layout="row" layout-align="end center" class="wizard-navbar">
-                <md-button ng-click="triWizard.prevStep()" ng-hide="triWizard.currentStep &gt; 5"
-                           ng-disabled="triWizard.prevStepDisabled()"
-                           class="md-primary md-raised"><md-icon md-font-icon="fa fa-hand-o-left"></md-icon></md-button>
-                <md-button ng-click="triWizard.nextStep()"
+            <md-actions layout="row" layout-align="end center"  flex class="wizard-navbar">
+                <md-button ng-click="triWizard.prevStep()" class="md-fab md-mini md-scale" ng-hide="triWizard.currentStep &gt; 5"
+                           ng-disabled="triWizard.prevStepDisabled()"><md-icon md-font-icon="fa fa-hand-o-left"></md-icon></md-button>
+                <md-button ng-click="triWizard.nextStep()" class="md-fab md-mini md-scale"
                            ng-hide="triWizard.progress == 100 &amp;&amp; triWizard.currentStep &gt;= 5"
-                           ng-disabled="triWizard.nextStepDisabled()"
-                           class="md-primary md-raised"><md-icon md-font-icon="fa fa-hand-o-right"></md-icon></md-button>
-                <md-button ng-click="vm.registrarFondeo()"
+                           ng-disabled="triWizard.nextStepDisabled()"><md-icon md-font-icon="fa fa-hand-o-right"></md-icon></md-button>
+                <md-button ng-click="vm.registrarFondeo()" class="md-fab md-mini md-scale"
                            ng-show="triWizard.progress == 100 &amp;&amp; triWizard.currentStep &gt;= 5"
-                           translate="FONDEOS.WIZARD.SEND" class="md-accent md-raised"><md-icon md-font-icon="fa fa-save"></md-icon></md-button>
+                           translate="FONDEOS.WIZARD.SEND" ><md-icon md-font-icon="fa fa-save"></md-icon></md-button>
                 <md-button ng-click="vm.createDialog()" ng-show="vm.fondeo.id!=null"
-                           class="md-warn md-raised"><md-icon md-font-icon="fa fa-trash"></md-icon></md-button>
+                           class="md-fab md-mini md-scale"><md-icon md-font-icon="fa fa-trash"></md-icon></md-button>
                 <md-button ng-click="vm.cancel()" ng-show="vm.fondeo.id==null"
-                           class="md-primary md-raised"><md-icon md-font-icon="fa fa-eraser"></md-icon></md-button>
-            </div>
+                           class="md-fab md-mini md-scale"><md-icon md-font-icon="fa fa-eraser"></md-icon></md-button>
+            </md-actions>
         </div>
     </div>
 </md-card>
