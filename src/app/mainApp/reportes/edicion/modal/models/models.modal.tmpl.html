@@ -16,17 +16,12 @@
                 <report-menu-item ng-repeat="item in vm.related_models" item="item"></report-menu-item>
             </md-content>
         </md-sidenav>
-        <div>
-            <md-input-container class="md-block">
-                <label>{{'CREATE_REQUEST.FORM.LABEL.COMMENT'|translate}}</label>
-                <textarea ng-model="vm.requisito.comentario" md-maxlength="100" name="comentario"
-                ></textarea>
-                <div ng-messages="solicitudForm.comentario.$error">
-                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
-                </div>
-            </md-input-container>
+        <div flex="100">
+
             <md-virtual-repeat-container flex="100"
-                                         class="vr-min-height">
+                                         layout-fill=""
+                                         ng-if="vm.campos.length>0"
+                                          >
                 <div id="tabla" layout-align="center center">
                     <div class="table-responsive-vertical shadow-z-1" layout-align="space-around center">
                         <!-- Table starts here -->
@@ -38,9 +33,9 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="field in vm.report.displayfield_set">
+                            <tr ng-repeat="field in vm.campos" ng-if="field.field!='deleted'">
                                 <td data-title="{{vm.tableDisplayHeaders[0]}}">
-                                    {{field.field}}
+                                    {{field.field | titleCase}}
                                 </td>
                                 <td data-title="{{vm.tableDisplayHeaders[1]}}">
                                     <md-input-container>
@@ -54,7 +49,7 @@
                                     </md-input-container>
                                 </td>
                                 <td data-title="{{vm.tableDisplayHeaders[2]}}">
-                                    {{field.field_type}}
+                                    {{field.field_type|tipoDato}}
                                 </td>
                                 <td data-title="{{vm.tableDisplayHeaders[3]}}">
                                     <md-button aria-label="fab button"

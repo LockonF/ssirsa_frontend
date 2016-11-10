@@ -39,7 +39,7 @@
 
         }
         $rootScope.$on(EVENTS_GENERAL.load_fields, function(event,fields) {
-            console.log(fields);
+           vm.campos=fields.fields;
 
         });
         function cancel() {
