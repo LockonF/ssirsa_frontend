@@ -8,12 +8,13 @@
         .module('app.mainApp.reportes')
         .controller('reportEditionController',reportEditionController);
 
-    function reportEditionController (Reportes, Translate, $stateParams, OPTIONS){
+    function reportEditionController (Reportes, $mdDialog,Translate, $stateParams, OPTIONS){
         //Variables
         var vm=this;
         vm.formato = "DD-MM-YYYY";
         vm.filterType = OPTIONS.filter;
         vm.days = OPTIONS.days;
+        vm.showEditionFields=showEditionFields;
 
         activate();
 
@@ -37,7 +38,19 @@
         //Functions
         function activate(){
             vm.report=Reportes.getReport($stateParams.id);
-            console.log(vm.report);
+        }
+        function showEditionFields() {
+            $mdDialog.show({
+                controller: 'FieldsReportModalController',
+                controllerAs: 'vm',
+                templateUrl: 'app/mainApp/reportes/edicion/modal/fields.modal.tmpl.html',
+                fullscreen: true,
+                clickOutsideToClose: true,
+                focusOnOpen: true,
+                locals: {
+                    reporte: vm.report
+                }
+            });
         }
     }
 })();

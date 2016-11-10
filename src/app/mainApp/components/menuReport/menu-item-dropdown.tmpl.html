@@ -1,10 +1,10 @@
 <md-button ng-click="reportMenuItem.toggleDropdownMenu()" class="md-raised md-primary side-menu-link">
     <md-icon ng-if="::(reportMenuItem.item.icon !== undefined)" class="side-menu-icon" md-font-icon="{{::reportMenuItem.item.icon}}"></md-icon>
-    <span translate>{{::reportMenuItem.item.name}}</span>
+    <span translate>{{::reportMenuItem.item.verbose_name | titleCase}}</span>
     <md-icon class="menu-toggle-icon" md-font-icon="zmdi zmdi-chevron-right" ng-class="{ open: reportMenuItem.item.open }"></md-icon>
 </md-button>
 <ul class="drop-down-list" ng-show="reportMenuItem.item.open">
-    <li ng-repeat="child in reportMenuItem.item.children">
-        <tri-menu-item item="::child"></tri-menu-item>
+    <li ng-repeat="child in reportMenuItem.item.related_fields">
+        <report-menu-item item="::child"></report-menu-item>
     </li>
 </ul>

@@ -5,7 +5,7 @@
                 <span>{{'REPORTS.DIALOG.CLONE.TITLE'|translate}}</span>
             </h2>
             <span flex></span>
-            <md-button class="md-icon-button" ng-click="vm.cancelClick()" aria-label="cancel">
+            <md-button class="md-icon-button" ng-click="vm.cancel()" aria-label="cancel">
                 <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
             </md-button>
         </div>
@@ -15,7 +15,7 @@
 
             <md-content flex="">
 
-                <report-menu-item ng-repeat="item in vm.capturistaMenu " item="item"></report-menu-item>
+                <report-menu-item ng-repeat="item in vm.related_models" item="item"></report-menu-item>
 
 
             </md-content>
