@@ -252,6 +252,23 @@
                 {id:'max',value:"Máximo"},
                 {id:'min',value:"Mínimo"}
             ],
+            filterChar:[
+                {id:'exact',value:"Igual"},
+                {id:'iexact',value:"Igual (Exacto)"},
+                {id:'contains',value:"Contiene"},
+                {id:'icontains',value:"Contine (Exacto)"},
+                {id:'in',value:"Lista de valores"},
+                {id:'startswith',value:"Comienza con"},
+                {id:'istartswith',value:"Comienza con (Exacto)"},
+                {id:'endswith',value:"Termina con"},
+                {id:'iendswith',value:"Termina con (Exacto)"},
+                {id:'isnull',value:"Es vacio"}
+            ],
+            filterDate:[
+                {id:'range',value:"Rango de fecha"},
+                {id:'week_day',value:"Día de la semana"},
+                {id:'isnull',value:"Es vacio"}
+            ],
             days:[
                 {id:0,value:"Lunes"},
                 {id:1,value:"Martes"},

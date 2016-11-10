@@ -15,11 +15,12 @@
         vm.formato = "DD-MM-YYYY";
         vm.filterType = OPTIONS.filter;
         vm.days = OPTIONS.days;
-        vm.showEditionFields=showEditionFields;
 
         //Function parse
         vm.removeField = removeField;
         vm.removeFilter = removeFilter;
+        vm.showEditionFields=showEditionFields;
+        vm.getValidFilters=getValidFilters;
 
         activate();
 
@@ -76,6 +77,20 @@
                     //Marcar error
                 }
             });
+        }
+
+        function getValidFilters(fieldType){
+            switch(fieldType){
+                case 'CharField':
+
+                    break;
+                case 'DateTimeField':
+
+                    break;
+                default:
+
+                    break;
+            }
         }
     }
 })();
