@@ -1,0 +1,41 @@
+<md-toolbar class="md-medium-tall">
+    <div class="md-toolbar-tools" layout="row" layout-sm="column" layout-xs="column"
+         layout-align="space-between end">
+            <h2>
+                <span translate>ETAPA_SERVICIO.INFO_ETAPA</span>
+            </h2>
+    </div>
+</md-toolbar>
+<md-card class="md-padding card1" flex="100">
+    <div layout="row">
+        <md-input-container flex="30">
+            <label translate>ETAPA_SERVICIO.NO_DIAGNOSTIC</label>
+            <input type="text" ng-model="vm.parent.diagnostico.id" ng-disabled="true"/>
+        </md-input-container>
+        <md-input-container flex="35">
+            <label translate>ETAPA_SERVICIO.ETAPA_ACTUAL</label>
+            <md-select ng-model="vm.parent.etapaActual.actual_etapa" name="select"
+                       ng-disabled="vm.parent.editable">
+                <md-option ng-repeat="etap in vm.parent.etapas" ng-value="etap.id">{{etap.nombre}} : {{etap.descripcion}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+
+    </div>
+    <div layout="row">
+        <md-input-container flex>
+            <label>Economico</label>
+            <input type="text" ng-model="vm.parent.cabinet.economico" ng-disabled="true"/>
+        </md-input-container>
+        <md-input-container flex="35">
+            <label translate>ETAPA_SERVICIO.ACTUAL_STATE</label>
+            <input type="text" ng-model="vm.parent.cabinet.status" ng-disabled="true"/>
+
+        </md-input-container>
+        <md-input-container flex>
+            <label translate>ETAPA_SERVICIO.INCIDENTS</label>
+            <input type="number" ng-model="vm.parent.cabinet.no_incidencias" ng-disabled="true"/>
+        </md-input-container>
+
+    </div>
+</md-card>
