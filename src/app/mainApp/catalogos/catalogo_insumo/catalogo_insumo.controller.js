@@ -18,7 +18,7 @@
         vm.search_items = [];
         vm.selected=[];
         vm.catalogo_insumo_list = null;
-        vm.catalogo_insumo =  {
+        var catalogo_insumo =  {
             cantidad: null,
             unidades: null,
             descripcion: null,
@@ -46,7 +46,7 @@
         vm.showSteps=showSteps;
         vm.showEquipment=showEquipment;
         vm.disabled=disabled;
-
+        vm.catalogo_insumo=angular.copy(catalogo_insumo);
         activate();
 
 
@@ -158,7 +158,8 @@
 
         function  cancel(){
             $scope.inputForm.$setPristine();
-            vm.catalogo_insumo = null;
+            $scope.inputForm.$setUntouched();
+            vm.catalogo_insumo=angular.copy(catalogo_insumo);
         }
 
         function update(){
@@ -167,6 +168,7 @@
                 vm.catalogo_insumo.costo = parseFloat(vm.catalogo_insumo.costo);
                 vm.catalogo_insumo.cantidad =parseFloat(vm.catalogo_insumo.cantidad);
                 toastr.success(vm.successUpdateMessage,vm.successTitle);
+                cancel();
                 listCatalogoInsumos();
             }).catch(function(err){
                 toastr.error(vm.errorMessage,vm.errorTitle);
@@ -177,7 +179,9 @@
         {
             CatalogoInsumo.create(vm.catalogo_insumo).then(function(res){
                 listCatalogoInsumos();
+                cancel();
                 toastr.success(vm.successCreateMessage,vm.successTitle);
+
             }).catch(function(err){
                 toastr.error(vm.errorMessage,vm.errorTitle);
             });

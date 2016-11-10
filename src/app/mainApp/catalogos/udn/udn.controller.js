@@ -9,7 +9,7 @@
         .module('app.mainApp.catalogos')
         .controller('UDNController',UDNController);
 
-    function UDNController(udn, toastr, Translate, $scope, Helper, $mdDialog)
+    function UDNController(udn, toastr,OPTIONS, Translate, $scope, Helper, $mdDialog)
     {
         var vm = this;
 
@@ -18,6 +18,7 @@
         vm.search_items = [];
         vm.udn_list = null;
         vm.udn = null;
+        vm.udns=OPTIONS.zone;
 
         vm.text = 'Hola';
 
@@ -97,6 +98,7 @@
             udn.create(vm.selected_udn).then(function(res){
                 listUdns();
                 toastr.success(vm.successCreateMessage,vm.successTitle);
+                cancel();
             }).catch(function(err){
                 toastr.error(vm.errorMessage,vm.errorTitle);
             });

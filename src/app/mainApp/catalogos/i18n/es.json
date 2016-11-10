@@ -88,6 +88,8 @@
         "provider": "Proveedor",
         "zone": "Zona",
         "lookup": "Busca el Catálogo",
+        "office":"Sucursal",
+        "units":"Unidades",
         "BUTTON": {
             "STEPS": "Etapas",
             "EQUIPMENT": "Tipo de Equipo"
@@ -114,6 +116,9 @@
             },
             "BUTTON":{
                 "ADD":"Agregar"
+            },
+            "MESSAGE":{
+                "EQUIPMENT":"No seleccionaste un Tipo de equipo válido"
             }
         }
     },
@@ -182,7 +187,7 @@
                 "MODEL": "Etapas",
                 "NAME": "Nombre",
                 "DESCRIPTION": "Descripción",
-
+                "WORKSHOP":"Taller",
                 "INFO_MODEL": "Información de la Etapa"
             },
             "PLACEHOLDER": {

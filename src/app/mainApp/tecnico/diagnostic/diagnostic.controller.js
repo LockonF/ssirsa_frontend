@@ -9,11 +9,13 @@
         .module('app.mainApp.tecnico')
         .controller('DiagnosticController', DiagnosticController);
 
-    function DiagnosticController(Cabinet, OPTIONS, toastr,$scope, Translate, Helper, Upload, EnvironmentConfig, OAuthToken) {
+    function DiagnosticController(Cabinet, cabinet, OPTIONS, toastr, $scope, Translate, $mdDialog, Helper, Upload, EnvironmentConfig, OAuthToken) {
         var vm = this;
         vm.diagnostico = {};
         vm.cabinets = null;
+        vm.cabinet = null;
         vm.status = 'idle';  // idle | uploading | complete
+        vm.cerrarDialog = cerrarDialog;
         vm.guardar = guardar;
         vm.searchCabinet = searchCabinet;
         vm.selectionFile = selectionFile;
@@ -23,13 +25,13 @@
 
         function guardar() {
 
-            if ((vm.cabinets.status!='Fuga Interna' && vm.cabinets.status!='Obsoleto') || vm.cabinets.foto==null || !vm.cabinets.capitalizado) {
+            if ((vm.cabinets.status != 'Fuga Interna' && vm.cabinets.status != 'Obsoleto') || vm.cabinets.foto == null || !vm.cabinets.capitalizado) {
                 delete vm.cabinets.foto;
-            }else{
+            } else {
                 vm.status = 'uploading';
             }
-            vm.cabinets.id_unilever=!vm.cabinets.capitalizado?null:vm.cabinets.id_unilever;
-            vm.cabinets.status = !vm.cabinets.capitalizado?"N/A":vm.cabinets.status;
+            vm.cabinets.id_unilever = !vm.cabinets.capitalizado ? null : vm.cabinets.id_unilever;
+            vm.cabinets.status = !vm.cabinets.capitalizado ? "N/A" : vm.cabinets.status;
             Upload.upload({
                 url: EnvironmentConfig.site.rest.api + 'cabinet/' + vm.cabinet,
                 headers: {'Authorization': OAuthToken.getAuthorizationHeader()},
@@ -37,27 +39,38 @@
                 data: vm.cabinets
             }).then(function () {
                 vm.status = 'idle';
-                clear();
+
+
                 toastr.success(vm.successCreateMessage, vm.successTitle);
+                cerrarDialog();
+                clear();
             }, function (err) {
-                if(err.status==400){
+                if (err.status == 400) {
                     toastr.warning(err.data[0], vm.errorTitle);
-                }else{
+                } else {
                     toastr.warning(vm.errorMessage, vm.errorTitle);
                 }
                 vm.status = 'idle';
-
             });
         }
+
+        function cerrarDialog() {
+
+            $mdDialog.cancel();
+        }
+
         function clear() {
-            $scope.registerForm.$setPristine();
-            $scope.registerForm.$setUntouched();
-            $scope.searchCabinetForm.$setPristine();
-            $scope.searchCabinetForm.$setUntouched();
+            if (cabinet) {
+                $scope.registerForm.$setPristine();
+                $scope.registerForm.$setUntouched();
+                $scope.searchCabinetForm.$setPristine();
+                $scope.searchCabinetForm.$setUntouched();
+            }
             vm.cabinet = null;
             vm.cabinets = null;
             vm.diagnostico = null;
         }
+
         function selectionFile($files) {
             if ($files.length > 0) {
                 var file = $files[0];
@@ -75,6 +88,12 @@
         }
 
         function activate() {
+          
+            if (cabinet != null) {
+                vm.cabinet = cabinet;
+                vm.searchCabinet();
+
+            }
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
             vm.successCreateMessage = Translate.translate('MAIN.MSG.SUCCESS_DIAGNOSTIC_MESSAGE');
@@ -88,9 +107,9 @@
 
         function searchCabinet() {
             Cabinet.get(vm.cabinet).then(function (res) {
-                if(!res.deleted){
+                if (!res.deleted) {
                     vm.cabinets = res;
-                }else{
+                } else {
                     toastr.warning(vm.errorDisabled, vm.errorTitle);
                 }
 

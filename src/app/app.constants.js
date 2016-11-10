@@ -12,7 +12,8 @@
         })
         .constant('EVENTS_GENERAL', {
             notFound: 'not-found',
-            notFount_select: 'not-found-select'
+            notFount_select: 'not-found-select',
+            load_fields: 'load-data-fields'
         })
         .constant('OPTIONS', {
             status: [
@@ -33,7 +34,7 @@
                     value: "Cerrada"
                 }
             ],
-            type_request:[
+            type_request: [
                 {
                     id: 0,
                     value: "Solicitud de envío",
@@ -49,7 +50,7 @@
                     value: "Solicitud de punto de venta"
                 }
             ],
-            status_equipment:[
+            status_equipment: [
                 {
                     id: 0,
                     value: "Nuevo"
@@ -62,55 +63,55 @@
             tipoSolicitud: [
                 {
                     id: 0,
-                    name:"Solicitud de envió",
+                    name: "Solicitud de envió",
                     value: "Envio"
                 },
                 {
                     id: 1,
-                    name:"Solicitud de recolección",
+                    name: "Solicitud de recolección",
                     value: "Recoleccion"
                 },
                 {
                     id: 2,
-                    name:"Solicitud de punto de venta",
+                    name: "Solicitud de punto de venta",
                     value: "Venta"
                 }
             ],
             filtrarSolicitud: [
                 {
 
-                    name:"Todas las solicitudes de esté tipo",
+                    name: "Todas las solicitudes de esté tipo",
                     value: "Todas"
                 },
                 {
 
-                    name:"Por Folio",
+                    name: "Por Folio",
                     value: "Por Folio"
                 },
                 {
-                    name:"Por Estatus",
+                    name: "Por Estatus",
                     value: "Por Estatus"
                 }
             ],
             estatusSol: [
                 {
-                    name:"Confirmada",
+                    name: "Confirmada",
                     value: "Confirmada"
                 },
                 {
-                    name:"No Confirmada",
+                    name: "No Confirmada",
                     value: "No Confirmada"
                 },
                 {
-                    name:"Cancelada",
+                    name: "Cancelada",
                     value: "Cancelada"
                 },
                 {
-                    name:"Cerrada",
+                    name: "Cerrada",
                     value: "Cerrada"
                 }
             ],
-            steps:[{
+            steps: [{
                 nombre: 'Depuración',
                 value: 'E1'
             }, {
@@ -147,44 +148,180 @@
                 nombre: 'Destrucción',
                 value: 'ED'
             }],
-            antiguedad:[
-                {id:'A',value:'A'},
-                {id:'B',value:'B'},
-                {id:'C',value:'C'},
-                {id:'D',value:'D'},
-                {id:'E',value:'E'},
-                {id:'F',value:'F'}
+            antiguedad: [
+                {id: 'A', value: 'A'},
+                {id: 'B', value: 'B'},
+                {id: 'C', value: 'C'},
+                {id: 'D', value: 'D'},
+                {id: 'E', value: 'E'},
+                {id: 'F', value: 'F'}
             ],
-            estatus_cabinet:[
-                {display:'Reparación Mayor',value:'Reparacion Mayor'},
-                {display:'Sistema Tapado',value:'Sistema Tapado'},
-                {display:'Reparación Media',value:'Reparacion Media'},
-                {display:'Reparación Menor',value:'Reparacion Menor'},
-                {display:'Fuga Interna',value:'Fuga Interna'},
-                {display:'Obsoleto',value:'Obsoleto'},
-                {display:'N/A',value:'N/A'}
+            estatus_cabinet: [
+                {display: 'Reparación Mayor', value: 'Reparacion Mayor'},
+                {display: 'Sistema Tapado', value: 'Sistema Tapado'},
+                {display: 'Reparación Media', value: 'Reparacion Media'},
+                {display: 'Reparación Menor', value: 'Reparacion Menor'},
+                {display: 'Fuga Interna', value: 'Fuga Interna'},
+                {display: 'Obsoleto', value: 'Obsoleto'},
+                {display: 'N/A', value: 'N/A'}
             ],
-            type_out:[
+            type_out: [
                 {
-                    id:0,
-                    value:"Normal",
-                    value_service:"normal"
+                    id: 0,
+                    value: "Normal",
+                    value_service: "normal"
                 },
                 {
-                    id:1,
-                    value:"Fuga Interna",
-                    value_service:"fuga_interna"
+                    id: 1,
+                    value: "Fuga Interna",
+                    value_service: "fuga_interna"
                 },
                 {
-                    id:2,
-                    value:"Obsoleto",
-                    value_service:"obsoleto"
+                    id: 2,
+                    value: "Obsoleto",
+                    value_service: "obsoleto"
                 },
                 {
-                    id:3,
-                    value:"No validada",
-                    value_service:"all"
+                    id: 3,
+                    value: "No validada",
+                    value_service: "all"
                 }
-            ]
+            ],
+            units: [
+                {
+                    id: "Kg",
+                    value: "Kg"
+                },
+                {
+                    id: "g",
+                    value: "g"
+                },
+                {
+                    id: "mg",
+                    value: "mg"
+                },
+                {
+                    id: "L",
+                    value: "L"
+                },
+                {
+                    id: "mL",
+                    value: "mL"
+                },
+                {
+                    id: "piezas",
+                    value: "piezas"
+                }],
+            zone: [
+                {
+                    value: "Metro"
+                },
+                {
+                    value: "Centro"
+                },
+                {
+                    value: "Sur"
+                },
+                {
+                    value: "Norte"
+                },
+                {
+                    value: "Occidente"
+                },
+                {
+                    value: "Oriente"
+                }
+            ],
+            filter: [
+                {id: 'exact', value: "Igual"},
+                {id: 'iexact', value: "Igual (Exacto)"},
+                {id: 'contains', value: "Contiene"},
+                {id: 'icontains', value: "Contine (Exacto)"},
+                {id: 'in', value: "Lista de valores"},
+                {id: 'gt', value: "Mayor que"},
+                {id: 'gte', value: "Mayor igual que"},
+                {id: 'lt', value: "Menor que"},
+                {id: 'lte', value: "Menor igual que"},
+                {id: 'startswith', value: "Comienza con"},
+                {id: 'istartswith', value: "Comienza con (Exacto)"},
+                {id: 'endswith', value: "Termina con"},
+                {id: 'iendswith', value: "Termina con (Exacto)"},
+                {id: 'range', value: "Rango de fecha"},
+                {id: 'week_day', value: "Día de la semana"},
+                {id: 'isnull', value: "Es vacio"},
+                {id: 'max', value: "Máximo"},
+                {id: 'min', value: "Mínimo"}
+            ],
+            filterChar:[
+                {id:'exact',value:"Igual"},
+                {id:'iexact',value:"Igual (Exacto)"},
+                {id:'contains',value:"Contiene"},
+                {id:'icontains',value:"Contine (Exacto)"},
+                {id:'in',value:"Lista de valores"},
+                {id:'startswith',value:"Comienza con"},
+                {id:'istartswith',value:"Comienza con (Exacto)"},
+                {id:'endswith',value:"Termina con"},
+                {id:'iendswith',value:"Termina con (Exacto)"},
+                {id:'isnull',value:"Es vacio"}
+            ],
+            filterDate:[
+                {id:'range',value:"Rango de fecha"},
+                {id:'week_day',value:"Día de la semana"},
+                {id:'isnull',value:"Es vacio"}
+            ],
+            days: [
+                {id: 0, value: "Lunes"},
+                {id: 1, value: "Martes"},
+                {id: 2, value: "Miércoles"},
+                {id: 3, value: "Jueves"},
+                {id: 4, value: "Viernes"},
+                {id: 5, value: "Sábado"},
+                {id: 6, value: "Domingo"}
+            ],
+            formats: [
+                {value: "xlsx"},
+                {value: "csv"}
+            ],types: [
+                {
+                    id: 'CharField',
+                    text: 'Texto'
+                },
+                {
+                    id: 'TextField',
+                    text: 'Texto'
+                },
+                {
+                    id: 'DateTimeField',
+                    text: 'Fecha y Hora'
+                },
+                {
+                    id: 'DateField',
+                    text: 'Fecha'
+                },
+                {
+                    id: 'AutoField',
+                    text: 'Auto Incremento'
+                },
+                {
+                    id: 'FileField',
+                    text: 'Archivo'
+                },
+                {
+                    id: 'ImageField',
+                    text: 'Imagen'
+                },
+                {
+                    id: 'BooleanField',
+                    text: 'Booleano'
+                },
+                {
+                    id: 'ArrayField',
+                    text: 'Multiple'
+                },
+                {
+                    id: 'IntegerField',
+                    text: 'Entero'
+                }]
+
         });
 })();

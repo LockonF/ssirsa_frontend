@@ -12,7 +12,8 @@
         'app.mainApp.inventario',
         'app.mainApp.socket',
         'app.mainApp.catalogos',
-        'app.mainApp.profile'
+        'app.mainApp.profile',
+        'app.mainApp.reportes'
     ]);
 
 })();

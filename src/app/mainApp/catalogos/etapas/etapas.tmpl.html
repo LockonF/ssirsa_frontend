@@ -82,6 +82,15 @@
                                 <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
                             </div>
                         </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>{{'STAGES.FORM.LABEL.WORKSHOP'|translate}}</label>
+                            <input md-no-asterisk="" required="" type="text" name="taller"
+                                   ng-disabled="vm.editable"
+                                   ng-model="vm.etapa.taller"/>
+                            <div ng-messages="EtapaForm.taller.$error">
+                                <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
+                            </div>
+                        </md-input-container>
                     </form>
                     <div layout="row" layout-align="end end">
                         <md-button aria-label="fab button" ng-click="vm.cancel()" class="md-raised md-primary">

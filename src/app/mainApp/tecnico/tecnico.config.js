@@ -39,7 +39,10 @@
             .state('triangular.admin-default.etapa', {
                 url: '/etapa',
                 data: {
-                    roles: ['Administrador', 'Tecnico A', 'Tecnico B', 'Tecnico C', 'Tecnico D', 'Tecnico E']
+                    roles: ['Administrador', 'Tecnico A', 'Tecnico B', 'Tecnico C', 'Tecnico D', 'Tecnico E'],
+                    layout: {
+                        sideMenuSize: 'icon'
+                    }
                 },
                 templateUrl: 'app/mainApp/tecnico/etapa/etapa.tmpl.html',
                 controller: 'etapaController',

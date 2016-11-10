@@ -8,7 +8,7 @@
         .module('app.mainApp')
         .factory('dynamicMenu', dynamicMenu);
 
-    function dynamicMenu(triMenu, Session) {
+    function dynamicMenu(triMenu, Session,menuReport) {
 
         return {
             loadMenu: loadMenu
@@ -135,7 +135,8 @@
                             state: 'triangular.admin-default.etapa',
                             type: 'link'
                         },
-                        {
+                       /* Comentado por si acaso vuelven a pedir que este en el menu pero ya lo absorvio etapa servicio
+                       {
                             name: 'MAIN.MENU.PRECHECK',
                             state: 'triangular.admin-default.checklist',
                             type: 'link'
@@ -148,7 +149,7 @@
                             name: 'MAIN.MENU.SERVICEONSTORE',
                             state: 'triangular.admin-default.servicioPuntoVenta',
                             type: 'link'
-                        },
+                        },*/
                         {
                             name: 'MAIN.MENU.LINE',
                             state: 'triangular.admin-default.asignacionLinea',
@@ -236,6 +237,23 @@
                         type: 'link'
                     }
 
+                    ]
+                },{
+                    name: 'MAIN.MENU.REPORTS.TITLE',
+                    icon: 'fa fa-line-chart',
+                    type: 'dropdown',
+                    priority:7,
+                    children: [
+                        {
+                            name: 'MAIN.MENU.REPORTS.ADMIN',
+                            state: 'triangular.admin-default.reportes',
+                            type: 'link'
+                        },
+                        {
+                            name: 'MAIN.MENU.REPORTS.LIST',
+                            state: 'triangular.admin-default.list',
+                            type: 'link'
+                        }
                     ]
                 }
             ];
@@ -371,25 +389,11 @@
                             type: 'link'
                         },
                         {
-                            name: 'MAIN.MENU.IN',
-                            state: 'triangular.admin-default.entrada',
-                            type: 'link'
-                        },
-                        {
-                            name: 'MAIN.MENU.OUT',
-                            state: 'triangular.admin-default.salida',
-                            type: 'link'
-                        },
-                        {
-                            name: 'MAIN.MENU.REMISSION',
-                            state: 'triangular.admin-default.remision',
-                            type: 'link'
-                        },
-                        {
                             name: 'MAIN.MENU.REGISTER_STEP',
                             state: 'triangular.admin-default.etapa',
                             type: 'link'
                         },
+                        /* lo mismo de arriba
                         {
                             name: 'MAIN.MENU.PRECHECK',
                             state: 'triangular.admin-default.checklist',
@@ -399,6 +403,7 @@
                             state: 'triangular.admin-default.diagnostic',
                             type: 'link'
                         },
+                        */
                         {
                             name: 'MAIN.MENU.LINE',
                             state: 'triangular.admin-default.asignacionLinea',

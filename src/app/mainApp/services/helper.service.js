@@ -14,9 +14,9 @@
             acceptFile: acceptFile,
             showNotification: showNotification,
             addNotificationGlobal: addNotificationGlobal,
-            filterDeleted:filterDeleted,
-            searchByField:searchByField,
-            sortByAttribute:sortByAttribute
+            filterDeleted: filterDeleted,
+            searchByField: searchByField,
+            sortByAttribute: sortByAttribute
         };
 
         /**
@@ -31,24 +31,27 @@
             });
         }
 
+
+
         /**
          * @description Se encarga de filtrar un array mediante la propiedad de "deleted".
          * @param {Object[]} array - El array que se tiene que filtrar.
          * @param {Boolean} status - Indica que tipo de elementos queremos que regrese del array.
          * @returns {Object[]} El array filtrado por la propiedad "deleted"
          */
-        function filterDeleted(array,status) {
-            return  _.filter(array, function(obj){
-                return !(obj.deleted==status);
+        function filterDeleted(array, status) {
+            return _.filter(array, function (obj) {
+                return !(obj.deleted == status);
             });
         }
+
         /**
          * @description Se encarga de buscar y regresar un objeto dentro de un array mediante su id
          * @param {Object[]} array - El array que se tiene que filtrar.
          * @param {number} value - Indica el id del elemento a buscar
          * @returns {Object|undefined} El resultado de la búsqueda.
          */
-        function searchByField(array,value) {
+        function searchByField(array, value) {
             return _.findWhere(array, {
                 id: value
             });
@@ -68,7 +71,7 @@
          * @description Se encarga de mostrar una notificación al usuario.
          * @property {Object} info Un objeto con la información para la notificación.
          */
-        function showNotification(info) {
+        function showNotification(info,title) {
             if (!("Notification" in window)) {
                 $log.info("Este navegador no soporta notificaciones de escritorio");
             }
@@ -76,12 +79,23 @@
                 Notification.requestPermission()
             }
             else if (Notification.permission === "granted") {
-                var options = {
+                console.log("notificación");
+                /*var options = {
                     body: info,
                     icon: "https://s3-us-west-2.amazonaws.com/resources-sssirsa/logo.png",
                     dir: "ltr"
                 };
-                new Notification("SSSIRSA", options);
+                new Notification("SSSIRSA", options);*/
+                Push.create(title, {
+                    body:info,
+                    icon: 'https://resources-sssirsa.s3.amazonaws.com/logo_icon_32.png',
+                    timeout: 10000,
+                    onClick: function () {
+                        window.focus();
+                        this.close();
+                    }
+                });
+
             }
         }
 

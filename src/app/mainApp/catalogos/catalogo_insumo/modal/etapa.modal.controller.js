@@ -35,8 +35,9 @@
                             });
                         }
                     });
-                    vm.etapas=Helper.filterDeleted(res,true);
                 }
+                vm.etapas=Helper.filterDeleted(res,true);
+
             });
         }
         function selectedItemChange(item) {
@@ -48,6 +49,9 @@
                     vm.etapa_list.splice(0, 0, item);
                     vm.etapa_list = _.sortBy(vm.etapa_list, 'nombre');
                 }
+                vm.searchText = '';
+                vm.selectedEtapa = undefined;
+                document.getElementById("etapas").blur();
             }
         }
         function deleteEtapa(item) {
