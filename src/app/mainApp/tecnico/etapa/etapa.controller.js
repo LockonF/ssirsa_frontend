@@ -105,6 +105,7 @@
 
         //Funcion Activate al iniciar la vista
         function activate() {
+
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
             vm.notInsumos = Translate.translate('MAIN.MSG.ERROR_NOTINSUMOSTITLE');
@@ -517,7 +518,8 @@
             vm.cabinet = null;// Informacion general del cabinet al cual se le asignara una nueva etapa
             vm.diagnostico = null;// Informacion del diagnostico que propicio que entrara a un proceso de servicio tecnico
             vm.etapa = null;
-            vm.etapaActual = null;
+            vm.etapaActual = {};
+            vm.etapaActual.validado =true;
             vm.insumo = {
                 id: "",
                 nombre: "",
@@ -563,7 +565,8 @@
             vm.cabinet = null;// Informacion general del cabinet al cual se le asignara una nueva etapa
             vm.diagnostico = null;// Informacion del diagnostico que propicio que entrara a un proceso de servicio tecnico
             vm.etapa = null;
-            vm.etapaActual = null;
+            vm.etapaActual = {};
+            vm.etapaActual.validado =true;
             vm.insumo = {
                 id: "",
                 nombre: "",
