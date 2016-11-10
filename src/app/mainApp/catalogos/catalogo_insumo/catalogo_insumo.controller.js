@@ -9,10 +9,9 @@
         .module('app.mainApp.catalogos')
         .controller('CatalogoInsumoController',CatalogoInsumoController);
 
-    function CatalogoInsumoController(Helper,CatalogoInsumo,OPTIONS,$mdDialog,Categoria,Proveedor, toastr, Translate, $scope)
+    function CatalogoInsumoController(Helper,OPTIONS,Sucursal,CatalogoInsumo,Session,$mdDialog,Categoria,Proveedor, toastr, Translate, $scope)
     {
-        var vm = this;
-
+        var vm=this;
         //Variables
         vm.searchText = '';
         vm.search_items = [];
@@ -47,7 +46,8 @@
         vm.showEquipment=showEquipment;
         vm.disabled=disabled;
         vm.catalogo_insumo=angular.copy(catalogo_insumo);
-        vm.unidades=OPTIONS.units;
+        vm.profile=Session.userInformation;
+        vm.unidades=OPTIONS.units;  
 
         activate();
 
@@ -74,8 +74,12 @@
             listProveedores();
 
         }
-        function listSucursales() {
-            
+        function listSucursales()
+        {
+            Sucursal.listObject().then(function (res) {
+                vm.sucursal_list  =Helper.filterDeleted(res,true);
+                vm.sucursal_list=_.sortBy( vm.sucursal_list, 'nombre');
+            });
         }
         function showSteps() {
             $mdDialog.show({
@@ -168,7 +172,6 @@
             $scope.inputForm.$setUntouched();
             vm.catalogo_insumo=angular.copy(catalogo_insumo);
         }
-
         function update(){
             CatalogoInsumo.update(vm.catalogo_insumo).then(function(res){
                 vm.catalogo_insumo = res;
@@ -184,12 +187,12 @@
 
         function create()
         {
+            vm.catalogo_insumo.sucursal=Session.userInformation.sucursal!=null?Session.userInformation.sucursal:vm.catalogo_insumo.sucursal;
             CatalogoInsumo.create(vm.catalogo_insumo).then(function(res){
                 listCatalogoInsumos();
-                cancel();
                 toastr.success(vm.successCreateMessage,vm.successTitle);
-
-            }).catch(function(err){
+                cancel();
+            }).catch(function(){
                 toastr.error(vm.errorMessage,vm.errorTitle);
             });
         }
