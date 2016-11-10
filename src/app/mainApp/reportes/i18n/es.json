@@ -71,6 +71,7 @@
             "FIELD_NAME":"Campo:",
             "FIELD_VERBOSE":"Etiqueta:",
             "FIELD_TYPE":"Tipo:",
+            "VALUE":"Valor",
             "FIELD_FILTER":"Filtro:",
             "FIELD_FIELDS":"Campo:",
             "DELETE":"Eliminar"
