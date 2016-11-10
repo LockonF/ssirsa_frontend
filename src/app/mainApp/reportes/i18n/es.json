@@ -47,6 +47,9 @@
                 "TITLE":"Exportar reporte",
                 "NAME": "Nombre",
                 "FORMATS":"Formato de Salida"
+            },
+            "SELECTION":{
+                "TITLE":"Selección de campos"
             }
         },
         "MESSAGES": {
