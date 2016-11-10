@@ -18,6 +18,23 @@
             editarEtapaServicio: editarEtapaServicio,
             eliminarEtapaServicio: eliminarEtapaServicio,
             consultarAllEtapaServicioDiagnostico: consultarAllEtapaServicioDiagnostico,
+<<<<<<< HEAD
+            consultarEtapaServicioDiagnostico:consultarEtapaServicioDiagnostico,
+            consultarInsumosEtapa:consultarInsumosEtapa,
+            consultarAllInsumosCabinetEtapa:consultarAllInsumosCabinetEtapa,
+            getEtapaValidable:getEtapaValidable,
+            getDiagnosticoFromCabinet:getDiagnosticoFromCabinet,
+            anadirInsumo:anadirInsumo,
+            modificarInsumo:modificarInsumo,
+            eliminarInsumo:eliminarInsumo,
+            consultarInfoCabinet:consultarInfoCabinet,
+            consultarInsumobyNombre:consultarInsumobyNombre,
+            getCatalogoInsumoById:getCatalogoInsumoById,
+            BusquedaCatalogoTypeStep:BusquedaCatalogoTypeStep,
+            etapaList:etapaList,
+            BusquedaInsumosTypeStep:BusquedaInsumosTypeStep,
+            cabinetByEconomic:cabinetByEconomic
+=======
             consultarEtapaServicioDiagnostico: consultarEtapaServicioDiagnostico,
             consultarInsumosEtapa: consultarInsumosEtapa,
             consultarAllInsumosCabinetEtapa: consultarAllInsumosCabinetEtapa,
@@ -35,6 +52,7 @@
             cabinetByEconomic: cabinetByEconomic,
             firstStepByDiagnostic: firstStepByDiagnostic,
             consultarSalidaServicioDiagnostico : consultarSalidaServicioDiagnostico
+>>>>>>> development
 
         };
         var baseModelo = Restangular.all('etapa_servicio');
@@ -104,6 +122,8 @@
 
             return deferred.promise;
         }
+<<<<<<< HEAD
+=======
         function consultarSalidaServicioDiagnostico(diagnostico) {
             var deferred = $q.defer();
 
@@ -116,6 +136,7 @@
 
             return deferred.promise;
         }
+>>>>>>> development
 
         function consultarAllInsumosCabinetEtapa(etapa) {
             var deferred = $q.defer();
@@ -123,9 +144,15 @@
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);
+<<<<<<< HEAD
+                
+            });
+            
+=======
 
             });
 
+>>>>>>> development
             return deferred.promise;
         }
 
@@ -215,7 +242,11 @@
             })
 
         }
+<<<<<<< HEAD
+       
+=======
 
+>>>>>>> development
         function consultarInsumosEtapa(etapa) {
             var deferred = $q.defer();
             //checar rutas :D
@@ -284,6 +315,50 @@
             })
             return deferred.promise;
         }
+<<<<<<< HEAD
+        //Nuevos Endpoints por nuevos requerimentos y reeconstruccion Etapa Servicio
+        function BusquedaCatalogoTypeStep(data){
+            var deferred =$q.defer();
+            Restangular.all("catalogo_insumos").one("tipo", data.idTipo).all("etapa").customGET(data.idEtapa).then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+
+            });
+            return deferred.promise;
+        }
+        function BusquedaInsumosTypeStep(data){
+            var deferred =$q.defer();
+            Restangular.all("insumo").one("tipo", data.idTipo).one("etapa", data.idEtapa).customGET().then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+
+            });
+            return deferred.promise;
+
+        }
+         function etapaList(){
+             var deferred=$q.defer();
+             Restangular.all("etapa").customGET().then(function (res) {
+                 deferred.resolve(res);
+             }).catch(function (err) {
+                 deferred.reject(err);
+             });
+             return deferred.promise;
+         }
+        function cabinetByEconomic(economico){
+            var deferred=$q.defer();
+            Restangular.all("model").one("cabinet",economico).customGET().then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            });
+            return deferred.promise;
+
+        }
+=======
+>>>>>>> development
 
 
         return service;
