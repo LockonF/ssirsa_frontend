@@ -189,6 +189,7 @@
 
         }
 
+
         function editReport() {
             $state.go('triangular.admin-default.reportModify', {id: vm.report.id});
         }

@@ -13,7 +13,7 @@
         .constant('EVENTS_GENERAL', {
             notFound: 'not-found',
             notFount_select: 'not-found-select',
-            load_fields:'load-data-fields'
+            load_fields: 'load-data-fields'
         })
         .constant('OPTIONS', {
             status: [
@@ -212,7 +212,7 @@
                     id: "piezas",
                     value: "piezas"
                 }],
-            zone:[
+            zone: [
                 {
                     value: "Metro"
                 },
@@ -232,25 +232,25 @@
                     value: "Oriente"
                 }
             ],
-            filter:[
-                {id:'exact',value:"Igual"},
-                {id:'iexact',value:"Igual (Exacto)"},
-                {id:'contains',value:"Contiene"},
-                {id:'icontains',value:"Contine (Exacto)"},
-                {id:'in',value:"Lista de valores"},
-                {id:'gt',value:"Mayor que"},
-                {id:'gte',value:"Mayor igual que"},
-                {id:'lt',value:"Menor que"},
-                {id:'lte',value:"Menor igual que"},
-                {id:'startswith',value:"Comienza con"},
-                {id:'istartswith',value:"Comienza con (Exacto)"},
-                {id:'endswith',value:"Termina con"},
-                {id:'iendswith',value:"Termina con (Exacto)"},
-                {id:'range',value:"Rango de fecha"},
-                {id:'week_day',value:"Día de la semana"},
-                {id:'isnull',value:"Es vacio"},
-                {id:'max',value:"Máximo"},
-                {id:'min',value:"Mínimo"}
+            filter: [
+                {id: 'exact', value: "Igual"},
+                {id: 'iexact', value: "Igual (Exacto)"},
+                {id: 'contains', value: "Contiene"},
+                {id: 'icontains', value: "Contine (Exacto)"},
+                {id: 'in', value: "Lista de valores"},
+                {id: 'gt', value: "Mayor que"},
+                {id: 'gte', value: "Mayor igual que"},
+                {id: 'lt', value: "Menor que"},
+                {id: 'lte', value: "Menor igual que"},
+                {id: 'startswith', value: "Comienza con"},
+                {id: 'istartswith', value: "Comienza con (Exacto)"},
+                {id: 'endswith', value: "Termina con"},
+                {id: 'iendswith', value: "Termina con (Exacto)"},
+                {id: 'range', value: "Rango de fecha"},
+                {id: 'week_day', value: "Día de la semana"},
+                {id: 'isnull', value: "Es vacio"},
+                {id: 'max', value: "Máximo"},
+                {id: 'min', value: "Mínimo"}
             ],
             filterChar:[
                 {id:'exact',value:"Igual"},
@@ -269,18 +269,59 @@
                 {id:'week_day',value:"Día de la semana"},
                 {id:'isnull',value:"Es vacio"}
             ],
-            days:[
-                {id:0,value:"Lunes"},
-                {id:1,value:"Martes"},
-                {id:2,value:"Miércoles"},
-                {id:3,value:"Jueves"},
-                {id:4,value:"Viernes"},
-                {id:5,value:"Sábado"},
-                {id:6,value:"Domingo"}
+            days: [
+                {id: 0, value: "Lunes"},
+                {id: 1, value: "Martes"},
+                {id: 2, value: "Miércoles"},
+                {id: 3, value: "Jueves"},
+                {id: 4, value: "Viernes"},
+                {id: 5, value: "Sábado"},
+                {id: 6, value: "Domingo"}
             ],
-            formats:[
-                {value:"xlsx"},
-                {value:"csv"}
-            ]
+            formats: [
+                {value: "xlsx"},
+                {value: "csv"}
+            ],types: [
+                {
+                    id: 'CharField',
+                    text: 'Texto'
+                },
+                {
+                    id: 'TextField',
+                    text: 'Texto'
+                },
+                {
+                    id: 'DateTimeField',
+                    text: 'Fecha y Hora'
+                },
+                {
+                    id: 'DateField',
+                    text: 'Fecha'
+                },
+                {
+                    id: 'AutoField',
+                    text: 'Auto Incremento'
+                },
+                {
+                    id: 'FileField',
+                    text: 'Archivo'
+                },
+                {
+                    id: 'ImageField',
+                    text: 'Imagen'
+                },
+                {
+                    id: 'BooleanField',
+                    text: 'Booleano'
+                },
+                {
+                    id: 'ArrayField',
+                    text: 'Multiple'
+                },
+                {
+                    id: 'IntegerField',
+                    text: 'Entero'
+                }]
+
         });
 })();

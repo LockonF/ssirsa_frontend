@@ -72,7 +72,8 @@
             "FIELD_VERBOSE":"Etiqueta:",
             "FIELD_TYPE":"Tipo:",
             "VALUE":"Valor",
-            "RETURN":"Volver",
+            "FIELD_FILTER":"Filtro:",
+            "FIELD_FIELDS":"Campo:",
             "DELETE":"Eliminar"
         },
         "TAB":{
