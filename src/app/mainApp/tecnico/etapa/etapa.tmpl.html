@@ -8,7 +8,7 @@
                 </h2>
             </div>
 
-            <div layout="row">
+            <div layout="row" ng-if="vm.cabinet">
 
                 <md-button class="md-raised" aria-label="Editar"
                            ng-click="vm.editar()">
@@ -16,6 +16,7 @@
 
                 </md-button>
                 <md-button class="md-raised" aria-label="Guardar"
+                           ng-disabled="vm.diagnostico.vacio || form2.sigStep.$invalid "
                            ng-click='vm.crearEtapaServicio()'>
                     <md-icon md-font-icon="fa fa-save"></md-icon>
 
@@ -26,40 +27,74 @@
 
                 </md-button>
                 <md-button class="md-raised" aria-label="Eliminar"
-                           ng-click="vm.eliminarEtapaServicio($event)">
+                           ng-click="vm.eliminarEtapaServicio()">
                     <md-icon md-font-icon="fa fa-trash"></md-icon>
 
+                </md-button>
+                <md-button ng-if="vm.etapaActual.actual_etapa.nombre=='E1'|| vm.etapaActual.actual_etapa.nombre=='E4'"
+                           class="md-raised md-primary"
+                           ng-click="vm.showPreCheckDialog(ev)">
+                    <md-icon md-font-icon="fa fa-check-square"></md-icon>
+                </md-button>
+                <md-button ng-if="vm.etapaActual.actual_etapa.nombre=='E2'" class="md-raised md-primary"
+                           ng-click="vm.showDiagnosticoDialog(ev)">
+                    <md-icon md-font-icon="fa fa-check-square"></md-icon>
                 </md-button>
             </div>
         </div>
     </md-toolbar>
     <md-content>
         <md-content class="md-padding">
-            <div flex="100" layout="row">
+            <div flex="100" layout="row" style="overflow-x: hidden;">
 
-                <div layout="column" flex="45">
+                <div layout="column" flex="40">
+                    <form name="form2.Buscar" ng-submit="vm.buscar()">
+                        <md-input-container layout="column" layout-fill="true" flex="100">
 
-                    <md-input-container flex>
-                        <form name="Buscar" ng-submit="vm.buscar()">
                             <label translate>ETAPA_SERVICIO.ID_CABINET</label>
-                            <input type="text" ng-model="vm.idCabinet"/>
-                        </form>
-                    </md-input-container>
+                            <input type="text" pattern="[0-9a-zA-Z-_ ]+" name="idCabinet" ng-model="vm.idCabinet"
+                                   required/>
+                            <div ng-messages="form2.Buscar.idCabinet.$error">
+                                <div ng-message="pattern">
+                                    {{'MAIN.LABEL.ALFANUMERICONLY'|translate}}
+                                </div>
+                                <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
+                            </div>
+
+
+                        </md-input-container>
+                    </form>
                 </div>
-                <md-input-container flex="40">
-                    <label translate>ETAPA_SERVICIO.NEXT_ETAPA</label>
-                    <md-select ng-model="vm.etapaActual.siguiente_etapa" name="select"
-                               ng-disabled="vm.editable">
-                        <md-option ng-repeat="etap in vm.etapas" ng-value="etap.id">{{etap.nombre}} :
-                            {{etap.descripcion}}
-                        </md-option>
-                    </md-select>
-                </md-input-container>
-                <div layout="row" flex="15">
+                <div layout="column" flex="40">
+
+                    <form name="form2.sigStep">
+                        <div layout="column" layout-fill>
+                            <md-input-container layout="column" layout-fill="true" flex="100">
+                                <label translate>ETAPA_SERVICIO.NEXT_ETAPA</label>
+                                <md-select ng-model="vm.etapaActual.siguiente_etapa.id" name="select"
+                                           ng-disabled="vm.editable || vm.diagnostico.vacio"
+                                           ng-required="vm.etapaActual.validado">
+                                    <md-option ng-repeat="etap in vm.etapas" ng-value="etap.id">{{etap.nombre}} :
+                                        {{etap.descripcion}}
+                                    </md-option>
+                                </md-select>
+                                <div ng-messages="form2.sigStep.select.$error">
+                                    <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
+                                </div>
+                            </md-input-container>
+                            <div ng-if="vm.diagnostico.vacio">
+                                <b><span style="color: #FF1B28;" translate>ETAPA_SERVICIO.NOT_PRECHECK</span></b>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <div layout="row" flex="20">
                     <div layout="column">
                         <div layout="row" layout-sm="row" layout-xs="column">
                             <md-input-container flex>
                                 <md-button class="md-fab" class="md-primary" aria-label="fab button"
+                                           ng-disabled="form2.Buscar.$invalid "
                                            ng-click="vm.buscar()">
                                     <md-icon md-font-icon="zmdi zmdi-zoom-in"></md-icon>
                                 </md-button>
@@ -77,144 +112,111 @@
         </md-content>
 
         <md-content class="md-padding" ng-if="vm.etapaActual.actual_etapa">
-            <div layout="column" flex>
-                <div layout="row" flex="100" layout-align="space-around stretch">
-                    <form name="form.insumoFormEtapa" layout-fill="">
-                        <div layout="row" flex="100">
-                            <!-- insumos lote
-                            -->
-                            <md-input-container flex="30">
-                                <label translate>ETAPA_SERVICIO.NAME</label>
-                                <md-select ng-model="vm.catalogoSelected" name="insumo" required='required'
-                                           ng-disabled="vm.editable">
-                                    <md-option ng-repeat="insu in vm.insumosLote" ng-value="insu">
-                                        {{insu.descripcion}}
-                                        <md-option ng-if="insu.descripcion==''"> "No hay Insumos que mostrar"
-                                        </md-option>
-                                    </md-option>
+            <div layout="column" flex style="overflow-x: hidden;">
+                <div layout="row" layout-sm="column" layout-xs="column" layout-align=""
+                     ng-show="vm.insumos_loteUsados.length!=0 || vm.insumos_sinStock.lenght!=0" flex="100" layout-wrap>
 
-                                </md-select>
-                                <div ng-messages="form.insumoFormEtapa.insumo.$error">
 
-                                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                    <div ng-repeat="insu in vm.insumos_loteUsados track by $index" flex="50">
+                        <div column>
+                            <div layout="row" layout-align="center center">
+                                <div flex="20">
+                                    <md-switch flex class="md-primary" ng-model="vm.insumos_loteUsados[$index].agregar"
+                                               aria-label="Primary Switch">
+                                    </md-switch>
                                 </div>
-                            </md-input-container>
-
-                            <md-input-container flex="20">
-                                <label translate>ETAPA_SERVICIO.CANTITY</label>
-                                <input name="cantidad" pattern="^[0-9]+(\.[0-9]{1,3})?$" ng-model="vm.catalogoSelected.tipos_equipo[0].cantidad"
-                                       ng-disabled="vm.editable" required
-                                       max="{{vm.catalogoSelected.cantidad}}"/>
-
-                                <div ng-messages="form.insumoFormEtapa.cantidad.$error">
-
-                                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
-                                    <div ng-message="max">{{'MAIN.GENERAL.MAX_NUMBER' | translate}}
-                                        {{vm.catalogoSelected.cantidad}}
-                                    </div>
-
+                                <div layout="column" flex>
+                                    <div><b translate>ETAPA_SERVICIO.INSUM </b>: {{insu.nombre}}</div>
                                 </div>
-                            </md-input-container>
-                            <md-input-container flex="50">
-                                <label translate>ETAPA_SERVICIO.NOTES</label>
-                                <input name="notas" type="text" ng-model="vm.catalogoSelected.tipos_equipo[0].descripcion"
-                                       ng-disabled="vm.editable"
-                                       md-maxlength="45"
-                                        maxlength="45" minlength="2"/>
-                                <div ng-messages="form.insumoFormEtapa.notas.$error">
-                                </div>
-                            </md-input-container>
-                            <md-input-container flex="10">
-                                <md-button class="md-primary md-raised" aria-label="raised button"
-                                           ng-disabled="form.insumoFormEtapa.$invalid"
-                                           ng-click='vm.addCatalogoInsumo()'>
-                                    <md-icon md-font-icon="zmdi zmdi-plus"></md-icon>
-                                </md-button>
-                            </md-input-container>
+
+                            </div>
+                            <md-divider></md-divider>
                         </div>
-                    </form>
+                    </div>
+                    <md-divider></md-divider>
+                    <div ng-repeat="insu2 in vm.insumos_sinStock track by $index" flex="50">
+                        <div column>
+                            <div layout="row" layout-align="center center">
+                                <div flex="20">
+                                    <md-icon md-font-icon="fa fa-ban"></md-icon>
+                                    <b><span style="color: #FF1B28;" translate>ETAPA_SERVICIO.NOTSTOCK_INSUMO</span></b>
+                                </div>
+                                <div layout="column" flex>
+                                    <div><b translate>ETAPA_SERVICIO.INSUM </b>: {{insu2.nombre}}</div>
+                                </div>
+
+                            </div>
+                            <md-divider></md-divider>
+                        </div>
+                    </div>
+
                 </div>
-                <div layout="row" layout-sm="column" layout-md="column"    layout-align="space-around center"  ng-show="vm.insumos_loteUsados.length!=0" flex="100">
-                    <md-table-container>
-                        <table md-table="" md-row-select="insu" md-auto-select ng-model="vm.insumoLote" flex="100">
-                            <thead md-head="">
-                            <tr md-row="md-row">
-                                <th md-column="md-column"  flex="25"><span
-                                        translate>ID</span></th>
-                                <th md-column="md-column"  flex="25"><span
-                                        translate>ETAPA_SERVICIO.NAME</span></th>
-                                <th md-column="md-column" flex="15"><span translate>ETAPA_SERVICIO.CANTITY</span>
-                                </th>
-                                <th md-column="md-column"  flex="50"><span
-                                        translate>ETAPA_SERVICIO.NOTES</span>
-                                    <!-- Cuerpo de la tabla-->
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody md-body="md-body">
-                            <tr md-row="md-row" md-select="insu" md-select-id="{{insu.id}}"
-                                ng-repeat="insu in vm.insumos_loteUsados">
-                                <td md-cell="md-cell" flex="25">{{insu.id}}</td>
-                                <td md-cell="md-cell" flex="25">{{insu.nombre}}</td>
-                                <td md-cell="md-cell" flex="15" ng-click='vm.editCatalogoInsumo(insu)'>
-                                    {{insu.cantidad}}
-                                </td>
-                                <td md-cell="md-cell" flex="50" ng-click='vm.editCatalogoInsumo(insu)'>
-                                    {{insu.notas}}
-                                </td>
-                                <td md-cell="md-cell" flex="10">
-                                    <md-button ng-click="vm.editCatalogoInsumo(insu)"
-                                               class="md-fab md-primary md-mini">
-                                        <md-icon md-font-icon="fa fa-pencil"></md-icon>
-                                    </md-button>
-                                </td>
-                                <td md-cell="md-cell"  flex="10">
-                                    <md-button ng-click="vm.eliminarCatalogoInsumo(insu)"
-                                               class="md-fab md-warn md-mini">
-                                        <md-icon md-font-icon="fa fa-times-circle"></md-icon>
-                                    </md-button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </md-table-container>
-                </div>
+
+                <md-content layout="row" ng-if="vm.etapaActual.actual_etapa">
+                    <md-switch ng-model="inputDisabled">
+                        <span translate>ETAPA_SERVICIO.ADD_MICRO</span>
+                    </md-switch>
+                    <md-input-container flex="40" ng-if="inputDisabled||vm.etapaActual.insumos[0].no_serie">
+                        <label><span translate>ETAPA_SERVICIO.SCAN</span></label>
+                        <input type="text" ng-model="vm.compresor.no_serie">
+                    </md-input-container>
+                    <md-input-container flex="35" ng-if="inputDisabled">
+                        <label><span translate>ETAPA_SERVICIO.NOTES</span></label>
+                        <input type="text" ng-model="vm.compresor.notas">
+                    </md-input-container>
+                    <md-input-container flex="15" ng-if="inputDisabled">
+                        <label><span translate>ETAPA_SERVICIO.CANTITY</span></label>
+                        <input type="number" value="1" disabled>
+                    </md-input-container>
+                    <md-input-container ng-if="inputDisabled" flex="10">
+                        <md-button class="md-fab  md-primary" aria-label="raised button"
+                                   ng-disabled="form.insumoFormEtapa.$invalid"
+                                   ng-click='vm.AddInsumoArray()'>
+                            <md-icon md-font-icon="zmdi zmdi-plus"></md-icon>
+                        </md-button>
+                    </md-input-container>
+                    <md-input-container ng-if="inputDisabled" flex="10">
+                        <md-button class="md-fab  md-primary" aria-label="raised button"
+                                   ng-click='vm.cleanInsumo()'>
+                            <md-icon md-font-icon="fa fa-eraser"></md-icon>
+                        </md-button>
+                    </md-input-container>
+                </md-content>
+                <md-content layout="row" ng-if="vm.showInsumo">
+
+                    <md-input-container flex="40" ng-if="vm.showInsumo" disabled>
+                        <label><span translate>ETAPA_SERVICIO.NO_SERIE</span></label>
+                        <input ng-disabled="true" ng-if="vm.etapaActual.insumos[0].no_serie!=null" type="text"
+                               ng-model="vm.etapaActual.insumos[0].no_serie">
+                    </md-input-container>
+                    <md-input-container flex="35" ng-if="vm.showInsumo" disabled>
+                        <label><span translate>ETAPA_SERVICIO.NOTES</span></label>
+                        <input type="text" ng-model="vm.etapaActual.insumos[0].notas" ng-disabled="true">
+                    </md-input-container>
+                    <md-input-container flex="15" ng-if="vm.showInsumo">
+                        <label><span translate>ETAPA_SERVICIO.CANTITY</span></label>
+                        <input type="number" value="1" ng-disabled="true">
+                    </md-input-container>
+                    <md-input-container flex="10" ng-if="vm.showInsumo">
+                        <md-button class="md-warn md-raised" aria-label="raised button"
+                                   ng-click='vm.DeleteInsumoArray()'>
+                            <md-icon md-font-icon="fa fa-trash"></md-icon>
+                        </md-button>
+                    </md-input-container>
+                </md-content>
             </div>
         </md-content>
-        <md-content layout="row" ng-if="vm.etapaActual.actual_etapa">
-            <md-switch ng-model="inputDisabled">
-                Agregar Micro motor o Compresor
-            </md-switch>
-            <md-input-container flex="40" ng-if="inputDisabled">
-                <label>Escanea el No de serie</label>
-                <input type="text" ng-model="vm.etapaActual.insumos[0].no_serie">
-            </md-input-container>
-            <md-input-container flex="35" ng-if="inputDisabled">
-                <label>Notas</label>
-                <input type="text" ng-model="vm.etapaActual.insumos[0].notas">
-            </md-input-container>
-            <md-input-container flex="15" ng-if="inputDisabled">
-                <label>Cantidad</label>
-                <input type="number" ng-model="vm.etapaActual.insumos[0].cantidad" >
-            </md-input-container>
-            <md-input-container flex="10" ng-if="">
-                <md-button class="md-primary md-raised" aria-label="raised button"
-                           ng-disabled="form.insumoFormEtapa.$invalid"
-                           ng-click='vm.crearInsumo()'>
-                    <md-icon md-font-icon="zmdi zmdi-plus"></md-icon>
-                </md-button>
-            </md-input-container>
 
-        </md-content>
-        <md-content ng-if="vm.etapaActual.actual_etapa">
-            <md-input-container layout-fill flex>
-                <md-switch class="md-primary" ng-model="vm.etapaActual.validado"
-                           aria-label="Se valida la etapa para avanzar a la siguiente fase"
-                           ng-disabled="vm.parent.editable">
-                    <span translate>ETAPA_SERVICIO.VALIDATED</span>
-                </md-switch>
-            </md-input-container>
-        </md-content>
+    </md-content>
+    <md-content ng-if="vm.etapaActual.actual_etapa">
+        <md-input-container layout-fill flex>
+            <md-switch class="md-primary" ng-model="vm.etapaActual.validado"
+                       aria-label="Se valida la etapa para avanzar a la siguiente fase"
+                       ng-disabled="vm.editable">
+                <span translate>ETAPA_SERVICIO.VALIDATED</span>
+            </md-switch>
+        </md-input-container>
+    </md-content>
 
     </md-content>
 </div>
