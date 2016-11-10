@@ -36,12 +36,13 @@
                                         <input type="number" name="week" required=""
                                                ng-model="vm.puntoVenta.FondoTotal" min="1" step="1" max="52">
                                         <div ng-messages="generalInfo.week.$error">
-                                            <div ng-message="required"><span translate>MAIN.LABEL.REQUIRED</span> </div>
+                                            <div ng-message="required"><span translate>MAIN.LABEL.REQUIRED</span></div>
                                         </div>
                                     </md-input-container>
                                     <md-input-container>
                                         <label translate="">PUNTOVENTA.RECEPTIONNDATE</label>
-                                        <input aria-label="Fecha" type="text" ng-model="vm.puntoVenta.fecha" mdp-date-picker
+                                        <input aria-label="Fecha" type="text" ng-model="vm.puntoVenta.fecha"
+                                               mdp-date-picker
                                                mdp-format="{{vm.formato}}" mo-date-input="{{vm.formato}}" name="fecha"
                                                required=""/>
                                         <div ng-messages="generalInfo.fecha.$error">
@@ -51,7 +52,8 @@
                                     </md-input-container>
                                     <md-input-container>
                                         <label translate="">PUNTOVENTA.RECEPTIONHOUR</label>
-                                        <input type="time" ng-model="vm.puntoVenta.hora_recepcion" mdp-time-picker name="hora_recepcion"
+                                        <input type="time" ng-model="vm.puntoVenta.hora_recepcion" mdp-time-picker
+                                               name="hora_recepcion"
                                                required=""/>
                                         <div ng-messages="generalInfo.hora_recepcion.$error">
 
@@ -100,87 +102,139 @@
                     </md-tab-label>
                     <md-tab-body>
                         <div class="wizard layout-padding">
-                            <form name="fondeoFondeoDesc" tri-wizard-form="">
+                            <form name="localData" tri-wizard-form="">
                                 <div flex="" layout="column" layout-wrap="">
                                     <md-input-container>
-                                        <div text-angular="" required="" ng-model="vm.fondeo.Descripcion"
-                                             ta-toolbar="[['bold','italics','ul','ol']]"></div>
-                                        <label translate="">FONDEOS.FEATURES.CLICK_TO_WRITE</label>
-                                        <md-divider></md-divider>
+                                        <label translate="">PUNTOVENTA.KM</label>
+                                        <input type="number" name="km" required=""
+                                               ng-model="vm.puntoVenta.km" min="0" max="1000">
+                                        <div ng-messages="localData.km.$error">
+                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label translate>PUNTOVENTA.TYPEOFJOB</label>
+                                        <md-select ng-model="vm.puntoVenta.tipo_trabajo" name="tipo_trabajo"
+                                                   required="">
+                                            <md-option ng-repeat="tipo in vm.tiposTrabajo" ng-value="tipo.value">
+                                                {{tipo.display_name}} :
+                                                {{etap.descripcion}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label translate="">PUNTOVENTA.STABLISHED</label>
+                                        <textarea name="nombre_establecimiento" required=""
+                                                  ng-model="vm.puntoVenta.nombre_establecimiento"
+                                                  md-maxlength="100"></textarea>
+                                        <div ng-messages="localData.nombre_establecimiento.$error">
+                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label translate="">PUNTOVENTA.ADDRESS</label>
+                                        <textarea name="direccion" required="" ng-model="vm.puntoVenta.direccion"
+                                                  md-maxlength="400"></textarea>
+                                        <div ng-messages="localData.direccion.$error">
+                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label translate="">PUNTOVENTA.DATEREPORT</label>
+                                        <input aria-label="fecha_reporte" type="text"
+                                               ng-model="vm.puntoVenta.fecha_reporte" mdp-date-picker
+                                               mdp-format="{{vm.formato}}" mo-date-input="{{vm.formato}}"
+                                               name="fecha_reporte"
+                                               required=""/>
+                                        <div ng-messages="localData.fecha_reporte.$error">
+
+                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                        </div>
                                     </md-input-container>
                                 </div>
                             </form>
-                            <div layout="column" flex="">
-                                <form name="DescripcionFile" tri-wizard-form="">
-                                    <div ng-model="vm.file" name="file" ngf-select="vm.uploadFile('DescripcionFile')"
-                                         class="button">
-                                        <md-button class="md-fab md-primary">
-                                            <ng-md-icon icon="attach_file"></ng-md-icon>
-                                        </md-button>
-                                    </div>
-                                </form>
-                                <div ng-show="vm.fondeo.Archivos.DescripcionFile!=null"><a
-                                        href="{{vm.fileRoute+vm.fondeo.Archivos.DescripcionFile}}"><span>{{vm.fondeo.Archivos.DescripcionFile | routeFilter}}</span></a>
-                                </div>
-                            </div>
                         </div>
                     </md-tab-body>
                 </md-tab>
                 <md-tab id="aims" ng-disabled="projectInfo.$invalid">
-                    <md-tab-label><span class="oxy-step-label">3</span><span translate="">FONDEOS.FEATURES.FONDEO_SUPPORT</span>
+                    <md-tab-label><span class="oxy-step-label">3</span><span translate="">PUNTOVENTA.CABINETDATA</span>
                     </md-tab-label>
                     <md-tab-body>
                         <div class="wizard layout-padding">
-                            <form name="fondeoSupport" tri-wizard-form="">
-                                <md-input-container>
-                                    <div text-angular="" required="" ng-model="vm.fondeo.RubrosDeApoyo"
-                                         ta-toolbar="[['bold','italics','ul','ol']]"></div>
-                                    <label translate="">FONDEOS.FEATURES.CLICK_TO_WRITE</label>
-                                    <md-divider></md-divider>
-                                </md-input-container>
-                            </form>
-                            <div layout="column" flex="">
-                                <form name="RubrosDeApoyoFile" tri-wizard-form="">
-                                    <div ng-model="vm.file" name="file" ngf-select="vm.uploadFile('RubrosDeApoyoFile')"
-                                         class="button">
-                                        <md-button class="md-fab md-primary">
-                                            <ng-md-icon icon="attach_file"></ng-md-icon>
-                                        </md-button>
-                                    </div>
-                                </form>
-                                <div ng-show="vm.fondeo.Archivos.RubrosDeApoyoFile!=null"><a
-                                        href="{{vm.fileRoute+vm.fondeo.Archivos.RubrosDeApoyoFile}}"><span>{{vm.fondeo.Archivos.RubrosDeApoyoFile | routeFilter}}</span></a>
+                            <form name="localData" tri-wizard-form="">
+                                <div flex="" layout="column" layout-wrap="">
                                 </div>
-                            </div>
+                            </form>
+                        </div>
+
+                    </md-tab-body>
+                </md-tab>
+                <md-tab id="reach" ng-disabled="projectInfo.$invalid">
+                    <md-tab-label><span class="oxy-step-label">4</span><span
+                            translate="">PUNTOVENTA.USEDINSUM</span>
+                    </md-tab-label>
+                    <md-tab-body>
+                        <div class="wizard layout-padding">
+                            <form name="observationsData" tri-wizard-form="">
+                                <div flex="" layout="column" layout-wrap="">
+                                    <div layout="row" layout-sm="column" layout-xs="column" layout-align=""
+                                         ng-show="vm.insumos_loteUsados.length!=0 || vm.insumos_sinStock.lenght!=0" flex="100" layout-wrap>
+                                        <div ng-repeat="insu in vm.insumos_loteUsados track by $index" flex="50">
+                                            <div column>
+                                                <div layout="row" layout-align="center center">
+                                                    <div flex="20">
+                                                        <md-switch flex class="md-primary" ng-model="vm.insumos_loteUsados[$index].agregar"
+                                                                   aria-label="Primary Switch">
+                                                        </md-switch>
+                                                    </div>
+                                                    <div layout="column" flex>
+                                                        <div><b translate>ETAPA_SERVICIO.INSUM </b>: {{insu.nombre}}</div>
+                                                    </div>
+
+                                                </div>
+                                                <md-divider></md-divider>
+                                            </div>
+                                        </div>
+                                        <md-divider></md-divider>
+                                        <div ng-repeat="insu2 in vm.insumos_sinStock track by $index" flex="50">
+                                            <div column>
+                                                <div layout="row" layout-align="center center">
+                                                    <div flex="20">
+                                                        <md-icon md-font-icon="fa fa-ban"></md-icon>
+                                                        <b><span style="color: #FF1B28;" translate>ETAPA_SERVICIO.NOTSTOCK_INSUMO</span></b>
+                                                    </div>
+                                                    <div layout="column" flex>
+                                                        <div><b translate>ETAPA_SERVICIO.INSUM </b>: {{insu2.nombre}}</div>
+                                                    </div>
+
+                                                </div>
+                                                <md-divider></md-divider>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </md-tab-body>
                 </md-tab>
                 <md-tab id="reach" ng-disabled="projectInfo.$invalid">
-                    <md-tab-label><span class="oxy-step-label">4</span><span translate="">FONDEOS.FEATURES.FONDEO_SELECTED</span>
+                    <md-tab-label><span class="oxy-step-label">5</span><span
+                            translate="">PUNTOVENTA.SERVICEOBSERVATION</span>
                     </md-tab-label>
                     <md-tab-body>
                         <div class="wizard layout-padding">
-                            <form name="fondeoSelected" tri-wizard-form="">
-                                <md-input-container>
-                                    <div text-angular="" required="" ng-model="vm.fondeo.CriteriosElegibilidad"
-                                         ta-toolbar="[['bold','italics','ul','ol']]"></div>
-                                    <label translate="">FONDEOS.FEATURES.CLICK_TO_WRITE</label>
-                                    <md-divider></md-divider>
-                                </md-input-container>
-                            </form>
-                            <div layout="column" flex="">
-                                <form name="CriteriosDeElegibilidadFile" tri-wizard-form="">
-                                    <div ng-model="vm.file" name="file"
-                                         ngf-select="vm.uploadFile('CriteriosDeElegibilidadFile')" class="button">
-                                        <md-button class="md-fab md-primary">
-                                            <ng-md-icon icon="attach_file"></ng-md-icon>
-                                        </md-button>
-                                    </div>
-                                </form>
-                                <div ng-show="vm.fondeo.Archivos.CriteriosDeElegibilidadFile!=null"><a
-                                        href="{{vm.fileRoute+vm.fondeo.Archivos.CriteriosDeElegibilidadFile}}"><span>{{vm.fondeo.Archivos.CriteriosDeElegibilidadFile | routeFilter}}</span></a>
+                            <form name="observationsData" tri-wizard-form="">
+                                <div flex="" layout="column" layout-wrap="">
+                                    <md-input-container>
+                                        <label translate="">PUNTOVENTA.ADDRESS</label>
+                                        <textarea name="direccion" required="" ng-model="vm.puntoVenta.direccion"
+                                                  md-maxlength="400"></textarea>
+                                        <div ng-messages="localData.direccion.$error">
+                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                        </div>
+                                    </md-input-container>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </md-tab-body>
                 </md-tab>

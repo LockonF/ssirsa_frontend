@@ -282,6 +282,8 @@
         "CABINET":"cabinet",
         "PERSON":"persona",
         "COMPRESSOR":"Compresor",
-        "COMPLETED":"Completado"
+        "COMPLETED":"Completado",
+        "NEXT":"Siguiente",
+        "PREVIOUS":"Anterior"
     }
 }
