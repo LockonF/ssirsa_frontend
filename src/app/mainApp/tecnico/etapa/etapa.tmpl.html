@@ -8,7 +8,7 @@
                 </h2>
             </div>
 
-            <div layout="row" ng-if="vm.cabinet" >
+            <div layout="row" ng-if="vm.cabinet">
 
                 <md-button class="md-raised" aria-label="Editar"
                            ng-click="vm.editar()">
@@ -68,19 +68,20 @@
                 <div layout="column" flex="40">
 
                     <form name="form2.sigStep">
-                        <div layout="column"layout-fill >
-                        <md-input-container layout="column" layout-fill="true" flex="100" >
-                            <label translate>ETAPA_SERVICIO.NEXT_ETAPA</label>
-                            <md-select ng-model="vm.etapaActual.siguiente_etapa.id" name="select"
-                                       ng-disabled="vm.editable || vm.diagnostico.vacio" ng-required="vm.etapaActual.validado">
-                                <md-option ng-repeat="etap in vm.etapas" ng-value="etap.id">{{etap.nombre}} :
-                                    {{etap.descripcion}}
-                                </md-option>
-                            </md-select>
-                            <div ng-messages="form2.sigStep.select.$error">
-                                <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
-                            </div>
-                        </md-input-container>
+                        <div layout="column" layout-fill>
+                            <md-input-container layout="column" layout-fill="true" flex="100">
+                                <label translate>ETAPA_SERVICIO.NEXT_ETAPA</label>
+                                <md-select ng-model="vm.etapaActual.siguiente_etapa.id" name="select"
+                                           ng-disabled="vm.editable || vm.diagnostico.vacio"
+                                           ng-required="vm.etapaActual.validado">
+                                    <md-option ng-repeat="etap in vm.etapas" ng-value="etap.id">{{etap.nombre}} :
+                                        {{etap.descripcion}}
+                                    </md-option>
+                                </md-select>
+                                <div ng-messages="form2.sigStep.select.$error">
+                                    <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
+                                </div>
+                            </md-input-container>
                             <div ng-if="vm.diagnostico.vacio">
                                 <b><span style="color: #FF1B28;" translate>ETAPA_SERVICIO.NOT_PRECHECK</span></b>
                             </div>
@@ -175,7 +176,7 @@
                         </md-button>
                     </md-input-container>
                     <md-input-container ng-if="inputDisabled" flex="10">
-                        <md-button class="md-fab  md-primary"  aria-label="raised button"
+                        <md-button class="md-fab  md-primary" aria-label="raised button"
                                    ng-click='vm.cleanInsumo()'>
                             <md-icon md-font-icon="fa fa-eraser"></md-icon>
                         </md-button>
