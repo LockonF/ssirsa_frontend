@@ -14,7 +14,7 @@
                 // set the url of this page
                 url: '/proveedor',
                 data: {
-                    roles: ['Administrador','Capturista']
+                    roles: ['Administrador']
                 },
                 // set the html template to show on this page
                 templateUrl: 'app/mainApp/catalogos/proveedor/proveedor.tmpl.html',
@@ -115,7 +115,7 @@
             .state('triangular.admin-default.categoria',{
                 url:'/categoria',
                 data: {
-                    roles: ['Administrador','Capturista']
+                    roles: ['Administrador']
                 },
                 templateUrl:'app/mainApp/catalogos/categoria/categoria.tmpl.html',
                 controller:'CategoriaController',
@@ -124,7 +124,7 @@
             .state('triangular.admin-default.catalogo-insumo',{
                 url:'/catalogo-insumo',
                 data: {
-                    roles: ['Administrador','Capturista']
+                    roles: ['Administrador']
                 },
                 templateUrl:'app/mainApp/catalogos/catalogo_insumo/catalogo_insumo.tmpl.html',
                 controller:'CatalogoInsumoController',
@@ -133,7 +133,7 @@
             .state('triangular.admin-default.catalogo-tipo-equipo',{
                 url:'/catalogo-tipo-equipo',
                 data: {
-                    roles: ['Administrador','Capturista']
+                    roles: ['Administrador']
                 },
                 templateUrl:'app/mainApp/catalogos/tipoEquipo/tipoEquipo.tmpl.html',
                 controller:'TipoEquipoController',
@@ -141,7 +141,7 @@
             }).state('triangular.admin-default.catalogo-etapas',{
             url:'/catalogo-etapas',
             data: {
-                roles: ['Administrador','Capturista']
+                roles: ['Administrador']
             },
             templateUrl:'app/mainApp/catalogos/etapas/etapas.tmpl.html',
             controller:'EtapasController',
