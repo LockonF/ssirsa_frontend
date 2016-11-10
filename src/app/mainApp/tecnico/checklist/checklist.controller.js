@@ -41,8 +41,10 @@
                 vm.diagnostico.vacio = false;
                 vm.diagnostico.tipo_insumo = vm.diagnostico.isCabinet == true ? 'cabinet' : 'bicicleta';
                 vm.diagnostico.tipo = vm.diagnostico.isSalida == true ? 'salida' : 'entrada';
-                vm.diagnostico = _.omit(vm.diagnostico, foto);
-                console.log(vm.diagnostico);
+                if (vm.diagnostico.foto == null) {
+                    console.log("entre porque tengo foto")
+                    vm.diagnostico = _.omit(vm.diagnostico, 'foto');
+                }
                 Upload.upload({
                     url: EnvironmentConfig.site.rest.api + 'diagnostico_cabinet',
                     headers: {'Authorization': OAuthToken.getAuthorizationHeader()},
