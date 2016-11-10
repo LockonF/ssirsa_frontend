@@ -22,6 +22,7 @@
             siguiente_etapa: ''
 
         };
+        vm.diagnosticoEntrada = {}
         vm.showInsumosSection = true;
         vm.catalogoInsumos = null;//array con todos los caatalogos de insumo disponibles de la etapa
         vm.catalogoSelected = {};//Elemento del tipo Catalogo de Insumo del insumo que se deseará agregar
@@ -50,6 +51,11 @@
         vm.dataEtapa = null;//Variable que posera los datos de la etapa para el precargado de Template (id etapa, idTipoEquipo)
         vm.etapas;//Arreglo de las diferentes etapas que componen el proceso de fabricacion de Cabinets
         vm.firstEtapa = {};
+        vm.compresor = {
+            no_serie: '',
+            notas: '',
+            cantidad: 1
+        }
 
         //Declaracion de Funciones
 
@@ -74,6 +80,7 @@
         vm.eliminarSinModal = eliminarSinModal;
         vm.AddInsumoArray = AddInsumoArray;
         vm.DeleteInsumoArray = DeleteInsumoArray;
+        vm.cleanInsumo = cleanInsumo;
 
 
         // Funciones
@@ -122,7 +129,7 @@
             vm.successDeleteMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_DELETE');
             vm.messageNotEntrada = Translate.translate('MAIN.MSG.MSGNOTENTRADA');
             vm.messageNotTipoEquipo = Translate.translate('MAIN.MSG.NOTTIPOEQUIPO');
-            vm.errorNotDeleteFirstStep= Translate.translate('MAIN.MSG.NOTFIRSTSTEP')
+            vm.errorNotDeleteFirstStep = Translate.translate('MAIN.MSG.NOTFIRSTSTEP')
             getEtapasList();
         }
 
@@ -143,7 +150,7 @@
                         promise = Servicios.getDiagnosticoFromCabinet(vm.idCabinet);
                         promise.then(function (res) {
                             vm.diagnostico = res;
-                          
+
                             promise = Servicios.consultarEtapaServicioDiagnostico(vm.diagnostico);
                             promise.then(function (res) {
                                 vm.etapa = res;
@@ -154,8 +161,6 @@
                                     if (vm.etapaActual.insumos === undefined) {
                                         vm.etapaActual.insumos = [];
                                     }
-
-
 
 
                                     if ((vm.etapaActual.actual_etapa.nombre == 'EC') || (vm.etapaActual.actual_etapa.nombre == 'ED') || (vm.etapaActual.actual_etapa.nombre == 'EO')) {
@@ -203,7 +208,7 @@
                         })
                     }
                 }).catch(function (res) {
-                    notifyError(res.status);
+                    notifyError(404);
                     vm.cancel();
                 });
             }
@@ -452,17 +457,27 @@
         }
 
         function AddInsumoArray() {
+
             vm.showInsumo = true;
+            vm.etapaActual.insumos = [];
+            console.log(vm.compresor);
+            vm.etapaActual.insumos.push(vm.compresor);
+            console.log(vm.etapaActual.insumos[0]);
             if (vm.etapaActual.insumos[0].no_serie != null) {
-                vm.etapaActual.insumos[0].cantidad = 1;
                 notifyError(1001);
             }
         }
 
+        function cleanInsumo() {
+            vm.compresor = {
+                no_serie: '',
+                notas: '',
+                cantidad: 1
+            };
+        }
+
         function DeleteInsumoArray() {
-            vm.etapaActual.insumos[0].no_serie = null;
-            vm.etapaActual.insumos[0].notas = null;
-            vm.etapaActual.insumos[0].cantidad = null;
+            vm.etapaActual.insumos = null;
             vm.showInsumo = false;
         }
 
@@ -479,6 +494,11 @@
                 actual_etapa: '',
                 siguiente_etapa: ''
 
+            };
+            vm.compresor = {
+                no_serie: '',
+                notas: '',
+                cantidad: 1
             };
             vm.showInsumosSection = true;
             vm.catalogoInsumos = null;//array con todos los caatalogos de insumo disponibles de la etapa
@@ -519,6 +539,11 @@
                 actual_etapa: '',
                 siguiente_etapa: ''
 
+            };
+            vm.compresor = {
+                no_serie: '',
+                notas: '',
+                cantidad: 1
             };
             vm.showInsumosSection = true;
             vm.catalogoInsumos = null;//array con todos los caatalogos de insumo disponibles de la etapa

@@ -93,7 +93,7 @@
                         <div layout="row" layout-sm="row" layout-xs="column">
                             <md-input-container flex>
                                 <md-button class="md-fab" class="md-primary" aria-label="fab button"
-                                           ng-disabled="Buscar.$invalid "
+                                           ng-disabled="form2.Buscar.$invalid "
                                            ng-click="vm.buscar()">
                                     <md-icon md-font-icon="zmdi zmdi-zoom-in"></md-icon>
                                 </md-button>
@@ -157,21 +157,27 @@
                     </md-switch>
                     <md-input-container flex="40" ng-if="inputDisabled||vm.etapaActual.insumos[0].no_serie">
                         <label><span translate>ETAPA_SERVICIO.SCAN</span></label>
-                        <input type="text" ng-model="vm.etapaActual.insumos[0].no_serie">
+                        <input type="text" ng-model="vm.compresor.no_serie">
                     </md-input-container>
                     <md-input-container flex="35" ng-if="inputDisabled">
                         <label><span translate>ETAPA_SERVICIO.NOTES</span></label>
-                        <input type="text" ng-model="vm.etapaActual.insumos[0].notas">
+                        <input type="text" ng-model="vm.compresor.notas">
                     </md-input-container>
                     <md-input-container flex="15" ng-if="inputDisabled">
                         <label><span translate>ETAPA_SERVICIO.CANTITY</span></label>
                         <input type="number" value="1" disabled>
                     </md-input-container>
                     <md-input-container ng-if="inputDisabled" flex="10">
-                        <md-button class="md-primary md-raised" aria-label="raised button"
+                        <md-button class="md-fab  md-primary" aria-label="raised button"
                                    ng-disabled="form.insumoFormEtapa.$invalid"
                                    ng-click='vm.AddInsumoArray()'>
                             <md-icon md-font-icon="zmdi zmdi-plus"></md-icon>
+                        </md-button>
+                    </md-input-container>
+                    <md-input-container ng-if="inputDisabled" flex="10">
+                        <md-button class="md-fab  md-primary"  aria-label="raised button"
+                                   ng-click='vm.cleanInsumo()'>
+                            <md-icon md-font-icon="fa fa-eraser"></md-icon>
                         </md-button>
                     </md-input-container>
                 </md-content>
@@ -182,15 +188,15 @@
                         <input ng-disabled="true" ng-if="vm.etapaActual.insumos[0].no_serie!=null" type="text"
                                ng-model="vm.etapaActual.insumos[0].no_serie">
                     </md-input-container>
-                    <md-input-container flex="35" ng-if="vm.etapaActual.insumos[0].notas!=null" disabled>
+                    <md-input-container flex="35" ng-if="vm.showInsumo" disabled>
                         <label><span translate>ETAPA_SERVICIO.NOTES</span></label>
                         <input type="text" ng-model="vm.etapaActual.insumos[0].notas" ng-disabled="true">
                     </md-input-container>
-                    <md-input-container flex="15" ng-if=vm.etapaActual.insumos[0].cantidad !=null">
+                    <md-input-container flex="15" ng-if="vm.showInsumo">
                         <label><span translate>ETAPA_SERVICIO.CANTITY</span></label>
                         <input type="number" value="1" ng-disabled="true">
                     </md-input-container>
-                    <md-input-container flex="10" ng-if=" vm.etapaActual.insumos[0].notas!=null">
+                    <md-input-container flex="10" ng-if="vm.showInsumo">
                         <md-button class="md-warn md-raised" aria-label="raised button"
                                    ng-click='vm.DeleteInsumoArray()'>
                             <md-icon md-font-icon="fa fa-trash"></md-icon>

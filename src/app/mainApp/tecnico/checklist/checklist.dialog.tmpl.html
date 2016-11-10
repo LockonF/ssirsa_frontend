@@ -120,7 +120,8 @@
                                         </md-input-container>
                                         <md-input-container>
                                             <label>{{'TECNICO.FORM.LABEL.GRIDS'|translate}}</label>
-                                            <input type="number" required='required'  ng-disabled="vm.NotEditable" name="rejillas"
+                                            <input type="number" required='required' ng-disabled="vm.NotEditable"
+                                                   name="rejillas"
                                                    ng-model="vm.diagnostico.rejillas"
                                                    step="any"
                                                    ng-minlength="1" ng-maxlength="1" min="0" max="6"
@@ -142,37 +143,43 @@
                                         <div layout="row" flex="flex" layout-xs="column" layout-align-xs="center center"
                                              layout-wrap>
                                             <md-input-container flex="50" flex-xs="100" flex-sm="100">
-                                                <md-switch class="md-primary"  ng-disabled="vm.NotEditable" ng-model="vm.diagnostico.sticker"
+                                                <md-switch class="md-primary" ng-disabled="vm.NotEditable"
+                                                           ng-model="vm.diagnostico.sticker"
                                                            aria-label="Sticker Correcto">
                                                     {{'TECNICO.FORM.LABEL.STICKER'|translate}}
                                                 </md-switch>
                                             </md-input-container>
                                             <md-input-container flex="50" flex-xs="100" flex-sm="100">
-                                                <md-switch class="md-primary"  ng-disabled="vm.NotEditable" ng-model="vm.diagnostico.pintura"
+                                                <md-switch class="md-primary" ng-disabled="vm.NotEditable"
+                                                           ng-model="vm.diagnostico.pintura"
                                                            aria-label="Pintura Correcto">
                                                     {{'TECNICO.FORM.LABEL.PAINTING'|translate}}
                                                 </md-switch>
                                             </md-input-container>
                                             <md-input-container flex="50" flex-xs="100" flex-sm="100">
-                                                <md-switch class="md-primary"  ng-disabled="vm.NotEditable" ng-model="vm.diagnostico.lavado"
+                                                <md-switch class="md-primary" ng-disabled="vm.NotEditable"
+                                                           ng-model="vm.diagnostico.lavado"
                                                            aria-label="Lavado Correcto">
                                                     {{'TECNICO.FORM.LABEL.WASHED'|translate}}
                                                 </md-switch>
                                             </md-input-container>
                                             <md-input-container flex="50" flex-xs="100" flex-sm="100">
-                                                <md-switch class="md-primary"  ng-disabled="vm.NotEditable" ng-model="vm.diagnostico.emplayado"
+                                                <md-switch class="md-primary" ng-disabled="vm.NotEditable"
+                                                           ng-model="vm.diagnostico.emplayado"
                                                            aria-label="Emplayado Correcto">
                                                     {{'TECNICO.FORM.LABEL.STRETCH_WRAP'|translate}}
                                                 </md-switch>
                                             </md-input-container>
                                             <md-input-container flex="50" flex-xs="100" flex-sm="100">
-                                                <md-switch class="md-primary"   ng-disabled="vm.NotEditable" ng-model="vm.diagnostico.lubricacion"
+                                                <md-switch class="md-primary" ng-disabled="vm.NotEditable"
+                                                           ng-model="vm.diagnostico.lubricacion"
                                                            aria-label="Lubricación Correcta">
                                                     {{'TECNICO.FORM.LABEL.LUBRICATION'|translate}}
                                                 </md-switch>
                                             </md-input-container>
                                             <md-input-container flex="50" flex-xs="100" flex-sm="100">
-                                                <md-switch class="md-primary"  ng-disabled="vm.NotEditablevm.NotEditable"  ng-model="vm.diagnostico.listo_mercado"
+                                                <md-switch class="md-primary" ng-disabled="vm.NotEditablevm.NotEditable"
+                                                           ng-model="vm.diagnostico.listo_mercado"
                                                            aria-label="Listo para Mercado">
                                                     {{'TECNICO.FORM.LABEL.READY_MARKET'|translate}}
                                                 </md-switch>
@@ -186,7 +193,8 @@
                                             <md-button ngf-select="vm.selectionFile($files)"
                                                        ngf-accept="'image/*'"
                                                        class="md-primary md-raised"
-                                                       ng-disabled="vm.status != 'idle'&&  vm.NotEditable" ngf-multiple="false"
+                                                       ng-disabled="vm.status != 'idle' || vm.NotEditable"
+                                                       ngf-multiple="false"
                                                        ng-model="vm.picFile"
                                                        aria-label="upload">
                                                 <md-icon md-font-icon
@@ -205,7 +213,8 @@
 
                             </div>
                             <div layout="row" layout-align="end center">
-                                <md-button type="submit" ng-disabled='registerForm.$invalid || vm.NotEditable'  ng-click="vm.guardar()"
+                                <md-button type="submit" ng-disabled='registerForm.$invalid || vm.NotEditable'
+                                           ng-click="vm.guardar()"
                                            class="md-primary md-raised">
                                     <md-icon md-font-icon="fa fa-save">
                                 </md-button>

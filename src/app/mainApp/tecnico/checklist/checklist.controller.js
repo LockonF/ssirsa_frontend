@@ -72,6 +72,7 @@
                 }
                 else{
                     vm.diagnostico.foto = null;
+                    vm.diagnostico= _.omit(vm.diagnostico,foto);
                 }
                 vm.diagnostico.tipo_insumo = vm.diagnostico.isCabinet == true ? 'cabinet' : 'bicicleta';
                 vm.diagnostico.tipo = vm.diagnostico.isSalida == true ? 'salida' : 'entrada';

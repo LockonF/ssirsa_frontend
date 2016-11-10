@@ -33,7 +33,8 @@
             etapaList: etapaList,
             BusquedaInsumosTypeStep: BusquedaInsumosTypeStep,
             cabinetByEconomic: cabinetByEconomic,
-            firstStepByDiagnostic: firstStepByDiagnostic
+            firstStepByDiagnostic: firstStepByDiagnostic,
+            consultarSalidaServicioDiagnostico : consultarSalidaServicioDiagnostico
 
         };
         var baseModelo = Restangular.all('etapa_servicio');
@@ -92,6 +93,18 @@
         }
 
         function consultarEtapaServicioDiagnostico(diagnostico) {
+            var deferred = $q.defer();
+
+            Restangular.all('etapa_servicio').all('diagnostic').one('latest', diagnostico.id).customGET().then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+                console.log(err);
+            });
+
+            return deferred.promise;
+        }
+        function consultarSalidaServicioDiagnostico(diagnostico) {
             var deferred = $q.defer();
 
             Restangular.all('etapa_servicio').all('diagnostic').one('latest', diagnostico.id).customGET().then(function (res) {
