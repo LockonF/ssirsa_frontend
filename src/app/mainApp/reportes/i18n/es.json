@@ -71,6 +71,7 @@
             "FIELD_NAME":"Campo:",
             "FIELD_VERBOSE":"Etiqueta:",
             "FIELD_TYPE":"Tipo:",
+            "VALUE":"Valor",
             "RETURN":"Volver",
             "DELETE":"Eliminar"
         },

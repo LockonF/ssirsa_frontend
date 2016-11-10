@@ -33,6 +33,7 @@
             Translate.translate('REPORTS.MODIFY.FIELD_NAME'),
             Translate.translate('REPORTS.MODIFY.FIELD_VERBOSE'),
             Translate.translate('REPORTS.MODIFY.FIELD_TYPE'),
+            Translate.translate('REPORTS.MODIFY.VALUE'),
             Translate.translate('REPORTS.MODIFY.DELETE')
         ];
 
@@ -46,15 +47,19 @@
 
         function removeField(id) {
             vm.report.displayfield_set.splice(id, 1);
+            vm.report.displayfield_set = reorganizeFieldIndexes(vm.report.displayfield_set);
         }
 
         function removeFilter(id) {
-            var index = vm.report.filterfield_set.indexOf(id);
-            if (index > -1) {
-                vm.report.filterfield_set.splice(index, 1);
-            }
+            vm.report.filterfield_set.splice(id, 1);
+            vm.report.filterfield_set = reorganizeFieldIndexes(vm.report.filterfield_set);
         }
 
-        
+        function reorganizeFieldIndexes(fields) {
+            for (i = 0; i < fields.length; i++) {
+                fields[i].position = i;
+            }
+            return fields;
+        }
     }
 })();
