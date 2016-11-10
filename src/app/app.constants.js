@@ -13,7 +13,7 @@
         .constant('EVENTS_GENERAL', {
             notFound: 'not-found',
             notFount_select: 'not-found-select',
-            load_report_menu:'load-menu-report'
+            load_fields:'load-data-fields'
         })
         .constant('OPTIONS', {
             status: [
@@ -246,7 +246,7 @@
                 {id:'istartswith',value:"Comienza con (Exacto)"},
                 {id:'endswith',value:"Termina con"},
                 {id:'iendswith',value:"Termina con (Exacto)"},
-                {id:'range',value:"Rango"},
+                {id:'range',value:"Rango de fecha"},
                 {id:'week_day',value:"Día de la semana"},
                 {id:'isnull',value:"Es vacio"},
                 {id:'max',value:"Máximo"},

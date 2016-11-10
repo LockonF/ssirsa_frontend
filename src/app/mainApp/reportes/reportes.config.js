@@ -18,17 +18,17 @@
                 controller: 'ReportesCrudController',
                 controllerAs: 'vm'
             })
-            .state('triangular.admin-default.reportModify',{
-                url:'/reportesCrear/:id/',
-                data:{
-                    roles:['Administrador']
+            .state('triangular.admin-default.reportModify', {
+                url: '/reportesCrear/:id/',
+                data: {
+                    roles: ['Administrador']
                 },
-                params:{
-                    id:null
+                params: {
+                    id: null
                 },
-                templateUrl:'app/mainApp/reportes/edicion/reportEdicion.tmpl.html',
-                controller:'reportEditionController',
-                controllerAs:'vm'
+                templateUrl: 'app/mainApp/reportes/edicion/reportEdicion.tmpl.html',
+                controller: 'reportEditionController',
+                controllerAs: 'vm'
             });
 
     }

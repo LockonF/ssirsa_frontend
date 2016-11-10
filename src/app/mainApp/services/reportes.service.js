@@ -81,7 +81,7 @@
                     "field": ""
                 };
             }
-            return path.one("related_fields").all("").post(request);
+            return path.all("related_fields").all("").post(request);
         }
         //Obtiene todos los campos de un modelo, dado un ID de modelo, y como opcion una ruta (path)
         // y un nombre de campo (field) para mapear la ruta necesaria al crear el fieldset

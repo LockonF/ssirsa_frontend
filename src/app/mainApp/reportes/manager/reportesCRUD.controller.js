@@ -66,7 +66,6 @@
             return query ? lookup(query) : vm.reports;
 
         }
-
         function onTabPreview() {
             Reportes.generatePreview(vm.report.id).then(function (res) {
                 vm.preview = res;
