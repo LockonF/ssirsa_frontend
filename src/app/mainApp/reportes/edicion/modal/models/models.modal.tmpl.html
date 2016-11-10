@@ -29,7 +29,7 @@
                                layout-align="center center">
                             <thead>
                             <tr>
-                                <th ng-repeat="header in vm.tableDisplayHeaders">{{header}}</th>
+                                <th ng-repeat="header in vm.tableDisplayHeaders track by $index">{{header}}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -52,13 +52,18 @@
                                     {{field.field_type|tipoDato}}
                                 </td>
                                 <td data-title="{{vm.tableDisplayHeaders[3]}}">
-                                    <md-button aria-label="fab button"
-                                               class="md-fab md-scale md-mini md-fab-principal"
-                                               ng-click="vm.removeDisplay()">
-                                        <md-icon md-font-icon="fa fa-trash" ng-style="{color: 'white'}">
-
-                                        </md-icon>
-                                    </md-button>
+                                    <md-checkbox
+                                        aria-label="seleccion"
+                                        value="{{field}}"
+                                        ng-click="vm.selectionField(field)"
+                                    ></md-checkbox>
+                                </td>
+                                <td data-title="{{vm.tableDisplayHeaders[4]}}">
+                                    <md-checkbox
+                                        aria-label="seleccion"
+                                        value="{{field}}"
+                                        ng-click="vm.selectionFilter(field)"
+                                    ></md-checkbox>
                                 </td>
                             </tr>
                             </tbody>
