@@ -104,7 +104,8 @@
       "SUCCESS_MASSIVE":"Se realizó la carga masiva exitosamente",
         "SUCCESS_MANUAL":"Se realizó las salidas exitosamente",
       "ERROR_DISABLED_CABINET":"Error este cabinet ha sido eliminado.",
-        "SUCCESS_REMISSION":"Se realizó la remisión de salida exitosamente"
+        "SUCCESS_REMISSION":"Se realizó la remisión de salida exitosamente",
+        "SUCCESS_REPORT":"Se localizó el reporte exitosamente"
     },
     "BUTTONS": {
       "SUBMIT": "Enviar",

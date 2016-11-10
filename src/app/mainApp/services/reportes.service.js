@@ -25,7 +25,8 @@
             deleteReport:deleteReport,
             cloneReport:cloneReport,
             updateReport:updateReport,
-            requestReport:requestReport
+            requestReport:requestReport,
+            getReportsGenerated:getReportsGenerated
         };
         //Clona un reporte pasando el id del reporte y el nombre
         function cloneReport(request) {
@@ -139,6 +140,9 @@
         }
         function requestReport(id,format) {
             return path.one("report",id).one("download_file",format).all("").customGET();
+        }
+        function getReportsGenerated() {
+            return Restangular.all("report_builder").all("reports").all("download").all("").getList();
         }
     }
 })();

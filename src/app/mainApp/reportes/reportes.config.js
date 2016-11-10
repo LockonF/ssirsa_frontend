@@ -29,7 +29,19 @@
                 templateUrl: 'app/mainApp/reportes/edicion/reportEdicion.tmpl.html',
                 controller: 'reportEditionController',
                 controllerAs: 'vm'
-            });
+            })
+            .state('triangular.admin-default.list', {
+            url: '/list',
+            data: {
+                roles: ['Administrador']
+            },
+            params: {
+                id: null
+            },
+            templateUrl: 'app/mainApp/reportes/list/listReports.tmpl.html',
+            controller: 'ListReportsController',
+            controllerAs: 'vm'
+        });
 
     }
 })();

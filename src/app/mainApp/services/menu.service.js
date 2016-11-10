@@ -11,29 +11,8 @@
     function dynamicMenu(triMenu, Session,menuReport) {
 
         return {
-            loadMenu: loadMenu,
-            loadMenuReport:loadMenuReport
+            loadMenu: loadMenu
         };
-        function loadMenuReport() {
-            menuReport.menu = [];
-            var capturistaMenu = [
-                {
-                    name: 'MAIN.MENU.WELCOME',
-                    icon: 'zmdi zmdi-home',
-                    type: 'dropdown',
-                    priority: 1,
-                    children: [
-                        {
-                            name: 'MAIN.MENU.START',
-                            state: 'triangular.admin-default.bienvenida',
-                            type: 'link'
-                        }
-                    ]
-                }
-            ];
-            menuReport.menu = capturistaMenu;
-
-        }
 
 
         function loadMenu() {
@@ -271,7 +250,7 @@
                         },
                         {
                             name: 'MAIN.MENU.REPORTS.LIST',
-                            state: 'triangular.admin-default.',
+                            state: 'triangular.admin-default.list',
                             type: 'link'
                         }
                     ]
