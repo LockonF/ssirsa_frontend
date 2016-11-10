@@ -1,6 +1,7 @@
 {
     "REPORTS": {
         "TITLE": "Reportes",
+        "TITLE_LIST":"Listado de reportes solicitados",
         "INFORMATION": "Información del reporte",
         "FIELD_SET": "Campos",
         "FIELDS": {

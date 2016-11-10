@@ -9,7 +9,7 @@
         .module('app.mainApp.catalogos')
         .controller('CatalogoInsumoController',CatalogoInsumoController);
 
-    function CatalogoInsumoController(Helper,CatalogoInsumo,Etapa,$mdDialog,Categoria,Proveedor, toastr, Translate, $scope)
+    function CatalogoInsumoController(Helper,CatalogoInsumo,OPTIONS,$mdDialog,Categoria,Proveedor, toastr, Translate, $scope)
     {
         var vm = this;
 
@@ -47,6 +47,8 @@
         vm.showEquipment=showEquipment;
         vm.disabled=disabled;
         vm.catalogo_insumo=angular.copy(catalogo_insumo);
+        vm.unidades=OPTIONS.units;
+
         activate();
 
 
@@ -66,9 +68,14 @@
             vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
             vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
             vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
+            listSucursales();
             listCatalogoInsumos();
             listCategorias();
             listProveedores();
+
+        }
+        function listSucursales() {
+            
         }
         function showSteps() {
             $mdDialog.show({
