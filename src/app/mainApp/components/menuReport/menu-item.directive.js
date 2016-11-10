@@ -27,7 +27,7 @@
     }
 
     /* @ngInject */
-    function reportMenuItemController($scope,Reportes,menuReport, $mdSidenav, $state, $filter, triBreadcrumbsService) {
+    function reportMenuItemController($scope,Reportes,menuReport, $mdSidenav, $rootScope,EVENTS_GENERAL, $filter, triBreadcrumbsService) {
         var reportMenuItem = this;
         // load a template for this directive based on the type ( link | dropdown )
         var res=null;
@@ -58,7 +58,7 @@
                                 });
                             });
                             Reportes.getFields(reportMenuItem.item.model_id,reportMenuItem.item.path,reportMenuItem.item.field_name).then(function (res) {
-                                console.log(res);
+                                $rootScope.$broadcast(EVENTS_GENERAL.load_fields, {fields:res});
                             });
                         }
                     }

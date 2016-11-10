@@ -90,10 +90,10 @@
                 fullscreen: true,
                 clickOutsideToClose: true,
                 focusOnOpen: true,
-
-            }).then(function () {locals: {
-                reporte: vm.report
-            }
+                locals: {
+                    reporte: vm.report
+                }
+            }).then(function () {
                 toastr.success(vm.successExport, vm.successTitleExport);
             }).catch(function (err) {
                 if (err != null) {
