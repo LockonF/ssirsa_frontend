@@ -66,7 +66,6 @@
             return query ? lookup(query) : vm.reports;
 
         }
-
         function onTabPreview() {
             Reportes.generatePreview(vm.report.id).then(function (res) {
                 vm.preview = res;
@@ -91,10 +90,10 @@
                 fullscreen: true,
                 clickOutsideToClose: true,
                 focusOnOpen: true,
-                locals: {
-                    reporte: vm.report
-                }
-            }).then(function () {
+
+            }).then(function () {locals: {
+                reporte: vm.report
+            }
                 toastr.success(vm.successExport, vm.successTitleExport);
             }).catch(function (err) {
                 if (err != null) {

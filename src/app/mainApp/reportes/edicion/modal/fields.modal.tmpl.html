@@ -1,19 +1,27 @@
-<md-dialog class="mobile-fullwidth-dialog" flex="100" flex-xs="100">
+<md-dialog class="fullscreen-dialog mobile-fullwidth-dialog" flex="100" flex-xs="100">
     <md-toolbar class="toolbar-default">
         <div class="md-toolbar-tools">
             <h2>
                 <span>{{'REPORTS.DIALOG.CLONE.TITLE'|translate}}</span>
             </h2>
             <span flex></span>
-            <md-button class="md-icon-button" ng-click="vm.cancelClick()" aria-label="cancel">
+            <md-button class="md-icon-button" ng-click="vm.cancel()" aria-label="cancel">
                 <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
             </md-button>
         </div>
     </md-toolbar>
-    <md-divider></md-divider>
-    <md-dialog-content class="md-dialog-content card1 md-blue-grey-theme">
-        <report-menu-item ng-repeat="item in vm.capturistaMenu " item="item"></report-menu-item>
-    </md-dialog-content>
+    <div layout="row" flex>
+        <md-sidenav layout-fill class="md-sidenav-left " id="siteMenu" md-component-id=" left" md-is-locked-open="$mdMedia('gt-sm')">
+
+            <md-content flex="">
+
+                <report-menu-item ng-repeat="item in vm.related_models" item="item"></report-menu-item>
+
+
+            </md-content>
+        </md-sidenav>
+    </div>
+
     <md-dialog-actions layout="row" class="card1 md-blue-grey-theme">
         <md-button ng-click="vm.cancel()" md-no-ink class="md-primary">
             {{'MAIN.BUTTONS.CANCEL'|translate}}
