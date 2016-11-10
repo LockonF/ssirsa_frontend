@@ -261,9 +261,10 @@
     "PUNTOVENTA":{
         "TITLE":"Servicio en Punto de Venta",
         "SERVICEDATA":"Datos del Servicio",
+        "LOCALDATA":"Datos del Establecimiento",
         "CABINETDATA":"Datos del Cabinet",
         "SERVICEOBSERVATION":"Observaciones durante el Servicio",
-        "ATENTIONDATE":"Fecha de Atención",
+        "RECEPTIONNDATE":"Fecha de Recepción",
         "USEDINSUM":"Insumos Usados",
         "WEEK":"Semana",
         "RECEPTIONHOUR":"Hora de Recepcion",

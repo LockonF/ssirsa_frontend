@@ -7,7 +7,7 @@
             <md-toolbar class="md-primary">
                 <div flex layout="column" class="md-toolbar-tools">
                     <div flex layout="column">
-                        <div flex layout="row" layout-sm="column" layout-align-sm="center center"
+                        <div flex layout="row" layout-sm="column" layout-fill="true" layout-align-sm="center center"
                              layout-align="space-between center">
                             <h5 translate="">PUNTOVENTA.SERVICEDATA</h5>
                             <h5>{{triWizard.progress}}%<span translate="">PUNTOVENTA.COMPLETED</span></h5>
@@ -40,21 +40,54 @@
                                         </div>
                                     </md-input-container>
                                     <md-input-container>
-                                        <label translate="">PUNTOVENTA.RECEPTIONHOUR</label>
-                                        <input type="number" name="descripcion" required=""
-                                               ng-model="vm.fondeo.FondoTotal" min="0" max="10000000000">
-                                        <div ng-messages="generalInfo.descripcion.$error">
-                                            <div ng-message="" when="required"><span translate="">FONDEOS.WIZARD.REQUIRED-FIELD</span>
-                                            </div>
+                                        <label translate="">PUNTOVENTA.RECEPTIONNDATE</label>
+                                        <input aria-label="Fecha" type="text" ng-model="vm.puntoVenta.fecha" mdp-date-picker
+                                               mdp-format="{{vm.formato}}" mo-date-input="{{vm.formato}}" name="fecha"
+                                               required=""/>
+                                        <div ng-messages="generalInfo.fecha.$error">
+
+                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                         </div>
                                     </md-input-container>
                                     <md-input-container>
-                                        <label translate="">FONDEOS.FEATURES.FONDEO_TARGET</label>
-                                        <textarea name="target" required="" ng-model="vm.fondeo.PublicoObjetivo"
-                                                  md-maxlength="500"></textarea>
-                                        <div ng-messages="projectInfo.descripcion.$error">
-                                            <div ng-message="" when="required"><span translate="">FONDEOS.WIZARD.REQUIRED-FIELD</span>
-                                            </div>
+                                        <label translate="">PUNTOVENTA.RECEPTIONHOUR</label>
+                                        <input type="time" ng-model="vm.puntoVenta.hora_recepcion" mdp-time-picker name="hora_recepcion"
+                                               required=""/>
+                                        <div ng-messages="generalInfo.hora_recepcion.$error">
+
+                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label translate="">PUNTOVENTA.FLOOR</label>
+                                        <input type="number" name="floor" required=""
+                                               ng-model="vm.puntoVenta.piso" min="0" max="100">
+                                        <div ng-messages="generalInfo.floor.$error">
+                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label translate="">PUNTOVENTA.FIELD</label>
+                                        <textarea name="campo" required="" ng-model="vm.puntoVenta.campo"
+                                                  md-maxlength="45"></textarea>
+                                        <div ng-messages="generalInfo.campo.$error">
+                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label translate="">PUNTOVENTA.MOVEMENT</label>
+                                        <textarea name="movimiento" required="" ng-model="vm.puntoVenta.movimiento"
+                                                  md-maxlength="100"></textarea>
+                                        <div ng-messages="generalInfo.movimiento.$error">
+                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label translate="">PUNTOVENTA.DELIVERY</label>
+                                        <textarea name="entrega" required="" ng-model="vm.puntoVenta.entrega"
+                                                  md-maxlength="100"></textarea>
+                                        <div ng-messages="generalInfo.entrega.$error">
+                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                         </div>
                                     </md-input-container>
                                 </div>
@@ -63,7 +96,7 @@
                     </md-tab-body>
                 </md-tab>
                 <md-tab id="fondeoT" ng-disabled="projectInfo.$invalid">
-                    <md-tab-label><span class="oxy-step-label">2</span><span translate="">FONDEOS.FEATURES.FONDEO_DESCRIPTION</span>
+                    <md-tab-label><span class="oxy-step-label">2</span><span translate="">PUNTOVENTA.LOCALDATA</span>
                     </md-tab-label>
                     <md-tab-body>
                         <div class="wizard layout-padding">
