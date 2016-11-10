@@ -41,8 +41,9 @@
                 vm.diagnostico.vacio = false;
                 vm.diagnostico.tipo_insumo = vm.diagnostico.isCabinet == true ? 'cabinet' : 'bicicleta';
                 vm.diagnostico.tipo = vm.diagnostico.isSalida == true ? 'salida' : 'entrada';
+                vm.diagnostico.vacio = false;
                 if (vm.diagnostico.foto == null) {
-                    console.log("entre porque tengo foto")
+
                     vm.diagnostico = _.omit(vm.diagnostico, 'foto');
                 }
                 Upload.upload({
@@ -62,6 +63,7 @@
                     vm.diagnostico = angular.copy(diagnostico);
 
                 }, function (resp) {
+
                     vm.status = 'idle';
                     toastr.warning(vm.errorMessage, vm.errorTitle);
 
@@ -75,9 +77,9 @@
                 vm.diagnostico.tipo_insumo = vm.diagnostico.isCabinet == true ? 'cabinet' : 'bicicleta';
                 vm.diagnostico.tipo = vm.diagnostico.isSalida == true ? 'salida' : 'entrada';
                 vm.diagnostico.vacio = false;
-                console.log(vm.diagnostico);
+
                 if (vm.diagnostico.foto == null) {
-                    console.log("entre porque tengo foto")
+
                     vm.diagnostico = _.omit(vm.diagnostico, 'foto');
                 }
                 Upload.upload({
@@ -93,7 +95,7 @@
                     toastr.success(vm.successCreateMessage, vm.successTitle);
                     cerrarDialog();
                 }, function (resp) {
-                    console.log(resp);
+                   
                     vm.status = 'idle';
                     toastr.warning(vm.errorMessage, vm.errorTitle);
                     cerrarDialog();
@@ -175,6 +177,7 @@
                     vm.diagnostico.listo_mercado = false;
                     vm.diagnostico.fecha = moment().toISOString();
                     vm.diagnostico.isSalida = true;
+                    vm.diagnostico.foto = null;
                     vm.NotEditable = false;
 
 

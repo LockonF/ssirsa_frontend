@@ -184,7 +184,6 @@
 
                                 getInsumosLote();
                                 vm.etapaActual.validado = true;
-                                console.log(vm.etapaActual);
 
                                 if (_.findWhere(vm.etapas, {nombre: vm.etapaActual.actual_etapa.nombre}) == undefined) {
 
@@ -203,7 +202,7 @@
                                     notifyError(406);
                                 else
                                     notifyError(res.status);
-                                console.log(res.status);
+                              
                             })
                         }).catch(function (res) {
 
@@ -466,9 +465,9 @@
 
             vm.showInsumo = true;
             vm.etapaActual.insumos = [];
-            console.log(vm.compresor);
+
             vm.etapaActual.insumos.push(vm.compresor);
-            console.log(vm.etapaActual.insumos[0]);
+
             if (vm.etapaActual.insumos[0].no_serie != null) {
                 notifyError(1001);
             }

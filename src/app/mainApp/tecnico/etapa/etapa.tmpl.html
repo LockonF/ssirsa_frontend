@@ -16,7 +16,7 @@
 
                 </md-button>
                 <md-button class="md-raised" aria-label="Guardar"
-                           ng-disabled="vm.diagnostico.vacio || sigStep.$invalid "
+                           ng-disabled="vm.diagnostico.vacio || form2.sigStep.$invalid "
                            ng-click='vm.crearEtapaServicio()'>
                     <md-icon md-font-icon="fa fa-save"></md-icon>
 
@@ -78,7 +78,7 @@
                                         {{etap.descripcion}}
                                     </md-option>
                                 </md-select>
-                                <div ng-messages="form2.sigStep.select.$error">
+                                <div ng-messages="form2.sigStep.$error">
                                     <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
                                 </div>
                             </md-input-container>
