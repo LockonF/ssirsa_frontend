@@ -196,13 +196,14 @@
                                 if (vm.etapaActual.actual_etapa.nombre == 'E4') {
                                     vm.diagnostico.tipo = 'salida';
                                 }
+                                vm.etapaActual.validado =true;
 
                             }).catch(function (res) {
                                 if (res.status == 404)
                                     notifyError(406);
                                 else
                                     notifyError(res.status);
-                              
+
                             })
                         }).catch(function (res) {
 
