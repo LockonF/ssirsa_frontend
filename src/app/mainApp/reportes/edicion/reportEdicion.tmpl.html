@@ -60,8 +60,8 @@
                                             </td>
                                             <td data-title="{{vm.tableDisplayHeaders[3]}}">
                                                 <md-button aria-label="fab button"
-                                                           class="md-fab md-scale md-mini md-fab-principal"
-                                                           ng-click="vm.removeDisplay()">
+                                                           class="md-fab md-scale md-mini"
+                                                           ng-click="vm.removeField(field.position)">
                                                     <md-icon md-font-icon="fa fa-trash" ng-style="{color: 'white'}">
 
                                                     </md-icon>
@@ -108,17 +108,99 @@
                                                 </md-input-container>
                                             </td>
                                             <td data-title="{{vm.tableFilterHeaders[2]}}">
-                                                {{field.field_type}}
+                                                <md-select aria-label="typeFilter"
+                                                           ng-model="field.filter_type"
+                                                           layout-align="space-around start"
+                                                >
+                                                    <md-option ng-repeat="filtro in  vm.filterType"
+                                                               ng-value="filtro.id"
+                                                    >
+                                                        {{filtro.value}}
+                                                    </md-option>
+                                                </md-select>
+                                            </td>
+                                            <td data-title="{{vm.tableFilterHeaders[3]}}">
+                                                <div aria-label="maximum"
+                                                     ng-if="field.filter_type=='max' || field.filter_type=='min'"
+                                                >
+                                                    <md-checkbox ng-model="field.filter_value"></md-checkbox>
+                                                </div>
+                                                <div ng-if="field.filter_type=='week_day'">
+                                                    <md-select aria-label="weekday"
+                                                               ng-model="field.filter_value"
+                                                               layout-align="space-around start"
+                                                    >
+                                                        <md-option ng-repeat="day in  vm.days" ng-value="day.id">
+                                                            {{day.value}}
+                                                        </md-option>
+                                                    </md-select>
+                                                </div>
+                                                <div ng-if="field.filter_type=='range'">
+                                                    <md-input-container>
+                                                        <input type="text"
+                                                               aria-label="start date"
+                                                               ng-model="field.filter_value"
+                                                               mdp-date-picker
+                                                               mdp-format="{{vm.formato}}"
+                                                               mo-date-input="{{vm.formato}}"
+                                                               name="startDate"/>
+                                                    </md-input-container>
+                                                    <md-input-container>
+                                                        <input type="text"
+                                                               aria-label="end date"
+                                                               ng-model="field.filter_value2"
+                                                               mdp-date-picker
+                                                               mdp-format="{{vm.formato}}"
+                                                               mo-date-input="{{vm.formato}}"
+                                                               name="endDate"/>
+                                                    </md-input-container>
+                                                </div>
+                                                <div ng-if="field.filter_type=='exact' ||
+                                                field.filter_type=='iexact' ||
+                                                field.filter_type=='contains' ||
+                                                field.filter_type=='icontains' ||
+                                                field.filter_type=='startswith' ||
+                                                field.filter_type=='istartswith' ||
+                                                field.filter_type=='endswith' ||
+                                                field.filter_type=='iendswith' "
+                                                >
+                                                    <md-input-container>
+                                                        <input type="text"
+                                                               aria-label="text filter"
+                                                               ng-model="data.filter_value"
+                                                               name="textFilter"/>
+                                                    </md-input-container>
+                                                </div>
+                                                <div ng-if="field.filter_type=='gt' ||
+                                                field.filter_type=='gte' ||
+                                                field.filter_type=='lt' ||
+                                                field.filter_type=='lte' "
+                                                >
+                                                    <md-input-container>
+                                                        <input type="text"
+                                                               numbers-only
+                                                               aria-label="text filter"
+                                                               ng-model="data.filter_value"
+                                                               name="textFilter"/>
+                                                    </md-input-container>
+                                                </div>
+                                            </td>
+                                            <td data-title="{{vm.tableFilterHeaders[4]}}">
+                                                <md-button aria-label="fab button"
+                                                           class="md-fab md-scale md-mini"
+                                                           ng-click="vm.removeFilter(field.position)">
+                                                    <md-icon md-font-icon="fa fa-trash" ng-style="{color: 'white'}">
+
+                                                    </md-icon>
+                                                </md-button>
                                             </td>
                                         </tr>
                                         </tbody>
                                     </table>
                                 </div>
-
                             </div>
                         </md-virtual-repeat-container>
                     </md-content>
-
                 </md-tab>
             </md-tabs>
         </md-content>
@@ -130,7 +212,8 @@
             <md-button ng-click="vm.update()"
                        class="md-raised md-primary"
                        ng-disabled="formClient.$invalid"
-                       aria-label="modify">
+                       aria-label="modify"
+            >
                 <md-icon md-font-icon="fa fa-pencil"></md-icon>
             </md-button>
         </md-actions>
