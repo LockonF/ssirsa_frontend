@@ -24,25 +24,26 @@
         activate();
 
 
-
         function change() {
         }
 
         function guardar() {
             vm.status = 'uploading';
-            vm.diagnostico.vacio=false;
-           
+            vm.diagnostico.vacio = false;
+
             if (vm.diagnostico.id == null) {
-               
+
                 if (vm.picFile != null) {
                     vm.diagnostico.foto = vm.picFile;
                 }
-                else{
-                    vm.diagnostico.foto = null;
-                }
+
+
+
                 vm.diagnostico.vacio = false;
                 vm.diagnostico.tipo_insumo = vm.diagnostico.isCabinet == true ? 'cabinet' : 'bicicleta';
                 vm.diagnostico.tipo = vm.diagnostico.isSalida == true ? 'salida' : 'entrada';
+                vm.diagnostico = _.omit(vm.diagnostico, foto);
+                console.log(vm.diagnostico);
                 Upload.upload({
                     url: EnvironmentConfig.site.rest.api + 'diagnostico_cabinet',
                     headers: {'Authorization': OAuthToken.getAuthorizationHeader()},
@@ -53,7 +54,6 @@
                     vm.cabinet = null;
                     vm.picFile = null;
                     vm.statusReady = 0;
-
 
 
                     toastr.success(vm.successCreateMessage, vm.successTitle);
@@ -70,13 +70,15 @@
                 if (vm.picFile != null) {
                     vm.diagnostico.foto = vm.picFile;
                 }
-                else{
-                    vm.diagnostico.foto = null;
-                    vm.diagnostico= _.omit(vm.diagnostico,foto);
-                }
+
                 vm.diagnostico.tipo_insumo = vm.diagnostico.isCabinet == true ? 'cabinet' : 'bicicleta';
                 vm.diagnostico.tipo = vm.diagnostico.isSalida == true ? 'salida' : 'entrada';
                 vm.diagnostico.vacio = false;
+                console.log(vm.diagnostico);
+                if (vm.diagnostico.foto==null) {
+                    console.log("entre porque tengo foto")
+                    vm.diagnostico = _.omit(vm.diagnostico, 'foto');
+                }
                 Upload.upload({
                     url: EnvironmentConfig.site.rest.api + 'diagnostico_cabinet/' + vm.diagnostico.id,
                     headers: {'Authorization': OAuthToken.getAuthorizationHeader()},
@@ -90,7 +92,7 @@
                     toastr.success(vm.successCreateMessage, vm.successTitle);
                     cerrarDialog();
                 }, function (resp) {
-                   console.log(resp);
+                    console.log(resp);
                     vm.status = 'idle';
                     toastr.warning(vm.errorMessage, vm.errorTitle);
                     cerrarDialog();
@@ -129,7 +131,6 @@
 
                 if (diagnosticoEtapa.id != null) {
                     var diagnostico = _.clone(diagnosticoEtapa);
-                    diagnostico.foto=null;
 
                 }
                 else {
@@ -142,7 +143,6 @@
                         sticker: false,
                         pintura: false,
                         lavado: false,
-                        foto:null,
                         emplayado: false,
                         lubricacion: false,
                         listo_mercado: false,
@@ -151,43 +151,43 @@
                         cabinet_entrada_salida: null
                     };
                 }
-                vm.diagnostico =_.clone(diagnosticoEtapa);
-                if(vm.diagnostico.vacio==true){
-                   
+                vm.diagnostico = _.clone(diagnosticoEtapa);
+                if (vm.diagnostico.vacio == true) {
+
                     vm.NotEditable = false;
-                   
+
                 }
-                else{
-                   
+                else {
+
                     vm.NotEditable = true;
-                   
+
                 }
-                if(vm.diagnostico.tipo=='salida'){
-                    
-                    vm.diagnostico.id=null;
-                    vm.diagnostico.tipo='salida';
-                    vm.diagnostico.sticker=false;
-                    vm.diagnostico.pintura=false;
-                    vm.diagnostico.lavado=false;
-                    vm.diagnostico.emplayado=false;
-                    vm.diagnostico.lubricacion=false;
-                    vm.diagnostico.listo_mercado=false;
-                    vm.diagnostico.fecha=moment().toISOString();
-                    vm.diagnostico.isSalida=true;
+                if (vm.diagnostico.tipo == 'salida') {
+
+                    vm.diagnostico.id = null;
+                    vm.diagnostico.tipo = 'salida';
+                    vm.diagnostico.sticker = false;
+                    vm.diagnostico.pintura = false;
+                    vm.diagnostico.lavado = false;
+                    vm.diagnostico.emplayado = false;
+                    vm.diagnostico.lubricacion = false;
+                    vm.diagnostico.listo_mercado = false;
+                    vm.diagnostico.fecha = moment().toISOString();
+                    vm.diagnostico.isSalida = true;
                     vm.NotEditable = false;
 
 
                 }
-                if(vm.diagnostico.tipo_insumo=='cabinet'){
+                if (vm.diagnostico.tipo_insumo == 'cabinet') {
                     vm.diagnostico.isCabinet = true;
                 }
-                else{
+                else {
                     vm.diagnostico.isCabinet = false;
                 }
-               
+
                 vm.searchCabinet();
             }
-           
+
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
             vm.successCreateMessage = Translate.translate('MAIN.MSG.SUCCESS_TICKET_MESSAGE');

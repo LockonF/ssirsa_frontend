@@ -199,7 +199,11 @@
                                 }
 
                             }).catch(function (res) {
-                                notifyError(406);
+                                if (res.status == 404)
+                                    notifyError(406);
+                                else
+                                    notifyError(res.status);
+                                console.log(res.status);
                             })
                         }).catch(function (res) {
 
@@ -371,14 +375,16 @@
                 promise = Servicios.getDiagnosticoFromCabinet(vm.idCabinet);
                 promise.then(function (res) {
                     vm.diagnostico = res;
+                    vm.buscar();
                 });
                 $mdDialog.hide();
 
             }, function () {
                 //Cancelled
+                vm.buscar();
                 $mdDialog.cancel();
             });
-            vm.buscar();
+
         }
 
         function selectInsumo(insumotmp) {
