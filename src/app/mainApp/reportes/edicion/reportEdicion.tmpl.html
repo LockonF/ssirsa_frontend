@@ -112,12 +112,15 @@
                                                            ng-model="field.filter_type"
                                                            layout-align="space-around start"
                                                 >
-                                                    <md-option ng-repeat="filtro in  vm.filterType"
-                                                               ng-value="filtro.id"
-                                                    >
-                                                        {{filtro.value}}
-                                                    </md-option>
-                                                </md-select>
+                                                    <div ng-init="filters = vm.getValidFilters(field.field_type)">
+                                                        <md-option
+                                                            ng-repeat="filtro in  filters"
+                                                            ng-value="filtro.id"
+                                                        >
+                                                            {{filtro.value}}
+                                                        </md-option>
+                                                    </div>
+                                </md-select>
                                             </td>
                                             <td data-title="{{vm.tableFilterHeaders[3]}}">
                                                 <div aria-label="maximum"

@@ -14,6 +14,8 @@
         var vm = this;
         vm.formato = "DD-MM-YYYY";
         vm.filterType = OPTIONS.filter;
+        vm.filterTypeDate = OPTIONS.filterDate;
+        vm.filterTypeChar = OPTIONS.filterChar;
         vm.days = OPTIONS.days;
 
         //Function parse
@@ -21,6 +23,7 @@
         vm.removeFilter = removeFilter;
         vm.showEditionFields=showEditionFields;
         vm.getValidFilters=getValidFilters;
+        vm.update=update;
 
         activate();
 
@@ -71,7 +74,11 @@
                 locals: {
                     reporte: vm.report
                 }
-            }).then(function () {
+            }).then(function (res) {
+                console.log(res);
+                Array.prototype.push.apply(vm.report.displayfield_set, res.fields);
+                Array.prototype.push.apply(vm.report.filterfield_set, res.filters);
+                console.log(vm.report);
             }).catch(function (err) {
                 if (err != null) {
                     //Marcar error
@@ -79,18 +86,26 @@
             });
         }
 
-        function getValidFilters(fieldType){
-            switch(fieldType){
+        function getValidFilters(fieldType) {
+            switch (fieldType) {
                 case 'CharField':
-
+                    return vm.filterTypeChar;
                     break;
                 case 'DateTimeField':
-
+                    return vm.filterTypeDate;
                     break;
                 default:
-
+                    return vm.filterTypeGeneric;
                     break;
             }
+        }
+
+        function update(){
+            Reportes.saveReport(vm.report).then(function(res){
+                toastr.success("","");
+            }).catch(function(err){
+                console.log(err);
+            });
         }
     }
 })();
