@@ -22,9 +22,8 @@
         vm.clear = clear;
         vm.search = search;
         vm.lookupUDN = lookupUDN;
-        vm.selection = selection;
-        vm.changeType=changeType;
-        vm.selectedItemChange=selectedItemChange;
+        vm.changeType = changeType;
+        vm.selectedItemChange = selectedItemChange;
 
 
         activate();
@@ -43,6 +42,7 @@
         vm.types=OPTIONS.type_out;
         vm.isValid=false;
         vm.outputWasCorrect=false;
+        vm.filtrado=false;
         //Models
 
         vm.cabinets = null;
@@ -150,6 +150,7 @@
         }
         function changeType() {
             if(!vm.hideManualUpload){
+                vm.selectedCabinets=null;
                 var status=vm.types[vm.selectedEntrada].value_service;
                 Cabinet.loadByStatus(status).then(function (res) {
                     vm.cabinetsEntrada = Helper.filterDeleted(res, true);
@@ -182,7 +183,6 @@
                 toastr.error(vm.errorMessage, vm.errorTitle);
             });
         }
-
         function search(obj) {
             var tipo = _.findWhere(vm.modelos, {id: obj.modelo}).tipo;
             if (tipo != null) {
@@ -214,18 +214,6 @@
             }
         }
 
-        function selection(cabinet) {
-            var index = _.findIndex(vm.selectedCabinets, function (obj) {
-                return obj.economico === cabinet.economico;
-            });
-            if (index > -1) {//no lo encontr
-                vm.selectedCabinets.splice(index, 1);
-            } else {
-                vm.selectedCabinets.push({
-                    economico: cabinet.economico
-                });
-            }
-        }
         function selectedItemChange(item) {
             vm.isValid =angular.isObject(item);
         }
