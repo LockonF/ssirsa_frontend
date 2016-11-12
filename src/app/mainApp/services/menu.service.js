@@ -154,6 +154,11 @@
                             name: 'MAIN.MENU.LINE',
                             state: 'triangular.admin-default.asignacionLinea',
                             type: 'link'
+                        },
+                        {
+                            name: 'MAIN.MENU.SERVICEAWAY',
+                            state: 'triangular.admin-default.puntoVenta',
+                            type: 'link'
                         }
                     ]
                 }, {
@@ -391,7 +396,14 @@
                             name: 'MAIN.MENU.LINE',
                             state: 'triangular.admin-default.asignacionLinea',
                             type: 'link'
+                        },
+                        {
+                            name: 'MAIN.MENU.SERVICEAWAY',
+                            state: 'triangular.admin-default.puntoVenta',
+                            type: 'link'
                         }
+
+
                     ]
                 }
             ];
