@@ -4,7 +4,7 @@
     </md-button>
 
     <h2 hide-xs flex>
-        <span ng-repeat="crumb in vm.breadcrumbs.crumbs">
+        <span ng-repeat="crumb in vm.breadcrumbs.crumbs track by $index" >
             <span translate>{{crumb.name}}</span>
             <md-icon md-font-icon="zmdi zmdi-chevron-right" ng-if="!$last"></md-icon>
         </span>

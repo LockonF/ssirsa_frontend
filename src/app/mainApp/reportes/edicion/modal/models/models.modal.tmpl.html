@@ -10,18 +10,20 @@
             </md-button>
         </div>
     </md-toolbar>
-    <div layout="row" flex class="card1 md-blue-grey-theme">
-        <md-sidenav layout-fill class="md-sidenav-left " id="siteMenu" md-component-id=" left" md-is-locked-open="$mdMedia('gt-sm')">
-            <md-content flex="">
+    <div layout="row" flex class="card1 md-blue-grey-theme" layout-align="space-around stretch" layout-xs="column" layout-sm="column">
+        <div layout="column" flex-lg="25" flex-gt-lg="25" flex-xl="25" flex-gt-sm="100" flex-md="100"
+             flex-sm="100" flex-gt-xs="100" flex-xs="100">
+            <md-content flex="" class="card1 md-blue-grey-theme">
                 <report-menu-item ng-repeat="item in vm.related_models" item="item"></report-menu-item>
             </md-content>
-        </md-sidenav>
-        <div flex="100">
+        </div>
+        <div layout="column" flex-lg="75" flex-gt-lg="75" flex-xl="75" flex-gt-sm="100" flex-md="100"
+             flex-sm="100" flex-gt-xs="100" flex-xs="100" layout-align="start stretch">
+            <md-content ng-if="vm.campos.length>0" class="card1 md-blue-grey-theme"  >
+                <div>
+                    <h2 class="md-display-1 text-center">{{vm.reporte|titleCase}}</h2>
 
-            <md-virtual-repeat-container flex="100"
-                                         layout-fill=""
-                                         ng-if="vm.campos.length>0"
-                                          >
+                </div>
                 <div id="tabla" layout-align="center center">
                     <div class="table-responsive-vertical shadow-z-1" layout-align="space-around center">
                         <!-- Table starts here -->
@@ -38,31 +40,28 @@
                                     {{field.field | titleCase}}
                                 </td>
                                 <td data-title="{{vm.tableDisplayHeaders[1]}}">
-                                    <md-input-container>
-                                        <input name="inputFieldVerbose"
-                                               required=""
-                                               type="text"
-                                               md-no-asterisk
-                                               ng-model="field.field_verbose"
-                                               aria-label="field verbose"
-                                        >
-                                    </md-input-container>
+                                    <div class="md-inline-form">
+                                        <md-input-container>
+                                            <input name="inputFieldVerbose"
+                                                   required=""
+                                                   type="text"
+                                                   md-no-asterisk
+                                                   ng-model="field.field_verbose"
+                                                   aria-label="field verbose">
+                                        </md-input-container>
+                                    </div>
                                 </td>
                                 <td data-title="{{vm.tableDisplayHeaders[2]}}">
                                     {{field.field_type|tipoDato}}
                                 </td>
                                 <td data-title="{{vm.tableDisplayHeaders[3]}}">
-                                    <md-checkbox
-                                        aria-label="seleccion"
-                                        value="{{field}}"
-                                        ng-click="vm.selectionField(field)"
+                                    <md-checkbox aria-label="campo"
+                                        checklist-model="vm.selectedFields" checklist-value="field"
                                     ></md-checkbox>
                                 </td>
                                 <td data-title="{{vm.tableDisplayHeaders[4]}}">
-                                    <md-checkbox
-                                        aria-label="seleccion"
-                                        value="{{field}}"
-                                        ng-click="vm.selectionFilter(field)"
+                                    <md-checkbox aria-label="filtro"
+                                        checklist-model="vm.selectedFilters" checklist-value="field"
                                     ></md-checkbox>
                                 </td>
                             </tr>
@@ -70,7 +69,7 @@
                         </table>
                     </div>
                 </div>
-            </md-virtual-repeat-container>
+            </md-content>
         </div>
     </div>
 
