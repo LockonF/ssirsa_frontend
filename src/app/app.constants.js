@@ -252,6 +252,14 @@
                 {id: 'max', value: "Máximo"},
                 {id: 'min', value: "Mínimo"}
             ],
+            filterInt:[
+                {id: 'gt', value: "Mayor que"},
+                {id: 'gte', value: "Mayor igual que"},
+                {id: 'lt', value: "Menor que"},
+                {id: 'lte', value: "Menor igual que"},
+                {id: 'exact', value: "Igual"},
+                {id: 'iexact', value: "Igual (Exacto)"}
+            ],
             filterChar:[
                 {id:'exact',value:"Igual"},
                 {id:'iexact',value:"Igual (Exacto)"},
@@ -321,6 +329,10 @@
                 {
                     id: 'IntegerField',
                     text: 'Entero'
+                },
+                {
+                    id: 'DecimalField',
+                    text: 'Decimal'
                 }]
 
         });

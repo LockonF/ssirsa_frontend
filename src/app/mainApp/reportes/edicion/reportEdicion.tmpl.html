@@ -10,7 +10,7 @@
                 <h2 flex="70" flex-sm="100" flex-gt-xs="100" class="md-headline-1 text-center" translate="">
                     REPORTS.MODIFY.TITLE
                 </h2>
-                <md-button aria-label="fab button" class="md-fab md-scale md-fab-top-right md-fab-principal" ng-click="vm.showEditionFields()">
+                <md-button aria-label="fab button" class="md-fab md-scale md-fab-top-right md-fab-principal" ng-click="vm.showEditionFields(ev)">
                     <md-icon md-font-icon="fa fa-plus" ng-style="{color: 'white'}">
 
                     </md-icon>
@@ -61,6 +61,7 @@
                                             <td data-title="{{vm.tableDisplayHeaders[3]}}">
                                                 <md-button aria-label="fab button"
                                                            class="md-fab md-scale md-mini"
+                                                           md-colors="{background: 'RED'}"
                                                            ng-click="vm.removeField(field.position)">
                                                     <md-icon md-font-icon="fa fa-trash" ng-style="{color: 'white'}">
 
@@ -158,14 +159,14 @@
                                                                name="endDate"/>
                                                     </md-input-container>
                                                 </div>
-                                                <div ng-if="field.filter_type=='exact' ||
-                                                field.filter_type=='iexact' ||
-                                                field.filter_type=='contains' ||
-                                                field.filter_type=='icontains' ||
-                                                field.filter_type=='startswith' ||
-                                                field.filter_type=='istartswith' ||
-                                                field.filter_type=='endswith' ||
-                                                field.filter_type=='iendswith' "
+                                                <div ng-if="field.filter_type==='exact' ||
+                                                field.filter_type==='iexact' ||
+                                                field.filter_type==='contains' ||
+                                                field.filter_type==='icontains' ||
+                                                field.filter_type==='startswith' ||
+                                                field.filter_type==='istartswith' ||
+                                                field.filter_type==='endswith' ||
+                                                field.filter_type==='iendswith' "
                                                 >
                                                     <md-input-container>
                                                         <input type="text"
@@ -190,7 +191,8 @@
                                             </td>
                                             <td data-title="{{vm.tableFilterHeaders[4]}}">
                                                 <md-button aria-label="fab button"
-                                                           class="md-fab md-scale md-mini"
+                                                           class="md-fab md-scale md-mini  md-ink-ripple"
+                                                           md-colors="{background: 'RED'}"
                                                            ng-click="vm.removeFilter(field.position)">
                                                     <md-icon md-font-icon="fa fa-trash" ng-style="{color: 'white'}">
 

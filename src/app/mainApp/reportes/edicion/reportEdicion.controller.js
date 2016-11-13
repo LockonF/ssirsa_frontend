@@ -16,6 +16,7 @@
         vm.filterType = OPTIONS.filter;
         vm.filterTypeDate = OPTIONS.filterDate;
         vm.filterTypeChar = OPTIONS.filterChar;
+        vm.filterInt=OPTIONS.filterInt;
         vm.days = OPTIONS.days;
 
         //Function parse
@@ -45,6 +46,7 @@
 
         function activate() {
             vm.report = Reportes.getReport($stateParams.id);
+            console.log(vm.report);
         }
 
         function removeField(id) {
@@ -63,14 +65,14 @@
             }
             return fields;
         }
-        function showEditionFields() {
-            $mdDialog.show({
+        function showEditionFields(ev) {
+           $mdDialog.show({
                 controller: 'ModelsReportModalController',
                 controllerAs: 'vm',
-                templateUrl: 'app/mainApp/reportes/edicion/modal/models/models.modal.tmpl.html',
+                templateUrl: 'app/mainApp/reportes/edicion/modal/models.modal.tmpl.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
                 fullscreen: true,
-                clickOutsideToClose: true,
-                focusOnOpen: true,
                 locals: {
                     reporte: vm.report
                 }
@@ -94,8 +96,12 @@
                 case 'DateTimeField':
                     return vm.filterTypeDate;
                     break;
+                case 'DecimalField':
+                    return vm.filterInt;
+                case 'IntegerField':
+                    return vm.filterInt;
                 default:
-                    return vm.filterTypeGeneric;
+                    return vm.filterType;
                     break;
             }
         }
