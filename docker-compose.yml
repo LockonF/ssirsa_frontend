@@ -1,9 +1,15 @@
 webserver:
   build: images/webserver
+  links:
+    - buildFront
   ports:
     - "80:80"
-  volumes_from: 
+  volumes_from:
     - frontenddata
+
+buildFront:
+    build: images/build
+
 
 frontenddata:
   image: busybox
