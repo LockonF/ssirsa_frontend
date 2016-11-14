@@ -14,7 +14,7 @@
                 // set the url of this page
                 url: '/proveedor',
                 data: {
-                    roles: ['Administrador']
+                    roles: ['Administrador','Capturista']
                 },
                 // set the html template to show on this page
                 templateUrl: 'app/mainApp/catalogos/proveedor/proveedor.tmpl.html',
@@ -115,7 +115,7 @@
             .state('triangular.admin-default.categoria',{
                 url:'/categoria',
                 data: {
-                    roles: ['Administrador']
+                    roles: ['Administrador','Capturista']
                 },
                 templateUrl:'app/mainApp/catalogos/categoria/categoria.tmpl.html',
                 controller:'CategoriaController',
