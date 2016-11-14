@@ -2,9 +2,7 @@ webserver:
   build: images/webserver
   ports:
     - "80:80"
-  volumes_from:
-    - apidata
-    - admindata
+  volumes_from: 
     - frontenddata
 
 frontenddata:
