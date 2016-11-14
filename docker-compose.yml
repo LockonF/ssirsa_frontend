@@ -1,13 +1,13 @@
 webserver:
   build: images/webserver
   links:
-    - buildFront
+    - frontendbuild
   ports:
     - "80:80"
   volumes_from:
     - frontenddata
 
-buildFront:
+frontendbuild:
     build: images/build
 
 
