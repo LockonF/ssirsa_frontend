@@ -230,6 +230,9 @@
                 },
                 {
                     value: "Oriente"
+                },
+                {
+                    value: "Distribuidores"
                 }
             ],
             filter: [
