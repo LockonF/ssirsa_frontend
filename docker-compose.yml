@@ -1,0 +1,15 @@
+webserver:
+  build: images/webserver
+  ports:
+    - "80:80"
+  volumes_from:
+    - apidata
+    - admindata
+    - frontenddata
+
+frontenddata:
+  image: busybox
+  volumes:
+    - "sites/frontend.conf:/etc/nginx/sites-enabled/frontend.conf"
+    - "dist/:/var/www/frontend/"
+
