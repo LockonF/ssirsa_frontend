@@ -1,5 +1,8 @@
 FROM node:4
 
+WORKDIR /usr/src/app
+ADD . /usr/src/app
+
 RUN apt-get -yq update && \
     apt-get install -y git && \
     rm -rf node_modules && \

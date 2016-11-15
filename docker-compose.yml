@@ -8,7 +8,8 @@ webserver:
     - frontenddata
 
 frontendbuild:
-    build: images/build
+    build: .
+
 
 
 frontenddata:
