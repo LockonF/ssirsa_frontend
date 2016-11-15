@@ -6,9 +6,12 @@ webserver:
     - "80:80"
   volumes_from:
     - frontenddata
+    - frontendbuild
 
 frontendbuild:
     build: .
+    volumes:
+     - /usr/src/app
 
 
 
@@ -16,5 +19,4 @@ frontenddata:
   image: busybox
   volumes:
     - "sites/frontend.conf:/etc/nginx/sites-enabled/frontend.conf"
-    - "dist/:/var/www/frontend/"
 

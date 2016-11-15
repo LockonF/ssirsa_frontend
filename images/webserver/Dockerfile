@@ -33,6 +33,9 @@ RUN chmod u=rwx /opt/bin/start.sh
 
 VOLUME ["/var/www", "/etc/nginx/sites-enabled"]
 
+COPY dist /var/www/frontend
+
+
 EXPOSE 80
 
 WORKDIR /opt/bin
