@@ -204,11 +204,12 @@
                                     <md-input-container flex="100" class="md-block">
                                         <label>{{'INPUT.Dialogs.Cabinet.Model'|translate}}</label>
                                         <md-select name="selectModel"
-                                                   ng-model="vm.puntoVenta.modelo"
+                                                   ng-model="vm.modelo"
                                                    required=""
+                                                   md-on-close="vm.getInsumosLote()"
                                                    ng-disabled="vm.marca==null || vm.modelos.length == 0"
                                                    md-no-asterisk="">
-                                            <md-option ng-repeat="modelo in vm.modelos" value="{{modelo.id}}">
+                                            <md-option ng-repeat="modelo in vm.modelos" value="{{modelo.tipo}}">
                                                 {{modelo.nombre}}
                                             </md-option>
                                         </md-select>

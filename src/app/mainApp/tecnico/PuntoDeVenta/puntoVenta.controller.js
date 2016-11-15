@@ -16,13 +16,7 @@
 
         //Inicializando Variables
         $scope.form = {};
-        vm.etapa = {
-            diagnostico: '',
-            validado: false,
-            actual_etapa: '',
-            siguiente_etapa: ''
-
-        };
+        vm.etapa = {};
         vm.tiposTrabajo = [
             {value: 'Mayor'},
             {value: 'Medio'},
@@ -72,6 +66,12 @@
 
         function crearPuntodeVenta() {
         }
+        function buscaPuntoDeVenta(){
+            if (vm.etapas!=null){
+                vm.etapa=_.findWhere(vm.etapas, {nombre: 'E7'});
+            }
+            console.log(vm.etapa);
+        }
 
         function editar() {
             vm.editable = !vm.editable;
@@ -85,6 +85,7 @@
                 if (_.size(vm.etapas) == 0) {
                     notifyError(1000);
                 }
+                buscaPuntoDeVenta();
 
             }).catch(function (res) {
                 notifyError(res.status);
@@ -114,6 +115,7 @@
                 vm.marcas = [];
             });
             vm.modelos = [];
+            vm.modelo={};
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
             vm.notInsumos = Translate.translate('MAIN.MSG.ERROR_NOTINSUMOSTITLE');
@@ -151,13 +153,14 @@
 
 
         function getInsumosLote() {
+            console.log(vm.modelo);
 
             var data = {
                 idTipo: '',
                 idEtapa: ''
             };
-            data.idTipo = vm.modelo.tipo;
-            data.idEtapa = vm.puntoVenta.actual_etapa.id;
+            data.idTipo = vm.modelo;
+            data.idEtapa = vm.etapa.id;
             if (data.idTipo) {
 
             }
