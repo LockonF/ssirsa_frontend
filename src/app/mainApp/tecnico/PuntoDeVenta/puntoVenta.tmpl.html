@@ -113,7 +113,7 @@
                                     <md-input-container>
                                         <label translate="">PUNTOVENTA.KM</label>
                                         <input type="number" name="km" required=""
-                                               ng-model="vm.puntoVenta.km" min="0" max="1000">
+                                               ng-model="vm.puntoVenta.km" min="0" max="1000000">
                                         <div ng-messages="localData.km.$error">
                                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                         </div>
@@ -209,7 +209,7 @@
                                                    md-on-close="vm.getInsumosLote()"
                                                    ng-disabled="vm.marca==null || vm.modelos.length == 0"
                                                    md-no-asterisk="">
-                                            <md-option ng-repeat="modelo in vm.modelos" value="{{modelo.tipo}}">
+                                            <md-option ng-repeat="modelo in vm.modelos" ng-value="modelo">
                                                 {{modelo.nombre}}
                                             </md-option>
                                         </md-select>
@@ -232,10 +232,10 @@
                         <div class="wizard layout-padding">
                             <form name="observationsData" tri-wizard-form="">
                                 <div flex="" layout="column" layout-wrap="">
-                                    <div layout="row" layout-sm="column" layout-xs="column" layout-align=""
+                                    <div layout="row" layout-sm="row" layout-xs="column" layout-align=""
                                          ng-show="vm.insumos_loteUsados.length!=0 || vm.insumos_sinStock.lenght!=0"
                                          flex="100" layout-wrap>
-                                        <div ng-repeat="insu in vm.insumos_loteUsados track by $index" flex="50">
+                                        <div ng-repeat="insu in vm.insumos_loteUsados" flex="50">
                                             <div column>
                                                 <div layout="row" layout-align="center center">
                                                     <div flex="20">
@@ -271,7 +271,7 @@
                                             </div>
                                         </div>
                                         <md-divider></md-divider>
-                                        <md-content layout="row" ng-if="vm.puntoVenta.actual_etapa">
+                                        <md-content layout="row" ng-if="vm.puntoVenta">
                                             <md-switch ng-model="inputDisabled">
                                                 <span translate>ETAPA_SERVICIO.ADD_MICRO</span>
                                             </md-switch>

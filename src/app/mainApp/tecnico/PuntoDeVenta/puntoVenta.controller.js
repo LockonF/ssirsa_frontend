@@ -153,13 +153,16 @@
 
 
         function getInsumosLote() {
+            vm.insumos_loteUsados=[];
+            buscaPuntoDeVenta();
             console.log(vm.modelo);
+            console.log(vm.modelo.tipo);
 
             var data = {
                 idTipo: '',
                 idEtapa: ''
             };
-            data.idTipo = vm.modelo;
+            data.idTipo = vm.modelo.tipo;
             data.idEtapa = vm.etapa.id;
             if (data.idTipo) {
 
