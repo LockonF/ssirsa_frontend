@@ -6,11 +6,11 @@
 
     angular
         .module('app.mainApp.tecnico')
-        .controller('salidaController', salidaController)
+        .controller('salidaCrearController', salidaCrearController)
         .filter('salidaSearch', salidaSearch)
         .filter('tipoequipoSearch', tipoequipoSearch);
 
-    function salidaController(EntradaSalida,OPTIONS, ModeloCabinet,Persona, $mdDialog, TipoEquipo, Helper, Translate, toastr, Sucursal, udn, Cabinet, CabinetEntradaSalida, TipoTransporte, $scope, LineaTransporte) {
+    function salidaCrearController(EntradaSalida,OPTIONS, ModeloCabinet,Persona, $mdDialog, TipoEquipo, Helper, Translate, toastr, Sucursal, udn, Cabinet, CabinetEntradaSalida, TipoTransporte, $scope, LineaTransporte) {
         var vm = this;
         vm.guardar = guardar;
         vm.selectionFile = selectionFile;

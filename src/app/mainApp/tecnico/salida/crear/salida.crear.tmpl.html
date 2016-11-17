@@ -1,14 +1,14 @@
 <div layout="column">
     <div layout="row" flex="" layout-fill="" layout-align="center center">
-        <md-card flex="100" flex-sm="100" flex-xs="100" class="md-padding-card1">
+        <md-card flex="100" flex-sm="100" flex-xs="100" class="card1">
             <md-card-title>
                 <md-card-title-text><span class="md-headline">{{'OUTPUT.FORM.TITLES.OUTPUT'|translate}}</span>
                 </md-card-title-text>
             </md-card-title>
-            <md-content layout-fill="">
+            <md-content layout-fill="" class="card1">
                 <md-tabs layout-padding="true" md-dynamic-height="100" md-border-bottom="100" md-selected="vm.selectedTab">
                     <md-tab label={{'OUTPUT.FORM.TABS.GENERAL'|translate}}  ng-disabled="vm.outputWasCorrect">
-                        <md-content layout-padding="">
+                        <md-content layout-padding="" class="card1">
                             <form name="entradaForm" novalidate="">
                                 <div layout-gt-md="row" layout="column" layout-align-gt-md="center center"
                                      layout-align="center stretch">
@@ -137,7 +137,7 @@
                     <!--Registro de cabinets-->
                     <md-tab label={{'OUTPUT.FORM.TABS.UPLOAD'|translate}} ng-disabled="entradaForm.$invalid">
 
-                        <md-content layout-padding="">
+                        <md-content layout-padding="" class="card1">
                             <div layout-gt-md="row" layout="column" layout-align-gt-md="space-around center"
                                  layout-align="center stretch"
                                  ng-if="!vm.outputWasCorrect">

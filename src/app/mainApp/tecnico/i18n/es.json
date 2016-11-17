@@ -227,14 +227,14 @@
                     "INFORMATION": "Información del operador"
                 },
                 "PEDIMENT": "Pedimento",
-                "UDN": "UDN",
+                "UDN": "Agencia",
                 "TRANSPORT": {
                     "LINE": "Linea de transporte",
                     "KIND": "Tipo de transporte"
                 },
                 "SUBSIDIARY": "Sucursal",
                 "PROJECT": "Proyecto",
-                "ECONOMIC":"No. Economico:",
+                "ECONOMIC":"No. Económico:",
                 "SERIE":"No. Serie:",
                 "TYPE":"Tipo:",
                 "CABINET":"Cabinets disponibles",
@@ -260,12 +260,21 @@
         }
     },
 
-    "REMISSION":{
+    "OUTPUT_LIST":{
         "FORM":{
             "LABEL":{
-                "TITLE":"Remisión de Salida",
+                "TITLE":"Lista de Salidas",
                 "FOLIO":"Folio",
                 "DATE":"Fecha"
+            },
+            "PLACEHOLDER": {
+                "SEARCH_OUTPUT": "Búsqueda de salida",
+                "NOT_FOUND": "No se encontró la salida"
+            },
+            "TABS":
+            {
+                "INFO":"Información",
+                "CABINETS":"Cabinets"
             }
         }
     }

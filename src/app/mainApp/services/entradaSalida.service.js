@@ -23,7 +23,8 @@
             normalizeCabinets:normalizeCabinets,
             getRemision:getRemision,
             getAll:getAll,
-            getSalidas:getSalidas
+            getSalidas:getSalidas,
+            getCabinetsEntradaSalida:getCabinetsEntradaSalida
         };
         function getSalidas() {
             return baseURL.all('exit').getList();
@@ -72,6 +73,9 @@
 
         function getCabinetsEntrada() {
             return baseURL.all('cabinet_input').getList();
+        }
+        function getCabinetsEntradaSalida(id) {
+            return baseURL.one('cabinets',id).getList();
         }
     }
 })();
