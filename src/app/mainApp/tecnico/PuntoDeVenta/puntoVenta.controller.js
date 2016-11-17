@@ -10,7 +10,7 @@
         .module('app.mainApp.tecnico')
         .controller('PuntoVentaController', PuntoVentaController);
 
-    function PuntoVentaController(Cabinet, Helper, Servicios, MarcaCabinet, $mdDialog, $scope, Insumo, Translate, toastr) {
+    function PuntoVentaController(Cabinet, Helper, Servicios,PuntoDeVenta, MarcaCabinet, $mdDialog, $scope, Translate, toastr) {
         var vm = this;
         vm.activate = activate();
 
@@ -54,7 +54,6 @@
         vm.cancel = cancel;//Limpiar campos
         vm.eliminarEtapaServicio = eliminarEtapaServicio;//
         vm.editar = editar;
-        vm.getEtapasList = getEtapasList;
         vm.getInsumosLote = getInsumosLote;
         vm.crearInsumo = crearInsumo;
         vm.AddInsumoArray = AddInsumoArray;
@@ -64,8 +63,7 @@
 
         // Funciones
 
-        function crearPuntodeVenta() {
-        }
+
         function buscaPuntoDeVenta(){
             if (vm.etapas!=null){
                 vm.etapa=_.findWhere(vm.etapas, {nombre: 'E7'});
@@ -77,20 +75,6 @@
             vm.editable = !vm.editable;
         }
 
-        function getEtapasList() {
-            var promise = Servicios.etapaList();
-            promise.then(function (res) {
-                //vm.etapas = res;
-                vm.etapas = Helper.filterDeleted(res, true);
-                if (_.size(vm.etapas) == 0) {
-                    notifyError(1000);
-                }
-                buscaPuntoDeVenta();
-
-            }).catch(function (res) {
-                notifyError(res.status);
-            });
-        }
 
         function filterModels() {
             if (vm.marca != null) {
@@ -140,7 +124,7 @@
             vm.successDeleteMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_DELETE');
             vm.messageNotEntrada = Translate.translate('MAIN.MSG.MSGNOTENTRADA');
             vm.messageNotTipoEquipo = Translate.translate('MAIN.MSG.NOTTIPOEQUIPO');
-            getEtapasList();
+
         }
 
 
@@ -198,7 +182,7 @@
             vm.insumosLote.forEach(function (insulote, index) {
 
 
-                vm.insumoLote.id = insulote.id;
+                vm.insumoLote.catalogo_insumos = insulote.id;
                 elemento = filterInsumosLotebyType(insulote.tipos_equipo);
 
                 vm.insumoLote.cantidad = elemento.cantidad;
@@ -225,9 +209,8 @@
         }
 
         function crearInsumo() {
-            if (vm.puntoVenta.insumos[0].no_serie) {
-                vm.puntoVenta.insumos[0].cantidad = 1;
-                vm.puntoVenta.validado = false;
+            if (vm.puntoVenta.insumos_unicos[0].no_serie) {
+                vm.puntoVenta.insumos_unicos[0].cantidad = 1;
                 vm.crearEtapaServicio();
             }
         }
@@ -349,9 +332,8 @@
                         .cancel(vm.cancelar);
                     $mdDialog.show(confirm).then(function () {
 
-                        var promise = Servicios.eliminarEtapaServicio(vm.puntoVenta);
+                        var promise = PuntoDeVenta.remove(vm.puntoVenta);
                         promise.then(function (res) {
-                            vm.diagnostico = res;
                             toastr.success(vm.successDeleteMessage, vm.successTitle);
                             vm.cancel();
                         }).catch(function (res) {
@@ -367,16 +349,11 @@
 
 
         function crearEtapaServicio() {
-            var sigetapa, puntoVenta;
-            vm.puntoVenta.insumos = vm.insumos;
-            vm.puntoVenta.diagnostico = vm.diagnostico.id;
-            puntoVenta = vm.puntoVenta.actual_etapa.id;
-            sigetapa = vm.puntoVenta.siguiente_etapa.id;
-            vm.puntoVenta.actual_etapa = null;
-            vm.puntoVenta.siguiente_etapa = null;
-            vm.puntoVenta.actual_etapa = puntoVenta;
-            vm.puntoVenta.siguiente_etapa = sigetapa;
+            var puntoVenta;
 
+            vm.puntoVenta.insumos_lote = vm.insumos;
+            vm.puntoVenta.modelo=vm.modelo.id;
+            vm
             if (vm.puntoVenta.id == null) {
 
                 eliminaNoSeleccionados();
@@ -384,7 +361,7 @@
                 vm.puntoVenta.insumos_lote = vm.insumos_loteUsados;
                 vm.puntoVenta.insumos = vm.insumos;
 
-                var promise = Servicios.crearEtapaServicio(vm.puntoVenta);
+                var promise = PuntoDeVenta.create(vm.puntoVenta);
                 promise.then(function (res) {
                     toastr.success(vm.successTitle, vm.successCreateMessage);
                     vm.puntoVenta = res;
@@ -398,7 +375,7 @@
             }
             else {
                 eliminaNoSeleccionados();
-                var promise = Servicios.editarEtapaServicio(vm.puntoVenta);
+                var promise = PuntoDeVenta.modify(vm.puntoVenta);
                 promise.then(function (res) {
 
                     toastr.success(vm.successTitle, vm.successUpdateMessage);
