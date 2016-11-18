@@ -279,41 +279,52 @@
 
 
         function cancel() {
-            vm.etapa = {
-                diagnostico: '',
-                validado: false,
-                actual_etapa: '',
-                siguiente_etapa: ''
+            vm.etapa = {};
+            vm.tiposTrabajo = [
+                {value: 'Mayor'},
+                {value: 'Medio'},
+                {value: 'Menor'},
+                {value: 'Cambio de Equipo'},
+                {value: 'Otro'}
 
-            };
+            ]
+
             vm.showInsumosSection = true;
             vm.catalogoInsumos = null;//array con todos los caatalogos de insumo disponibles de la etapa
             vm.catalogoSelected = {};//Elemento del tipo Catalogo de Insumo del insumo que se deseará agregar
             vm.editable = true;
-            vm.idCabinet = null;
-            vm.insumos = [];//Arreglo que poseera los Insumos que pueden ser usados en cierta etapa para md table
+            vm.showInsumo = false;
             vm.insumosToArray = [];
             vm.cabinet = null;// Informacion general del cabinet al cual se le asignara una nueva etapa
-            vm.diagnostico = null;// Informacion del diagnostico que propicio que entrara a un proceso de servicio tecnico
-            vm.etapa = null;
-            vm.puntoVenta = null;
+            vm.cabinetid = null;
             vm.insumo = {
                 id: "",
                 nombre: "",
                 cantidad: "",
                 catalogo: "",
                 notas: ""
-            };// Insumo por agregar al cabinet en cuestion
-            //Nuevas VariablesUsadas
+            };
+            vm.insumos_lote = [];// Arreglo que posera los Insumos de Lote que serán utilizados en la etapa de servicio
+            vm.insumoLote = {};
+            vm.insumos_loteUsados = [];//Arreglo que ya posee el arreglo como es necesario para agregar los insumos al formato de arreglo para agregarlos a la etapa
+            vm.insumos_sinStock = [];
+            vm.puntoVenta = {};
+                    //Nuevas VariablesUsadas
             vm.insumos_lote = [];// Arreglo que posera los Insumos de Lote que serán utilizados en la etapa de servicio
             vm.insumoLote = {};
             vm.insumos_loteUsados = [];//Arreglo que ya posee el arreglo como es necesario para agregar los insumos al formato de arreglo para agregarlos a la etapa
             vm.insumos_sinStock = [];
             vm.dataEtapa = null;//Variable que posera los datos de la etapa para el precargado de Template (id etapa, idTipoEquipo)
-            $scope.Buscar.$setPristine();
-            $scope.Buscar.$setUntouched();
-            $scope.sigStep.$setPristine();
-            $scope.sigStep.$setUntouched();
+            $scope.generalInfo.$setPristine();
+            $scope.generalInfo.$setUntouched();
+            $scope.localData.$setPristine();
+            $scope.localData.$setUntouched();
+            $scope.cabinetInfo.$setPristine();
+            $scope.cabinetInfo.$setUntouched();
+            $scope.observationsData.$setPristine();
+            $scope.observationsData.$setUntouched();
+            $scope.form.insumoFormEtapa.$setPristine();
+            $scope.form.insumoFormEtapa.$setUntouched();
 
 
         }
@@ -348,8 +359,7 @@
         }
 
 
-        function crearEtapaServicio() {
-            var puntoVenta;
+        function crearPuntodeVenta() {
 
             vm.puntoVenta.insumos_lote = vm.insumos;
             vm.puntoVenta.modelo=vm.modelo.id;

@@ -271,6 +271,7 @@
                                             </div>
                                         </div>
                                         <md-divider></md-divider>
+                                        <form name="form.insumoFormEtapa">
                                         <md-content layout="row" ng-if="vm.puntoVenta">
                                             <md-switch ng-model="inputDisabled">
                                                 <span translate>ETAPA_SERVICIO.ADD_MICRO</span>
@@ -296,6 +297,7 @@
                                                 </md-button>
                                             </md-input-container>
                                         </md-content>
+                                        </form>
                                         <md-content layout="row" ng-if="vm.showInsumo">
 
                                             <md-input-container flex="40" ng-if="vm.showInsumo" disabled>
@@ -382,12 +384,12 @@
                            ng-disabled="triWizard.nextStepDisabled()">
                     <md-icon md-font-icon="fa fa-hand-o-right"></md-icon>
                 </md-button>
-                <md-button ng-click="vm.registrarFondeo()" class="md-fab md-mini md-scale"
+                <md-button ng-click="vm.crearPuntodeVenta()" class="md-fab md-mini md-scale"
                            ng-show="triWizard.progress == 100 &amp;&amp; triWizard.currentStep &gt;= 5"
                            translate="FONDEOS.WIZARD.SEND">
                     <md-icon md-font-icon="fa fa-save"></md-icon>
                 </md-button>
-                <md-button ng-click="vm.createDialog()" ng-show="vm.fondeo.id!=null"
+                <md-button ng-click="vm.eliminarEtapaServicio()" ng-show="vm.fondeo.id!=null"
                            class="md-fab md-mini md-scale">
                     <md-icon md-font-icon="fa fa-trash"></md-icon>
                 </md-button>
