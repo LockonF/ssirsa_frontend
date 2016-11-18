@@ -112,13 +112,15 @@
             if( event.puntoVenta.hora_recepcion !== null) {
                 vm.recepcion.hora=moment(event.puntoVenta.hora_recepcion,"HH:mm:ss").toDate();
             }
+            vm.reporte=angular.copy(reporte);
             if( event.puntoVenta.fecha_reporte !== null) {
-                vm.puntoVenta.fecha=moment(event.puntoVenta.fecha_reporte,"YYYY-MM-DD").toDate();
-                vm.puntoVenta.hora=moment(event.puntoVenta.fecha_reporte,"HH:mm:ss").toDate();
+                vm.reporte.fecha=moment(event.puntoVenta.fecha_reporte,"YYYY-MM-DD").toDate();
+                vm.reporte.hora=moment(event.puntoVenta.fecha_reporte,"HH:mm:ss").toDate();
             }
+            vm.servicio=angular.copy(servicio);
             if( event.puntoVenta.fecha_servicio !== null) {
-                vm.puntoVenta.fecha=moment(event.puntoVenta.fecha_servicio,"YYYY-MM-DD").toDate();
-                vm.puntoVenta.hora=moment(event.puntoVenta.fecha_servicio,"HH:mm:ss").toDate();
+                vm.servicio.fecha=moment(event.puntoVenta.fecha_servicio,"YYYY-MM-DD").toDate();
+                vm.servicio.hora=moment(event.puntoVenta.fecha_servicio,"HH:mm:ss").toDate();
             }
             vm.modelos = [];
             vm.modelo={};
