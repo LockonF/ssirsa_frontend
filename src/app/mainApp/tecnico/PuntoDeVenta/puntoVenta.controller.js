@@ -13,9 +13,19 @@
     function PuntoVentaController(Cabinet, Helper, Servicios,PuntoDeVenta, MarcaCabinet, $mdDialog, $scope, Translate, toastr) {
         var vm = this;
         vm.activate = activate();
-
         //Inicializando Variables
         $scope.form = {};
+        var reporte={
+            fecha:moment().format('YYYY-MM-DD'),
+            hora:moment().format('HH:mm:ss')
+        };
+        var servicio={
+            fecha:moment().format('YYYY-MM-DD'),
+            hora:moment().format('HH:mm:ss')
+        };
+        var recepcion={
+            hora:moment().format('HH:mm:ss')
+        };
         vm.etapa = {};
         vm.tiposTrabajo = [
             {value: 'Mayor'},
@@ -98,6 +108,18 @@
                 toastr.error(vm.errorMessage, vm.errorTitle);
                 vm.marcas = [];
             });
+            vm.recepcion=angular.copy(recepcion);
+            if( event.puntoVenta.hora_recepcion !== null) {
+                vm.recepcion.hora=moment(event.puntoVenta.hora_recepcion,"HH:mm:ss").toDate();
+            }
+            if( event.puntoVenta.fecha_reporte !== null) {
+                vm.puntoVenta.fecha=moment(event.puntoVenta.fecha_reporte,"YYYY-MM-DD").toDate();
+                vm.puntoVenta.hora=moment(event.puntoVenta.fecha_reporte,"HH:mm:ss").toDate();
+            }
+            if( event.puntoVenta.fecha_servicio !== null) {
+                vm.puntoVenta.fecha=moment(event.puntoVenta.fecha_servicio,"YYYY-MM-DD").toDate();
+                vm.puntoVenta.hora=moment(event.puntoVenta.fecha_servicio,"HH:mm:ss").toDate();
+            }
             vm.modelos = [];
             vm.modelo={};
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
