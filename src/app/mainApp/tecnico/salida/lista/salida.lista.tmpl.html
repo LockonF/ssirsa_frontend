@@ -29,12 +29,6 @@
                         </md-item-template>
                         <md-not-found><span translate="OUTPUT_LIST.FORM.PLACEHOLDER.NOT_FOUND"></span></md-not-found>
                     </md-autocomplete>
-                    <md-input-container>
-                        <label>{{'OUTPUT_LIST.FORM.PLACEHOLDER.DATE'|translate}}</label>
-                        <input type="text" aria-label="Fecha búsqueda" ng-model="vm.fecha_created" mdp-date-picker
-                               mdp-format="{{vm.formato}}"
-                               mo-date-input="{{vm.formato}}"  />
-                    </md-input-container>
 
                     <md-virtual-repeat-container class="vertical-container" flex="flex">
                         <md-list class="inbox-list">
@@ -125,33 +119,43 @@
                                 </div>
                             </form>
                         </md-tab>
-                        <md-tab label={{'OUTPUT_LIST.FORM.TABS.CABINETS'|translate}}>
-                            <div layout="row">
-                                <md-input-container class="md-inline-form" flex="100" flex-sm="100" flex-xs="100">
-                                    <label>{{'OUTPUT.FORM.PLACEHOLDER.SEARCH'|translate}}</label>
-                                    <input type="text" ng-model="vm.economicoFilter"/>
-                                </md-input-container>
+                        <md-tab label={{'OUTPUT_LIST.FORM.TABS.CABINETS'|translate}} ng-if="vm.selectedSalidaList!=null">
+                            <div ng-if="vm.cabinets.length==0" layout="column" layout-align="center center">
+
+                                <md-icon md-svg-icon="assets/images/remission.svg" class="avatar-250"></md-icon>
+
+                                <h2 md-headline-1 text-center>{{'OUTPUT_LIST.FORM.LABEL.NOT_FOUND'|translate}}</h2>
+
+
                             </div>
-                            <md-list flex>
-                                <md-list-item
-                                    ng-repeat="cabinet in vm.cabinets | salidaSearch:vm.economicoFilter"
-                                    class="md-2-line"
-                                >
-                                    <div layout-padding layout="row"
-                                         layout-align="start center">
-                                        <md-checkbox checklist-model="vm.selectedCabinets" checklist-value="cabinet.economico"></md-checkbox>
-                                        <md-icon md-svg-icon="assets/images/cabinet.svg"
-                                                 class="md-avatar" hide-sm="" hide-xs=""></md-icon>
-                                        <div class="md-list-item-text" layout="column">
-                                            <h4><b hide-sm="" hide-xs="">{{'OUTPUT.FORM.LABEL.ECONOMIC'|translate}}</b>
-                                                {{cabinet.economico }}</h4>
+                            <div ng-if="vm.cabinets.length>0">
+                                <div layout="row">
+                                    <md-input-container class="md-inline-form" flex="100" flex-sm="100" flex-xs="100">
+                                        <label>{{'OUTPUT.FORM.PLACEHOLDER.SEARCH'|translate}}</label>
+                                        <input type="text" ng-model="vm.economicoFilter"/>
+                                    </md-input-container>
+                                </div>
+                                <md-list flex>
+                                    <md-list-item
+                                        ng-repeat="cabinet in vm.cabinets | salidaSearch:vm.economicoFilter"
+                                        class="md-2-line"
+                                    >
+                                        <div layout-padding layout="row"
+                                             layout-align="start center">
+                                            <md-checkbox checklist-model="vm.selectedCabinets" aria-label="Seleccionar cabinets" checklist-value="cabinet.id"></md-checkbox>
+                                            <md-icon md-svg-icon="assets/images/cabinet.svg"
+                                                     class="md-avatar" hide-sm="" hide-xs=""></md-icon>
+                                            <div class="md-list-item-text" layout="column">
+                                                <h4><b hide-sm="" hide-xs="">{{'OUTPUT.FORM.LABEL.ECONOMIC'|translate}}</b>
+                                                    {{cabinet.economico }}</h4>
+
+                                            </div>
 
                                         </div>
-
-                                    </div>
-                                    <md-divider></md-divider>
-                                </md-list-item>
-                            </md-list>
+                                        <md-divider></md-divider>
+                                    </md-list-item>
+                                </md-list>
+                            </div>
                         </md-tab>
                     </md-tabs>
                 </div>

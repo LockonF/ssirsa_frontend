@@ -135,7 +135,8 @@
         },
         "DIALOG": {
             "DELETE_TITLE": "Confirmación de eliminación",
-            "DELETE_MESSAGE": "¿Seguro que desea eliminar este elemento?"
+            "DELETE_MESSAGE": "¿Seguro que desea eliminar este elemento?",
+            "DELETE_MESSAGE_CABINETS": "¿Seguro que desea eliminar los siguientes cabinets?"
         }
     }
 }

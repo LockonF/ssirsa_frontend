@@ -265,17 +265,20 @@
             "LABEL":{
                 "TITLE":"Lista de Salidas",
                 "FOLIO":"Folio",
-                "DATE":"Fecha"
+                "DATE":"Fecha",
+                "NOT_FOUND":"Esta salida no tiene cabinets asociados"
             },
             "PLACEHOLDER": {
                 "SEARCH_OUTPUT": "Búsqueda de salida",
                 "NOT_FOUND": "No se encontró la salida",
                 "DATE":"Fecha de creación"
             },
-            "TABS":
-            {
+            "TABS":{
                 "INFO":"Información",
                 "CABINETS":"Cabinets"
+            },
+            "DIALOG":{
+                "DELETED_CABIENTS":"Se eliminaron correctamente los cabinets"
             }
         }
     }

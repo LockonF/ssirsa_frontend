@@ -7,9 +7,9 @@
     angular
         .module('app.mainApp.tecnico')
         .controller('salidaListadoController', salidaListadoController)
-        .filter('moment', momentFecha);
+        .filter('moment', momentFecha) ;
 
-    function salidaListadoController($http, EntradaSalida,$mdDialog,Sucursal, udn, Helper, toastr, Translate,TipoTransporte, LineaTransporte) {
+    function salidaListadoController($http,CabinetEntradaSalida, EntradaSalida,$mdDialog,Sucursal, udn, Helper, toastr, Translate,TipoTransporte, LineaTransporte) {
         var vm = this;
         vm.selectedSalida = selectedSalida;
         vm.generarRemision = generarRemision;
@@ -17,7 +17,6 @@
         vm.lookup = lookup;
         vm.querySearch = querySearch;
         vm.remove=remove;
-        vm.formato="DD-MM-YYYY";
         vm.selectedCabinets=[];
         vm.myHeight=window.innerHeight-250;
         vm.myStyle={"min-height":""+vm.myHeight+"px"};
@@ -36,7 +35,8 @@
             vm.deleteButton=Translate.translate('MAIN.BUTTONS.DELETE');
             vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
             vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
-            vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
+            vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE_CABINETS');
+            vm.successDelete=Translate.translate('OUTPUT_LIST.FORM.DIALOG.DELETED_CABIENTS');
 
             EntradaSalida.getSalidas().then(function (res) {
                 vm.salidas = res;
@@ -80,14 +80,15 @@
                 .ok(vm.deleteButton)
                 .cancel(vm.cancelButton);
             $mdDialog.show(confirm).then(function() {
-                /*
-                LineaTransporte.remove(vm.transport).then(function (res) {
-                    toastr.success(vm.successDeleteMessage, vm.successTitle);
-                    cancel();
-                    activate();
+                var request={
+                    cabinet_entrada_salida:vm.selectedCabinets
+                };
+                CabinetEntradaSalida.restore(request).then(function (res) {
+                    selectedItemChange(vm.selectedSalidaList);
+                    toastr.success(vm.successDelete,vm.successTitle);
                 }).catch(function (res) {
                     toastr.warning(vm.errorMessage, vm.errorTitle);
-                });*/
+                });
             }, function() {
 
             });
@@ -96,6 +97,9 @@
             vm.selectedSalidaList = item;
             EntradaSalida.getCabinetsEntradaSalida(vm.selectedSalidaList.id).then(function (res) {
                 vm.cabinets=res;
+                _.each(vm.cabinets, function(element, index) {
+                    _.extend(element, {id: element.id.toString()});
+                });
             });
         }
         function selectedItemChange(item)
@@ -150,9 +154,7 @@
             });
         }
         function querySearch(query) {
-            var results = query ? lookup(query) : vm.salidas;
-            return results;
-
+            return query ? lookup(query) : vm.salidas;
         }
 
         function lookup(search_text) {
@@ -168,4 +170,5 @@
             return moment(dateString).format(format);
         }
     }
+
 })();
