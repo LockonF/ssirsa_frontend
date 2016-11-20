@@ -9,19 +9,20 @@
         .run(Run);
     function Run($rootScope, Helper,$pusher,EnvironmentConfig, OAuth, AuthService,authorization, _,$window,Socket,Session,OAuthToken,$http,$state,Solicitudes_Admin){
         $rootScope.$on('$stateChangeStart',function(event, toState, toStateParams){
-
-            if(AuthService.isAuthenticated()) {
+            if(toState.name!='login') {
+                if (AuthService.isAuthenticated()) {
                     AuthService.getUser();
 
-            }
+                }
 
-            $rootScope.toState = toState;
-            $rootScope.toStateParams = toStateParams;
-            if (AuthService.isIdentityResolved()) {
-                authorization.authorize();
-                Solicitudes_Admin.consultaEspUnconfirmed().then(function (res) {
-                    $rootScope.notifications =_.sortBy(res, 'fecha_inicio').reverse();
-                });
+                $rootScope.toState = toState;
+                $rootScope.toStateParams = toStateParams;
+                if (AuthService.isIdentityResolved()) {
+                    authorization.authorize();
+                    Solicitudes_Admin.consultaEspUnconfirmed().then(function (res) {
+                        $rootScope.notifications = _.sortBy(res, 'fecha_inicio').reverse();
+                    });
+                }
             }
         });
         $rootScope.$on('oauth:error',function(event, rejection) {

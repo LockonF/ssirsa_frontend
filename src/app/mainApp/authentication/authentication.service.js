@@ -31,19 +31,13 @@
             return OAuth.getRefreshToken();
         }
         function getPersona() {
-            return Restangular.all('persona').customGET().then(function (res) {
-                return res;
-            }).catch(function (err) {
-            });
+            return Restangular.all('persona').customGET();
         }
          function isIdentityResolved() {
             return angular.isDefined(Session.userInformation);
         }
         function getRole() {
-            return Restangular.all('my_groups').customGET().then(function (res) {
-                return res;
-            }).catch(function (err) {
-            });
+            return Restangular.all('my_groups').getList();
         }
         function login(credentials) {
             var deferred = $q.defer();
@@ -93,10 +87,14 @@
                 user.userInformation=res;
                 getRole().then(function (res) {
                     Session.create(user.userInformation,res[0].name);
-                    Socket.emit('join', {canal: 'Administrador', username: Session.userInformation.id});
+                    //Socket.emit('join', {canal: 'Administrador', username: Session.userInformation.id});
                     $rootScope.$broadcast(AUTH_EVENTS.sessionRestore);
                     deferred.resolve(res[0].name);
+                }).catch(function (res) {
+                    console.log(res);
                 });
+            }).catch(function (res) {
+                console.log(res);
             });
             return deferred.promise;
         }
