@@ -17,6 +17,7 @@
         vm.lookup = lookup;
         vm.querySearch = querySearch;
         vm.remove=remove;
+        vm.formato="DD-MM-YYYY";
         vm.selectedCabinets=[];
         vm.myHeight=window.innerHeight-250;
         vm.myStyle={"min-height":""+vm.myHeight+"px"};
@@ -36,7 +37,7 @@
             vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
             vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
             vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
-            console.log(vm.selectedCabinets.length);
+
             EntradaSalida.getSalidas().then(function (res) {
                 vm.salidas = res;
                 vm.salidas = sortByDate(vm.salidas);
@@ -156,7 +157,7 @@
 
         function lookup(search_text) {
             vm.search_items = _.filter(vm.salidas, function (item) {
-                return item.id.toLowerCase().indexOf(search_text.toLowerCase()) >= 0;
+                return item.id.toString().toLowerCase().indexOf(search_text.toLowerCase()) >= 0;
             });
             return vm.search_items;
         }

@@ -269,7 +269,8 @@
             },
             "PLACEHOLDER": {
                 "SEARCH_OUTPUT": "Búsqueda de salida",
-                "NOT_FOUND": "No se encontró la salida"
+                "NOT_FOUND": "No se encontró la salida",
+                "DATE":"Fecha de creación"
             },
             "TABS":
             {
