@@ -154,7 +154,7 @@
                                      ng-hide="vm.hideMassiveUpload"
                                      ng-if="!vm.outputWasCorrect">
                                     <md-input-container flex="75" flex-sm="100" flex-xs="100" flex-md="100">
-                                        <input name="FileName" type="text" ng-model="vm.salida.file.name"
+                                        <input name="FileName" type="text" aria-label="ine" ng-model="vm.salida.file.name"
                                                ng-disabled="true"/>
                                     </md-input-container>
                                     <div flex="12" flex-sm="100" flex-xs="100" flex-md="100" layout="column">
@@ -245,7 +245,7 @@
                                                 >
                                                     <div layout-padding layout="row"
                                                          layout-align="start center">
-                                                        <md-checkbox checklist-model="vm.selectedCabinets" checklist-value="cabinet.economico"></md-checkbox>
+                                                        <md-checkbox checklist-model="vm.selectedCabinets" aria-label="Selección Cabinet" checklist-value="cabinet.economico"></md-checkbox>
                                                         <md-icon md-svg-icon="assets/images/cabinet.svg"
                                                                  class="md-avatar" hide-sm="" hide-xs=""></md-icon>
                                                         <div class="md-list-item-text" layout="column">
@@ -277,7 +277,7 @@
                                 <md-button aria-label="fab button" ng-click="vm.clear()" class="md-raised md-primary">
                                     <md-icon md-font-icon="fa fa-eraser"></md-icon>
                                 </md-button>
-                                <md-button ng-disabled="entradaForm.$invalid ||  vm.outputWasCorrect ||  (vm.salida.file==null && vm.hideManualUpload==true) " ng-click="vm.guardar()"
+                                <md-button ng-disabled="entradaForm.$invalid ||  vm.outputWasCorrect ||  (vm.salida.file==null && vm.hideManualUpload==true) " aria-label="guardar" ng-click="vm.guardar()"
                                            class="md-raised md-primary">
                                     <md-icon md-font-icon="fa fa-save"></md-icon>
                                 </md-button>

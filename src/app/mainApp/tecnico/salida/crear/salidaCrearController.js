@@ -127,7 +127,7 @@
 
                     });
                 } else {
-                    if (vm.selectedEntrada >= 1 && vm.selectedEntrada <= 3) {
+                    if (vm.selectedEntrada >= 2 && vm.selectedEntrada <= 4) {
                         var confirms = $mdDialog.confirm()
                             .title(vm.dialogTitle)
                             .textContent(vm.dialogSureMessage)
