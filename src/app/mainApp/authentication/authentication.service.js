@@ -4,16 +4,16 @@
         .module('app.mainApp')
         .factory('AuthService', AuthService);
     /* @ngInject */
-    function AuthService(Session, $q, Restangular, OAuth,$rootScope,AUTH_EVENTS,Socket,OAuthToken) {
+    function AuthService(Session, $q, Restangular, PusherClient, OAuth, $rootScope, Notification, AUTH_EVENTS, OAuthToken) {
         var authService = {
             isAuthenticated: isAuthenticated,
             login: login,
             isAuthorized: isAuthorized,
             logout: logout,
-            getUser:getUser,
-            isIdentityResolved:isIdentityResolved,
-            refreshToken:refreshToken,
-            getToken:getToken
+            getUser: getUser,
+            isIdentityResolved: isIdentityResolved,
+            refreshToken: refreshToken,
+            getToken: getToken
         };
 
         function getToken() {
@@ -21,35 +21,41 @@
             if (isAuthenticated()) {
                 deferred.resolve(OAuthToken.getAccessToken());
             } else {
-                this.refreshToken().then(function(data) {
+                this.refreshToken().then(function (data) {
                     deferred.resolve();
                 });
             }
             return deferred.promise;
         }
+
         function refreshToken() {
             return OAuth.getRefreshToken();
         }
+
         function getPersona() {
             return Restangular.all('persona').customGET();
         }
-         function isIdentityResolved() {
+
+        function isIdentityResolved() {
             return angular.isDefined(Session.userInformation);
         }
+
         function getRole() {
             return Restangular.all('my_groups').getList();
         }
+
         function login(credentials) {
             var deferred = $q.defer();
 
             OAuth.getAccessToken(credentials).then(function (res) {
+                PusherClient.create();
                 deferred.resolve();
             }).catch(function (response) {
                 if (response.status == 401) {
                     return deferred.reject(response.data);
                 }
                 return deferred.reject({
-                   error:response.data
+                    error: response.data
                 });
             });
             return deferred.promise;
@@ -80,16 +86,21 @@
 
             return deferred.promise;
         }
+
         function getUser() {
-            var user={};
+            var user = {};
             var deferred = $q.defer();
             getPersona().then(function (res) {
-                user.userInformation=res;
+                user.userInformation = res;
                 getRole().then(function (res) {
-                    Session.create(user.userInformation,res[0].name);
-                    //Socket.emit('join', {canal: 'Administrador', username: Session.userInformation.id});
+                    Session.create(user.userInformation, res[0].name);
+                    if (angular.isArray(res) && res[0].name === 'Administrador') {
+                        var channel_admin = Notification.subscribeChannel('administrador');
+
+                    }
                     $rootScope.$broadcast(AUTH_EVENTS.sessionRestore);
                     deferred.resolve(res[0].name);
+
                 }).catch(function (res) {
                     console.log(res);
                 });
@@ -98,7 +109,6 @@
             });
             return deferred.promise;
         }
-
 
 
         return authService;

@@ -7,14 +7,13 @@
     angular
         .module('app')
         .run(Run);
-    function Run($rootScope, Helper,$pusher,EnvironmentConfig, OAuth, AuthService,authorization, _,$window,Socket,Session,OAuthToken,$http,$state,Solicitudes_Admin){
+    function Run($rootScope, Helper,$pusher,EnvironmentConfig, OAuth, AuthService,authorization, _,$window,Session,OAuthToken,$http,$state,Solicitudes_Admin){
         $rootScope.$on('$stateChangeStart',function(event, toState, toStateParams){
             if(toState.name!='login') {
                 if (AuthService.isAuthenticated()) {
                     AuthService.getUser();
 
                 }
-
                 $rootScope.toState = toState;
                 $rootScope.toStateParams = toStateParams;
                 if (AuthService.isIdentityResolved()) {
@@ -37,17 +36,8 @@
             return $window.location.href = '/login';
         });
 
-        /*Socket.on('send:msg', function (dfs) {
-            if (dfs.username !== Session.userInformation.id) {
 
-                if (dfs.type === "normal" && Session.userRole==='Administrador') {
-                    Helper.showNotification('El usuario ' + dfs.name+ " creo una solicitud ","Nueva solicitud de "+ dfs.notification.type_notification+" !!!");
-                    //Helper.addNotificationGlobal(dfs.notification)
-                }
-            }
-        });*/
-
-        var client =  new Pusher(EnvironmentConfig.site.pusher.key, {
+        /*var client =  new Pusher(EnvironmentConfig.site.pusher.key, {
             encrypted: true
         });
         var pusher = $pusher(client);
@@ -66,7 +56,7 @@
 
         channel_reports.bind('success_create', function(dfs) {
             console.log(dfs);
-        });
+        });*/
 
 
 

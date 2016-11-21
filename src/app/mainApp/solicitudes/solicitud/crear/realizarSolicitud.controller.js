@@ -4,7 +4,7 @@
         .module('app.mainApp.solicitudes')
         .controller('realizarSolicitudController', realizarSolicitudController);
 
-    function realizarSolicitudController(OPTIONS, udn,TipoEquipo,Helper,$mdEditDialog, $mdDialog, Translate,toastr, Solicitudes, Solicitud_Servicio, Solicitudes_Admin, PersonaCapturista, Session, Socket,$scope) {
+    function realizarSolicitudController(OPTIONS, udn,TipoEquipo,Helper,$mdEditDialog, $mdDialog, Translate,toastr, Solicitudes, Solicitud_Servicio, Solicitudes_Admin, PersonaCapturista, Session,$scope) {
         var vm = this;
 
         var requisito = {
@@ -203,14 +203,14 @@
                     type_notification: vm.requisito.tipo_solicitud,
                     updated_at: moment().toDate()
                 };
-                Socket.emit('new:msg', {
+                /*Socket.emit('new:msg', {
                     canal: 'Administrador',
                     username: Session.userInformation.id,
                     solicitud: vm.requisito,
                     name: Session.userInformation.nombre,
                     notification: notification,
                     type: "normal"
-                });
+                });*/
                 cancel();
                 toastr.success(vm.successCreateMessage, vm.successTitle);
 
@@ -266,14 +266,14 @@
                     type_notification: "Venta",
                     updated_at: moment().toDate()
                 };
-                Socket.emit('new:msg', {
+                /*Socket.emit('new:msg', {
                     canal: 'Administrador',
                     username: Session.userInformation.id,
                     name: Session.userInformation.nombre,
                     solicitud: vm.requisitoVenta,
                     notification: notification,
                     type: "normal"
-                });
+                });*/
 
                 cancel();
 
