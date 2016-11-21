@@ -336,7 +336,16 @@
                 {
                     id: 'DecimalField',
                     text: 'Decimal'
-                }]
+                }],
+            filed_types:[
+                {
+                    id:"None",
+                    text:""
+                },
+                {
+                    id:"Sum"
+                }
+            ]
 
         });
 })();
