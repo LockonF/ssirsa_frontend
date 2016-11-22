@@ -227,7 +227,6 @@
             vm.requisito.udn = vm.udn;
             delete  vm.requisito.persona;
             vm.requisito.tipo_solicitud=OPTIONS.type_request[vm.requisito.tipo_solicitud].value_id;
-            console.log(vm.requisito);
             Solicitudes.create(vm.requisito).then(function () {
                 cancel();
 
@@ -235,7 +234,6 @@
 
 
             }).catch(function (res)  {
-                console.log(res);
                 toastr.error(vm.errorMessage, vm.errorTitle);
             })
         }

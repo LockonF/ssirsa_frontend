@@ -1,15 +1,15 @@
 /**
  * Created by Emmanuel on 15/07/2016.
  */
-(function(){
+(function () {
     'use strict';
 
     angular
         .module('app')
         .run(Run);
-    function Run($rootScope, Helper,$pusher,EnvironmentConfig, OAuth, AuthService,authorization, _,$window,Session,OAuthToken,$http,$state,Solicitudes_Admin){
-        $rootScope.$on('$stateChangeStart',function(event, toState, toStateParams){
-            if(toState.name!='login') {
+    function Run($rootScope, Channel, PusherClient, EVENTS_GENERAL, OAuth, AuthService, authorization, _, $window, Solicitudes_Admin) {
+        $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
+            if (toState.name != 'login') {
                 if (AuthService.isAuthenticated()) {
                     AuthService.getUser();
 
@@ -22,9 +22,14 @@
                         $rootScope.notifications = _.sortBy(res, 'fecha_inicio').reverse();
                     });
                 }
+            } else {
+                if (AuthService.isAuthenticated()) {
+                    AuthService.revokeToken();
+                }
             }
+            console.log(Channel.all());
         });
-        $rootScope.$on('oauth:error',function(event, rejection) {
+        $rootScope.$on('oauth:error', function (event, rejection) {
             if ('invalid_grant' === rejection.data.error) {
                 return;
             }
@@ -35,32 +40,44 @@
             }
             return $window.location.href = '/login';
         });
+        $rootScope.$on(EVENTS_GENERAL.bind_channels, function (event) {
+            /*var canal = Channel.all();
+            PusherClient.pusher.log = function (message) {
+                if (window.console && window.console.log) window.console.log(message);
+            };
 
+            canal[0].bind_all(function (eventName, data) {
+                console.log(data);
+                console.log(eventName);
+               if (dfs.usuario !== Session.userInformation.id) {
+                 if (Session.userRole === 'Administrador') {
+                 Helper.showNotification('El usuario ' + dfs.usuario + " creo una solicitud ", "Nueva solicitud de " + dfs.solicitud + " !!!");
+
+                 }
+                 }
+            });*/
+        });
 
         /*var client =  new Pusher(EnvironmentConfig.site.pusher.key, {
-            encrypted: true
-        });
-        var pusher = $pusher(client);
-        pusher.logToConsole = true;
+         encrypted: true
+         });
+         var pusher = $pusher(client);
+         pusher.logToConsole = true;
 
-        var channel_reports = pusher.subscribe('reports');
-        var channel = pusher.subscribe('solicitudes');
-        channel.bind('create', function(dfs) {
-            if (dfs.usuario !== Session.userInformation.id) {
-                if (Session.userRole === 'Administrador') {
-                    Helper.showNotification('El usuario ' + dfs.usuario + " creo una solicitud ", "Nueva solicitud de " + dfs.solicitud + " !!!");
+         var channel_reports = pusher.subscribe('reports');
+         var channel = pusher.subscribe('solicitudes');
+         channel.bind('create', function(dfs) {
+         if (dfs.usuario !== Session.userInformation.id) {
+         if (Session.userRole === 'Administrador') {
+         Helper.showNotification('El usuario ' + dfs.usuario + " creo una solicitud ", "Nueva solicitud de " + dfs.solicitud + " !!!");
 
-                }
-            }
-        });
+         }
+         }
+         });
 
-        channel_reports.bind('success_create', function(dfs) {
-            console.log(dfs);
-        });*/
-
-
-
-
+         channel_reports.bind('success_create', function(dfs) {
+         console.log(dfs);
+         });*/
 
 
     }

@@ -4,7 +4,7 @@
         .module('app.mainApp')
         .factory('AuthService', AuthService);
     /* @ngInject */
-    function AuthService(Session, $q, Restangular, PusherClient, OAuth, $rootScope, Notification, AUTH_EVENTS, OAuthToken) {
+    function AuthService(Session, $q, Restangular, PusherClient,Channel, OAuth,EVENTS_GENERAL, $rootScope, Notification, AUTH_EVENTS, OAuthToken) {
         var authService = {
             isAuthenticated: isAuthenticated,
             login: login,
@@ -13,7 +13,8 @@
             getUser: getUser,
             isIdentityResolved: isIdentityResolved,
             refreshToken: refreshToken,
-            getToken: getToken
+            getToken: getToken,
+            revokeToken:revokeToken
         };
 
         function getToken() {
@@ -26,6 +27,9 @@
                 });
             }
             return deferred.promise;
+        }
+        function revokeToken() {
+            OAuth.revokeToken();
         }
 
         function refreshToken() {
@@ -75,9 +79,15 @@
 
         function logout() {
             var deferred = $q.defer();
-            OAuth.revokeToken().then(function (res) {
+            OAuth.revokeToken().then(function () {
+                Notification.unsubscribePresenceChannel(Session.userInformation.id.toString());
+                Notification.unsubscribePresenceChannel('administrador');
+
                 Session.destroy();
+                PusherClient.destroy();
+                Channel.clear();
                 $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
+
                 deferred.resolve();
 
             }).catch(function (response) {
@@ -94,9 +104,23 @@
                 user.userInformation = res;
                 getRole().then(function (res) {
                     Session.create(user.userInformation, res[0].name);
+                    PusherClient.create();
                     if (angular.isArray(res) && res[0].name === 'Administrador') {
-                        var channel_admin = Notification.subscribeChannel('administrador');
-
+                        if(Channel.all().length==0) {
+                            /*var channel = PusherClient.pusher.subscribe('solicitudes');
+                            channel.bind('create', function(dfs) {
+                                console.log(dfs);
+                            });*/
+                            PusherClient.create();
+                            var canalAdmin=Notification.subscribePresenceChannel('administrador');
+                            Channel.add(canalAdmin);
+                            Channel.add(Notification.subscribePresenceChannel(Session.userInformation.id.toString()));
+                            $rootScope.$broadcast(EVENTS_GENERAL.bind_channels);
+                            canalAdmin.bind_all(function (eventName, data) {
+                               console.log(eventName);
+                                console.log(data);
+                            });
+                        }
                     }
                     $rootScope.$broadcast(AUTH_EVENTS.sessionRestore);
                     deferred.resolve(res[0].name);
