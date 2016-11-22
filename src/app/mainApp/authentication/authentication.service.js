@@ -107,19 +107,10 @@
                     PusherClient.create();
                     if (angular.isArray(res) && res[0].name === 'Administrador') {
                         if(Channel.all().length==0) {
-                            /*var channel = PusherClient.pusher.subscribe('solicitudes');
-                            channel.bind('create', function(dfs) {
-                                console.log(dfs);
-                            });*/
                             PusherClient.create();
-                            var canalAdmin=Notification.subscribePresenceChannel('administrador');
-                            Channel.add(canalAdmin);
+                            Channel.add(Notification.subscribePresenceChannel('administrador'));
                             Channel.add(Notification.subscribePresenceChannel(Session.userInformation.id.toString()));
                             $rootScope.$broadcast(EVENTS_GENERAL.bind_channels);
-                            canalAdmin.bind_all(function (eventName, data) {
-                               console.log(eventName);
-                                console.log(data);
-                            });
                         }
                     }
                     $rootScope.$broadcast(AUTH_EVENTS.sessionRestore);

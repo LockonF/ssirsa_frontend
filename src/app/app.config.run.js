@@ -7,7 +7,7 @@
     angular
         .module('app')
         .run(Run);
-    function Run($rootScope, Channel, PusherClient, EVENTS_GENERAL, OAuth, AuthService, authorization, _, $window, Solicitudes_Admin) {
+    function Run($rootScope, Channel, Session,Helper, EVENTS_GENERAL, OAuth, AuthService, authorization, _, $window, Solicitudes_Admin) {
         $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
             if (toState.name != 'login') {
                 if (AuthService.isAuthenticated()) {
@@ -40,22 +40,15 @@
             }
             return $window.location.href = '/login';
         });
-        $rootScope.$on(EVENTS_GENERAL.bind_channels, function (event) {
-            /*var canal = Channel.all();
-            PusherClient.pusher.log = function (message) {
-                if (window.console && window.console.log) window.console.log(message);
-            };
-
-            canal[0].bind_all(function (eventName, data) {
-                console.log(data);
-                console.log(eventName);
-               if (dfs.usuario !== Session.userInformation.id) {
-                 if (Session.userRole === 'Administrador') {
-                 Helper.showNotification('El usuario ' + dfs.usuario + " creo una solicitud ", "Nueva solicitud de " + dfs.solicitud + " !!!");
-
-                 }
-                 }
-            });*/
+        $rootScope.$on(EVENTS_GENERAL.bind_channels, function () {
+            var canal = Channel.all();
+            canal[0].bind('create', function(dfs) {
+                if (dfs.id !== Session.userInformation.id) {
+                    if (Session.userRole === 'Administrador') {
+                        Helper.showNotification('El usuario ' + dfs.usuario + " creo una solicitud ", "Nueva solicitud de " + dfs.solicitud + " !!!");
+                    }
+                }
+            });
         });
 
         /*var client =  new Pusher(EnvironmentConfig.site.pusher.key, {
