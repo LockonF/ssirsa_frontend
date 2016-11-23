@@ -1,6 +1,7 @@
 {
     "REPORTS": {
         "TITLE": "Reportes",
+        "TITLE_LIST":"Listado de reportes solicitados",
         "INFORMATION": "Información del reporte",
         "FIELD_SET": "Campos",
         "FIELDS": {
@@ -76,7 +77,7 @@
             "FIELD_TYPE":"Tipo:",
             "VALUE":"Valor",
             "FIELD_FILTER":"Filtro:",
-            "FIELD_FIELDS":"Campo:",
+            "FIELD_FIELDS":"Reporte:",
             "DELETE":"Eliminar"
         },
         "TAB":{

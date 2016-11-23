@@ -81,7 +81,6 @@
                 vm.clear();
             }).catch(function(err){
                 toastr.error(vm.errorCreate,vm.errorTitle);
-                console.log(err);
             });
         }
 
@@ -92,7 +91,6 @@
                 vm.clear();
             }).catch(function(err){
                 toastr.error(vm.errorUpdate,vm.errorTitle);
-                console.log(err);
             });
         }
 
@@ -110,7 +108,6 @@
                     vm.clear();
                 }).catch(function (err) {
                     toastr.error(vm.errorRemove, vm.errorTitle);
-                    console.log(err);
                 });
             },function(){
                 //Cancelled
@@ -148,7 +145,7 @@
             vm.user
             $scope.formClient.$invalid=true;
         }
-        
+
         function querySearch(query) {
             var results = query ? search(query) : vm.clients;
             return results;
