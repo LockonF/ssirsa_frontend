@@ -13,7 +13,8 @@
         .constant('EVENTS_GENERAL', {
             notFound: 'not-found',
             notFount_select: 'not-found-select',
-            load_fields: 'load-data-fields'
+            load_fields: 'load-data-fields',
+            bind_channels:'bind-channels'
         })
         .constant('OPTIONS', {
             status: [
@@ -235,6 +236,9 @@
                 },
                 {
                     value: "Oriente"
+                },
+                {
+                    value: "Distribuidores"
                 }
             ],
             filter: [
@@ -256,6 +260,14 @@
                 {id: 'isnull', value: "Es vacio"},
                 {id: 'max', value: "Máximo"},
                 {id: 'min', value: "Mínimo"}
+            ],
+            filterInt:[
+                {id: 'gt', value: "Mayor que"},
+                {id: 'gte', value: "Mayor igual que"},
+                {id: 'lt', value: "Menor que"},
+                {id: 'lte', value: "Menor igual que"},
+                {id: 'exact', value: "Igual"},
+                {id: 'iexact', value: "Igual (Exacto)"}
             ],
             filterChar:[
                 {id:'exact',value:"Igual"},
@@ -326,6 +338,10 @@
                 {
                     id: 'IntegerField',
                     text: 'Entero'
+                },
+                {
+                    id: 'DecimalField',
+                    text: 'Decimal'
                 }]
 
         });

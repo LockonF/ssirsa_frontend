@@ -55,7 +55,6 @@
                 toastr.success(vm.successMessage, vm.succesTitle);
                 $mdDialog.hide();
             }).catch(function (err) {
-                console.log(err);
                 $mdDialog.cancel(err);
             });
         }

@@ -11,13 +11,13 @@
     /* @ngInject */
     function Insumo($q, Restangular) {
         var path=Restangular.all('insumo');
-        
+
         return {
 
             getInsumosByCatalogo: getInsumosByCatalogo,
             getUsedInsumos: getUsedInsumos,
             getNoUsedInsumos: getNotUsedInsumos,
-            getAllInsumos: getAllInsumos, 
+            getAllInsumos: getAllInsumos,
             create:create
         };
 
@@ -27,7 +27,6 @@
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(false);
-                console.log(err);
             });
             return deferred.promise;
         }
@@ -38,7 +37,6 @@
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(res);
-                console.log(err);
             });
             return deferred.promise;
         }
@@ -49,7 +47,6 @@
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(res);
-                console.log(err);
             });
             return deferred.promise;
         }
@@ -60,7 +57,6 @@
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(res);
-                console.log(err);
             });
             return deferred.promise;
         }

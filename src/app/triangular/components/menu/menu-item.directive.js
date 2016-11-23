@@ -79,12 +79,10 @@
         }
 
         function toggleDropdownMenu() {
-            console.log( $scope.$parent.$parent);
             $scope.$parent.$parent.$broadcast('toggleDropdownMenu', triMenuItem.item, !triMenuItem.item.open);
         }
 
         function openLink() {
-            console.log(this);
             var params = angular.isUndefined(triMenuItem.item.params) ? {} : triMenuItem.item.params;
             $state.go(triMenuItem.item.state, params);
             triMenuItem.item.active = true;

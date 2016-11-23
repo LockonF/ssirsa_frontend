@@ -6,7 +6,7 @@
         .controller('loginController', loginController);
 
     /* @ngInject */
-    function loginController($state, toastr, triSettings,$mdDialog,Session,Socket,AuthService) {
+    function loginController($state, toastr, triSettings,$mdDialog,AuthService) {
         var vm = this;
 
         vm.loginClick = loginClick;

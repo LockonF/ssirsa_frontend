@@ -10,7 +10,6 @@
             link:function (scope, elm, attrs, ctrl) {
                 var moment = $window.moment;
                 var dateFormat = attrs.moMediumDate;
-                console.log(dateFormat);
                 attrs.$observe('moDateInput', function (newValue) {
                     if (dateFormat == newValue || !ctrl.$modelValue) return;
                     dateFormat = newValue;

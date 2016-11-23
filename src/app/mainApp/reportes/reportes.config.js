@@ -14,6 +14,9 @@
                 data: {
                     roles: ['Administrador']
                 },
+                params: {
+                    id: null
+                },
                 templateUrl: 'app/mainApp/reportes/manager/reportesCRUD.tmpl.html',
                 controller: 'ReportesCrudController',
                 controllerAs: 'vm'

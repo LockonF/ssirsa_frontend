@@ -33,7 +33,6 @@
                 deferred.resolve(res);
             }).catch(function (res) {
                 deferred.reject(res);
-                console.log(res);
             });
             return deferred.promise;
         }
@@ -46,7 +45,6 @@
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);
-                console.log(err);
             });
 
             return deferred.promise;
@@ -58,7 +56,6 @@
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(res);
-                console.log(err);
             });
             return deferred.promise;
         }
@@ -69,7 +66,6 @@
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(res);
-                console.log(err);
             });
             return deferred.promise;
         }
