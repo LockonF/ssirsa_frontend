@@ -13,7 +13,8 @@
         .constant('EVENTS_GENERAL', {
             notFound: 'not-found',
             notFount_select: 'not-found-select',
-            load_fields: 'load-data-fields'
+            load_fields: 'load-data-fields',
+            bind_channels:'bind-channels'
         })
         .constant('OPTIONS', {
             status: [
