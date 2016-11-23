@@ -245,11 +245,7 @@
                                                 >
                                                     <div layout-padding layout="row"
                                                          layout-align="start center">
-                                                        <md-checkbox
-                                                            aria-label="seleccion"
-                                                            value="{{cabinet.economico}}"
-                                                            ng-click="vm.selection(cabinet)"
-                                                        ></md-checkbox>
+                                                        <md-checkbox checklist-model="vm.selectedCabinets" checklist-value="cabinet.economico"></md-checkbox>
                                                         <md-icon md-svg-icon="assets/images/cabinet.svg"
                                                                  class="md-avatar" hide-sm="" hide-xs=""></md-icon>
                                                         <div class="md-list-item-text" layout="column">

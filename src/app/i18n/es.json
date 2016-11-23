@@ -34,6 +34,11 @@
       "STOCK":"Inventarios",
       "CABINETS":"Cabinets",
       "INSUMS":"Insumos",
+        "REPORTS":{
+          "TITLE":"Reportes",
+           "ADMIN":"Gestión",
+            "LIST":"Listado de Reportes"
+        },
       "CATEGORY_INSUMS":"Categoria de Insumos",
       "BOOK_INSUMS":"Cátalogo de Insumos",
       "PROVIDER":"Proveedor",
@@ -54,6 +59,7 @@
         "STAGE": "Etapas"
 
       },
+
       "INVENTORY":{
         "TITLE": "Inventarios",
 
@@ -94,6 +100,7 @@
       "FILE_SIZE_10": "Solo se pueden subir un archivo con un peso máximo de 10MB",
       "SUCCESS_DELETE_FOLLOWER": "Se eliminó el seguidor de manera exitosa",
       "NOT_FOUND": "No se encontró el elemento que se buscaba",
+      "NOT_STEPS":"No se encontrarón leer etapas de Servicio",
       "NOT_ALLOWED": "No se posee el permiso para realizar dicha Acción",
       "NOT_FOUND_INPUT": "No se puede realizar el pre-checklist por que el cabinet no cuenta con una Entrada",
       "ERROR_NOTINSUMOSTITLE":"No existen insumos Registrados Para esta etapa, verifique UDN u Stock",
@@ -101,11 +108,15 @@
       "SUCCESS_MASSIVE":"Se realizó la carga masiva exitosamente",
       "SUCCESS_MANUAL":"Se realizó las salidas exitosamente",
       "ERROR_DISABLED_CABINET":"Error este cabinet ha sido eliminado.",
+        "SUCCESS_REMISSION":"Se realizó la remisión de salida exitosamente",
+        "SUCCESS_REPORT":"Se localizó el reporte exitosamente",
       "NOT_INSUMOS":"El modelo de cabinet o carrito seleccionado no posee insumos asociados en esta etapa",
-      "NOT_STEPCREATED":"No puedes eliminar esta etapa porque aún no la creas",
+      "NOT_STEPCREATED":"No es posible eliminar una etapa que aún no ha sido creada",
       "INSUMOADDED":"El Compresor a sido agregado de forma Correcta",
-      "MSGNOTENTRADA":"No se Puede Registrar la Etapa, Ya que no tiene una entrada regisrada o bien ya se le hizo un diagnostico de Salida",
-      "NOTTIPOEQUIPO":"Ese equipo no tiene un tipo por lo cual no se pueden cargar insumos asociados"
+      "MSGNOTENTRADA":"No es posible Registrar la Etapa, Ya que no tiene una entrada regisrada o bien ya se le hizo un diagnostico de Salida",
+      "NOTTIPOEQUIPO":"Ese equipo no tiene un tipo por lo cual no se pueden cargar insumos asociados",
+      "NOTFIRSTSTEP":"No es posible Eliminar la primer Etapa de Servicio"
+
     },
     "BUTTONS": {
       "SUBMIT": "Enviar",

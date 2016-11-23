@@ -8,7 +8,7 @@
             'ui.router', 'googlechart', 'chart.js', 'linkify', 'ui.calendar',
             'angularMoment', 'textAngular', 'hljs', 'md.data.table','ngMdIcons',
             'vAccordion', 'ngMaterialDatePicker','mdPickers',
-            angularDragula(angular), 'ngFileUpload',
+            angularDragula(angular), 'ngFileUpload','pusher-angular','checklist-model',
 
             // 'seed-module'
             // uncomment above to activate the example seed module

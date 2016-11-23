@@ -1,0 +1,5 @@
+<md-button ng-click="reportMenuItem.openLink(reportMenuItem.item)" class="md-primary md-raised side-menu-link" ng-class="{ 'md-hue-1': reportMenuItem.item.active }">
+    <md-icon ng-if="::(reportMenuItem.item.icon !== undefined)" class="side-menu-icon" md-font-icon="{{::reportMenuItem.item.icon}}"></md-icon>
+    <span translate>{{::reportMenuItem.item.verbose_name | titleCase}}</span>
+    <small ng-if="reportMenuItem.item.badge" theme-background="accent" class="side-menu-badge">{{::reportMenuItem.item.badge}}</small>
+</md-button>

@@ -21,8 +21,6 @@
         vm.clickCopy=clickCopy;
         vm.querySearch=querySearch;
 
-        vm.myHeight=window.innerHeight-250;
-        vm.myStyle={"min-height":""+vm.myHeight+"px"};
         
         activate();
         vm.successTitle=Translate.translate('Projects.Notify.Success');

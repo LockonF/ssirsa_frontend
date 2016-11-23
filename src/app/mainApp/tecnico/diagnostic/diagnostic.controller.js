@@ -55,7 +55,7 @@
         }
 
         function cerrarDialog() {
-            console.log("voy a cerrar");
+
             $mdDialog.cancel();
         }
 
@@ -88,7 +88,7 @@
         }
 
         function activate() {
-            console.log(cabinet);
+          
             if (cabinet != null) {
                 vm.cabinet = cabinet;
                 vm.searchCabinet();

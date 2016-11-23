@@ -8,7 +8,7 @@
         .module('app.mainApp')
         .factory('dynamicMenu', dynamicMenu);
 
-    function dynamicMenu(triMenu, Session) {
+    function dynamicMenu(triMenu, Session,menuReport) {
 
         return {
             loadMenu: loadMenu
@@ -242,6 +242,23 @@
                         type: 'link'
                     }
 
+                    ]
+                },{
+                    name: 'MAIN.MENU.REPORTS.TITLE',
+                    icon: 'fa fa-line-chart',
+                    type: 'dropdown',
+                    priority:7,
+                    children: [
+                        {
+                            name: 'MAIN.MENU.REPORTS.ADMIN',
+                            state: 'triangular.admin-default.reportes',
+                            type: 'link'
+                        },
+                        {
+                            name: 'MAIN.MENU.REPORTS.LIST',
+                            state: 'triangular.admin-default.list',
+                            type: 'link'
+                        }
                     ]
                 }
             ];
