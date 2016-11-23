@@ -343,7 +343,24 @@
                     text:""
                 },
                 {
-                    id:"Sum"
+                    id:"Sum",
+                    text:"Suma"
+                },
+                {
+                    id:"Count",
+                    text:"Contar"
+                },
+                {
+                    id:"Avg",
+                    text:"Promedio"
+                },
+                {
+                    id:"Max",
+                    text:"Máximo"
+                },
+                {
+                    id:"Min",
+                    text:"Minimo"
                 }
             ]
 
