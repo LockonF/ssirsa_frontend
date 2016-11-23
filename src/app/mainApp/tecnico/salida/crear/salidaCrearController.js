@@ -183,6 +183,7 @@
                         toastr.error(vm.errorMessage, vm.errorTitle);
                     });
                 }).catch(function (err) {
+                    console.log(err);
                     toastr.error(vm.errorMessage, vm.errorTitle);
                 });
             }).catch(function (err) {
@@ -191,9 +192,9 @@
         }
 
         function search(obj) {
-            var tipo = _.findWhere(vm.modelos, {id: obj.modelo}).tipo;
+            var tipo = _.findWhere(vm.modelos, {id: obj.modelo});
             if (tipo != null) {
-                var tiposEquipo = _.findWhere(vm.tipoEquipos, {id: tipo});
+                var tiposEquipo = _.findWhere(vm.tipoEquipos, {id: tipo.tipo});
                 if (tiposEquipo != null) {
                     return tiposEquipo.nombre;
                 } else {
