@@ -337,7 +337,7 @@
                     id: 'DecimalField',
                     text: 'Decimal'
                 }],
-            filed_types:[
+            field_types:[
                 {
                     id:"None",
                     text:""

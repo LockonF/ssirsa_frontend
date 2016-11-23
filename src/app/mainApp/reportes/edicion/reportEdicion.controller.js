@@ -18,6 +18,7 @@
         vm.filterTypeChar = OPTIONS.filterChar;
         vm.filterInt = OPTIONS.filterInt;
         vm.days = OPTIONS.days;
+        vm.fieldQueries=OPTIONS.field_types;
 
         //Function parse
         vm.removeField = removeField;
@@ -34,6 +35,7 @@
             Translate.translate('REPORTS.MODIFY.FIELD_NAME'),
             Translate.translate('REPORTS.MODIFY.FIELD_VERBOSE'),
             Translate.translate('REPORTS.MODIFY.FIELD_TYPE'),
+            Translate.translate('REPORTS.MODIFY.FIELD_QUERY'),
             Translate.translate('REPORTS.MODIFY.DELETE')
         ];
 
@@ -41,6 +43,7 @@
             Translate.translate('REPORTS.MODIFY.FIELD_NAME'),
             Translate.translate('REPORTS.MODIFY.FIELD_VERBOSE'),
             Translate.translate('REPORTS.MODIFY.FIELD_TYPE'),
+            Translate.translate('REPORTS.TABLE_FILTER.FILTER_TYPE'),
             Translate.translate('REPORTS.MODIFY.VALUE'),
             Translate.translate('REPORTS.MODIFY.DELETE')
         ];
