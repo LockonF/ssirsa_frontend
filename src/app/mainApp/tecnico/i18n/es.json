@@ -127,73 +127,69 @@
       "NotFoundUdn": "Sin resultados",
       "InvalidUDN": "Selecciona una Agencia"
     },
-<<<<<<< Temporary merge branch 1
-
     "TECNICO": {
-        "FORM": {
-            "LABEL": {
-                "SEARCH": "Búsqueda de Cabinet",
-                "ID_CABINET": "Id Cabinet",
-                "MARCA": "Marca",
-                "ETIQUETA":"Etiqueta",
-                "DESCRIPTION": "Descripción",
-                "SLICED": "No. de Rodajas",
-                "LAYETTES": "No. de Canastillas",
-                "DOORS": "Puertas",
-                "GRIDS": "No. de Rejillas",
-                "STICKER": "Sticker",
-                "PAINTING": "Pintura",
-                "WASHED": "Lavado",
-                "STRETCH_WRAP": "Emplayado",
-                "READY_MARKET": "Listo para mercado",
-                "LUBRICATION": "Lubricación",
-                "ECONOMIC": "Económico",
-                "SERIE": "No serie",
-                "TYPE_INPUT": "Tipo de Entrada",
-                "YEAR": "Año",
-                "NO_INCIDENTS": "No. de incidencias",
-                "STATUS": "Estatus",
-                "OUTPUT": "Salida",
-                "CABINET": "Cabinet",
-                "CAPITAL": "Capitalizable",
-                "UNILEVER": "Activo"
-            },
-            "SUBHEAD": {
-                "PIECES": "Número de Piezas",
-                "VALIDATION": "Validación de Salida",
-                "EVIDENCE": "Evidencia fotográfica"
-            }
+      "FORM": {
+        "LABEL": {
+          "SEARCH": "Búsqueda de Cabinet",
+          "ID_CABINET": "Id Cabinet",
+          "MARCA": "Marca",
+          "ETIQUETA": "Etiqueta",
+          "DESCRIPTION": "Descripción",
+          "SLICED": "No. de Rodajas",
+          "LAYETTES": "No. de Canastillas",
+          "DOORS": "Puertas",
+          "GRIDS": "No. de Rejillas",
+          "STICKER": "Sticker",
+          "PAINTING": "Pintura",
+          "WASHED": "Lavado",
+          "STRETCH_WRAP": "Emplayado",
+          "READY_MARKET": "Listo para mercado",
+          "LUBRICATION": "Lubricación",
+          "ECONOMIC": "Económico",
+          "SERIE": "No serie",
+          "TYPE_INPUT": "Tipo de Entrada",
+          "YEAR": "Año",
+          "NO_INCIDENTS": "No. de incidencias",
+          "STATUS": "Estatus",
+          "OUTPUT": "Salida",
+          "CABINET": "Cabinet",
+          "CAPITAL": "Capitalizable",
+          "UNILEVER": "Activo"
+        },
+        "SUBHEAD": {
+          "PIECES": "Número de Piezas",
+          "VALIDATION": "Validación de Salida",
+          "EVIDENCE": "Evidencia fotográfica"
         }
+      }
     },
-
     "ETAPA_SERVICIO": {
-        "TITLE": "Registro de Servicio",
-        "ID_CABINET": "Id de Cabinet",
-        "ETAPA_INFO": "Información de Etapa",
-        "ETAPA_INSUMOS": "Insumos de la Etapa",
-        "NO_DIAGNOSTIC": "No. de Diagnostico",
-        "ETAPA_ACTUAL": "Etapa Actual",
-        "NEXT_ETAPA": "Siguiente Etapa",
-        "ECONOMIC": "Económico",
-        "ACTUAL_STATE": "Status Actual",
-        "INCIDENTS": "Incidencias",
-        "INSUM": "Insumo",
-        "CANTITY": "Cantidad",
-        "NOTES": "Notas",
-        "NAME": "Nombre",
-        "VALIDATED": "Validado",
-        "DELETE": "Eliminar Etapa",
-        "ARE_U_SURE": "¿Estás seguro que deseas eliminar el registro?",
-        "ACCEPT": "Aceptar",
-        "CANCEL": "Cancelar",
-        "INSUMO_NOTVALIDATED": "Etapa donde no se permite agregar Insumos",
-        "INFO_ETAPA":"Información de Etapa",
-        "ADD_MICRO":"Agregar Compresor",
-        "SCAN":"Escanea el No de serie",
-        "NO_SERIE":"No de Serie:",
-        "NOTSTOCK_INSUMO":"Sin Stock"
-
-=======
+      "TITLE": "Registro de Servicio",
+      "ID_CABINET": "Id de Cabinet",
+      "ETAPA_INFO": "Información de Etapa",
+      "ETAPA_INSUMOS": "Insumos de la Etapa",
+      "NO_DIAGNOSTIC": "No. de Diagnostico",
+      "ETAPA_ACTUAL": "Etapa Actual",
+      "NEXT_ETAPA": "Siguiente Etapa",
+      "ECONOMIC": "Económico",
+      "ACTUAL_STATE": "Status Actual",
+      "INCIDENTS": "Incidencias",
+      "INSUM": "Insumo",
+      "CANTITY": "Cantidad",
+      "NOTES": "Notas",
+      "NAME": "Nombre",
+      "VALIDATED": "Validado",
+      "DELETE": "Eliminar Etapa",
+      "ARE_U_SURE": "¿Estás seguro que deseas eliminar el registro?",
+      "ACCEPT": "Aceptar",
+      "CANCEL": "Cancelar",
+      "INSUMO_NOTVALIDATED": "Etapa donde no se permite agregar Insumos",
+      "INFO_ETAPA": "Información de Etapa",
+      "ADD_MICRO": "Agregar Compresor",
+      "SCAN": "Escanea el No de serie",
+      "NO_SERIE": "No de Serie:",
+      "NOTSTOCK_INSUMO": "Sin Stock"
+    },
     "Transport": {
       "Line": "Linea de transporte",
       "Kind": "Tipo de transporte"
@@ -203,7 +199,6 @@
       "IFE": "Credencial de elector del operador",
       "Name": "Nombre del operador",
       "Information": "Información del operador"
->>>>>>> Temporary merge branch 2
     },
     "TableCabinets": {
       "Headers": {
@@ -244,158 +239,155 @@
         "Message": "La entrada tiene cabinets no registrados ¿Desea continuar?"
       }
     },
-<<<<<<< Temporary merge branch 1
-
     "OUTPUT": {
-        "FORM": {
-            "PLACEHOLDER":{
-                "SEARCH":"Ingrese cabinet",
-                "TYPE_EQUIPMENT":"Tipo de equipo"
-            },
-            "TABLE": {
-                "HEADERS": {
-                    "ECONOMIC": "No. Economico",
-                    "REASON":"Motivo"
-                }
-            },
-            "TITLES": {
-                "OUTPUT": "Registrar Salida",
-                "REGISTERED": "Cabinets Registrados",
-                "UNREGISTERED": "Cabinets No Registrados"
-            },
-            "TABS": {
-                "GENERAL": "Datos Generales",
-                "UPLOAD": "Carga de Cabinets"
-            },
-            "LABEL":{
-                "DRIVER": {
-                    "ID": "Identificación del conductor",
-                    "IFE": "Credencial de elector del operador",
-                    "NAME": "Nombre del operador",
-                    "INFORMATION": "Información del operador"
-                },
-                "PEDIMENT": "Pedimento",
-                "UDN": "UDN",
-                "TRANSPORT": {
-                    "LINE": "Linea de transporte",
-                    "KIND": "Tipo de transporte"
-                },
-                "SUBSIDIARY": "Sucursal",
-                "PROJECT": "Proyecto",
-                "ECONOMIC":"No. Economico:",
-                "SERIE":"No. Serie:",
-                "TYPE":"Tipo:",
-                "CABINET":"Cabinets disponibles",
-                "NOT_FOUND":"No hay cabinets que puedan ser procesables.",
-                "SEARCH":"Búsqueda",
-                "FORMAT":"Formato",
-                "TYPE_OUTPUT":"Tipo de Salida",
-                "SELECT":"Selecciona",
-                "VALID_UDN":"No ingreso una UDN válida"
-            },
-            "BUTTON":{
-                "CHOOSE_FILE": "Seleccionar",
-                "CHOOSE_IMAGE": "Seleccionar Imagen",
-                "NEXT": "Siguiente",
-                "CABINETS.MASSIVE.UPLOAD": "Carga masiva",
-                "CABINETS.MANUAL.UPLOAD": "Carga individual"
-            },
-            "DIALOG":{
-                "SEND_TITLE":"Confirmación de envío",
-                "SEND_MESSAGE":"¿Seguro que desea crear una salida sin ningún cabinet seleccionado?",
-                "SEND_INCONSISTENCE":"¿Seguro que de realizar la siguiente operación?, debido a que es una operación que sale fuera del flujo normal no se garantiza que sean consistentes los datos del cabinet"
-            }
-        }
-    },
-
-    "REMISSION":{
-        "FORM":{
-            "LABEL":{
-                "TITLE":"Remisión de Salida",
-                "FOLIO":"Folio",
-                "DATE":"Fecha"
-            }
-=======
-    "Tabs": {
-      "GeneralData": "Datos Generales",
-      "CabinetsUpload": "Carga de Cabinets"
-    },
-    "Required Field": "Campo Requerido",
-    "Max100": "El campo no puede contener mas de 100 caracteres",
-    "Cabinets": "Cabinets",
-    "Registered Cabinets": "Cabinets Registrados",
-    "Unregistered Cabinets": "Cabinets No Registrados",
-    "UDN": "Agencia",
-    "Year Field": "Formato de año inválido"
-  },
-  "OUTPUT": {
-    "FORM": {
-      "PLACEHOLDER": {
-        "SEARCH": "Ingrese cabinet",
-        "TYPE_EQUIPMENT": "Tipo de equipo"
-      },
-      "TABLE": {
-        "HEADERS": {
-          "ECONOMIC": "No. Economico",
-          "REASON": "Motivo"
->>>>>>> Temporary merge branch 2
-        }
-      },
-      "TITLES": {
-        "OUTPUT": "Registrar Salida",
-        "REGISTERED": "Cabinets Registrados",
-        "UNREGISTERED": "Cabinets No Registrados"
-      },
-      "TABS": {
-        "GENERAL": "Datos Generales",
-        "UPLOAD": "Carga de Cabinets"
-      },
-      "LABEL": {
-        "DRIVER": {
-          "ID": "Identificación del conductor",
-          "IFE": "Credencial de elector del operador",
-          "NAME": "Nombre del operador",
-          "INFORMATION": "Información del operador"
+      "FORM": {
+        "PLACEHOLDER": {
+          "SEARCH": "Ingrese cabinet",
+          "TYPE_EQUIPMENT": "Tipo de equipo"
         },
-        "PEDIMENT": "Pedimento",
-        "UDN": "Agencia",
-        "TRANSPORT": {
-          "LINE": "Linea de transporte",
-          "KIND": "Tipo de transporte"
+        "TABLE": {
+          "HEADERS": {
+            "ECONOMIC": "No. Economico",
+            "REASON": "Motivo"
+          }
         },
-        "SUBSIDIARY": "Sucursal",
-        "PROJECT": "Proyecto",
-        "ECONOMIC": "No. Economico:",
-        "SERIE": "No. Serie:",
-        "TYPE": "Tipo:",
-        "CABINET": "Cabinets disponibles",
-        "NOT_FOUND": "No hay cabinets que puedan ser procesables.",
-        "SEARCH": "Búsqueda",
-        "FORMAT": "Formato",
-        "TYPE_OUTPUT": "Tipo de Salida",
-        "SELECT": "Selecciona",
-        "VALID_UDN": "No ingreso una UDN válida"
-      },
-      "BUTTON": {
-        "CHOOSE_FILE": "Seleccionar",
-        "CHOOSE_IMAGE": "Seleccionar Imagen",
-        "NEXT": "Siguiente",
-        "CABINETS.MASSIVE.UPLOAD": "Carga masiva",
-        "CABINETS.MANUAL.UPLOAD": "Carga individual"
-      },
-      "DIALOG": {
-        "SEND_TITLE": "Confirmación de envío",
-        "SEND_MESSAGE": "¿Seguro que desea crear una salida sin ningún cabinet seleccionado?",
-        "SEND_INCONSISTENCE": "¿Seguro que de realizar la siguiente operación?, debido a que es una operación que sale fuera del flujo normal no se garantiza que sean consistentes los datos del cabinet"
+        "TITLES": {
+          "OUTPUT": "Registrar Salida",
+          "REGISTERED": "Cabinets Registrados",
+          "UNREGISTERED": "Cabinets No Registrados"
+        },
+        "TABS": {
+          "GENERAL": "Datos Generales",
+          "UPLOAD": "Carga de Cabinets"
+        },
+        "LABEL": {
+          "DRIVER": {
+            "ID": "Identificación del conductor",
+            "IFE": "Credencial de elector del operador",
+            "NAME": "Nombre del operador",
+            "INFORMATION": "Información del operador"
+          },
+          "PEDIMENT": "Pedimento",
+          "UDN": "UDN",
+          "TRANSPORT": {
+            "LINE": "Linea de transporte",
+            "KIND": "Tipo de transporte"
+          },
+          "SUBSIDIARY": "Sucursal",
+          "PROJECT": "Proyecto",
+          "ECONOMIC": "No. Economico:",
+          "SERIE": "No. Serie:",
+          "TYPE": "Tipo:",
+          "CABINET": "Cabinets disponibles",
+          "NOT_FOUND": "No hay cabinets que puedan ser procesables.",
+          "SEARCH": "Búsqueda",
+          "FORMAT": "Formato",
+          "TYPE_OUTPUT": "Tipo de Salida",
+          "SELECT": "Selecciona",
+          "VALID_UDN": "No ingreso una UDN válida"
+        },
+        "BUTTON": {
+          "CHOOSE_FILE": "Seleccionar",
+          "CHOOSE_IMAGE": "Seleccionar Imagen",
+          "NEXT": "Siguiente",
+          "CABINETS.MASSIVE.UPLOAD": "Carga masiva",
+          "CABINETS.MANUAL.UPLOAD": "Carga individual"
+        },
+        "DIALOG": {
+          "SEND_TITLE": "Confirmación de envío",
+          "SEND_MESSAGE": "¿Seguro que desea crear una salida sin ningún cabinet seleccionado?",
+          "SEND_INCONSISTENCE": "¿Seguro que de realizar la siguiente operación?, debido a que es una operación que sale fuera del flujo normal no se garantiza que sean consistentes los datos del cabinet"
+        }
       }
-    }
-  },
-  "REMISSION": {
-    "FORM": {
-      "LABEL": {
-        "TITLE": "Remisión de Salida",
-        "FOLIO": "Folio",
-        "DATE": "Fecha"
+    },
+    "REMISSION": {
+      "FORM": {
+        "LABEL": {
+          "TITLE": "Remisión de Salida",
+          "FOLIO": "Folio",
+          "DATE": "Fecha"
+        },
+        "Tabs": {
+          "GeneralData": "Datos Generales",
+          "CabinetsUpload": "Carga de Cabinets"
+        },
+        "Required Field": "Campo Requerido",
+        "Max100": "El campo no puede contener mas de 100 caracteres",
+        "Cabinets": "Cabinets",
+        "Registered Cabinets": "Cabinets Registrados",
+        "Unregistered Cabinets": "Cabinets No Registrados",
+        "UDN": "Agencia",
+        "Year Field": "Formato de año inválido"
+      },
+      "OUTPUT": {
+        "FORM": {
+          "PLACEHOLDER": {
+            "SEARCH": "Ingrese cabinet",
+            "TYPE_EQUIPMENT": "Tipo de equipo"
+          },
+          "TABLE": {
+            "HEADERS": {
+              "ECONOMIC": "No. Economico",
+              "REASON": "Motivo"
+            }
+          },
+          "TITLES": {
+            "OUTPUT": "Registrar Salida",
+            "REGISTERED": "Cabinets Registrados",
+            "UNREGISTERED": "Cabinets No Registrados"
+          },
+          "TABS": {
+            "GENERAL": "Datos Generales",
+            "UPLOAD": "Carga de Cabinets"
+          },
+          "LABEL": {
+            "DRIVER": {
+              "ID": "Identificación del conductor",
+              "IFE": "Credencial de elector del operador",
+              "NAME": "Nombre del operador",
+              "INFORMATION": "Información del operador"
+            },
+            "PEDIMENT": "Pedimento",
+            "UDN": "Agencia",
+            "TRANSPORT": {
+              "LINE": "Linea de transporte",
+              "KIND": "Tipo de transporte"
+            },
+            "SUBSIDIARY": "Sucursal",
+            "PROJECT": "Proyecto",
+            "ECONOMIC": "No. Economico:",
+            "SERIE": "No. Serie:",
+            "TYPE": "Tipo:",
+            "CABINET": "Cabinets disponibles",
+            "NOT_FOUND": "No hay cabinets que puedan ser procesables.",
+            "SEARCH": "Búsqueda",
+            "FORMAT": "Formato",
+            "TYPE_OUTPUT": "Tipo de Salida",
+            "SELECT": "Selecciona",
+            "VALID_UDN": "No ingreso una UDN válida"
+          },
+          "BUTTON": {
+            "CHOOSE_FILE": "Seleccionar",
+            "CHOOSE_IMAGE": "Seleccionar Imagen",
+            "NEXT": "Siguiente",
+            "CABINETS.MASSIVE.UPLOAD": "Carga masiva",
+            "CABINETS.MANUAL.UPLOAD": "Carga individual"
+          },
+          "DIALOG": {
+            "SEND_TITLE": "Confirmación de envío",
+            "SEND_MESSAGE": "¿Seguro que desea crear una salida sin ningún cabinet seleccionado?",
+            "SEND_INCONSISTENCE": "¿Seguro que de realizar la siguiente operación?, debido a que es una operación que sale fuera del flujo normal no se garantiza que sean consistentes los datos del cabinet"
+          }
+        }
+      },
+      "REMISSION": {
+        "FORM": {
+          "LABEL": {
+            "TITLE": "Remisión de Salida",
+            "FOLIO": "Folio",
+            "DATE": "Fecha"
+          }
+        }
       }
     }
   }
