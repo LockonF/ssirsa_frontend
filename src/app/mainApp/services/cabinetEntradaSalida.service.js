@@ -13,8 +13,12 @@
         var baseURL = Restangular.all('cabinet_entrada_salida');
         return {
             getLastEntradaByCabinet: getLastEntradaByCabinet,
-            create:create
+            create:create,
+            restore:restore
         };
+        function restore(object) {
+            return baseURL.all('restore').post(object);
+        }
         function getLastEntradaByCabinet(idCabinet) {
             return baseURL.one('lastInput').one('cabinet').customGET(idCabinet);
         }

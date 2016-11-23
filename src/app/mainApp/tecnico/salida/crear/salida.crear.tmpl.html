@@ -1,14 +1,14 @@
 <div layout="column">
     <div layout="row" flex="" layout-fill="" layout-align="center center">
-        <md-card flex="100" flex-sm="100" flex-xs="100" class="md-padding-card1">
+        <md-card flex="100" flex-sm="100" flex-xs="100" class="card1">
             <md-card-title>
                 <md-card-title-text><span class="md-headline">{{'OUTPUT.FORM.TITLES.OUTPUT'|translate}}</span>
                 </md-card-title-text>
             </md-card-title>
-            <md-content layout-fill="">
+            <md-content layout-fill="" class="card1">
                 <md-tabs layout-padding="true" md-dynamic-height="100" md-border-bottom="100" md-selected="vm.selectedTab">
                     <md-tab label={{'OUTPUT.FORM.TABS.GENERAL'|translate}}  ng-disabled="vm.outputWasCorrect">
-                        <md-content layout-padding="">
+                        <md-content layout-padding="" class="card1">
                             <form name="entradaForm" novalidate="">
                                 <div layout-gt-md="row" layout="column" layout-align-gt-md="center center"
                                      layout-align="center stretch">
@@ -121,7 +121,7 @@
                                         </md-button>
                                     </div>
                                 </div>
-                                <div flex="80" ng-if="vm.salida.ife_chofer!=null">
+                                <div flex="80" ng-if="vm.salida.ife_chofer!=null && vm.salida.ife_chofer!=''">
                                     <div class="md-media-md card-media"><img ngf-src="vm.salida.ife_chofer"
                                                                              style="max-width:150px" class="thumb"/></div>
                                 </div>
@@ -137,7 +137,7 @@
                     <!--Registro de cabinets-->
                     <md-tab label={{'OUTPUT.FORM.TABS.UPLOAD'|translate}} ng-disabled="entradaForm.$invalid">
 
-                        <md-content layout-padding="">
+                        <md-content layout-padding="" class="card1">
                             <div layout-gt-md="row" layout="column" layout-align-gt-md="space-around center"
                                  layout-align="center stretch"
                                  ng-if="!vm.outputWasCorrect">
@@ -154,7 +154,7 @@
                                      ng-hide="vm.hideMassiveUpload"
                                      ng-if="!vm.outputWasCorrect">
                                     <md-input-container flex="75" flex-sm="100" flex-xs="100" flex-md="100">
-                                        <input name="FileName" type="text" ng-model="vm.salida.file.name"
+                                        <input name="FileName" type="text" aria-label="ine" ng-model="vm.salida.file.name"
                                                ng-disabled="true"/>
                                     </md-input-container>
                                     <div flex="12" flex-sm="100" flex-xs="100" flex-md="100" layout="column">
@@ -234,9 +234,9 @@
                                     <div class="widget-loading-inner" ng-show="vm.loading">
                                         <md-progress-circular md-mode="indeterminate"></md-progress-circular>
                                     </div>
-                                    <md-virtual-repeat-container class="vertical-container"
+                                    <md-virtual-repeat-container class="vertical-container card1"
                                                                  ng-show="!vm.loading">
-                                        <tri-widget class="flex" flex="100"
+                                        <tri-widget class="flex card1" flex="100"
                                                     title="{{'OUTPUT.FORM.LABEL.CABINET'|translate}}">
                                             <md-list flex>
                                                 <md-list-item
@@ -244,8 +244,8 @@
                                                     class="md-2-line"
                                                 >
                                                     <div layout-padding layout="row"
-                                                         layout-align="start center">
-                                                        <md-checkbox checklist-model="vm.selectedCabinets" checklist-value="cabinet.economico"></md-checkbox>
+                                                         layout-align="start center" class="card1">
+                                                        <md-checkbox checklist-model="vm.selectedCabinets" aria-label="Selección Cabinet" checklist-value="cabinet.economico"></md-checkbox>
                                                         <md-icon md-svg-icon="assets/images/cabinet.svg"
                                                                  class="md-avatar" hide-sm="" hide-xs=""></md-icon>
                                                         <div class="md-list-item-text" layout="column">
@@ -277,7 +277,7 @@
                                 <md-button aria-label="fab button" ng-click="vm.clear()" class="md-raised md-primary">
                                     <md-icon md-font-icon="fa fa-eraser"></md-icon>
                                 </md-button>
-                                <md-button ng-disabled="entradaForm.$invalid ||  vm.outputWasCorrect ||  (vm.salida.file==null && vm.hideManualUpload==true) " ng-click="vm.guardar()"
+                                <md-button ng-disabled="entradaForm.$invalid || (vm.selectedCabinets.length==0 && !vm.hideManualUpload) ||  vm.outputWasCorrect ||  (vm.salida.file==null && vm.hideManualUpload==true) " aria-label="guardar" ng-click="vm.guardar()"
                                            class="md-raised md-primary">
                                     <md-icon md-font-icon="fa fa-save"></md-icon>
                                 </md-button>
