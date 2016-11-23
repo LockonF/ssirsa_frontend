@@ -40,7 +40,7 @@
                                     <md-input-container flex="100">
                                         <label translate="">PUNTOVENTA.WEEK</label>
                                         <input type="number" name="week" required=""
-                                               ng-model="vm.puntoVenta.FondoTotal" min="1" step="1" max="52">
+                                               ng-model="vm.puntoVenta.semana" min="1" step="1" max="52">
                                         <div ng-messages="generalInfo.week.$error">
                                             <div ng-message="required"><span translate>MAIN.LABEL.REQUIRED</span></div>
                                             <div ng-message="max">{{'MAIN.GENERAL.MAX_NUMBER' | translate}} 52</div>
@@ -50,19 +50,8 @@
                                         </div>
                                     </md-input-container>
                                     <md-input-container>
-                                        <label translate="">PUNTOVENTA.RECEPTIONNDATE</label>
-                                        <input aria-label="Fecha" type="text" ng-model="vm.puntoVenta.fecha"
-                                               mdp-date-picker
-                                               mdp-format="{{vm.formato}}" mo-date-input="{{vm.formato}}" name="fecha"
-                                               required=""/>
-                                        <div ng-messages="generalInfo.fecha.$error">
-
-                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
-                                        </div>
-                                    </md-input-container>
-                                    <md-input-container>
                                         <label translate="">PUNTOVENTA.RECEPTIONHOUR</label>
-                                        <input type="time" ng-model="vm.puntoVenta.hora_recepcion" mdp-time-picker
+                                        <input type="time" ng-model="vm.recepcion.hora" mdp-time-picker
                                                name="hora_recepcion"
                                                required=""/>
                                         <div ng-messages="generalInfo.hora_recepcion.$error">
@@ -159,11 +148,43 @@
                                     <md-input-container>
                                         <label translate="">PUNTOVENTA.DATEREPORT</label>
                                         <input aria-label="fecha_reporte" type="text"
-                                               ng-model="vm.puntoVenta.fecha_reporte" mdp-date-picker
+                                               ng-model="vm.reporte.fecha" mdp-date-picker
                                                mdp-format="{{vm.formato}}" mo-date-input="{{vm.formato}}"
                                                name="fecha_reporte"
                                                required=""/>
                                         <div ng-messages="localData.fecha_reporte.$error">
+
+                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label translate="">PUNTOVENTA.REPORTHOUR</label>
+                                        <input type="time" ng-model="vm.reporte.hora" mdp-time-picker
+                                               name="hora_reporte"
+                                               required=""/>
+                                        <div ng-messages="generalInfo.hora_reporte.$error">
+
+                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label translate="">PUNTOVENTA.DATESERVICE</label>
+                                        <input aria-label="fecha_reporte" type="text"
+                                               ng-model="vm.servicio.fecha" mdp-date-picker
+                                               mdp-format="{{vm.formato}}" mo-date-input="{{vm.formato}}"
+                                               name="fecha_servicio"
+                                               required=""/>
+                                        <div ng-messages="localData.fecha_servicio.$error">
+
+                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label translate="">PUNTOVENTA.SERVICEHOUR</label>
+                                        <input type="time" ng-model="vm.servicio.hora" mdp-time-picker
+                                               name="hora_servicio"
+                                               required=""/>
+                                        <div ng-messages="generalInfo.hora_servicio.$error">
 
                                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                         </div>

@@ -15,15 +15,15 @@
         vm.activate = activate();
         //Inicializando Variables
         $scope.form = {};
-        var reporte={
+        vm.reporte={
             fecha:moment().format('YYYY-MM-DD'),
             hora:moment().format('HH:mm:ss')
         };
-        var servicio={
+        vm.servicio={
             fecha:moment().format('YYYY-MM-DD'),
             hora:moment().format('HH:mm:ss')
         };
-        var recepcion={
+        vm.recepcion={
             hora:moment().format('HH:mm:ss')
         };
         vm.etapa = {};
@@ -113,16 +113,16 @@
                 toastr.error(vm.errorMessage, vm.errorTitle);
                 vm.marcas = [];
             });
-            vm.recepcion=angular.copy(recepcion);
+
             if( vm.puntoVenta.hora_recepcion != null) {
                 vm.recepcion.hora=moment(vm.puntoVenta.hora_recepcion,"HH:mm:ss").toDate();
             }
-            vm.reporte=angular.copy(reporte);
+
             if( vm.puntoVenta.fecha_reporte != null) {
                 vm.reporte.fecha=moment(vm.puntoVenta.fecha_reporte,"YYYY-MM-DD").toDate();
                 vm.reporte.hora=moment(vm.puntoVenta.fecha_reporte,"HH:mm:ss").toDate();
             }
-            vm.servicio=angular.copy(servicio);
+           
             if( vm.puntoVenta.fecha_servicio != null) {
                 vm.servicio.fecha=moment(vm.puntoVenta.fecha_servicio,"YYYY-MM-DD").toDate();
                 vm.servicio.hora=moment(vm.puntoVenta.fecha_servicio,"HH:mm:ss").toDate();
