@@ -27,6 +27,7 @@
             hora:moment().format('HH:mm:ss')
         };
         vm.etapa = {};
+        vm.formato="DD-MM-YYYY";
         vm.tiposTrabajo = [
             {value: 'Mayor'},
             {value: 'Medio'},
@@ -55,7 +56,10 @@
         vm.insumoLote = {};
         vm.insumos_loteUsados = [];//Arreglo que ya posee el arreglo como es necesario para agregar los insumos al formato de arreglo para agregarlos a la etapa
         vm.insumos_sinStock = [];
-        vm.puntoVenta = {};
+        vm.puntoVenta = {
+            hora_recepcion:null,
+            hora_servicio:null,
+        };
 
         //Declaracion de Funciones
 
@@ -102,6 +106,7 @@
         //Funcion Activate al iniciar la vista
         function activate() {
             vm.marca = null;
+            vm.puntoVenta={};
             MarcaCabinet.listObject().then(function (res) {
                 vm.marcas = Helper.filterDeleted(res, true);
             }).catch(function (err) {
@@ -109,18 +114,18 @@
                 vm.marcas = [];
             });
             vm.recepcion=angular.copy(recepcion);
-            if( event.puntoVenta.hora_recepcion !== null) {
-                vm.recepcion.hora=moment(event.puntoVenta.hora_recepcion,"HH:mm:ss").toDate();
+            if( vm.puntoVenta.hora_recepcion != null) {
+                vm.recepcion.hora=moment(vm.puntoVenta.hora_recepcion,"HH:mm:ss").toDate();
             }
             vm.reporte=angular.copy(reporte);
-            if( event.puntoVenta.fecha_reporte !== null) {
-                vm.reporte.fecha=moment(event.puntoVenta.fecha_reporte,"YYYY-MM-DD").toDate();
-                vm.reporte.hora=moment(event.puntoVenta.fecha_reporte,"HH:mm:ss").toDate();
+            if( vm.puntoVenta.fecha_reporte != null) {
+                vm.reporte.fecha=moment(vm.puntoVenta.fecha_reporte,"YYYY-MM-DD").toDate();
+                vm.reporte.hora=moment(vm.puntoVenta.fecha_reporte,"HH:mm:ss").toDate();
             }
             vm.servicio=angular.copy(servicio);
-            if( event.puntoVenta.fecha_servicio !== null) {
-                vm.servicio.fecha=moment(event.puntoVenta.fecha_servicio,"YYYY-MM-DD").toDate();
-                vm.servicio.hora=moment(event.puntoVenta.fecha_servicio,"HH:mm:ss").toDate();
+            if( vm.puntoVenta.fecha_servicio != null) {
+                vm.servicio.fecha=moment(vm.puntoVenta.fecha_servicio,"YYYY-MM-DD").toDate();
+                vm.servicio.hora=moment(vm.puntoVenta.fecha_servicio,"HH:mm:ss").toDate();
             }
             vm.modelos = [];
             vm.modelo={};

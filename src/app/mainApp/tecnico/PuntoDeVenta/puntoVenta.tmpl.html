@@ -43,6 +43,10 @@
                                                ng-model="vm.puntoVenta.FondoTotal" min="1" step="1" max="52">
                                         <div ng-messages="generalInfo.week.$error">
                                             <div ng-message="required"><span translate>MAIN.LABEL.REQUIRED</span></div>
+                                            <div ng-message="max">{{'MAIN.GENERAL.MAX_NUMBER' | translate}} 52</div>
+                                            <div ng-message="min">{{'MAIN.GENERAL.MIN_NUMBER' | translate}} 1</div>
+                                            <div ng-message="pattern">{{'MAIN.GENERAL.JUST_INTEGERS' | translate}}</div>
+                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                                         </div>
                                     </md-input-container>
                                     <md-input-container>
@@ -71,7 +75,10 @@
                                         <input type="number" name="floor"
                                                ng-model="vm.puntoVenta.piso" min="0" max="100">
                                         <div ng-messages="generalInfo.floor.$error">
+                                            <div ng-message="max">{{'MAIN.GENERAL.MAX_NUMBER' | translate}} 100</div>
                                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                            <div ng-message="min">{{'MAIN.GENERAL.MIN_NUMBER' | translate}} 1</div>
+                                            <div ng-message="pattern">{{'MAIN.GENERAL.JUST_INTEGERS' | translate}}</div>
                                         </div>
                                     </md-input-container>
                                     <md-input-container>
@@ -80,6 +87,8 @@
                                                   md-maxlength="45"></textarea>
                                         <div ng-messages="generalInfo.campo.$error">
                                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                            <div ng-message="min">{{'MAIN.GENERAL.MIN_NUMBER' | translate}} 1</div>
+                                            <div ng-message="pattern">{{'MAIN.GENERAL.JUST_INTEGERS' | translate}}</div>
                                         </div>
                                     </md-input-container>
                                     <md-input-container>
@@ -116,6 +125,9 @@
                                                ng-model="vm.puntoVenta.km" min="0" max="1000000">
                                         <div ng-messages="localData.km.$error">
                                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                            <div ng-message="max">{{'MAIN.GENERAL.MAX_NUMBER' | translate}} 1000000</div>
+                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                            <div ng-message="min">{{'MAIN.GENERAL.MIN_NUMBER' | translate}} 0</div>
                                         </div>
                                     </md-input-container>
                                     <md-input-container>
@@ -341,10 +353,10 @@
                                 <div flex="" layout="column" layout-wrap="">
                                     <md-input-container>
                                         <label translate="">PUNTOVENTA.DESCRIPTION</label>
-                                        <textarea name="observaciones_tecnicas" required=""
-                                                  ng-model="vm.puntoVenta.observaciones_tecnicas"
+                                        <textarea name="descripcion_trabajo" required=""
+                                                  ng-model="vm.puntoVenta.descripcion_trabajo"
                                                   md-maxlength="500"></textarea>
-                                        <div ng-messages="observationsData.observaciones_tecnicas.$error">
+                                        <div ng-messages="observationsData.descripcion_trabajo.$error">
                                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                         </div>
                                     </md-input-container>
