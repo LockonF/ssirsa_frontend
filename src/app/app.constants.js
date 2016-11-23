@@ -13,7 +13,8 @@
         .constant('EVENTS_GENERAL', {
             notFound: 'not-found',
             notFount_select: 'not-found-select',
-            load_fields: 'load-data-fields'
+            load_fields: 'load-data-fields',
+            bind_channels:'bind-channels'
         })
         .constant('OPTIONS', {
             status: [
@@ -173,16 +174,21 @@
                 },
                 {
                     id: 1,
+                    value: "Nuevo",
+                    value_service: "nuevos"
+                },
+                {
+                    id: 2,
                     value: "Fuga Interna",
                     value_service: "fuga_interna"
                 },
                 {
-                    id: 2,
+                    id: 3,
                     value: "Obsoleto",
                     value_service: "obsoleto"
                 },
                 {
-                    id: 3,
+                    id: 4,
                     value: "No validada",
                     value_service: "all"
                 }
@@ -230,6 +236,9 @@
                 },
                 {
                     value: "Oriente"
+                },
+                {
+                    value: "Distribuidores"
                 }
             ],
             filter: [
@@ -251,6 +260,14 @@
                 {id: 'isnull', value: "Es vacio"},
                 {id: 'max', value: "Máximo"},
                 {id: 'min', value: "Mínimo"}
+            ],
+            filterInt:[
+                {id: 'gt', value: "Mayor que"},
+                {id: 'gte', value: "Mayor igual que"},
+                {id: 'lt', value: "Menor que"},
+                {id: 'lte', value: "Menor igual que"},
+                {id: 'exact', value: "Igual"},
+                {id: 'iexact', value: "Igual (Exacto)"}
             ],
             filterChar:[
                 {id:'exact',value:"Igual"},
@@ -321,6 +338,10 @@
                 {
                     id: 'IntegerField',
                     text: 'Entero'
+                },
+                {
+                    id: 'DecimalField',
+                    text: 'Decimal'
                 }]
 
         });

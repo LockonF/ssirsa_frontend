@@ -8,19 +8,24 @@
         .module('app.mainApp.reportes')
         .controller('reportEditionController', reportEditionController);
 
-    function reportEditionController (Reportes, $mdDialog,Translate, $stateParams, OPTIONS){
+    function reportEditionController(Reportes, toastr,$state, $mdDialog, Translate, $stateParams, OPTIONS) {
 
         //Variables
         var vm = this;
         vm.formato = "DD-MM-YYYY";
         vm.filterType = OPTIONS.filter;
+        vm.filterTypeDate = OPTIONS.filterDate;
+        vm.filterTypeChar = OPTIONS.filterChar;
+        vm.filterInt = OPTIONS.filterInt;
         vm.days = OPTIONS.days;
 
         //Function parse
         vm.removeField = removeField;
         vm.removeFilter = removeFilter;
-        vm.showEditionFields=showEditionFields;
-        vm.getValidFilters=getValidFilters;
+        vm.showEditionFields = showEditionFields;
+        vm.getValidFilters = getValidFilters;
+        vm.update = update;
+        vm.back = back;
 
         activate();
 
@@ -42,6 +47,11 @@
 
         function activate() {
             vm.report = Reportes.getReport($stateParams.id);
+            vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
+            vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
+            vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
+            vm.successUpdate = Translate.translate('REPORTS.MESSAGES.REPORT_UPDATE_SUCCESS');
+
         }
 
         function removeField(id) {
@@ -60,37 +70,58 @@
             }
             return fields;
         }
-        function showEditionFields() {
+
+        function showEditionFields(ev) {
             $mdDialog.show({
                 controller: 'ModelsReportModalController',
                 controllerAs: 'vm',
-                templateUrl: 'app/mainApp/reportes/edicion/modal/models/models.modal.tmpl.html',
+                templateUrl: 'app/mainApp/reportes/edicion/modal/models.modal.tmpl.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
                 fullscreen: true,
                 clickOutsideToClose: true,
-                focusOnOpen: true,
                 locals: {
                     reporte: vm.report
                 }
-            }).then(function () {
+            }).then(function (res) {
+                Array.prototype.push.apply(vm.report.displayfield_set, res.fields);
+                Array.prototype.push.apply(vm.report.filterfield_set, res.filters);
             }).catch(function (err) {
                 if (err != null) {
-                    //Marcar error
+                    toastr.warning(vm.errorMessage, vm.errorTitle);
                 }
             });
         }
 
-        function getValidFilters(fieldType){
-            switch(fieldType){
-                case 'CharField':
+        function back() {
+            $state.go('triangular.admin-default.reportes',{id:vm.report.id});
+        }
 
+        function getValidFilters(fieldType) {
+            switch (fieldType) {
+                case 'CharField':
+                    return vm.filterTypeChar;
                     break;
                 case 'DateTimeField':
-
+                    return vm.filterTypeDate;
                     break;
+                case 'DecimalField':
+                    return vm.filterInt;
+                case 'IntegerField':
+                    return vm.filterInt;
                 default:
-
+                    return vm.filterType;
                     break;
             }
+        }
+
+        function update() {
+            Reportes.updateReport(vm.report).then(function () {
+                toastr.success(vm.successUpdate, vm.successTitle);
+                back();
+            }).catch(function (err) {
+                toastr.warning(vm.errorMessage, vm.errorTitle);
+            });
         }
     }
 })();

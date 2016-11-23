@@ -66,32 +66,22 @@
                 controller: 'entradaController',
                 controllerAs: 'vm'
             })
-            .state('triangular.admin-default.salida', {
-                url: '/salida',
+            .state('triangular.admin-default.salida-crear', {
+                url: '/crear',
                 data: {
                     roles: ['Administrador', 'Tecnico A', 'Tecnico B', 'Tecnico C', 'Tecnico D', 'Tecnico E']
                 },
-                templateUrl: 'app/mainApp/tecnico/salida/salida.tmpl.html',
-                controller: 'salidaController',
+                templateUrl: 'app/mainApp/tecnico/salida/crear/salida.crear.tmpl.html',
+                controller: 'salidaCrearController',
                 controllerAs: 'vm'
             })
-            .state('triangular.admin-default.puntoVenta', {
-                url: '/puntoVenta',
-                data: {
-                    
-                    roles: ['Administrador', 'Tecnico A', 'Tecnico B', 'Tecnico C', 'Tecnico D', 'Tecnico E']
-                },
-                templateUrl: 'app/mainApp/tecnico/PuntoDeVenta/puntoVenta.tmpl.html',
-                controller: 'PuntoVentaController',
-                controllerAs: 'vm'
-            })
-            .state('triangular.admin-default.remision', {
-                url: '/remision',
+            .state('triangular.admin-default.salida-list', {
+                url: '/listado',
                 data: {
                     roles: ['Administrador', 'Tecnico A', 'Tecnico B', 'Tecnico C', 'Tecnico D', 'Tecnico E']
                 },
-                templateUrl: 'app/mainApp/tecnico/remision/remision.tmpl.html',
-                controller: 'remisionController',
+                templateUrl: 'app/mainApp/tecnico/salida/lista/salida.lista.tmpl.html',
+                controller: 'salidaListadoController',
                 controllerAs: 'vm'
             });
 

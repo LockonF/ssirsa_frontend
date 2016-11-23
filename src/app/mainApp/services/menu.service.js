@@ -8,7 +8,7 @@
         .module('app.mainApp')
         .factory('dynamicMenu', dynamicMenu);
 
-    function dynamicMenu(triMenu, Session,menuReport) {
+    function dynamicMenu(triMenu, Session, menuReport) {
 
         return {
             loadMenu: loadMenu
@@ -112,44 +112,49 @@
                     icon: 'fa fa-wrench',
                     type: 'dropdown',
                     priority: 4,
-                    children: [{
-                        name: 'MAIN.MENU.START',
-                        state: 'triangular.admin-default.tecnico',
-                        type: 'link'
-                    },
+                    children: [
+                        {
+                            name: 'MAIN.MENU.START',
+                            state: 'triangular.admin-default.tecnico',
+                            type: 'link'
+                        },
                         {
                             name: 'MAIN.MENU.IN',
                             state: 'triangular.admin-default.entrada',
                             type: 'link'
-                        },{
-                            name: 'MAIN.MENU.OUT',
-                            state: 'triangular.admin-default.salida',
-                            type: 'link'
-                        },{
-                            name: 'MAIN.MENU.REMISSION',
-                            state: 'triangular.admin-default.remision',
-                            type: 'link'
+                        }, {
+                            name: 'MAIN.MENU.OUT.TITLE',
+                            type: 'dropdown',
+                            children: [{
+                                name: 'MAIN.MENU.OUT.NEW',
+                                type: 'link',
+                                state: 'triangular.admin-default.salida-crear'
+                            }, {
+                                name: 'MAIN.MENU.OUT.LIST',
+                                type: 'link',
+                                state: 'triangular.admin-default.salida-list'
+                            }]
                         },
                         {
                             name: 'MAIN.MENU.REGISTER_STEP',
                             state: 'triangular.admin-default.etapa',
                             type: 'link'
                         },
-                       /* Comentado por si acaso vuelven a pedir que este en el menu pero ya lo absorvio etapa servicio
-                       {
-                            name: 'MAIN.MENU.PRECHECK',
-                            state: 'triangular.admin-default.checklist',
-                            type: 'link'
-                        }, {
-                            name: 'MAIN.MENU.DIAGNOSTIC',
-                            state: 'triangular.admin-default.diagnostic',
-                            type: 'link'
-                        },
-                        {
-                            name: 'MAIN.MENU.SERVICEONSTORE',
-                            state: 'triangular.admin-default.servicioPuntoVenta',
-                            type: 'link'
-                        },*/
+                        /* Comentado por si acaso vuelven a pedir que este en el menu pero ya lo absorvio etapa servicio
+                         {
+                         name: 'MAIN.MENU.PRECHECK',
+                         state: 'triangular.admin-default.checklist',
+                         type: 'link'
+                         }, {
+                         name: 'MAIN.MENU.DIAGNOSTIC',
+                         state: 'triangular.admin-default.diagnostic',
+                         type: 'link'
+                         },
+                         {
+                         name: 'MAIN.MENU.SERVICEONSTORE',
+                         state: 'triangular.admin-default.servicioPuntoVenta',
+                         type: 'link'
+                         },*/
                         {
                             name: 'MAIN.MENU.LINE',
                             state: 'triangular.admin-default.asignacionLinea',
@@ -206,11 +211,11 @@
                             name: 'MAIN.MENU.CATALOGS.EQUIPMENT_TYPE',
                             state: 'triangular.admin-default.catalogo-tipo-equipo',
                             type: 'link'
-                        },{
+                        }, {
                             name: 'MAIN.MENU.CATALOGS.STAGE',
                             state: 'triangular.admin-default.catalogo-etapas',
                             type: 'link'
-                        },{
+                        }, {
                             name: 'MAIN.MENU.CATALOGS.CONSUMABLE_CATALOG',
                             state: 'triangular.admin-default.catalogo-insumo',
                             type: 'link'
@@ -236,18 +241,18 @@
                         name: 'MAIN.MENU.CATALOGS.CONSUMABLE_CATEGORY',
                         state: 'triangular.admin-default.categoria',
                         type: 'link'
-                    },   {
+                    }, {
                         name: 'MAIN.MENU.CATALOGS.PROVIDER',
                         state: 'triangular.admin-default.proveedor',
                         type: 'link'
                     }
 
                     ]
-                },{
+                }, {
                     name: 'MAIN.MENU.REPORTS.TITLE',
                     icon: 'fa fa-line-chart',
                     type: 'dropdown',
-                    priority:7,
+                    priority: 7,
                     children: [
                         {
                             name: 'MAIN.MENU.REPORTS.ADMIN',
@@ -262,7 +267,7 @@
                     ]
                 }
             ];
-            triMenu.menu=adminMenu;
+            triMenu.menu = adminMenu;
         }
 
         function loadCapturistaMenu() {
@@ -316,7 +321,7 @@
                         name: 'MAIN.MENU.CATALOGS.CONSUMABLE_CATEGORY',
                         state: 'triangular.admin-default.categoria',
                         type: 'link'
-                    },  {
+                    }, {
                         name: 'MAIN.MENU.CATALOGS.PROVIDER',
                         state: 'triangular.admin-default.proveedor',
                         type: 'link'
@@ -363,7 +368,7 @@
                     ]
                 }
             ];
-            triMenu.menu=clienteMenu;
+            triMenu.menu = clienteMenu;
         }
 
         function loadTecnicoMenu() {
@@ -399,16 +404,16 @@
                             type: 'link'
                         },
                         /* lo mismo de arriba
-                        {
-                            name: 'MAIN.MENU.PRECHECK',
-                            state: 'triangular.admin-default.checklist',
-                            type: 'link'
-                        }, {
-                            name: 'MAIN.MENU.DIAGNOSTIC',
-                            state: 'triangular.admin-default.diagnostic',
-                            type: 'link'
-                        },
-                        */
+                         {
+                         name: 'MAIN.MENU.PRECHECK',
+                         state: 'triangular.admin-default.checklist',
+                         type: 'link'
+                         }, {
+                         name: 'MAIN.MENU.DIAGNOSTIC',
+                         state: 'triangular.admin-default.diagnostic',
+                         type: 'link'
+                         },
+                         */
                         {
                             name: 'MAIN.MENU.LINE',
                             state: 'triangular.admin-default.asignacionLinea',
@@ -424,7 +429,7 @@
                     ]
                 }
             ];
-            triMenu.menu=tecnicoMenu;
+            triMenu.menu = tecnicoMenu;
         }
 
     }

@@ -16,19 +16,13 @@
         vm.tecnicoDVisibility = false;
         vm.tecnicoEVisibility = false;
 
-        
-
-
-        vm.role;
 
         $rootScope.$on(AUTH_EVENTS.logoutSuccess, function(event) {
             vm.role=$scope.vmNode.currentUser.userRole;
-            console.log(vm.role);
             showButtons();
         });
         $rootScope.$on(AUTH_EVENTS.sessionRestore, function(event) {
             vm.role=$scope.vmNode.currentUser.userRole;
-            console.log(vm.role);
             showButtons();
 
 

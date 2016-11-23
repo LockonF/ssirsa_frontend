@@ -4,7 +4,7 @@
         .module('app.mainApp.solicitudes')
         .controller('realizarSolicitudController', realizarSolicitudController);
 
-    function realizarSolicitudController(OPTIONS, udn,TipoEquipo,Helper,$mdEditDialog, $mdDialog, Translate,toastr, Solicitudes, Solicitud_Servicio, Solicitudes_Admin, PersonaCapturista, Session, Socket,$scope) {
+    function realizarSolicitudController(OPTIONS, udn,TipoEquipo,Helper,$mdEditDialog, $mdDialog, Translate,toastr, Solicitudes, Solicitud_Servicio, Solicitudes_Admin, PersonaCapturista, Session,$scope) {
         var vm = this;
 
         var requisito = {
@@ -203,14 +203,14 @@
                     type_notification: vm.requisito.tipo_solicitud,
                     updated_at: moment().toDate()
                 };
-                Socket.emit('new:msg', {
+                /*Socket.emit('new:msg', {
                     canal: 'Administrador',
                     username: Session.userInformation.id,
                     solicitud: vm.requisito,
                     name: Session.userInformation.nombre,
                     notification: notification,
                     type: "normal"
-                });
+                });*/
                 cancel();
                 toastr.success(vm.successCreateMessage, vm.successTitle);
 
@@ -227,7 +227,6 @@
             vm.requisito.udn = vm.udn;
             delete  vm.requisito.persona;
             vm.requisito.tipo_solicitud=OPTIONS.type_request[vm.requisito.tipo_solicitud].value_id;
-            console.log(vm.requisito);
             Solicitudes.create(vm.requisito).then(function () {
                 cancel();
 
@@ -235,7 +234,6 @@
 
 
             }).catch(function (res)  {
-                console.log(res);
                 toastr.error(vm.errorMessage, vm.errorTitle);
             })
         }
@@ -266,14 +264,14 @@
                     type_notification: "Venta",
                     updated_at: moment().toDate()
                 };
-                Socket.emit('new:msg', {
+                /*Socket.emit('new:msg', {
                     canal: 'Administrador',
                     username: Session.userInformation.id,
                     name: Session.userInformation.nombre,
                     solicitud: vm.requisitoVenta,
                     notification: notification,
                     type: "normal"
-                });
+                });*/
 
                 cancel();
 

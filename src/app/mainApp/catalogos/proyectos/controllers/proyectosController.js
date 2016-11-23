@@ -21,7 +21,7 @@
         vm.clickCopy=clickCopy;
         vm.querySearch=querySearch;
 
-        
+
         activate();
         vm.successTitle=Translate.translate('Projects.Notify.Success');
         vm.errorTitle=Translate.translate('Projects.Notify.Error');
@@ -38,11 +38,10 @@
         vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
         vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
         vm.errorMessage=Translate.translate('MAIN.MSG.ERROR_MESSAGE');
-        
+
         function activate() {
             vm.project=null;
             Proyectos.listObject().then(function(res){
-                console.log(res);
                 vm.projects=Helper.filterDeleted(res,true);
                 vm.filteredProjects=vm.projects;
             }).catch(function(){
@@ -59,7 +58,6 @@
                 activate();
             }).catch(function(err){
                 toastr.error(vm.errorCreate,vm.errorTitle);
-                console.log(err);
             });
         }
 
@@ -70,7 +68,6 @@
                 activate();
             }).catch(function(err){
                 toastr.error(vm.errorUpdate,vm.errorTitle);
-                console.log(err);
             });
         }
 
@@ -88,7 +85,6 @@
                     activate();
                 }).catch(function (err) {
                     toastr.error(vm.errorRemove, vm.errorTitle);
-                    console.log(err);
                 });
             }, function (){
                 //Cancelled

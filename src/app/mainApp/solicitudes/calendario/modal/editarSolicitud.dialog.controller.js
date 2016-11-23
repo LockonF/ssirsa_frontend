@@ -46,7 +46,6 @@
             Solicitudes_Admin.updateSolicitud(vm.event.solicitud).then(function (res) {
                 $mdDialog.hide(vm.event);
             }).catch(function (res) {
-                console.log(res);
             });
 
         }

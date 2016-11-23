@@ -40,10 +40,8 @@
 
         function borrarSolVenta(object){
             return Restangular.one("solicitud_servicio",object).customDELETE(undefined,undefined,{'Content-Type': 'application/json'}).then(function(resp){
-                console.log(resp);
                 return resp;
             }).catch(function(error){
-                console.log(error);
             })
         }
 

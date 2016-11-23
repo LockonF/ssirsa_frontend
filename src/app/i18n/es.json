@@ -1,74 +1,74 @@
 {
-  "MAIN": {
-
-    "MENU": {
-      "WELCOME":"Bienvenida",
-      "START":"Inicio",
-      "CRUD_USER":"Gestión de Usuarios",
-      "ADMIN_USER":"Administración de Usuarios",
-      "NEW_USER":"Nuevo Usuario",
-      "SEARCH_USER":"Buscar Usuarios",
-      "SOLICITUD":"Solicitudes",
-      "SEARCH_SOLICITUD":"Buscar Solicitudes",
-      "CREATES_SOLICITUD":"Crear Solicitud",
-      "CALENDAR":"Calendario",
-      "SERVICES":"Servicios",
-      "IN":"Entradas",
-      "OUT":"Salidas",
-      "REMISSION":"Remisión de salida",
-      "REGISTER_STEP":"Registro de Etapa",
-      "PRECHECK":"Pre - Checklist",
-      "CHECKLIST":"Fase de Depuración",
-      "DIAGNOSTIC":"Diagnostico",
-      "LINE":"Asignación de Linea",
-      "SERVICEAWAY":"Servicio en Punto de Venta",
-      "BOOKS":"Catalogos",
-      "LINE_TRANSPORT":"Linea de Transporte",
-      "TYPE_TRANSPORT":"Tipo de Transporte",
-      "UDN":"UDN",
-      "SUCURSAL":"Sucursal",
-      "CABINET_BRANCH":"Marca de Cabinet",
-      "CABINET_MODEL":"Modelo de Cabinet",
-      "PROJECTS":"Proyectos",
-      "CLIENT":"Cliente",
-      "STOCK":"Inventarios",
-      "CABINETS":"Cabinets",
-      "INSUMS":"Insumos",
-        "REPORTS":{
-          "TITLE":"Reportes",
-           "ADMIN":"Gestión",
-            "LIST":"Listado de Reportes"
-        },
-      "CATEGORY_INSUMS":"Categoria de Insumos",
-      "BOOK_INSUMS":"Cátalogo de Insumos",
-      "PROVIDER":"Proveedor",
-      "CATALOGS": {
-        "TITLE": "Catálogos",
-        "UDN": "UDN",
-        "PROVIDER": "Proveedor",
-        "TRANSPORT_TYPE": "Tipo de Transporte",
-        "TRANSPORT_LINE": "Línea de Transporte",
-        "SUBSIDIARY": "Sucursal",
-        "CABINET_BRAND": "Marca de Cábinet",
-        "CABINET_MODEL": "Modelo de Cábinet",
-        "CONSUMABLE_CATALOG": "Catálogo de Insumos",
-        "PROJECTS": "Proyectos",
-        "CONSUMABLE_CATEGORY": "Categoría de Insumos",
-        "CLIENT": "Cliente",
-        "EQUIPMENT_TYPE": "Tipo de Equipo",
-        "STAGE": "Etapas"
-
-      },
-
-      "INVENTORY":{
-        "TITLE": "Inventarios",
-
-        "CABINETS":"Cabinets",
-        "CONSUMABLES":"Insumos",
-        "CONSUMABLE_CATALOG": "Catálogo de Insumos",
-        "CONSUMABLE_CATEGORY": "Categoría de Insumos",
-        "PROVIDER": "Proveedor"
-      }
+    "MAIN": {
+        "MENU": {
+            "WELCOME": "Bienvenida",
+            "START": "Inicio",
+            "CRUD_USER": "Gestión de Usuarios",
+            "ADMIN_USER": "Administración de Usuarios",
+            "NEW_USER": "Nuevo Usuario",
+            "SEARCH_USER": "Buscar Usuarios",
+            "SOLICITUD": "Solicitudes",
+            "SEARCH_SOLICITUD": "Buscar Solicitudes",
+            "CREATES_SOLICITUD": "Crear Solicitud",
+            "CALENDAR": "Calendario",
+            "SERVICES": "Servicios",
+            "IN": "Entradas",
+            "OUT":{
+                "TITLE": "Salidas",
+                "NEW":"Registro",
+                "LIST":"Listado"
+            },
+            "REMISSION": "Remisión de salida",
+            "REGISTER_STEP": "Registro de Etapa",
+            "PRECHECK": "Pre - Checklist",
+            "CHECKLIST": "Fase de Depuración",
+            "DIAGNOSTIC": "Diagnostico",
+            "LINE": "Asignación de Linea",
+            "BOOKS": "Catalogos",
+            "LINE_TRANSPORT": "Linea de Transporte",
+            "TYPE_TRANSPORT": "Tipo de Transporte",
+            "UDN": "Agencia",
+            "SUCURSAL": "Sucursal",
+            "CABINET_BRANCH": "Marca de Cabinet",
+            "CABINET_MODEL": "Modelo de Cabinet",
+            "PROJECTS": "Proyectos",
+            "CLIENT": "Cliente",
+            "STOCK": "Inventarios",
+            "CABINETS": "Cabinets",
+            "INSUMS": "Insumos",
+            "REPORTS": {
+                "TITLE": "Reportes",
+                "ADMIN": "Gestión",
+                "LIST": "Listado de Reportes"
+            },
+            "CATEGORY_INSUMS": "Categoria de Insumos",
+            "BOOK_INSUMS": "Cátalogo de Insumos",
+            "PROVIDER": "Proveedor",
+            "CATALOGS": {
+                "TITLE": "Catálogos",
+                "UDN": "UDN",
+                "PROVIDER": "Proveedor",
+                "TRANSPORT_TYPE": "Tipo de Transporte",
+                "TRANSPORT_LINE": "Línea de Transporte",
+                "SUBSIDIARY": "Sucursal",
+                "CABINET_BRAND": "Marca de Cábinet",
+                "CABINET_MODEL": "Modelo de Cábinet",
+                "CONSUMABLE_CATALOG": "Catálogo de Insumos",
+                "PROJECTS": "Proyectos",
+                "CONSUMABLE_CATEGORY": "Categoría de Insumos",
+                "CLIENT": "Cliente",
+                "EQUIPMENT_TYPE": "Tipo de Equipo",
+                "STAGE": "Etapas"
+            },
+            "INVENTORY": {
+                "TITLE": "Inventarios",
+                "CABINETS": "Cabinets",
+                "CONSUMABLES": "Insumos",
+                "CONSUMABLE_CATALOG": "Catálogo de Insumos",
+                "CONSUMABLE_CATEGORY": "Categoría de Insumos",
+                "PROVIDER": "Proveedor"
+            }
+        }
     },
     "COMPONENTS": {
       "PROFILE": "Perfil",
@@ -115,7 +115,8 @@
       "INSUMOADDED":"El Compresor a sido agregado de forma Correcta",
       "MSGNOTENTRADA":"No es posible Registrar la Etapa, Ya que no tiene una entrada regisrada o bien ya se le hizo un diagnostico de Salida",
       "NOTTIPOEQUIPO":"Ese equipo no tiene un tipo por lo cual no se pueden cargar insumos asociados",
-      "NOTFIRSTSTEP":"No es posible Eliminar la primer Etapa de Servicio"
+      "NOTFIRSTSTEP":"No es posible Eliminar la primer Etapa de Servicio",
+        "NOTIFICATION":"No se pudo conectar al canal el usuario"
 
     },
     "BUTTONS": {
@@ -137,10 +138,7 @@
     },
     "DIALOG":{
       "DELETE_TITLE":"Confirmación de eliminación",
-      "DELETE_MESSAGE":"¿Seguro que desea eliminar este elemento?"
+      "DELETE_MESSAGE":"¿Seguro que desea eliminar este elemento?",
+        "DELETE_MESSAGE_CABINETS": "¿Seguro que desea eliminar los siguientes cabinets?"
     }
-  }
-
-
-
 }
