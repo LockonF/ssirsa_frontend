@@ -45,32 +45,14 @@
             canal[0].bind('create', function(dfs) {
                 if (dfs.id !== Session.userInformation.id) {
                     if (Session.userRole === 'Administrador') {
-                        Helper.showNotification('El usuario ' + dfs.usuario + " creo una solicitud ", "Nueva solicitud de " + dfs.solicitud + " !!!");
+                        Helper.showNotification('El usuario ' + dfs.usuario + " creo una solicitud ", "Nueva solicitud de " + dfs.solicitud + " !!!",null);
                     }
                 }
             });
+            canal[1].bind('success_create', function(dfs) {
+                Helper.showNotification('El reporte ' + dfs.name + " creo exitosamente ", "Reporte terminado!!!",dfs.link);
+            });
         });
-
-        /*var client =  new Pusher(EnvironmentConfig.site.pusher.key, {
-         encrypted: true
-         });
-         var pusher = $pusher(client);
-         pusher.logToConsole = true;
-
-         var channel_reports = pusher.subscribe('reports');
-         var channel = pusher.subscribe('solicitudes');
-         channel.bind('create', function(dfs) {
-         if (dfs.usuario !== Session.userInformation.id) {
-         if (Session.userRole === 'Administrador') {
-         Helper.showNotification('El usuario ' + dfs.usuario + " creo una solicitud ", "Nueva solicitud de " + dfs.solicitud + " !!!");
-
-         }
-         }
-         });
-
-         channel_reports.bind('success_create', function(dfs) {
-         console.log(dfs);
-         });*/
 
 
     }
