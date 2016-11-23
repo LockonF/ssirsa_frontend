@@ -412,7 +412,7 @@
                 vm.puntoVenta.fecha_servicio = fecha.toISOString();
             }
             if (vm.recepcion!=null) {
-                vm.puntoVenta.hora_recepcion = vm.reporte.hora;
+                vm.puntoVenta.hora_recepcion = moment(vm.reporte.hora).toISOString();
             }
             if (vm.puntoVenta.id == null) {
 
@@ -428,7 +428,7 @@
                     vm.cancel();
 
                 }).catch(function (res) {
-
+                    console.log(res)
 
                     notifyError(res.status);
                 });
