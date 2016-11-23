@@ -23,7 +23,8 @@
             normalizeCabinets:normalizeCabinets,
             getRemision:getRemision,
             getAll:getAll,
-            getSalidas:getSalidas
+            getSalidas:getSalidas,
+            getCabinetsEntradaSalida:getCabinetsEntradaSalida
         };
         function getSalidas() {
             return baseURL.all('exit').getList();
@@ -54,8 +55,8 @@
         }
 
         //entrada_salida/mass_upload
-        function putEntradaMasiva(data) {
-            return baseURL.one('mass_upload',data.id).withHttpConfig({transformRequest: angular.identity}).customPUT(data, "", {}, {'Content-type': undefined});
+        function putEntradaMasiva(data, pk) {
+            return baseURL.one('mass_upload',pk).withHttpConfig({transformRequest: angular.identity}).customPUT(data, "", {}, {'Content-type': undefined});
         }
 
         function postSalidaMasiva(data) {
@@ -72,6 +73,9 @@
 
         function getCabinetsEntrada() {
             return baseURL.all('cabinet_input').getList();
+        }
+        function getCabinetsEntradaSalida(id) {
+            return baseURL.one('cabinets',id).getList();
         }
     }
 })();

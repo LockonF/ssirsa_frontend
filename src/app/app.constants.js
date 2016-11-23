@@ -13,7 +13,8 @@
         .constant('EVENTS_GENERAL', {
             notFound: 'not-found',
             notFount_select: 'not-found-select',
-            load_fields: 'load-data-fields'
+            load_fields: 'load-data-fields',
+            bind_channels:'bind-channels'
         })
         .constant('OPTIONS', {
             status: [
@@ -173,16 +174,21 @@
                 },
                 {
                     id: 1,
+                    value: "Nuevo",
+                    value_service: "nuevos"
+                },
+                {
+                    id: 2,
                     value: "Fuga Interna",
                     value_service: "fuga_interna"
                 },
                 {
-                    id: 2,
+                    id: 3,
                     value: "Obsoleto",
                     value_service: "obsoleto"
                 },
                 {
-                    id: 3,
+                    id: 4,
                     value: "No validada",
                     value_service: "all"
                 }

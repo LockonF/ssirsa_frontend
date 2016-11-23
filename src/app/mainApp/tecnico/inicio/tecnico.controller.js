@@ -15,26 +15,29 @@
         vm.tecnicoCVisibility = false;
         vm.tecnicoDVisibility = false;
         vm.tecnicoEVisibility = false;
-        
 
-
-        vm.role;
 
         $rootScope.$on(AUTH_EVENTS.logoutSuccess, function(event) {
             vm.role=$scope.vmNode.currentUser.userRole;
-            console.log(vm.role);
             showButtons();
         });
         $rootScope.$on(AUTH_EVENTS.sessionRestore, function(event) {
             vm.role=$scope.vmNode.currentUser.userRole;
-            console.log(vm.role);
             showButtons();
 
 
         });
         function showButtons(){
-            if (vm.role==="Tecnico A"|| vm.role==="Administrador"){
+            console.log(vm.role);
+            if(vm.role==="Administrador"){
                 vm.tecnicoAVisibility = true;
+                vm.tecnicoBVisibility = true;
+                vm.tecnicoCVisibility = true;
+                vm.tecnicoDVisibility = true;
+                vm.tecnicoEVisibility = true;
+
+            }
+            if (vm.role==="Tecnico A"|| vm.role==="Administrador"){
                 vm.tecnicoBVisibility = true;
                 vm.tecnicoCVisibility = true;
                 vm.tecnicoDVisibility = true;
@@ -46,21 +49,20 @@
                     vm.tecnicoBVisibility = true;
                     vm.tecnicoCVisibility = true;
                     vm.tecnicoDVisibility = true;
-                    vm.tecnicoEVisibility = false;
+
 
                 }
                 else{
                     if(vm.role==="Tecnico C"){
                         vm.tecnicoCVisibility = true;
                         vm.tecnicoDVisibility = true;
-                        vm.tecnicoEVisibility = false;
+
 
                     }
                     else{
                         if(vm.role==="Tecnico D"){
 
                             vm.tecnicoDVisibility = true;
-                            vm.tecnicoEVisibility = false;
 
 
                         }

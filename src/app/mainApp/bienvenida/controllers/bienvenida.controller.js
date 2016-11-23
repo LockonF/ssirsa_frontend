@@ -10,21 +10,12 @@
         var vm = this;
 
         vm.capturista=false;
-        vm.tecnico=false;;
+        vm.tecnico=false;
         vm.cliente=false;
-        vm.Admin=false;;
-        vm.role;
-
-        $rootScope.$on(AUTH_EVENTS.logoutSuccess, function(event) {
-            vm.role=$scope.vmNode.currentUser.userRole;
-            console.log(vm.role);
-            showButtons();
-        });
+        vm.Admin=false;
         $rootScope.$on(AUTH_EVENTS.sessionRestore, function(event) {
             vm.role=$scope.vmNode.currentUser.userRole;
             showButtons();
-
-
         });
         function showButtons(){
             if (vm.role==="Administrador"){

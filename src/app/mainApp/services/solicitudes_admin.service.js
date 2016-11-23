@@ -66,10 +66,8 @@
 
         function borrarSol(object){
             return Restangular.one("solicitud_admin",object).customDELETE(undefined,undefined,{'Content-Type': 'application/json'}).then(function(resp){
-                console.log(resp);
                 return resp;
             }).catch(function(error){
-                console.log(error);
             })
         }
     }

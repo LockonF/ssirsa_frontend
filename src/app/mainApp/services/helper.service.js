@@ -8,7 +8,7 @@
      * @author Christian Adan Israel Amezcua Aguilar <amezcua9205@gmail.com>
      * @constructor
      */
-    function Helper($rootScope, $log) {
+    function Helper($rootScope, $log,$window) {
         var acceptFileTypes = /(jpe?g|png|bmp|vnd.openxmlformats-officedocument.spreadsheetml.sheet|vnd.ms-excel)$/i;
         return {
             acceptFile: acceptFile,
@@ -71,7 +71,7 @@
          * @description Se encarga de mostrar una notificación al usuario.
          * @property {Object} info Un objeto con la información para la notificación.
          */
-        function showNotification(info,title) {
+        function showNotification(info,title,url) {
             if (!("Notification" in window)) {
                 $log.info("Este navegador no soporta notificaciones de escritorio");
             }
@@ -92,6 +92,9 @@
                     timeout: 10000,
                     onClick: function () {
                         window.focus();
+                        if(url!=null) {
+                            $window.open(url, '_blank', '');
+                        }
                         this.close();
                     }
                 });

@@ -48,7 +48,6 @@
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(false);
-                console.log(err);
             });
 
             return deferred.promise;
@@ -61,7 +60,6 @@
             Restangular.one('etapa_servicio', etapa.id).customPUT(etapa).then(function (res) {
                 deferred.resolve(res);
             }).catch(function (err) {
-                console.log(err);
                 deferred.reject(err);
 
             });
@@ -72,7 +70,6 @@
 
 
         function eliminarEtapaServicio(object) {
-            console.log(object);
 
             return baseModelo.customDELETE(object.id, null, {'content-type': 'application/json'});
 
@@ -99,7 +96,6 @@
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);
-                console.log(err);
             });
 
             return deferred.promise;
@@ -111,7 +107,6 @@
                 deferred.resolve(res);
             }).catch(function (err) {
                 deferred.reject(err);
-                console.log(err);
             });
 
             return deferred.promise;
