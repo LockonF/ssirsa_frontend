@@ -214,7 +214,7 @@
                 }
                 else {
                     fd.append('id', vm.entrada.id);
-                    EntradaSalida.putEntradaMasiva(fd).then(function (res) {
+                    EntradaSalida.putEntradaMasiva(fd,vm.entrada.id).then(function (res) {
                         vm.entrada.id = res.id;
                         vm.entrada.creados = res.creados;
                         vm.entrada.no_creados = res.no_creados;
@@ -229,6 +229,7 @@
                             vm.inputWasCorrect = true;
                         }
                     }).catch(function (err) {
+                        console.log(err.data);
                         if (err.data.no_creados.length > 0) {
                             vm.entrada.no_creados = err.data.no_creados;
                         }
@@ -272,6 +273,7 @@
                     toastr.success(vm.successNormal, vm.successTitle);
                     limpiar();
                 }).catch(function (err) {
+                    vm.entrada.no_creados = err.data.cabinet;
                     toastr.error(vm.errorNormal, vm.errorTitle);
                 });
 
@@ -295,7 +297,7 @@
         }
 
         function partialClean() {
-            vm.entrada.id = null;
+            //vm.entrada.id = null;
             vm.cabinets = [];
             vm.entrada.creados = [];
             vm.entrada.no_creados = [];

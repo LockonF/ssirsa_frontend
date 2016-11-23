@@ -124,7 +124,7 @@
     },
     "Provider": {
         "title": "Proveedor",
-        "info": "Información de Marca de Cábinet",
+        "info": "Información del Proveedor",
         "lookup": "Busca por razón social",
         "business_name": "Razón Social",
         "address": "Dirección",
