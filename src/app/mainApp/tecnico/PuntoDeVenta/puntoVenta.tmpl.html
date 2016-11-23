@@ -65,7 +65,6 @@
                                                ng-model="vm.puntoVenta.piso" min="0" max="100">
                                         <div ng-messages="generalInfo.floor.$error">
                                             <div ng-message="max">{{'MAIN.GENERAL.MAX_NUMBER' | translate}} 100</div>
-                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                             <div ng-message="min">{{'MAIN.GENERAL.MIN_NUMBER' | translate}} 1</div>
                                             <div ng-message="pattern">{{'MAIN.GENERAL.JUST_INTEGERS' | translate}}</div>
                                         </div>
@@ -75,7 +74,6 @@
                                         <textarea name="campo" ng-model="vm.puntoVenta.campo"
                                                   md-maxlength="45"></textarea>
                                         <div ng-messages="generalInfo.campo.$error">
-                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                             <div ng-message="min">{{'MAIN.GENERAL.MIN_NUMBER' | translate}} 1</div>
                                             <div ng-message="pattern">{{'MAIN.GENERAL.JUST_INTEGERS' | translate}}</div>
                                         </div>
@@ -85,7 +83,7 @@
                                         <textarea name="movimiento" ng-model="vm.puntoVenta.movimiento"
                                                   md-maxlength="100"></textarea>
                                         <div ng-messages="generalInfo.movimiento.$error">
-                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+
                                         </div>
                                     </md-input-container>
                                     <md-input-container>
@@ -93,7 +91,7 @@
                                         <textarea name="entrega" ng-model="vm.puntoVenta.entrega"
                                                   md-maxlength="100"></textarea>
                                         <div ng-messages="generalInfo.entrega.$error">
-                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+
                                         </div>
                                     </md-input-container>
                                 </div>
@@ -115,7 +113,6 @@
                                         <div ng-messages="localData.km.$error">
                                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                             <div ng-message="max">{{'MAIN.GENERAL.MAX_NUMBER' | translate}} 1000000</div>
-                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                             <div ng-message="min">{{'MAIN.GENERAL.MIN_NUMBER' | translate}} 0</div>
                                         </div>
                                     </md-input-container>
@@ -408,25 +405,25 @@
             </md-tabs>
             <md-actions layout="row" layout-align="end center" flex class="wizard-navbar">
                 <md-button ng-click="triWizard.prevStep()" class="md-fab md-mini md-scale"
-                           ng-hide="triWizard.currentStep &gt; 5"
+                           ng-hide="triWizard.currentStep > 5"
                            ng-disabled="triWizard.prevStepDisabled()">
                     <md-icon md-font-icon="fa fa-hand-o-left"></md-icon>
                 </md-button>
                 <md-button ng-click="triWizard.nextStep()" class="md-fab md-mini md-scale"
-                           ng-hide="triWizard.progress == 100 &amp;&amp; triWizard.currentStep &gt;= 5"
+                           ng-hide="triWizard.progress == '100' && triWizard.currentStep >= 5"
                            ng-disabled="triWizard.nextStepDisabled()">
                     <md-icon md-font-icon="fa fa-hand-o-right"></md-icon>
                 </md-button>
                 <md-button ng-click="vm.crearPuntodeVenta()" class="md-fab md-mini md-scale"
-                           ng-show="triWizard.progress == 100 &amp;&amp; triWizard.currentStep &gt;= 5"
-                           translate="FONDEOS.WIZARD.SEND">
+                           ng-show="triWizard.progress == 100"
+                           translate="">
                     <md-icon md-font-icon="fa fa-save"></md-icon>
                 </md-button>
-                <md-button ng-click="vm.eliminarEtapaServicio()" ng-show="vm.fondeo.id!=null"
+                <md-button ng-click="vm.eliminarEtapaServicio()" ng-show="vm.puntoVenta.id!=null"
                            class="md-fab md-mini md-scale">
                     <md-icon md-font-icon="fa fa-trash"></md-icon>
                 </md-button>
-                <md-button ng-click="vm.cancel()" ng-show="vm.fondeo.id==null"
+                <md-button ng-click="vm.cancel()" ng-show="vm.puntoVenta.id==null"
                            class="md-fab md-mini md-scale">
                     <md-icon md-font-icon="fa fa-eraser"></md-icon>
                 </md-button>

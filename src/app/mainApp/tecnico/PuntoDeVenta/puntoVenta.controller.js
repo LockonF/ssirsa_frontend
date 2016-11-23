@@ -390,8 +390,8 @@
             vm.puntoVenta.insumos_lote = vm.insumos;
             vm.puntoVenta.modelo=vm.modelo.id;
             if (vm.reporte!=null) {
-                var fecha = updateEventDateTime(vm.reporte.fecha).subtract("day", 1);
-                var hora = updateEventDateTime(vm.reporte.hora);
+                var fecha = moment(vm.reporte.fecha).subtract("day", 1);
+                var hora = moment(vm.reporte.hora);
                 fecha.set({
                     hour: hora.get('hour'),
                     minute: hora.get('minute'),
@@ -401,8 +401,8 @@
                 vm.puntoVenta.fecha_reporte = fecha.toISOString();
             }
             if (vm.servicio!=null) {
-                var fecha = updateEventDateTime(vm.servicio.fecha).subtract("day", 1);
-                var hora = updateEventDateTime(vm.servicio.hora);
+                var fecha = moment(vm.servicio.fecha).subtract("day", 1);
+                var hora = moment(vm.servicio.hora);
                 fecha.set({
                     hour: hora.get('hour'),
                     minute: hora.get('minute'),
@@ -411,21 +411,9 @@
                 });
                 vm.puntoVenta.fecha_servicio = fecha.toISOString();
             }
-            if (vm.reporte!=null) {
+            if (vm.recepcion!=null) {
                 vm.puntoVenta.hora_recepcion = vm.reporte.hora;
             }
-            if (vm.servicio!=null) {
-                var fecha = updateEventDateTime(vm.servicio.fecha).subtract("day", 1);
-                var hora = updateEventDateTime(vm.servicio.hora);
-                fecha.set({
-                    hour: hora.get('hour'),
-                    minute: hora.get('minute'),
-                    second: hora.get('second'),
-                    millisecond: hora.get('millisecond')
-                });
-                vm.puntoVenta.fecha_servicio = fecha.toISOString();
-            }
-
             if (vm.puntoVenta.id == null) {
 
                 eliminaNoSeleccionados();
