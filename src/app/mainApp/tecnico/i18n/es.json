@@ -281,5 +281,42 @@
                 "DELETED_CABIENTS":"Se eliminaron correctamente los cabinets"
             }
         }
-    }
+    },
+  "PUNTOVENTA":{
+    "TITLE":"Servicio en Punto de Venta",
+    "PROGRESSREGISTER":"Progreso de Registro",
+    "SERVICEDATA":"Datos del Servicio",
+    "LOCALDATA":"Datos del Establecimiento",
+    "CABINETDATA":"Datos del Cabinet",
+    "SERVICEOBSERVATION":"Observaciones durante el Servicio",
+    "RECEPTIONNDATE":"Fecha de Recepción",
+    "USEDINSUM":"Insumos Usados",
+    "WEEK":"Semana",
+    "RECEPTIONHOUR":"Hora de Recepcion",
+    "FLOOR":"Piso",
+    "FIELD":"Campo",
+    "ACTIVE":"Activo",
+    "SERIE":"Serie",
+    "MODEL":"Modelo",
+    "BRAND":"Marca",
+    "DESCRIPTION":"Descripción del Trabajo",
+    "MOVEMENT":"Movimiento",
+    "DELIVERY":"Entrega",
+    "KM":"Km",
+    "TYPEOFJOB":"Tipo de Trabajo",
+    "STABLISHED":"Nombre de Establecimiento",
+    "ADDRESS":"Direccion",
+    "DATEREPORT":"Fecha de Reporte",
+    "REPORTHOUR":"Hora de Reporte",
+    "DATESERVICE":"Fecha de Servicio",
+    "SERVICEHOUR":"Hora de Servicio",
+    "CLIENTOBSERVATION":"Observaciones del Cliente",
+    "TECHNICALOBSERVATIONS":"Observaciones Técnicas",
+    "CABINET":"cabinet",
+    "PERSON":"persona",
+    "COMPRESSOR":"Compresor",
+    "COMPLETED":"Completado",
+    "NEXT":"Siguiente",
+    "PREVIOUS":"Anterior"
+  }
 }

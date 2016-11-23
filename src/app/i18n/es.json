@@ -116,7 +116,10 @@
       "MSGNOTENTRADA":"No es posible Registrar la Etapa, Ya que no tiene una entrada regisrada o bien ya se le hizo un diagnostico de Salida",
       "NOTTIPOEQUIPO":"Ese equipo no tiene un tipo por lo cual no se pueden cargar insumos asociados",
       "NOTFIRSTSTEP":"No es posible Eliminar la primer Etapa de Servicio",
-        "NOTIFICATION":"No se pudo conectar al canal el usuario"
+        "NOTIFICATION":"No se pudo conectar al canal el usuario",
+      "INSUMOADDED":"El Compresor a sido agregado de forma Correcta",
+      "MSGNOTENTRADA":"No se Puede Registrar la Etapa, Ya que no tiene una entrada regisrada o bien ya se le hizo un diagnostico de Salida",
+      "NOTTIPOEQUIPO":"Ese equipo no tiene un tipo por lo cual no se pueden cargar insumos asociados"
 
     },
     "BUTTONS": {

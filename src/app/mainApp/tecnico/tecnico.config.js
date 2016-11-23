@@ -83,6 +83,17 @@
                 templateUrl: 'app/mainApp/tecnico/salida/lista/salida.lista.tmpl.html',
                 controller: 'salidaListadoController',
                 controllerAs: 'vm'
+            })
+
+            .state('triangular.admin-default.puntoVenta', {
+                url: '/puntoVenta',
+                data: {
+
+                    roles: ['Administrador', 'Tecnico A', 'Tecnico B', 'Tecnico C', 'Tecnico D', 'Tecnico E']
+                },
+                templateUrl: 'app/mainApp/tecnico/PuntoDeVenta/puntoVenta.tmpl.html',
+                controller: 'PuntoVentaController',
+                controllerAs: 'vm'
             });
 
     }
