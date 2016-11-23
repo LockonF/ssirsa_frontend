@@ -189,7 +189,7 @@
                 console.log(vm.insumosLote);
                 transformArrayCatalogoInsumos();
             }).catch(function (res) {
-                notifyError(res.status);
+               // notifyError(res.status);
             })
         }
 
