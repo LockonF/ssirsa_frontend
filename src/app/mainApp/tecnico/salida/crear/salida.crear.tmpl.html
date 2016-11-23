@@ -277,7 +277,7 @@
                                 <md-button aria-label="fab button" ng-click="vm.clear()" class="md-raised md-primary">
                                     <md-icon md-font-icon="fa fa-eraser"></md-icon>
                                 </md-button>
-                                <md-button ng-disabled="entradaForm.$invalid || vm.selectedCabinets.length==0 ||  vm.outputWasCorrect ||  (vm.salida.file==null && vm.hideManualUpload==true) " aria-label="guardar" ng-click="vm.guardar()"
+                                <md-button ng-disabled="entradaForm.$invalid || (vm.selectedCabinets.length==0 && !vm.hideManualUpload) ||  vm.outputWasCorrect ||  (vm.salida.file==null && vm.hideManualUpload==true) " aria-label="guardar" ng-click="vm.guardar()"
                                            class="md-raised md-primary">
                                     <md-icon md-font-icon="fa fa-save"></md-icon>
                                 </md-button>
