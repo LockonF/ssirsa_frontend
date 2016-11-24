@@ -21,11 +21,11 @@
             /**
              * @TODO Esto es para habilitar el modo debug de pusher, NO USAR EN PRODUCCIÓN
              */
-            Pusher.log = function(message) {
+            /*Pusher.log = function(message) {
                 if (window.console && window.console.log) {
                     window.console.log(message);
                 }
-            };
+            };*/
         };
         this.destroy = function () {
             this.pusher = null;
