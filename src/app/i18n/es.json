@@ -12,6 +12,7 @@
             "CREATES_SOLICITUD": "Crear Solicitud",
             "CALENDAR": "Calendario",
             "SERVICES": "Servicios",
+            "SERVICEAWAY":"Punto de Venta",
             "IN": "Entradas",
             "OUT":{
                 "TITLE": "Salidas",
