@@ -56,7 +56,7 @@
         vm.insumoLote = {};
         vm.insumos_loteUsados = [];//Arreglo que ya posee el arreglo como es necesario para agregar los insumos al formato de arreglo para agregarlos a la etapa
         vm.insumos_sinStock = [];
-        vm.puntoVenta = {};
+        vm.puntoVenta = {insumos_unicos:[]};
 
         //Declaracion de Funciones
 
@@ -420,7 +420,7 @@
 
                 vm.puntoVenta.insumos_lote = vm.insumos_loteUsados;
                 vm.puntoVenta.insumos = vm.insumos;
-
+                console.log(JSON.stringify(vm.puntoVenta));
                 var promise = PuntoDeVenta.create(vm.puntoVenta);
                 promise.then(function (res) {
                     toastr.success(vm.successTitle, vm.successCreateMessage);

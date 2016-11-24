@@ -13,6 +13,7 @@
             "CALENDAR": "Calendario",
             "SERVICES": "Servicios",
             "IN": "Entradas",
+            "SERVICEAWAY":"Punto de Venta",
             "OUT":{
                 "TITLE": "Salidas",
                 "NEW":"Registro",
