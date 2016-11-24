@@ -58,7 +58,12 @@
                                             {{field.field_type|tipoDato}}
                                         </td>
                                         <td data-title="{{vm.tableDisplayHeaders[3]}}">
-
+                                            <md-select name="selectQueryType"
+                                                       ng-model="field.aggregate">
+                                                <md-option ng-repeat="option in vm.fieldQueries" value="{{option.id}}">
+                                                    {{option.text}}
+                                                </md-option>
+                                            </md-select>
                                         </td>
                                         <td data-title="{{vm.tableDisplayHeaders[4]}}">
                                             <md-button aria-label="fab button"

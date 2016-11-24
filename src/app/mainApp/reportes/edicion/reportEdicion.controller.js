@@ -54,7 +54,6 @@
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
             vm.successUpdate = Translate.translate('REPORTS.MESSAGES.REPORT_UPDATE_SUCCESS');
-
         }
 
         function removeField(id) {
