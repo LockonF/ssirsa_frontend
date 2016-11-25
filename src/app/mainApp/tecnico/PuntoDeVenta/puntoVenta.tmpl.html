@@ -265,8 +265,8 @@
                                     <div layout="row" layout-md="row" layout-sm="row" layout-xs="column" layout-align=""
                                          ng-show="vm.insumos_loteUsados.length!=0 || vm.insumos_sinStock.lenght!=0"
                                          flex="100" layout-wrap>
-                                        <div ng-repeat="insu in vm.insumos_loteUsados" flex-xs flex-sm="50" flex-md="50" flex-lg="50" flex-xl="50">
-                                            <div column>
+                                        <div class="card1" ng-repeat="insu in vm.insumos_loteUsados" flex-xs flex-sm="50" flex-md="50" flex-lg="50" flex-xl="50">
+                                            <div column class="card1" >
                                                 <div layout="row" layout-align="center center">
                                                     <div flex="20">
                                                         <md-switch flex class="md-primary"
@@ -284,8 +284,8 @@
                                             </div>
                                         </div>
                                         <md-divider></md-divider>
-                                        <div ng-repeat="insu2 in vm.insumos_sinStock track by $index" flex-xs flex-sm="50" flex-md="50" flex-lg="50" flex-xl="50">
-                                            <div column>
+                                        <div class="card1"  ng-repeat="insu2 in vm.insumos_sinStock track by $index" flex-xs flex-sm="50" flex-md="50" flex-lg="50" flex-xl="50">
+                                            <div class="card1" >
                                                 <div layout="row" layout-align="center center">
                                                     <div flex="20">
                                                         <md-icon md-font-icon="fa fa-ban"></md-icon>
@@ -303,7 +303,7 @@
                                         <md-divider></md-divider>
                                         <div layout="column" flex="100">
                                         <form name="form.insumoFormEtapa">
-                                        <md-content layout="row"  layout-sm="column"  layout-xs="column"flex layout-xs="column" ng-if="vm.puntoVenta">
+                                        <md-content  layout="row"  layout-sm="column"  layout-xs="column"flex layout-xs="column" ng-if="vm.puntoVenta">
                                             <md-switch ng-model="inputDisabled">
                                                 <span translate>ETAPA_SERVICIO.ADD_MICRO</span>
                                             </md-switch>
