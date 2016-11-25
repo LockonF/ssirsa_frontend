@@ -14,7 +14,7 @@
                                     <h5 translate="">PUNTOVENTA.PROGRESSREGISTER</h5>
                                 </div>
                                 <div flex="50" layout-fill>
-                                    <h5>{{triWizard.progress}}% <span translate="">PUNTOVENTA.COMPLETED</span></h5>
+                                    <h5>{{vm.completed}}% <span translate="">PUNTOVENTA.COMPLETED</span></h5>
                                 </div>
                             </div>
                         </div>
@@ -30,7 +30,7 @@
             </md-toolbar>
             <md-tabs layout-fill="" md-selected="triWizard.currentStep" md-dynamic-height="" md-stretch-tabs="always"
                      class="md-primary">
-                <md-tab id="info">
+                <md-tab ng-click='vm.checkFinished()' id="info">
                     <md-tab-label><span class="oxy-step-label">1</span><span
                             translate="" hide-xs>PUNTOVENTA.SERVICEDATA</span></md-tab-label>
                     <md-tab-body>
@@ -99,7 +99,7 @@
                         </div>
                     </md-tab-body>
                 </md-tab>
-                <md-tab id="fondeoT" ng-disabled="projectInfo.$invalid">
+                <md-tab id="fondeoT" ng-click='vm.checkFinished()' ng-disabled="projectInfo.$invalid">
                     <md-tab-label><span class="oxy-step-label">2</span><span translate="" hide-xs>PUNTOVENTA.LOCALDATA</span>
                     </md-tab-label>
                     <md-tab-body>
@@ -191,7 +191,7 @@
                         </div>
                     </md-tab-body>
                 </md-tab>
-                <md-tab id="aims" ng-disabled="projectInfo.$invalid">
+                <md-tab id="aims" ng-click='vm.checkFinished()' ng-disabled="projectInfo.$invalid">
                     <md-tab-label><span class="oxy-step-label">3</span><span translate="" hide-xs>PUNTOVENTA.CABINETDATA</span>
                     </md-tab-label>
                     <md-tab-body>
@@ -254,7 +254,7 @@
 
                     </md-tab-body>
                 </md-tab>
-                <md-tab id="reach" ng-disabled="projectInfo.$invalid">
+                <md-tab id="reach"ng-click='vm.checkFinished()' ng-disabled="projectInfo.$invalid">
                     <md-tab-label><span class="oxy-step-label">4</span><span
                             translate="" hide-xs>PUNTOVENTA.USEDINSUM</span>
                     </md-tab-label>
@@ -363,7 +363,7 @@
                         </div>
                     </md-tab-body>
                 </md-tab>
-                <md-tab id="reach" ng-disabled="projectInfo.$invalid">
+                <md-tab id="reach" ng-click='vm.checkFinished()' ng-disabled="projectInfo.$invalid">
                     <md-tab-label><span class="oxy-step-label">5</span><span
                             translate="" hide-xs>PUNTOVENTA.SERVICEOBSERVATION</span>
                     </md-tab-label>
@@ -406,18 +406,18 @@
                 </md-tab>
             </md-tabs>
             <md-actions class="card1" layout="row" layout-align="end center" flex class="wizard-navbar">
-                <md-button ng-click="triWizard.prevStep()" class="md-fab md-mini md-scale"
+                <md-button ng-click="vm.prev()" class="md-fab md-mini md-scale"
                            ng-hide="triWizard.currentStep > 5"
                            ng-disabled="triWizard.prevStepDisabled()">
                     <md-icon md-font-icon="fa fa-hand-o-left"></md-icon>
                 </md-button>
-                <md-button ng-click="triWizard.nextStep()" class="md-fab md-mini md-scale"
-                           ng-hide="triWizard.progress == '100' && triWizard.currentStep >= 5"
+                <md-button ng-click="vm.next()" class="md-fab md-mini md-scale"
+                           ng-hide="vm.completed == 100 && triWizard.currentStep >= 5"
                            ng-disabled="triWizard.nextStepDisabled()">
                     <md-icon md-font-icon="fa fa-hand-o-right"></md-icon>
                 </md-button>
                 <md-button ng-click="vm.crearPuntodeVenta()" class="md-fab md-mini md-scale"
-                           ng-show="triWizard.progress == 100"
+                           ng-show="vm.completed == 100"
                            translate="">
                     <md-icon md-font-icon="fa fa-save"></md-icon>
                 </md-button>
