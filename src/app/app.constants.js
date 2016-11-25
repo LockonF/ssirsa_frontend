@@ -342,7 +342,33 @@
                 {
                     id: 'DecimalField',
                     text: 'Decimal'
-                }]
+                }],
+            field_types:[
+                {
+                    id:"None",
+                    text:""
+                },
+                {
+                    id:"Sum",
+                    text:"Suma"
+                },
+                {
+                    id:"Count",
+                    text:"Contar"
+                },
+                {
+                    id:"Avg",
+                    text:"Promedio"
+                },
+                {
+                    id:"Max",
+                    text:"Máximo"
+                },
+                {
+                    id:"Min",
+                    text:"Minimo"
+                }
+            ]
 
         });
 })();
