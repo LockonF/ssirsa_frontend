@@ -26,7 +26,8 @@
             cloneReport:cloneReport,
             updateReport:updateReport,
             requestReport:requestReport,
-            getReportsGenerated:getReportsGenerated
+            getReportsGenerated:getReportsGenerated,
+            getReportObject:getReportObject
         };
         //Clona un reporte pasando el id del reporte y el nombre
         function cloneReport(request) {
@@ -143,6 +144,10 @@
         }
         function getReportsGenerated() {
             return Restangular.all("report_builder").all("reports").all("download").all("").getList();
+        }
+        //Obtiene la información completa de un reporte en específico usando un promise
+        function getReportObject(id){
+            return path.one("report",id).all("").customGET();
         }
     }
 })();

@@ -49,7 +49,15 @@
         ];
 
         function activate() {
-            vm.report = Reportes.getReport($stateParams.id);
+            vm.report = Reportes.getReportObject($stateParams.id).then(function(res){
+                vm.report=res;
+                if(res.displayfield_set!=null)
+                    vm.report.displayfield_set=reorganizeFieldIndexes(res.displayfield_set);
+                if(res.filterfield_set!=null)
+                    vm.report.filterfield_set=reorganizeFieldIndexes(res.filterfield_set);
+            }).catch(function(){
+
+            });
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
@@ -87,7 +95,9 @@
                 }
             }).then(function (res) {
                 Array.prototype.push.apply(vm.report.displayfield_set, res.fields);
+                vm.report.displayfield_set = reorganizeFieldIndexes(vm.report.displayfield_set);
                 Array.prototype.push.apply(vm.report.filterfield_set, res.filters);
+                vm.report.filterfield_set = reorganizeFieldIndexes(vm.report.filterfield_set);
             }).catch(function (err) {
                 if (err != null) {
                     toastr.warning(vm.errorMessage, vm.errorTitle);
