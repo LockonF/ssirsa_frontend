@@ -183,7 +183,6 @@
                         toastr.error(vm.errorMessage, vm.errorTitle);
                     });
                 }).catch(function (err) {
-                    console.log(err);
                     toastr.error(vm.errorMessage, vm.errorTitle);
                 });
             }).catch(function (err) {
