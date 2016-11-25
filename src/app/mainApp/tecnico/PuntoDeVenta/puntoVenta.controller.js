@@ -306,15 +306,12 @@
 
         function cancel() {
             vm.reporte={
-                fecha:moment().format('YYYY-MM-DD'),
-                hora:moment().format('HH:mm:ss')
             };
             vm.servicio={
-                fecha:moment().format('YYYY-MM-DD'),
-                hora:moment().format('HH:mm:ss')
+
             };
             vm.recepcion={
-                hora:moment().format('HH:mm:ss')
+               
             };
             vm.etapa = {};
             vm.formato="DD-MM-YYYY";
