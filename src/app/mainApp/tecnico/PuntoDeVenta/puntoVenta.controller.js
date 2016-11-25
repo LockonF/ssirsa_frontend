@@ -10,21 +10,23 @@
         .module('app.mainApp.tecnico')
         .controller('PuntoVentaController', PuntoVentaController);
 
-    function PuntoVentaController(Cabinet, Helper, Servicios,PuntoDeVenta, MarcaCabinet, $mdDialog, $scope, Translate, toastr) {
+    function PuntoVentaController( Helper, Servicios,PuntoDeVenta, MarcaCabinet, $mdDialog, $scope, Translate, toastr) {
         var vm = this;
         vm.activate = activate();
         //Inicializando Variables
         $scope.form = {};
         vm.reporte={
             fecha:moment().format('YYYY-MM-DD'),
-            hora:moment().format('HH:mm:ss')
+            hora:moment(new Date(),'HH:mm:ss').toDate()
+
         };
         vm.servicio={
             fecha:moment().format('YYYY-MM-DD'),
-            hora:moment().format('HH:mm:ss')
+            hora:moment(new Date(),'HH:mm:ss').toDate()
+
         };
         vm.recepcion={
-            hora:moment().format('HH:mm:ss')
+            hora:moment(new Date(),'HH:mm:ss').toDate()
         };
         vm.etapa = {};
         vm.formato="DD-MM-YYYY";
@@ -35,7 +37,7 @@
             {value: 'Cambio de Equipo'},
             {value: 'Otro'}
 
-        ]
+        ];
 
         vm.showInsumosSection = true;
         vm.catalogoInsumos = null;//array con todos los caatalogos de insumo disponibles de la etapa
@@ -79,7 +81,7 @@
             if (vm.etapas!=null){
                 vm.etapa=_.findWhere(vm.etapas, {nombre: 'E7'});
             }
-            console.log(vm.etapa);
+
         }
 
         function editar() {
@@ -89,7 +91,7 @@
 
         function filterModels() {
             if (vm.marca != null) {
-                console.log("Entre a Buscar Modelos")
+
                 vm.modelos = MarcaCabinet.getModels(vm.marca).then(function (res) {
                     if (res.length > 0) {
                         vm.modelos = Helper.filterDeleted(res, true);
@@ -106,7 +108,7 @@
             vm.puntoVenta={};
             MarcaCabinet.listObject().then(function (res) {
                 vm.marcas = Helper.filterDeleted(res, true);
-            }).catch(function (err) {
+            }).catch(function () {
                 toastr.error(vm.errorMessage, vm.errorTitle);
                 vm.marcas = [];
             });
@@ -119,7 +121,7 @@
                 vm.reporte.fecha=moment(vm.puntoVenta.fecha_reporte,"YYYY-MM-DD").toDate();
                 vm.reporte.hora=moment(vm.puntoVenta.fecha_reporte,"HH:mm:ss").toDate();
             }
-           
+
             if( vm.puntoVenta.fecha_servicio != null) {
                 vm.servicio.fecha=moment(vm.puntoVenta.fecha_servicio,"YYYY-MM-DD").toDate();
                 vm.servicio.hora=moment(vm.puntoVenta.fecha_servicio,"HH:mm:ss").toDate();
@@ -155,19 +157,13 @@
 
 
         function eliminaNoSeleccionados() {
-
-            var paraAgregar = _.where(vm.insumos_loteUsados, {agregar: true});
-            vm.puntoVenta.insumos_lote = paraAgregar;
-
+            vm.puntoVenta.insumos_lote =  _.where(vm.insumos_loteUsados, {agregar: true});
         }
 
 
         function getInsumosLote() {
             vm.insumos_loteUsados=[];
             buscaPuntoDeVenta();
-            console.log(vm.modelo);
-            console.log(vm.modelo.tipo);
-
             var data = {
                 idTipo: '',
                 idEtapa: ''
@@ -181,12 +177,10 @@
 
                 notifyError(407);
             }
-            console.log(data);
+
             var promise = Servicios.BusquedaCatalogoTypeStep(data);
             promise.then(function (res) {
                 vm.insumosLote = res;
-                console.log("Insumos lote obtenidos");
-                console.log(vm.insumosLote);
                 transformArrayCatalogoInsumos();
             }).catch(function (res) {
                // notifyError(res.status);
@@ -196,11 +190,7 @@
         //function filter para determinar las cantidades adecuadas del catalogo insumos porq endpoint regresa los valores para todos los tipo de equipo
 
         function filterInsumosLotebyType(tipos_equipo) {
-            var elemento;
-            elemento = _.findWhere(tipos_equipo, {tipo_equipo: vm.modelo.tipo});
-            console.log(elemento);
-            return elemento;
-
+           return _.findWhere(tipos_equipo, {tipo_equipo: vm.modelo.tipo});
         }
 
         function transformArrayCatalogoInsumos() {
@@ -224,12 +214,8 @@
                 }
                 vm.insumoLote = null;
                 vm.insumoLote = {};
-            })
-            console.log("Insumos lote obtenidos en array");
-            console.log(vm.insumos_loteUsados);
-            console.log(vm.insumos_lote.length);
+            });
             if (vm.insumos_loteUsados.length == 0) {
-
                 notifyError(998);
             }
         }
@@ -270,9 +256,6 @@
                 case 998:
                     toastr.warning(vm.errorMessage, vm.errorNotInsumos);
                     break;
-                case 999:
-                    toastr.warning(vm.cabinetDeleted, vm.errorMessage);
-                    break;
                 case 1000:
                     toastr.warning(vm.notFoundMessage, vm.notStepsMessage);
                     break;
@@ -291,7 +274,6 @@
             vm.showInsumo = true;
             if (vm.puntoVenta.insumos_unicos[0].no_serie != null) {
                 vm.puntoVenta.insumos_unicos[0].cantidad = 1;
-                console.log(vm.puntoVenta.insumos_unicos[0]);
                 notifyError(1001);
             }
         }
@@ -311,7 +293,7 @@
 
             };
             vm.recepcion={
-               
+
             };
             vm.etapa = {};
             vm.formato="DD-MM-YYYY";
@@ -373,7 +355,7 @@
                     $mdDialog.show(confirm).then(function () {
 
                         var promise = PuntoDeVenta.remove(vm.puntoVenta);
-                        promise.then(function (res) {
+                        promise.then(function () {
                             toastr.success(vm.successDeleteMessage, vm.successTitle);
                             vm.cancel();
                         }).catch(function (res) {
@@ -389,12 +371,14 @@
 
 
         function crearPuntodeVenta() {
-
+            var fecha=null;
+            var hora=null;
+            var promise=null;
             vm.puntoVenta.insumos_lote = vm.insumos;
             vm.puntoVenta.modelo=vm.modelo.id;
             if (vm.reporte!=null) {
-                var fecha = moment(vm.reporte.fecha).subtract("day", 1);
-                var hora = moment(vm.reporte.hora);
+                 fecha = moment(vm.reporte.fecha).subtract("day", 1);
+                 hora = moment(vm.reporte.hora);
                 fecha.set({
                     hour: hora.get('hour'),
                     minute: hora.get('minute'),
@@ -404,8 +388,8 @@
                 vm.puntoVenta.fecha_reporte = fecha.toISOString();
             }
             if (vm.servicio!=null) {
-                var fecha = moment(vm.servicio.fecha).subtract("day", 1);
-                var hora = moment(vm.servicio.hora);
+                 fecha = moment(vm.servicio.fecha).subtract("day", 1);
+                hora = moment(vm.servicio.hora);
                 fecha.set({
                     hour: hora.get('hour'),
                     minute: hora.get('minute'),
@@ -423,22 +407,22 @@
 
                 vm.puntoVenta.insumos_lote = vm.insumos_loteUsados;
                 vm.puntoVenta.insumos = vm.insumos;
-                console.log(JSON.stringify(vm.puntoVenta));
-                var promise = PuntoDeVenta.create(vm.puntoVenta);
+
+                 promise = PuntoDeVenta.create(vm.puntoVenta);
                 promise.then(function (res) {
                     toastr.success(vm.successTitle, vm.successCreateMessage);
                     vm.puntoVenta = res;
                     vm.cancel();
 
                 }).catch(function (res) {
-                    console.log(res)
+
 
                     notifyError(res.status);
                 });
             }
             else {
                 eliminaNoSeleccionados();
-                var promise = PuntoDeVenta.modify(vm.puntoVenta);
+                 promise = PuntoDeVenta.modify(vm.puntoVenta);
                 promise.then(function (res) {
 
                     toastr.success(vm.successTitle, vm.successUpdateMessage);
