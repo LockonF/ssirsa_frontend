@@ -305,7 +305,19 @@
 
 
         function cancel() {
+            vm.reporte={
+                fecha:moment().format('YYYY-MM-DD'),
+                hora:moment().format('HH:mm:ss')
+            };
+            vm.servicio={
+                fecha:moment().format('YYYY-MM-DD'),
+                hora:moment().format('HH:mm:ss')
+            };
+            vm.recepcion={
+                hora:moment().format('HH:mm:ss')
+            };
             vm.etapa = {};
+            vm.formato="DD-MM-YYYY";
             vm.tiposTrabajo = [
                 {value: 'Mayor'},
                 {value: 'Medio'},
@@ -313,8 +325,9 @@
                 {value: 'Cambio de Equipo'},
                 {value: 'Otro'}
 
-            ]
-
+            ];
+            vm.marca=null;
+            vm.modelo=null;
             vm.showInsumosSection = true;
             vm.catalogoInsumos = null;//array con todos los caatalogos de insumo disponibles de la etapa
             vm.catalogoSelected = {};//Elemento del tipo Catalogo de Insumo del insumo que se deseará agregar
@@ -334,13 +347,8 @@
             vm.insumoLote = {};
             vm.insumos_loteUsados = [];//Arreglo que ya posee el arreglo como es necesario para agregar los insumos al formato de arreglo para agregarlos a la etapa
             vm.insumos_sinStock = [];
-            vm.puntoVenta = {};
-                    //Nuevas VariablesUsadas
-            vm.insumos_lote = [];// Arreglo que posera los Insumos de Lote que serán utilizados en la etapa de servicio
-            vm.insumoLote = {};
-            vm.insumos_loteUsados = [];//Arreglo que ya posee el arreglo como es necesario para agregar los insumos al formato de arreglo para agregarlos a la etapa
-            vm.insumos_sinStock = [];
-            vm.dataEtapa = null;//Variable que posera los datos de la etapa para el precargado de Template (id etapa, idTipoEquipo)
+            vm.puntoVenta = {insumos_unicos:[]};
+
             $scope.generalInfo.$setPristine();
             $scope.generalInfo.$setUntouched();
             $scope.localData.$setPristine();
@@ -349,8 +357,6 @@
             $scope.cabinetInfo.$setUntouched();
             $scope.observationsData.$setPristine();
             $scope.observationsData.$setUntouched();
-            $scope.form.insumoFormEtapa.$setPristine();
-            $scope.form.insumoFormEtapa.$setUntouched();
 
 
         }
