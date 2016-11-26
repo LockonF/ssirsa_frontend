@@ -20,6 +20,7 @@
             hora:moment(new Date(),'HH:mm:ss').toDate()
 
         };
+        vm.completed=0;
         vm.servicio={
             fecha:moment().format('YYYY-MM-DD'),
             hora:moment(new Date(),'HH:mm:ss').toDate()
@@ -31,7 +32,7 @@
         vm.etapa = {};
         vm.formato="DD-MM-YYYY";
         vm.tiposTrabajo = [
-            {value: 'Mayor'},
+            {value: 'Mayr'},
             {value: 'Medio'},
             {value: 'Menor'},
             {value: 'Cambio de Equipo'},
@@ -44,6 +45,7 @@
         vm.catalogoSelected = {};//Elemento del tipo Catalogo de Insumo del insumo que se deseará agregar
         vm.editable = true;
         vm.showInsumo = false;
+        vm.insumos=[];
         vm.insumosToArray = [];
         vm.cabinet = null;// Informacion general del cabinet al cual se le asignara una nueva etapa
         vm.cabinetid = null;
@@ -58,7 +60,7 @@
         vm.insumoLote = {};
         vm.insumos_loteUsados = [];//Arreglo que ya posee el arreglo como es necesario para agregar los insumos al formato de arreglo para agregarlos a la etapa
         vm.insumos_sinStock = [];
-        vm.puntoVenta = {insumos_unicos:[]};
+        vm.puntoVenta = {insumos:[]};
 
         //Declaracion de Funciones
 
@@ -72,9 +74,62 @@
         vm.AddInsumoArray = AddInsumoArray;
         vm.DeleteInsumoArray = DeleteInsumoArray;
         vm.filterModels = filterModels;
+        vm.checkFinished = checkFinished;
+        vm.next=next;
+        vm.prev=prev;
 
 
         // Funciones
+        function checkFinished() {
+            var completed = 0;
+            if (vm.puntoVenta.semana != null )
+                completed += 1;
+            if (vm.recepcion.hora != null)
+                completed += 1;
+            if (vm.puntoVenta.km != null )
+                completed += 1;
+            if (vm.puntoVenta.nombre_establecimiento != null)
+                completed += 1;
+            if (vm.puntoVenta.direccion != null)
+                completed += 1;
+            if (vm.reporte.fecha != null)
+                completed += 1;
+            if (vm.reporte.hora != null )
+                completed += 1;
+            if (vm.servicio.fecha != null )
+                completed += 1;
+            if (vm.servicio.hora != null )
+                completed += 1;
+            if (vm.puntoVenta.activo != null)
+                completed += 1;
+            if (vm.puntoVenta.serie != null )
+                completed += 1;
+            if (vm.marca != null )
+                completed += 1;
+            if (vm.modelo != null )
+                completed += 1;
+            if (vm.puntoVenta.descripcion_trabajo != null )
+                completed += 1;
+            if (vm.puntoVenta.observaciones_cliente != null )
+                completed += 1;
+            if (vm.puntoVenta.observaciones_tecnicas!= null)
+                completed += 1;
+            completed = (completed / 16) * 100;
+            completed = completed.toFixed(0);
+            vm.completed=completed;
+            return completed;
+        }
+
+
+
+        function next(){
+            $scope.triWizard.nextStep();
+            vm.checkFinished();
+        }
+        function prev(){
+            $scope.triWizard.prevStep();
+            vm.checkFinished();
+        }
 
 
         function buscaPuntoDeVenta(){
@@ -221,8 +276,8 @@
         }
 
         function crearInsumo() {
-            if (vm.puntoVenta.insumos_unicos[0].no_serie) {
-                vm.puntoVenta.insumos_unicos[0].cantidad = 1;
+            if (vm.puntoVenta.insumos[0].no_serie) {
+                vm.puntoVenta.insumos[0].cantidad = 1;
                 vm.crearEtapaServicio();
             }
         }
@@ -272,16 +327,16 @@
 
         function AddInsumoArray() {
             vm.showInsumo = true;
-            if (vm.puntoVenta.insumos_unicos[0].no_serie != null) {
-                vm.puntoVenta.insumos_unicos[0].cantidad = 1;
+            if (vm.puntoVenta.insumos[0].no_serie != null) {
+                vm.puntoVenta.insumos[0].cantidad = 1;
                 notifyError(1001);
             }
         }
 
         function DeleteInsumoArray() {
-            vm.puntoVenta.insumos_unicos[0].no_serie = null;
-            vm.puntoVenta.insumos_unicos[0].notas = null;
-            vm.puntoVenta.insumos_unicos[0].cantidad = null;
+            vm.puntoVenta.insumos[0].no_serie = null;
+            vm.puntoVenta.insumos[0].notas = null;
+            vm.puntoVenta.insumos[0].cantidad = null;
             vm.showInsumo = false;
         }
 
@@ -305,6 +360,7 @@
                 {value: 'Otro'}
 
             ];
+            vm.completed=0;
             vm.marca=null;
             vm.modelo=null;
             vm.showInsumosSection = true;
@@ -326,7 +382,7 @@
             vm.insumoLote = {};
             vm.insumos_loteUsados = [];//Arreglo que ya posee el arreglo como es necesario para agregar los insumos al formato de arreglo para agregarlos a la etapa
             vm.insumos_sinStock = [];
-            vm.puntoVenta = {insumos_unicos:[]};
+            vm.puntoVenta = {insumos:[]};
 
             $scope.generalInfo.$setPristine();
             $scope.generalInfo.$setUntouched();
