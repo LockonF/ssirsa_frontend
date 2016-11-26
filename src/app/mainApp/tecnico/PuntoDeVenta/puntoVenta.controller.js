@@ -32,7 +32,7 @@
         vm.etapa = {};
         vm.formato="DD-MM-YYYY";
         vm.tiposTrabajo = [
-            {value: 'Mayr'},
+            {value: 'Mayor'},
             {value: 'Medio'},
             {value: 'Menor'},
             {value: 'Cambio de Equipo'},
@@ -433,7 +433,7 @@
             vm.puntoVenta.insumos_lote = vm.insumos;
             vm.puntoVenta.modelo=vm.modelo.id;
             if (vm.reporte!=null) {
-                 fecha = moment(vm.reporte.fecha).subtract("day", 1);
+                 fecha = moment(vm.reporte.fecha).subtract(1,"day");
                  hora = moment(vm.reporte.hora);
                 fecha.set({
                     hour: hora.get('hour'),
@@ -444,7 +444,7 @@
                 vm.puntoVenta.fecha_reporte = fecha.toISOString();
             }
             if (vm.servicio!=null) {
-                 fecha = moment(vm.servicio.fecha).subtract("day", 1);
+                 fecha = moment(vm.servicio.fecha).subtract(1,"day");
                 hora = moment(vm.servicio.hora);
                 fecha.set({
                     hour: hora.get('hour'),

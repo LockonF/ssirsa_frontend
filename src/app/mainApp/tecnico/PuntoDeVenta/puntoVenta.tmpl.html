@@ -396,6 +396,7 @@
                                         <label translate="">PUNTOVENTA.TECHNICALOBSERVATIONS</label>
                                         <textarea name="observaciones_tecnicas" required=""
                                                   ng-model="vm.puntoVenta.observaciones_tecnicas"
+                                                  ng-change="vm.checkFinished()"
                                                   md-maxlength="500"></textarea>
                                         <div ng-messages="observationsData.observaciones_tecnicas.$error">
                                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
