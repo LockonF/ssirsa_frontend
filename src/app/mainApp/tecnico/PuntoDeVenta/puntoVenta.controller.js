@@ -10,21 +10,23 @@
         .module('app.mainApp.tecnico')
         .controller('PuntoVentaController', PuntoVentaController);
 
-    function PuntoVentaController(Helper, Servicios,PuntoDeVenta, MarcaCabinet, $mdDialog, $scope, Translate, toastr) {
+    function PuntoVentaController( Helper, Servicios,PuntoDeVenta, MarcaCabinet, $mdDialog, $scope, Translate, toastr) {
         var vm = this;
         vm.activate = activate();
         //Inicializando Variables
         $scope.form = {};
         vm.reporte={
             fecha:moment().format('YYYY-MM-DD'),
-            hora:moment().format('HH:mm:ss')
+            hora:moment(new Date(),'HH:mm:ss').toDate()
+
         };
         vm.servicio={
             fecha:moment().format('YYYY-MM-DD'),
-            hora:moment().format('HH:mm:ss')
+            hora:moment(new Date(),'HH:mm:ss').toDate()
+
         };
         vm.recepcion={
-            hora:moment().format('HH:mm:ss')
+            hora:moment(new Date(),'HH:mm:ss').toDate()
         };
         vm.etapa = {};
         vm.formato="DD-MM-YYYY";
@@ -35,30 +37,8 @@
             {value: 'Cambio de Equipo'},
             {value: 'Otro'}
 
-        ]
-        vm.puntoVenta={
-            insumos: [],
-            insumos_lote: [],
-            semana:null,
-            hora_recepcion:null,
-            fecha: null,
-            piso: null,
-            campo: null,
-            movimiento: null,
-            entrega: null,
-            km: null,
-            tipo_trabajo:null,
-            nombre_establecimiento: null,
-            direccion: null,
-            activo: null,
-            serie: null,
-            fecha_reporte: null,
-            fecha_servicio: null,
-            descripcion_trabajo:null,
-            observaciones_cliente: null,
-            observaciones_tecnicas: null,
-            modelo: null
-        }
+        ];
+
         vm.showInsumosSection = true;
         vm.catalogoInsumos = null;//array con todos los caatalogos de insumo disponibles de la etapa
         vm.catalogoSelected = {};//Elemento del tipo Catalogo de Insumo del insumo que se deseará agregar
@@ -78,6 +58,8 @@
         vm.insumoLote = {};
         vm.insumos_loteUsados = [];//Arreglo que ya posee el arreglo como es necesario para agregar los insumos al formato de arreglo para agregarlos a la etapa
         vm.insumos_sinStock = [];
+        vm.puntoVenta = {insumos_unicos:[]};
+
         //Declaracion de Funciones
 
 
@@ -90,9 +72,6 @@
         vm.AddInsumoArray = AddInsumoArray;
         vm.DeleteInsumoArray = DeleteInsumoArray;
         vm.filterModels = filterModels;
-        vm.checkFinished=checkFinished;
-        vm.next=next;
-        vm.prev=prev;
 
 
         // Funciones
@@ -104,14 +83,7 @@
             }
 
         }
-        function next(){
-            $scope.triWizard.nextStep();
-            vm.checkFinished();
-        }
-        function prev(){
-            $scope.triWizard.prevStep();
-            vm.checkFinished();
-        }
+
         function editar() {
             vm.editable = !vm.editable;
         }
@@ -119,6 +91,7 @@
 
         function filterModels() {
             if (vm.marca != null) {
+
                 vm.modelos = MarcaCabinet.getModels(vm.marca).then(function (res) {
                     if (res.length > 0) {
                         vm.modelos = Helper.filterDeleted(res, true);
@@ -132,44 +105,27 @@
         //Funcion Activate al iniciar la vista
         function activate() {
             vm.marca = null;
-            vm.puntoVenta={
-                insumos: [],
-                insumos_lote: [],
-                semana:null,
-                hora_recepcion:null,
-                fecha: null,
-                piso: null,
-                campo: null,
-                movimiento: null,
-                entrega: null,
-                km: null,
-                tipo_trabajo:null,
-                nombre_establecimiento: null,
-                direccion: null,
-                activo: null,
-                serie: null,
-                fecha_reporte: null,
-                fecha_servicio: null,
-                descripcion_trabajo:null,
-                observaciones_cliente: null,
-                observaciones_tecnicas: null,
-                modelo: null
-            }
+            vm.puntoVenta={};
             MarcaCabinet.listObject().then(function (res) {
                 vm.marcas = Helper.filterDeleted(res, true);
-            }).catch(function (err) {
+            }).catch(function () {
                 toastr.error(vm.errorMessage, vm.errorTitle);
                 vm.marcas = [];
             });
-            vm.reporte={
-            };
-            vm.servicio={
 
-            };
-            vm.recepcion={
+            if( vm.puntoVenta.hora_recepcion != null) {
+                vm.recepcion.hora=moment(vm.puntoVenta.hora_recepcion,"HH:mm:ss").toDate();
+            }
 
-            };
+            if( vm.puntoVenta.fecha_reporte != null) {
+                vm.reporte.fecha=moment(vm.puntoVenta.fecha_reporte,"YYYY-MM-DD").toDate();
+                vm.reporte.hora=moment(vm.puntoVenta.fecha_reporte,"HH:mm:ss").toDate();
+            }
 
+            if( vm.puntoVenta.fecha_servicio != null) {
+                vm.servicio.fecha=moment(vm.puntoVenta.fecha_servicio,"YYYY-MM-DD").toDate();
+                vm.servicio.hora=moment(vm.puntoVenta.fecha_servicio,"HH:mm:ss").toDate();
+            }
             vm.modelos = [];
             vm.modelo={};
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
@@ -201,18 +157,13 @@
 
 
         function eliminaNoSeleccionados() {
-
-            var paraAgregar = _.where(vm.insumos_loteUsados, {agregar: true});
-            vm.puntoVenta.insumos_lote = paraAgregar;
-
+            vm.puntoVenta.insumos_lote =  _.where(vm.insumos_loteUsados, {agregar: true});
         }
-
 
 
         function getInsumosLote() {
             vm.insumos_loteUsados=[];
             buscaPuntoDeVenta();
-
             var data = {
                 idTipo: '',
                 idEtapa: ''
@@ -230,7 +181,6 @@
             var promise = Servicios.BusquedaCatalogoTypeStep(data);
             promise.then(function (res) {
                 vm.insumosLote = res;
-
                 transformArrayCatalogoInsumos();
             }).catch(function (res) {
                // notifyError(res.status);
@@ -240,10 +190,7 @@
         //function filter para determinar las cantidades adecuadas del catalogo insumos porq endpoint regresa los valores para todos los tipo de equipo
 
         function filterInsumosLotebyType(tipos_equipo) {
-            var elemento;
-            elemento = _.findWhere(tipos_equipo, {tipo_equipo: vm.modelo.tipo});
-            return elemento;
-
+           return _.findWhere(tipos_equipo, {tipo_equipo: vm.modelo.tipo});
         }
 
         function transformArrayCatalogoInsumos() {
@@ -267,16 +214,15 @@
                 }
                 vm.insumoLote = null;
                 vm.insumoLote = {};
-            })
+            });
             if (vm.insumos_loteUsados.length == 0) {
-
                 notifyError(998);
             }
         }
 
         function crearInsumo() {
-            if (vm.puntoVenta.insumos[0].no_serie) {
-                vm.puntoVenta.insumos[0].cantidad = 1;
+            if (vm.puntoVenta.insumos_unicos[0].no_serie) {
+                vm.puntoVenta.insumos_unicos[0].cantidad = 1;
                 vm.crearEtapaServicio();
             }
         }
@@ -310,9 +256,6 @@
                 case 998:
                     toastr.warning(vm.errorMessage, vm.errorNotInsumos);
                     break;
-                case 999:
-                    toastr.warning(vm.cabinetDeleted, vm.errorMessage);
-                    break;
                 case 1000:
                     toastr.warning(vm.notFoundMessage, vm.notStepsMessage);
                     break;
@@ -326,58 +269,19 @@
 
             }
         }
-        function checkFinished() {
-            var completed = 0;
-            if (vm.puntoVenta.semana != null )
-                completed += 1;
-            if (vm.recepcion.hora != null)
-                completed += 1;
-            if (vm.puntoVenta.km != null )
-                completed += 1;
-            if (vm.puntoVenta.nombre_establecimiento != null)
-                completed += 1;
-            if (vm.puntoVenta.direccion != null)
-                completed += 1;
-            if (vm.reporte.fecha != null)
-                completed += 1;
-            if (vm.reporte.hora != null )
-                completed += 1;
-            if (vm.servicio.fecha != null )
-                completed += 1;
-            if (vm.servicio.hora != null )
-                completed += 1;
-            if (vm.puntoVenta.activo != null)
-                completed += 1;
-            if (vm.puntoVenta.serie != null )
-                completed += 1;
-            if (vm.marca != null )
-            completed += 1;
-            if (vm.modelo != null )
-            completed += 1;
-            if (vm.puntoVenta.descripcion_trabajo != null )
-            completed += 1;
-            if (vm.puntoVenta.observaciones_cliente != null )
-            completed += 1;
-            if (vm.puntoVenta.observaciones_tecnicas!= null)
-            completed += 1;
-            completed = (completed / 16) * 100;
-            completed = completed.toFixed(0);
-            vm.completed=completed;
-            return completed;
-        }
-        
+
         function AddInsumoArray() {
             vm.showInsumo = true;
-            if (vm.puntoVenta.insumos[0].no_serie != null) {
-                vm.puntoVenta.insumos[0].cantidad = 1;
+            if (vm.puntoVenta.insumos_unicos[0].no_serie != null) {
+                vm.puntoVenta.insumos_unicos[0].cantidad = 1;
                 notifyError(1001);
             }
         }
 
         function DeleteInsumoArray() {
-            vm.puntoVenta.insumos[0].no_serie = null;
-            vm.puntoVenta.insumos[0].notas = null;
-            vm.puntoVenta.insumos[0].cantidad = null;
+            vm.puntoVenta.insumos_unicos[0].no_serie = null;
+            vm.puntoVenta.insumos_unicos[0].notas = null;
+            vm.puntoVenta.insumos_unicos[0].cantidad = null;
             vm.showInsumo = false;
         }
 
@@ -389,9 +293,8 @@
 
             };
             vm.recepcion={
-               
+
             };
-            vm.completed = 0;
             vm.etapa = {};
             vm.formato="DD-MM-YYYY";
             vm.tiposTrabajo = [
@@ -423,29 +326,7 @@
             vm.insumoLote = {};
             vm.insumos_loteUsados = [];//Arreglo que ya posee el arreglo como es necesario para agregar los insumos al formato de arreglo para agregarlos a la etapa
             vm.insumos_sinStock = [];
-            vm.puntoVenta={
-                insumos: [],
-                insumos_lote: [],
-                semana:null,
-                hora_recepcion:null,
-                fecha: null,
-                piso: null,
-                campo: null,
-                movimiento: null,
-                entrega: null,
-                km: null,
-                tipo_trabajo:null,
-                nombre_establecimiento: null,
-                direccion: null,
-                activo: null,
-                serie: null,
-                fecha_reporte: null,
-                fecha_servicio: null,
-                descripcion_trabajo:null,
-                observaciones_cliente: null,
-                observaciones_tecnicas: null,
-                modelo: null
-            };
+            vm.puntoVenta = {insumos_unicos:[]};
 
             $scope.generalInfo.$setPristine();
             $scope.generalInfo.$setUntouched();
@@ -474,7 +355,7 @@
                     $mdDialog.show(confirm).then(function () {
 
                         var promise = PuntoDeVenta.remove(vm.puntoVenta);
-                        promise.then(function (res) {
+                        promise.then(function () {
                             toastr.success(vm.successDeleteMessage, vm.successTitle);
                             vm.cancel();
                         }).catch(function (res) {
@@ -490,12 +371,14 @@
 
 
         function crearPuntodeVenta() {
-
+            var fecha=null;
+            var hora=null;
+            var promise=null;
             vm.puntoVenta.insumos_lote = vm.insumos;
             vm.puntoVenta.modelo=vm.modelo.id;
             if (vm.reporte!=null) {
-                var fecha = moment(vm.reporte.fecha).subtract("day", 1);
-                var hora = moment(vm.reporte.hora);
+                 fecha = moment(vm.reporte.fecha).subtract("day", 1);
+                 hora = moment(vm.reporte.hora);
                 fecha.set({
                     hour: hora.get('hour'),
                     minute: hora.get('minute'),
@@ -505,8 +388,8 @@
                 vm.puntoVenta.fecha_reporte = fecha.toISOString();
             }
             if (vm.servicio!=null) {
-                var fecha = moment(vm.servicio.fecha).subtract("day", 1);
-                var hora = moment(vm.servicio.hora);
+                 fecha = moment(vm.servicio.fecha).subtract("day", 1);
+                hora = moment(vm.servicio.hora);
                 fecha.set({
                     hour: hora.get('hour'),
                     minute: hora.get('minute'),
@@ -524,22 +407,22 @@
 
                 vm.puntoVenta.insumos_lote = vm.insumos_loteUsados;
                 vm.puntoVenta.insumos = vm.insumos;
-                console.log(JSON.stringify(vm.puntoVenta));
-                var promise = PuntoDeVenta.create(vm.puntoVenta);
+
+                 promise = PuntoDeVenta.create(vm.puntoVenta);
                 promise.then(function (res) {
                     toastr.success(vm.successTitle, vm.successCreateMessage);
                     vm.puntoVenta = res;
                     vm.cancel();
 
                 }).catch(function (res) {
-                    console.log(res)
+
 
                     notifyError(res.status);
                 });
             }
             else {
                 eliminaNoSeleccionados();
-                var promise = PuntoDeVenta.modify(vm.puntoVenta);
+                 promise = PuntoDeVenta.modify(vm.puntoVenta);
                 promise.then(function (res) {
 
                     toastr.success(vm.successTitle, vm.successUpdateMessage);
