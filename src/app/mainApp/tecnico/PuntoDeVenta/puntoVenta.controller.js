@@ -462,8 +462,6 @@
                 eliminaNoSeleccionados();
 
                 vm.puntoVenta.insumos_lote = vm.insumos_loteUsados;
-                vm.puntoVenta.insumos = vm.insumos;
-
                  promise = PuntoDeVenta.create(vm.puntoVenta);
                 promise.then(function (res) {
                     toastr.success(vm.successTitle, vm.successCreateMessage);
