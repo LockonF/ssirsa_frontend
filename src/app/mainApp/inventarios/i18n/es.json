@@ -12,7 +12,10 @@
     "MAX_ISSUES":"Solo se permiten entre 1 y 6 incidencias",
     "MAX_GRIDS":"Solo se permiten entre 1 y 6 rejillas",
     "MAX_LAYETTES":"Solo se permiten entre 1 y 6 canastillas",
-    "MAX_WHEELS":"Solo se permiten entre 1 y 6 rodajas"
+    "MAX_WHEELS":"Solo se permiten entre 1 y 6 rodajas",
+    "SHOW_BRANDS_MODELS_SEARCH":"Búsqueda por marca y modelo",
+    "SHOW_ECONOMIC_SEARCH":"Búsqueda por económico",
+    "SEARCH":"Buscar"
   },
   "SUPPLIES":{
     "HEADER":"Inventario de Insumos",
