@@ -8,7 +8,7 @@
      * @author Christian Adan Israel Amezcua Aguilar <amezcua9205@gmail.com>
      * @constructor
      */
-    function Helper($rootScope, $log,$window) {
+    function Helper($rootScope, $log,$window,NotificationPanel,Session) {
         var acceptFileTypes = /(jpe?g|png|bmp|vnd.openxmlformats-officedocument.spreadsheetml.sheet|vnd.ms-excel)$/i;
         return {
             acceptFile: acceptFile,
@@ -16,7 +16,8 @@
             addNotificationGlobal: addNotificationGlobal,
             filterDeleted: filterDeleted,
             searchByField: searchByField,
-            sortByAttribute: sortByAttribute
+            sortByAttribute: sortByAttribute,
+            getNotificationsByUser:getNotificationsByUser
         };
 
         /**
@@ -101,17 +102,25 @@
 
             }
         }
-
         /**
-         * @description Se encarga de mostrar agregar una notificación en la barra superior
-         * @property {Object} notification - Un objeto con la información de la notificación.
+         * @description Se encarga de solicitar las notificaciones del usuario de la sesion
          */
-        function addNotificationGlobal(notification) {
-            $rootScope.notifications.messages.push(notification);
-            $rootScope.notifications.owner.not_seen++;
-            $rootScope.notifications.owner.tickets++;
-            $rootScope.notifications.all_notifications++;
-            $rootScope.notifications.messages = _.sortBy($rootScope.notifications.messages, 'updated_at').reverse();
+        function getNotificationsByUser() {
+            NotificationPanel.getNotificationByUser(Session.userInformation.username).then(function (res) {
+                var notifications = _.sortBy(res.data.notifications, function (obj) {
+                    return obj.notification.date;
+                }).reverse();
+                $rootScope.notifications = {
+                    notView: 0,
+                    view: 0
+                };
+                $rootScope.notifications.notView = _.filter(notifications, function (value) {
+                    return value.read == false;
+                });
+                $rootScope.notifications.view = _.filter(notifications, function (value) {
+                    return value.read == true;
+                });
+            });
         }
 
     }

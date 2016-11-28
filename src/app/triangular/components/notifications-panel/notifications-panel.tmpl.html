@@ -1,7 +1,7 @@
 <md-content flex layout class="admin-notifications">
-    <md-tabs flex md-stretch-tabs="always" md-selected="vm.currentTab">
+    <md-tabs flex md-stretch-tabs="always" md-selected="triWizard.currentStep">
 
-        <md-tab>
+        <md-tab id="0">
             <md-tab-label>
                 <md-icon md-font-icon="fa fa-bell-o"></md-icon>
             </md-tab-label>
@@ -9,15 +9,14 @@
                 <md-content>
                     <md-list>
                         <div>
-                            <md-subheader class="md-primary">Notificaciones</md-subheader>
+                            <md-subheader class="md-primary">Sin ver</md-subheader>
                             <div>
-                                <md-list-item ng-repeat="notification in $root.notifications" layout="row"
-                                              layout-align="space-between center">
+                                <md-list-item ng-repeat="notification in $root.notifications.notView" layout="row"
+                                              layout-align="space-between center" ng-click="vm.click(notification)">
 
-                                    <md-button aria-label="flat button" class="md-icon-button md-accent" ng-click="vm.click(notification)">
-                                        <md-icon md-font-icon="fa fa-eye"></md-icon>
+                                    <md-button aria-label="flat button" class="md-icon-button" >
+                                        <md-icon ng-class="notification.type==='Reporte'?'fa fa-line-chart':'fa fa-file-text-o'"></md-icon>
                                     </md-button>
-                                    <!--<md-icon md-font-icon={{notification.icon}}></md-icon>-->
                                     <p>{{notification.notification.message}}</p>
                                     <span class="md-caption" am-time-ago="::notification.notification.date"></span>
 
@@ -25,10 +24,38 @@
 
 
                             </div>
+                        </div>
                     </md-list>
                 </md-content>
             </md-tab-body>
         </md-tab>
+        <md-tab id="1">
+            <md-tab-label>
+                <md-icon md-font-icon="fa fa-eye"></md-icon>
+            </md-tab-label>
+            <md-tab-body>
+                <md-content>
+                    <md-list>
+                        <div>
+                            <md-subheader class="md-primary">Vistas</md-subheader>
+                            <div>
+                                <md-list-item ng-repeat="notification in $root.notifications.view" layout="row"
+                                              layout-align="space-between center" ng-click="vm.click(notification)">
 
+                                    <md-button aria-label="flat button" class="md-icon-button">
+                                        <md-icon ng-class="notification.type==='Reporte'?'fa fa-line-chart':'fa fa-file-text-o'"></md-icon>
+                                    </md-button>
+                                    <p>{{notification.notification.message}}</p>
+                                    <span class="md-caption" am-time-ago="::notification.notification.date"></span>
+
+                                </md-list-item>
+
+
+                            </div>
+                        </div>
+                    </md-list>
+                </md-content>
+            </md-tab-body>
+        </md-tab>
     </md-tabs>
 </md-content>

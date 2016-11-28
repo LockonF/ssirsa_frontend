@@ -6,7 +6,7 @@
         .controller('NotificationsPanelController', NotificationsPanelController);
 
     /* @ngInject */
-    function NotificationsPanelController($scope, $window,$mdDialog,Reportes, $mdSidenav,NotificationPanel) {
+    function NotificationsPanelController($scope, $window,$mdDialog,Reportes, $mdSidenav,NotificationPanel,Helper) {
         var vm = this;
         // sets the current active tab
         vm.close = close;
@@ -44,9 +44,9 @@
                 $mdDialog.show(config);
             }
 
-            /*NotificationPanel.markNotification(notification._id).then(function (res) {
-
-            });*/
+            NotificationPanel.markNotification(notification._id).then(function (res) {
+                Helper.getNotificationsByUser();
+            });
         }
 
         function close() {

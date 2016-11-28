@@ -106,7 +106,7 @@
                 user.userInformation = res;
                 getRole().then(function (res) {
                     Session.create(user.userInformation, res[0].name);
-                    /*
+
                     if (angular.isArray(res) && res[0].name === 'Administrador') {
                         if (Channel.all().length == 0) {
                             if (angular.isUndefined(PusherClient.pusher)) {
@@ -117,7 +117,7 @@
                             $rootScope.$broadcast(EVENTS_GENERAL.bind_channels);
 
                         }
-                    }*/
+                    }
                     $rootScope.$broadcast(AUTH_EVENTS.sessionRestore);
                     deferred.resolve(res[0].name);
 
