@@ -18,6 +18,7 @@
         vm.filterTypeChar = OPTIONS.filterChar;
         vm.filterInt = OPTIONS.filterInt;
         vm.days = OPTIONS.days;
+        vm.fieldQueries=OPTIONS.field_types;
 
         //Function parse
         vm.removeField = removeField;
@@ -34,6 +35,7 @@
             Translate.translate('REPORTS.MODIFY.FIELD_NAME'),
             Translate.translate('REPORTS.MODIFY.FIELD_VERBOSE'),
             Translate.translate('REPORTS.MODIFY.FIELD_TYPE'),
+            Translate.translate('REPORTS.MODIFY.FIELD_QUERY'),
             Translate.translate('REPORTS.MODIFY.DELETE')
         ];
 
@@ -41,17 +43,25 @@
             Translate.translate('REPORTS.MODIFY.FIELD_NAME'),
             Translate.translate('REPORTS.MODIFY.FIELD_VERBOSE'),
             Translate.translate('REPORTS.MODIFY.FIELD_TYPE'),
+            Translate.translate('REPORTS.TABLE_FILTER.FILTER_TYPE'),
             Translate.translate('REPORTS.MODIFY.VALUE'),
             Translate.translate('REPORTS.MODIFY.DELETE')
         ];
 
         function activate() {
-            vm.report = Reportes.getReport($stateParams.id);
+            vm.report = Reportes.getReportObject($stateParams.id).then(function(res){
+                vm.report=res;
+                if(res.displayfield_set!=null)
+                    vm.report.displayfield_set=reorganizeFieldIndexes(res.displayfield_set);
+                if(res.filterfield_set!=null)
+                    vm.report.filterfield_set=reorganizeFieldIndexes(res.filterfield_set);
+            }).catch(function(){
+
+            });
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
             vm.successUpdate = Translate.translate('REPORTS.MESSAGES.REPORT_UPDATE_SUCCESS');
-
         }
 
         function removeField(id) {
@@ -85,7 +95,9 @@
                 }
             }).then(function (res) {
                 Array.prototype.push.apply(vm.report.displayfield_set, res.fields);
+                vm.report.displayfield_set = reorganizeFieldIndexes(vm.report.displayfield_set);
                 Array.prototype.push.apply(vm.report.filterfield_set, res.filters);
+                vm.report.filterfield_set = reorganizeFieldIndexes(vm.report.filterfield_set);
             }).catch(function (err) {
                 if (err != null) {
                     toastr.warning(vm.errorMessage, vm.errorTitle);

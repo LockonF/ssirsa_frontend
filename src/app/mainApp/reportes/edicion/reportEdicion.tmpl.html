@@ -58,6 +58,14 @@
                                             {{field.field_type|tipoDato}}
                                         </td>
                                         <td data-title="{{vm.tableDisplayHeaders[3]}}">
+                                            <md-select name="selectQueryType"
+                                                       ng-model="field.aggregate">
+                                                <md-option ng-repeat="option in vm.fieldQueries" value="{{option.id}}">
+                                                    {{option.text}}
+                                                </md-option>
+                                            </md-select>
+                                        </td>
+                                        <td data-title="{{vm.tableDisplayHeaders[4]}}">
                                             <md-button aria-label="fab button"
                                                        class="md-fab md-scale md-mini"
                                                        md-colors="{background: 'RED'}"
@@ -108,6 +116,9 @@
                                             </md-input-container>
                                         </td>
                                         <td data-title="{{vm.tableFilterHeaders[2]}}">
+                                            {{field.field_type|tipoDato}}
+                                        </td>
+                                        <td data-title="{{vm.tableFilterHeaders[3]}}">
                                             <md-select aria-label="typeFilter"
                                                        ng-model="field.filter_type"
                                                        layout-align="space-around start"
@@ -122,7 +133,7 @@
                                                 </div>
                                             </md-select>
                                         </td>
-                                        <td data-title="{{vm.tableFilterHeaders[3]}}">
+                                        <td data-title="{{vm.tableFilterHeaders[4]}}">
                                             <div aria-label="maximum"
                                                  ng-if="field.filter_type=='max' || field.filter_type=='min'"
                                             >
@@ -188,7 +199,7 @@
                                                 </md-input-container>
                                             </div>
                                         </td>
-                                        <td data-title="{{vm.tableFilterHeaders[4]}}">
+                                        <td data-title="{{vm.tableFilterHeaders[5]}}">
                                             <md-button aria-label="fab button"
                                                        class="md-fab md-scale md-mini  md-ink-ripple"
                                                        md-colors="{background: 'RED'}"
