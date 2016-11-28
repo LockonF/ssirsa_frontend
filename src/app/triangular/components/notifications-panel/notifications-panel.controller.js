@@ -6,11 +6,12 @@
         .controller('NotificationsPanelController', NotificationsPanelController);
 
     /* @ngInject */
-    function NotificationsPanelController($scope, $http, $mdSidenav, $state, API_CONFIG) {
+    function NotificationsPanelController($scope, $window, $mdSidenav) {
         var vm = this;
         // sets the current active tab
         vm.close = close;
         vm.currentTab = 0;
+        vm.click = click;
 
 
         ////////////////
@@ -19,14 +20,15 @@
         $scope.$on('triSwitchNotificationTab', function ($event, tab) {
             vm.currentTab = tab;
         });
+        function click(id) {
+            var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+            if(id.match(expression)){
+                $window.open(id, '_blank', '');
+            }else{
 
-        // fetch some dummy emails from the API
-        $http({
-            method: 'GET',
-            url: API_CONFIG.url + 'email/inbox'
-        }).success(function (data) {
-            vm.emails = data.slice(1, 20);
-        });
+            }
+
+        }
 
         function close() {
             $mdSidenav('notifications').close();

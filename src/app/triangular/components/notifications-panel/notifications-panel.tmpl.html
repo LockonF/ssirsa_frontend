@@ -11,15 +11,15 @@
                         <div>
                             <md-subheader class="md-primary">Solicitudes sin confirmar</md-subheader>
                             <div>
-                                <md-list-item ng-repeat="solicitud in $root.notifications" layout="row"
+                                <md-list-item ng-repeat="notification in $root.notifications" layout="row"
                                               layout-align="space-between center">
 
-                                    <md-button aria-label="flat button">
+                                    <md-button aria-label="flat button" class="md-icon-button md-accent" ng-click="vm.click(notification.notification.idObject)">
                                         <md-icon md-font-icon="fa fa-eye"></md-icon>
                                     </md-button>
-                                    <!--<md-icon md-font-icon={{solicitud.icon}}></md-icon>-->
-                                    <p>{{solicitud.descripcion}}</p>
-                                    <span class="md-caption" am-time-ago="::solicitud.fecha_inicio"></span>
+                                    <!--<md-icon md-font-icon={{notification.icon}}></md-icon>-->
+                                    <p>{{notification.notification.message}}</p>
+                                    <span class="md-caption" am-time-ago="::notification.notification.date"></span>
 
                                 </md-list-item>
 
