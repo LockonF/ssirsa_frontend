@@ -6,7 +6,7 @@
         .controller('NotificationsPanelController', NotificationsPanelController);
 
     /* @ngInject */
-    function NotificationsPanelController($scope, $window, $mdSidenav) {
+    function NotificationsPanelController($scope, $window,$mdDialog,Reportes, $mdSidenav,NotificationPanel) {
         var vm = this;
         // sets the current active tab
         vm.close = close;
@@ -20,14 +20,33 @@
         $scope.$on('triSwitchNotificationTab', function ($event, tab) {
             vm.currentTab = tab;
         });
-        function click(id) {
-            var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
-            if(id.match(expression)){
-                $window.open(id, '_blank', '');
-            }else{
+        function click(notification) {
+            console.log(notification);
+            var id=parseInt(notification.notification.idObject);
+            if(notification.type==="Reporte"){
 
+                Reportes.getReportObject(id).then(function (res) {
+                    $window.open(res.report_file, '_blank', '');
+                });
+            }else{
+                var config = {
+                    controller: 'solicitudFullDetailDialogController',
+                    controllerAs: 'vm',
+                    bindToController: true,
+                    templateUrl: 'app/mainApp/solicitudes/solicitud/view/solicitudDetailFull.dialog.tmpl.html',
+                    parent: angular.element(document.body),
+                    fullscreen: false,
+                    locals: {
+                        solicitud: notification.notification.idObject,
+                        type:notification.type
+                    }
+                };
+                $mdDialog.show(config);
             }
 
+            /*NotificationPanel.markNotification(notification._id).then(function (res) {
+
+            });*/
         }
 
         function close() {

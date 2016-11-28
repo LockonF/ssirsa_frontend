@@ -9,12 +9,12 @@
                 <md-content>
                     <md-list>
                         <div>
-                            <md-subheader class="md-primary">Solicitudes sin confirmar</md-subheader>
+                            <md-subheader class="md-primary">Notificaciones</md-subheader>
                             <div>
                                 <md-list-item ng-repeat="notification in $root.notifications" layout="row"
                                               layout-align="space-between center">
 
-                                    <md-button aria-label="flat button" class="md-icon-button md-accent" ng-click="vm.click(notification.notification.idObject)">
+                                    <md-button aria-label="flat button" class="md-icon-button md-accent" ng-click="vm.click(notification)">
                                         <md-icon md-font-icon="fa fa-eye"></md-icon>
                                     </md-button>
                                     <!--<md-icon md-font-icon={{notification.icon}}></md-icon>-->

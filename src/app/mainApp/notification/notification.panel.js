@@ -61,8 +61,8 @@
                     'Authorization': OAuthToken.getAuthorizationHeader()
                 }
             };
-            $http(req).then(function(){
-                deferred.resolve(jobs);
+            $http(req).then(function(res){
+                deferred.resolve(res);
             }, function(err){
                 deferred.reject(err);
             });
@@ -79,8 +79,8 @@
                 },
                 data: request
             };
-            $http(req).then(function(){
-                deferred.resolve(jobs);
+            $http(req).then(function(res){
+                deferred.resolve(res);
             }, function(err){
                 deferred.reject(err);
             });
