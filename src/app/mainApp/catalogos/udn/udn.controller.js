@@ -69,7 +69,7 @@
 
         function selectedItemChange(item)
         {
-
+            vm.selected_udn = item.clone();
         }
 
         function clickRepeater(item){
