@@ -43,6 +43,7 @@
             vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
             vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
             vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
+            vm.duplicateMessage=Translate.translate('MODEL_CABINET.MESSAGES.DUPLICATE');
         }
         function disabled(id,tipoArray) {
             if(id!=null) {
@@ -96,8 +97,14 @@
                 vm.modelo = angular.copy(modelo);
                 cancel();
                 activate();
-            }).catch(function (res) {
-                toastr.warning(vm.errorMessage, vm.errorTitle);
+            }).catch(function (err) {
+                if(err.status==400 && err.data.non_field_errors[0] =='Los campos nombre, marca deben formar un conjunto único.'){
+                    toastr.error(vm.duplicateMessage,vm.errorTitle);
+                }
+                else {
+                    toastr.warning(vm.errorMessage, vm.errorTitle);
+                }
+
             });
         }
 

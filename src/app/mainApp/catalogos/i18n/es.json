@@ -67,7 +67,8 @@
         "info": "Información de Marca de Cábinet",
         "category": "Categoria",
         "description": "Descripción",
-        "lookup": "Busca la Marca de Cábinet"
+        "lookup": "Busca la Marca de Cábinet",
+        "duplicate":"Ya existe una Marca de Cabinet con esta descripción"
     },
     "Category": {
         "title": "Categoría",
@@ -142,7 +143,8 @@
         "agency": "Agencia",
         "address": "Dirección",
         "phone": "Teléfono",
-        "lookup": "Busca el UDN"
+        "lookup": "Busca el UDN",
+        "duplicate":"Ya existe un UDN con esta zona, centro y agencia"
     },
     "MODEL_CABINET": {
         "FORM": {
@@ -163,6 +165,9 @@
                 "SEARCH_BRANCH": "Busca tu modelo de cabinet",
                 "NOT_FOUND": "No se encontró el modelo"
             }
+        },
+        "MESSAGES":{
+            "DUPLICATE":"Ya existe un Modelo de Cabinet con este nombre y marca"
         }
     },
     "EQUIPMENT_TYPE": {
@@ -200,7 +205,8 @@
         "title": "Tipo de Transporte",
         "info": "Información de tipo de transporte",
         "description": "Descripción",
-        "lookup": "Busca el tipo de transporte"
+        "lookup": "Busca el tipo de transporte",
+        "duplicate": "Ya existe un Tipo de Transporte con esta descripción"
     },
     "Projects": {
         "Header": "Proyectos",
