@@ -123,7 +123,7 @@
 
                 vm.cabinet.partial = true;
                 vm.cabinetPartial = _.omit(vm.cabinet, 'foto');
-                var promise = Cabinet.modify(vm.cabinetPartial);
+                var promise = Cabinet.modifyclear(vm.cabinetPartial);
                 promise.then(function (res) {
                     vm.cabinet = res;
                     //console.log(vm.cabinet);
