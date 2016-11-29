@@ -91,6 +91,7 @@
             vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
             vm.notFoundMessage=Translate.translate('MAIN.MSG.NOT_FOUND');
             vm.warningtitle=Translate.translate('MAIN.MSG.WARNING_TITLE');
+
             loadMarcas();
             loadMarcasChoiceFiltered();
 

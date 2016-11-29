@@ -133,7 +133,8 @@
       "MAX_NUMBER": "Se necesita que el número sea a lo más  ",
       "PHONE_REGEX": "El campo debe tener un formato (xx)xxxxxxxx",
       "PATTERN_EMAIL_FIELD": "El campo debe ser un correo electrónico",
-      "PATTERN_RFC_FIELD": "El campo debe tener formato RFC"
+      "PATTERN_RFC_FIELD": "El campo debe tener formato RFC",
+      "PATTERN_CABINET": "El campo debe tener números, letras, guión bajo o espacios"
     },
     "DIALOG": {
       "DELETE_TITLE": "Confirmación de eliminación",

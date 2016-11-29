@@ -73,15 +73,17 @@ Created by lockonDaniel on 9/11/16.
                     <form name="inputForm">
                         <md-input-container class="md-block">
                             <label>{{ 'CABINET_CRUD.ECONOMIC_NUMBER' | translate }}</label>
-                            <input type="text" name="economico" ng-model="vm.selected_cabinet.economico" ng-required="true" ng-disabled="vm.selected_cabinet.deleted"/>
+                            <input type="text" name="economico" ng-model="vm.selected_cabinet.economico" ng-required="true" ng-pattern="/^[0-9a-zA-Z\-_ ]+$/" ng-disabled="vm.selected_cabinet.deleted"/>
                             <div ng-messages="inputForm.economico.$error">
+                                <div ng-message="pattern">{{'MAIN.GENERAL.PATTERN_CABINET' | translate}}</div>
                                 <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                             </div>
                         </md-input-container>
                         <md-input-container class="md-block">
                             <label>{{ 'CABINET_CRUD.PREVIOUS_ECONOMIC_NUMBER' | translate }}</label>
-                            <input type="text" name="economico_anterior" ng-model="vm.selected_cabinet.economico_anterior" ng-required="false" ng-disabled="vm.selected_cabinet.deleted"/>
+                            <input type="text" name="economico_anterior" ng-model="vm.selected_cabinet.economico_anterior" ng-pattern="/^[0-9a-zA-Z\-_ ]+$/" ng-required="false" ng-disabled="vm.selected_cabinet.deleted"/>
                             <div ng-messages="inputForm.economico_anterior.$error">
+                                <div ng-message="pattern">{{'MAIN.GENERAL.PATTERN_CABINET' | translate}}</div>
                                 <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                             </div>
                         </md-input-container>

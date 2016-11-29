@@ -89,7 +89,12 @@
                 toastr.success(vm.successUpdateMessage,vm.successTitle);
                 listTipos();
             }).catch(function(err){
-                toastr.error(vm.errorMessage,vm.errorTitle);
+                if(err.status==400 && err.data.descripcion!=undefined)
+                {
+                    toastr.error(vm.duplicateMessage,vm.errorTitle);
+                }else{
+                    toastr.error(vm.errorMessage,vm.errorTitle);
+                }
             });
         }
 
