@@ -151,6 +151,8 @@
             };
             vm.idCabinet = null;
             vm.ver = false;
+            $scope.Buscar2.$setPristine();
+            $scope.Buscar2.$setUntouched();
 
 
         }
