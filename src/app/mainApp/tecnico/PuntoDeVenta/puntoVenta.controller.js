@@ -286,7 +286,7 @@
         function notifyError(status) {
             switch (status) {
                 case 400:
-                    toastr.warning(vm.errorMessage, vm.errorTitle);
+                    toastr.warning(vm.errorMessage, vm.error);
                     break;
                 case 404:
                     toastr.info(vm.notFoundMessage, vm.errorTitle);
@@ -471,7 +471,11 @@
                 }).catch(function (res) {
 
 
+                    vm.error=res.data.errors[0].message;
+                   /// console.log(res.data.errors[0].message);
                     notifyError(res.status);
+
+
                 });
             }
             else {
