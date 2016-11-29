@@ -116,7 +116,8 @@
       "MSGNOTENTRADA": "No es posible Registrar la Etapa, Ya que no tiene una entrada regisrada o bien ya se le hizo un diagnostico de Salida",
       "NOTTIPOEQUIPO": "Ese equipo no tiene un tipo por lo cual no se pueden cargar insumos asociados",
       "NOTFIRSTSTEP": "No es posible Eliminar la primer Etapa de Servicio",
-      "NOTIFICATION": "No se pudo conectar al canal el usuario"
+      "NOTIFICATION": "No se pudo conectar al canal el usuario",
+      "ERROR_OUT":"Cabinet con salida, por lo cual no se puede asignar"
     },
     "BUTTONS": {
       "SUBMIT": "Enviar",

@@ -61,6 +61,7 @@
             vm.errorTypeFile = Translate.translate('MAIN.MSG.ERORR_TYPE_FILE');
             vm.errorSize = Translate.translate('MAIN.MSG.FILE_SIZE');
             vm.cabinetDeleted = Translate.translate('MAIN.MSG.ERROR_DISABLED_CABINET');
+            vm.cabinetOut=Translate.translate('MAIN.MSG.ERROR_OUT');
             buscarModelos();
         }
 
@@ -81,6 +82,11 @@
                         vm.limpiar();
                         vm.ver = false;
                     }
+                    if (vm.cabinet.status.toLowerCase() === 'enviado') {
+                        notifyError(996);
+                        vm.limpiar();
+                        vm.ver = false;
+                    }
 
 
                 }).catch(function (res) {
@@ -98,6 +104,9 @@
             switch (status) {
                 case 404:
                     toastr.info(vm.notFoundMessage, vm.errorTitle);
+                    break;
+                case 996:
+                    toastr.warning(vm.cabinetOut, vm.errorMessage);
                     break;
                 case 999:
                     toastr.warning(vm.cabinetDeleted, vm.errorMessage);
@@ -125,10 +134,12 @@
 
                 }).catch(function (res) {
                     notifyError(res.status);
+                    limpiar();
                 });
             }
             else {
                 notifyError(400);
+                limpiar();
             }
 
         }
