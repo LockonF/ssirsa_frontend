@@ -88,7 +88,7 @@
                 toastr.success(vm.successUpdateMessage,vm.successTitle);
                 listCategorias();
             }).catch(function(err){
-                if(err.status==400 && err.data.descripcion!=undefined)
+                if(err.status == 400 && err.data.nombre != undefined)
                 {
                     toastr.error(vm.duplicateMessage,vm.errorTitle);
                 }else{

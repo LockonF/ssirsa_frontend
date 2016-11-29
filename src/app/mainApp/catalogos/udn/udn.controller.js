@@ -90,8 +90,7 @@
                 toastr.success(vm.successUpdateMessage,vm.successTitle);
                 listUdns();
             }).catch(function(err){
-                if(err.status==400 && err.data.descripcion!=undefined)
-                {
+                if(err.status == 400 && err.data.non_field_errors!=undefined){
                     toastr.error(vm.duplicateMessage,vm.errorTitle);
                 }else{
                     toastr.error(vm.errorMessage,vm.errorTitle);

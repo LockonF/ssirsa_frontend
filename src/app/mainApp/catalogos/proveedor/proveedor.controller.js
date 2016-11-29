@@ -90,7 +90,7 @@
                 toastr.success(vm.successUpdateMessage,vm.successTitle);
                 listProveedores();
             }).catch(function(err){
-                if(err.status==400 && err.data.descripcion!=undefined)
+                if(err.status==400 && err.data.razon_social != undefined)
                 {
                     toastr.error(vm.duplicateMessage,vm.errorTitle);
                 }else{
