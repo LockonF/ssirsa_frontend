@@ -16,7 +16,7 @@
                 <md-virtual-repeat-container layout-fill="layout-fill" hide-xs="hide-xs" hide-sm="hide-sm" class="vr-min-height">
                     <md-list flex="flex">
                         <md-list-itm flex="flex" ng-repeat="item in vm.categoria_list">
-                            <md-button ng-click="vm.clickRepeater(item)" ng-class="{'selected':item.id === vm.marca_cabinet.id}">
+                            <md-button ng-click="vm.clickRepeater(item)" ng-class="{'selected':item.id === vm.categoria.id}">
                                 <md-icon md-svg-icon="assets/images/settings.svg" class="avatar"></md-icon><span>{{item.descripcion}}</span>
                             </md-button>
                             <md-divider></md-divider>
