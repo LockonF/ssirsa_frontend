@@ -63,3 +63,10 @@ input[type=time]::-webkit-outer-spin-button {
 }
 .md-fab-principal{
   background-color: #02B6CE !important; }
+
+md-autocomplete md-autocomplete-wrap md-progress-linear.md-inline{
+  bottom: 19px;
+  right: 2px;
+  left: 2px;
+  width: auto;
+}
