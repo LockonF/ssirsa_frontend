@@ -90,7 +90,12 @@
                 toastr.success(vm.successUpdateMessage,vm.successTitle);
                 listProveedores();
             }).catch(function(err){
-                toastr.error(vm.errorMessage,vm.errorTitle);
+                if(err.status==400 && err.data.razon_social != undefined)
+                {
+                    toastr.error(vm.duplicateMessage,vm.errorTitle);
+                }else{
+                    toastr.error(vm.errorMessage,vm.errorTitle);
+                }
             });
         }
 
