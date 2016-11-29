@@ -8,7 +8,7 @@
         .module('app.mainApp.tecnico')
         .controller('asignacionLineaController', asignacionLineaController);
 
-    function asignacionLineaController(Cabinet, toastr, Translate, ModeloCabinet,$scope, $mdDialog) {
+    function asignacionLineaController(Cabinet, toastr, Translate, ModeloCabinet, $scope, $mdDialog) {
         var vm = this;
         $scope.form = {};
         //Inicializacion de variables
@@ -81,7 +81,6 @@
                         vm.limpiar();
                         vm.ver = false;
                     }
-
 
 
                 }).catch(function (res) {
@@ -157,6 +156,8 @@
 
         }
 
+        
+        
         vm.verInfo = function () {
             $mdDialog.show({
                 locals: {parent: vm},
