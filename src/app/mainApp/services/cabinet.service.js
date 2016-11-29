@@ -20,7 +20,8 @@
             remove: remove,
             modify: modify,
             loadByModel:loadByModel,
-            loadByStatus:loadByStatus
+            loadByStatus:loadByStatus,
+            lookup:lookup
         };
 
         function loadByStatus(status) {
@@ -82,6 +83,10 @@
 
         function loadByModel(model){
             return urlbase.one('model',model.id).getList().$object;
+        }
+
+        function lookup(economico) {
+            return urlbase.one('lookup',economico).getList();
         }
     }
 })();

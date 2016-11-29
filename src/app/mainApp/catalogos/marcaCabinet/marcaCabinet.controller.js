@@ -45,6 +45,7 @@
             vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
             vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
             vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
+            vm.duplicateMessage=Translate.translate('Cabinet_Brand.duplicate');
             listMarcas();
         }
 
@@ -94,11 +95,19 @@
 
         function create()
         {
+            vm.marca_cabinet.categoria = vm.marca_cabinet.categoria.toUpperCase();
+            vm.marca_cabinet.descripcion = vm.marca_cabinet.descripcion.toUpperCase();
             MarcaCabinet.create(vm.marca_cabinet).then(function(res){
                 listMarcas();
                 toastr.success(vm.successCreateMessage,vm.successTitle);
             }).catch(function(err){
-                toastr.error(vm.errorMessage,vm.errorTitle);
+                if(err.status==400 && err.data.descripcion!=undefined)
+                {
+                    toastr.error(vm.duplicateMessage,vm.errorTitle);
+                }else {
+                    toastr.error(vm.errorMessage,vm.errorTitle);
+                }
+
             });
         }
 

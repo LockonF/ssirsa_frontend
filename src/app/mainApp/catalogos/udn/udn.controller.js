@@ -46,6 +46,7 @@
             vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
             vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
             vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
+            vm.duplicateMessage=Translate.translate('UDN_CATALOG.duplicate');
             listUdns();
         }
 
@@ -68,7 +69,7 @@
 
         function selectedItemChange(item)
         {
-
+            vm.selected_udn = item.clone();
         }
 
         function clickRepeater(item){
@@ -100,7 +101,12 @@
                 toastr.success(vm.successCreateMessage,vm.successTitle);
                 cancel();
             }).catch(function(err){
-                toastr.error(vm.errorMessage,vm.errorTitle);
+                if(err.status == 400 && err.data.non_field_errors!=undefined){
+                    toastr.error(vm.duplicateMessage,vm.errorTitle);
+                }else{
+                    toastr.error(vm.errorMessage,vm.errorTitle);
+                }
+
             });
         }
 

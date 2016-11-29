@@ -7,35 +7,65 @@ Created by lockonDaniel on 9/11/16.
             <h2 class="md-display-2">{{'CABINET_CRUD.TITLE' | translate}}</h2>
             <div flex="flex" layout-lt-md="column" layout-gt-md="row">
                 <div flex="flex" layout="column" layout-align="start stretch">
-                    <md-input-container>
-                        <label>{{'CABINET_CRUD.SELECT_BRAND' | translate}}</label>
-                        <md-select ng-model="vm.selected_marca" md-on-close="vm.loadModelos(vm.selected_marca)">
-                            <md-option ng-repeat="marca in vm.marcas_cabinet" ng-value="marca">{{marca.descripcion}}</md-option>
-                        </md-select>
-                    </md-input-container>
-                    <md-progress-circular md-mode="indeterminate" ng-if="vm.modelos_resolver==false"></md-progress-circular>
-                    <md-input-container ng-if="vm.selected_marca!=null && vm.modelos_resolver==true">
-                        <label>{{'CABINET_CRUD.SELECT_MODEL' | translate}}</label>
-                        <md-select ng-model="vm.selected_modelo" md-on-close="vm.loadCabinets(vm.selected_modelo)" ng-disabled="vm.modelos_cabinet==null || vm.modelos_cabinet.length==0">
-                            <md-option ng-repeat="modelo in vm.modelos_cabinet" ng-value="modelo">{{modelo.descripcion}}</md-option>
-                        </md-select>
-                    </md-input-container>
-                    <md-autocomplete
-                            md-no-cache="true", ng-if="vm.cabinet_list !=null" md-selected-item="vm.cabinet" md-selected-item-change="vm.selectedItemChange(vm.cabinet)" md-items="item in vm.search_items" md-item-text="item.economico" md-min-length="0" md-search-text-change="vm.lookup(vm.searchText)" md-search-text="vm.searchText" md-menu-class="autocomplete-custom-template" md-floating-label="{{&quot;CABINET_CRUD.LOOKUP&quot; | translate}}">
-                        <md-item-template><span class="item-title">
+
+                    <md-switch ng-model="vm.showBrandsModelsSearch" ng-change="vm.cancel()">
+                        <span ng-if="vm.showBrandsModelsSearch">{{'CABINET_CRUD.SHOW_BRANDS_MODELS_SEARCH' | translate}}</span>
+                        <span ng-if="!vm.showBrandsModelsSearch">{{'CABINET_CRUD.SHOW_ECONOMIC_SEARCH' | translate}}</span>
+                    </md-switch>
+
+                    <!-- Búsqueda por económico -->
+                    <div ng-show="!vm.showBrandsModelsSearch" layout="column">
+
+                        <md-autocomplete
+                                md-no-cache="true",
+                                md-selected-item="vm.found_by_economico_cabinet"
+                                md-selected-item-change="vm.selectedItemChange(vm.found_by_economico_cabinet)"
+                                md-items="item in vm.lookupByEconomico()"
+                                md-item-text="item.economico"
+                                md-min-length="1"
+                                md-search-text-change="vm.lookupByEconomico(vm.economic_lookup_var)"
+                                md-search-text="vm.economic_lookup_var"
+                                md-menu-class="autocomplete-custom-template"
+                                md-floating-label="{{&quot;CABINET_CRUD.LOOKUP&quot; | translate}}">
+                            <md-item-template><span class="item-title">
+                            <md-icon md-font-icon="zmdi zmdi-developer-board"></md-icon><span>{{item.economico}}</span></span></md-item-template>
+                        </md-autocomplete>
+                    </div>
+
+                    <!-- Búsqueda por marca y modelo -->
+                    <div ng-show="vm.showBrandsModelsSearch" layout="column">
+                        <md-input-container>
+                            <label>{{'CABINET_CRUD.SELECT_BRAND' | translate}}</label>
+                            <md-select ng-model="vm.selected_marca" md-on-close="vm.loadModelos(vm.selected_marca)">
+                                <md-option ng-repeat="marca in vm.marcas_cabinet" ng-value="marca">{{marca.descripcion}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-progress-circular md-mode="indeterminate" ng-if="vm.modelos_resolver==false"></md-progress-circular>
+                        <md-input-container ng-if="vm.selected_marca!=null && vm.modelos_resolver==true">
+                            <label>{{'CABINET_CRUD.SELECT_MODEL' | translate}}</label>
+                            <md-select ng-model="vm.selected_modelo" md-on-close="vm.loadCabinets(vm.selected_modelo)" ng-disabled="vm.modelos_cabinet==null || vm.modelos_cabinet.length==0">
+                                <md-option ng-repeat="modelo in vm.modelos_cabinet" ng-value="modelo">{{modelo.descripcion}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-autocomplete
+                                md-no-cache="true", ng-if="vm.cabinet_list !=null" md-selected-item="vm.cabinet" md-selected-item-change="vm.selectedItemChange(vm.cabinet)" md-items="item in vm.search_items" md-item-text="item.economico" md-min-length="0" md-search-text-change="vm.lookup(vm.searchText)" md-search-text="vm.searchText" md-menu-class="autocomplete-custom-template" md-floating-label="{{&quot;CABINET_CRUD.LOOKUP&quot; | translate}}">
+                            <md-item-template><span class="item-title">
                 <md-icon md-font-icon="zmdi zmdi-developer-board"></md-icon><span>{{item.economico}}</span></span></md-item-template>
-                    </md-autocomplete>
-                    <md-virtual-repeat-container hide-sm="hide-sm" hide-xs="hide-xs" flex="flex" id="vertical_container" style="min-height:350px" ng-if="vm.cabinet_list !=null">
-                        <div flex="flex" md-virtual-repeat="cabinet in vm.cabinet_list">
-                            <md-list flex="flex">
-                                <md-button ng-click="vm.selectedItemChange(cabinet)" ng-class="{'selected':cabinet.economico === vm.selected_cabinet.economico}">
-                                    <md-icon md-svg-icon="assets/images/cabinet.svg" class="avatar"></md-icon>
-                                    <span>{{cabinet.economico}}</span>
-                                </md-button>
-                                <md-divider></md-divider>
-                            </md-list>
-                        </div>
-                    </md-virtual-repeat-container>
+                        </md-autocomplete>
+                        <md-virtual-repeat-container hide-sm="hide-sm" hide-xs="hide-xs" flex="flex" id="vertical_container" style="min-height:350px" ng-if="vm.cabinet_list !=null">
+                            <div flex="flex" md-virtual-repeat="cabinet in vm.cabinet_list">
+                                <md-list flex="flex">
+                                    <md-button ng-click="vm.selectedItemChange(cabinet)" ng-class="{'selected':cabinet.economico === vm.selected_cabinet.economico}">
+                                        <md-icon md-svg-icon="assets/images/cabinet.svg" class="avatar"></md-icon>
+                                        <span>{{cabinet.economico}}</span>
+                                    </md-button>
+                                    <md-divider></md-divider>
+                                </md-list>
+                            </div>
+                        </md-virtual-repeat-container>
+                    </div>
+
+
                 </div>
                 <!--Formulario-->
                 <div flex="flex" layout-align="start stretch" layout="column">

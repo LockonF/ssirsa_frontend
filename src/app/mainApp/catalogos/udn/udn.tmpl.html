@@ -50,7 +50,7 @@
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>{{ 'UDN_CATALOG.center' | translate }}</label>
-                        <input type="text" name="centro" ng-model="vm.selected_udn.centro" ng-required="true"/>
+                        <input type="text" name="centro" ng-model="vm.selected_udn.centro" ng-required="true" numbers-only=""/>
                         <div ng-messages="inputForm.centro.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>

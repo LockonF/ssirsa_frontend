@@ -45,6 +45,7 @@
             vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
             vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
             vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
+            vm.duplicateMessage=Translate.translate('Transport_Kind.duplicate');
             listTipos();
         }
 
@@ -60,14 +61,14 @@
 
         function lookup(search_text){
             vm.search_items = _.filter(vm.tipo_transporte_list,function(item){
-                return item.zona.toLowerCase().includes(search_text.toLowerCase()) || item.agencia.toLowerCase().includes(search_text.toLowerCase());
+                return item.descripcion.toLowerCase().includes(search_text.toLowerCase());
             });
             return vm.search_items;
         }
 
         function selectedItemChange(item)
         {
-
+            vm.selected_tipo_transporte = item.clone();
         }
 
         function clickRepeater(item){
@@ -94,11 +95,18 @@
 
         function create()
         {
+            vm.selected_tipo_transporte.descripcion = vm.selected_tipo_transporte.descripcion.toUpperCase();
             TipoTransporte.create(vm.selected_tipo_transporte).then(function(res){
                 listTipos();
                 toastr.success(vm.successCreateMessage,vm.successTitle);
             }).catch(function(err){
-                toastr.error(vm.errorMessage,vm.errorTitle);
+                if(err.status==400 && err.data.descripcion!=undefined){
+                    toastr.error(vm.duplicateMessage,vm.errorTitle);
+                }else
+                {
+                    toastr.error(vm.errorMessage,vm.errorTitle);
+                }
+
             });
         }
 

@@ -45,6 +45,7 @@
             vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
             vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
             vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
+            vm.duplicateMessage=Translate.translate('Category.duplicate');
             listCategorias();
         }
 
@@ -67,20 +68,23 @@
 
         function selectedItemChange(item)
         {
-
+            vm.selected_categoria = item.clone();
         }
 
         function clickRepeater(categoria){
             vm.categoria = categoria.clone();
+            vm.selected_categoria = vm.categoria;
         }
 
         function  cancel(){
             $scope.inputForm.$setPristine();
+            $scope.inputForm.$setUntouched();
             vm.categoria = null;
+            vm.selected_categoria = null;
         }
 
         function update(){
-            Categoria.update(vm.categoria).then(function(res){
+            Categoria.update(vm.selected_categoria).then(function(res){
                 toastr.success(vm.successUpdateMessage,vm.successTitle);
                 listCategorias();
             }).catch(function(err){
@@ -90,11 +94,20 @@
 
         function create()
         {
-            Categoria.create(vm.categoria).then(function(res){
+            vm.selected_categoria.nombre = vm.selected_categoria.nombre.toUpperCase();
+            vm.selected_categoria.descripcion = vm.selected_categoria.descripcion.toUpperCase();
+            Categoria.create(vm.selected_categoria).then(function(res){
                 listCategorias();
                 toastr.success(vm.successCreateMessage,vm.successTitle);
             }).catch(function(err){
-                toastr.error(vm.errorMessage,vm.errorTitle);
+                if(err.status == 400 && err.data.nombre != undefined)
+                {
+                    toastr.error(vm.duplicateMessage, vm.errorTitle);
+                }else
+                {
+                    toastr.error(vm.errorMessage,vm.errorTitle);
+                }
+
             });
         }
 
@@ -108,7 +121,7 @@
                 .ok(vm.deleteButton)
                 .cancel(vm.cancelButton);
             $mdDialog.show(confirm).then(function() {
-                Categoria.remove(vm.categoria).then(function(res){
+                Categoria.remove(vm.selected_categoria).then(function(res){
                     listCategorias();
                     cancel();
                     toastr.success(vm.successDeleteMessage,vm.successTitle)
