@@ -82,7 +82,12 @@
                                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                         </div>
                                     </md-input-container>
-                                    <md-input-container flex="100" class="md-inline-form">
+
+                                </div>
+                                <div layout="row" layout-sm="column" layout-xs="column" layout-align="center center"
+                                     layout-align-sm="center stretch" layout-align-xs="center stretch">
+
+                                <md-input-container flex="50" class="md-inline-form">
                                         <label>{{'OUTPUT.FORM.LABEL.TRANSPORT.KIND'|translate}}</label>
                                         <md-select name="selectTransportKind" ng-model="vm.salida.tipo_transporte"
                                                    required="" md-no-asterisk="">
@@ -91,6 +96,19 @@
                                             </md-option>
                                         </md-select>
                                         <div ng-messages="entradaForm.selectTransportKind.$error">
+                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                        </div>
+                                    </md-input-container>
+
+                                    <md-input-container flex="50" flex-sm="100" flex-xs="100" class="md-block">
+                                        <label>{{'OUTPUT.FORM.LABEL.CLIENT'|translate}}</label>
+                                        <md-select name="Client" ng-model="vm.salida.cliente"
+                                                   required="" md-no-asterisk="">
+                                            <md-option ng-repeat="cliente in vm.clients" ng-value="cliente">
+                                                {{cliente.nombre}}
+                                            </md-option>
+                                        </md-select>
+                                        <div ng-messages="entradaForm.Client.$error">
                                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                         </div>
                                     </md-input-container>

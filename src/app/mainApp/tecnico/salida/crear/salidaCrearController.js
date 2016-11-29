@@ -10,7 +10,7 @@
         .filter('salidaSearch', salidaSearch)
         .filter('tipoequipoSearch', tipoequipoSearch);
 
-    function salidaCrearController(EntradaSalida, OPTIONS, ModeloCabinet, Persona, $mdDialog, TipoEquipo, Helper, Translate, toastr, Sucursal, udn, Cabinet, CabinetEntradaSalida, TipoTransporte, $scope, LineaTransporte) {
+    function salidaCrearController(EntradaSalida,Clientes, OPTIONS, ModeloCabinet, Persona, $mdDialog, TipoEquipo, Helper, Translate, toastr, Sucursal, udn, Cabinet, CabinetEntradaSalida, TipoTransporte, $scope, LineaTransporte) {
         var vm = this;
         vm.guardar = guardar;
         vm.selectionFile = selectionFile;
@@ -60,7 +60,7 @@
             "tipo_transporte": "",
             "udn": null,
             "file": null,
-
+            "cliente":null,
             "creados": null,
             "no_creados": null,
             "cabinets": null
@@ -79,6 +79,9 @@
                 fd.append('pedimento', vm.salida.pedimento);
 
             fd.append('nombre_chofer', vm.salida.nombre_chofer);
+            var cliente=vm.salida.cliente.nombre+" "+vm.salida.cliente.apellido_paterno+" "+vm.salida.cliente.apellido_materno;
+            fd.append('cliente',cliente);
+
             fd.append('linea_transporte', vm.salida.linea_transporte);
 
             if (vm.salida.proyecto != null)
@@ -274,6 +277,12 @@
             TipoEquipo.listWitout().then(function (res) {
                 vm.tipoEquipos = res;
                 vm.tipoEquipos = _.sortBy(vm.tipoEquipos, 'nombre');
+            }).catch(function (err) {
+                toastr.error(vm.errorMessage, vm.errorTitle);
+            });
+            Clientes.listObject().then(function (res) {
+                vm.clients=res;
+                vm.clients=_.sortBy(vm.clients, 'nombre');
             }).catch(function (err) {
                 toastr.error(vm.errorMessage, vm.errorTitle);
             });

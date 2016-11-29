@@ -243,7 +243,8 @@
                 "FORMAT":"Formato",
                 "TYPE_OUTPUT":"Tipo de Salida",
                 "SELECT":"Selecciona",
-                "VALID_UDN":"No ingreso una UDN válida"
+                "VALID_UDN":"Seleccione una agencia válida",
+                "CLIENT":"Cliente"
             },
             "BUTTON":{
                 "CHOOSE_FILE": "Seleccionar",

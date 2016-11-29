@@ -38,12 +38,7 @@
             vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE_CABINETS');
             vm.successDelete=Translate.translate('OUTPUT_LIST.FORM.DIALOG.DELETED_CABIENTS');
 
-            EntradaSalida.getSalidas().then(function (res) {
-                vm.salidas = res;
-                vm.salidas = sortByDate(vm.salidas);
-            }).catch(function (err) {
-                toastr.warning(vm.errorMessage, vm.errorTitle);
-            });
+            getOutput();
             LineaTransporte.listObject().then(function (res) {
                 vm.lineasTransporte = Helper.filterDeleted(res, true);
                 vm.lineasTransporte = _.sortBy(vm.lineasTransporte, 'razon_social');
@@ -84,7 +79,13 @@
                     cabinet_entrada_salida:vm.selectedCabinets
                 };
                 CabinetEntradaSalida.restore(request).then(function (res) {
+                    if(vm.selectedCabinets.length==1){
+                        getOutput();
+                        vm.selectedSalidaList =null;
+                    }
+
                     selectedItemChange(vm.selectedSalidaList);
+
                     toastr.success(vm.successDelete,vm.successTitle);
                 }).catch(function (res) {
                     toastr.warning(vm.errorMessage, vm.errorTitle);
@@ -151,6 +152,15 @@
                     toastr.warning(vm.errorMessage, vm.errorTitle);
                 });
 
+            });
+        }
+
+        function getOutput() {
+            EntradaSalida.getSalidas().then(function (res) {
+                vm.salidas = res;
+                vm.salidas = sortByDate(vm.salidas);
+            }).catch(function (err) {
+                toastr.warning(vm.errorMessage, vm.errorTitle);
             });
         }
         function querySearch(query) {
