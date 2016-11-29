@@ -42,6 +42,7 @@
             vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
             vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
             vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
+            vm.duplicateMessage=Translate.translate('SUCURSAL.FORM.LABEL.DUPLICATE');
         }
 
 
@@ -77,8 +78,13 @@
                 toastr.success(vm.successUpdateMessage, vm.successTitle);
                 cancel();
                 activate();
-            }).catch(function (res) {
-                toastr.warning(vm.errorMessage, vm.errorTitle);
+            }).catch(function (err) {
+                if(err.status==400 && err.data.nombre!=undefined)
+                {
+                    toastr.error(vm.duplicateMessage,vm.errorTitle);
+                }else {
+                    toastr.error(vm.errorMessage, vm.errorTitle);
+                }
             });
         }
         function create() {
@@ -87,8 +93,13 @@
                 vm.sucursal = angular.copy(sucursal);
                 cancel();
                 activate();
-            }).catch(function (res) {
-                toastr.warning(vm.errorMessage, vm.errorTitle);
+            }).catch(function (err) {
+                if(err.status==400 && err.data.nombre!=undefined)
+                {
+                    toastr.error(vm.duplicateMessage,vm.errorTitle);
+                }else {
+                    toastr.error(vm.errorMessage, vm.errorTitle);
+                }
             });
         }
 
@@ -97,6 +108,7 @@
             $scope.SucursalForm.$setUntouched();
             vm.sucursal = angular.copy(sucursal);
             vm.selectedSucursalList = null;
+            vm.searchText=null;
             vm.numberBuffer=null;
         }
         function selectedItemChange(item)

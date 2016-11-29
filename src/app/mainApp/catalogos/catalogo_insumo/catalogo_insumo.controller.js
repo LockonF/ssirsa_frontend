@@ -47,7 +47,7 @@
         vm.disabled=disabled;
         vm.catalogo_insumo=angular.copy(catalogo_insumo);
         vm.profile=Session.userInformation;
-        vm.unidades=OPTIONS.units;  
+        vm.unidades=OPTIONS.units;
 
         activate();
 
@@ -133,6 +133,7 @@
         {
             Categoria.listObject().then(function (res) {
                 vm.categoria_list  =res;
+                vm.categoria_list=_.sortBy(vm.categoria_list, 'descripcion');
             });
         }
 
@@ -142,6 +143,7 @@
         {
             Proveedor.listObject().then(function (res) {
                 vm.proveedor_list  =res;
+                vm.proveedor_list = Helper.sortByAttribute(vm.proveedor_list, 'razon_social');
             });
         }
 
@@ -171,6 +173,7 @@
             $scope.inputForm.$setPristine();
             $scope.inputForm.$setUntouched();
             vm.catalogo_insumo=angular.copy(catalogo_insumo);
+            vm.searchText=null;
         }
         function update(){
             CatalogoInsumo.update(vm.catalogo_insumo).then(function(res){
