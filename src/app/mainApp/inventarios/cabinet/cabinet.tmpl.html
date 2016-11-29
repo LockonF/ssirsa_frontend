@@ -15,13 +15,21 @@ Created by lockonDaniel on 9/11/16.
 
                     <!-- Búsqueda por económico -->
                     <div ng-show="!vm.showBrandsModelsSearch" layout="column">
-                        <md-input-container>
-                            <label translate>CABINET_CRUD.ECONOMIC_NUMBER</label>
-                            <input type="text" ng-model="vm.economic_lookup_var">
-                        </md-input-container>
-                        <md-button class="md-primary md-raised" ng-click="vm.lookupByEconomico()" ng-disabled="vm.economic_lookup_var=='' || vm.economic_lookup_var==null">
-                            <span translate>CABINET_CRUD.SEARCH</span>
-                        </md-button>
+
+                        <md-autocomplete
+                                md-no-cache="true",
+                                md-selected-item="vm.found_by_economico_cabinet"
+                                md-selected-item-change="vm.selectedItemChange(vm.found_by_economico_cabinet)"
+                                md-items="item in vm.lookupByEconomico()"
+                                md-item-text="item.economico"
+                                md-min-length="1"
+                                md-search-text-change="vm.lookupByEconomico(vm.economic_lookup_var)"
+                                md-search-text="vm.economic_lookup_var"
+                                md-menu-class="autocomplete-custom-template"
+                                md-floating-label="{{&quot;CABINET_CRUD.LOOKUP&quot; | translate}}">
+                            <md-item-template><span class="item-title">
+                            <md-icon md-font-icon="zmdi zmdi-developer-board"></md-icon><span>{{item.economico}}</span></span></md-item-template>
+                        </md-autocomplete>
                     </div>
 
                     <!-- Búsqueda por marca y modelo -->

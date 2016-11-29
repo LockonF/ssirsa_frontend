@@ -75,7 +75,8 @@
         "info": "Información de Categoría",
         "name": "Nombre",
         "description": "Descripción",
-        "lookup": "Busca la Categoría"
+        "lookup": "Busca la Categoría",
+        "duplicate":"Ya existe una Categoría de Insumos con este nombre"
     },
     "Consumable_Catalog": {
         "title": "Catálogo de Insumo",
@@ -133,7 +134,8 @@
         "phone": "Teléfono",
         "contact": "Contacto",
         "email": "Correo electrónico",
-        "comments": "Comentarios"
+        "comments": "Comentarios",
+        "duplicate": "Ya existe un Proveedor con esta razón social"
     },
     "UDN_CATALOG": {
         "title": "UDN",

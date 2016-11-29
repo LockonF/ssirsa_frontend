@@ -45,6 +45,7 @@
             vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
             vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
             vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
+            vm.duplicateMessage=Translate.translate('Provider.duplicate');
             listProveedores();
         }
 
@@ -67,11 +68,13 @@
 
         function selectedItemChange(item)
         {
+            vm.selected_proveedor = item.clone();
 
         }
 
         function clickRepeater(item){
             vm.proveedor = item.clone();
+            vm.selected_proveedor = vm.proveedor;
         }
 
         function  cancel(){
@@ -79,10 +82,11 @@
             $scope.inputForm.$setUntouched();
 
             vm.proveedor = null;
+            vm.selected_proveedor = null;
         }
 
         function update(){
-            Proveedor.update(vm.proveedor).then(function(res){
+            Proveedor.update(vm.selected_proveedor).then(function(res){
                 toastr.success(vm.successUpdateMessage,vm.successTitle);
                 listProveedores();
             }).catch(function(err){
@@ -92,11 +96,20 @@
 
         function create()
         {
-            Proveedor.create(vm.proveedor).then(function(res){
+            vm.selected_proveedor.razon_social = vm.selected_proveedor.razon_social.toUpperCase();
+            Proveedor.create(vm.selected_proveedor).then(function(res){
                 listProveedores();
                 toastr.success(vm.successCreateMessage,vm.successTitle);
             }).catch(function(err){
-                toastr.error(vm.errorMessage,vm.errorTitle);
+                if(err.status==400 && err.data.razon_social != undefined)
+                {
+                    toastr.error(vm.duplicateMessage,vm.errorTitle);
+
+                }
+                else{
+                    toastr.error(vm.errorMessage,vm.errorTitle);
+                }
+
             });
         }
 
@@ -110,7 +123,7 @@
                 .ok(vm.deleteButton)
                 .cancel(vm.cancelButton);
             $mdDialog.show(confirm).then(function() {
-                Proveedor.remove(vm.proveedor).then(function(res){
+                Proveedor.remove(vm.selected_proveedor).then(function(res){
                     toastr.success(vm.successDeleteMessage, vm.successTitle);
                     cancel();
                     activate();

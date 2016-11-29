@@ -32,21 +32,21 @@
                 <form name="inputForm">
                     <md-input-container class="md-block">
                         <label>{{ 'Provider.business_name' | translate }}</label>
-                        <input type="text" name="razon_social" ng-model="vm.proveedor.razon_social" ng-required="true"/>
+                        <input type="text" name="razon_social" ng-model="vm.selected_proveedor.razon_social" ng-required="true"/>
                         <div ng-messages="inputForm.razon_social.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>{{ 'Provider.address' | translate }}</label>
-                        <input type="text" name="direccion" ng-model="vm.proveedor.direccion" ng-required="true"/>
+                        <input type="text" name="direccion" ng-model="vm.selected_proveedor.direccion" ng-required="true"/>
                         <div ng-messages="inputForm.direccion.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>{{ 'Provider.rfc' | translate }}</label>
-                        <input type="text" name="rfc" ng-model="vm.proveedor.rfc" ng-required="true" ng-pattern="/^[A-Za-z]{3,4}[ |-]{0,1}[0-9]{6}[ |-]{0,1}[0-9A-Za-z]{3}$/"/>
+                        <input type="text" name="rfc" ng-model="vm.selected_proveedor.rfc" ng-required="true" ng-pattern="/^[A-Za-z]{3,4}[ |-]{0,1}[0-9]{6}[ |-]{0,1}[0-9A-Za-z]{3}$/"/>
                         <div ng-messages="inputForm.rfc.$error">
                             <div ng-message="pattern">{{'MAIN.GENERAL.PATTERN_RFC_FIELD' | translate}}</div>
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
@@ -54,21 +54,21 @@
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>{{ 'Provider.phone' | translate }}</label>
-                        <input type="text" name="telefono" ng-model="vm.proveedor.telefono" ng-required="true"/>
+                        <input type="text" name="telefono" ng-model="vm.selected_proveedor.telefono" ng-required="true"/>
                         <div ng-messages="inputForm.telefono.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>{{ 'Provider.contact' | translate }}</label>
-                        <input type="text" name="contacto" ng-model="vm.proveedor.contacto" ng-required="true"/>
+                        <input type="text" name="contacto" ng-model="vm.selected_proveedor.contacto" ng-required="true"/>
                         <div ng-messages="inputForm.contacto.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>{{ 'Provider.email' | translate }}</label>
-                        <input type="email" name="correo_electronico" ng-model="vm.proveedor.correo_electronico" ng-required="true" ng-pattern="/^.+@.+..+$/"/>
+                        <input type="email" name="correo_electronico" ng-model="vm.selected_proveedor.correo_electronico" ng-required="true" ng-pattern="/^.+@.+..+$/"/>
                         <div ng-messages="inputForm.correo_electronico.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                             <div ng-message="pattern">{{'MAIN.GENERAL.PATTERN_EMAIL_FIELD' | translate}}</div>
@@ -76,7 +76,7 @@
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>{{ 'Provider.comments' | translate }}</label>
-                        <input type="text" name="comentarios" ng-model="vm.proveedor.comentarios" ng-required="true"/>
+                        <input type="text" name="comentarios" ng-model="vm.selected_proveedor.comentarios" ng-required="true"/>
                         <div ng-messages="inputForm.comentarios.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>
@@ -85,13 +85,13 @@
                 <div flex="flex" layout="row" layout-align="end end">
                     <md-button aria-label="fab button" ng-click="vm.cancel()" class="md-raised md-primary"><md-icon md-font-icon="fa fa-eraser"></md-icon></md-button>
 
-                    <md-button ng-if="vm.proveedor.id!=null && vm.proveedor.id!=undefined" ng-disabled="inputForm.$invalid" ng-click="vm.update()" class="md-raised md-primary">
+                    <md-button ng-if="vm.selected_proveedor.id!=null && vm.selected_proveedor.id!=undefined" ng-disabled="inputForm.$invalid" ng-click="vm.update()" class="md-raised md-primary">
                         <md-icon md-font-icon="fa fa-pencil"></md-icon>
                     </md-button>
-                    <md-button ng-if="vm.proveedor.id==null || vm.proveedor.id==undefined" ng-disabled="inputForm.$invalid" ng-click="vm.create()" class="md-raised md-primary">
+                    <md-button ng-if="vm.selected_proveedor.id==null || vm.selected_proveedor.id==undefined" ng-disabled="inputForm.$invalid" ng-click="vm.create()" class="md-raised md-primary">
                         <md-icon md-font-icon="fa fa-save"></md-icon>
                     </md-button>
-                    <md-button ng-if="vm.proveedor.id!=null && vm.proveedor.id!=undefined" ng-click="vm.remove()" class="md-raised md-warn">
+                    <md-button ng-if="vm.selected_proveedor.id!=null && vm.selected_proveedor.id!=undefined" ng-click="vm.remove()" class="md-raised md-warn">
                         <md-icon md-font-icon="fa fa-trash"></md-icon>
                     </md-button>
                 </div>

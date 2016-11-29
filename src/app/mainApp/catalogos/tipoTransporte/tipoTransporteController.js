@@ -68,7 +68,7 @@
 
         function selectedItemChange(item)
         {
-
+            vm.selected_tipo_transporte = item.clone();
         }
 
         function clickRepeater(item){

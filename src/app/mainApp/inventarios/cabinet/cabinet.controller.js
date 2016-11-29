@@ -338,14 +338,13 @@
         }
 
         function lookupByEconomico () {
-            Cabinet.get(vm.economic_lookup_var).then(function(res){
-                vm.newCabinet = false;
-                vm.selected_cabinet = res;
-                selectedItemChange(vm.selected_cabinet);
-            }).catch(function(err){
-                toastr.warning(vm.notFoundMessage,vm.warningtitle);
-                cancel();
-            });
+            if(vm.economic_lookup_var!='' && vm.economic_lookup_var!=null){
+                return Cabinet.lookup(vm.economic_lookup_var).then(function (res) {
+                    return res;
+                });
+            }
+            return null;
+
         }
 
     }
