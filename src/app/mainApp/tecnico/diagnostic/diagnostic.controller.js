@@ -14,6 +14,7 @@
         vm.diagnostico = {};
         vm.cabinets = null;
         vm.cabinet = null;
+        vm.foto2=null;
         vm.status = 'idle';  // idle | uploading | complete
         vm.cerrarDialog = cerrarDialog;
         vm.guardar = guardar;
@@ -75,6 +76,7 @@
             if ($files.length > 0) {
                 var file = $files[0];
                 var extn = file.name.split(".").pop();
+                vm.foto2=vm.cabinet.foto;
                 if (file.size / 1000000 > 1) {
                     vm.cabinets.foto = null;
                     toastr.warning(vm.errorSize, vm.errorTitle);
