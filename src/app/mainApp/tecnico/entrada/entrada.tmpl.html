@@ -17,7 +17,7 @@
                             <form name="entradaForm" novalidate="">
                                 <md-input-container flex="100" class="md-block">
                                     <label>{{'INPUT.Entrance_Kind'|translate}}</label>
-                                    <md-select name="selectEntranceKind" ng-model="vm.selectedEntrada.text" required="">
+                                    <md-select name="selectEntranceKind" ng-model="vm.selectedEntrada.text" required="" md-on-close="vm.limpiar()">
                                         <md-option ng-repeat="option in vm.options" value="{{option.id}}">{{option.text}}
                                         </md-option>
                                     </md-select>
@@ -183,6 +183,7 @@
                                     <md-button
                                             type="file"
                                             ngf-select="vm.selectionImage($file)"
+                                            ngf-multiple="false"
                                             accept="image/*"
                                             ngf-max-size="1MB"
                                             class="md-primary md-raised">{{'INPUT.Choose Image'|translate}}

@@ -98,6 +98,7 @@
         vm.cancelButton = Translate.translate('MAIN.BUTTONS.CANCEL');
         vm.dialogTitle = Translate.translate('INPUT.Dialogs.Confirm.Title');
         vm.dialogMessage = Translate.translate('INPUT.Dialogs.Confirm.Message');
+        vm.errorSize = Translate.translate('MAIN.MSG.FILE_SIZE');
 
         activate();
 
@@ -307,7 +308,12 @@
         }
 
         function selectionImage($file) {
-            vm.entrada.ife_chofer = $file;
+            if($file==null){
+                toastr.warning(vm.errorSize, vm.errorTitle);
+            }
+            else{
+                vm.entrada.ife_chofer = $file;
+            }
         }
 
         function selectionFile($file) {
