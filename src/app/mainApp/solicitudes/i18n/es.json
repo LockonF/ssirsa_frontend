@@ -9,6 +9,10 @@
                 "DATE_TERMINATE":"Fecha de confirmación",
                 "STATUS":"Estatus",
                 "TYPE":"Tipo de solicitud"
+            },
+            "MSG":{
+                "MIN_DATE":"La fecha de termino no puede ser menor a la fecha de inicio.",
+                "MAX_DATE":"La fecha de inicio no puede ser mayor a la fecha de termino."
             }
         }
     },

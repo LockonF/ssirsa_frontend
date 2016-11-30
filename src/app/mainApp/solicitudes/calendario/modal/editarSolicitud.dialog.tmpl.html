@@ -29,11 +29,14 @@
                 <p flex hide-xs translate>{{'CALENDAR.FORM.LABEL.DATE_INITIAL'|translate}}</p>
                 <md-input-container>
                     <input type="text" aria-label="Fecha start" ng-model="vm.start" mdp-date-picker
+                           date-validate max-fecha="{{vm.end}}"
                            mdp-format="{{vm.formato}}"
                            mo-date-input="{{vm.formato}}" name="fecha_start" required=""/>
                     <div ng-messages="updateSolicitudform.fecha_start.$error">
 
                         <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                        <div ng-message="maxDates">asss</div>
+
                     </div>
                 </md-input-container>
             </div>
@@ -41,11 +44,13 @@
                 <p flex hide-xs translate>{{'CALENDAR.FORM.LABEL.DATE_END'|translate}}</p>
                 <md-input-container>
                     <input type="text" aria-label="Fecha end" ng-model="vm.end" mdp-date-picker
+                           date-validate min-date="{{vm.start}}"
                            mdp-format="{{vm.formato}}"
                            mo-date-input="{{vm.formato}}" name="fecha_end" required=""/>
                     <div ng-messages="updateSolicitudform.fecha_end.$error">
 
                         <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                        <div ng-message="minDates">{{'CALENDAR.FORM.MSG.MIN_DATE'|translate}}</div>
                     </div>
                 </md-input-container>
             </div>
@@ -63,11 +68,12 @@
                     </div>
                 </md-input-container>
                 <md-input-container>
-                    <input type="time" ng-model="vm.atendida.hora" mdp-time-picker name="fecha_termino_hora"
+                    <input type="time" ng-model="vm.atendida.hora" aria-label="Hora" mdp-time-picker name="fecha_termino_hora"
+                           mo-date-input="{{vm.time_format}}"
                            required=""/>
                     <div ng-messages="updateSolicitudform.fecha_termino_hora.$error">
 
-                        <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                        <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div><div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                     </div>
 
                 </md-input-container>
@@ -101,10 +107,10 @@
 
             <span flex></span>
             <md-button ng-click="vm.cancelClick()" aria-label="{{'Cancel' | triTranslate}}"
-                       translate="Cancel"></md-button>
+                       translate="MAIN.BUTTONS.CANCEL"></md-button>
             <md-button ng-click="vm.okClick()" class="md-primary" ng-disabled="updateSolicitudform.$invalid"
                        aria-label="{{vm.dialogData.confirmButtonText | triTranslate}}"
-                       translate="{{::vm.dialogData.confirmButtonText}}"></md-button>
+                       translate="MAIN.BUTTONS.ACCEPT"></md-button>
         </md-dialog-actions>
     </form>
 </md-dialog>
