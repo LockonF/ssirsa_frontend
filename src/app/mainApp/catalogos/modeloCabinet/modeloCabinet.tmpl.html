@@ -41,7 +41,7 @@
                         <md-list  >
                             <md-list-item  ng-repeat="modelo in vm.modelos | modeloSearch:vm.searchText">
                                 <md-button ng-click="vm.selectedModelos(modelo)"
-                                           ng-class="{'selected' : modelo === vm.selectedModeloList }">
+                                           ng-class="{'selected' : modelo.id == vm.modelo.id }">
                                     <md-icon md-svg-icon="assets/images/modelo.svg" class="avatar"></md-icon>
                                     <span flex="flex">{{modelo.nombre }}</span>
                                 </md-button>

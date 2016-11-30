@@ -40,7 +40,7 @@
                         <md-list  >
                             <md-list-item  ng-repeat="equipo in vm.tipo_equipos | tipoSearch:vm.searchText">
                                 <md-button ng-click="vm.selectedEquipos(equipo)"
-                                           ng-class="{'selected' : equipo === vm.selectedEquipoList }">
+                                           ng-class="{'selected' : equipo.id == vm.tipo_equipo.id }">
                                     <md-icon md-svg-icon="assets/images/equipment_type.svg" class="avatar"></md-icon>
                                     <span flex="flex">{{equipo.nombre }}</span>
                                 </md-button>
