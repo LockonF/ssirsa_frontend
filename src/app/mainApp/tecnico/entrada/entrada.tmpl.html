@@ -185,14 +185,16 @@
                                             ngf-select="vm.selectionImage($file)"
                                             ngf-multiple="false"
                                             accept="image/*"
-                                            ngf-max-size="1MB"
                                             class="md-primary md-raised">{{'INPUT.Choose Image'|translate}}
                                     </md-button>
                                 </div>
                             </div>
                             <div flex="80">
-                                <div class="md-media-md card-media">
+                                <div class="md-media-md card-media"  ng-if="vm.entrada.ife_chofer!=null">
                                     <img ngf-src="vm.entrada.ife_chofer" style="max-width:150px" class="thumb"/>
+                                </div>
+                                <div class="md-media-md card-media"  ng-if="vm.entrada.ife_chofer==null">
+                                    <img ngf-src="vm.ife_chofer" style="max-width:150px" class="thumb"/>
                                 </div>
                             </div>
                             <div layout="row"
