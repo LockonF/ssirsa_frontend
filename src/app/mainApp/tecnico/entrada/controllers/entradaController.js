@@ -161,7 +161,7 @@
 
             fd.append('accion', 'entrada');
             fd.append('fecha', vm.entrada.fecha);
-            //fd.append('tipo_entrada',vm.selectedEntrada.text);
+            fd.append('tipo_entrada',vm.selectedEntrada.text);
 
             if (vm.entrada.pedimento != null)
                 fd.append('pedimento', vm.entrada.pedimento);
