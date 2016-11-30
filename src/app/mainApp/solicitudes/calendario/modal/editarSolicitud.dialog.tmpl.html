@@ -29,13 +29,13 @@
                 <p flex hide-xs translate>{{'CALENDAR.FORM.LABEL.DATE_INITIAL'|translate}}</p>
                 <md-input-container>
                     <input type="text" aria-label="Fecha start" ng-model="vm.start" mdp-date-picker
-                           date-validate max-fecha="{{vm.end}}"
+                           date-max-val="{{vm.end}}"
                            mdp-format="{{vm.formato}}"
                            mo-date-input="{{vm.formato}}" name="fecha_start" required=""/>
                     <div ng-messages="updateSolicitudform.fecha_start.$error">
 
                         <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
-                        <div ng-message="maxDates">asss</div>
+                        <div ng-message="maxDates" ><span translate='CALENDAR.FORM.MSG.MAX_DATE' translate-values="{ one: 'fecha de solicitud', two: 'fecha de atención'}"></span></div>
 
                     </div>
                 </md-input-container>
@@ -44,27 +44,33 @@
                 <p flex hide-xs translate>{{'CALENDAR.FORM.LABEL.DATE_END'|translate}}</p>
                 <md-input-container>
                     <input type="text" aria-label="Fecha end" ng-model="vm.end" mdp-date-picker
-                           date-validate min-date="{{vm.start}}"
+                           date-min-val="{{vm.start}}"
                            mdp-format="{{vm.formato}}"
                            mo-date-input="{{vm.formato}}" name="fecha_end" required=""/>
                     <div ng-messages="updateSolicitudform.fecha_end.$error">
 
                         <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
-                        <div ng-message="minDates">{{'CALENDAR.FORM.MSG.MIN_DATE'|translate}}</div>
+                        <div ng-message="minDates"><span translate='CALENDAR.FORM.MSG.MIN_DATE' translate-values="{ one: 'fecha de atención', two: 'fecha de solicitud'}"></span></div>
                     </div>
                 </md-input-container>
             </div>
-
-            <div class="event-dialog-input-row" layout="row" layout-align="start center">
+            <md-input-container class="md-block">
                 <p flex hide-xs translate>{{'CALENDAR.FORM.LABEL.DATE_TERMINATE'|translate}}</p>
+            </md-input-container>
+            <div class="event-dialog-input-row" layout="row" layout-align="center stretch">
+
                 <md-input-container>
 
                     <input aria-label="Fecha atendida" type="text" ng-model="vm.atendida.fecha" mdp-date-picker
+                           date-min-val="{{vm.start}}"
+                           date-max-val="{{vm.end}}"
                            mdp-format="{{vm.formato}}" mo-date-input="{{vm.formato}}" name="fecha_termino_date"
                            required=""/>
                     <div ng-messages="updateSolicitudform.fecha_termino_date.$error">
 
                         <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                        <div ng-message="minDates"><span translate='CALENDAR.FORM.MSG.MIN_DATE' translate-values="{ one: 'fecha de confirmación', two: 'fecha de solicitud'}"></span></div>
+                        <div ng-message="maxDates" ><span translate='CALENDAR.FORM.MSG.MAX_DATE' translate-values="{ one: 'fecha de confirmación', two: 'fecha de atención'}"></span></div>
                     </div>
                 </md-input-container>
                 <md-input-container>

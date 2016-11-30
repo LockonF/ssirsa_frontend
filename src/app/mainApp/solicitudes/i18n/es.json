@@ -11,8 +11,8 @@
                 "TYPE":"Tipo de solicitud"
             },
             "MSG":{
-                "MIN_DATE":"La fecha de termino no puede ser menor a la fecha de inicio.",
-                "MAX_DATE":"La fecha de inicio no puede ser mayor a la fecha de termino."
+                "MIN_DATE":"La {{one}} no puede ser menor a la {{two}}.",
+                "MAX_DATE":"La {{one}} no puede ser mayor a la {{two}}."
             }
         }
     },
