@@ -38,6 +38,8 @@
         vm.hideRegisteredCabinets = true;
         vm.hideUnregisteredCabinets = true;
         vm.selectedCabinets = [];
+        vm.cabinetsEntrada=[];
+
         vm.loading = true;
         vm.types = OPTIONS.type_out;
         vm.isValid = false;
@@ -91,8 +93,8 @@
             fd.append('udn', vm.salida.udn.id);
             if (vm.salida.id != null)
                 fd.append("id", vm.salida.id);
-            if (vm.salida.ife_chofer != null && vm.salida.ife_chofer != "")
-                fd.append('ife_chofer', vm.salida.ife_chofer);
+            if (vm.fotoGeneral != null && vm.fotoGeneral != "")
+                fd.append('ife_chofer', vm.fotoGeneral);
             //Is massive upload
             if (vm.salida.file != null) {
                 fd.append('file', vm.salida.file);
@@ -220,6 +222,9 @@
                         toastr.warning(vm.errorTypeFile, vm.errorTitle);
                         vm.salida.ife_chofer = null;
                     }
+                }else{
+
+                    vm.fotoGeneral=file;
                 }
             }
         }
@@ -322,6 +327,7 @@
         function clear() {
             vm.hideUnregisteredCabinets = true;
             vm.hideRegisteredCabinets = true;
+            vm.fotoGeneral=true;
             vm.salida = angular.copy(salida);
             vm.salida.sucursal = vm.sucursal;
             $scope.entradaForm.$setPristine();
