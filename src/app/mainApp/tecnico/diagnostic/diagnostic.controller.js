@@ -76,7 +76,7 @@
             if ($files.length > 0) {
                 var file = $files[0];
                 var extn = file.name.split(".").pop();
-                vm.foto2=vm.cabinet.foto;
+                vm.foto2=vm.cabinets.foto;
                 if (file.size / 1000000 > 1) {
                     vm.cabinets.foto = null;
                     toastr.warning(vm.errorSize, vm.errorTitle);
