@@ -11,7 +11,7 @@
     function entradaController(EntradaSalida, toastr, $mdDialog, MarcaCabinet,
                                ModeloCabinet, Sucursal, udn, CabinetEntradaSalida,
                                Proyectos, TipoTransporte, LineaTransporte, Translate,
-                               $scope, Cabinet, Helper, Persona) {
+                               $scope, Cabinet, Helper, Persona, OPTIONS) {
         var vm = this;
         vm.isGarantia = false;
         vm.isPedimento = false;
@@ -36,7 +36,8 @@
         vm.selectedItemChange = selectedItemChange;
         vm.search = search;
 
-        vm.options = ["Nuevos", "Garantías"];
+        //vm.options = ["Nuevos", "Garantías"];
+        vm.options=OPTIONS.input_types;
         vm.selectedEntrada = null;
 
         vm.selectedTab = 0;
@@ -160,7 +161,7 @@
 
             fd.append('accion', 'entrada');
             fd.append('fecha', vm.entrada.fecha);
-            //fd.append('tipo_entrada','Nuevo');
+            fd.append('tipo_entrada',vm.selectedEntrada.text);
 
             if (vm.entrada.pedimento != null)
                 fd.append('pedimento', vm.entrada.pedimento);

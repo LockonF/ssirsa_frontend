@@ -368,6 +368,16 @@
                     id:"Min",
                     text:"Minimo"
                 }
+            ],
+            input_types:[
+                {
+                    id:"Nuevo",
+                    text:"Nuevos"
+                },
+                {
+                    id:"Garantia",
+                    text:"Garantias"
+                }
             ]
 
         });
