@@ -20,8 +20,10 @@
         vm.searchCabinet = searchCabinet;
         vm.selectionFile = selectionFile;
         vm.cerrarDialog = cerrarDialog;
-        vm.change = change;
+        vm.change = change
+        vm.a="";
         activate();
+        vm.picFile2;
 
 
         function change() {
@@ -107,6 +109,7 @@
             if ($files.length > 0) {
                 var file = $files[0];
                 var extn = file.name.split(".").pop();
+                vm.picFile2=vm.picFile;
                 if (file.size / 1000000 > 1) {
                     toastr.warning(vm.errorSize, vm.errorTitle);
                     vm.picFile = null
