@@ -405,7 +405,7 @@
 
         function addCabinet() {
             if (_.contains(vm.existingCabinets, vm.cabinetID)) {
-                Cabinet.get(vm.cabinetID).then(function (res) {
+                Cabinet.getIfEntrada(vm.cabinetID).then(function (res) {
                     var index = vm.cabinets.map(function (elem) {
                         return elem.economico;
                     }).indexOf(res.economico);
@@ -420,7 +420,10 @@
                     }
                     vm.cabinetID = "";
                 }).catch(function (err) {
-                    toastr.error(vm.notFoundCabinet, vm.errorTitle);
+                    if(err.data.detail!=null)
+                        toastr.error(err.data.detail, vm.errorTitle);
+                    else
+                        toastr.error(vm.notFoundCabinet, vm.errorTitle);
                     vm.cabinetID = "";
                 });
             }

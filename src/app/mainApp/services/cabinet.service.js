@@ -21,7 +21,8 @@
             modify: modify,
             loadByModel:loadByModel,
             loadByStatus:loadByStatus,
-            lookup:lookup
+            lookup:lookup,
+            getIfEntrada:getIfEntrada
         };
 
         function loadByStatus(status) {
@@ -87,6 +88,10 @@
 
         function lookup(economico) {
             return urlbase.one('lookup',economico).getList();
+        }
+
+        function getIfEntrada(economico){
+            return urlbase.one("can_enter",economico).customGET();
         }
     }
 })();
