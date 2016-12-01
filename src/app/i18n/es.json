@@ -143,8 +143,8 @@
       "DELETED_FIELD":"Eliminado",
       "SHOW_DELETED":"Mostrar elementos eliminados",
       "SHOW_DELETED_MOBILE":"Elementos eliminados",
-      "SHOW_ACTIVE":"Mostrar elementos activos",
-      "SHOW_ACTIVE_MOBILE":"Elementos activos"
+      "SHOW_ACTIVE":"Mostrar elementos existentes",
+      "SHOW_ACTIVE_MOBILE":"Elementos existentes"
     },
     "DIALOG": {
       "DELETE_TITLE": "Confirmación de eliminación",
