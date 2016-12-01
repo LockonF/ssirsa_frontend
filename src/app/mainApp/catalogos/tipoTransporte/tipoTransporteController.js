@@ -19,7 +19,7 @@
         vm.tipo_transporte_list = null;
         vm.tipo_transporte = null;
 
-        vm.text = 'Hola';
+        vm.toggleDeleted = true;
 
         //Functions
         vm.lookup = lookup;
@@ -28,7 +28,9 @@
         vm.update = update;
         vm.create = create;
         vm.remove = remove;
+        vm.restore = restore;
         vm.clickRepeater = clickRepeater;
+        vm.toggleDeletedFunction = toggleDeletedFunction;
 
         activate();
 
@@ -41,22 +43,31 @@
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
             vm.successUpdateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_UPDATE');
             vm.successDeleteMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_DELETE');
+            vm.successRestoreMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_RESTORE');
             vm.deleteButton=Translate.translate('MAIN.BUTTONS.DELETE');
+            vm.restoreButton=Translate.translate('MAIN.BUTTONS.RESTORE');
             vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
             vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
             vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
+            vm.dialogRestoreTitle=Translate.translate('MAIN.DIALOG.RESTORE_TITLE');
+            vm.dialogRestoreMessage=Translate.translate('MAIN.DIALOG.RESTORE_MESSAGE');
             vm.duplicateMessage=Translate.translate('Transport_Kind.duplicate');
             listTipos();
         }
 
         function listTipos()
         {
-            TipoTransporte.listObject().then(function(res){
-                vm.tipo_transporte_list = Helper.filterDeleted(res, true);
+            vm.loadingPromise = TipoTransporte.listObject().then(function(res){
+                vm.tipo_transporte_list = Helper.filterDeleted(res, vm.toggleDeleted);
                 vm.tipo_transporte_list = Helper.sortByAttribute(vm.tipo_transporte_list, 'descripcion')
             }).catch(function(err){
 
             });
+        }
+
+        function toggleDeletedFunction() {
+            listTipos();
+            cancel();
         }
 
         function lookup(search_text){
@@ -130,6 +141,29 @@
                     cancel();
                     activate();
                 }).catch(function (res) {
+                    toastr.warning(vm.errorMessage, vm.errorTitle);
+                });
+            }, function() {
+
+            });
+
+        }
+
+        function restore() {
+            var confirm = $mdDialog.confirm()
+                .title(vm.dialogRestoreTitle)
+                .textContent(vm.dialogRestoreMessage)
+                .ariaLabel('Confirmar restauración')
+                .ok(vm.restoreButton)
+                .cancel(vm.cancelButton);
+            $mdDialog.show(confirm).then(function() {
+                vm.selected_tipo_transporte.deleted=false;
+                TipoTransporte.update(vm.selected_tipo_transporte).then(function (res) {
+                    toastr.success(vm.successRestoreMessage, vm.successTitle);
+                    cancel();
+                    activate();
+                }).catch(function (res) {
+                    vm.selected_tipo_transporte.deleted=true;
                     toastr.warning(vm.errorMessage, vm.errorTitle);
                 });
             }, function() {

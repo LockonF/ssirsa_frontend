@@ -8,7 +8,7 @@
         .module('app.mainApp.reportes')
         .controller('ReportesCrudController', ReportsCrudController)
         .filter('reportSearch', reportSearch);
-    function ReportsCrudController(toastr, $stateParams,OPTIONS, $mdDialog, Reportes, Translate, $state) {
+    function ReportsCrudController(toastr,$timeout, $stateParams,OPTIONS, $mdDialog, Reportes, Translate, $state) {
         //Variable declaration
         var vm = this;
         vm.isOpen = false;
@@ -55,9 +55,10 @@
 
         activate();
         function activate() {
-            Reportes.getPartialReports().then(function (res) {
-                vm.reports = res;
-                vm.reports = _.sortBy(vm.reports, 'name');
+             Reportes.getPartialReports().then(function (res) {
+                    vm.reports = res;
+                    vm.reports = _.sortBy(vm.reports, 'name');
+
             });
             if($stateParams.id!=null){
                 var obj={
@@ -73,7 +74,7 @@
 
         }
         function onTabPreview() {
-            Reportes.generatePreview(vm.report.id).then(function (res) {
+            vm.reportPromise=Reportes.generatePreview(vm.report.id).then(function (res) {
                 vm.preview = res;
 
             }).catch(function () {
