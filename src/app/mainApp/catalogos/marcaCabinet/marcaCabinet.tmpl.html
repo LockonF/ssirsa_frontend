@@ -22,8 +22,11 @@
                 </md-autocomplete>
 
                 <md-switch ng-model="vm.toggleDeleted" ng-change="vm.toggleDeletedFunction()">
-                    <span ng-if="vm.toggleDeleted">{{'MAIN.MODEL.SHOW_ACTIVE' | translate}}</span>
-                    <span ng-if="!vm.toggleDeleted">{{'MAIN.MODEL.SHOW_DELETED' | translate}}</span>
+                    <span ng-if="vm.toggleDeleted" hide-xs hide-sm>{{'MAIN.MODEL.SHOW_ACTIVE' | translate}}</span>
+                    <span ng-if="vm.toggleDeleted" hide-gt-sm>{{'MAIN.MODEL.SHOW_ACTIVE_MOBILE' | translate}}</span>
+                    <span ng-if="!vm.toggleDeleted" hide-xs hide-sm>{{'MAIN.MODEL.SHOW_DELETED' | translate}}</span>
+                    <span ng-if="!vm.toggleDeleted" hide-gt-sm>{{'MAIN.MODEL.SHOW_DELETED_MOBILE' | translate}}</span>
+
                 </md-switch>
 
                 <div layout="row" layout-align="center center" ng-if="vm.loadingRepeater">

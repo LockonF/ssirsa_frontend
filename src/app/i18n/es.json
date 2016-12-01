@@ -142,7 +142,9 @@
     "MODEL":{
       "DELETED_FIELD":"Eliminado",
       "SHOW_DELETED":"Mostrar elementos eliminados",
-      "SHOW_ACTIVE":"Mostrar elementos activos"
+      "SHOW_DELETED_MOBILE":"Elementos eliminados",
+      "SHOW_ACTIVE":"Mostrar elementos activos",
+      "SHOW_ACTIVE_MOBILE":"Elementos activos"
     },
     "DIALOG": {
       "DELETE_TITLE": "Confirmación de eliminación",
