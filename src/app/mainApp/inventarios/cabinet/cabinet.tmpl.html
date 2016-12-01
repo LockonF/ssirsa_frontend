@@ -206,7 +206,12 @@ Created by lockonDaniel on 9/11/16.
                         </div>
                     </form>
                     <div layout="row" layout-align="end end">
-                        <md-button ng-if="vm.newCabinet==false &amp;&amp; vm.create_update_resolver==true" ng-click="vm.remove()" ng-disabled="vm.selected_cabinet.deleted" class="md-raised md-warn">
+
+                        <md-button ng-if="vm.newCabinet==false &amp;&amp; vm.create_update_resolver==true && vm.selected_cabinet.deleted" ng-click="vm.restore()" class="md-raised md-warn">
+                            <md-icon md-font-icon="zmdi zmdi-time-restore"></md-icon>
+                        </md-button>
+
+                        <md-button ng-if="vm.newCabinet==false &amp;&amp; vm.create_update_resolver==true && !vm.selected_cabinet.deleted" ng-click="vm.remove()" ng-disabled="vm.selected_cabinet.deleted" class="md-raised md-warn">
                             <md-icon md-font-icon="fa fa-trash"></md-icon>
                         </md-button>
                         <md-button ng-click="vm.cancel()" ng-if="vm.create_update_resolver==true" class="md-raised md-primary">
