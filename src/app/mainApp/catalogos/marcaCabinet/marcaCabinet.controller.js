@@ -19,7 +19,7 @@
         vm.marca_cabinet_list = null;
         vm.marca_cabinet = null;
 
-        vm.text = 'Hola';
+        vm.toggleDeleted = true;
 
         //Functions
         vm.lookup = lookup;
@@ -28,8 +28,10 @@
         vm.update = update;
         vm.create = create;
         vm.remove = remove;
+        vm.restore = restore;
         vm.clickRepeater = clickRepeater;
-
+        vm.listMarcas = listMarcas;
+        vm.toggleDeletedFunction = toggleDeletedFunction;
         activate();
 
 
@@ -41,24 +43,35 @@
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
             vm.successUpdateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_UPDATE');
             vm.successDeleteMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_DELETE');
+            vm.successRestoreMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_RESTORE');
             vm.deleteButton=Translate.translate('MAIN.BUTTONS.DELETE');
+            vm.restoreButton=Translate.translate('MAIN.BUTTONS.RESTORE');
             vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
             vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
             vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
+            vm.dialogRestoreTitle=Translate.translate('MAIN.DIALOG.RESTORE_TITLE');
+            vm.dialogRestoreMessage=Translate.translate('MAIN.DIALOG.RESTORE_MESSAGE');
             vm.duplicateMessage=Translate.translate('Cabinet_Brand.duplicate');
             listMarcas();
         }
 
         function listMarcas()
         {
+            vm.loadingRepeater = true;
             MarcaCabinet.listPromise().then(function (res) {
-                vm.marca_cabinet_list = Helper.filterDeleted(res, true);
+                vm.marca_cabinet_list = Helper.filterDeleted(res, vm.toggleDeleted);
                 vm.marca_cabinet_list = Helper.sortByAttribute(vm.marca_cabinet_list, 'descripcion')
+                vm.loadingRepeater = false;
 
             }).catch(function (err) {
 
             })
 
+        }
+
+        function toggleDeletedFunction() {
+            listMarcas();
+            cancel();
         }
 
         function lookup(search_text){
@@ -128,6 +141,28 @@
             $mdDialog.show(confirm).then(function() {
                 MarcaCabinet.remove(vm.marca_cabinet).then(function (res) {
                     toastr.success(vm.successDeleteMessage, vm.successTitle);
+                    cancel();
+                    activate();
+                }).catch(function (res) {
+                    toastr.warning(vm.errorMessage, vm.errorTitle);
+                });
+            }, function() {
+
+            });
+
+        }
+
+        function restore() {
+            vm.marca_cabinet.deleted=false;
+            var confirm = $mdDialog.confirm()
+                .title(vm.dialogRestoreTitle)
+                .textContent(vm.dialogRestoreMessage)
+                .ariaLabel('Confirmar restauración')
+                .ok(vm.restoreButton)
+                .cancel(vm.cancelButton);
+            $mdDialog.show(confirm).then(function() {
+                MarcaCabinet.update(vm.marca_cabinet).then(function (res) {
+                    toastr.success(vm.successRestoreMessage, vm.successTitle);
                     cancel();
                     activate();
                 }).catch(function (res) {
