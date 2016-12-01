@@ -153,7 +153,6 @@
         }
 
         function restore() {
-            vm.marca_cabinet.deleted=false;
             var confirm = $mdDialog.confirm()
                 .title(vm.dialogRestoreTitle)
                 .textContent(vm.dialogRestoreMessage)
@@ -161,6 +160,7 @@
                 .ok(vm.restoreButton)
                 .cancel(vm.cancelButton);
             $mdDialog.show(confirm).then(function() {
+                vm.marca_cabinet.deleted=false;
                 MarcaCabinet.update(vm.marca_cabinet).then(function (res) {
                     toastr.success(vm.successRestoreMessage, vm.successTitle);
                     cancel();
