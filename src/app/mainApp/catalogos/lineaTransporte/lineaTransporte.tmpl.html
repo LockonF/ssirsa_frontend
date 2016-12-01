@@ -43,7 +43,7 @@
                         <md-list>
                             <md-list-item ng-repeat="linea in vm.lineas | lineaSearch:vm.searchText">
                                 <md-button ng-click="vm.selectedLineas(linea)"
-                                           ng-class="{'selected' : linea === vm.selectedLineaList }">
+                                           ng-class="{'selected' : linea.id == vm.transport.id }">
                                     <md-icon md-svg-icon="assets/images/transport.svg" class="avatar"></md-icon>
                                     <span flex="flex">{{linea.razon_social }}</span>
                                 </md-button>
