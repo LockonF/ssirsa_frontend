@@ -166,6 +166,7 @@
                     cancel();
                     activate();
                 }).catch(function (res) {
+                    vm.marca_cabinet.deleted=true;
                     toastr.warning(vm.errorMessage, vm.errorTitle);
                 });
             }, function() {
