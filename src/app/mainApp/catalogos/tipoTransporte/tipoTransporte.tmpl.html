@@ -13,7 +13,17 @@
                     <md-item-template><span class="item-title">
               <md-icon md-font-icon="zmdi zmdi-truck"></md-icon><span>{{item.descripcion}}</span></span></md-item-template>
                 </md-autocomplete>
-                <md-virtual-repeat-container layout-fill="layout-fill" hide-xs="hide-xs" hide-sm="hide-sm" class="vr-min-height">
+
+                <md-switch ng-model="vm.toggleDeleted" ng-change="vm.toggleDeletedFunction()">
+                    <span ng-if="vm.toggleDeleted" hide-xs hide-sm>{{'MAIN.MODEL.SHOW_ACTIVE' | translate}}</span>
+                    <span ng-if="vm.toggleDeleted" hide-gt-sm>{{'MAIN.MODEL.SHOW_ACTIVE_MOBILE' | translate}}</span>
+                    <span ng-if="!vm.toggleDeleted" hide-xs hide-sm>{{'MAIN.MODEL.SHOW_DELETED' | translate}}</span>
+                    <span ng-if="!vm.toggleDeleted" hide-gt-sm>{{'MAIN.MODEL.SHOW_DELETED_MOBILE' | translate}}</span>
+
+                </md-switch>
+
+
+                <md-virtual-repeat-container layout-fill="layout-fill" hide-xs="hide-xs" hide-sm="hide-sm" class="vr-min-height" cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
                     <md-list flex="flex">
                         <md-list-itm flex="flex" ng-repeat="item in vm.tipo_transporte_list">
                             <md-button ng-click="vm.clickRepeater(item)" ng-class="{'selected':item.id == vm.tipo_transporte.id}">
@@ -46,8 +56,11 @@
                     <md-button ng-if="vm.selected_tipo_transporte.id==null || vm.selected_tipo_transporte.id==undefined" ng-disabled="inputForm.$invalid" ng-click="vm.create()" class="md-raised md-primary">
                         <md-icon md-font-icon="fa fa-save"></md-icon>
                     </md-button>
-                    <md-button ng-if="vm.selected_tipo_transporte.id!=null &amp;&amp; vm.selected_tipo_transporte.id!=undefined" ng-click="vm.remove()" class="md-raised md-warn">
+                    <md-button ng-if="vm.selected_tipo_transporte.id!=null &amp;&amp; vm.selected_tipo_transporte.id!=undefined && !vm.selected_tipo_transporte.deleted" ng-click="vm.remove()" class="md-raised md-warn">
                         <md-icon md-font-icon="fa fa-trash"></md-icon>
+                    </md-button>
+                    <md-button ng-if="vm.selected_tipo_transporte.id!=null &amp;&amp; vm.selected_tipo_transporte.id!=undefined && vm.selected_tipo_transporte.deleted" ng-click="vm.restore()" class="md-raised md-warn">
+                        <md-icon md-font-icon="zmdi zmdi-time-restore"></md-icon>
                     </md-button>
                 </div>
             </div>
