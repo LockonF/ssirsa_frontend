@@ -20,7 +20,7 @@
         vm.udn = null;
         vm.udns=OPTIONS.zone;
 
-        vm.text = 'Hola';
+        vm.toggleDeleted = true;
 
         //Functions
         vm.lookup = lookup;
@@ -30,6 +30,8 @@
         vm.create = create;
         vm.remove = remove;
         vm.clickRepeater = clickRepeater;
+        vm.restore = restore;
+        vm.toggleDeletedFunction = toggleDeletedFunction;
 
         activate();
 
@@ -42,22 +44,35 @@
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
             vm.successUpdateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_UPDATE');
             vm.successDeleteMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_DELETE');
+            vm.successRestoreMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_RESTORE');
             vm.deleteButton=Translate.translate('MAIN.BUTTONS.DELETE');
+            vm.restoreButton=Translate.translate('MAIN.BUTTONS.RESTORE');
             vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
             vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
             vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
+            vm.dialogRestoreTitle=Translate.translate('MAIN.DIALOG.RESTORE_TITLE');
+            vm.dialogRestoreMessage=Translate.translate('MAIN.DIALOG.RESTORE_MESSAGE');
             vm.duplicateMessage=Translate.translate('UDN_CATALOG.duplicate');
             listUdns();
         }
 
+
+
         function listUdns()
         {
-            udn.listObject().then(function(res){
-                vm.udn_list = Helper.filterDeleted(res, true);
-                vm.udn_list = Helper.sortByAttribute(vm.udn_list, 'zona')
+
+            vm.loadingPromise = udn.listObject().then(function(res){
+                vm.udn_list = Helper.filterDeleted(res, vm.toggleDeleted);
+                vm.udn_list = Helper.sortByAttribute(vm.udn_list, 'zona');
+
             }).catch(function(err){
 
             });
+        }
+
+        function toggleDeletedFunction() {
+            listUdns();
+            cancel();
         }
 
         function lookup(search_text){
@@ -129,6 +144,29 @@
                     cancel();
                     activate();
                 }).catch(function (res) {
+                    toastr.warning(vm.errorMessage, vm.errorTitle);
+                });
+            }, function() {
+
+            });
+
+        }
+
+        function restore() {
+            var confirm = $mdDialog.confirm()
+                .title(vm.dialogRestoreTitle)
+                .textContent(vm.dialogRestoreMessage)
+                .ariaLabel('Confirmar restauración')
+                .ok(vm.restoreButton)
+                .cancel(vm.cancelButton);
+            $mdDialog.show(confirm).then(function() {
+                vm.selected_udn.deleted=false;
+                udn.update(vm.selected_udn).then(function (res) {
+                    toastr.success(vm.successRestoreMessage, vm.successTitle);
+                    cancel();
+                    activate();
+                }).catch(function (res) {
+                    vm.selected_udn.deleted=true;
                     toastr.warning(vm.errorMessage, vm.errorTitle);
                 });
             }, function() {

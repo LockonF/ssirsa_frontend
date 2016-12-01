@@ -137,7 +137,11 @@
         }
 
         function loadCabinets(model) {
-            vm.cabinet_list = Cabinet.loadByModel(model);
+            vm.loadingPromise = Cabinet.loadByModel(model).then(function(res){
+                vm.cabinet_list = res;
+            }).catch(function(err){
+
+            });
 
         }
 

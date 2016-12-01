@@ -29,12 +29,9 @@
 
                 </md-switch>
 
-                <div layout="row" layout-align="center center" ng-if="vm.loadingRepeater">
-                    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-                </div>
 
 
-                <md-virtual-repeat-container ng-if="!vm.loadingRepeater" id="vertical_container" hide-xs hide-sm layout-fill="layout-fill" class="vr-min-height">
+                <md-virtual-repeat-container ng-if="!vm.loadingRepeater" id="vertical_container" hide-xs hide-sm layout-fill="layout-fill" class="vr-min-height" cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
                     <md-list flex="flex">
                         <md-list-itm flex="flex" ng-repeat="item in vm.marca_cabinet_list">
                             <md-button ng-click="vm.clickRepeater(item)" ng-class="{'selected':item.id === vm.marca_cabinet.id}">

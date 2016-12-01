@@ -52,7 +52,7 @@ Created by lockonDaniel on 9/11/16.
                             <md-item-template><span class="item-title">
                 <md-icon md-font-icon="zmdi zmdi-developer-board"></md-icon><span>{{item.economico}}</span></span></md-item-template>
                         </md-autocomplete>
-                        <md-virtual-repeat-container hide-sm="hide-sm" hide-xs="hide-xs" flex="flex" id="vertical_container" style="min-height:350px" ng-if="vm.cabinet_list !=null">
+                        <md-virtual-repeat-container hide-sm="hide-sm" hide-xs="hide-xs" flex="flex" id="vertical_container" style="min-height:350px" cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
                             <div flex="flex" md-virtual-repeat="cabinet in vm.cabinet_list">
                                 <md-list flex="flex">
                                     <md-button ng-click="vm.selectedItemChange(cabinet)" ng-class="{'selected':cabinet.economico === vm.selected_cabinet.economico}">

@@ -57,11 +57,9 @@
 
         function listMarcas()
         {
-            vm.loadingRepeater = true;
-            MarcaCabinet.listPromise().then(function (res) {
+            vm.loadingPromise = MarcaCabinet.listPromise().then(function (res) {
                 vm.marca_cabinet_list = Helper.filterDeleted(res, vm.toggleDeleted);
                 vm.marca_cabinet_list = Helper.sortByAttribute(vm.marca_cabinet_list, 'descripcion')
-                vm.loadingRepeater = false;
 
             }).catch(function (err) {
 

@@ -93,7 +93,7 @@
 
 
         function loadByModel(model){
-            return urlbase.one('model',model.id).getList().$object;
+            return urlbase.one('model',model.id).getList();
         }
 
         function lookup(economico) {
