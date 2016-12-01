@@ -13,7 +13,17 @@
                     <md-item-template><span class="item-title">
               <md-icon md-font-icon="zmdi zmdi-truck"></md-icon><span>{{item.zona}} - {{item.agencia}}</span></span></md-item-template>
                 </md-autocomplete>
-                <md-virtual-repeat-container id="vertical_container" flex="flex" layout-fill="layout-fill">
+
+                <md-switch ng-model="vm.toggleDeleted" ng-change="vm.toggleDeletedFunction()">
+                    <span ng-if="vm.toggleDeleted" hide-xs hide-sm>{{'MAIN.MODEL.SHOW_ACTIVE' | translate}}</span>
+                    <span ng-if="vm.toggleDeleted" hide-gt-sm>{{'MAIN.MODEL.SHOW_ACTIVE_MOBILE' | translate}}</span>
+                    <span ng-if="!vm.toggleDeleted" hide-xs hide-sm>{{'MAIN.MODEL.SHOW_DELETED' | translate}}</span>
+                    <span ng-if="!vm.toggleDeleted" hide-gt-sm>{{'MAIN.MODEL.SHOW_DELETED_MOBILE' | translate}}</span>
+
+                </md-switch>
+
+
+                <md-virtual-repeat-container id="vertical_container" flex="flex" layout-fill="layout-fill" cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
                     <md-list flex="flex">
                         <md-list-itm flex="flex" ng-repeat="item in vm.udn_list">
                             <md-button ng-click="vm.clickRepeater(item)" ng-class="{'selected':item.id == vm.udn.id}">
@@ -78,9 +88,14 @@
                     <md-button ng-if="vm.selected_udn.id==null || vm.selected_udn.id==undefined" ng-disabled="inputForm.$invalid" ng-click="vm.create()" class="md-raised md-primary">
                         <md-icon md-font-icon="fa fa-save"></md-icon>
                     </md-button>
-                    <md-button ng-if="vm.selected_udn.id!=null &amp;&amp; vm.selected_udn.id!=undefined" ng-click="vm.remove()" class="md-raised md-warn">
+                    <md-button ng-if="vm.selected_udn.id!=null &amp;&amp; vm.selected_udn.id!=undefined && vm.selected_udn.deleted==false" ng-click="vm.remove()" class="md-raised md-warn">
                         <md-icon md-font-icon="fa fa-trash"></md-icon>
                     </md-button>
+
+                    <md-button ng-if="vm.selected_udn.id!=null &amp;&amp; vm.selected_udn.id!=undefined && vm.selected_udn.deleted==true" ng-click="vm.restore()" class="md-raised md-warn">
+                        <md-icon md-font-icon="zmdi zmdi-time-restore"></md-icon>
+                    </md-button>
+
                 </div>
             </div>
         </div>
