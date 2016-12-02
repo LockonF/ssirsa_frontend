@@ -162,12 +162,14 @@
                 "Keyword": "Palabra clave",
                 "Refrigerant type": "Tipo de refrigerante",
                 "Refrigerant quantity": "Cantidad de refrigerante",
-                "Compressor type": "Tipo de compresor",
-                "Brand": "Marca"
+                "Type": "Tipo",
+                "Brand": "Marca",
+                "Duplicate":"El modelo ya existe"
             },
             "Brand": {
                 "Category": "Categoria",
-                "Description": "Descripción"
+                "Description": "Descripción",
+                "Duplicate":"La marca ya existe"
             },
             "Cabinet":{
                 "Title":"Crear Cabinet",
@@ -188,6 +190,13 @@
             "GeneralData": "Datos Generales",
             "CabinetsUpload": "Carga de Cabinets"
         },
+        "TableUnregisteredCabinets":{
+            "Economic":"Económico",
+            "Reason":"Razón"
+        },
+
+        "UnregisteredCabinets":"Cabinets no registrados",
+        "RegisteredCabinets":"Cabinets Registrados",
 
         "Required Field":"Campo Requerido",
         "Max100":"El campo no puede contener mas de 100 caracteres",
