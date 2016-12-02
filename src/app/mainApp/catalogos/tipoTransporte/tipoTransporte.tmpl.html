@@ -42,7 +42,7 @@
                 <form name="inputForm">
                    <md-input-container class="md-block">
                         <label>{{ 'Transport_Kind.description' | translate }}</label>
-                        <input type="text" name="descripcion" ng-model="vm.selected_tipo_transporte.descripcion" ng-required="true"/>
+                        <input type="text" name="descripcion" ng-model="vm.selected_tipo_transporte.descripcion" ng-required="true" ng-disabled="vm.selected_tipo_transporte.deleted"/>
                         <div ng-messages="inputForm.descripcion.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>
@@ -50,7 +50,7 @@
                 </form>
                 <div flex="flex" layout="row" layout-align="end end">
                     <md-button aria-label="fab button" ng-click="vm.cancel()" class="md-raised md-primary"><md-icon md-font-icon="fa fa-eraser"></md-icon></md-button>
-                    <md-button ng-if="vm.selected_tipo_transporte.id!=null &amp;&amp; vm.selected_tipo_transporte.id!=undefined" ng-disabled="inputForm.$invalid" ng-click="vm.update()" class="md-raised md-primary">
+                    <md-button ng-if="vm.selected_tipo_transporte.id!=null &amp;&amp; vm.selected_tipo_transporte.id!=undefined" ng-disabled="inputForm.$invalid || vm.selected_tipo_transporte.deleted" ng-click="vm.update()" class="md-raised md-primary">
                         <md-icon md-font-icon="fa fa-pencil"></md-icon>
                     </md-button>
                     <md-button ng-if="vm.selected_tipo_transporte.id==null || vm.selected_tipo_transporte.id==undefined" ng-disabled="inputForm.$invalid" ng-click="vm.create()" class="md-raised md-primary">
