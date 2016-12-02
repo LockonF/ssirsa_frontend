@@ -20,7 +20,17 @@
               <md-icon md-font-icon="zmdi zmdi-truck"></md-icon><span>{{item.descripcion}}</span></span>
                     </md-item-template>
                 </md-autocomplete>
+                <md-switch ng-model="vm.toggleDeleted" ng-change="vm.toggleDeletedFunction()">
+                    <span ng-if="vm.toggleDeleted" hide-xs hide-sm>{{'MAIN.MODEL.SHOW_ACTIVE' | translate}}</span>
+                    <span ng-if="vm.toggleDeleted" hide-gt-sm>{{'MAIN.MODEL.SHOW_ACTIVE_MOBILE' | translate}}</span>
+                    <span ng-if="!vm.toggleDeleted" hide-xs hide-sm>{{'MAIN.MODEL.SHOW_DELETED' | translate}}</span>
+                    <span ng-if="!vm.toggleDeleted" hide-gt-sm>{{'MAIN.MODEL.SHOW_DELETED_MOBILE' | translate}}</span>
+
+                </md-switch>
+
                 <md-virtual-repeat-container layout-fill="layout-fill" hide-xs="hide-xs" hide-sm="hide-sm"
+                                             ng-style='vm.myStyle' flex="flex" cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}"
+
                                              class="vr-min-height">
                     <md-list flex="flex">
                         <md-list-itm flex="flex" ng-repeat="item in vm.catalogo_insumo_list">
@@ -43,7 +53,7 @@
                 <form name="inputForm">
                     <md-input-container class="md-block">
                         <label>{{ 'Consumable_Catalog.quantity' | translate }}</label>
-                        <input type="text" name="cantidad" valid-number ng-model="vm.catalogo_insumo.cantidad" ng-required="true"
+                        <input type="text" name="cantidad" valid-number ng-model="vm.catalogo_insumo.cantidad" ng-disabled="vm.catalogo_insumo.deleted" ng-required="true"
                                ng-min="0"/>
                         <div ng-messages="inputForm.cantidad.$error">
                             <div ng-message="belowminimum">{{'MAIN.GENERAL.MIN_NUMBER' | translate}} 0</div>
@@ -53,7 +63,7 @@
                     <div layout="row" layout-align="center center">
                         <md-input-container class="md-block" flex="flex">
                             <label>{{ 'Consumable_Catalog.units' | translate }}</label>
-                            <md-select ng-model="vm.catalogo_insumo.unidades" flex="90">
+                            <md-select ng-model="vm.catalogo_insumo.unidades" flex="90" ng-disabled="vm.catalogo_insumo.deleted">
                                 <md-option ng-repeat="unidad in vm.unidades" ng-value="unidad.id">
                                     {{unidad.nombre}}
                                 </md-option>
@@ -61,7 +71,7 @@
                         </md-input-container>
                         <md-button aria-label="fab button"
                                    class="md-fab md-scale md-mini  md-fab-principal"
-                                   ng-click="vm.addUnidad()">
+                                   ng-click="vm.addUnidad()" ng-disabled="vm.catalogo_insumo.deleted">
                             <md-icon md-font-icon="fa fa-plus" ng-style="{color: 'white'}">
 
                             </md-icon>
@@ -70,6 +80,7 @@
                     <md-input-container class="md-block">
                         <label>{{ 'Consumable_Catalog.description' | translate }}</label>
                         <input type="text" name="descripcion" ng-model="vm.catalogo_insumo.descripcion"
+                               ng-disabled="vm.catalogo_insumo.deleted"
                                ng-required="true"/>
                         <div ng-messages="inputForm.descripcion.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
@@ -78,6 +89,7 @@
                     <md-input-container class="md-block">
                         <label>{{ 'Consumable_Catalog.cost' | translate }}</label>
                         <input type="text" name="costo" valid-number ng-model="vm.catalogo_insumo.costo" ng-required="true"
+                               ng-disabled="vm.catalogo_insumo.deleted"
                                ng-min="0"/>
                         <div ng-messages="inputForm.costo.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
@@ -86,13 +98,14 @@
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>{{ 'Consumable_Catalog.type' | translate }}</label>
-                        <md-select ng-model="vm.catalogo_insumo.tipo" ng-required="true">
+                        <md-select ng-model="vm.catalogo_insumo.tipo" ng-required="true" ng-disabled="vm.catalogo_insumo.deleted">
                             <md-option ng-repeat="tipo in vm.tipos" ng-value="tipo.value">{{tipo.display}}</md-option>
                         </md-select>
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>{{ 'Consumable_Catalog.keyword' | translate }}</label>
                         <input type="text" name="palabra_clave" ng-model="vm.catalogo_insumo.palabra_clave"
+                               ng-disabled="vm.catalogo_insumo.deleted"
                                ng-required="true"/>
                         <div ng-messages="inputForm.palabra_clave.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
@@ -100,19 +113,19 @@
                     </md-input-container>
                     <div layout="row" layout-sm="column" layout-xs="column" layout-align="center center" layout-align-sm="start stretch" layout-align-xs="start stretch">
                         <div flex="50" flex-sm="100" flex-xs="100" layout="column" layout-align-sm="start stretch" layout-align-xs="start stretch" layout-align="center center">
-                            <md-button ng-click="vm.showSteps()" class="md-raised md-primary">
+                            <md-button ng-click="vm.showSteps()" class="md-raised md-primary" ng-disabled="vm.catalogo_insumo.deleted">
                                 <p>{{'Consumable_Catalog.BUTTON.STEPS'|translate}}</p>
                             </md-button>
                         </div>
                         <div flex="50" flex-sm="100" flex-xs="100" layout="column" layout-align-sm="start stretch" layout-align-xs="start stretch" layout-align="center center">
-                            <md-button ng-click="vm.showEquipment()" class="md-raised md-primary">
+                            <md-button ng-click="vm.showEquipment()" class="md-raised md-primary" ng-disabled="vm.catalogo_insumo.deleted">
                                 <p>{{'Consumable_Catalog.BUTTON.EQUIPMENT'|translate}}</p>
                             </md-button>
                         </div>
                     </div>
                     <md-input-container class="md-block">
                         <label>{{ 'Consumable_Catalog.category' | translate }}</label>
-                        <md-select ng-model="vm.catalogo_insumo.categoria" ng-required="true" ng-disabled="vm.disabled(vm.catalogo_insumo.categoria,'categoria')">
+                        <md-select ng-model="vm.catalogo_insumo.categoria" ng-required="true" ng-disabled="vm.disabled(vm.catalogo_insumo.categoria,'categoria',vm.catalogo_insumo.deleted)">
                             <md-option ng-repeat="categoria in vm.categoria_list" ng-value="categoria.id" ng-if="categoria.deleted==false || categoria.id==vm.catalogo_insumo.categoria">
                                 {{categoria.nombre}}
                             </md-option>
@@ -120,7 +133,7 @@
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>{{ 'Consumable_Catalog.provider' | translate }}</label>
-                        <md-select ng-model="vm.catalogo_insumo.proveedor" ng-required="true" ng-disabled="vm.disabled(vm.catalogo_insumo.proveedor,'proveedor')">
+                        <md-select ng-model="vm.catalogo_insumo.proveedor" ng-required="true" ng-disabled="vm.disabled(vm.catalogo_insumo.proveedor,'proveedor',vm.catalogo_insumo.deleted)">
                             <md-option ng-repeat="proveedor in vm.proveedor_list" ng-value="proveedor.id" ng-if="proveedor.deleted==false || proveedor.id==vm.catalogo_insumo.proveedor">
                                 {{proveedor.razon_social}}
                             </md-option>
@@ -128,7 +141,7 @@
                     </md-input-container>
                     <md-input-container class="md-block" ng-if="vm.catalogo_insumo.id==null && vm.profile.sucursal==null">
                         <label>{{ 'Consumable_Catalog.office' | translate }}</label>
-                        <md-select ng-model="vm.catalogo_insumo.sucursal" ng-required="vm.catalogo_insumo.id==null && vm.profile.sucursal==null">
+                        <md-select ng-model="vm.catalogo_insumo.sucursal" ng-disabled="vm.catalogo_insumo.deleted" ng-required="vm.catalogo_insumo.id==null && vm.profile.sucursal==null">
                             <md-option ng-repeat="sucursal in vm.sucursal_list" ng-value="sucursal.id">
                                 {{sucursal.nombre}}
                             </md-option>
@@ -136,7 +149,7 @@
                     </md-input-container>
                 </form>
                 <div flex="flex" layout="row" layout-align="end end">
-                    <md-button aria-label="actualizar" ng-if="vm.catalogo_insumo.id!=null && vm.catalogo_insumo.id!=undefined"
+                    <md-button aria-label="actualizar" ng-if="vm.catalogo_insumo.id!=null && vm.catalogo_insumo.id!=undefined && !vm.catalogo_insumo.deleted"
                                ng-disabled="inputForm.$invalid" ng-click="vm.update()" class="md-raised md-primary">
                         <md-icon md-font-icon="fa fa-pencil"></md-icon>
                     </md-button>
@@ -144,10 +157,14 @@
                                ng-disabled="inputForm.$invalid" ng-click="vm.create()" class="md-raised md-primary">
                         <md-icon md-font-icon="fa fa-save"></md-icon>
                     </md-button>
-                    <md-button aria-label="borrar" ng-if="vm.catalogo_insumo.id!=null && vm.catalogo_insumo.id!=undefined"
+                    <md-button aria-label="borrar" ng-if="vm.catalogo_insumo.id!=null && vm.catalogo_insumo.id!=undefined && !vm.catalogo_insumo.deleted"
                                ng-click="vm.remove()" class="md-raised md-warn">
                         <md-icon md-font-icon="fa fa-trash"></md-icon>
                     </md-button>
+                    <md-button ng-if="vm.catalogo_insumo.id!=null && vm.catalogo_insumo.id!=undefined && vm.catalogo_insumo.deleted" ng-click="vm.restore()" class="md-raised md-warn">
+                        <md-icon md-font-icon="zmdi zmdi-time-restore"></md-icon >
+                    </md-button>
+
                 </div>
             </div>
         </div>

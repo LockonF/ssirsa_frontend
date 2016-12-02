@@ -15,6 +15,8 @@
         vm.querySearch = querySearch;
         vm.selectedSucursales = selectedSucursales;
         vm.selectedItemChange = selectedItemChange;
+        vm.toggleDeletedFunction = toggleDeletedFunction;
+        vm.restore = restore;
         vm.cancel = cancel;
         vm.create = create;
         vm.remove=remove;
@@ -29,6 +31,10 @@
         };
         vm.sucursal = angular.copy(sucursal);
         vm.numberBuffer = '';
+        vm.myHeight=window.innerHeight-250;
+        vm.myStyle={"min-height":""+vm.myHeight+"px"};
+        vm.toggleDeleted = true;
+
         activate();
         init();
         function init() {
@@ -43,17 +49,54 @@
             vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
             vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
             vm.duplicateMessage=Translate.translate('SUCURSAL.FORM.LABEL.DUPLICATE');
+            vm.dialogRestoreTitle=Translate.translate('MAIN.DIALOG.RESTORE_TITLE');
+            vm.dialogRestoreMessage=Translate.translate('MAIN.DIALOG.RESTORE_MESSAGE');
+            vm.restoreButton=Translate.translate('MAIN.BUTTONS.RESTORE');
+            vm.successRestoreMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_RESTORE');
         }
 
 
         function activate() {
-            Sucursal.listObject().then(function (res) {
-                vm.sucursales =Helper.filterDeleted(res,true);
-                vm.sucursales=_.sortBy(vm.sucursales, 'nombre');
-            });
 
+            listSucursales();
 
         }
+        function toggleDeletedFunction() {
+            listSucursales();
+            cancel();
+        }
+
+        function listSucursales() {
+            vm.loadingPromise = Sucursal.listObject().then(function (res) {
+                vm.sucursales=Helper.filterDeleted(res,vm.toggleDeleted);
+                vm.sucursales=_.sortBy(vm.sucursales, 'nombre');
+            }).catch(function(err){
+
+            });
+        }
+        function restore() {
+            var confirm = $mdDialog.confirm()
+                .title(vm.dialogRestoreTitle)
+                .textContent(vm.dialogRestoreMessage)
+                .ariaLabel('Confirmar restauración')
+                .ok(vm.restoreButton)
+                .cancel(vm.cancelButton);
+            $mdDialog.show(confirm).then(function() {
+                vm.sucursal.deleted=false;
+                Sucursal.update(vm.sucursal).then(function (res) {
+                    toastr.success(vm.successRestoreMessage, vm.successTitle);
+                    cancel();
+                    activate();
+                }).catch(function (res) {
+                    vm.sucursal.deleted=true;
+                    toastr.warning(vm.errorMessage, vm.errorTitle);
+                });
+            }, function() {
+
+            });
+
+        }
+
         function remove(ev) {
             var confirm = $mdDialog.confirm()
                 .title(vm.dialogTitle)

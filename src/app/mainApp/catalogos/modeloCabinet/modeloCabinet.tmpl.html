@@ -37,7 +37,16 @@
                         </md-item-template>
                         <md-not-found><span translate="MODEL_CABINET.FORM.PLACEHOLDER.NOT_FOUND"></span></md-not-found>
                     </md-autocomplete>
-                    <md-virtual-repeat-container class="vertical-container"  flex="flex">
+                    <md-switch ng-model="vm.toggleDeleted" ng-change="vm.toggleDeletedFunction()">
+                        <span ng-if="vm.toggleDeleted" hide-xs hide-sm>{{'MAIN.MODEL.SHOW_ACTIVE' | translate}}</span>
+                        <span ng-if="vm.toggleDeleted" hide-gt-sm>{{'MAIN.MODEL.SHOW_ACTIVE_MOBILE' | translate}}</span>
+                        <span ng-if="!vm.toggleDeleted" hide-xs hide-sm>{{'MAIN.MODEL.SHOW_DELETED' | translate}}</span>
+                        <span ng-if="!vm.toggleDeleted" hide-gt-sm>{{'MAIN.MODEL.SHOW_DELETED_MOBILE' | translate}}</span>
+
+                    </md-switch>
+
+                    <md-virtual-repeat-container class="vertical-container"
+                                                 ng-style='vm.myStyle' flex="flex" cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
                         <md-list  >
                             <md-list-item  ng-repeat="modelo in vm.modelos | modeloSearch:vm.searchText">
                                 <md-button ng-click="vm.selectedModelos(modelo)"
@@ -60,7 +69,7 @@
                     <form name="ModelCabinetForm">
                         <md-input-container class="md-block">
                             <label>{{'MODEL_CABINET.FORM.LABEL.NAME'|translate}}</label>
-                            <input ng-required='true' type="text" name="nombre" ng-disabled="vm.editable"
+                            <input ng-required='true' type="text" name="nombre" ng-disabled="vm.modelo.deleted"
                                    ng-model="vm.modelo.nombre"/>
                             <div ng-messages="ModelCabinetForm.nombre.$error">
                                 <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
@@ -71,7 +80,7 @@
                             <md-select ng-model="vm.modelo.tipo"
                                        md-no-asterisk="" required=""
                                        name="type"
-                                       ng-disabled="vm.disabled(vm.modelo.tipo,'tipo')">
+                                       ng-disabled="vm.disabled(vm.modelo.tipo,'tipo',vm.modelo.deleted)">
                                 <md-option ng-repeat="tipo in vm.tipoEquipos" ng-value="tipo.id" ng-if="tipo.deleted==false || tipo.id==vm.modelo.tipo">
                                     {{tipo.nombre}}
                                 </md-option>
@@ -83,7 +92,7 @@
                         <md-input-container class="md-block">
                             <label>{{'MODEL_CABINET.FORM.LABEL.DESCRIPTION'|translate}}</label>
                             <input md-no-asterisk="" required="" type="text" name="descripcion"
-                                   ng-disabled="vm.editable"
+                                   ng-disabled="vm.modelo.deleted"
                                    ng-model="vm.modelo.descripcion"/>
                             <div ng-messages="ModelCabinetForm.descripcion.$error">
                                 <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
@@ -92,7 +101,7 @@
                         <md-input-container class="md-block">
                             <label>{{'MODEL_CABINET.FORM.LABEL.KEYWORD'|translate}}</label>
                             <input md-no-asterisk="" required="" type="text" name="palabra"
-                                   ng-disabled="vm.editable"
+                                   ng-disabled="vm.modelo.deleted"
                                    ng-model="vm.modelo.palabra_clave"/>
                             <div ng-messages="ModelCabinetForm.palabra.$error">
                                 <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
@@ -105,7 +114,7 @@
                                        name="marca"
                                        placeholder="{{'MODEL_CABINET.FORM.LABEL.BRAND'|translate}}"
                                        required=""
-                                       ng-disabled="vm.disabled(vm.modelo.marca,'marca')"
+                                       ng-disabled="vm.disabled(vm.modelo.marca,'marca',vm.modelo.deleted)"
                             >
 
                                 <md-option ng-repeat="marca in vm.marcas" ng-value="marca.id" ng-if="marca.deleted==false || marca.id==vm.modelo.marca">{{marca.descripcion}}
@@ -120,9 +129,13 @@
                     </form>
                     <div layout="row" layout-align="end end" layout-sm="column" layout-xs="column" layout-align-sm="start stretch" layout-align-xs="start stretch">
                         <md-button aria-label="fab button" ng-click="vm.cancel()" class="md-raised md-primary"><md-icon md-font-icon="fa fa-eraser"></md-icon></md-button>
-                        <md-button aria-label="fab button" ng-if="vm.modelo.id!=null && vm.modelo.id!=undefined" ng-click="vm.remove($event)" class="md-raised md-warn"><md-icon md-font-icon="fa fa-trash"></md-icon></md-button>
-                        <md-button aria-label="fab button" ng-if="vm.modelo.id!=null && vm.modelo.id!=undefined" ng-disabled="ModelCabinetForm.$invalid" ng-click="vm.update()" class="md-raised md-primary"><md-icon md-font-icon="fa fa-pencil"></md-icon></md-button>
+                        <md-button aria-label="fab button" ng-if="vm.modelo.id!=null && vm.modelo.id!=undefined && !vm.modelo.deleted" ng-click="vm.remove($event)" class="md-raised md-warn"><md-icon md-font-icon="fa fa-trash"></md-icon></md-button>
+                        <md-button aria-label="fab button" ng-if="vm.modelo.id!=null && vm.modelo.id!=undefined && !vm.modelo.deleted" ng-disabled="ModelCabinetForm.$invalid" ng-click="vm.update()" class="md-raised md-primary"><md-icon md-font-icon="fa fa-pencil"></md-icon></md-button>
                         <md-button aria-label="fab button" ng-if="vm.modelo.id==null || vm.modelo.id==undefined" ng-disabled="ModelCabinetForm.$invalid" ng-click="vm.create()" class="md-raised md-primary"><md-icon md-font-icon="fa fa-save"></md-icon></md-button>
+                        <md-button ng-if="vm.modelo.id!=null && vm.modelo.id!=undefined && vm.modelo.deleted" ng-click="vm.restore()" class="md-raised md-warn">
+                            <md-icon md-font-icon="zmdi zmdi-time-restore"></md-icon >
+                        </md-button>
+
                     </div>
                 </div>
             </div>

@@ -18,6 +18,9 @@
         vm.create = create;
         vm.remove=remove;
         vm.update=update;
+        vm.toggleDeletedFunction = toggleDeletedFunction;
+        vm.restore = restore;
+
         vm.search_items = [];
         vm.searchText = '';
         var tipo_equipo = {
@@ -26,6 +29,10 @@
 
         };
         vm.tipo_equipo = angular.copy(tipo_equipo);
+        vm.myHeight=window.innerHeight-250;
+        vm.myStyle={"min-height":""+vm.myHeight+"px"};
+        vm.toggleDeleted = true;
+
         activate();
         init();
         function init() {
@@ -40,14 +47,54 @@
             vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
             vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
             vm.duplicateMessage=Translate.translate('EQUIPMENT_TYPE.FORM.LABEL.DUPLICATE');
+            vm.successRestoreMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_RESTORE');
+            vm.dialogRestoreTitle=Translate.translate('MAIN.DIALOG.RESTORE_TITLE');
+            vm.dialogRestoreMessage=Translate.translate('MAIN.DIALOG.RESTORE_MESSAGE');
+            vm.restoreButton=Translate.translate('MAIN.BUTTONS.RESTORE');
+
         }
 
         function activate() {
-            TipoEquipo.listWitout().then(function (res) {
-                vm.tipo_equipos =Helper.filterDeleted(res,true);
-                vm.tipo_equipos=_.sortBy(vm.tipo_equipos, 'nombre');
-            });
+            listTipos();
         }
+        function toggleDeletedFunction() {
+            listTipos();
+            cancel();
+        }
+
+        function listTipos() {
+            vm.loadingPromise = TipoEquipo.listWitout().then(function (res) {
+                vm.tipo_equipos=Helper.filterDeleted(res,vm.toggleDeleted);
+                vm.tipo_equipos=_.sortBy(vm.tipo_equipos, 'nombre');
+            }).catch(function(err){
+
+            });
+
+
+        }
+        function restore() {
+            var confirm = $mdDialog.confirm()
+                .title(vm.dialogRestoreTitle)
+                .textContent(vm.dialogRestoreMessage)
+                .ariaLabel('Confirmar restauración')
+                .ok(vm.restoreButton)
+                .cancel(vm.cancelButton);
+            $mdDialog.show(confirm).then(function() {
+                vm.tipo_equipo.deleted=false;
+                TipoEquipo.update(vm.tipo_equipo).then(function (res) {
+                    toastr.success(vm.successRestoreMessage, vm.successTitle);
+                    cancel();
+                    activate();
+                }).catch(function (res) {
+                    vm.tipo_equipo.deleted=true;
+                    toastr.warning(vm.errorMessage, vm.errorTitle);
+                });
+            }, function() {
+
+            });
+
+        }
+
         function selectedItemChange(item)
         {
             if (item!=null) {

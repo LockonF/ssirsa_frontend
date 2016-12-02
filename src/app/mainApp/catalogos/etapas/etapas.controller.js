@@ -50,6 +50,7 @@
             vm.dialogRestoreTitle=Translate.translate('MAIN.DIALOG.RESTORE_TITLE');
             vm.dialogRestoreMessage=Translate.translate('MAIN.DIALOG.RESTORE_MESSAGE');
             vm.restoreButton=Translate.translate('MAIN.BUTTONS.RESTORE');
+            vm.successRestoreMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_RESTORE');
         }
 
         function activate() {
