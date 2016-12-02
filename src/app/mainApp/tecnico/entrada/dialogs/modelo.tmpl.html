@@ -56,7 +56,7 @@ Created by Emmanuel on 03/09/2016.
                                required=""
                                md-no-asterisk=""
                                ng-if="vm.marcas!=null">
-                        <md-option ng-repeat="marca in vm.marcas|orderBy:vm.query.order"
+                        <md-option ng-repeat="marca in vm.marcas"
                                    value="{{marca.id}}">
                             <span>{{marca.descripcion}}</span>
                         </md-option>

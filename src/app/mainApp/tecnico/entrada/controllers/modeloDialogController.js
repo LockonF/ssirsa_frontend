@@ -36,7 +36,7 @@
             vm.modelo = angular.copy(modelo);
             MarcaCabinet.listObject().then(function (res) {
                 vm.marcas = Helper.filterDeleted(res, true);
-                vm.marcas = Helper.sortByAttribute(vm.marcas, 'descripcion')
+                vm.marcas = Helper.sortByAttribute(vm.marcas, 'descripcion');
 
             }).catch(function () {
                 toastr.error(vm.errorMessage, vm.errorTitle);

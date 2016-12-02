@@ -71,7 +71,8 @@
                                    required=""
                                    md-on-close="vm.filterModels()"
                                    md-no-asterisk="">
-                            <md-option ng-repeat="marca in vm.marcas" value="{{marca.id}}">{{marca.descripcion}}
+                            <md-option ng-repeat="marca in vm.marcas"
+                                       value="{{marca.id}}">{{marca.descripcion}}
                             </md-option>
                         </md-select>
                         <div ng-messages="entradaForm.selectBrand.$error">
