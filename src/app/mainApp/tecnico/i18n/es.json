@@ -190,6 +190,13 @@
             "GeneralData": "Datos Generales",
             "CabinetsUpload": "Carga de Cabinets"
         },
+        "TableUnregisteredCabinets":{
+            "Economic":"Económico",
+            "Reason":"Razón"
+        },
+
+        "UnregisteredCabinets":"Cabinets no registrados",
+        "RegisteredCabinets":"Cabinets Registrados",
 
         "Required Field":"Campo Requerido",
         "Max100":"El campo no puede contener mas de 100 caracteres",
