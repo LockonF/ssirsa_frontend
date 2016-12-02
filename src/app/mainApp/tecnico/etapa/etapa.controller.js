@@ -275,7 +275,8 @@
             else {
                 var promise = Servicios.BusquedaCatalogoTypeStep(data);
                 promise.then(function (res) {
-                    vm.insumosLote = res;
+                    //vm.insumosLote = res;
+                    vm.insumosLote = Helper.filterDeleted(res,true);
                     transformArrayCatalogoInsumos();
                 }).catch(function (res) {
                     notifyError(res.status);
