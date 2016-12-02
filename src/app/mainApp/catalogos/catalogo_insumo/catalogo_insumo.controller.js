@@ -110,6 +110,7 @@
                 templateUrl: 'app/mainApp/catalogos/catalogo_insumo/modal/unidad.modal.tmpl.html',
                 focusOnOpen:  false
             }).then(function () {
+                listUnidades();
                 toastr.success(vm.createUnit,vm.successTitle);
             });
         }

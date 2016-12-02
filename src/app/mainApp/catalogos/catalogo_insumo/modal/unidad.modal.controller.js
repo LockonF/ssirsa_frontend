@@ -8,14 +8,14 @@
         .module('app.mainApp.catalogos')
         .controller('UnidadModalController', UnidadModalController);
 
-    function UnidadModalController( unidad, $mdDialog,Translate) {
+    function UnidadModalController( unidad,toastr, $mdDialog,Translate) {
         var vm = this;
         //Function parsing
         vm.create = create;
         vm.cancel = cancel;
 
         var unidad_var = {
-            "name": ""
+            "nombre": ""
         };
         vm.unidad=angular.copy(unidad_var);
         activate();
