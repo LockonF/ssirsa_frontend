@@ -306,6 +306,7 @@
             vm.entrada.creados = [];
             vm.entrada.no_creados = [];
             vm.notFoundCabinets = [];
+            vm.entrada.file=null;
         }
 
         function selectionImage($file) {
