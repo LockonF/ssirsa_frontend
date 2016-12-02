@@ -6,7 +6,7 @@
         .controller('TipoEquipoDialogController', TipoEquipoDialogController);
 
     /* @ngInject */
-    function TipoEquipoDialogController($mdDialog,OPTIONS, $scope, catalogo, TipoEquipo, Helper) {
+    function TipoEquipoDialogController($mdDialog,OPTIONS,unidad, $scope, catalogo, TipoEquipo, Helper) {
 
         var vm = this;
         vm.cancelClick = cancelClick;
@@ -21,7 +21,7 @@
         vm.equipos = [];
         vm.isValid=false;
 
-        vm.unidades=OPTIONS.units;
+       // vm.unidades=OPTIONS.units;
         var tipos_equipo = {
             tipo_equipo: null,
             cantidad: 1,
@@ -33,6 +33,16 @@
             TipoEquipo.listWitout().then(function (res) {
                 vm.equipos = Helper.filterDeleted(res, true);
 
+            });
+
+            listUnidades();
+
+        }
+        function listUnidades() {
+            unidad.listObject().then(function (res) {
+                vm.unidades  =Helper.filterDeleted(res,true);
+                vm.unidades=_.sortBy( vm.unidades, 'nombre');
+                vm.tipos_equipo=_.findWhere(vm.unidades,{nombre:'Kg'}).id
             });
         }
         function selectedItemChange(item) {

@@ -1,6 +1,6 @@
 <!--Created by lockonDaniel on 9/8/16.
 -->
-<md-card flex="flex" class="md-padding card1" >
+<md-card flex="flex" class="md-padding card1">
     <md-card-content>
         <div flex="flex" layout-xs="row">
             <h2 flex="flex" class="md-display-2">{{'Consumable_Catalog.title' | translate}}</h2>
@@ -50,14 +50,23 @@
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>
                     </md-input-container>
-                    <md-input-container class="md-block">
-                        <label>{{ 'Consumable_Catalog.units' | translate }}</label>
-                        <md-select ng-model="vm.catalogo_insumo.unidades" >
-                            <md-option ng-repeat="unidad in vm.unidades" ng-value="unidad.id" >
-                                {{unidad.value}}
-                            </md-option>
-                        </md-select>
-                    </md-input-container>
+                    <div layout="row" layout-align="center center">
+                        <md-input-container class="md-block" flex="flex">
+                            <label>{{ 'Consumable_Catalog.units' | translate }}</label>
+                            <md-select ng-model="vm.catalogo_insumo.unidades" flex="90">
+                                <md-option ng-repeat="unidad in vm.unidades" ng-value="unidad.id">
+                                    {{unidad.nombre}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-button aria-label="fab button"
+                                   class="md-fab md-scale md-mini  md-fab-principal"
+                                   ng-click="vm.addUnidad()">
+                            <md-icon md-font-icon="fa fa-plus" ng-style="{color: 'white'}">
+
+                            </md-icon>
+                        </md-button>
+                    </div>
                     <md-input-container class="md-block">
                         <label>{{ 'Consumable_Catalog.description' | translate }}</label>
                         <input type="text" name="descripcion" ng-model="vm.catalogo_insumo.descripcion"
@@ -89,14 +98,14 @@
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>
                     </md-input-container>
-                    <div layout="row" layout-sm="column" layout-xs="column" layout-align="center center" layout-align-sm="start stretch" layout-align-xs="start stretch" >
+                    <div layout="row" layout-sm="column" layout-xs="column" layout-align="center center" layout-align-sm="start stretch" layout-align-xs="start stretch">
                         <div flex="50" flex-sm="100" flex-xs="100" layout="column" layout-align-sm="start stretch" layout-align-xs="start stretch" layout-align="center center">
-                            <md-button ng-click="vm.showSteps()"  class="md-raised md-primary">
+                            <md-button ng-click="vm.showSteps()" class="md-raised md-primary">
                                 <p>{{'Consumable_Catalog.BUTTON.STEPS'|translate}}</p>
                             </md-button>
                         </div>
                         <div flex="50" flex-sm="100" flex-xs="100" layout="column" layout-align-sm="start stretch" layout-align-xs="start stretch" layout-align="center center">
-                            <md-button ng-click="vm.showEquipment()"  class="md-raised md-primary">
+                            <md-button ng-click="vm.showEquipment()" class="md-raised md-primary">
                                 <p>{{'Consumable_Catalog.BUTTON.EQUIPMENT'|translate}}</p>
                             </md-button>
                         </div>
@@ -119,8 +128,8 @@
                     </md-input-container>
                     <md-input-container class="md-block" ng-if="vm.catalogo_insumo.id==null && vm.profile.sucursal==null">
                         <label>{{ 'Consumable_Catalog.office' | translate }}</label>
-                        <md-select ng-model="vm.catalogo_insumo.sucursal" ng-required="vm.catalogo_insumo.id==null && vm.profile.sucursal==null" >
-                            <md-option ng-repeat="sucursal in vm.sucursal_list" ng-value="sucursal.id" >
+                        <md-select ng-model="vm.catalogo_insumo.sucursal" ng-required="vm.catalogo_insumo.id==null && vm.profile.sucursal==null">
+                            <md-option ng-repeat="sucursal in vm.sucursal_list" ng-value="sucursal.id">
                                 {{sucursal.nombre}}
                             </md-option>
                         </md-select>

@@ -9,7 +9,7 @@
         .module('app.mainApp.catalogos')
         .controller('CatalogoInsumoController',CatalogoInsumoController);
 
-    function CatalogoInsumoController(Helper,OPTIONS,Sucursal,CatalogoInsumo,Session,$mdDialog,Categoria,Proveedor, toastr, Translate, $scope)
+    function CatalogoInsumoController(Helper,OPTIONS,unidad,Sucursal,CatalogoInsumo,Session,$mdDialog,Categoria,Proveedor, toastr, Translate, $scope)
     {
         var vm=this;
         //Variables
@@ -43,11 +43,12 @@
         vm.remove = remove;
         vm.clickRepeater = clickRepeater;
         vm.showSteps=showSteps;
+        vm.addUnidad=addUnidad;
         vm.showEquipment=showEquipment;
         vm.disabled=disabled;
         vm.catalogo_insumo=angular.copy(catalogo_insumo);
         vm.profile=Session.userInformation;
-        vm.unidades=OPTIONS.units;
+        //vm.unidades=OPTIONS.units;
 
         activate();
 
@@ -72,7 +73,14 @@
             listCatalogoInsumos();
             listCategorias();
             listProveedores();
+            listUnidades();
 
+        }
+        function listUnidades() {
+            unidad.listObject().then(function (res) {
+                vm.unidades  =Helper.filterDeleted(res,true);
+                vm.unidades=_.sortBy( vm.unidades, 'nombre');
+            });
         }
         function listSucursales()
         {
@@ -82,6 +90,19 @@
             });
         }
         function showSteps() {
+            $mdDialog.show({
+                controller: 'EtapaDialogController',
+                controllerAs: 'vm',
+                templateUrl: 'app/mainApp/catalogos/catalogo_insumo/modal/etapa.modal.tmpl.html',
+                focusOnOpen: false,
+                locals: {
+                    catalogo: vm.catalogo_insumo
+                }
+            }).then(function (res) {
+                vm.catalogo_insumo.etapas=res;
+            });
+        }
+        function addUnidad() {
             $mdDialog.show({
                 controller: 'EtapaDialogController',
                 controllerAs: 'vm',
@@ -191,6 +212,7 @@
         function create()
         {
             vm.catalogo_insumo.sucursal=Session.userInformation.sucursal!=null?Session.userInformation.sucursal:vm.catalogo_insumo.sucursal;
+
             CatalogoInsumo.create(vm.catalogo_insumo).then(function(res){
                 listCatalogoInsumos();
                 toastr.success(vm.successCreateMessage,vm.successTitle);
