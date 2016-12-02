@@ -297,6 +297,7 @@
             $scope.entradaForm.$invalid = true;
             vm.selectedTab = 0;
             vm.inputWasCorrect = false;
+            vm.ife_chofer=null;
         }
 
         function partialClean() {
