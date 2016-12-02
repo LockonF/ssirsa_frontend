@@ -14,7 +14,7 @@
             </md-button>
         </div>
     </md-toolbar>
-    <md-content flex="100" layout-padding layout-fill>
+    <div flex="100" layout-padding layout-fill class="gray-color">
         <form name="cabinetForm" novalidate="">
             <div layout="row" flex="100">
                 <md-input-container class="md-block" flex="50">
@@ -100,8 +100,8 @@
                 <p>{{'INPUT.Dialogs.Cabinet.No_Model'|translate}}</p>
             </div>
         </form>
-    </md-content>
-    <md-dialog-actions layout="row" layout-align="end center">
+    </div>
+    <md-dialog-actions layout="row" layout-align="end center" layout-fill class="gray-color">
         <md-button ng-click="vm.cancel()" md-no-ink class="md-primary">
             {{'INPUT.Cancel'|translate}}
         </md-button>

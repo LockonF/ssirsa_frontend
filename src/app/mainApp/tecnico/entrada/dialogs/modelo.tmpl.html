@@ -5,13 +5,14 @@ Created by Emmanuel on 03/09/2016.
      layout-fill
      flex
      layout-align-gt-md="center center"
-     layout-align="space-between stretch">
+     layout-align="space-between stretch"
+>
     <md-toolbar>
         <div class="md-toolbar-tools">
             <h2>{{'INPUT.Create Model'|translate}}</h2>
         </div>
     </md-toolbar>
-    <md-content flex="100" layout-padding layout-fill>
+    <div flex="100" layout-padding layout-fill class="gray-color">
         <form name="modelForm" novalidate="">
             <div layout="column" layout-align="center stretch">
                 <md-input-container class="md-block">
@@ -68,12 +69,12 @@ Created by Emmanuel on 03/09/2016.
             </div>
         </form>
     </md-content>
-    <md-actions layout="row" layout-align="end center">
+    <div layout="row" layout-align="end center" layout-fill class="gray-color">
         <md-button ng-click="vm.cancel()" md-no-ink class="md-primary">
             {{'INPUT.Cancel'|translate}}
         </md-button>
         <md-button ng-click="vm.create()" ng-disabled="modelForm.$invalid" md-no-ink class="md-primary">
             {{'INPUT.Save'|translate}}
         </md-button>
-    </md-actions>
+    </div>
 </div>
