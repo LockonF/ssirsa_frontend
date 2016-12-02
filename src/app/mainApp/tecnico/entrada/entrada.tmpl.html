@@ -468,7 +468,10 @@
                                     <md-icon md-font-icon="fa fa-eraser"></md-icon>
                                 </md-button>
                                 <md-button
-                                        ng-disabled="entradaForm.$invalid || vm.inputWasCorrect || (vm.entrada.file==null && vm.hideManualUpload==true)"
+                                        ng-disabled="entradaForm.$invalid
+                                        || vm.inputWasCorrect
+                                        || (vm.entrada.file==null && vm.hideManualUpload==true)
+                                        || (vm.cabinets.length === 0 && vm.hideMassiveUpload==true)"
                                         ng-click="vm.guardar()"
                                         class="md-raised md-primary">{{'INPUT.Save'|translate}}
                                 </md-button>

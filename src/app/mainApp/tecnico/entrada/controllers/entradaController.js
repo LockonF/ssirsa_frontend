@@ -232,7 +232,6 @@
                             vm.inputWasCorrect = true;
                         }
                     }).catch(function (err) {
-                        console.log(err.data);
                         if (err.data.no_creados.length > 0) {
                             vm.entrada.no_creados = err.data.no_creados;
                         }
@@ -241,8 +240,9 @@
                     });
                 }
             }
+            //Is manual upload
             else {
-                if (vm.notFoundCabinet.length == 0) {
+                if (vm.notFoundCabinets.length > 0) {
                     var confirm = $mdDialog.confirm()
                         .title(vm.dialogTitle)
                         .textContent(vm.dialogMessage)
