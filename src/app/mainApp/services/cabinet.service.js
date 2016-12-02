@@ -24,8 +24,8 @@
             lookup:lookup
         };
 
-        function loadByStatus(status) {
-            return urlbase.one("status",status).getList();
+        function loadByStatus(status,economic) {
+            return urlbase.one("status",status).all(economic).getList();
         }
         function create(request) {
             var deferred = $q.defer();

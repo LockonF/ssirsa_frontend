@@ -19,6 +19,7 @@
         vm.showManualUpload = showManualUpload;
         vm.cabinetSearch = cabinetSearch;
         vm.nextTab = nextTab;
+        vm.lookupByEconomico=lookupByEconomico;
         vm.clear = clear;
         vm.search = search;
         vm.lookupUDN = lookupUDN;
@@ -45,6 +46,7 @@
         vm.isValid = false;
         vm.outputWasCorrect = false;
         vm.filtrado = false;
+        vm.economic_lookup_var = null;
         //Models
 
         vm.cabinets = null;
@@ -153,7 +155,14 @@
             }
 
         }
-
+        function lookupByEconomico () {
+            if(vm.economicoFilter!='' && vm.economicoFilter!=null){
+                var status = vm.types[vm.selectedEntrada].value_service;
+                vm.loadingPromise= Cabinet.loadByStatus(status,vm.economicoFilter).then(function (res) {
+                    vm.cabinetsEntrada=res;
+                });
+            }
+        }
         function changeType() {
             if (!vm.hideManualUpload) {
                 vm.selectedCabinets = null;
@@ -350,14 +359,14 @@
             vm.hideRegisteredCabinets = true;
             vm.salida.file = null;
             vm.loading = true;
-            var status = vm.types[vm.selectedEntrada].value_service;
+            /*var status = vm.types[vm.selectedEntrada].value_service;
             Cabinet.loadByStatus(status).then(function (res) {
                 vm.cabinetsEntrada = Helper.filterDeleted(res, true);
                 vm.cabinetsEntrada = _.sortBy(vm.cabinetsEntrada, 'economico');
                 vm.loading = false;
             }).catch(function (err) {
                 toastr.error(vm.errorMessage, vm.errorTitle);
-            });
+            });*/
 
         }
 
