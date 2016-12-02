@@ -5,10 +5,10 @@
     'use_strict';
 
     angular
-        .module('app.mainApp.reportes')
-        .controller('CreateReportModalController', CreateReportModalController);
+        .module('app.mainApp.catalogos')
+        .controller('UnidadModalController', UnidadModalController);
 
-    function CreateReportModalController( unidad, $mdDialog, $state) {
+    function UnidadModalController( unidad, $mdDialog,Translate) {
         var vm = this;
         //Function parsing
         vm.create = create;
@@ -21,14 +21,21 @@
         activate();
 
         function activate() {
+            vm.duplicateMessage=Translate.translate('Consumable_Catalog.DUPLICATE');
+            vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
+            vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
         }
 
         function create() {
             unidad.create(vm.unidad).then(function () {
                 $mdDialog.hide();
             }).catch(function (err) {
-
-                //$mdDialog.cancel(err);
+                if(err.status==400 && err.data.nombre!=undefined)
+                {
+                    toastr.error(vm.duplicateMessage,vm.errorTitle);
+                }else {
+                    toastr.error(vm.errorMessage, vm.errorTitle);
+                }
             });
         }
 

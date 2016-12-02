@@ -69,6 +69,7 @@
             vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
             vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
             vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
+            vm.createUnit=Translate.translate('Consumable_Catalog.CREATE');
             listSucursales();
             listCatalogoInsumos();
             listCategorias();
@@ -104,15 +105,12 @@
         }
         function addUnidad() {
             $mdDialog.show({
-                controller: 'EtapaDialogController',
+                controller: 'UnidadModalController',
                 controllerAs: 'vm',
-                templateUrl: 'app/mainApp/catalogos/catalogo_insumo/modal/etapa.modal.tmpl.html',
-                focusOnOpen: false,
-                locals: {
-                    catalogo: vm.catalogo_insumo
-                }
-            }).then(function (res) {
-                vm.catalogo_insumo.etapas=res;
+                templateUrl: 'app/mainApp/catalogos/catalogo_insumo/modal/unidad.modal.tmpl.html',
+                focusOnOpen:  false
+            }).then(function () {
+                toastr.success(vm.createUnit,vm.successTitle);
             });
         }
         function disabled(id,tipoArray) {

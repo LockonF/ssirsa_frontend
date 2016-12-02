@@ -94,6 +94,12 @@
         "lookup": "Busca el Catálogo",
         "office":"Sucursal",
         "units":"Unidades",
+        "DUPLICATE":"Ya existe la Unidad con este nombre",
+        "CREATE":"Se creó exitosamente la unidad",
+        "LABEL":{
+          "TITLE":"Crear unidad",
+            "NAME":"Nombre"
+        },
         "BUTTON": {
             "STEPS": "Etapas",
             "EQUIPMENT": "Tipo de Equipo"

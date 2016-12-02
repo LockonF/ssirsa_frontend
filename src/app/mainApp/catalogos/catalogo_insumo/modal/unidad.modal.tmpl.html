@@ -2,10 +2,10 @@
     <md-toolbar class="toolbar-default">
         <div class="md-toolbar-tools">
             <h2>
-                <span>{{'REPORTS.MODAL.CREATE.TITLE'|translate}}</span>
+                <span>{{'Consumable_Catalog.LABEL.TITLE'|translate}}</span>
             </h2>
             <span flex></span>
-            <md-button class="md-icon-button" ng-click="vm.cancelClick()" aria-label="cancel">
+            <md-button class="md-icon-button" ng-click="vm.cancel()" aria-label="cancel">
                 <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
             </md-button>
         </div>
@@ -15,7 +15,7 @@
         <form name="formUnit"
               novalidate>
             <md-input-container flex="100" class="md-block">
-                <label>{{'REPORTS.DIALOG.CREATE.NAME'|translate}}</label>
+                <label>{{'Consumable_Catalog.LABEL.NAME'|translate}}</label>
                 <input type="text"
                        name="inputName"
                        required
@@ -24,8 +24,8 @@
                        md-maxlength="100"
                        ng-model="vm.report.name"
                 >
-                <div ng-messages="formNewReport.inputName.$error">
-                    <div ng-message="required">{{'MAIN.REQUIRED_FIELD'|translate}}</div>
+                <div ng-messages="formUnit.inputName.$error">
+                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                     <div ng-message="pattern">{{'REPORTS.DIALOGS.CREATE.ERROR_PATTERN'|translate}}</div>
                 </div>
             </md-input-container>
