@@ -21,7 +21,7 @@
         vm.equipos = [];
         vm.isValid=false;
 
-       // vm.unidades=OPTIONS.units;
+        // vm.unidades=OPTIONS.units;
         var tipos_equipo = {
             tipo_equipo: null,
             cantidad: 1,
@@ -42,7 +42,7 @@
             unidad.listObject().then(function (res) {
                 vm.unidades  =Helper.filterDeleted(res,true);
                 vm.unidades=_.sortBy( vm.unidades, 'nombre');
-                vm.tipos_equipo=_.findWhere(vm.unidades,{nombre:'Kg'}).id
+                vm.tipos_equipo.descripcion=_.findWhere(vm.unidades,{nombre:'Kg'}).id
             });
         }
         function selectedItemChange(item) {
