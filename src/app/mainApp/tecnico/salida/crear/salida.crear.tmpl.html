@@ -5,7 +5,7 @@
                 <md-card-title-text><span class="md-headline">{{'OUTPUT.FORM.TITLES.OUTPUT'|translate}}</span>
                 </md-card-title-text>
             </md-card-title>
-            <md-content layout-fill="" class="card1">
+            <md-content layout-fill="" class="card1" cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
                 <md-tabs layout-padding="true" md-dynamic-height="100" md-border-bottom="100" md-selected="vm.selectedTab">
                     <md-tab label={{'OUTPUT.FORM.TABS.GENERAL'|translate}} ng-disabled="vm.outputWasCorrect">
                         <md-content layout-padding="" class="card1">
@@ -14,7 +14,7 @@
                                      layout-align="center stretch">
                                     <md-input-container flex="100" class="md-block">
                                         <label>{{'OUTPUT.FORM.LABEL.TYPE_OUTPUT'|translate}}</label>
-                                        <md-select name="selectOutKind" ng-model="vm.selectedEntrada" required="" >
+                                        <md-select name="selectOutKind" ng-model="vm.selectedEntrada" required="">
                                             <md-option ng-repeat="option in vm.types" ng-value="option.id">{{option.value}}
                                             </md-option>
                                         </md-select>
@@ -192,6 +192,12 @@
                             </div>
                             <div flex="" layout="column" ng-hide="vm.hideRegisteredCabinets" ng-if="vm.salida.creados.length>0">
                                 <p>{{'OUTPUT.FORM.TITLES.REGISTERED'|translate}}</p>
+                                <p><span translate='OUTPUT.FORM.TITLES.REGISTERED' translate-values="{ creados: {{vm.salida.creados.length.toString()}}}"></span></p>
+                                <md-content layout-padding="">
+                                    <md-virtual-repeat-container flex="100"
+                                                                 layout="column"
+                                                                 layout-align="center center"
+                                                                 class="vr-min-height">
                                 <md-table-container>
                                     <table md-table="" md-row-select="" multiple="" ng-disabled="true">
                                         <thead md-head="">
@@ -206,25 +212,35 @@
                                         </tbody>
                                     </table>
                                 </md-table-container>
+                                    </md-virtual-repeat-container>
+                                </md-content>
                             </div>
                             <div flex="" layout="column" ng-hide="vm.hideUnregisteredCabinets" ng-if="vm.salida.no_creados.length>0">
-                                <p>{{'OUTPUT.FORM.TITLES.UNREGISTERED'|translate}}</p>
-                                <md-table-container>
-                                    <table md-table="" md-row-select="" multiple="" ng-disabled="true">
-                                        <thead md-head="">
-                                        <tr md-row="">
-                                            <th md-column="">{{'OUTPUT.FORM.TABLE.HEADERS.ECONOMIC'|translate}}</th>
-                                            <th md-column="">{{'OUTPUT.FORM.TABLE.HEADERS.REASON'|translate}}</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody md-body="">
-                                        <tr md-row="" ng-repeat="unregisteredCabinet in vm.salida.no_creados">
-                                            <td md-cell="">{{unregisteredCabinet.economico}}</td>
-                                            <td md-cell="">{{unregisteredCabinet.motivo}}</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </md-table-container>
+
+                                <p><span translate='OUTPUT.FORM.TITLES.UNREGISTERED' translate-values="{ not_created: {{vm.salida.no_creados.length.toString()}}}"></span></p>
+                                <md-content layout-padding="">
+                                    <md-virtual-repeat-container flex="100"
+                                                                 layout="column"
+                                                                 layout-align="center center"
+                                                                 class="vr-min-height">
+                                        <md-table-container>
+                                            <table md-table="" md-row-select="" multiple="" ng-disabled="true" class="card1">
+                                                <thead md-head="" >
+                                                <tr md-row="">
+                                                    <th md-column="">{{'OUTPUT.FORM.TABLE.HEADERS.ECONOMIC'|translate}}</th>
+                                                    <th md-column="">{{'OUTPUT.FORM.TABLE.HEADERS.REASON'|translate}}</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody md-body="">
+                                                <tr md-row="" ng-repeat="unregisteredCabinet in vm.salida.no_creados">
+                                                    <td md-cell="">{{unregisteredCabinet.economico}}</td>
+                                                    <td md-cell="">{{unregisteredCabinet.motivo}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </md-table-container>
+                                    </md-virtual-repeat-container>
+                                </md-content>
                             </div>
                             <div ng-hide="vm.hideManualUpload">
 
@@ -253,8 +269,8 @@
 
 
                                     <md-virtual-repeat-container class="vertical-container card1"
-                                                                  >
-                                        <div ng-if="vm.cabinetsEntrada.length==0">
+                                    >
+                                        <div ng-if="vm.cabinetsEntrada.length==0 || !(vm.cabinetsEntrada |  tipoequipoSearch:vm.filtroTipo:vm.tipoEquipos:vm.modelos).length">
                                             <div layout="row" layout-sm="column" layout-xs="column" layout-md="column" flex="100"
                                                  layout-align="center center"
                                                  layout-align-sm="center stretch"
@@ -266,10 +282,10 @@
                                         </div>
 
                                         <tri-widget class="flex card1" flex="100"
-                                                    ng-if="vm.cabinetsEntrada.length>0"
+                                                    ng-if="vm.cabinetsEntrada.length>0 && (vm.cabinetsEntrada |  tipoequipoSearch:vm.filtroTipo:vm.tipoEquipos:vm.modelos).length>0"
                                                     title="{{'OUTPUT.FORM.LABEL.CABINET'|translate}}"
                                                     cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
-                                            <md-list flex >
+                                            <md-list flex>
                                                 <md-list-item
                                                     ng-repeat="cabinet in vm.cabinetsEntrada |  tipoequipoSearch:vm.filtroTipo:vm.tipoEquipos:vm.modelos"
                                                     class="md-2-line"

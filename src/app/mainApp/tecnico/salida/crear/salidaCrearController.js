@@ -102,7 +102,7 @@
                 fd.append('file', vm.salida.file);
                 vm.salida.no_creados = null;
                 vm.salida.creados = null;
-                EntradaSalida.postSalidaMasiva(fd).then(function (res) {
+                vm.loadingPromise=EntradaSalida.postSalidaMasiva(fd).then(function (res) {
                     vm.hideRegisteredCabinets = false;
                     vm.hideUnregisteredCabinets = true;
                     vm.salida.creados = res.creados;
@@ -161,6 +161,8 @@
                 vm.loadingPromise= Cabinet.loadByStatus(status,vm.economicoFilter).then(function (res) {
                     vm.cabinetsEntrada=res;
                 });
+            }else{
+                vm.cabinetsEntrada=[];
             }
         }
         function changeType() {
@@ -179,7 +181,7 @@
 
         function entradaManual(fd) {
 
-            EntradaSalida.postEntrada(fd).then(function (res) {
+            vm.loadingPromise=EntradaSalida.postEntrada(fd).then(function (res) {
                 var selected = _.chain(vm.selectedCabinets)
                     .map(function (cabinet) {
                         return {economico: cabinet};
@@ -314,6 +316,7 @@
             vm.dialogTitle = Translate.translate('OUTPUT.FORM.DIALOG.SEND_TITLE');
             vm.dialogMessage = Translate.translate('OUTPUT.FORM.DIALOG.SEND_MESSAGE');
             vm.dialogSureMessage = Translate.translate('OUTPUT.FORM.DIALOG.SEND_INCONSISTENCE');
+            vm.message=Translate.translate('OUTPUT.FORM.LABEL.SEARCH_CABINET');
             Persona.listProfile().then(function (res) {
                 if (res.sucursal != null) {
                     vm.sucursal = res.sucursal;
@@ -331,6 +334,8 @@
             vm.salida.creados = null;
             vm.hideUnregisteredCabinets = true;
             vm.hideRegisteredCabinets = true;
+            vm.economicoFilter=null;
+            vm.cabinetsEntrada=null;
         }
 
         function clear() {
@@ -359,14 +364,8 @@
             vm.hideRegisteredCabinets = true;
             vm.salida.file = null;
             vm.loading = true;
-            /*var status = vm.types[vm.selectedEntrada].value_service;
-            Cabinet.loadByStatus(status).then(function (res) {
-                vm.cabinetsEntrada = Helper.filterDeleted(res, true);
-                vm.cabinetsEntrada = _.sortBy(vm.cabinetsEntrada, 'economico');
-                vm.loading = false;
-            }).catch(function (err) {
-                toastr.error(vm.errorMessage, vm.errorTitle);
-            });*/
+            vm.economicoFilter=null;
+            vm.cabinetsEntrada=null;
 
         }
 
