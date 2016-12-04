@@ -167,15 +167,8 @@
         }
         function changeType() {
             if (!vm.hideManualUpload) {
-                vm.selectedCabinets = null;
-                var status = vm.types[vm.selectedEntrada].value_service;
-                Cabinet.loadByStatus(status).then(function (res) {
-                    vm.cabinetsEntrada = Helper.filterDeleted(res, true);
-                    vm.cabinetsEntrada = _.sortBy(vm.cabinetsEntrada, 'economico');
-                    vm.loading = false;
-                }).catch(function (err) {
-                    toastr.error(vm.errorMessage, vm.errorTitle);
-                });
+                vm.cabinetsEntrada=[];
+                vm.economicoFilter=null;
             }
         }
 

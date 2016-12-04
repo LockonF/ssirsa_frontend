@@ -14,7 +14,7 @@
                                      layout-align="center stretch">
                                     <md-input-container flex="100" class="md-block">
                                         <label>{{'OUTPUT.FORM.LABEL.TYPE_OUTPUT'|translate}}</label>
-                                        <md-select name="selectOutKind" ng-model="vm.selectedEntrada" required="">
+                                        <md-select name="selectOutKind" ng-model="vm.selectedEntrada" required="" ng-change="vm.changeType()">
                                             <md-option ng-repeat="option in vm.types" ng-value="option.id">{{option.value}}
                                             </md-option>
                                         </md-select>
