@@ -39,7 +39,14 @@
                         </md-item-template>
                         <md-not-found><span translate="TRANSPORT_LINE.FORM.PLACEHOLDER.NOT_FOUND"></span></md-not-found>
                     </md-autocomplete>
-                    <md-virtual-repeat-container class="vertical-container" flex="flex">
+                    <md-switch ng-model="vm.toggleDeleted" ng-change="vm.toggleDeletedFunction()">
+                        <span ng-if="vm.toggleDeleted" hide-xs hide-sm>{{'MAIN.MODEL.SHOW_ACTIVE' | translate}}</span>
+                        <span ng-if="vm.toggleDeleted" hide-gt-sm>{{'MAIN.MODEL.SHOW_ACTIVE_MOBILE' | translate}}</span>
+                        <span ng-if="!vm.toggleDeleted" hide-xs hide-sm>{{'MAIN.MODEL.SHOW_DELETED' | translate}}</span>
+                        <span ng-if="!vm.toggleDeleted" hide-gt-sm>{{'MAIN.MODEL.SHOW_DELETED_MOBILE' | translate}}</span>
+
+                    </md-switch>
+                    <md-virtual-repeat-container class="vertical-container" ng-style='vm.myStyle' flex="flex" cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
                         <md-list>
                             <md-list-item ng-repeat="linea in vm.lineas | lineaSearch:vm.searchText">
                                 <md-button ng-click="vm.selectedLineas(linea)"
@@ -62,7 +69,7 @@
                     <form name="TransportForm">
                         <md-input-container class="md-block">
                             <label>{{'TRANSPORT_LINE.FORM.LABEL.BUSINESS_NAME'|translate}}</label>
-                            <input ng-required='true' type="text" name="razon" ng-disabled="vm.editable"
+                            <input ng-required='true' type="text" name="razon" ng-disabled="vm.transport.deleted"
                                    ng-model="vm.transport.razon_social"/>
                             <div ng-messages="TransportForm.razon.$error">
                                 <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
@@ -71,7 +78,7 @@
                         <md-input-container class="md-block">
                             <label>{{'TRANSPORT_LINE.FORM.LABEL.ADDRESS'|translate}}</label>
                             <input md-no-asterisk="" required="" type="text" name="address"
-                                   ng-disabled="vm.editable"
+                                   ng-disabled="vm.transport.deleted"
                                    ng-model="vm.transport.direccion"/>
                             <div ng-messages="TransportForm.address.$error">
                                 <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
@@ -82,7 +89,7 @@
                             <md-chips ng-model="vm.transport.telefonos"
                                       md-removable="vm.removable"
                                       delete-button-label="Remove Tag"
-                                      readonly="vm.editable"
+                                      readonly="vm.transport.deleted"
                             >
                                 <input type="text" only-digits ng-model="vm.numberBuffer"
                                        placeholder="{{'TRANSPORT_LINE.FORM.LABEL.PLUS-PHONE'|translate}}">
@@ -93,7 +100,7 @@
                         <md-input-container class="md-block">
                             <label>{{'TRANSPORT_LINE.FORM.LABEL.RESPONSABLE'|translate}}</label>
                             <input md-no-asterisk="" required="" type="text" name="responsable"
-                                   ng-disabled="vm.editable"
+                                   ng-disabled="vm.transport.deleted"
                                    ng-model="vm.transport.responsable"/>
                             <div ng-messages="TransportForm.responsable.$error">
                                 <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
@@ -105,15 +112,18 @@
                             <md-icon md-font-icon="fa fa-eraser"></md-icon>
                         </md-button>
                         <md-button aria-label="fab button"
-                                   ng-if="vm.transport.id!=null && vm.transport.id!=undefined"
+                                   ng-if="vm.transport.id!=null && vm.transport.id!=undefined && !vm.transport.deleted"
                                    ng-click="vm.remove($event)" class="md-raised md-warn">
                             <md-icon md-font-icon="fa fa-trash"></md-icon>
                         </md-button>
                         <md-button aria-label="fab button"
-                                   ng-if="vm.transport.id!=null && vm.transport.id!=undefined"
+                                   ng-if="vm.transport.id!=null && vm.transport.id!=undefined && !vm.transport.deleted"
                                    ng-disabled="TransportForm.$invalid" ng-click="vm.update()"
                                    class="md-raised md-primary">
                             <md-icon md-font-icon="fa fa-pencil"></md-icon>
+                        </md-button>
+                        <md-button ng-if="vm.transport.id!=null && vm.transport.id!=undefined && vm.transport.deleted" ng-click="vm.restore()" class="md-raised md-warn">
+                            <md-icon md-font-icon="zmdi zmdi-time-restore"></md-icon >
                         </md-button>
                         <md-button aria-label="fab button"
                                    ng-if="vm.transport.id==null || vm.transport.id==undefined"

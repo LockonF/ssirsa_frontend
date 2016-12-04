@@ -9,7 +9,7 @@
         .module('app.mainApp.catalogos')
         .controller('CatalogoInsumoController',CatalogoInsumoController);
 
-    function CatalogoInsumoController(Helper,OPTIONS,Sucursal,CatalogoInsumo,Session,$mdDialog,Categoria,Proveedor, toastr, Translate, $scope)
+    function CatalogoInsumoController(Helper,OPTIONS,unidad,Sucursal,CatalogoInsumo,Session,$mdDialog,Categoria,Proveedor, toastr, Translate, $scope)
     {
         var vm=this;
         //Variables
@@ -43,11 +43,19 @@
         vm.remove = remove;
         vm.clickRepeater = clickRepeater;
         vm.showSteps=showSteps;
+        vm.addUnidad=addUnidad;
         vm.showEquipment=showEquipment;
         vm.disabled=disabled;
+        vm.toggleDeletedFunction = toggleDeletedFunction;
+        vm.restore = restore;
+
         vm.catalogo_insumo=angular.copy(catalogo_insumo);
         vm.profile=Session.userInformation;
-        vm.unidades=OPTIONS.units;
+        vm.myHeight=window.innerHeight-250;
+        vm.myStyle={"min-height":""+vm.myHeight+"px"};
+        vm.toggleDeleted = true;
+
+        //vm.unidades=OPTIONS.units;
 
         activate();
 
@@ -68,11 +76,23 @@
             vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
             vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
             vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
+            vm.createUnit=Translate.translate('Consumable_Catalog.CREATE');
+            vm.successRestoreMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_RESTORE');
+            vm.dialogRestoreTitle=Translate.translate('MAIN.DIALOG.RESTORE_TITLE');
+            vm.dialogRestoreMessage=Translate.translate('MAIN.DIALOG.RESTORE_MESSAGE');
+            vm.restoreButton=Translate.translate('MAIN.BUTTONS.RESTORE');
             listSucursales();
             listCatalogoInsumos();
             listCategorias();
             listProveedores();
+            listUnidades();
 
+        }
+        function listUnidades() {
+            unidad.listObject().then(function (res) {
+                vm.unidades  =Helper.filterDeleted(res,true);
+                vm.unidades=_.sortBy( vm.unidades, 'nombre');
+            });
         }
         function listSucursales()
         {
@@ -81,6 +101,35 @@
                 vm.sucursal_list=_.sortBy( vm.sucursal_list, 'nombre');
             });
         }
+
+        function toggleDeletedFunction() {
+            listCatalogoInsumos();
+            cancel();
+        }
+        function restore() {
+            var confirm = $mdDialog.confirm()
+                .title(vm.dialogRestoreTitle)
+                .textContent(vm.dialogRestoreMessage)
+                .ariaLabel('Confirmar restauración')
+                .ok(vm.restoreButton)
+                .cancel(vm.cancelButton);
+            $mdDialog.show(confirm).then(function() {
+                vm.catalogo_insumo.deleted=false;
+                CatalogoInsumo.update(vm.catalogo_insumo).then(function (res) {
+                    toastr.success(vm.successRestoreMessage, vm.successTitle);
+                    cancel();
+                    activate();
+                }).catch(function (res) {
+                    vm.catalogo_insumo.deleted=true;
+                    toastr.warning(vm.errorMessage, vm.errorTitle);
+                });
+            }, function() {
+
+            });
+
+        }
+
+
         function showSteps() {
             $mdDialog.show({
                 controller: 'EtapaDialogController',
@@ -94,14 +143,29 @@
                 vm.catalogo_insumo.etapas=res;
             });
         }
-        function disabled(id,tipoArray) {
-            if(id!=null) {
-                if(tipoArray==="categoria") {
-                    return Helper.searchByField(vm.categoria_list, id).deleted;
-                }else{
-                    return Helper.searchByField(vm.proveedor_list, id).deleted;
-                }
+        function addUnidad() {
+            $mdDialog.show({
+                controller: 'UnidadModalController',
+                controllerAs: 'vm',
+                templateUrl: 'app/mainApp/catalogos/catalogo_insumo/modal/unidad.modal.tmpl.html',
+                focusOnOpen:  false
+            }).then(function () {
+                listUnidades();
+                toastr.success(vm.createUnit,vm.successTitle);
+            });
+        }
+        function disabled(id,tipoArray,disabled) {
+            if(disabled==false) {
+                if (id != null) {
+                    if (tipoArray === "categoria") {
+                        return Helper.searchByField(vm.categoria_list, id).deleted;
+                    } else {
+                        return Helper.searchByField(vm.proveedor_list, id).deleted;
+                    }
 
+                }
+            }else{
+                return disabled;
             }
         }
         function showEquipment() {
@@ -121,8 +185,9 @@
 
         function listCatalogoInsumos()
         {
-            CatalogoInsumo.listObject().then(function (res) {
-                vm.catalogo_insumo_list=Helper.filterDeleted(res,true);
+            vm.loadingPromise =CatalogoInsumo.listObject().then(function (res) {
+
+                vm.catalogo_insumo_list=Helper.filterDeleted(res,vm.toggleDeleted);
                 vm.catalogo_insumo_list=_.sortBy(vm.catalogo_insumo_list, 'descripcion');
             });
 
@@ -191,6 +256,7 @@
         function create()
         {
             vm.catalogo_insumo.sucursal=Session.userInformation.sucursal!=null?Session.userInformation.sucursal:vm.catalogo_insumo.sucursal;
+
             CatalogoInsumo.create(vm.catalogo_insumo).then(function(res){
                 listCatalogoInsumos();
                 toastr.success(vm.successCreateMessage,vm.successTitle);
