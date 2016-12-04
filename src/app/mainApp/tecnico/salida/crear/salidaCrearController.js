@@ -95,7 +95,8 @@
             fd.append('udn', vm.salida.udn.id);
             if (vm.salida.id != null)
                 fd.append("id", vm.salida.id);
-            if (vm.fotoGeneral != null && vm.fotoGeneral != "")
+            
+            if (vm.fotoGeneral != null && vm.fotoGeneral != "" && !(angular.isUndefined(vm.fotoGeneral)))
                 fd.append('ife_chofer', vm.fotoGeneral);
             //Is massive upload
             if (vm.salida.file != null) {
@@ -106,9 +107,11 @@
                     vm.hideRegisteredCabinets = false;
                     vm.hideUnregisteredCabinets = true;
                     vm.salida.creados = res.creados;
+
                     toastr.success(vm.successMassive, vm.successTitle);
                     vm.outputWasCorrect = true;
                 }).catch(function (err) {
+                    
                     vm.hideUnregisteredCabinets = false;
                     vm.hideRegisteredCabinets = true;
                     if (err.status == 400) {
@@ -195,6 +198,7 @@
                     toastr.error(vm.errorMessage, vm.errorTitle);
                 });
             }).catch(function (err) {
+                
                 toastr.error(vm.errorMessage, vm.errorTitle);
             });
         }
