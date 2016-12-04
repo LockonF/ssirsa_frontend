@@ -84,6 +84,7 @@
                         vm.selectedSalidaList =null;
                     }
 
+                    vm.selectedCabinets=[];
                     selectedItemChange(vm.selectedSalidaList);
 
                     toastr.success(vm.successDelete,vm.successTitle);
