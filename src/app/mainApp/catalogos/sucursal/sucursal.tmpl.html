@@ -41,7 +41,7 @@
                         <md-list>
                             <md-list-item ng-repeat="sucursal in vm.sucursales | sucursalSearch:vm.searchText">
                                 <md-button ng-click="vm.selectedSucursales(sucursal)"
-                                           ng-class="{'selected' : sucursal === vm.selectedSucursalList }">
+                                           ng-class="{'selected' : sucursal.id == vm.sucursal.id }">
                                     <md-icon md-svg-icon="assets/images/industry.svg" class="avatar"></md-icon>
                                     <span flex="flex">{{sucursal.nombre }}</span>
                                 </md-button>

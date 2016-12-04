@@ -13,7 +13,16 @@
                     <md-item-template><span class="item-title">
               <md-icon md-font-icon="zmdi zmdi-truck"></md-icon><span>{{tipo.nombre}}</span></span></md-item-template>
                 </md-autocomplete>
-                <md-virtual-repeat-container layout-fill="layout-fill" hide-xs="hide-xs" hide-sm="hide-sm" class="vr-min-height">
+
+                <md-switch ng-model="vm.toggleDeleted" ng-change="vm.toggleDeletedFunction()">
+                    <span ng-if="vm.toggleDeleted" hide-xs hide-sm>{{'MAIN.MODEL.SHOW_ACTIVE' | translate}}</span>
+                    <span ng-if="vm.toggleDeleted" hide-gt-sm>{{'MAIN.MODEL.SHOW_ACTIVE_MOBILE' | translate}}</span>
+                    <span ng-if="!vm.toggleDeleted" hide-xs hide-sm>{{'MAIN.MODEL.SHOW_DELETED' | translate}}</span>
+                    <span ng-if="!vm.toggleDeleted" hide-gt-sm>{{'MAIN.MODEL.SHOW_DELETED_MOBILE' | translate}}</span>
+
+                </md-switch>
+
+                <md-virtual-repeat-container layout-fill="layout-fill" hide-xs="hide-xs" hide-sm="hide-sm" class="vr-min-height" cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
                     <md-list flex="flex">
                         <md-list-itm flex="flex" ng-repeat="item in vm.categoria_list">
                             <md-button ng-click="vm.clickRepeater(item)" ng-class="{'selected':item.id === vm.categoria.id}">
@@ -32,14 +41,14 @@
                 <form name="inputForm">
                     <md-input-container class="md-block">
                         <label>{{ 'Category.name' | translate }}</label>
-                        <input type="text" name="nombre" ng-model="vm.selected_categoria.nombre" ng-required="true"/>
+                        <input type="text" name="nombre" ng-model="vm.selected_categoria.nombre" ng-required="true" ng-disabled="vm.selected_categoria.deleted"/>
                         <div ng-messages="inputForm.nombre.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>{{ 'Category.description' | translate }}</label>
-                        <input type="text" name="descripcion" ng-model="vm.selected_categoria.descripcion" ng-required="true"/>
+                        <input type="text" name="descripcion" ng-model="vm.selected_categoria.descripcion" ng-required="true" ng-disabled="vm.selected_categoria.deleted"/>
                         <div ng-messages="inputForm.descripcion.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>
@@ -48,14 +57,17 @@
                 <div flex="flex" layout="row" layout-align="end end">
                     <md-button aria-label="fab button" ng-click="vm.cancel()" class="md-raised md-primary"><md-icon md-font-icon="fa fa-eraser"></md-icon></md-button>
 
-                    <md-button ng-if="vm.selected_categoria.id!=null &amp;&amp; vm.selected_categoria.id!=undefined" ng-disabled="inputForm.$invalid" ng-click="vm.update()" class="md-raised md-primary">
+                    <md-button ng-if="vm.selected_categoria.id!=null &amp;&amp; vm.selected_categoria.id!=undefined" ng-disabled="inputForm.$invalid || vm.selected_categoria.deleted" ng-click="vm.update()" class="md-raised md-primary">
                         <md-icon md-font-icon="fa fa-pencil"></md-icon>
                     </md-button>
                     <md-button ng-if="vm.selected_categoria.id==null || vm.selected_categoria.id==undefined" ng-disabled="inputForm.$invalid" ng-click="vm.create()" class="md-raised md-primary">
                         <md-icon md-font-icon="fa fa-save"></md-icon>
                     </md-button>
-                    <md-button ng-if="vm.selected_categoria.id!=null &amp;&amp; vm.selected_categoria.id!=undefined" ng-click="vm.remove()" class="md-raised md-warn">
+                    <md-button ng-if="vm.selected_categoria.id!=null &amp;&amp; vm.selected_categoria.id!=undefined && vm.selected_categoria.deleted==false" ng-click="vm.remove()" class="md-raised md-warn">
                         <md-icon md-font-icon="fa fa-trash"></md-icon>
+                    </md-button>
+                    <md-button ng-if="vm.selected_categoria.id!=null &amp;&amp; vm.selected_categoria.id!=undefined && vm.selected_categoria.deleted==true" ng-click="vm.restore()" class="md-raised md-warn">
+                        <md-icon md-font-icon="zmdi zmdi-time-restore"></md-icon>
                     </md-button>
                 </div>
             </div>

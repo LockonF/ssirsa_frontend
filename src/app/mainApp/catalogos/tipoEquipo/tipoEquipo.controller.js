@@ -39,13 +39,14 @@
             vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
             vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
             vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
+            vm.duplicateMessage=Translate.translate('EQUIPMENT_TYPE.FORM.LABEL.DUPLICATE');
         }
 
         function activate() {
             TipoEquipo.listWitout().then(function (res) {
                 vm.tipo_equipos =Helper.filterDeleted(res,true);
                 vm.tipo_equipos=_.sortBy(vm.tipo_equipos, 'nombre');
-            })
+            });
         }
         function selectedItemChange(item)
         {
@@ -80,8 +81,13 @@
                 toastr.success(vm.successUpdateMessage, vm.successTitle);
                 cancel();
                 activate();
-            }).catch(function (res) {
-                toastr.warning(vm.errorMessage, vm.errorTitle);
+            }).catch(function (err) {
+                if(err.status==400 && err.data.nombre!=undefined)
+                {
+                    toastr.error(vm.duplicateMessage,vm.errorTitle);
+                }else{
+                    toastr.error(vm.errorMessage,vm.errorTitle);
+                }
             });
         }
         function create() {
@@ -90,8 +96,13 @@
                 vm.tipo_equipo = angular.copy(tipo_equipo);
                 cancel();
                 activate();
-            }).catch(function (res) {
-                toastr.warning(vm.errorMessage, vm.errorTitle);
+            }).catch(function (err) {
+                if(err.status==400 && err.data.nombre!=undefined)
+                {
+                    toastr.error(vm.duplicateMessage,vm.errorTitle);
+                }else{
+                    toastr.error(vm.errorMessage,vm.errorTitle);
+                }
             });
         }
 
@@ -100,6 +111,7 @@
             $scope.TipoEquipoForm.$setUntouched();
             vm.tipo_equipo = angular.copy(tipo_equipo);
             vm.selectedEquipoList = null;
+            vm.searchText=null;
         }
 
         function selectedEquipos(project) {

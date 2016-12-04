@@ -8,7 +8,7 @@
         .module('app.mainApp.tecnico')
         .controller('asignacionLineaController', asignacionLineaController);
 
-    function asignacionLineaController(Cabinet, toastr, Translate, ModeloCabinet,$scope, $mdDialog) {
+    function asignacionLineaController(Cabinet, toastr, Translate, ModeloCabinet, $scope, $mdDialog) {
         var vm = this;
         $scope.form = {};
         //Inicializacion de variables
@@ -61,6 +61,7 @@
             vm.errorTypeFile = Translate.translate('MAIN.MSG.ERORR_TYPE_FILE');
             vm.errorSize = Translate.translate('MAIN.MSG.FILE_SIZE');
             vm.cabinetDeleted = Translate.translate('MAIN.MSG.ERROR_DISABLED_CABINET');
+            vm.cabinetOut=Translate.translate('MAIN.MSG.ERROR_OUT');
             buscarModelos();
         }
 
@@ -81,7 +82,11 @@
                         vm.limpiar();
                         vm.ver = false;
                     }
-
+                    if (vm.cabinet.status.toLowerCase() === 'enviado') {
+                        notifyError(996);
+                        vm.limpiar();
+                        vm.ver = false;
+                    }
 
 
                 }).catch(function (res) {
@@ -100,6 +105,9 @@
                 case 404:
                     toastr.info(vm.notFoundMessage, vm.errorTitle);
                     break;
+                case 996:
+                    toastr.warning(vm.cabinetOut, vm.errorMessage);
+                    break;
                 case 999:
                     toastr.warning(vm.cabinetDeleted, vm.errorMessage);
                     break;
@@ -115,7 +123,7 @@
 
                 vm.cabinet.partial = true;
                 vm.cabinetPartial = _.omit(vm.cabinet, 'foto');
-                var promise = Cabinet.modify(vm.cabinetPartial);
+                var promise = Cabinet.modifyclear(vm.cabinetPartial);
                 promise.then(function (res) {
                     vm.cabinet = res;
                     //console.log(vm.cabinet);
@@ -126,10 +134,12 @@
 
                 }).catch(function (res) {
                     notifyError(res.status);
+                    limpiar();
                 });
             }
             else {
                 notifyError(400);
+                limpiar();
             }
 
         }
@@ -151,10 +161,14 @@
             };
             vm.idCabinet = null;
             vm.ver = false;
+            $scope.Buscar2.$setPristine();
+            $scope.Buscar2.$setUntouched();
 
 
         }
 
+        
+        
         vm.verInfo = function () {
             $mdDialog.show({
                 locals: {parent: vm},

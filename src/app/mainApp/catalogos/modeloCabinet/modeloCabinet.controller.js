@@ -60,8 +60,17 @@
                 vm.modelos =Helper.filterDeleted(res,true);
                 vm.modelos=_.sortBy(vm.modelos, 'nombre');
             });
-            vm.marcas = MarcaCabinet.list();
-            vm.tipoEquipos = TipoEquipo.list();
+            MarcaCabinet.listPromise().then(function (res) {
+                vm.marcas = Helper.filterDeleted(res, true);
+                vm.marcas = Helper.sortByAttribute(vm.marcas, 'descripcion')
+
+            }).catch(function (err) {
+
+            });
+            TipoEquipo.listWitout().then(function (res) {
+                vm.tipoEquipos =Helper.filterDeleted(res,true);
+                vm.tipoEquipos=_.sortBy(vm.tipoEquipos, 'nombre');
+            });
         }
         function remove(ev) {
             var confirm = $mdDialog.confirm()
@@ -87,8 +96,13 @@
                 toastr.success(vm.successUpdateMessage, vm.successTitle);
                 cancel();
                 activate();
-            }).catch(function (res) {
-                toastr.warning(vm.errorMessage, vm.errorTitle);
+            }).catch(function (err) {
+                if(err.status==400 && err.data.non_field_errors[0] =='Los campos nombre, marca deben formar un conjunto único.'){
+                    toastr.error(vm.duplicateMessage,vm.errorTitle);
+                }
+                else {
+                    toastr.warning(vm.errorMessage, vm.errorTitle);
+                }
             });
         }
         function create() {
@@ -113,6 +127,7 @@
             $scope.ModelCabinetForm.$setUntouched();
             vm.modelo = angular.copy(modelo);
             vm.selectedModeloList = null;
+            vm.searchText=null;
         }
         function selectedItemChange(item)
         {

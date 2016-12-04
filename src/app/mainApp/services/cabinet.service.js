@@ -21,7 +21,9 @@
             modify: modify,
             loadByModel:loadByModel,
             loadByStatus:loadByStatus,
-            lookup:lookup
+            lookup:lookup,
+            modifyclear:modifyclear,
+            getIfEntrada:getIfEntrada
         };
 
         function loadByStatus(status,economic) {
@@ -80,13 +82,27 @@
             });
             return deferred.promise;
         }
+        function modifyclear(cabinet) {
+            var deferred = $q.defer();
+            Restangular.one('cabinet_clean', cabinet.economico).customPUT(cabinet).then(function (res) {
+                deferred.resolve(res);
+            }).catch(function (err) {
+                deferred.reject(err);
+            });
+            return deferred.promise;
+        }
+
 
         function loadByModel(model){
-            return urlbase.one('model',model.id).getList().$object;
+            return urlbase.one('model',model.id).getList();
         }
 
         function lookup(economico) {
             return urlbase.one('lookup',economico).getList();
+        }
+
+        function getIfEntrada(economico) {
+            return urlbase.one("can_enter",economico).customGET();
         }
     }
 })();

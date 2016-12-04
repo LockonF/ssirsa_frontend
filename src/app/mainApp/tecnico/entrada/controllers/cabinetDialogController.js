@@ -48,6 +48,7 @@
             vm.cabinet.economico=cabinetID;
             MarcaCabinet.listObject().then(function(res){
                 vm.marcas=Helper.filterDeleted(res,true);
+                vm.marcas = Helper.sortByAttribute(vm.marcas, 'descripcion');
             }).catch(function(err){
                 toastr.error(vm.errorMessage,vm.errorTitle);
                 vm.marcas=[];
