@@ -221,8 +221,8 @@
             },
             "TITLES": {
                 "OUTPUT": "Registrar Salida",
-                "REGISTERED": "Cabinets Registrados",
-                "UNREGISTERED": "Cabinets No Registrados"
+                "REGISTERED": "Cabinets Registrados ({{creados}})",
+                "UNREGISTERED": "Cabinets No Registrados ({{not_created}})"
             },
             "TABS": {
                 "GENERAL": "Datos Generales",
@@ -252,7 +252,9 @@
                 "FORMAT":"Formato",
                 "TYPE_OUTPUT":"Tipo de Salida",
                 "SELECT":"Selecciona",
-                "VALID_UDN":"No ingreso una UDN válida"
+                "VALID_UDN":"Seleccione una agencia válida",
+                "CLIENT":"Cliente",
+                "SEARCH_CABINET":"Buscando cabinets por medio de economico"
             },
             "BUTTON":{
                 "CHOOSE_FILE": "Seleccionar",
