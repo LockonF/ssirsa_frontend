@@ -22,6 +22,7 @@
             siguiente_etapa: ''
 
         };
+        vm.disabledBuscar=false;
         vm.diagnosticoEntrada = {}
         vm.showInsumosSection = true;
         vm.catalogoInsumos = null;//array con todos los caatalogos de insumo disponibles de la etapa
@@ -34,7 +35,7 @@
         vm.cabinet = null;// Informacion general del cabinet al cual se le asignara una nueva etapa
         vm.diagnostico = null;// Informacion del diagnostico que propicio que entrara a un proceso de servicio tecnico
         vm.etapa = null;
-        vm.etapaActual = null;
+        vm.etapaActual = {};
         vm.cabinetid = null;
         vm.insumo = {
             id: "",
@@ -136,6 +137,7 @@
 
 
         function buscar() {
+            vm.disabledBuscar=true;
             cancelwithoutId();
             if (vm.idCabinet != null) {
                 var promise = Cabinet.get(vm.idCabinet);
@@ -194,7 +196,7 @@
                                 }
                                 if (vm.etapaActual.actual_etapa.nombre == 'E1') {
                                     vm.diagnostico.tipo = 'entrada';
-                                    vm.etapaActual.siguiente_etapa.id = 2;
+                                    //vm.etapaActual.siguiente_etapa.id = 2;
                                 }
                                 if (vm.etapaActual.actual_etapa.nombre == 'E4') {
                                     vm.diagnostico.tipo = 'salida';
@@ -273,13 +275,14 @@
                 cancel();
             }
             else {
-                var promise = Servicios.BusquedaCatalogoTypeStep(data);
-                promise.then(function (res) {
+                vm.loadingPromise = Servicios.BusquedaCatalogoTypeStep(data).then(function (res) {
                     //vm.insumosLote = res;
                     vm.insumosLote = Helper.filterDeleted(res,true);
                     transformArrayCatalogoInsumos();
+                    vm.disabledBuscar=false;
                 }).catch(function (res) {
                     notifyError(res.status);
+                    vm.disabledBuscar=false;
                 });
             }
         }
