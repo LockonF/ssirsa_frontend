@@ -35,7 +35,7 @@
         vm.cabinet = null;// Informacion general del cabinet al cual se le asignara una nueva etapa
         vm.diagnostico = null;// Informacion del diagnostico que propicio que entrara a un proceso de servicio tecnico
         vm.etapa = null;
-        vm.etapaActual = null;
+        vm.etapaActual = {};
         vm.cabinetid = null;
         vm.insumo = {
             id: "",
@@ -196,7 +196,7 @@
                                 }
                                 if (vm.etapaActual.actual_etapa.nombre == 'E1') {
                                     vm.diagnostico.tipo = 'entrada';
-                                    vm.etapaActual.siguiente_etapa.id = 2;
+                                    //vm.etapaActual.siguiente_etapa.id = 2;
                                 }
                                 if (vm.etapaActual.actual_etapa.nombre == 'E4') {
                                     vm.diagnostico.tipo = 'salida';
