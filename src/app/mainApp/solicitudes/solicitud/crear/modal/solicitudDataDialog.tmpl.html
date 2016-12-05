@@ -14,10 +14,11 @@
         <form name="objectForm" layout="column">
             <md-input-container>
                 <label>{{'MODAL_REQUEST.FORM.LABEL.QUANTITY'|translate}}</label>
-                <input type="number" ng-required="true" name="cantidad" ng-model="vm.object.cantidad"
+                <input type="text" only-digits ng-required="true" name="cantidad" ng-model="vm.object.cantidad"
                        ng-minlength="1" min="1"
                        />
                 <div ng-messages="objectForm.cantidad.$error">
+                    <div ng-message="pattern">error e</div>
                     <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                     <div ng-message="min">{{'MAIN.GENERAL.MIN_NUMBER' | translate}} 1</div>
                 </div>

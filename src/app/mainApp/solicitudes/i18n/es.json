@@ -37,13 +37,13 @@
                 "REGISTRADOS":"Solicitudes Registradas",
                 "NO_REGISTRADOS":"Solicitudes no Registradas",
                 "CARGASOL":"Carga de Solicitudes",
-                "INVALIDUDN":"La UDN es invalida",
+                "INVALIDUDN":"Selecciona una Agencia",
                 "NOTFOUNDUDN":"La UDN no se encuentra"
             },
             "PLACEHOLDER":{
                 "UDN":"Seleccione la UDN",
                 "REQUEST":"Elige tipo de solicitud",
-                "PERSON":"Elige una persona",
+                "PERSON":"Selecciona cliente",
                 "STATUS":"Elige un estatus",
                 "DATE_TERMINATE":"Ingrese la fecha de atención"
             },
