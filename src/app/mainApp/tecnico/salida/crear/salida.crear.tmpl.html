@@ -5,9 +5,9 @@
                 <md-card-title-text><span class="md-headline">{{'OUTPUT.FORM.TITLES.OUTPUT'|translate}}</span>
                 </md-card-title-text>
             </md-card-title>
-            <md-content layout-fill="" class="card1">
+            <md-content layout-fill="" class="card1" cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
                 <md-tabs layout-padding="true" md-dynamic-height="100" md-border-bottom="100" md-selected="vm.selectedTab">
-                    <md-tab label={{'OUTPUT.FORM.TABS.GENERAL'|translate}}  ng-disabled="vm.outputWasCorrect">
+                    <md-tab label={{'OUTPUT.FORM.TABS.GENERAL'|translate}} ng-disabled="vm.outputWasCorrect">
                         <md-content layout-padding="" class="card1">
                             <form name="entradaForm" novalidate="">
                                 <div layout-gt-md="row" layout="column" layout-align-gt-md="center center"
@@ -82,7 +82,12 @@
                                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                         </div>
                                     </md-input-container>
-                                    <md-input-container flex="100" class="md-inline-form">
+
+                                </div>
+                                <div layout="row" layout-sm="column" layout-xs="column" layout-align="center center"
+                                     layout-align-sm="center stretch" layout-align-xs="center stretch">
+
+                                    <md-input-container flex="50" class="md-inline-form">
                                         <label>{{'OUTPUT.FORM.LABEL.TRANSPORT.KIND'|translate}}</label>
                                         <md-select name="selectTransportKind" ng-model="vm.salida.tipo_transporte"
                                                    required="" md-no-asterisk="">
@@ -91,6 +96,19 @@
                                             </md-option>
                                         </md-select>
                                         <div ng-messages="entradaForm.selectTransportKind.$error">
+                                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                        </div>
+                                    </md-input-container>
+
+                                    <md-input-container flex="50" flex-sm="100" flex-xs="100" class="md-block">
+                                        <label>{{'OUTPUT.FORM.LABEL.CLIENT'|translate}}</label>
+                                        <md-select name="Client" ng-model="vm.salida.cliente"
+                                                   required="" md-no-asterisk="">
+                                            <md-option ng-repeat="cliente in vm.clients" ng-value="cliente">
+                                                {{cliente.nombre}}
+                                            </md-option>
+                                        </md-select>
+                                        <div ng-messages="entradaForm.Client.$error">
                                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                                         </div>
                                     </md-input-container>
@@ -121,8 +139,8 @@
                                         </md-button>
                                     </div>
                                 </div>
-                                <div flex="80" ng-if="vm.salida.ife_chofer!=null && vm.salida.ife_chofer!=''">
-                                    <div class="md-media-md card-media"><img ngf-src="vm.salida.ife_chofer"
+                                <div flex="80" ng-if="vm.fotoGeneral!=null && fotoGeneral!=''">
+                                    <div class="md-media-md card-media"><img ngf-src="vm.fotoGeneral"
                                                                              style="max-width:150px" class="thumb"/></div>
                                 </div>
                             </form>
@@ -174,6 +192,12 @@
                             </div>
                             <div flex="" layout="column" ng-hide="vm.hideRegisteredCabinets" ng-if="vm.salida.creados.length>0">
                                 <p>{{'OUTPUT.FORM.TITLES.REGISTERED'|translate}}</p>
+                                <p><span translate='OUTPUT.FORM.TITLES.REGISTERED' translate-values="{ creados: {{vm.salida.creados.length.toString()}}}"></span></p>
+                                <md-content layout-padding="">
+                                    <md-virtual-repeat-container flex="100"
+                                                                 layout="column"
+                                                                 layout-align="center center"
+                                                                 class="vr-min-height">
                                 <md-table-container>
                                     <table md-table="" md-row-select="" multiple="" ng-disabled="true">
                                         <thead md-head="">
@@ -188,34 +212,46 @@
                                         </tbody>
                                     </table>
                                 </md-table-container>
+                                    </md-virtual-repeat-container>
+                                </md-content>
                             </div>
                             <div flex="" layout="column" ng-hide="vm.hideUnregisteredCabinets" ng-if="vm.salida.no_creados.length>0">
-                                <p>{{'OUTPUT.FORM.TITLES.UNREGISTERED'|translate}}</p>
-                                <md-table-container>
-                                    <table md-table="" md-row-select="" multiple="" ng-disabled="true">
-                                        <thead md-head="">
-                                        <tr md-row="">
-                                            <th md-column="">{{'OUTPUT.FORM.TABLE.HEADERS.ECONOMIC'|translate}}</th>
-                                            <th md-column="">{{'OUTPUT.FORM.TABLE.HEADERS.REASON'|translate}}</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody md-body="">
-                                        <tr md-row="" ng-repeat="unregisteredCabinet in vm.salida.no_creados">
-                                            <td md-cell="">{{unregisteredCabinet.economico}}</td>
-                                            <td md-cell="">{{unregisteredCabinet.motivo}}</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </md-table-container>
+
+                                <p><span translate='OUTPUT.FORM.TITLES.UNREGISTERED' translate-values="{ not_created: {{vm.salida.no_creados.length.toString()}}}"></span></p>
+                                <md-content layout-padding="">
+                                    <md-virtual-repeat-container flex="100"
+                                                                 layout="column"
+                                                                 layout-align="center center"
+                                                                 class="vr-min-height">
+                                        <md-table-container>
+                                            <table md-table="" md-row-select="" multiple="" ng-disabled="true" class="card1">
+                                                <thead md-head="" >
+                                                <tr md-row="">
+                                                    <th md-column="">{{'OUTPUT.FORM.TABLE.HEADERS.ECONOMIC'|translate}}</th>
+                                                    <th md-column="">{{'OUTPUT.FORM.TABLE.HEADERS.REASON'|translate}}</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody md-body="">
+                                                <tr md-row="" ng-repeat="unregisteredCabinet in vm.salida.no_creados">
+                                                    <td md-cell="">{{unregisteredCabinet.economico}}</td>
+                                                    <td md-cell="">{{unregisteredCabinet.motivo}}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </md-table-container>
+                                    </md-virtual-repeat-container>
+                                </md-content>
                             </div>
                             <div ng-hide="vm.hideManualUpload">
+
                                 <div layout="row" layout-sm="column" layout-xs="column" layout-md="column" flex="100"
                                      layout-align="center center"
                                      layout-align-sm="center stretch"
+
                                      layout-align-xs="center stretch">
                                     <md-input-container class="md-inline-form" flex="50" flex-sm="100" flex-xs="100">
                                         <label>{{'OUTPUT.FORM.PLACEHOLDER.SEARCH'|translate}}</label>
-                                        <input type="text" ng-model="vm.economicoFilter"/>
+                                        <input type="text" ng-model="vm.economicoFilter" ng-change="vm.lookupByEconomico()"/>
                                     </md-input-container>
                                     <md-input-container class="md-inline-form md-block" id="salidaSelect" flex="50" flex-sm="100"
                                                         flex-xs="100">
@@ -231,16 +267,27 @@
                                 <div layout="row" layout-sm="column" layout-xs="column" layout-md="column" flex="100"
                                      layout-align="center center">
 
-                                    <div class="widget-loading-inner" ng-show="vm.loading">
-                                        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-                                    </div>
+
                                     <md-virtual-repeat-container class="vertical-container card1"
-                                                                 ng-show="!vm.loading">
+                                    >
+                                        <div ng-if="vm.cabinetsEntrada.length==0 || !(vm.cabinetsEntrada |  tipoequipoSearch:vm.filtroTipo:vm.tipoEquipos:vm.modelos).length">
+                                            <div layout="row" layout-sm="column" layout-xs="column" layout-md="column" flex="100"
+                                                 layout-align="center center"
+                                                 layout-align-sm="center stretch"
+
+                                                 layout-align-xs="center stretch">
+                                                {{'OUTPUT.FORM.LABEL.NOT_FOUND'|translate}}
+                                            </div>
+
+                                        </div>
+
                                         <tri-widget class="flex card1" flex="100"
-                                                    title="{{'OUTPUT.FORM.LABEL.CABINET'|translate}}">
+                                                    ng-if="vm.cabinetsEntrada.length>0 && (vm.cabinetsEntrada |  tipoequipoSearch:vm.filtroTipo:vm.tipoEquipos:vm.modelos).length>0"
+                                                    title="{{'OUTPUT.FORM.LABEL.CABINET'|translate}}"
+                                                    cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
                                             <md-list flex>
                                                 <md-list-item
-                                                    ng-repeat="cabinet in vm.cabinetsEntrada | salidaSearch:vm.economicoFilter  | tipoequipoSearch:vm.filtroTipo:vm.tipoEquipos:vm.modelos"
+                                                    ng-repeat="cabinet in vm.cabinetsEntrada |  tipoequipoSearch:vm.filtroTipo:vm.tipoEquipos:vm.modelos"
                                                     class="md-2-line"
                                                 >
                                                     <div layout-padding layout="row"
@@ -271,14 +318,19 @@
                                         </tri-widget>
                                     </md-virtual-repeat-container>
                                 </div>
+
+
                             </div>
 
                             <div layout="row" layout-align="end center">
                                 <md-button aria-label="fab button" ng-click="vm.clear()" class="md-raised md-primary">
                                     <md-icon md-font-icon="fa fa-eraser"></md-icon>
                                 </md-button>
-                                <md-button ng-disabled="entradaForm.$invalid || (vm.selectedCabinets.length==0 && !vm.hideManualUpload) ||  vm.outputWasCorrect ||  (vm.salida.file==null && vm.hideManualUpload==true) " aria-label="guardar" ng-click="vm.guardar()"
-                                           class="md-raised md-primary">
+                                <md-button
+                                    ng-disabled="entradaForm.$invalid || (vm.selectedCabinets.length==0 && !vm.hideManualUpload) ||(vm.cabinetsEntrada.length==0 && !vm.hideManualUpload) ||  vm.outputWasCorrect ||  (vm.salida.file==null && vm.hideManualUpload==true) "
+                                    aria-label="guardar"
+                                    ng-click="vm.guardar()"
+                                    class="md-raised md-primary">
                                     <md-icon md-font-icon="fa fa-save"></md-icon>
                                 </md-button>
                             </div>

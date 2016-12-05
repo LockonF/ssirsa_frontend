@@ -13,7 +13,17 @@
                     <md-item-template><span class="item-title">
               <md-icon md-font-icon="zmdi zmdi-truck"></md-icon><span>{{item.zona}} - {{item.agencia}}</span></span></md-item-template>
                 </md-autocomplete>
-                <md-virtual-repeat-container id="vertical_container" flex="flex" layout-fill="layout-fill">
+
+                <md-switch ng-model="vm.toggleDeleted" ng-change="vm.toggleDeletedFunction()">
+                    <span ng-if="vm.toggleDeleted" hide-xs hide-sm>{{'MAIN.MODEL.SHOW_ACTIVE' | translate}}</span>
+                    <span ng-if="vm.toggleDeleted" hide-gt-sm>{{'MAIN.MODEL.SHOW_ACTIVE_MOBILE' | translate}}</span>
+                    <span ng-if="!vm.toggleDeleted" hide-xs hide-sm>{{'MAIN.MODEL.SHOW_DELETED' | translate}}</span>
+                    <span ng-if="!vm.toggleDeleted" hide-gt-sm>{{'MAIN.MODEL.SHOW_DELETED_MOBILE' | translate}}</span>
+
+                </md-switch>
+
+
+                <md-virtual-repeat-container id="vertical_container" flex="flex" layout-fill="layout-fill" cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
                     <md-list flex="flex">
                         <md-list-itm flex="flex" ng-repeat="item in vm.udn_list">
                             <md-button ng-click="vm.clickRepeater(item)" ng-class="{'selected':item.id == vm.udn.id}">
@@ -32,7 +42,7 @@
                 <form name="inputForm">
                     <md-input-container class="md-block">
                         <label>{{ 'UDN_CATALOG.zone' | translate }}</label>
-                        <md-select ng-model="vm.selected_udn.zona" name="zona" ng-required="true" >
+                        <md-select ng-model="vm.selected_udn.zona" name="zona" ng-required="true" ng-disabled="vm.selected_udn.deleted">
                             <md-option ng-repeat="udn in vm.udns" ng-value="udn.value" >
                                 {{udn.value}}
                             </md-option>
@@ -43,28 +53,28 @@
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>{{ 'UDN_CATALOG.agency' | translate }}</label>
-                        <input type="text" name="agencia" ng-model="vm.selected_udn.agencia" ng-required="true"/>
+                        <input type="text" name="agencia" ng-model="vm.selected_udn.agencia" ng-required="true" ng-disabled="vm.selected_udn.deleted"/>
                         <div ng-messages="inputForm.agencia.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>{{ 'UDN_CATALOG.center' | translate }}</label>
-                        <input type="text" name="centro" ng-model="vm.selected_udn.centro" ng-required="true"/>
+                        <input type="text" name="centro" ng-model="vm.selected_udn.centro" ng-required="true" numbers-only="" ng-disabled="vm.selected_udn.deleted"/>
                         <div ng-messages="inputForm.centro.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>{{ 'UDN_CATALOG.address' | translate }}</label>
-                        <input type="text" name="centro" ng-model="vm.selected_udn.direccion" ng-required="true"/>
+                        <input type="text" name="centro" ng-model="vm.selected_udn.direccion" ng-required="true" ng-disabled="vm.selected_udn.deleted"/>
                         <div ng-messages="inputForm.direccion.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>{{ 'UDN_CATALOG.phone' | translate }}</label>
-                        <input type="text" name="telefono" ng-model="vm.selected_udn.telefono" ng-required="true"/>
+                        <input type="text" name="telefono" ng-model="vm.selected_udn.telefono" ng-required="true" ng-disabled="vm.selected_udn.deleted"/>
                         <div ng-messages="inputForm.telefono.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>
@@ -72,15 +82,20 @@
                 </form>
                 <div flex="flex" layout="row" layout-align="end end">
                     <md-button aria-label="fab button" ng-click="vm.cancel()" class="md-raised md-primary"><md-icon md-font-icon="fa fa-eraser"></md-icon></md-button>
-                    <md-button ng-if="vm.selected_udn.id!=null &amp;&amp; vm.selected_udn.id!=undefined" ng-disabled="inputForm.$invalid" ng-click="vm.update()" class="md-raised md-primary">
+                    <md-button ng-if="vm.selected_udn.id!=null &amp;&amp; vm.selected_udn.id!=undefined" ng-disabled="inputForm.$invalid || vm.selected_udn.deleted" ng-click="vm.update()" class="md-raised md-primary">
                         <md-icon md-font-icon="fa fa-pencil"></md-icon>
                     </md-button>
                     <md-button ng-if="vm.selected_udn.id==null || vm.selected_udn.id==undefined" ng-disabled="inputForm.$invalid" ng-click="vm.create()" class="md-raised md-primary">
                         <md-icon md-font-icon="fa fa-save"></md-icon>
                     </md-button>
-                    <md-button ng-if="vm.selected_udn.id!=null &amp;&amp; vm.selected_udn.id!=undefined" ng-click="vm.remove()" class="md-raised md-warn">
+                    <md-button ng-if="vm.selected_udn.id!=null &amp;&amp; vm.selected_udn.id!=undefined && vm.selected_udn.deleted==false" ng-click="vm.remove()" class="md-raised md-warn">
                         <md-icon md-font-icon="fa fa-trash"></md-icon>
                     </md-button>
+
+                    <md-button ng-if="vm.selected_udn.id!=null &amp;&amp; vm.selected_udn.id!=undefined && vm.selected_udn.deleted==true" ng-click="vm.restore()" class="md-raised md-warn">
+                        <md-icon md-font-icon="zmdi zmdi-time-restore"></md-icon>
+                    </md-button>
+
                 </div>
             </div>
         </div>

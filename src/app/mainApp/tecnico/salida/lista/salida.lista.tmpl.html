@@ -36,7 +36,7 @@
                                 <md-button ng-click="vm.selectedSalida(salida)"
                                            layout-padding layout="row"
                                            layout-align="start center"
-                                           ng-class="{'inbox-list__email--active' : salida === vm.selectedSalidaList }">
+                                           ng-class="{'inbox-list__email--active' : salida.id == vm.selectedSalidaList.id }">
                                     <md-icon md-svg-icon="assets/images/remission.svg" class="avatar"></md-icon>
                                     <div class="md-list-item-text" layout="column">
                                         <h3><b>{{'OUTPUT_LIST.FORM.LABEL.FOLIO'|translate}}</b> {{salida.id }}</h3>
@@ -79,7 +79,7 @@
                                     </md-input-container>
                                 </div>
                                 <div layout="row" layout-sm="column" layout-xs="column" layout-align="center center"
-                                     layout-align-sm="center stretch" layout-align-xs="center stretch">
+                                     layout-align-sm="center stretch" layout-align-xs="center stretch" layout-wrap>
 
 
                                     <md-input-container flex="100" class="md-inline-form">

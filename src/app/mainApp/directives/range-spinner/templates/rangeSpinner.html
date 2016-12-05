@@ -1,0 +1,7 @@
+<div class="rangespinner">
+    <div>
+        <button type="button" ng-click="rangeMinusFunc()" ng-disabled="disabledField">-</button>
+        <input name="{{nameOfField}}" id="{{idOfField}}" type="text" ng-disabled="disabledField" range-min="{{rangeMin}}" range-step="{{rangeStep}}" range-max="{{rangeMax}}" ng-model="rangeModel" required>
+        <button type="button" ng-click="rangePlusFunc()" ng-disabled="disabledField">+</button>
+    </div>
+</div>

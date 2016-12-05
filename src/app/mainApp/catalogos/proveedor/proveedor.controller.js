@@ -19,7 +19,7 @@
         vm.proveedor_list = null;
         vm.proveedor = null;
 
-        vm.text = 'Hola';
+        vm.toggleDeleted = true;
 
         //Functions
         vm.lookup = lookup;
@@ -28,6 +28,8 @@
         vm.update = update;
         vm.create = create;
         vm.remove = remove;
+        vm.restore = restore;
+        vm.toggleDeletedFunction = toggleDeletedFunction;
         vm.clickRepeater = clickRepeater;
 
         activate();
@@ -41,21 +43,31 @@
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
             vm.successUpdateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_UPDATE');
             vm.successDeleteMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_DELETE');
+            vm.successRestoreMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_RESTORE');
             vm.deleteButton=Translate.translate('MAIN.BUTTONS.DELETE');
+            vm.restoreButton=Translate.translate('MAIN.BUTTONS.RESTORE');
             vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
             vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
             vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
+            vm.dialogRestoreTitle=Translate.translate('MAIN.DIALOG.RESTORE_TITLE');
+            vm.dialogRestoreMessage=Translate.translate('MAIN.DIALOG.RESTORE_MESSAGE');
+            vm.duplicateMessage=Translate.translate('Provider.duplicate');
             listProveedores();
         }
 
         function listProveedores()
         {
-            Proveedor.listObject().then(function(res){
-                vm.proveedor_list = Helper.filterDeleted(res, true);
+            vm.loadingPromise = Proveedor.listObject().then(function(res){
+                vm.proveedor_list = Helper.filterDeleted(res, vm.toggleDeleted);
                 vm.proveedor_list = Helper.sortByAttribute(vm.proveedor_list, 'razon_social');
             }).catch(function(err){
 
             });
+        }
+
+        function toggleDeletedFunction() {
+            listProveedores();
+            cancel();
         }
 
         function lookup(search_text){
@@ -67,11 +79,13 @@
 
         function selectedItemChange(item)
         {
+            vm.selected_proveedor = item.clone();
 
         }
 
         function clickRepeater(item){
             vm.proveedor = item.clone();
+            vm.selected_proveedor = vm.proveedor;
         }
 
         function  cancel(){
@@ -79,24 +93,39 @@
             $scope.inputForm.$setUntouched();
 
             vm.proveedor = null;
+            vm.selected_proveedor = null;
         }
 
         function update(){
-            Proveedor.update(vm.proveedor).then(function(res){
+            Proveedor.update(vm.selected_proveedor).then(function(res){
                 toastr.success(vm.successUpdateMessage,vm.successTitle);
                 listProveedores();
             }).catch(function(err){
-                toastr.error(vm.errorMessage,vm.errorTitle);
+                if(err.status==400 && err.data.razon_social != undefined)
+                {
+                    toastr.error(vm.duplicateMessage,vm.errorTitle);
+                }else{
+                    toastr.error(vm.errorMessage,vm.errorTitle);
+                }
             });
         }
 
         function create()
         {
-            Proveedor.create(vm.proveedor).then(function(res){
+            vm.selected_proveedor.razon_social = vm.selected_proveedor.razon_social.toUpperCase();
+            Proveedor.create(vm.selected_proveedor).then(function(res){
                 listProveedores();
                 toastr.success(vm.successCreateMessage,vm.successTitle);
             }).catch(function(err){
-                toastr.error(vm.errorMessage,vm.errorTitle);
+                if(err.status==400 && err.data.razon_social != undefined)
+                {
+                    toastr.error(vm.duplicateMessage,vm.errorTitle);
+
+                }
+                else{
+                    toastr.error(vm.errorMessage,vm.errorTitle);
+                }
+
             });
         }
 
@@ -110,7 +139,7 @@
                 .ok(vm.deleteButton)
                 .cancel(vm.cancelButton);
             $mdDialog.show(confirm).then(function() {
-                Proveedor.remove(vm.proveedor).then(function(res){
+                Proveedor.remove(vm.selected_proveedor).then(function(res){
                     toastr.success(vm.successDeleteMessage, vm.successTitle);
                     cancel();
                     activate();
@@ -122,6 +151,30 @@
             });
 
         }
+
+        function restore() {
+            var confirm = $mdDialog.confirm()
+                .title(vm.dialogRestoreTitle)
+                .textContent(vm.dialogRestoreMessage)
+                .ariaLabel('Confirmar restauración')
+                .ok(vm.restoreButton)
+                .cancel(vm.cancelButton);
+            $mdDialog.show(confirm).then(function() {
+                vm.selected_proveedor.deleted=false;
+                Proveedor.update(vm.selected_proveedor).then(function (res) {
+                    toastr.success(vm.successRestoreMessage, vm.successTitle);
+                    cancel();
+                    activate();
+                }).catch(function (res) {
+                    vm.selected_proveedor.deleted=true;
+                    toastr.warning(vm.errorMessage, vm.errorTitle);
+                });
+            }, function() {
+
+            });
+
+        }
+
 
     }
 

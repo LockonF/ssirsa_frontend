@@ -57,7 +57,7 @@
                                              hide-sm="hide-sm"
                                              layout-fill
                                              class="vr-min-height">
-                    <md-list flex="flex">
+                    <md-list flex="flex"  cg-busy="{promise:vm.reportPromise,message:'Cargando reportes...',templateUrl:'app/mainApp/directives/loading.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
                         <md-list-item flex="flex" ng-repeat="item in vm.reports | reportSearch:vm.searchParameter">
                             <md-button
                                 ng-click="vm.selected(item)"
