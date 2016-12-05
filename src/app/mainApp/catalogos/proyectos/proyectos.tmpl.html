@@ -73,7 +73,11 @@
                 <form name="formProject" novalidate>
                     <md-input-container class="md-block">
                         <label>{{'Projects.Fields.ProjectName'|translate}}</label>
-                        <input name="ProjectName" type="text" required="" md-no-asterisk=""
+                        <input name="ProjectName"
+                               type="text"
+                               required=""
+                               md-no-asterisk=""
+                               ng-disabled="!vm.toggleDeleted"
                                ng-model="vm.project.descripcion">
                         <div ng-messages="formProject.ProjectName.$error">
                             <div ng-message="required">{{'Projects.Errors.Required'|translate}}</div>

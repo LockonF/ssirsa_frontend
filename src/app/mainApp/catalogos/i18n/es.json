@@ -235,6 +235,7 @@
             "Error": "Error",
             "Success": "Éxito",
             "Warning": "Advertencia",
+            "Information": "Información",
             "Messages": {
                 "ERROR_GETTING_PROJECTS": "Error al obtener la lista de proyectos",
                 "ERROR_CREATING_PROJECT": "Error al crear el proyecto",
@@ -245,7 +246,8 @@
                 "ERROR_REMOVING_PROJECT": "Error al eliminar proyecto",
                 "SUCCESS_UPDATING_PROJECT": "Proyecto actualizado correctamente",
                 "ERROR_UPDATING_PROJECT": "Error al eliminar proyecto",
-                "CONFIRM_RESTORE":"¿Seguro que desea restaurar el elemento?"
+                "CONFIRM_RESTORE":"¿Seguro que desea restaurar el elemento?",
+                "EXISTING_ELEMENT":"Existe un proyecto con el mismo nombre"
             }
         }
     },

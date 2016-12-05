@@ -45,6 +45,8 @@
         vm.dialogMessage = Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
         vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
         vm.dialogMessage2 = Translate.translate('Projects.Notify.Messages.CONFIRM_RESTORE');
+        vm.informationTitle = Translate.translate('Projects.Notify.Information');
+        vm.duplicateMessage = Translate.translate('Projects.Notify.Messages.EXISTING_ELEMENT');
 
         function activate() {
             vm.project = null;
@@ -64,7 +66,11 @@
                 vm.clear();
                 activate();
             }).catch(function (err) {
-                toastr.error(vm.errorCreate, vm.errorTitle);
+                if(err.data.descripcion != null){
+                    toastr.info(vm.duplicateMessage,vm.informationTitle);
+                }
+                else 
+                    toastr.error(vm.errorCreate, vm.errorTitle);
             });
         }
 
@@ -74,7 +80,11 @@
                 vm.clear();
                 activate();
             }).catch(function (err) {
-                toastr.error(vm.errorUpdate, vm.errorTitle);
+                if(err.data.descripcion != null){
+                    toastr.info(vm.duplicateMessage,vm.informationTitle);
+                }
+                else
+                    toastr.error(vm.errorUpdate, vm.errorTitle);
             });
         }
 
