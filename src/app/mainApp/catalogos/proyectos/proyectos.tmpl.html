@@ -102,7 +102,7 @@
                        class="md-raised md-primary" ng-disabled="formClient.$invalid" aria-label="save">
                 <md-icon md-font-icon="fa fa-save"></md-icon>
             </md-button>
-            <md-button ng-if="vm.project.id!=null && vm.project.id!=undefined" ng-click="vm.update()" md-no-ink
+            <md-button ng-if="vm.project.id!=null && vm.project.id!=undefined && vm.project.deleted==false" ng-click="vm.update()" md-no-ink
                        class="md-raised md-primary" ng-disabled="formClient.$invalid" aria-label="modify">
                 <md-icon md-font-icon="fa fa-pencil"></md-icon>
             </md-button>
