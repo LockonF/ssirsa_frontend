@@ -240,9 +240,12 @@
                 "ERROR_CREATING_PROJECT": "Error al crear el proyecto",
                 "SUCCESS_CREATING_PROJECT": "Proyecto creado correctamente",
                 "SUCCESS_REMOVING_PROJECT": "Proyecto eliminado correctamente",
+                "SUCCESS_RESTORE_PROJECT":"Proyecto restaurado correctamente",
+                "ERROR_RESTORE_PROJECT":"Error al restaurar proyecto",
                 "ERROR_REMOVING_PROJECT": "Error al eliminar proyecto",
                 "SUCCESS_UPDATING_PROJECT": "Proyecto actualizado correctamente",
-                "ERROR_UPDATING_PROJECT": "Error al eliminar proyecto"
+                "ERROR_UPDATING_PROJECT": "Error al eliminar proyecto",
+                "CONFIRM_RESTORE":"¿Seguro que desea restaurar el elemento?"
             }
         }
     },

@@ -39,6 +39,14 @@
                     <md-not-found><span translate="Projects.Errors.Not_Found"></span></md-not-found>
                 </md-autocomplete>
 
+                <md-switch ng-model="vm.toggleDeleted" ng-change="vm.toggleDeletedFunction()">
+                    <span ng-if="vm.toggleDeleted" hide-xs hide-sm>{{'MAIN.MODEL.SHOW_ACTIVE' | translate}}</span>
+                    <span ng-if="vm.toggleDeleted" hide-gt-sm>{{'MAIN.MODEL.SHOW_ACTIVE_MOBILE' | translate}}</span>
+                    <span ng-if="!vm.toggleDeleted" hide-xs hide-sm>{{'MAIN.MODEL.SHOW_DELETED' | translate}}</span>
+                    <span ng-if="!vm.toggleDeleted" hide-gt-sm>{{'MAIN.MODEL.SHOW_DELETED_MOBILE' | translate}}</span>
+
+                </md-switch>
+
                 <md-virtual-repeat-container id="vertical_container"
                                              flex="flex"
                                              hide-xs="hide-xs"
@@ -78,7 +86,11 @@
             <md-button ng-click="vm.clear()" md-no-ink class="md-raised md-primary" aria-label="clear">
                 <md-icon md-font-icon="fa fa-eraser"></md-icon>
             </md-button>
-            <md-button ng-if="vm.project.id!=null && vm.project.id!=undefined" ng-click="vm.remove()" md-no-ink
+            <md-button ng-if="vm.project.id!=null && vm.project.id!=undefined && vm.project.deleted==true" ng-click="vm.restore()"
+                       class="md-raised md-warn" aria-label="restore">
+                <md-icon md-font-icon="zmdi zmdi-time-restore"></md-icon>
+            </md-button>
+            <md-button ng-if="vm.project.id!=null && vm.project.id!=undefined && vm.project.deleted==false" ng-click="vm.remove()" md-no-ink
                        class="md-raised md-primary" aria-label="delete">
                 <md-icon md-font-icon="fa fa-trash"></md-icon>
             </md-button>
