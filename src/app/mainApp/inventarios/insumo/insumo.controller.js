@@ -12,7 +12,7 @@
         //Variable definition
         var vm = this;
         vm.searchText = "";
-        vm.cantidad="1";
+        vm.cantidad = "1";
         vm.showElements = false;
         vm.choices = [
             Translate.translate('SUPPLIES.FIELDS.KIND_CHOICES.UNIQUE'),
@@ -30,8 +30,8 @@
         vm.selectionChanged = selectionChanged;
         vm.selectedItemChange = selectedItemChange;
         vm.search = search;
-        vm.clear=clear;
-        vm.create=create;
+        vm.clear = clear;
+        vm.create = create;
 
         //Blank variables
         var insumo = {
@@ -59,7 +59,7 @@
             });
             vm.selectedInsumos = {};
             vm.selectedInsumo = null;
-            vm.selectedKind=null;
+            vm.selectedKind = null;
             vm.isValid = false;
             vm.insumo = angular.copy(insumo);
         }
@@ -108,12 +108,13 @@
             return yyyy + '-' + mm + '-' + dd;
         }
 
-        function clear(){
-            vm.cantidad="1";
+        function clear() {
+            vm.cantidad = "1";
             vm.selectedInsumos = {};
             vm.selectedInsumo = null;
-            vm.selectedKind=null;
+            vm.selectedKind = null;
             vm.isValid = false;
+            vm.searchText = "";
             vm.insumo = angular.copy(insumo);
 
             $scope.supplyForm.$setPristine();
@@ -121,20 +122,20 @@
             $scope.supplyForm.$invalid = true;
         }
 
-        function create(){
-            vm.selectedInsumo.cantidad=String(parseInt(vm.selectedInsumo.cantidad)+parseInt(vm.cantidad));
-            vm.insumo.catalogo=vm.selectedInsumo.id;
-            vm.insumo.fecha_alta=getToday();
-            CatalogoInsumo.update(vm.selectedInsumo).then(function(){
-                Insumo.create(vm.insumo).then(function(){
-                   toastr.success(vm.successMessage,vm.successTitle);
+        function create() {
+            vm.selectedInsumo.cantidad = String(parseInt(vm.selectedInsumo.cantidad) + parseInt(vm.cantidad));
+            vm.insumo.catalogo = vm.selectedInsumo.id;
+            vm.insumo.fecha_alta = getToday();
+            CatalogoInsumo.update(vm.selectedInsumo).then(function () {
+                Insumo.create(vm.insumo).then(function () {
+                    toastr.success(vm.successMessage, vm.successTitle);
                     clear();
-                }).catch(function(){
-                    vm.selectedInsumo.cantidad=String(parseInt(vm.selectedInsumo.cantidad)-parseInt(vm.cantidad));
+                }).catch(function () {
+                    vm.selectedInsumo.cantidad = String(parseInt(vm.selectedInsumo.cantidad) - parseInt(vm.cantidad));
                     CatalogoInsumo.update(vm.selectedInsumo);
                 });
-            }).catch(function(){
-                toastr.error(vm.errorMesssage,vm.errorTitle);
+            }).catch(function () {
+                toastr.error(vm.errorMesssage, vm.errorTitle);
             });
         }
 
