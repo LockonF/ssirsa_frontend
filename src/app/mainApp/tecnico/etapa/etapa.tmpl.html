@@ -32,12 +32,12 @@
 
                 </md-button>
                 <md-button ng-if="vm.etapaActual.actual_etapa.nombre=='E1'|| vm.etapaActual.actual_etapa.nombre=='E4'"
-                           class="md-raised md-primary"
+                           class="md-raised md-primary"  aria-label="Prechecklist"
                            ng-click="vm.showPreCheckDialog(ev)">
                     <md-icon md-font-icon="fa fa-check-square"></md-icon>
                 </md-button>
                 <md-button ng-if="vm.etapaActual.actual_etapa.nombre=='E2'" class="md-raised md-primary"
-                           ng-click="vm.showDiagnosticoDialog(ev)">
+                           ng-click="vm.showDiagnosticoDialog(ev)"  aria-label="Diafnostico">
                     <md-icon md-font-icon="fa fa-check-square"></md-icon>
                 </md-button>
             </div>
@@ -93,7 +93,7 @@
                     <div layout="column">
                         <div layout="row" layout-sm="row" layout-xs="column">
                             <md-input-container flex>
-                                <md-button class="md-fab" class="md-primary" aria-label="fab button"
+                                <md-button class="md-fab" class="md-primary" aria-label="Buscar"
                                            ng-disabled="form2.Buscar.$invalid || vm.disabledBuscar"
                                            ng-click="vm.buscar(); $event.stopPropagation();">
                                     <md-icon md-font-icon="zmdi zmdi-zoom-in"></md-icon>
