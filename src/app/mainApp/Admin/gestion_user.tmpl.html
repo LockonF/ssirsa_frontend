@@ -17,15 +17,33 @@
                         <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
                     </div>
                 </md-input-container>
+
+                <!--label>Must contain the word <strong>blah</strong> (case insensitive)
+                    <br/>
+                    <input type="text" placeholder="Enter text here"
+                           ng-model="test" name="test"
+                           regex-validate="^[A-Za-zsáéíóúÁÉÍÓÚÑñ ]{8,25}$"
+                           regexValidateTwo="^[A-Za-zsáéíóúÁÉÍÓÚÑñ ]*$"
+                    />
+                </label>
+                <span style="color:red" ng-show="objectForm.test.$error.regexValidate">WRONG!1</span>
+                <span ng-show="objectForm.test.$error.regexValidateTwo">This is not a valid username, it must be alphanmueric</span-->
+
+
                 <md-input-container class="md-block">
                     <label>{{'ADMIN_PERSONA.PROPERTY.PASSWORD'|translate}}</label>
                     <md-icon md-font-icon="zmdi zmdi-key"></md-icon>
-                    <input type="password" ng-model="vm.user_ini.user.password" name="password" required="required" ng-pattern="/^[A-Za-z0-9_.-@]{8,25}$/"/>
+                    <input type="password" ng-model="vm.user_ini.user.password" name="password" required="required" ng-pattern="/^([A-Za-z0-9_.-@]{8,25})$/"/>
                     <div ng-messages="objectForm.password.$error">
                         <div ng-message="pattern">
                             {{'ADMIN_PERSONA.ERROR_MESSAGE.PASSWORD'|translate}}
                         </div>
                         <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
+                    </div>
+                    <div ng-messages="objectForm.test.$error.regexValidate">
+                        <div ng-message="objectForm.test.$error.regexValidate">
+                            ERROR
+                        </div>
                     </div>
                 </md-input-container>
                 <md-input-container class="md-block">
@@ -92,7 +110,7 @@
                     <md-input-container md-no-float="" class="md-block">
                         <label>{{'ADMIN_PERSONA.PROPERTY.EMAIL'|translate}}</label>
                         <md-icon md-font-icon="zmdi zmdi-email"></md-icon>
-                        <input type="email" ng-model="vm.user_ini.user.email" name="email" required="required" ng-pattern="/^.+@.+..+$/"/>
+                        <input type="email" ng-model="vm.user_ini.user.email" name="email" required="required" ng-pattern="/^.+@.+\..+$/"/>
                         <div ng-messages="objectForm.email.$error">
                             <div ng-message="pattern">{{'ADMIN_PERSONA.ERROR_MESSAGE.EMAIL'|translate}}</div>
                             <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
@@ -119,13 +137,15 @@
                             <md-button flex="flex" ngf-select="vm.selectionFoto($files)" ngf-accept="'image/*'" required="required" ng-disabled="false" ngf-multiple="false" ng-model="vm.picFoto" aria-label="upload" class="md-primary md-raised">
                                 <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>                                    {{'ADMIN_PERSONA.PROPERTY.ARCHIVO'|translate}}
                                 <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>
-                            </md-button><img src="assets/images/dashboards/weather.jpg" alt="Card Image" ng-if="vm.picFoto==null" width="120" height="120"/><img ngf-src="vm.picFoto" width="120" height="120" ng-if="vm.picFoto!=null"/>
+                            </md-button><img src="assets/images/dashboards/weather.jpg" alt="Card Image" ng-if="vm.fotoByPass==null" width="120" height="120"/>
+                            <img ngf-src="vm.fotoByPass" width="120" height="120" ng-if="vm.fotoByPass!=null"/>
                         </div>
                         <div layout="column" layout-align="center center"><span class="md-headline">{{'ADMIN_PERSONA.PROPERTY.INE'|translate}}</span>
                             <md-button flex="flex" ngf-select="vm.selectionIFE($files)" ngf-accept="'image/*'" required="required" ng-disabled="false" ngf-multiple="false" ng-model="vm.picIFE" aria-label="upload" class="md-primary md-raised">
                                 <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>                                    {{'ADMIN_PERSONA.PROPERTY.ARCHIVO'|translate}}
                                 <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>
-                            </md-button><img src="assets/images/dashboards/weather.jpg" alt="Card Image" ng-show="vm.picIFE==null" width="120" height="120"/><img ngf-src="vm.picIFE" width="120" height="120" ng-if="vm.picIFE!=null"/>
+                            </md-button><img src="assets/images/dashboards/weather.jpg" alt="Card Image" ng-show="vm.picIFE==null" width="120" height="120"/>
+                            <img ngf-src="vm.ifeByPass" width="120" height="120" ng-if="vm.picIFE!=null"/>
                         </div>
                     </div>
 
