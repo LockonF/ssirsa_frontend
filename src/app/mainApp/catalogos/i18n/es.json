@@ -275,6 +275,7 @@
             "Error": "Error",
             "Success": "Éxito",
             "Warning": "Advertencia",
+            "Information":"Información",
             "Messages": {
                 "ERROR_GETTING_CLIENTS": "Error al obtener la lista de clientes",
                 "ERROR_CREATING_CLIENT": "Error al crear el cliente",
@@ -282,7 +283,8 @@
                 "SUCCESS_REMOVING_CLIENT": "Cliente eliminado correctamente",
                 "ERROR_REMOVING_CLIENT": "Error al eliminar cliente",
                 "SUCCESS_UPDATING_CLIENT": "Cliente actualizado correctamente",
-                "ERROR_UPDATING_CLIENT": "Error al actualizar cliente"
+                "ERROR_UPDATING_CLIENT": "Error al actualizar cliente",
+                "EXISTING_ELEMENT":"Existe un cliente con el mismo nombre de usuario"
             }
         }
     }

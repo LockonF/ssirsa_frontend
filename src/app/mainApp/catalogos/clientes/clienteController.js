@@ -42,6 +42,8 @@
         vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
         vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
         vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
+        vm.informationTitle = Translate.translate('Clients.Notify.Information');
+        vm.duplicateMessage = Translate.translate('Clients.Notify.Messages.EXISTING_ELEMENT');
 
         activate();
 
@@ -66,10 +68,10 @@
             vm.clients=Clientes.list();
             vm.filteredClients=vm.clients;
             vm.client=angular.copy(client);
+            vm.user=user;
             Clientes.getClienteId().then(function(res){
                 vm.role=res[0].id;
             });
-            vm.user=user;
         }
 
         function create() {
@@ -80,7 +82,11 @@
                 activate();
                 vm.clear();
             }).catch(function(err){
-                toastr.error(vm.errorCreate,vm.errorTitle);
+                if(err.data.message != null){
+                    toastr.info(vm.duplicateMessage,vm.informationTitle);
+                }
+                else
+                    toastr.error(vm.errorCreate,vm.errorTitle);
             });
         }
 
