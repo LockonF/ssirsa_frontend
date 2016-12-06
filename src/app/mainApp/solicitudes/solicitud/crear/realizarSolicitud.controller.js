@@ -94,6 +94,7 @@
             vm.sucessMassive=Translate.translate('INPUT.Messages.SuccessMassive');
             vm.errorMassive=Translate.translate('INPUT.Messages.ErrorMassive');
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
+            vm.errorDuplicado = Translate.translate('CREATE_REQUEST.FORM.ERROR.ERRORDUPLICADO');
             udn.listObject().then(function (res) {
                 vm.udns=Helper.filterDeleted(res,true);
                 vm.udns=_.sortBy(vm.udns, 'agencia');
@@ -161,7 +162,16 @@
                 fullscreen: false
             };
             $mdDialog.show(config).then(function (object) {
-                vm.requisito.datos.push(object);
+                console.log(object);
+                console.log(vm.requisito.datos);
+                 var show = _.findWhere(vm.requisito.datos, {status_equipo: object.status_equipo, tipo_equipo:object.tipo_equipo});
+                if(show==undefined){
+                    vm.requisito.datos.push(object);
+                }
+                else{
+                    toastr.warning(vm.errorDuplicado,'Error');
+                }
+
             }
             );
         }
