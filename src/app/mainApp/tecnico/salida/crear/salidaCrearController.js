@@ -10,7 +10,7 @@
         .filter('salidaSearch', salidaSearch)
         .filter('tipoequipoSearch', tipoequipoSearch);
 
-    function salidaCrearController(EntradaSalida, OPTIONS, ModeloCabinet, Persona, $mdDialog, TipoEquipo, Helper, Translate, toastr, Sucursal, udn, Cabinet, CabinetEntradaSalida, TipoTransporte, $scope, LineaTransporte) {
+    function salidaCrearController(EntradaSalida,Clientes, OPTIONS, ModeloCabinet, Persona, $mdDialog, TipoEquipo, Helper, Translate, toastr, Sucursal, udn, Cabinet, CabinetEntradaSalida, TipoTransporte, $scope, LineaTransporte) {
         var vm = this;
         vm.guardar = guardar;
         vm.selectionFile = selectionFile;
@@ -19,6 +19,7 @@
         vm.showManualUpload = showManualUpload;
         vm.cabinetSearch = cabinetSearch;
         vm.nextTab = nextTab;
+        vm.lookupByEconomico=lookupByEconomico;
         vm.clear = clear;
         vm.search = search;
         vm.lookupUDN = lookupUDN;
@@ -38,11 +39,14 @@
         vm.hideRegisteredCabinets = true;
         vm.hideUnregisteredCabinets = true;
         vm.selectedCabinets = [];
+        vm.cabinetsEntrada=[];
+
         vm.loading = true;
         vm.types = OPTIONS.type_out;
         vm.isValid = false;
         vm.outputWasCorrect = false;
         vm.filtrado = false;
+        vm.economic_lookup_var = null;
         //Models
 
         vm.cabinets = null;
@@ -60,7 +64,7 @@
             "tipo_transporte": "",
             "udn": null,
             "file": null,
-
+            "cliente":null,
             "creados": null,
             "no_creados": null,
             "cabinets": null
@@ -79,6 +83,9 @@
                 fd.append('pedimento', vm.salida.pedimento);
 
             fd.append('nombre_chofer', vm.salida.nombre_chofer);
+            var cliente=vm.salida.cliente.nombre+" "+vm.salida.cliente.apellido_paterno+" "+vm.salida.cliente.apellido_materno;
+            fd.append('cliente',cliente);
+
             fd.append('linea_transporte', vm.salida.linea_transporte);
 
             if (vm.salida.proyecto != null)
@@ -88,20 +95,23 @@
             fd.append('udn', vm.salida.udn.id);
             if (vm.salida.id != null)
                 fd.append("id", vm.salida.id);
-            if (vm.salida.ife_chofer != null && vm.salida.ife_chofer != "")
-                fd.append('ife_chofer', vm.salida.ife_chofer);
+            
+            if (vm.fotoGeneral != null && vm.fotoGeneral != "" && !(angular.isUndefined(vm.fotoGeneral)))
+                fd.append('ife_chofer', vm.fotoGeneral);
             //Is massive upload
             if (vm.salida.file != null) {
                 fd.append('file', vm.salida.file);
                 vm.salida.no_creados = null;
                 vm.salida.creados = null;
-                EntradaSalida.postSalidaMasiva(fd).then(function (res) {
+                vm.loadingPromise=EntradaSalida.postSalidaMasiva(fd).then(function (res) {
                     vm.hideRegisteredCabinets = false;
                     vm.hideUnregisteredCabinets = true;
                     vm.salida.creados = res.creados;
+
                     toastr.success(vm.successMassive, vm.successTitle);
                     vm.outputWasCorrect = true;
                 }).catch(function (err) {
+                    
                     vm.hideUnregisteredCabinets = false;
                     vm.hideRegisteredCabinets = true;
                     if (err.status == 400) {
@@ -148,24 +158,26 @@
             }
 
         }
-
+        function lookupByEconomico () {
+            if(vm.economicoFilter!='' && vm.economicoFilter!=null){
+                var status = vm.types[vm.selectedEntrada].value_service;
+                vm.loadingPromise= Cabinet.loadByStatus(status,vm.economicoFilter).then(function (res) {
+                    vm.cabinetsEntrada=res;
+                });
+            }else{
+                vm.cabinetsEntrada=[];
+            }
+        }
         function changeType() {
             if (!vm.hideManualUpload) {
-                vm.selectedCabinets = null;
-                var status = vm.types[vm.selectedEntrada].value_service;
-                Cabinet.loadByStatus(status).then(function (res) {
-                    vm.cabinetsEntrada = Helper.filterDeleted(res, true);
-                    vm.cabinetsEntrada = _.sortBy(vm.cabinetsEntrada, 'economico');
-                    vm.loading = false;
-                }).catch(function (err) {
-                    toastr.error(vm.errorMessage, vm.errorTitle);
-                });
+                vm.cabinetsEntrada=[];
+                vm.economicoFilter=null;
             }
         }
 
         function entradaManual(fd) {
 
-            EntradaSalida.postEntrada(fd).then(function (res) {
+            vm.loadingPromise=EntradaSalida.postEntrada(fd).then(function (res) {
                 var selected = _.chain(vm.selectedCabinets)
                     .map(function (cabinet) {
                         return {economico: cabinet};
@@ -186,6 +198,7 @@
                     toastr.error(vm.errorMessage, vm.errorTitle);
                 });
             }).catch(function (err) {
+                
                 toastr.error(vm.errorMessage, vm.errorTitle);
             });
         }
@@ -217,6 +230,9 @@
                         toastr.warning(vm.errorTypeFile, vm.errorTitle);
                         vm.salida.ife_chofer = null;
                     }
+                }else{
+
+                    vm.fotoGeneral=file;
                 }
             }
         }
@@ -277,6 +293,12 @@
             }).catch(function (err) {
                 toastr.error(vm.errorMessage, vm.errorTitle);
             });
+            Clientes.listObject().then(function (res) {
+                vm.clients=res;
+                vm.clients=_.sortBy(vm.clients, 'nombre');
+            }).catch(function (err) {
+                toastr.error(vm.errorMessage, vm.errorTitle);
+            });
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
@@ -291,6 +313,7 @@
             vm.dialogTitle = Translate.translate('OUTPUT.FORM.DIALOG.SEND_TITLE');
             vm.dialogMessage = Translate.translate('OUTPUT.FORM.DIALOG.SEND_MESSAGE');
             vm.dialogSureMessage = Translate.translate('OUTPUT.FORM.DIALOG.SEND_INCONSISTENCE');
+            vm.message=Translate.translate('OUTPUT.FORM.LABEL.SEARCH_CABINET');
             Persona.listProfile().then(function (res) {
                 if (res.sucursal != null) {
                     vm.sucursal = res.sucursal;
@@ -308,11 +331,14 @@
             vm.salida.creados = null;
             vm.hideUnregisteredCabinets = true;
             vm.hideRegisteredCabinets = true;
+            vm.economicoFilter=null;
+            vm.cabinetsEntrada=null;
         }
 
         function clear() {
             vm.hideUnregisteredCabinets = true;
             vm.hideRegisteredCabinets = true;
+            vm.fotoGeneral=true;
             vm.salida = angular.copy(salida);
             vm.salida.sucursal = vm.sucursal;
             $scope.entradaForm.$setPristine();
@@ -335,14 +361,8 @@
             vm.hideRegisteredCabinets = true;
             vm.salida.file = null;
             vm.loading = true;
-            var status = vm.types[vm.selectedEntrada].value_service;
-            Cabinet.loadByStatus(status).then(function (res) {
-                vm.cabinetsEntrada = Helper.filterDeleted(res, true);
-                vm.cabinetsEntrada = _.sortBy(vm.cabinetsEntrada, 'economico');
-                vm.loading = false;
-            }).catch(function (err) {
-                toastr.error(vm.errorMessage, vm.errorTitle);
-            });
+            vm.economicoFilter=null;
+            vm.cabinetsEntrada=null;
 
         }
 

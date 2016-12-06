@@ -19,7 +19,7 @@
         vm.proveedor_list = null;
         vm.proveedor = null;
 
-        vm.text = 'Hola';
+        vm.toggleDeleted = true;
 
         //Functions
         vm.lookup = lookup;
@@ -28,6 +28,8 @@
         vm.update = update;
         vm.create = create;
         vm.remove = remove;
+        vm.restore = restore;
+        vm.toggleDeletedFunction = toggleDeletedFunction;
         vm.clickRepeater = clickRepeater;
 
         activate();
@@ -41,22 +43,31 @@
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
             vm.successUpdateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_UPDATE');
             vm.successDeleteMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_DELETE');
+            vm.successRestoreMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_RESTORE');
             vm.deleteButton=Translate.translate('MAIN.BUTTONS.DELETE');
+            vm.restoreButton=Translate.translate('MAIN.BUTTONS.RESTORE');
             vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
             vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
             vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
+            vm.dialogRestoreTitle=Translate.translate('MAIN.DIALOG.RESTORE_TITLE');
+            vm.dialogRestoreMessage=Translate.translate('MAIN.DIALOG.RESTORE_MESSAGE');
             vm.duplicateMessage=Translate.translate('Provider.duplicate');
             listProveedores();
         }
 
         function listProveedores()
         {
-            Proveedor.listObject().then(function(res){
-                vm.proveedor_list = Helper.filterDeleted(res, true);
+            vm.loadingPromise = Proveedor.listObject().then(function(res){
+                vm.proveedor_list = Helper.filterDeleted(res, vm.toggleDeleted);
                 vm.proveedor_list = Helper.sortByAttribute(vm.proveedor_list, 'razon_social');
             }).catch(function(err){
 
             });
+        }
+
+        function toggleDeletedFunction() {
+            listProveedores();
+            cancel();
         }
 
         function lookup(search_text){
@@ -140,6 +151,30 @@
             });
 
         }
+
+        function restore() {
+            var confirm = $mdDialog.confirm()
+                .title(vm.dialogRestoreTitle)
+                .textContent(vm.dialogRestoreMessage)
+                .ariaLabel('Confirmar restauración')
+                .ok(vm.restoreButton)
+                .cancel(vm.cancelButton);
+            $mdDialog.show(confirm).then(function() {
+                vm.selected_proveedor.deleted=false;
+                Proveedor.update(vm.selected_proveedor).then(function (res) {
+                    toastr.success(vm.successRestoreMessage, vm.successTitle);
+                    cancel();
+                    activate();
+                }).catch(function (res) {
+                    vm.selected_proveedor.deleted=true;
+                    toastr.warning(vm.errorMessage, vm.errorTitle);
+                });
+            }, function() {
+
+            });
+
+        }
+
 
     }
 

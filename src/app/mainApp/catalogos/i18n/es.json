@@ -9,7 +9,8 @@
                 "RESPONSABLE": "Responsable",
                 "INFO_TRANSPORT_LINE": "Información de Linea de Transporte",
                 "NEW_REGISTER": "Registro de Linea de Transporte",
-                "PLUS-PHONE": "+Teléfono"
+                "PLUS-PHONE": "+Teléfono",
+                "DUPLICATE":"Ya existe una Linea de Transporte con esta razón social"
             },
             "PLACEHOLDER": {
                 "SEARCH_TRANSPORT_LINE": "Busca tu linea de transporte",
@@ -53,7 +54,8 @@
                 "RESPONSABLE": "Responsable",
                 "INFO_BRANCH": "Información de Sucursal",
                 "NEW_REGISTER": "Registro de Sucursal",
-                "PLUS-PHONE": "+Teléfono"
+                "PLUS-PHONE": "+Teléfono",
+                "DUPLICATE":"Ya existe una Sucursal con este nombre"
             },
             "PLACEHOLDER": {
                 "SEARCH_BRANCH": "Busca tu sucursal",
@@ -92,6 +94,12 @@
         "lookup": "Busca el Catálogo",
         "office":"Sucursal",
         "units":"Unidades",
+        "DUPLICATE":"Ya existe la Unidad con este nombre",
+        "CREATE":"Se creó exitosamente la unidad",
+        "LABEL":{
+          "TITLE":"Crear unidad",
+            "NAME":"Nombre"
+        },
         "BUTTON": {
             "STEPS": "Etapas",
             "EQUIPMENT": "Tipo de Equipo"
@@ -161,7 +169,8 @@
                 "COMPRESSOR_TYPE": "Tipo de compressor",
                 "BRAND": "Marca",
                 "INFO_MODEL": "Información de Modelo de Cabinet",
-                "NEW_REGISTER": "Registro de Modelo de Cabinet"
+                "NEW_REGISTER": "Registro de Modelo de Cabinet",
+                "DUPLICATE":"Ya existe un Modelo de Cabinet con este nombre y marca"
             },
             "PLACEHOLDER": {
                 "SEARCH_BRANCH": "Busca tu modelo de cabinet",
@@ -180,7 +189,8 @@
                 "DESCRIPTION": "Descripción",
                 "KEYWORD": "Palabra clave",
                 "INFO_MODEL": "Información de Tipo de Equipo",
-                "NEW_REGISTER": "Registro de Tipo de Equipo"
+                "NEW_REGISTER": "Registro de Tipo de Equipo",
+                "DUPLICATE":"Ya existe un Tipo de Equipo con este nombre"
             },
             "PLACEHOLDER": {
                 "SEARCH_BRANCH": "Busca tu tipo de equipo",
@@ -225,14 +235,19 @@
             "Error": "Error",
             "Success": "Éxito",
             "Warning": "Advertencia",
+            "Information": "Información",
             "Messages": {
                 "ERROR_GETTING_PROJECTS": "Error al obtener la lista de proyectos",
                 "ERROR_CREATING_PROJECT": "Error al crear el proyecto",
                 "SUCCESS_CREATING_PROJECT": "Proyecto creado correctamente",
                 "SUCCESS_REMOVING_PROJECT": "Proyecto eliminado correctamente",
+                "SUCCESS_RESTORE_PROJECT":"Proyecto restaurado correctamente",
+                "ERROR_RESTORE_PROJECT":"Error al restaurar proyecto",
                 "ERROR_REMOVING_PROJECT": "Error al eliminar proyecto",
                 "SUCCESS_UPDATING_PROJECT": "Proyecto actualizado correctamente",
-                "ERROR_UPDATING_PROJECT": "Error al eliminar proyecto"
+                "ERROR_UPDATING_PROJECT": "Error al eliminar proyecto",
+                "CONFIRM_RESTORE":"¿Seguro que desea restaurar el elemento?",
+                "EXISTING_ELEMENT":"Existe un proyecto con el mismo nombre"
             }
         }
     },
@@ -260,6 +275,7 @@
             "Error": "Error",
             "Success": "Éxito",
             "Warning": "Advertencia",
+            "Information":"Información",
             "Messages": {
                 "ERROR_GETTING_CLIENTS": "Error al obtener la lista de clientes",
                 "ERROR_CREATING_CLIENT": "Error al crear el cliente",
@@ -267,7 +283,8 @@
                 "SUCCESS_REMOVING_CLIENT": "Cliente eliminado correctamente",
                 "ERROR_REMOVING_CLIENT": "Error al eliminar cliente",
                 "SUCCESS_UPDATING_CLIENT": "Cliente actualizado correctamente",
-                "ERROR_UPDATING_CLIENT": "Error al actualizar cliente"
+                "ERROR_UPDATING_CLIENT": "Error al actualizar cliente",
+                "EXISTING_ELEMENT":"Existe un cliente con el mismo nombre de usuario"
             }
         }
     }
