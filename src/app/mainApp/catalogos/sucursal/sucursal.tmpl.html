@@ -37,11 +37,18 @@
                         </md-item-template>
                         <md-not-found><span translate="SUCURSAL.FORM.PLACEHOLDER.NOT_FOUND"></span></md-not-found>
                     </md-autocomplete>
-                    <md-virtual-repeat-container class="vertical-container" flex="flex">
+                    <md-switch ng-model="vm.toggleDeleted" ng-change="vm.toggleDeletedFunction()">
+                        <span ng-if="vm.toggleDeleted" hide-xs hide-sm>{{'MAIN.MODEL.SHOW_ACTIVE' | translate}}</span>
+                        <span ng-if="vm.toggleDeleted" hide-gt-sm>{{'MAIN.MODEL.SHOW_ACTIVE_MOBILE' | translate}}</span>
+                        <span ng-if="!vm.toggleDeleted" hide-xs hide-sm>{{'MAIN.MODEL.SHOW_DELETED' | translate}}</span>
+                        <span ng-if="!vm.toggleDeleted" hide-gt-sm>{{'MAIN.MODEL.SHOW_DELETED_MOBILE' | translate}}</span>
+                    </md-switch>
+                    <md-virtual-repeat-container class="vertical-container"
+                                                 ng-style='vm.myStyle' flex="flex" cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
                         <md-list>
                             <md-list-item ng-repeat="sucursal in vm.sucursales | sucursalSearch:vm.searchText">
                                 <md-button ng-click="vm.selectedSucursales(sucursal)"
-                                           ng-class="{'selected' : sucursal === vm.selectedSucursalList }">
+                                           ng-class="{'selected' : sucursal.id == vm.sucursal.id }">
                                     <md-icon md-svg-icon="assets/images/industry.svg" class="avatar"></md-icon>
                                     <span flex="flex">{{sucursal.nombre }}</span>
                                 </md-button>
@@ -60,7 +67,7 @@
                     <form name="SucursalForm">
                         <md-input-container class="md-block">
                             <label>{{'SUCURSAL.FORM.LABEL.NAME'|translate}}</label>
-                            <input ng-required='true' type="text" name="nombre" ng-disabled="vm.editable"
+                            <input ng-required='true' type="text" name="nombre" ng-disabled="vm.sucursal.deleted"
                                    ng-model="vm.sucursal.nombre"/>
                             <div ng-messages="SucursalForm.nombre.$error">
                                 <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
@@ -69,7 +76,7 @@
                         <md-input-container class="md-block">
                             <label>{{'SUCURSAL.FORM.LABEL.ADDRESS'|translate}}</label>
                             <input md-no-asterisk="" required="" type="text" name="address"
-                                   ng-disabled="vm.editable"
+                                   ng-disabled="vm.sucursal.deleted"
                                    ng-model="vm.sucursal.direccion"/>
                             <div ng-messages="SucursalForm.address.$error">
                                 <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
@@ -80,7 +87,7 @@
                             <md-chips ng-model="vm.sucursal.telefonos"
                                       md-removable="vm.removable"
                                       delete-button-label="Remove Tag"
-                                      readonly="vm.editable"
+                                      readonly="vm.sucursal.deleted"
                             >
                                 <input type="text" only-digits ng-model="vm.numberBuffer"
                                        placeholder="{{'SUCURSAL.FORM.LABEL.PLUS-PHONE'|translate}}">
@@ -91,7 +98,7 @@
                         <md-input-container class="md-block">
                             <label>{{'SUCURSAL.FORM.LABEL.RESPONSABLE'|translate}}</label>
                             <input md-no-asterisk="" required="" type="text" name="responsable"
-                                   ng-disabled="vm.editable"
+                                   ng-disabled="vm.sucursal.deleted"
                                    ng-model="vm.sucursal.responsable"/>
                             <div ng-messages="SucursalForm.responsable.$error">
                                 <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
@@ -103,12 +110,12 @@
                             <md-icon md-font-icon="fa fa-eraser"></md-icon>
                         </md-button>
                         <md-button aria-label="fab button"
-                                   ng-if="vm.sucursal.id!=null && vm.sucursal.id!=undefined"
+                                   ng-if="vm.sucursal.id!=null && vm.sucursal.id!=undefined && !vm.sucursal.deleted"
                                    ng-click="vm.remove($event)" class="md-raised md-warn">
                             <md-icon md-font-icon="fa fa-trash"></md-icon>
                         </md-button>
                         <md-button aria-label="fab button"
-                                   ng-if="vm.sucursal.id!=null && vm.sucursal.id!=undefined"
+                                   ng-if="vm.sucursal.id!=null && vm.sucursal.id!=undefined && !vm.sucursal.deleted"
                                    ng-disabled="SucursalForm.$invalid" ng-click="vm.update()"
                                    class="md-raised md-primary">
                             <md-icon md-font-icon="fa fa-pencil"></md-icon>
@@ -119,6 +126,10 @@
                                    class="md-raised md-primary">
                             <md-icon md-font-icon="fa fa-save"></md-icon>
                         </md-button>
+                        <md-button ng-if="vm.sucursal.id!=null && vm.sucursal.id!=undefined && vm.sucursal.deleted" ng-click="vm.restore()" class="md-raised md-warn">
+                            <md-icon md-font-icon="zmdi zmdi-time-restore"></md-icon >
+                        </md-button>
+
                     </div>
                 </div>
             </div>

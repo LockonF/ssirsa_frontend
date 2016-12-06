@@ -14,6 +14,7 @@
     function Clientes(Restangular) {
         var service = {
             list: list,
+            listObject: listObject,
             modify: modify,
             create: create,
             remove: remove,
@@ -24,6 +25,9 @@
 
         function list(){
             return baseURL.getList().$object;
+        }
+        function listObject(){
+            return baseURL.getList();
         }
 
         function modify(object){

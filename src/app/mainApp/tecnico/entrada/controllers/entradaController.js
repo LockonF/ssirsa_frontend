@@ -11,7 +11,7 @@
     function entradaController(EntradaSalida, toastr, $mdDialog, MarcaCabinet,
                                ModeloCabinet, Sucursal, udn, CabinetEntradaSalida,
                                Proyectos, TipoTransporte, LineaTransporte, Translate,
-                               $scope, Cabinet, Helper, Persona) {
+                               $scope, Cabinet, Helper, Persona, OPTIONS) {
         var vm = this;
         vm.isGarantia = false;
         vm.isPedimento = false;
@@ -36,14 +36,15 @@
         vm.selectedItemChange = selectedItemChange;
         vm.search = search;
 
-        vm.options = ["Nuevos", "Garantías"];
+        vm.options = OPTIONS.input_types;
         vm.selectedEntrada = null;
 
         vm.selectedTab = 0;
         vm.idEntrada = null;
-        vm.sucursal=null;
+        vm.sucursal = null;
         vm.modelos = ModeloCabinet.list();
         vm.marcas = MarcaCabinet.list();
+        vm.ife_chofer=null;
 
         //Visualizations
         vm.hideMassiveUpload = true;
@@ -97,6 +98,7 @@
         vm.cancelButton = Translate.translate('MAIN.BUTTONS.CANCEL');
         vm.dialogTitle = Translate.translate('INPUT.Dialogs.Confirm.Title');
         vm.dialogMessage = Translate.translate('INPUT.Dialogs.Confirm.Message');
+        vm.errorSize = Translate.translate('MAIN.MSG.FILE_SIZE');
 
         activate();
 
@@ -143,10 +145,10 @@
                 toastr.error(vm.errorMessage, vm.errorTitle);
             });
             vm.entrada = angular.copy(entrada);
-            Persona.listProfile().then(function(res){
-                if(res.sucursal!=null){
-                    vm.sucursal=res.sucursal;
-                    vm.entrada.sucursal=res.sucursal;
+            Persona.listProfile().then(function (res) {
+                if (res.sucursal != null) {
+                    vm.sucursal = res.sucursal;
+                    vm.entrada.sucursal = res.sucursal;
                 }
             }).catch(function () {
                 toastr.error(vm.errorMessage, vm.errorTitle);
@@ -160,6 +162,7 @@
 
             fd.append('accion', 'entrada');
             fd.append('fecha', vm.entrada.fecha);
+            fd.append('tipo_entrada', vm.selectedEntrada.text);
 
             if (vm.entrada.pedimento != null)
                 fd.append('pedimento', vm.entrada.pedimento);
@@ -214,7 +217,7 @@
                 }
                 else {
                     fd.append('id', vm.entrada.id);
-                    EntradaSalida.putEntradaMasiva(fd,vm.entrada.id).then(function (res) {
+                    EntradaSalida.putEntradaMasiva(fd, vm.entrada.id).then(function (res) {
                         vm.entrada.id = res.id;
                         vm.entrada.creados = res.creados;
                         vm.entrada.no_creados = res.no_creados;
@@ -229,7 +232,6 @@
                             vm.inputWasCorrect = true;
                         }
                     }).catch(function (err) {
-                        console.log(err.data);
                         if (err.data.no_creados.length > 0) {
                             vm.entrada.no_creados = err.data.no_creados;
                         }
@@ -238,8 +240,9 @@
                     });
                 }
             }
+            //Is manual upload
             else {
-                if (vm.notFoundCabinet.length == 0) {
+                if (vm.notFoundCabinets.length > 0) {
                     var confirm = $mdDialog.confirm()
                         .title(vm.dialogTitle)
                         .textContent(vm.dialogMessage)
@@ -284,7 +287,7 @@
 
         function limpiar() {
             vm.entrada = angular.copy(entrada);
-            vm.entrada.sucursal=vm.sucursal;
+            vm.entrada.sucursal = vm.sucursal;
             vm.hideRegisteredCabinets = true;
             vm.hideUnregisteredCabinets = true;
             vm.hideMassiveUpload = true;
@@ -294,6 +297,7 @@
             $scope.entradaForm.$invalid = true;
             vm.selectedTab = 0;
             vm.inputWasCorrect = false;
+            vm.ife_chofer=null;
         }
 
         function partialClean() {
@@ -302,10 +306,18 @@
             vm.entrada.creados = [];
             vm.entrada.no_creados = [];
             vm.notFoundCabinets = [];
+            vm.entrada.file=null;
         }
 
         function selectionImage($file) {
-            vm.entrada.ife_chofer = $file;
+            if($file.size>1000000) {
+                toastr.warning(vm.errorSize, vm.errorTitle);
+                vm.entrada.ife_chofer=null;
+            }
+            else {
+                vm.entrada.ife_chofer = $file;
+                vm.ife_chofer=$file;
+            }
         }
 
         function selectionFile($file) {
@@ -395,7 +407,7 @@
 
         function addCabinet() {
             if (_.contains(vm.existingCabinets, vm.cabinetID)) {
-                Cabinet.get(vm.cabinetID).then(function (res) {
+                Cabinet.getIfEntrada(vm.cabinetID).then(function (res) {
                     var index = vm.cabinets.map(function (elem) {
                         return elem.economico;
                     }).indexOf(res.economico);
@@ -410,7 +422,10 @@
                     }
                     vm.cabinetID = "";
                 }).catch(function (err) {
-                    toastr.error(vm.notFoundCabinet, vm.errorTitle);
+                    if(err.data.detail!=null)
+                        toastr.error(err.data.detail, vm.errorTitle);
+                    else
+                        toastr.error(vm.notFoundCabinet, vm.errorTitle);
                     vm.cabinetID = "";
                 });
             }
@@ -435,8 +450,8 @@
                 vm.notFoundCabinets.splice(index, 1);
             }
         }
-        
-        function removeCabinet(id){
+
+        function removeCabinet(id) {
             var index = vm.cabinets.indexOf(id);
             if (index > -1) {
                 vm.cabinets.splice(index, 1);

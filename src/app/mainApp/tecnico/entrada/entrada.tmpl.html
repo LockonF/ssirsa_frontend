@@ -17,8 +17,8 @@
                             <form name="entradaForm" novalidate="">
                                 <md-input-container flex="100" class="md-block">
                                     <label>{{'INPUT.Entrance_Kind'|translate}}</label>
-                                    <md-select name="selectEntranceKind" ng-model="vm.selectedEntrada" required="">
-                                        <md-option ng-repeat="option in vm.options" value="{{option}}">{{option}}
+                                    <md-select name="selectEntranceKind" ng-model="vm.selectedEntrada.text" required="" md-on-close="vm.limpiar()">
+                                        <md-option ng-repeat="option in vm.options" value="{{option.id}}">{{option.text}}
                                         </md-option>
                                     </md-select>
                                     <div ng-messages="entradaForm.selectEntranceKind.$error">
@@ -33,7 +33,7 @@
                                     <md-input-container
                                             flex="100"
                                             class="md-block"
-                                            ng-if="vm.selectedEntrada ==='Nuevos' || vm.selectedEntrada === 'Garantías'">
+                                            ng-if="vm.selectedEntrada.text ==='Nuevo' || vm.selectedEntrada.text === 'Garantia'">
                                         <label>{{'INPUT.Driver.Name'|translate}}</label>
                                         <input name="DriverName"
                                                md-no-asterisk=""
@@ -49,7 +49,7 @@
                                     <md-input-container
                                             flex="100"
                                             class="md-block"
-                                            ng-if="vm.selectedEntrada ==='Nuevos'">
+                                            ng-if="vm.selectedEntrada.text ==='Nuevo'">
                                         <label>{{'INPUT.Pediment'|translate}}</label>
                                         <input name="Pediment"
                                                md-no-asterisk=""
@@ -68,7 +68,7 @@
                                     <div
                                             flex="100"
                                             class="md-block"
-                                            ng-if="vm.selectedEntrada === 'Garantías'">
+                                            ng-if="vm.selectedEntrada.text === 'Garantia'">
                                         <md-autocomplete md-selected-item="vm.entrada.udn"
                                                          md-selected-item-change="vm.selectedItemChange(vm.entrada.udn)"
                                                          md-items="item in vm.filteredUDN" md-item-text="item.agencia"
@@ -106,7 +106,7 @@
                                     </div>
                                     <md-input-container flex="100"
                                                         class="md-block"
-                                                        ng-if="vm.selectedEntrada ==='Nuevos' || vm.selectedEntrada === 'Garantías'">
+                                                        ng-if="vm.selectedEntrada.text ==='Nuevo' || vm.selectedEntrada.text === 'Garantia'">
                                         <label>{{'INPUT.Transport.Line'|translate}}</label>
                                         <md-select name="selectTransportLine" ng-model="vm.entrada.linea_transporte"
                                                    required="" md-no-asterisk="">
@@ -121,7 +121,7 @@
                                     <md-input-container
                                             flex="100"
                                             class="md-block"
-                                            ng-if="vm.selectedEntrada ==='Nuevos' || vm.selectedEntrada === 'Garantías'">
+                                            ng-if="vm.selectedEntrada.text ==='Nuevo' || vm.selectedEntrada.text === 'Garantia'">
                                         <label>{{'INPUT.Transport.Kind'|translate}}</label>
                                         <md-select name="selectTransportKind" ng-model="vm.entrada.tipo_transporte"
                                                    required="" md-no-asterisk="">
@@ -139,7 +139,7 @@
                                     <md-input-container
                                             flex="100"
                                             class="md-block"
-                                            ng-if="vm.selectedEntrada ==='Nuevos' || vm.selectedEntrada === 'Garantías'">
+                                            ng-if="vm.selectedEntrada.text ==='Nuevo' || vm.selectedEntrada.text === 'Garantia'">
                                         <label>{{'INPUT.Subsidiary'|translate}}</label>
                                         <md-select name="selectSubsidiary"
                                                    ng-model="vm.entrada.sucursal"
@@ -157,7 +157,7 @@
                                     <md-input-container
                                             flex="100"
                                             class="md-block"
-                                            ng-if="vm.selectedEntrada ==='Nuevos'">
+                                            ng-if="vm.selectedEntrada.text ==='Nuevo'">
                                         <label>{{'INPUT.Project'|translate}}</label>
                                         <md-select name="selectProject" ng-model="vm.entrada.proyecto" required=""
                                                    md-no-asterisk="">
@@ -177,26 +177,29 @@
                                     layout="column"
                                     layout-align="center stretch"
                                     layout-align-gt-xs="center center"
-                                    ng-if="vm.selectedEntrada ==='Nuevos' || vm.selectedEntrada === 'Garantías'">
+                                    ng-if="vm.selectedEntrada.text ==='Nuevo' || vm.selectedEntrada.text === 'Garantia'">
                                 <p>{{'INPUT.Driver.IFE'|translate}}</p>
                                 <div flex="30" layout="column" layout-align="space-around center">
                                     <md-button
                                             type="file"
                                             ngf-select="vm.selectionImage($file)"
+                                            ngf-multiple="false"
                                             accept="image/*"
-                                            ngf-max-size="1MB"
                                             class="md-primary md-raised">{{'INPUT.Choose Image'|translate}}
                                     </md-button>
                                 </div>
                             </div>
                             <div flex="80">
-                                <div class="md-media-md card-media">
+                                <div class="md-media-md card-media"  ng-if="vm.entrada.ife_chofer!=null">
                                     <img ngf-src="vm.entrada.ife_chofer" style="max-width:150px" class="thumb"/>
+                                </div>
+                                <div class="md-media-md card-media"  ng-if="vm.entrada.ife_chofer==null">
+                                    <img ngf-src="vm.ife_chofer" style="max-width:150px" class="thumb"/>
                                 </div>
                             </div>
                             <div layout="row"
                                  layout-align="end center"
-                                 ng-if="vm.selectedEntrada ==='Nuevos' || vm.selectedEntrada === 'Garantías'">
+                                 ng-if="vm.selectedEntrada.text ==='Nuevo' || vm.selectedEntrada.text === 'Garantia'">
                                 <md-button ng-click="vm.nextTab()" ng-disabled="entradaForm.$invalid"
                                            class="md-raised md-primary">{{'INPUT.Next'|translate}}
                                 </md-button>
@@ -271,8 +274,9 @@
                                     </div>
                                     <div layout="column"
                                          flex="100"
+                                         ng-if="vm.entrada.no_creados.length > 0"
                                     >
-                                        <p>{{'INPUT.Unregistered Cabinets'|translate}}</p>
+                                        <p>{{'INPUT.Unregistered Cabinets'|translate}}: {{vm.entrada.no_creados.length}}</p>
                                         <md-virtual-repeat-container flex="100"
                                                                      layout="column"
                                                                      layout-align="center center"
@@ -309,7 +313,7 @@
                                     </div>
                                 </div>
                                 <div flex="" layout="column" ng-if="vm.entrada.creados.length > 0">
-                                    <p>{{'INPUT.Registered Cabinets'|translate}}</p>
+                                    <p>{{'INPUT.Registered Cabinets'|translate}}: {{vm.entrada.creados.length}}</p>
                                     <md-virtual-repeat-container flex="100"
                                                                  layout="column"
                                                                  layout-align="center center"
@@ -377,7 +381,7 @@
                                     </md-button>
                                 </div>
                                 <div flex="" layout="column" ng-if="vm.cabinets.length > 0">
-                                    <p>{{'INPUT.Registered Cabinets'|translate}}</p>
+                                    <p>{{'INPUT.Registered Cabinets'|translate}}: {{vm.cabinets.length}}</p>
                                     <md-table-container>
                                         <table md-table="" md-row-select="" multiple="" ng-disabled="true">
                                             <thead md-head="">
@@ -427,7 +431,7 @@
                                             {{'INPUT.Create Model'|translate}}
                                         </md-button>
                                     </div>
-                                    <p>{{'INPUT.Unregistered Cabinets'|translate}}</p>
+                                    <p>{{'INPUT.Unregistered Cabinets'|translate}}: {{vm.notFoundCabinets.length}}</p>
                                     <md-virtual-repeat-container flex="100" layout-fill ng-style='{"height":"250px"}'>
                                         <md-list>
                                             <md-list-item ng-repeat="cabinet in vm.notFoundCabinets"
@@ -465,7 +469,10 @@
                                     <md-icon md-font-icon="fa fa-eraser"></md-icon>
                                 </md-button>
                                 <md-button
-                                        ng-disabled="entradaForm.$invalid || vm.inputWasCorrect || (vm.entrada.file==null && vm.hideManualUpload==true)"
+                                        ng-disabled="entradaForm.$invalid
+                                        || vm.inputWasCorrect
+                                        || (vm.entrada.file==null && vm.hideManualUpload==true)
+                                        || (vm.cabinets.length === 0 && vm.hideMassiveUpload==true)"
                                         ng-click="vm.guardar()"
                                         class="md-raised md-primary">{{'INPUT.Save'|translate}}
                                 </md-button>

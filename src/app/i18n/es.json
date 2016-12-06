@@ -1,74 +1,74 @@
 {
-    "MAIN": {
-        "MENU": {
-            "WELCOME": "Bienvenida",
-            "START": "Inicio",
-            "CRUD_USER": "Gestión de Usuarios",
-            "ADMIN_USER": "Administración de Usuarios",
-            "NEW_USER": "Nuevo Usuario",
-            "SEARCH_USER": "Buscar Usuarios",
-            "SOLICITUD": "Solicitudes",
-            "SEARCH_SOLICITUD": "Buscar Solicitudes",
-            "CREATES_SOLICITUD": "Crear Solicitud",
-            "CALENDAR": "Calendario",
-            "SERVICES": "Servicios",
-            "IN": "Entradas",
-            "OUT":{
-                "TITLE": "Salidas",
-                "NEW":"Registro",
-                "LIST":"Listado"
-            },
-            "REMISSION": "Remisión de salida",
-            "REGISTER_STEP": "Registro de Etapa",
-            "PRECHECK": "Pre - Checklist",
-            "CHECKLIST": "Fase de Depuración",
-            "DIAGNOSTIC": "Diagnostico",
-            "LINE": "Asignación de Linea",
-            "BOOKS": "Catalogos",
-            "LINE_TRANSPORT": "Linea de Transporte",
-            "TYPE_TRANSPORT": "Tipo de Transporte",
-            "UDN": "Agencia",
-            "SUCURSAL": "Sucursal",
-            "CABINET_BRANCH": "Marca de Cabinet",
-            "CABINET_MODEL": "Modelo de Cabinet",
-            "PROJECTS": "Proyectos",
-            "CLIENT": "Cliente",
-            "STOCK": "Inventarios",
-            "CABINETS": "Cabinets",
-            "INSUMS": "Insumos",
-            "REPORTS": {
-                "TITLE": "Reportes",
-                "ADMIN": "Gestión",
-                "LIST": "Listado de Reportes"
-            },
-            "CATEGORY_INSUMS": "Categoria de Insumos",
-            "BOOK_INSUMS": "Cátalogo de Insumos",
-            "PROVIDER": "Proveedor",
-            "CATALOGS": {
-                "TITLE": "Catálogos",
-                "UDN": "UDN",
-                "PROVIDER": "Proveedor",
-                "TRANSPORT_TYPE": "Tipo de Transporte",
-                "TRANSPORT_LINE": "Línea de Transporte",
-                "SUBSIDIARY": "Sucursal",
-                "CABINET_BRAND": "Marca de Cábinet",
-                "CABINET_MODEL": "Modelo de Cábinet",
-                "CONSUMABLE_CATALOG": "Catálogo de Insumos",
-                "PROJECTS": "Proyectos",
-                "CONSUMABLE_CATEGORY": "Categoría de Insumos",
-                "CLIENT": "Cliente",
-                "EQUIPMENT_TYPE": "Tipo de Equipo",
-                "STAGE": "Etapas"
-            },
-            "INVENTORY": {
-                "TITLE": "Inventarios",
-                "CABINETS": "Cabinets",
-                "CONSUMABLES": "Insumos",
-                "CONSUMABLE_CATALOG": "Catálogo de Insumos",
-                "CONSUMABLE_CATEGORY": "Categoría de Insumos",
-                "PROVIDER": "Proveedor"
-            }
-        }
+  "MAIN": {
+    "MENU": {
+      "WELCOME": "Bienvenida",
+      "START": "Inicio",
+      "CRUD_USER": "Gestión de Usuarios",
+      "ADMIN_USER": "Administración de Usuarios",
+      "NEW_USER": "Nuevo Usuario",
+      "SEARCH_USER": "Buscar Usuarios",
+      "SOLICITUD": "Solicitudes",
+      "SEARCH_SOLICITUD": "Buscar Solicitudes",
+      "CREATES_SOLICITUD": "Crear Solicitud",
+      "CALENDAR": "Calendario",
+      "SERVICES": "Servicios",
+      "SERVICEAWAY":"Punto de Venta",
+      "IN": "Entradas",
+      "OUT": {
+        "TITLE": "Salidas",
+        "NEW": "Registro",
+        "LIST": "Listado"
+      },
+      "REMISSION": "Remisión de salida",
+      "REGISTER_STEP": "Registro de Etapa",
+      "PRECHECK": "Pre - Checklist",
+      "CHECKLIST": "Fase de Depuración",
+      "DIAGNOSTIC": "Diagnostico",
+      "LINE": "Asignación de Linea",
+      "BOOKS": "Catalogos",
+      "LINE_TRANSPORT": "Linea de Transporte",
+      "TYPE_TRANSPORT": "Tipo de Transporte",
+      "UDN": "Agencia",
+      "SUCURSAL": "Sucursal",
+      "CABINET_BRANCH": "Marca de Cabinet",
+      "CABINET_MODEL": "Modelo de Cabinet",
+      "PROJECTS": "Proyectos",
+      "CLIENT": "Cliente",
+      "STOCK": "Inventarios",
+      "CABINETS": "Cabinets",
+      "INSUMS": "Insumos",
+      "REPORTS": {
+        "TITLE": "Reportes",
+        "ADMIN": "Gestión",
+        "LIST": "Listado de Reportes"
+      },
+      "CATEGORY_INSUMS": "Categoria de Insumos",
+      "BOOK_INSUMS": "Cátalogo de Insumos",
+      "PROVIDER": "Proveedor",
+      "CATALOGS": {
+        "TITLE": "Catálogos",
+        "UDN": "UDN",
+        "PROVIDER": "Proveedor",
+        "TRANSPORT_TYPE": "Tipo de Transporte",
+        "TRANSPORT_LINE": "Línea de Transporte",
+        "SUBSIDIARY": "Sucursal",
+        "CABINET_BRAND": "Marca de Cábinet",
+        "CABINET_MODEL": "Modelo de Cábinet",
+        "CONSUMABLE_CATALOG": "Catálogo de Insumos",
+        "PROJECTS": "Proyectos",
+        "CONSUMABLE_CATEGORY": "Categoría de Insumos",
+        "CLIENT": "Cliente",
+        "EQUIPMENT_TYPE": "Tipo de Equipo",
+        "STAGE": "Etapas"
+      },
+      "INVENTORY": {
+        "TITLE": "Inventarios",
+        "CABINETS": "Cabinets",
+        "CONSUMABLES": "Insumos",
+        "CONSUMABLE_CATALOG": "Catálogo de Insumos",
+        "CONSUMABLE_CATEGORY": "Categoría de Insumos",
+        "PROVIDER": "Proveedor"
+      }
     },
     "COMPONENTS": {
       "PROFILE": "Perfil",
@@ -76,18 +76,20 @@
     },
     "LABEL": {
       "REQUIRED": "Campo requerido",
-      "ALFANUMERICONLY":"Solo son aceptados Caractéres Alfanúmericos, espacios y guiones"
+      "ALFANUMERICONLY": "Solo son aceptados Caractéres Alfanúmericos, espacios y guiones"
     },
     "MSG": {
+      "LOADING":"Cargando ...",
       "SUCCESS_TITLE": "Éxito",
-      "WARNING_TITLE":"Advertencia",
+      "WARNING_TITLE": "Advertencia",
       "ERROR_TITLE": "Error",
       "ERROR_MESSAGE": "Ha ocurrido un error, por favor intente de nuevo más tarde",
       "ERROR_ERROR_AUTHORIZATION": "Usted no cuenta con los permisos para acceder a esta página",
-      "ERROR_CATALOG":"Ha ocurrido un error al cargar los catálogos",
+      "ERROR_CATALOG": "Ha ocurrido un error al cargar los catálogos",
       "GENERIC_SUCCESS_CREATE": "El elemento se ha creado exitosamente",
       "GENERIC_SUCCESS_UPDATE": "El elemento se ha actualizado exitosamente",
       "GENERIC_SUCCESS_DELETE": "El elemento se ha eliminado exitosamente",
+      "GENERIC_SUCCESS_RESTORE": "El elemento se ha restaurado exitosamente",
       "NOTHINGTODELETE": "No hay Ningun Elemento a Eliminar",
       "SUCCESS_TICKET_MESSAGE": "Se creó exitosamente el pre-checklist",
       "SUCCESS_DIAGNOSTIC_MESSAGE": "Se creó exitosamente el diagnóstico",
@@ -100,31 +102,32 @@
       "FILE_SIZE_10": "Solo se pueden subir un archivo con un peso máximo de 10MB",
       "SUCCESS_DELETE_FOLLOWER": "Se eliminó el seguidor de manera exitosa",
       "NOT_FOUND": "No se encontró el elemento que se buscaba",
-      "NOT_STEPS":"No se encontrarón leer etapas de Servicio",
+      "NOT_STEPS": "No se encontrarón leer etapas de Servicio",
       "NOT_ALLOWED": "No se posee el permiso para realizar dicha Acción",
       "NOT_FOUND_INPUT": "No se puede realizar el pre-checklist por que el cabinet no cuenta con una Entrada",
-      "ERROR_NOTINSUMOSTITLE":"No existen insumos Registrados Para esta etapa, verifique UDN u Stock",
-      "ERROR_MASSIVE":"Error en la carga masiva, favor de revisar su excel",
-      "SUCCESS_MASSIVE":"Se realizó la carga masiva exitosamente",
-      "SUCCESS_MANUAL":"Se realizó las salidas exitosamente",
-      "ERROR_DISABLED_CABINET":"Error este cabinet ha sido eliminado.",
-        "SUCCESS_REMISSION":"Se realizó la remisión de salida exitosamente",
-        "SUCCESS_REPORT":"Se localizó el reporte exitosamente",
-      "NOT_INSUMOS":"El modelo de cabinet o carrito seleccionado no posee insumos asociados en esta etapa",
-      "NOT_STEPCREATED":"No es posible eliminar una etapa que aún no ha sido creada",
-      "INSUMOADDED":"El Compresor a sido agregado de forma Correcta",
-      "MSGNOTENTRADA":"No es posible Registrar la Etapa, Ya que no tiene una entrada regisrada o bien ya se le hizo un diagnostico de Salida",
-      "NOTTIPOEQUIPO":"Ese equipo no tiene un tipo por lo cual no se pueden cargar insumos asociados",
-      "NOTFIRSTSTEP":"No es posible Eliminar la primer Etapa de Servicio",
-        "NOTIFICATION":"No se pudo conectar al canal el usuario"
-
+      "ERROR_NOTINSUMOSTITLE": "No existen insumos Registrados Para esta etapa, verifique UDN u Stock",
+      "ERROR_MASSIVE": "Error en la carga masiva, favor de revisar su excel",
+      "SUCCESS_MASSIVE": "Se realizó la carga masiva exitosamente",
+      "SUCCESS_MANUAL": "Se realizó las salidas exitosamente",
+      "ERROR_DISABLED_CABINET": "Error este cabinet ha sido eliminado.",
+      "SUCCESS_REMISSION": "Se realizó la remisión de salida exitosamente",
+      "SUCCESS_REPORT": "Se localizó el reporte exitosamente",
+      "NOT_INSUMOS": "El modelo de cabinet o carrito seleccionado no posee insumos asociados en esta etapa",
+      "NOT_STEPCREATED": "No es posible eliminar una etapa que aún no ha sido creada",
+      "INSUMOADDED": "El Compresor a sido agregado de forma Correcta",
+      "MSGNOTENTRADA": "No es posible Registrar la Etapa, Ya que no tiene una entrada regisrada o bien ya se le hizo un diagnostico de Salida",
+      "NOTTIPOEQUIPO": "Ese equipo no tiene un tipo por lo cual no se pueden cargar insumos asociados",
+      "NOTFIRSTSTEP": "No es posible Eliminar la primer Etapa de Servicio",
+      "NOTIFICATION": "No se pudo conectar al canal el usuario",
+      "ERROR_OUT":"Cabinet con salida, por lo cual no se puede asignar"
     },
     "BUTTONS": {
       "SUBMIT": "Enviar",
-      "ACCEPT":"Aceptar",
+      "ACCEPT": "Aceptar",
       "UPDATE": "Actualizar",
       "CANCEL": "Cancelar",
       "DELETE": "Eliminar",
+      "RESTORE": "Restaurar",
       "CLEAR_FIELDS": "Limpiar campos"
     },
     "GENERAL": {
@@ -134,11 +137,22 @@
       "MAX_NUMBER": "Se necesita que el número sea a lo más  ",
       "PHONE_REGEX": "El campo debe tener un formato (xx)xxxxxxxx",
       "PATTERN_EMAIL_FIELD": "El campo debe ser un correo electrónico",
-      "PATTERN_RFC_FIELD": "El campo debe tener formato RFC"
+      "PATTERN_RFC_FIELD": "El campo debe tener formato RFC",
+      "PATTERN_CABINET": "El campo debe tener números, letras, guión bajo o espacios"
     },
-    "DIALOG":{
-      "DELETE_TITLE":"Confirmación de eliminación",
-      "DELETE_MESSAGE":"¿Seguro que desea eliminar este elemento?",
-        "DELETE_MESSAGE_CABINETS": "¿Seguro que desea eliminar los siguientes cabinets?"
+    "MODEL":{
+      "DELETED_FIELD":"Eliminado",
+      "SHOW_DELETED":"Mostrar elementos eliminados",
+      "SHOW_DELETED_MOBILE":"Elementos eliminados",
+      "SHOW_ACTIVE":"Mostrar elementos existentes",
+      "SHOW_ACTIVE_MOBILE":"Elementos existentes"
+    },
+    "DIALOG": {
+      "DELETE_TITLE": "Confirmación de eliminación",
+      "DELETE_MESSAGE": "¿Seguro que desea eliminar este elemento?",
+      "RESTORE_TITLE": "Confirmación de restauración",
+      "RESTORE_MESSAGE": "¿Seguro que desea restaurar este elemento a un estado activo?",
+      "DELETE_MESSAGE_CABINETS": "¿Seguro que desea eliminar los siguientes cabinets?"
     }
+  }
 }

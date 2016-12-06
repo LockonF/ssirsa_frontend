@@ -14,6 +14,10 @@
         vm.querySearch = querySearch;
         vm.selectedEtapa = selectedEtapa;
         vm.selectedItemChange=selectedItemChange;
+
+        vm.toggleDeletedFunction = toggleDeletedFunction;
+        vm.restore = restore;
+
         vm.cancel = cancel;
         vm.create = create;
         vm.remove = remove;
@@ -26,6 +30,10 @@
             taller:null
         };
         vm.etapa = angular.copy(etapa);
+        vm.myHeight=window.innerHeight-250;
+        vm.myStyle={"min-height":""+vm.myHeight+"px"};
+        vm.toggleDeleted = true;
+
         activate();
         init();
         function init() {
@@ -39,13 +47,14 @@
             vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
             vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
             vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
+            vm.dialogRestoreTitle=Translate.translate('MAIN.DIALOG.RESTORE_TITLE');
+            vm.dialogRestoreMessage=Translate.translate('MAIN.DIALOG.RESTORE_MESSAGE');
+            vm.restoreButton=Translate.translate('MAIN.BUTTONS.RESTORE');
+            vm.successRestoreMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_RESTORE');
         }
 
         function activate() {
-            Etapa.list().then(function (res) {
-                vm.etapas=Helper.filterDeleted(res,true);
-                vm.etapas=_.sortBy(vm.etapas, 'nombre');
-            });
+            listEtapas();
 
         }
         function selectedItemChange(item) {
@@ -56,6 +65,44 @@
                 cancel();
             }
         }
+        function toggleDeletedFunction() {
+            listEtapas();
+            cancel();
+        }
+
+        function listEtapas() {
+            vm.loadingPromise = Etapa.list().then(function (res) {
+                vm.etapas=Helper.filterDeleted(res,vm.toggleDeleted);
+                vm.etapas=_.sortBy(vm.etapas, 'nombre');
+            }).catch(function(err){
+
+            });
+
+
+        }
+        function restore() {
+            var confirm = $mdDialog.confirm()
+                .title(vm.dialogRestoreTitle)
+                .textContent(vm.dialogRestoreMessage)
+                .ariaLabel('Confirmar restauración')
+                .ok(vm.restoreButton)
+                .cancel(vm.cancelButton);
+            $mdDialog.show(confirm).then(function() {
+                vm.etapa.deleted=false;
+                Etapa.update(vm.etapa).then(function (res) {
+                    toastr.success(vm.successRestoreMessage, vm.successTitle);
+                    cancel();
+                    activate();
+                }).catch(function (res) {
+                    vm.etapa.deleted=true;
+                    toastr.warning(vm.errorMessage, vm.errorTitle);
+                });
+            }, function() {
+
+            });
+
+        }
+
         function remove(ev) {
             var confirm = $mdDialog.confirm()
                 .title(vm.dialogTitle)

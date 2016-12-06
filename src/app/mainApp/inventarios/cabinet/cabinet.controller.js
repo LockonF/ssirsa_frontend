@@ -23,6 +23,8 @@
         vm.entradas = null;
         vm.show_entries = null;
         vm.marcas_cabinet_choice = null;
+        vm.showBrandsModelsSearch = false;
+        vm.economic_lookup_var = null;
 
         vm.blank_selected_cabinet = {
             economico: null,
@@ -57,6 +59,8 @@
 
         vm.antiguedad = OPTIONS.antiguedad;
 
+
+        // Funciones
         vm.loadModelos = loadModelos;
         vm.loadCabinets = loadCabinets;
         vm.selectedItemChange = selectedItemChange;
@@ -67,23 +71,33 @@
         vm.cancel = cancel;
         vm.update = update;
         vm.remove = remove;
+        vm.restore = restore;
         vm.checkCapitalizado = checkCapitalizado;
         vm.lookup = lookup;
+        vm.lookupByEconomico = lookupByEconomico;
         activate();
 
 
         function activate() {
             vm.udns = udn.list();
+
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
             vm.successCreateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_CREATE');
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
             vm.successUpdateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_UPDATE');
             vm.successDeleteMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_DELETE');
+            vm.successRestoreMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_RESTORE');
             vm.deleteButton=Translate.translate('MAIN.BUTTONS.DELETE');
+            vm.restoreButton=Translate.translate('MAIN.BUTTONS.RESTORE');
             vm.cancelButton=Translate.translate('MAIN.BUTTONS.CANCEL');
             vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
             vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
+            vm.dialogRestoreTitle=Translate.translate('MAIN.DIALOG.RESTORE_TITLE');
+            vm.dialogRestoreMessage=Translate.translate('MAIN.DIALOG.RESTORE_MESSAGE');
+            vm.notFoundMessage=Translate.translate('MAIN.MSG.NOT_FOUND');
+            vm.warningtitle=Translate.translate('MAIN.MSG.WARNING_TITLE');
+
             loadMarcas();
             loadMarcasChoiceFiltered();
 
@@ -129,7 +143,11 @@
         }
 
         function loadCabinets(model) {
-            vm.cabinet_list = Cabinet.loadByModel(model);
+            vm.loadingPromise = Cabinet.loadByModel(model).then(function(res){
+                vm.cabinet_list = res;
+            }).catch(function(err){
+
+            });
 
         }
 
@@ -192,7 +210,10 @@
                 toastr.success(vm.successUpdateMessage, vm.successTitle);
                 vm.selected_cabinet = res;
                 vm.create_update_resolver = true;
-                loadCabinets(vm.selected_modelo);
+                if(vm.selected_modelo!=null){
+                    loadCabinets(vm.selected_modelo);
+                }
+
             }).catch(function (err) {
                 toastr.error(vm.errorMessage,vm.errorTitle);
                 vm.create_update_resolver = true;
@@ -248,11 +269,42 @@
 
         }
 
+
+        function restore() {
+
+            var confirm = $mdDialog.confirm()
+                .title(vm.dialogRestoreTitle)
+                .textContent(vm.dialogRestoreMessage)
+                .ariaLabel('Confirmar restauracion')
+                .ok(vm.restoreButton)
+                .cancel(vm.cancelButton);
+            $mdDialog.show(confirm).then(function() {
+                vm.selected_cabinet.deleted = false;
+                Cabinet.modifyclear(vm.selected_cabinet).then(function (res) {
+                    toastr.success(vm.successRestoreMessage, vm.successTitle);
+                    cancel();
+                    if (vm.selected_modelo != null) {
+                        loadCabinets(vm.selected_modelo);
+                    }
+                }).catch(function (err) {
+                    vm.selected_cabinet.deleted = true;
+                    toastr.error(vm.errorMessage, vm.errorTitle);
+
+                });
+            }, function() {
+
+            });
+
+
+
+        }
+
         function cancel() {
             $scope.inputForm.$setPristine();
             $scope.inputForm.$setUntouched();
 
             vm.newCabinet = true;
+            vm.economic_lookup_var = null;
             vm.chosen_marca_cabinet = null;
             vm.selected_cabinet = _.clone(vm.blank_selected_cabinet);
             vm.selected_cabinet.diagnostico.puertas = false;
@@ -263,6 +315,7 @@
 
             vm.selected_udn = null;
             vm.selected_date = new Date();
+            vm.selected_modelo = null;
 
             loadMarcasChoiceFiltered();
             activate()
@@ -323,6 +376,16 @@
             else{
                 vm.selected_cabinet.capitalizado=false;
             }
+        }
+
+        function lookupByEconomico () {
+            if(vm.economic_lookup_var!='' && vm.economic_lookup_var!=null){
+                return Cabinet.lookup(vm.economic_lookup_var).then(function (res) {
+                    return res;
+                });
+            }
+            return null;
+
         }
 
     }
