@@ -6,7 +6,7 @@
         .module('app.mainApp.admin')
         .controller('gestion_userController', gestion_userController);
 
-    function gestion_userController(groups, NotificationPanel, Persona_Admin, toastr, Helper, Translate, $scope, Sucursal) {
+    function gestion_userController(groups, NotificationPanel, Persona_Admin, Session,toastr, Helper, Translate, $scope, Sucursal) {
         var vm = this;
         vm.isClient = true;
         activate();
@@ -108,10 +108,18 @@
             if (vm.user_ini.sucursal == null)
                 delete vm.user_ini['sucursal'];
             Persona_Admin.createObject(vm.user_ini).then(function (res) {
-
+                var grupo=_.findWhere(vm.grupos,{name:"Administrador"});
+                var role=null;
+                if(vm.user_ini.user.role==grupo.id && vm.user_ini.sucursal!=null ){
+                    role=0;
+                }else{
+                    role=vm.user_ini.user.role;
+                }
                 var request = {
                     username: vm.user_ini.user.username,
-                    name: vm.user_ini.nombre + " " + vm.user_ini.apellido_paterno + " " + vm.user_ini.apellido_materno
+                    name: vm.user_ini.nombre + " " + vm.user_ini.apellido_paterno + " " + vm.user_ini.apellido_materno,
+                    office:vm.user_ini.sucursal,
+                    profile:role
                 };
                 NotificationPanel.createUser(request).then(function () {
                     toastr.success(vm.successCreateMessage, vm.successTitle);

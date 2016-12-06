@@ -13,7 +13,6 @@
         return {
             acceptFile: acceptFile,
             showNotification: showNotification,
-            addNotificationGlobal: addNotificationGlobal,
             filterDeleted: filterDeleted,
             searchByField: searchByField,
             sortByAttribute: sortByAttribute,

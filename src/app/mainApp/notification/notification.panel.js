@@ -15,7 +15,8 @@
             getNotificationByUser: getNotificationByUser,
             createUser:createUser,
             markNotification: markNotification,
-            createNotification:createNotification
+            createNotification:createNotification,
+            createOffice:createOffice
         };
         function getNotificationByUser(user) {
             var deferred = $q.defer();
@@ -73,6 +74,24 @@
             var req = {
                 method: 'POST',
                 url: EnvironmentConfig.site.notification.baseUrl+'api/notification',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': OAuthToken.getAuthorizationHeader()
+                },
+                data: request
+            };
+            $http(req).then(function(res){
+                deferred.resolve(res);
+            }, function(err){
+                deferred.reject(err);
+            });
+            return deferred.promise;
+        }
+        function createOffice(request) {
+            var deferred = $q.defer();
+            var req = {
+                method: 'POST',
+                url: EnvironmentConfig.site.notification.baseUrl+'api/office',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': OAuthToken.getAuthorizationHeader()
