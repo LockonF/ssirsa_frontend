@@ -44,7 +44,7 @@
         vm.sucursal = null;
         vm.modelos = ModeloCabinet.list();
         vm.marcas = MarcaCabinet.list();
-        vm.ife_chofer=null;
+        vm.ife_chofer = null;
 
         //Visualizations
         vm.hideMassiveUpload = true;
@@ -297,7 +297,7 @@
             $scope.entradaForm.$invalid = true;
             vm.selectedTab = 0;
             vm.inputWasCorrect = false;
-            vm.ife_chofer=null;
+            vm.ife_chofer = null;
         }
 
         function partialClean() {
@@ -306,17 +306,17 @@
             vm.entrada.creados = [];
             vm.entrada.no_creados = [];
             vm.notFoundCabinets = [];
-            vm.entrada.file=null;
+            vm.entrada.file = null;
         }
 
         function selectionImage($file) {
-            if($file.size>1000000) {
+            if ($file.size > 1000000) {
                 toastr.warning(vm.errorSize, vm.errorTitle);
-                vm.entrada.ife_chofer=null;
+                vm.entrada.ife_chofer = null;
             }
             else {
                 vm.entrada.ife_chofer = $file;
-                vm.ife_chofer=$file;
+                vm.ife_chofer = $file;
             }
         }
 
@@ -406,41 +406,44 @@
         }
 
         function addCabinet() {
-            if (_.contains(vm.existingCabinets, vm.cabinetID)) {
-                Cabinet.getIfEntrada(vm.cabinetID).then(function (res) {
-                    var index = vm.cabinets.map(function (elem) {
-                        return elem.economico;
-                    }).indexOf(res.economico);
-                    if (index != -1) {
+            if (vm.cabinets.length > 0) {
+
+                if (_.contains(vm.existingCabinets, vm.cabinetID)) {
+                    Cabinet.getIfEntrada(vm.cabinetID).then(function (res) {
+                        var index = vm.cabinets.map(function (elem) {
+                            return elem.economico;
+                        }).indexOf(res.economico);
+                        if (index != -1) {
+                            toastr.warning(vm.errorCabinet, vm.warning);
+                        }
+                        else {
+                            var tempCabinet = angular.copy(res);
+                            tempCabinet.modelo = modeloById(res.modelo).nombre;
+                            tempCabinet.marca = marcaById(res.modelo);
+                            vm.cabinets.push(tempCabinet);
+                        }
+                        vm.cabinetID = "";
+                    }).catch(function (err) {
+                        if (err.data.detail != null)
+                            toastr.error(err.data.detail, vm.errorTitle);
+                        else
+                            toastr.error(vm.notFoundCabinet, vm.errorTitle);
+                        vm.cabinetID = "";
+                    });
+                }
+                else {
+                    if (vm.notFoundCabinets.indexOf(vm.cabinetID) != -1) {
                         toastr.warning(vm.errorCabinet, vm.warning);
                     }
                     else {
-                        var tempCabinet = angular.copy(res);
-                        tempCabinet.modelo = modeloById(res.modelo).nombre;
-                        tempCabinet.marca = marcaById(res.modelo);
-                        vm.cabinets.push(tempCabinet);
+                        toastr.warning(vm.notFoundCabinet, vm.warning);
+                        vm.notFoundCabinets.push(vm.cabinetID);
                     }
                     vm.cabinetID = "";
-                }).catch(function (err) {
-                    if(err.data.detail!=null)
-                        toastr.error(err.data.detail, vm.errorTitle);
-                    else
-                        toastr.error(vm.notFoundCabinet, vm.errorTitle);
-                    vm.cabinetID = "";
-                });
+                }
             }
-            else {
-                if (vm.notFoundCabinets.indexOf(vm.cabinetID) != -1) {
-                    toastr.warning(vm.errorCabinet, vm.warning);
-                }
-                else {
-                    toastr.warning(vm.notFoundCabinet, vm.warning);
-                    vm.notFoundCabinets.push(vm.cabinetID);
-                }
+            else
                 vm.cabinetID = "";
-            }
-
-
         }
 
 
