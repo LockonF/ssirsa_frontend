@@ -77,6 +77,7 @@
             vm.dialogTitle=Translate.translate('MAIN.DIALOG.DELETE_TITLE');
             vm.dialogMessage=Translate.translate('MAIN.DIALOG.DELETE_MESSAGE');
             vm.PatternMessage=Translate.translate('SEARCH_REQUEST.FORM.LABEL.PATTERNMESSAGE');
+            vm.notFound=Translate.translate('SEARCH_REQUEST.FORM.LABEL.NOFOUND');
         }
 
         function activate() {
@@ -153,10 +154,11 @@
         }
 
         function editCalendar(obj) {
-            obj.fecha_inicio = moment(obj.fecha_inicio).format('YYYY-MM-DD');
-            obj.fecha_termino = moment(obj.fecha_termino).format('YYYY-MM-DD');
-            obj.fecha_atendida = moment(obj.fecha_atendida).toISOString();
-            Solicitudes_Admin.updateSolicitud(obj).then(function () {
+            var obj2=angular.copy(obj);
+            obj2.fecha_inicio = moment(obj.fecha_inicio).format('YYYY-MM-DD');
+            obj2.fecha_termino = moment(obj.fecha_termino).format('YYYY-MM-DD');
+            obj2.fecha_atendida = moment(obj.fecha_atendida).toISOString();
+            Solicitudes_Admin.updateSolicitud(obj2).then(function () {
                 toastr.success(vm.successUpdateMessage, vm.successTitle);
             }).catch(function (res) {
                 toastr.error(vm.errorMessage, vm.errorTitle);
@@ -407,7 +409,7 @@
                                     vm.solicitudes = [];
                                     vm.solicitudes.push(vm.sol);
                                 } else {
-                                    toastr.warning('Folio no encontrado', 'Advertencia');
+                                    toastr.warning(vm.notFound, 'Advertencia');
                                     vm.solicitudes = null;
                                 }
                             }).catch(function (error) {
@@ -428,7 +430,7 @@
                                     vm.solicitudes = [];
                                     vm.solicitudes.push(vm.sol);
                                 } else {
-                                    toastr.warning('Folio no encontrado', 'Advertencia');
+                                    toastr.warning(vm.notFound, 'Advertencia');
                                     vm.solicitudes = null;
                                 }
                             }).catch(function (error) {
@@ -446,7 +448,9 @@
                                     for (var i = 0, len = vm.solicitudes.length; i < len; i++) {
                                         if (vm.solicitudes[i].tipo_solicitud == 'Envio') {
                                             vm.sol = vm.solicitudes[i];
+                                            console.log(vm.sol.fecha_inicio);
                                             vm.sol.fecha_inicio = moment(vm.sol.fecha_inicio).format('DD/MM/YYYY');
+                                            console.log(vm.sol.fecha_inicio);
                                             vm.sol.fecha_termino = moment(vm.sol.fecha_termino).format('DD/MM/YYYY');
                                             vm.sol.fecha_atendida = moment(vm.sol.fecha_atendida).format('DD/MM/YYYY HH:mm');
                                             vm.solicitudesArray.push(vm.sol);
@@ -456,11 +460,11 @@
                                     vm.solicitudes = vm.solicitudesArray;
                                     vm.solicitudesArray = [];
                                     if (vm.solicitudes == null) {
-                                        toastr.warning('Solicitudes ' + vm.busqueda_status + 's no encontradas', 'Advertencia');
+                                        toastr.warning(vm.notFound, 'Advertencia');
                                     }
 
                                 } else {
-                                    toastr.warning('Solicitudes ' + vm.busqueda_status + 's no encontradas', 'Advertencia');
+                                    toastr.warning(vm.notFound, 'Advertencia');
                                     vm.solicitudes = null;
                                 }
                             }).catch(function (error) {
@@ -482,7 +486,7 @@
                                     vm.solicitudes = vm.solicitudesArray;
                                     vm.solicitudesArray = [];
                                 } else {
-                                    toastr.warning('Solicitudes ' + vm.busqueda_status + 's no encontradas', 'Advertencia');
+                                    toastr.warning(vm.notFound, 'Advertencia');
                                     vm.solicitudes = null;
                                 }
                             }).catch(function (error) {
@@ -509,7 +513,7 @@
                                     vm.solicitudes = [];
                                     vm.solicitudes.push(vm.sol);
                                 } else {
-                                    toastr.warning('Folio no encontrado', 'Advertencia');
+                                    toastr.warning(vm.notFound, 'Advertencia');
                                     vm.solicitudes = null;
                                 }
                             }).catch(function (error) {
@@ -530,7 +534,7 @@
                                     vm.solicitudes = [];
                                     vm.solicitudes.push(vm.sol);
                                 } else {
-                                    toastr.warning('Folio no encontrado', 'Advertencia');
+                                    toastr.warning(vm.notFound, 'Advertencia');
                                     vm.solicitudes = null;
                                 }
                             }).catch(function (error) {
@@ -559,10 +563,10 @@
                                     vm.solicitudes = vm.solicitudesArray;
                                     vm.solicitudesArray = [];
                                     if (vm.solicitudes == null) {
-                                        toastr.warning('Solicitudes ' + vm.busqueda_status + 's no encontradas', 'Advertencia');
+                                        toastr.warning(vm.notFound, 'Advertencia');
                                     }
                                 } else {
-                                    toastr.warning('Solicitudes ' + vm.busqueda_status + 's no encontradas', 'Advertencia');
+                                    toastr.warning(vm.notFound, 'Advertencia');
                                     vm.solicitudes = null;
                                 }
                             }).catch(function (error) {
@@ -585,7 +589,7 @@
                                     vm.solicitudes = vm.solicitudesArray;
                                     vm.solicitudesArray = [];
                                 } else {
-                                    toastr.warning('Solicitudes ' + vm.busqueda_status + 's no encontradas', 'Advertencia');
+                                    toastr.warning(vm.notFound, 'Advertencia');
                                     vm.solicitudes = null;
                                 }
                             }).catch(function (error) {
@@ -612,10 +616,10 @@
                                 vm.solicitudesVentas = vm.solicitudesArray;
                                 vm.solicitudesArray = [];
                                 if (vm.solicitudesVentas == null) {
-                                    toastr.warning('Solicitudes ' + vm.busqueda_status + 's no encontradas', 'Advertencia');
+                                    toastr.warning(vm.notFound, 'Advertencia');
                                 }
                             } else {
-                                toastr.warning('Solicitudes ' + vm.busqueda_status + 's no encontradas', 'Advertencia');
+                                toastr.warning(vm.notFound, 'Advertencia');
                                 vm.solicitudes = null;
                             }
 
@@ -628,6 +632,7 @@
                             vm.solicitudesVentas = rest;
                         }).catch(function (error) {
                             toastr.warning(vm.errorMessage, vm.errorTitle);
+                            vm.solicitudesVentas=null;
                         })
                     }
                     break;

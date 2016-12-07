@@ -94,7 +94,8 @@
                 "STATUS":"Estatus del equipo",
                 "TIPOEQUIPO":"Tipo del equipo",
                 "MODELO":"Modelo",
-                "PATTERNMESSAGE":"Favor de introducir solo caracteres validos"
+                "PATTERNMESSAGE":"Favor de introducir solo caracteres validos",
+                "NOFOUND":"solicitudes no encontradas"
             }
         }
     }
