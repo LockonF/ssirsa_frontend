@@ -105,6 +105,7 @@
     "INPUT":{
         "Entrance":"Registrar Entrada",
         "Output":"Registrar Salida",
+        "ID":"Entrada #",
         "Entrance_Kind":"Tipo de entrada",
         "Save":"Guardar",
         "Cancel":"Cancelar",

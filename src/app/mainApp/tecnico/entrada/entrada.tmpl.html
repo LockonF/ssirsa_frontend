@@ -210,6 +210,7 @@
                     <!--ng-disabled="entradaForm.$invalid"-->
                     <md-tab label={{'INPUT.Tabs.CabinetsUpload'|translate}} ng-disabled="entradaForm.$invalid">
                         <md-content layout-padding="">
+                            <h2 ng-if="vm.entrada.id != null && vm.entrada.id != undefined" >{{'INPUT.ID'|translate}}{{vm.entrada.id}}</h2>
                             <div layout-gt-xs="row"
                                  layout="column"
                                  layout-align-gt-xs="space-around start"
@@ -476,7 +477,9 @@
                                         || (vm.entrada.file==null && vm.hideManualUpload==true)
                                         || (vm.cabinets.length === 0 && vm.hideMassiveUpload==true)"
                                         ng-click="vm.guardar()"
-                                        class="md-raised md-primary">{{'INPUT.Save'|translate}}
+                                        class="md-raised md-primary">
+                                    <md-icon ng-if="vm.entrada.id == null || vm.entrada.id == undefined" md-font-icon="fa fa-save"></md-icon>
+                                    <md-icon ng-if="vm.entrada.id != null && vm.entrada.id != undefined" md-font-icon="fa fa-pencil"></md-icon>
                                 </md-button>
                             </div>
                         </md-content>
