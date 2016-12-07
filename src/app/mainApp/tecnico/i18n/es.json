@@ -198,6 +198,7 @@
 
         "UnregisteredCabinets":"Cabinets no registrados",
         "RegisteredCabinets":"Cabinets Registrados",
+        "UnexistentModels":"Modelos no existentes",
 
         "Required Field":"Campo Requerido",
         "Max100":"El campo no puede contener mas de 100 caracteres",

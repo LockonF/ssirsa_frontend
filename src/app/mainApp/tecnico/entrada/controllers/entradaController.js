@@ -77,7 +77,7 @@
             "file": null,
             "creados": [],
             "no_creados": [],
-            "modelos_no_existentes": null
+            "modelos_no_existentes": []
 
         };
 
@@ -197,6 +197,7 @@
                         vm.entrada.no_creados = _.map(res.no_creados, function (id) {
                             return {"economico": id, "motivo": "Marca o modelo no existentes"};
                         });
+                        vm.entrada.modelos_no_existentes=res.modelos_no_existentes;
                         vm.hideRegisteredCabinets = false;
                         vm.hideUnregisteredCabinets = false;
                         if (vm.entrada.no_creados.length > 0) {
@@ -221,6 +222,7 @@
                         vm.entrada.id = res.id;
                         vm.entrada.creados = res.creados;
                         vm.entrada.no_creados = res.no_creados;
+                        vm.entrada.modelos_no_existentes=res.modelos_no_existentes;
                         vm.hideRegisteredCabinets = false;
                         vm.hideUnregisteredCabinets = false;
                         if (vm.entrada.no_creados.length > 0) {

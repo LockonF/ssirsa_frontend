@@ -313,6 +313,20 @@
                                         </md-virtual-repeat-container>
                                     </div>
                                 </div>
+                                <div flex="" layout="column" ng-if="vm.entrada.modelos_no_existentes.length > 0">
+                                    <p>{{'INPUT.UnexistentModels'|translate}}: {{vm.entrada.modelos_no_existentes.length}}</p>
+                                    <md-virtual-repeat-container flex="100"
+                                                                 layout="column"
+                                                                 layout-align="center center"
+                                                                 class="vr-min-height">
+                                        <div id="tabla" layout-align="center center">
+                                            <div ng-repeat="modelo in vm.entrada.modelos_no_existentes">
+                                                {{modelo}}
+                                                <md-divider></md-divider>
+                                            </div>
+                                        </div>
+                                    </md-virtual-repeat-container>
+                                </div>
                                 <div flex="" layout="column" ng-if="vm.entrada.creados.length > 0">
                                     <p>{{'INPUT.Registered Cabinets'|translate}}: {{vm.entrada.creados.length}}</p>
                                     <md-virtual-repeat-container flex="100"
