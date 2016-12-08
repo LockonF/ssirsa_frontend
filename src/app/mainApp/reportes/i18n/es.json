@@ -79,7 +79,8 @@
             "VALUE":"Valor",
             "FIELD_FILTER":"Filtro:",
             "FIELD_FIELDS":"Reporte:",
-            "DELETE":"Eliminar"
+            "DELETE":"Eliminar",
+            "TABLE":"Tabla"
         },
         "TAB":{
             "PREVIEW":"Vista previa",

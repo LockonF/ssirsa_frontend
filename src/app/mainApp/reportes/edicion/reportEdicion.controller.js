@@ -19,6 +19,7 @@
         vm.filterInt = OPTIONS.filterInt;
         vm.days = OPTIONS.days;
         vm.fieldQueries=OPTIONS.field_types;
+        vm.rootModel="";
 
         //Function parse
         vm.removeField = removeField;
@@ -32,6 +33,7 @@
 
         //Translates
         vm.tableDisplayHeaders = [
+            Translate.translate('REPORTS.MODIFY.TABLE'),
             Translate.translate('REPORTS.MODIFY.FIELD_NAME'),
             Translate.translate('REPORTS.MODIFY.FIELD_VERBOSE'),
             Translate.translate('REPORTS.MODIFY.FIELD_TYPE'),
@@ -40,6 +42,7 @@
         ];
 
         vm.tableFilterHeaders = [
+            Translate.translate('REPORTS.MODIFY.TABLE'),
             Translate.translate('REPORTS.MODIFY.FIELD_NAME'),
             Translate.translate('REPORTS.MODIFY.FIELD_VERBOSE'),
             Translate.translate('REPORTS.MODIFY.FIELD_TYPE'),
@@ -55,6 +58,9 @@
                     vm.report.displayfield_set=reorganizeFieldIndexes(res.displayfield_set);
                 if(res.filterfield_set!=null)
                     vm.report.filterfield_set=reorganizeFieldIndexes(res.filterfield_set);
+                Reportes.getModel(res.root_model).then(function(res){
+                    vm.rootModel = res.name;
+                }).catch();
             }).catch(function(){
 
             });

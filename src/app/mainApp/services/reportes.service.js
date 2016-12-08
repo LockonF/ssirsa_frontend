@@ -17,6 +17,7 @@
             getReports:getReports,
             getReport:getReport,
             getModels:getModels,
+            getModel:getModel,
             getRelatedModels:getRelatedModels,
             getFields:getFields,
             saveReport:saveReport,
@@ -52,6 +53,10 @@
         //Obtiene todos los modelos base sobre los cuales se pueden hacer reportes, se usa solo al crearlo
         function getModels(){
             return path.all("contenttypes").all("").getList().$object;
+        }
+        //Obtiene todos los modelos base sobre los cuales se pueden hacer reportes, se usa solo al crearlo
+        function getModel(id){
+            return path.one("contenttypes",id).all("").customGET();
         }
         //Obtiene solamnte los modelos relacionados (campos que son llave primaria de otro modelo)
         // con un modelo, dado un ID de modelo, y como opcion una ruta (path) y un nombre de campo (field)
