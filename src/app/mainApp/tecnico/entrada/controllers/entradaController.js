@@ -215,16 +215,18 @@
                             vm.inputWasCorrect = true;
                         }
                     }).catch(function (err) {
-                        if(err.message!=null){
+                        console.log(err);
+                        vm.entrada.file = null;
+
+                        if(err.data.message!=null || err.data.message!=undefined){
                             toastr.error(vm.errorQuantity,vm.errorTitle);
                         }
                         else{
+                            toastr.error(vm.errorMassive, vm.errorTitle);
                             if (err.data.no_creados.length > 0) {
                                 vm.entrada.no_creados = err.data.no_creados;
                             }
-                            toastr.error(vm.errorMassive, vm.errorTitle);
                         }
-                        vm.entrada.file = null;
                     });
                 }
                 else {

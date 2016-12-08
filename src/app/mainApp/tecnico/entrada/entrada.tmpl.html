@@ -481,7 +481,9 @@
                                 </div>
                             </div>
                             <div layout="row" layout-align="end center">
-                                <md-button ng-click="vm.limpiar()" md-no-ink class="md-raised md-primary"
+                                <md-button ng-click="vm.limpiar()"
+                                           md-no-ink
+                                           class="md-raised md-primary"
                                            aria-label="clear">
                                     <md-icon md-font-icon="fa fa-eraser"></md-icon>
                                 </md-button>
@@ -491,6 +493,7 @@
                                         || (vm.entrada.file==null && vm.hideManualUpload==true)
                                         || (vm.cabinets.length === 0 && vm.hideMassiveUpload==true)"
                                         ng-click="vm.guardar()"
+                                        aria-label="save"
                                         class="md-raised md-primary">
                                     <md-icon ng-if="vm.entrada.id == null || vm.entrada.id == undefined" md-font-icon="fa fa-save"></md-icon>
                                     <md-icon ng-if="vm.entrada.id != null && vm.entrada.id != undefined" md-font-icon="fa fa-pencil"></md-icon>
