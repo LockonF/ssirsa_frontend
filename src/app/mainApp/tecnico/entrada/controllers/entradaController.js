@@ -52,8 +52,6 @@
         //Visualizations
         vm.hideMassiveUpload = true;
         vm.hideManualUpload = true;
-        vm.hideRegisteredCabinets = true;
-        vm.hideUnregisteredCabinets = true;
         vm.inputWasCorrect = false;
 
 
@@ -202,8 +200,6 @@
                             return {"economico": id, "motivo": "Marca o modelo no existentes"};
                         });
                         vm.entrada.modelos_no_existentes=res.modelos_no_existentes;
-                        vm.hideRegisteredCabinets = false;
-                        vm.hideUnregisteredCabinets = false;
                         if (vm.entrada.no_creados.length > 0) {
                             //Input has Cabinets that couldn´t be created
                             toastr.warning(vm.warning, vm.warningTitle);
@@ -215,7 +211,6 @@
                             vm.inputWasCorrect = true;
                         }
                     }).catch(function (err) {
-                        console.log(err);
                         vm.entrada.file = null;
 
                         if(err.data.message!=null || err.data.message!=undefined){
@@ -236,8 +231,6 @@
                         vm.entrada.creados = res.creados;
                         vm.entrada.no_creados = res.no_creados;
                         vm.entrada.modelos_no_existentes=res.modelos_no_existentes;
-                        vm.hideRegisteredCabinets = false;
-                        vm.hideUnregisteredCabinets = false;
                         if (vm.entrada.no_creados.length > 0) {
                             toastr.warning(vm.warning, vm.warningTitle);
                             vm.entrada.file = null;
@@ -303,8 +296,6 @@
         function limpiar() {
             vm.entrada = angular.copy(entrada);
             vm.entrada.sucursal = vm.sucursal;
-            vm.hideRegisteredCabinets = true;
-            vm.hideUnregisteredCabinets = true;
             vm.hideMassiveUpload = true;
             vm.hideManualUpload = true;
             $scope.entradaForm.$setPristine();
