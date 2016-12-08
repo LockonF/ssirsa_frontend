@@ -12,12 +12,21 @@
                                ModeloCabinet, Sucursal, udn, CabinetEntradaSalida,
                                Proyectos, TipoTransporte, LineaTransporte, Translate,
                                $scope, Cabinet, Helper, Persona, OPTIONS) {
+        //Variable definition
         var vm = this;
         vm.isGarantia = false;
         vm.isPedimento = false;
         vm.searchText = "";
         vm.isValid = false;
+        vm.selectedTab = 0;
+        vm.idEntrada = null;
+        vm.sucursal = null;
+        vm.ife_chofer = null;
 
+        vm.options = OPTIONS.input_types;
+        vm.selectedEntrada = null;
+
+        //Function parsing
         vm.guardar = guardar;
         vm.limpiar = limpiar;
         vm.selectionFile = selectionFile;
@@ -36,15 +45,9 @@
         vm.selectedItemChange = selectedItemChange;
         vm.search = search;
 
-        vm.options = OPTIONS.input_types;
-        vm.selectedEntrada = null;
 
-        vm.selectedTab = 0;
-        vm.idEntrada = null;
-        vm.sucursal = null;
         vm.modelos = ModeloCabinet.list();
         vm.marcas = MarcaCabinet.list();
-        vm.ife_chofer = null;
 
         //Visualizations
         vm.hideMassiveUpload = true;
@@ -99,6 +102,7 @@
         vm.dialogTitle = Translate.translate('INPUT.Dialogs.Confirm.Title');
         vm.dialogMessage = Translate.translate('INPUT.Dialogs.Confirm.Message');
         vm.errorSize = Translate.translate('MAIN.MSG.FILE_SIZE');
+        vm.errorQuantity = Translate.translate('INPUT.Messages.QuantityExceeded');
 
         activate();
 
@@ -201,19 +205,26 @@
                         vm.hideRegisteredCabinets = false;
                         vm.hideUnregisteredCabinets = false;
                         if (vm.entrada.no_creados.length > 0) {
+                            //Input has Cabinets that couldn´t be created
                             toastr.warning(vm.warning, vm.warningTitle);
                             vm.entrada.file = null;
                         }
                         else {
+                            //Completely Succesful Input
                             toastr.success(vm.sucessMassive, vm.successTitle);
                             vm.inputWasCorrect = true;
                         }
                     }).catch(function (err) {
-                        if (err.data.no_creados.length > 0) {
-                            vm.entrada.no_creados = err.data.no_creados;
+                        if(err.message!=null){
+                            toastr.error(vm.errorQuantity,vm.errorTitle);
+                        }
+                        else{
+                            if (err.data.no_creados.length > 0) {
+                                vm.entrada.no_creados = err.data.no_creados;
+                            }
+                            toastr.error(vm.errorMassive, vm.errorTitle);
                         }
                         vm.entrada.file = null;
-                        toastr.error(vm.errorMassive, vm.errorTitle);
                     });
                 }
                 else {
