@@ -335,14 +335,14 @@
                                                     <thead>
                                                     <tr>
                                                         <th>
-                                                            {{vm.entrada.modelos_no_existentes.length}}
+                                                            {{'INPUT.UnexistentModels'|translate}}
                                                         </th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
                                                     <tr ng-repeat="modelo in vm.entrada.modelos_no_existentes">
                                                         <td>
-                                                            {{modelo}}
+                                                            {{modelo.denominacion}}
                                                         </td>
                                                     </tr>
                                                     </tbody>

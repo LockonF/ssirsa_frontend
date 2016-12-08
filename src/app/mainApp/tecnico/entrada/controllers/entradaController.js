@@ -199,7 +199,9 @@
                         vm.entrada.no_creados = _.map(res.no_creados, function (id) {
                             return {"economico": id, "motivo": "Marca o modelo no existentes"};
                         });
-                        vm.entrada.modelos_no_existentes=res.modelos_no_existentes;
+                        vm.entrada.modelos_no_existentes = _.map(res.modelos_no_existentes,function(id){
+                           return {"denominacion":id};
+                        });
                         if (vm.entrada.no_creados.length > 0) {
                             //Input has Cabinets that couldn´t be created
                             toastr.warning(vm.warning, vm.warningTitle);
