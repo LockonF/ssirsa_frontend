@@ -313,6 +313,7 @@
             vm.selectedTab = 0;
             vm.inputWasCorrect = false;
             vm.ife_chofer = null;
+            vm.searchText="";
         }
 
         function partialClean() {
