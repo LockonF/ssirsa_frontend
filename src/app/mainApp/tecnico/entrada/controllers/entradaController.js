@@ -421,7 +421,7 @@
         }
 
         function addCabinet() {
-            if (vm.cabinets.length > 0) {
+            if (vm.cabinetID.length > 0) {
 
                 if (_.contains(vm.existingCabinets, vm.cabinetID)) {
                     Cabinet.getIfEntrada(vm.cabinetID).then(function (res) {
