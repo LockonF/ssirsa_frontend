@@ -52,7 +52,7 @@
         ];
 
         function activate() {
-            vm.report = Reportes.getReportObject($stateParams.id).then(function(res){
+            vm.reportPromise = Reportes.getReportObject($stateParams.id).then(function(res){
                 vm.report=res;
                 if(res.displayfield_set!=null)
                     vm.report.displayfield_set=reorganizeFieldIndexes(res.displayfield_set);

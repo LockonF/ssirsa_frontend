@@ -15,6 +15,7 @@
         vm.cancel = cancel;
         vm.report=reporte;
         vm.formats=OPTIONS.formats;
+        vm.formatSelected="xlsx";
 
 
 

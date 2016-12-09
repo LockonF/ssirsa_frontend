@@ -85,7 +85,8 @@
         "TAB":{
             "PREVIEW":"Vista previa",
             "FILTERS":"Filtros",
-            "INFORMATION":"Información"
+            "INFORMATION":"Información",
+            "FIELDS":"Campos"
         },
         "TABLE_FILTER":{
             "NAME":"Nombre",

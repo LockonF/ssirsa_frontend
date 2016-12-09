@@ -21,9 +21,10 @@
         <md-tabs layout-padding="true"
                  md-dynamic-height="100"
                  md-border-bottom="100"
-                 md-selected="vm.selectedTab">
+                 md-selected="vm.selectedTab"
+                 cg-busy="{promise:vm.reportPromise,message:'Cargando reportes...',templateUrl:'app/mainApp/directives/loading.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
             <md-tab label={{'REPORTS.MODIFY.FIELDS'|translate}}>
-                <div layout="column" flex="100" layout-align="start stretch">
+                <div layout="column" flex="100" layout-align="start stretch" >
                     <md-content flex="100"
                                 layout="row"
                                 layout-align="center center"
@@ -189,7 +190,7 @@
                                                 <md-input-container>
                                                     <input type="text"
                                                            aria-label="text filter"
-                                                           ng-model="data.filter_value"
+                                                           ng-model="field.filter_value"
                                                            name="textFilter"/>
                                                 </md-input-container>
                                             </div>
@@ -202,7 +203,7 @@
                                                     <input type="text"
                                                            numbers-only
                                                            aria-label="text filter"
-                                                           ng-model="data.filter_value"
+                                                           ng-model="field.filter_value"
                                                            name="textFilter"/>
                                                 </md-input-container>
                                             </div>

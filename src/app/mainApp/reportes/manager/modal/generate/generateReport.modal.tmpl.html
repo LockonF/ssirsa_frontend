@@ -12,44 +12,39 @@
     </md-toolbar>
     <md-divider></md-divider>
     <md-dialog-content class="md-dialog-content card1 md-blue-grey-theme">
-        <form name="formNewReport"
-              novalidate>
+        <form name="formExport">
             <md-input-container flex="100" class="md-block">
                 <label>{{'REPORTS.DIALOG.EXPORT.NAME'|translate}}</label>
                 <input type="text"
-                       name="inputName"
+                       name="reportName"
                        required
                        md-no-asterisk
                        disabled
-                       ng-pattern="/^[ A-Za-z0-9]+$/"
-                       md-maxlength="100"
                        ng-model="vm.report.name"
                 >
-                <div ng-messages="formNewReport.inputName.$error">
+                <div ng-messages="formExport.reportName.$error">
                     <div ng-message="required">{{'REPORTS.ERRORS.REQUIRED'|translate}}</div>
-                    <div ng-message="pattern">{{'REPORTS.DIALOGS.CREATE.ERROR_PATTERN'|translate}}</div>
                 </div>
             </md-input-container>
             <md-input-container flex="100" class="md-block">
                 <label>{{'REPORTS.DIALOG.EXPORT.FORMATS'|translate}}</label>
-                <md-select aria-label="formatos" ng-model="vm.formatSelected"  layout-align="space-around start">
+                <md-select aria-label="formatos" required="" name="formato" ng-model="vm.formatSelected" layout-align="space-around start">
                     <md-option ng-repeat="formato in  vm.formats" ng-value="formato.value">
                         {{formato.value}}
                     </md-option>
                 </md-select>
-                <div ng-messages="formNewReport.inputDescription.$error">
+                <div ng-messages="formExport.formato.$error">
                     <div ng-message="required">{{'REPORTS.ERRORS.REQUIRED'|translate}}</div>
-                    <div ng-message="pattern">{{'REPORTS.DIALOGS.CREATE.ERROR_PATTERN'|translate}}</div>
                 </div>
             </md-input-container>
 
         </form>
-        </md-dialog-content>
+    </md-dialog-content>
     <md-dialog-actions layout="row" class="card1 md-blue-grey-theme">
         <md-button ng-click="vm.cancel()" md-no-ink class="md-primary">
             {{'MAIN.BUTTONS.CANCEL'|translate}}
         </md-button>
-        <md-button ng-click="vm.exportar()" ng-disabled="cabinetForm.$invalid" md-no-ink class="md-primary">
+        <md-button ng-click="vm.exportar()" ng-disabled="formExport.$invalid" md-no-ink class="md-primary">
             {{'MAIN.BUTTONS.SUBMIT'|translate}}
         </md-button>
     </md-dialog-actions>
