@@ -32,7 +32,7 @@
 
         </div>
         <div layout-gt-sm="row" layout="column">
-            <div layout="column" layout-align="space-between stretch" flex-lg="30" flex-gt-lg="30" flex-xl="30" flex-gt-sm="100" flex-md="100">
+            <div layout="column" layout-align="space-between stretch" flex-lg="25" flex-gt-lg="25" flex-xl="25" flex-gt-sm="100" flex-md="100">
                 <md-autocomplete
                     md-items="item in vm.querySearch(vm.searchParameter)"
                     md-selected-item="vm.reportSelected"
@@ -58,11 +58,12 @@
                                              layout-fill
                                              class="vr-min-height">
                     <md-list flex="flex" cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
-                        <md-list-item flex="flex" ng-repeat="item in vm.reports | reportSearch:vm.searchParameter">
+                        <md-list-item flex="flex" layout="column" ng-repeat="item in vm.reports | reportSearch:vm.searchParameter">
                             <md-button
+                                style="width: 100%"
                                 ng-click="vm.selected(item)"
                                 ng-class="{'selected':item.id == vm.selectedReport.id}">
-                                <img ng-src="assets/images/report.png" class="avatar"/>
+                                <img ng-src="assets/images/report.png" class="avatar-reports"/>
                                 <span>{{item.name}}</span>
                             </md-button>
                             <md-divider></md-divider>
@@ -71,7 +72,7 @@
                 </md-virtual-repeat-container>
             </div>
             <!--Content div-->
-            <div layout="column" flex-lg="70" flex-gt-lg="70" flex-xl="70" flex-gt-sm="100" flex-md="100">
+            <div layout="column" flex-lg="75" flex-gt-lg="75" flex-xl="75" flex-gt-sm="100" flex-md="100">
                 <md-tabs ng-if="vm.report.id!=null" layout-padding="true" md-dynamic-height="100" md-border-bottom="100" md-selected="triWizard.currentStep"
                          cg-busy="{promise:vm.loadingPromiseReport,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
                     <md-tab label={{'REPORTS.TAB.INFORMATION'|translate}}>
@@ -161,6 +162,7 @@
                                                 </td>
                                                 <td data-title="{{vm.tableDisplayHeaders[4]}}">
                                                     <md-select name="selectQueryType"
+                                                               aria-label="Tipo"
                                                                ng-model="field.aggregate">
                                                         <md-option ng-repeat="option in vm.fieldQueries" value="{{option.id}}">
                                                             {{option.text}}
