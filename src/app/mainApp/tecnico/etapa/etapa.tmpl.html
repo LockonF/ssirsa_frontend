@@ -32,12 +32,12 @@
 
                 </md-button>
                 <md-button ng-if="vm.etapaActual.actual_etapa.nombre=='E1'|| vm.etapaActual.actual_etapa.nombre=='E4'"
-                           class="md-raised md-primary"
+                           class="md-raised md-primary"  aria-label="Prechecklist"
                            ng-click="vm.showPreCheckDialog(ev)">
                     <md-icon md-font-icon="fa fa-check-square"></md-icon>
                 </md-button>
                 <md-button ng-if="vm.etapaActual.actual_etapa.nombre=='E2'" class="md-raised md-primary"
-                           ng-click="vm.showDiagnosticoDialog(ev)">
+                           ng-click="vm.showDiagnosticoDialog(ev)"  aria-label="Diafnostico">
                     <md-icon md-font-icon="fa fa-check-square"></md-icon>
                 </md-button>
             </div>
@@ -93,9 +93,9 @@
                     <div layout="column">
                         <div layout="row" layout-sm="row" layout-xs="column">
                             <md-input-container flex>
-                                <md-button class="md-fab" class="md-primary" aria-label="fab button"
-                                           ng-disabled="form2.Buscar.$invalid "
-                                           ng-click="vm.buscar()">
+                                <md-button class="md-fab" class="md-primary" aria-label="Buscar"
+                                           ng-disabled="form2.Buscar.$invalid || vm.disabledBuscar"
+                                           ng-click="vm.buscar(); $event.stopPropagation();">
                                     <md-icon md-font-icon="zmdi zmdi-zoom-in"></md-icon>
                                 </md-button>
                             </md-input-container>
@@ -114,7 +114,7 @@
         <md-content class="md-padding" ng-if="vm.etapaActual.actual_etapa">
             <div layout="column" flex style="overflow-x: hidden;">
                 <div layout="row" layout-sm="column" layout-xs="column" layout-align=""
-                     ng-show="vm.insumos_loteUsados.length!=0 || vm.insumos_sinStock.lenght!=0" flex="100" layout-wrap>
+                     ng-show="vm.insumos_loteUsados.length!=0 || vm.insumos_sinStock.lenght!=0" cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}" flex="100" layout-wrap>
 
 
                     <div ng-repeat="insu in vm.insumos_loteUsados track by $index" flex="50">
@@ -134,7 +134,7 @@
                         </div>
                     </div>
                     <md-divider></md-divider>
-                    <div ng-repeat="insu2 in vm.insumos_sinStock track by $index" flex="50">
+                    <div ng-repeat="insu2 in vm.insumos_sinStock track by $index" flex="50" cg-busy="{promise:vm.promiseInsumos,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
                         <div column>
                             <div layout="row" layout-align="center center">
                                 <div flex="20">
