@@ -52,7 +52,8 @@
     "angular-translate-interpolation-messageformat": "^2.13.0",
     "angular-translate-loader-url": "^2.13.0",
     "angular-translate-loader-static-files": "^2.13.0",
-    "angular-translate-handler-log": "^2.13.0"
+    "angular-translate-handler-log": "^2.13.0",
+    "adm-dtp": "https://github.com/adan92/ADM-dateTimePicker.git#b85c4a4e611ca7996fddc15550c9081eb52b07d3"
   },
   "devDependencies": {
     "angular-mocks": "1.4.8"

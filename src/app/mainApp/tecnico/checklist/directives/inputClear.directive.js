@@ -13,7 +13,7 @@
                 element.after(
                     '<md-button class="animate-show md-icon-button md-accent"' +
                     'ng-show="' + attrs.ngModel + '" ng-click="' + action + '"' +
-                    'style="position: absolute; top: 0px; right: -6px; bottom:10px; margin: 13px 0px;">' +
+                    'style="position: absolute; top: -10px; right: -6px; bottom:5px; margin: 13px 0px;">' +
                     '<div style="' + style + '">x</div>' +
                     '</md-button>');
             }

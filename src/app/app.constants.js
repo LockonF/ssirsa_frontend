@@ -380,5 +380,34 @@
                 }
             ]
 
+        })
+        .constant('CONFIGS',{
+            ADTConfig:{
+                calType: 'gregorian',
+                dtpType:'date',
+                format: 'DD/MM/YYYY',
+                default: 'today',
+                autoClose:true,
+                multiple:false,
+                todayStr:'Hoy',
+                hideTimeSelector:true,
+                position:'top',
+                isReadOnly:true,
+                daysNames:['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
+                monthsNames:['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
+            },
+            ADTConfigTime:{
+                calType: 'gregorian',
+                dtpType:'date&time',
+                format: 'DD/MM/YYYY hh:mm',
+                default: 'today',
+                autoClose:true,
+                multiple:false,
+                isReadOnly:true,
+                todayStr:'Hoy',
+                position:'top',
+                daysNames:['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
+                monthsNames:['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
+            }
         });
 })();
