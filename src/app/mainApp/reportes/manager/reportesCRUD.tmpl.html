@@ -277,14 +277,14 @@
                                         <!-- Table starts here -->
                                         <table id="tables" class="table table-hover table-mc-light-blue" layout-align="center center">
                                             <thead>
-                                            <tr>
-                                                <th ng-repeat="meta in vm.preview.meta.titles">{{meta}}</th>
-                                            </tr>
+                                                <tr>
+                                                    <th ng-repeat="meta in vm.preview.meta.titles">{{meta}}</th>
+                                                </tr>
                                             </thead>
                                             <tbody>
-                                            <tr ng-repeat="data in vm.preview.data">
-                                                <td data-title="{{vm.preview.meta.titles[$index]}}" ng-repeat="datos in data">{{datos}}</td>
-                                            </tr>
+                                                <tr ng-repeat="data in vm.preview.data">
+                                                    <td data-title="{{vm.preview.meta.titles[$index]}}" ng-repeat="datos in data track by $index">{{datos}}</td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>

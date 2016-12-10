@@ -90,7 +90,7 @@
         }
         function onTabPreview() {
             vm.preview=null;
-            vm.loadingPromisePreview=Reportes.generatePreview(vm.report.id).then(function (res) {
+            vm.loadingPromisePreview=Reportes.generatePreviewPaginator(vm.report.id,1).then(function (res) {
                 vm.preview = res;
 
             }).catch(function () {

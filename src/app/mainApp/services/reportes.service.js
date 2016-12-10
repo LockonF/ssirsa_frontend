@@ -28,7 +28,8 @@
             updateReport:updateReport,
             requestReport:requestReport,
             getReportsGenerated:getReportsGenerated,
-            getReportObject:getReportObject
+            getReportObject:getReportObject,
+            generatePreviewPaginator:generatePreviewPaginator
         };
         //Clona un reporte pasando el id del reporte y el nombre
         function cloneReport(request) {
@@ -131,6 +132,10 @@
         //Permite crear un reporte nuevo con su nombre, descripción y modelo base
         function createReport(data){
             return path.all("report").all("").post(data);
+        }
+        //Permite crear una previsualización en JSON del reporte con el ID dado con paginador
+        function generatePreviewPaginator(id,pagina){
+            return path.one("report",id).all("preview").all(pagina).all("").customGET();
         }
         //Permite crear una previsualización en JSON del reporte con el ID dado
         function generatePreview(id){
