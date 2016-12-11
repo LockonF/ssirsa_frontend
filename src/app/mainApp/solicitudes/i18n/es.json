@@ -79,6 +79,7 @@
                 "ESTATUS":"Estatus",
                 "COMENTARIO":"Comentario",
                 "UDN":"UDN",
+                "INFOSOL":"Información de Solicitud",
                 "PERSONA":"Usuario que realizo la Solicitud",
                 "RAZON_SOCIAL":"Razón social",
                 "NOMBRE_NEGOCIO":"Nombre del Negocio",
