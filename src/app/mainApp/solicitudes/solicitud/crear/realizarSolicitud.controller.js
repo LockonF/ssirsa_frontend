@@ -58,6 +58,7 @@
         vm.hideRegisteredSolicitud = true;
         vm.hideUnregisteredSolicitud = true;
         vm.udn = null;
+        vm.tipo_solicitud=null;
         vm.persona = null;
         vm.types_request = OPTIONS.type_request;
         vm.status = OPTIONS.status;
@@ -95,6 +96,7 @@
             vm.errorMassive=Translate.translate('INPUT.Messages.ErrorMassive');
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
             vm.errorDuplicado = Translate.translate('CREATE_REQUEST.FORM.ERROR.ERRORDUPLICADO');
+            vm.erroNumSolConf = Translate.translate('CREATE_REQUEST.FORM.ERROR.ERRORNUMSOLCONF');
             udn.listObject().then(function (res) {
                 vm.udns=Helper.filterDeleted(res,true);
                 vm.udns=_.sortBy(vm.udns, 'agencia');
@@ -187,7 +189,7 @@
         function cancel() {
             vm.requisitoVenta = angular.copy(requisitoVenta);
             vm.requisito = angular.copy(requisito);
-
+            vm.tipo_solicitud = null;
             $scope.solicitudForm.$setPristine();
             $scope.solicitudForm.$setUntouched();
             vm.udn = null;
@@ -206,7 +208,7 @@
             vm.requisito.fecha_atendida = moment(vm.requisito.fecha_atendida).toISOString();
             vm.requisito.udn = vm.udn;
             vm.requisito.persona = vm.persona;
-            vm.requisito.tipo_solicitud=OPTIONS.type_request[vm.requisito.tipo_solicitud].value_id;
+            vm.requisito.tipo_solicitud=OPTIONS.type_request[vm.tipo_solicitud].value_id;
             Solicitudes_Admin.create(vm.requisito).then(function () {
                 var notification = {
                     id_solicitud: 1,
@@ -223,10 +225,13 @@
                 });*/
                 cancel();
                 toastr.success(vm.successCreateMessage, vm.successTitle);
-
-
-            }).catch(function (res) {
-                toastr.error(vm.errorMessage, vm.errorTitle);
+            }).catch(function (err) {
+                if(err.status==400 && err.data.message=="Solo se pueden tener 4 solicitudes por día")
+                {
+                    toastr.error(vm.erroNumSolConf,vm.errorTitle);
+                }else {
+                    toastr.error(vm.errorMessage, vm.errorTitle);
+                }
             })
         }
 
@@ -236,13 +241,10 @@
             vm.requisito.fecha_termino = moment(vm.requisito.fecha_termino).add(1,'days').format('YYYY-MM-DD');
             vm.requisito.udn = vm.udn;
             delete  vm.requisito.persona;
-            vm.requisito.tipo_solicitud=OPTIONS.type_request[vm.requisito.tipo_solicitud].value_id;
+            vm.requisito.tipo_solicitud=OPTIONS.type_request[vm.tipo_solicitud].value_id;
             Solicitudes.create(vm.requisito).then(function () {
                 cancel();
-
                 toastr.success(vm.successCreateMessage, vm.successTitle);
-
-
             }).catch(function (res)  {
                 toastr.error(vm.errorMessage, vm.errorTitle);
             })
