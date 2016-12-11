@@ -160,7 +160,6 @@
         function selectedPersonas(project) {
             vm.selectedPersonaList = project;
             vm.persona = angular.copy(project);
-            vm.selectedUsuario=vm.persona;
         }
 
         function selectedItemChange(item){
