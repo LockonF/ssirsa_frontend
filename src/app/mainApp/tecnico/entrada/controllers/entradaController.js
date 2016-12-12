@@ -22,6 +22,7 @@
         vm.idEntrada = null;
         vm.sucursal = null;
         vm.ife_chofer = null;
+        vm.multipleInput = false;
 
         vm.options = OPTIONS.input_types;
         vm.selectedEntrada = null;
@@ -199,9 +200,10 @@
                         vm.entrada.no_creados = _.map(res.no_creados, function (id) {
                             return {"economico": id, "motivo": "Marca o modelo no existentes"};
                         });
-                        vm.entrada.modelos_no_existentes = _.map(res.modelos_no_existentes,function(id){
-                           return {"denominacion":id};
+                        vm.entrada.modelos_no_existentes = _.map(res.modelos_no_existentes, function (id) {
+                            return {"denominacion": id};
                         });
+                        vm.entrada.file=null;
                         if (vm.entrada.no_creados.length > 0) {
                             //Input has Cabinets that couldn´t be created
                             toastr.warning(vm.warning, vm.warningTitle);
@@ -215,10 +217,10 @@
                     }).catch(function (err) {
                         vm.entrada.file = null;
 
-                        if(err.data.message!=null || err.data.message!=undefined){
-                            toastr.error(vm.errorQuantity,vm.errorTitle);
+                        if (err.data.message != null || err.data.message != undefined) {
+                            toastr.error(vm.errorQuantity, vm.errorTitle);
                         }
-                        else{
+                        else {
                             toastr.error(vm.errorMassive, vm.errorTitle);
                             if (err.data.no_creados.length > 0) {
                                 vm.entrada.no_creados = err.data.no_creados;
@@ -232,7 +234,9 @@
                         vm.entrada.id = res.id;
                         vm.entrada.creados = res.creados;
                         vm.entrada.no_creados = res.no_creados;
-                        vm.entrada.modelos_no_existentes=res.modelos_no_existentes;
+                        vm.entrada.modelos_no_existentes = _.map(res.modelos_no_existentes, function (id) {
+                            return {"denominacion": id};
+                        });
                         if (vm.entrada.no_creados.length > 0) {
                             toastr.warning(vm.warning, vm.warningTitle);
                             vm.entrada.file = null;
@@ -306,7 +310,7 @@
             vm.selectedTab = 0;
             vm.inputWasCorrect = false;
             vm.ife_chofer = null;
-            vm.searchText="";
+            vm.searchText = "";
         }
 
         function partialClean() {

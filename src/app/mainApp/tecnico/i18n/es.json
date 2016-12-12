@@ -126,6 +126,8 @@
         "Create Model":"Registrar modelo",
         "CabinetID":"Id del cabinet",
         "Format":"Plantilla",
+        "AllowMultiple":"Permitir multiples archivos",
+        "ForbidMultiple":"Solo permitir un archivo",
         "Messages":{
             "SuccessMassive":"Carga masiva registrada correctamente",
             "SuccessNormal":"Entrada registrada correctamente",

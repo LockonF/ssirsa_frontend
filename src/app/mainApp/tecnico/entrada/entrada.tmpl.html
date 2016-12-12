@@ -12,6 +12,7 @@
             <md-content layout-fill="">
                 <md-tabs layout-padding="true" md-dynamic-height="100" md-border-bottom="100"
                          md-selected="vm.selectedTab">
+                    <!--Datos generales de la entrada-->
                     <md-tab label={{'INPUT.Tabs.GeneralData'|translate}} ng-disabled="vm.inputWasCorrect">
                         <md-content layout-padding="">
                             <form name="entradaForm" novalidate="">
@@ -235,7 +236,7 @@
                                 <div layout-gt-xs="row"
                                      layout="column"
                                      flex="100"
-                                     ng-if="!vm.inputWasCorrect"
+                                     ng-if="!vm.inputWasCorrect||vm.multipleInput"
                                 >
                                     <md-input-container flex-gt-sm="75" flex-gt-xs="50" flex="100">
                                         <input name="FileName"
@@ -259,6 +260,10 @@
                                         </md-button>
                                     </div>
                                 </div>
+                                <md-switch ng-model="vm.multipleInput">
+                                    <span ng-if="vm.multipleInput">{{'INPUT.AllowMultiple'|translate}}</span>
+                                    <span ng-if="!vm.multipleInput">{{'INPUT.ForbidMultiple'|translate}}</span>
+                                </md-switch>
                                 <div ng-if="vm.entrada.no_creados.length > 0"
                                      layout-align="space-around stretch"
                                      layout="column">
@@ -516,7 +521,7 @@
                                 </md-button>
                                 <md-button
                                         ng-disabled="entradaForm.$invalid
-                                        || vm.inputWasCorrect
+                                        || (vm.inputWasCorrect && !vm.multipleInput)
                                         || (vm.entrada.file==null && vm.hideManualUpload==true)
                                         || (vm.cabinets.length === 0 && vm.hideMassiveUpload==true)"
                                         ng-click="vm.guardar()"
