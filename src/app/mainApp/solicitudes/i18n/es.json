@@ -52,7 +52,7 @@
             },
             "ERROR":{
                 "ERRORDUPLICADO":"No se puede agregar un tipo de equipo con el mismo status",
-                "ERRORNUMSOLCONF":"ya cuenta con el maximo de solicitudes confirmadas por día"
+                "ERRORNUMSOLCONF":"Solo se pueden tener 4 solicitudes confirmadas por día"
             }
         }
     },
