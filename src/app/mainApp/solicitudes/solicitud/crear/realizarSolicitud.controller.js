@@ -205,7 +205,8 @@
             vm.udn=vm.udnObject.id;
             vm.requisito.fecha_inicio = moment(vm.requisito.fecha_inicio).format('YYYY-MM-DD');
             vm.requisito.fecha_termino = moment(vm.requisito.fecha_termino).format('YYYY-MM-DD');
-            vm.requisito.fecha_atendida = moment(vm.requisito.fecha_atendida).toISOString();
+            vm.requisito.fecha_atendida = moment(vm.requisito.fecha_atendida).format('YYYY-MM-DD HH:mm');
+            console.log(vm.requisito.fecha_atendida);
             vm.requisito.udn = vm.udn;
             vm.requisito.persona = vm.persona;
             vm.requisito.tipo_solicitud=OPTIONS.type_request[vm.tipo_solicitud].value_id;
