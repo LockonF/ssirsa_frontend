@@ -40,6 +40,7 @@
                                         <input name="DriverName"
                                                md-no-asterisk=""
                                                required=""
+                                               only-text
                                                type="text"
                                                md-maxlength="100"
                                                ng-model="vm.entrada.nombre_chofer"/>
@@ -58,6 +59,7 @@
                                                required=""
                                                type="text"
                                                md-maxlength="100"
+                                               is-alphanumeric
                                                ng-model="vm.entrada.pedimento"/>
                                         <div ng-messages="entradaForm.Pediment.$error">
                                             <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
@@ -75,6 +77,7 @@
                                                          md-selected-item-change="vm.selectedItemChange(vm.entrada.udn)"
                                                          md-items="item in vm.filteredUDN" md-item-text="item.agencia"
                                                          md-min-length="0"
+                                                         only-text
                                                          md-input-name="selectUDN"
                                                          md-search-text-change="vm.search(vm.searchText)"
                                                          required
