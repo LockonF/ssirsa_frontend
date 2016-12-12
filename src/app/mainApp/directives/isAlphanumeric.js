@@ -5,9 +5,9 @@
     'use strict';
     angular
         .module('app.mainApp')
-        .directive('onlyText',onlyText);
+        .directive('isAlphanumeric',isAlphanumeric);
 
-    function onlyText(){
+    function isAlphanumeric(){
         return {
             require: 'ngModel',
             link: function (scope, element, attr, ngModelCtrl) {
