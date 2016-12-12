@@ -3,7 +3,7 @@
         <h2 class="md-headline-1 text-center">
             {{'REPORTS.TITLE_LIST'|translate}}</h2>
 
-        <md-virtual-repeat-container class="vertical-container" flex="flex">
+        <md-virtual-repeat-container class="vertical-container" flex="flex" cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
             <md-list>
                 <md-list-item ng-repeat="reporte in vm.reportes" class="md-2-line" >
                     <md-button ng-click="vm.selectedReport(reporte)"
