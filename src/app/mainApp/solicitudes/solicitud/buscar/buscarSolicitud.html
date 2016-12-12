@@ -102,7 +102,7 @@
                                                     <md-input-container >
                                                         <md-icon md-font-icon="zmdi zmdi-calendar"></md-icon>
                                                         <input   type="text"  ng-model="solicitud.fecha_termino" mdc-datetime-picker=""
-                                                                 time="false" date="true" min-date="solicitud.fecha_inicio" max-date="solicitud.fecha_atendida" lang="es-mx"
+                                                                 time="false" date="true" min-date="solicitud.fecha_inicio" max-date="maxDate" lang="es-mx"
                                                                  cancel-text="Cancelar"
                                                                  ok-text="Aceptar"
                                                                  format="DD/MM/YYYY"
@@ -125,7 +125,7 @@
                                                     <md-input-container>
                                                         <md-icon md-font-icon="zmdi zmdi-calendar"></md-icon>
                                                         <input  type="text" ng-model="solicitud.fecha_atendida" mdc-datetime-picker=""
-                                                                time="true" date="true" min-date="solicitud.fecha_termino" max-date="maxDate" lang="es-mx"
+                                                                time="true" date="true" min-date="solicitud.fecha_inicio" max-date="solicitud.fecha_termino" lang="es-mx"
                                                                 cancel-text="Cancelar"
                                                                 ok-text="Aceptar"
                                                                 ng-change='vm.editCalendar(solicitud)'
@@ -158,7 +158,7 @@
                                                 </md-button>
                                             </td>
                                             <td md-cell="md-cell" ng-click="$event.stopPropagation()">
-                                                <md-button ng-click="vm.remove($event,solicitud.id)" class="md-fab md-warn md-mini" ng-disabled="(solicitud.fecha_atendida!=null)&&(vm.isClient)" aria-label="times">
+                                                <md-button ng-click="vm.remove($event,solicitud.id)" class="md-fab md-warn md-mini" ng-disabled="(solicitud.fecha_atendida!=null)&&(solicitud.status=='Confirmada')&&(vm.isClient)" aria-label="times">
                                                     <md-icon md-font-icon="fa fa-times-circle"></md-icon>
                                                 </md-button>
                                             </td>
