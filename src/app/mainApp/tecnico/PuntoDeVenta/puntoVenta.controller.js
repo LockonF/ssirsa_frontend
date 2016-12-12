@@ -261,7 +261,7 @@
                 vm.insumoLote.nombre = insulote.descripcion;
                 vm.insumoLote.notas = elemento.descripcion;
                 vm.insumoLote.agregar = false;
-                if (insulote.cantidad >= vm.insumoLote.cantidad) {
+                if (parseFloat(insulote.cantidad) >= parseFloat(vm.insumoLote.cantidad)) {
                     vm.insumos_loteUsados.push(vm.insumoLote);
                 }
                 else {
