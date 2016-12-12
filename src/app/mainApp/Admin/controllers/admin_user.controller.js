@@ -164,6 +164,7 @@
 
         function selectedItemChange(item){
             vm.persona = angular.copy(item);
+            vm.selectedPersonaList = item;
         }
 
 
