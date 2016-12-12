@@ -164,8 +164,6 @@
                 fullscreen: false
             };
             $mdDialog.show(config).then(function (object) {
-                console.log(object);
-                console.log(vm.requisito.datos);
                  var show = _.findWhere(vm.requisito.datos, {status_equipo: object.status_equipo, tipo_equipo:object.tipo_equipo});
                 if(show==undefined){
                     vm.requisito.datos.push(object);
@@ -205,8 +203,7 @@
             vm.udn=vm.udnObject.id;
             vm.requisito.fecha_inicio = moment(vm.requisito.fecha_inicio).format('YYYY-MM-DD');
             vm.requisito.fecha_termino = moment(vm.requisito.fecha_termino).format('YYYY-MM-DD');
-            vm.requisito.fecha_atendida = moment(vm.requisito.fecha_atendida).format('YYYY-MM-DD HH:mm');
-            console.log(vm.requisito.fecha_atendida);
+            vm.requisito.fecha_atendida = moment(vm.requisito.fecha_atendida).format('YYYY-MM-DD HH:mm'); 
             vm.requisito.udn = vm.udn;
             vm.requisito.persona = vm.persona;
             vm.requisito.tipo_solicitud=OPTIONS.type_request[vm.tipo_solicitud].value_id;
