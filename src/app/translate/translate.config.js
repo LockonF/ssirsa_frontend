@@ -6,7 +6,7 @@
         .config(translateConfig);
 
     /* @ngInject */
-    function translateConfig($translateProvider, $translatePartialLoaderProvider, triSettingsProvider) {
+    function translateConfig($translateProvider, $translatePartialLoaderProvider, triSettingsProvider,tmhDynamicLocaleProvider) {
         var appLanguages = [{
             name: 'Chinese',
             key: 'zh'
@@ -31,6 +31,7 @@
         });
 
         $translatePartialLoaderProvider.addPart('app');
+        $translateProvider.useMissingTranslationHandlerLog();
 
         // make sure all values used in translate are sanitized for security
         $translateProvider.useSanitizeValueStrategy('sanitize');
@@ -66,5 +67,7 @@
 
         // store the users language preference in a cookie
         $translateProvider.useLocalStorage();
+        //tmhDynamicLocaleProvider.localeLocationPattern('bower_components/angular-i18n/angular-locale_{{locale}}.js');
+        tmhDynamicLocaleProvider.localeLocationPattern('https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.5.8/angular-locale_{{locale}}.js');
     }
 })();

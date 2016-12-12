@@ -30,7 +30,7 @@
 
     <md-button class="md-icon-button toolbar-button" aria-label="tab" ng-click="vm.toggleNotificationsTab(1)" ng-if="vmNode.currentUser.userRole==='Administrador'">
         <md-icon md-font-icon="fa fa-bell-o"></md-icon>
-        <span class="toolbar-button-badge" theme-background="accent">{{$root.notifications.length}}</span>
+        <span class="toolbar-button-badge" theme-background="accent">{{$root.notifications.notView.length}}</span>
     </md-button>
 
     <md-menu>
