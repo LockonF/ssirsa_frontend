@@ -13,8 +13,8 @@
             "MSG":{
                 "MIN_DATE":"La {{one}} no puede ser menor a la {{two}}.",
                 "MAX_DATE":"La {{one}} no puede ser mayor a la {{two}}.",
-                "FECHA_START":"Alguna de las fechas no esta correctamente seleccionada"
-
+                "FECHA_START":"Alguna de las fechas no esta correctamente seleccionada",
+                "ERRORNUMSOLCONF":"Solo se pueden tener 4 solicitudes confirmadas por día"
             }
         }
     },
