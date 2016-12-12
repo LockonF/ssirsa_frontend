@@ -9,13 +9,15 @@
         .factory('Solicitudes_Admin', Solicitudes_Admin);
 
     function Solicitudes_Admin(Restangular,$q) {
+        var base=Restangular.all('solicitud_admin');
         return {
             list: list,
             consultaEsp: consultaEsp,
             consultaEspUnconfirmed: consultaEspUnconfirmed,
             updateSolicitud: updateSolicitud,
             create:create,
-            borrarSol:borrarSol
+            borrarSol:borrarSol,
+            getOne:getOne
         };
         function updateSolicitud(request) {
             var deferred = $q.defer();
@@ -69,6 +71,9 @@
                 return resp;
             }).catch(function(error){
             })
+        }
+        function getOne(id) {
+            return base.all(id).customGET();
         }
     }
 })();

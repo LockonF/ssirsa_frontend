@@ -12,13 +12,16 @@
             <md-content layout-fill="">
                 <md-tabs layout-padding="true" md-dynamic-height="100" md-border-bottom="100"
                          md-selected="vm.selectedTab">
+                    <!--Datos generales de la entrada-->
                     <md-tab label={{'INPUT.Tabs.GeneralData'|translate}} ng-disabled="vm.inputWasCorrect">
                         <md-content layout-padding="">
                             <form name="entradaForm" novalidate="">
                                 <md-input-container flex="100" class="md-block">
                                     <label>{{'INPUT.Entrance_Kind'|translate}}</label>
-                                    <md-select name="selectEntranceKind" ng-model="vm.selectedEntrada.text" required="" md-on-close="vm.limpiar()">
-                                        <md-option ng-repeat="option in vm.options" value="{{option.id}}">{{option.text}}
+                                    <md-select name="selectEntranceKind" ng-model="vm.selectedEntrada.text" required=""
+                                               md-on-close="vm.limpiar()">
+                                        <md-option ng-repeat="option in vm.options" value="{{option.id}}">
+                                            {{option.text}}
                                         </md-option>
                                     </md-select>
                                     <div ng-messages="entradaForm.selectEntranceKind.$error">
@@ -38,6 +41,7 @@
                                         <input name="DriverName"
                                                md-no-asterisk=""
                                                required=""
+                                               only-text
                                                type="text"
                                                md-maxlength="100"
                                                ng-model="vm.entrada.nombre_chofer"/>
@@ -56,6 +60,7 @@
                                                required=""
                                                type="text"
                                                md-maxlength="100"
+                                               is-alphanumeric
                                                ng-model="vm.entrada.pedimento"/>
                                         <div ng-messages="entradaForm.Pediment.$error">
                                             <div ng-message="required">{{'INPUT.Required Field'|translate}}</div>
@@ -73,6 +78,7 @@
                                                          md-selected-item-change="vm.selectedItemChange(vm.entrada.udn)"
                                                          md-items="item in vm.filteredUDN" md-item-text="item.agencia"
                                                          md-min-length="0"
+                                                         only-text
                                                          md-input-name="selectUDN"
                                                          md-search-text-change="vm.search(vm.searchText)"
                                                          required
@@ -190,10 +196,10 @@
                                 </div>
                             </div>
                             <div flex="80">
-                                <div class="md-media-md card-media"  ng-if="vm.entrada.ife_chofer!=null">
+                                <div class="md-media-md card-media" ng-if="vm.entrada.ife_chofer!=null">
                                     <img ngf-src="vm.entrada.ife_chofer" style="max-width:150px" class="thumb"/>
                                 </div>
-                                <div class="md-media-md card-media"  ng-if="vm.entrada.ife_chofer==null">
+                                <div class="md-media-md card-media" ng-if="vm.entrada.ife_chofer==null">
                                     <img ngf-src="vm.ife_chofer" style="max-width:150px" class="thumb"/>
                                 </div>
                             </div>
@@ -210,6 +216,8 @@
                     <!--ng-disabled="entradaForm.$invalid"-->
                     <md-tab label={{'INPUT.Tabs.CabinetsUpload'|translate}} ng-disabled="entradaForm.$invalid">
                         <md-content layout-padding="">
+                            <h2 ng-if="vm.entrada.id != null && vm.entrada.id != undefined">
+                                {{'INPUT.ID'|translate}}{{vm.entrada.id}}</h2>
                             <div layout-gt-xs="row"
                                  layout="column"
                                  layout-align-gt-xs="space-around start"
@@ -223,13 +231,12 @@
                                     {{'INPUT.Cabinets Manual Upload'|translate}}
                                 </md-button>
                             </div>
-                            <div layout="column" ng-hide="vm.hideMassiveUpload">
+                            <div layout="column" ng-if="!vm.hideMassiveUpload">
                                 <!-- Massive Upload-->
                                 <div layout-gt-xs="row"
                                      layout="column"
                                      flex="100"
-                                     ng-hide="vm.hideMassiveUpload"
-                                     ng-if="!vm.inputWasCorrect"
+                                     ng-if="!vm.inputWasCorrect||vm.multipleInput"
                                 >
                                     <md-input-container flex-gt-sm="75" flex-gt-xs="50" flex="100">
                                         <input name="FileName"
@@ -253,6 +260,10 @@
                                         </md-button>
                                     </div>
                                 </div>
+                                <md-switch ng-model="vm.multipleInput">
+                                    <span ng-if="vm.multipleInput">{{'INPUT.AllowMultiple'|translate}}</span>
+                                    <span ng-if="!vm.multipleInput">{{'INPUT.ForbidMultiple'|translate}}</span>
+                                </md-switch>
                                 <div ng-if="vm.entrada.no_creados.length > 0"
                                      layout-align="space-around stretch"
                                      layout="column">
@@ -276,7 +287,8 @@
                                          flex="100"
                                          ng-if="vm.entrada.no_creados.length > 0"
                                     >
-                                        <p>{{'INPUT.Unregistered Cabinets'|translate}}: {{vm.entrada.no_creados.length}}</p>
+                                        <p>{{'INPUT.Unregistered Cabinets'|translate}}:
+                                            {{vm.entrada.no_creados.length}}</p>
                                         <md-virtual-repeat-container flex="100"
                                                                      layout="column"
                                                                      layout-align="center center"
@@ -311,6 +323,41 @@
                                             </div>
                                         </md-virtual-repeat-container>
                                     </div>
+                                </div>
+                                <div flex=""
+                                     layout="column"
+                                     ng-if="vm.entrada.modelos_no_existentes.length > 0"
+                                     ng-hide="vm.hideMassiveUpload">
+                                    <p>{{'INPUT.UnexistentModels'|translate}}:
+                                        {{vm.entrada.modelos_no_existentes.length}}</p>
+                                    <md-virtual-repeat-container flex="100"
+                                                                 layout="column"
+                                                                 layout-align="center center"
+                                                                 class="vr-min-height">
+                                        <div id="tabla" layout-align="center center">
+                                            <div class="table-responsive-vertical shadow-z-1"
+                                                 layout-align="space-around center">
+                                                <!-- Table starts here -->
+                                                <table id="table" class="table table-hover table-mc-light-blue"
+                                                       layout-align="center center">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>
+                                                            {{'INPUT.UnexistentModels'|translate}}
+                                                        </th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr ng-repeat="modelo in vm.entrada.modelos_no_existentes">
+                                                        <td>
+                                                            {{modelo.denominacion}}
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </md-virtual-repeat-container>
                                 </div>
                                 <div flex="" layout="column" ng-if="vm.entrada.creados.length > 0">
                                     <p>{{'INPUT.Registered Cabinets'|translate}}: {{vm.entrada.creados.length}}</p>
@@ -369,6 +416,8 @@
                                             <label>{{'INPUT.CabinetID'|translate}}</label>
                                             <input name="CabinetInput"
                                                    type="text"
+                                                   numbers-only
+                                                   maxlength="10"
                                                    ng-model="vm.cabinetID">
                                         </md-input-container>
                                     </form>
@@ -464,17 +513,24 @@
                                 </div>
                             </div>
                             <div layout="row" layout-align="end center">
-                                <md-button ng-click="vm.limpiar()" md-no-ink class="md-raised md-primary"
+                                <md-button ng-click="vm.limpiar()"
+                                           md-no-ink
+                                           class="md-raised md-primary"
                                            aria-label="clear">
                                     <md-icon md-font-icon="fa fa-eraser"></md-icon>
                                 </md-button>
                                 <md-button
                                         ng-disabled="entradaForm.$invalid
-                                        || vm.inputWasCorrect
+                                        || (vm.inputWasCorrect && !vm.multipleInput)
                                         || (vm.entrada.file==null && vm.hideManualUpload==true)
                                         || (vm.cabinets.length === 0 && vm.hideMassiveUpload==true)"
                                         ng-click="vm.guardar()"
-                                        class="md-raised md-primary">{{'INPUT.Save'|translate}}
+                                        aria-label="save"
+                                        class="md-raised md-primary">
+                                    <md-icon ng-if="vm.entrada.id == null || vm.entrada.id == undefined"
+                                             md-font-icon="fa fa-save"></md-icon>
+                                    <md-icon ng-if="vm.entrada.id != null && vm.entrada.id != undefined"
+                                             md-font-icon="fa fa-pencil"></md-icon>
                                 </md-button>
                             </div>
                         </md-content>

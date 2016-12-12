@@ -9,17 +9,46 @@
                 "DATE_TERMINATE":"Fecha de confirmación",
                 "STATUS":"Estatus",
                 "TYPE":"Tipo de solicitud"
+            },
+            "MSG":{
+                "MIN_DATE":"La {{one}} no puede ser menor a la {{two}}.",
+                "MAX_DATE":"La {{one}} no puede ser mayor a la {{two}}.",
+                "FECHA_START":"Alguna de las fechas no esta correctamente seleccionada",
+                "ERRORNUMSOLCONF":"Solo se pueden tener 4 solicitudes confirmadas por día"
             }
         }
     },
     "CREATE_REQUEST": {
         "FORM": {
-            "TITLE":{
-              "CREATE":"Crear Solicitud",
-                "TYPE_TEAM":"Tipo de Equipo",
-                "POINT_SALE":"Solicitud de punto de venta"
+            "TITLE": {
+                "CREATE": "Crear Solicitud",
+                "TYPE_TEAM": "Tipo de Equipo",
+                "POINT_SALE": "Solicitud de punto de venta"
             },
             "LABEL": {
+                "DESCRIPTION": "Descripción",
+                "DATE_INITIAL": "Fecha de solicitud",
+                "DATE_END": "Fecha de atención",
+                "DATE_TERMINATE": "Fecha de confirmación",
+                "COMMENT": "Comentario",
+                "RAZON": "Razón social",
+                "BUSINESS_NAME": "Nombre del negocio",
+                "ADDRESS": "Dirección",
+                "PHONE": "Teléfono",
+                "BUSINESS_CONTACT": "Contacto del negocio",
+                "STATUS": "Estatus",
+                "CARGA_MASIVA_SOLICITUDES": "Carga masiva",
+                "CARGA_INDIVIDUAL_SOLICITUDES": "Carga individual",
+                "ARCHIVO": "Seleccionar Archivo",
+                "REGISTRADOS": "Solicitudes Registradas",
+                "NO_REGISTRADOS": "Solicitudes no Registradas",
+                "CARGASOL": "Carga de Solicitudes",
+                "INVALIDUDN": "La UDN es invalida",
+                "NOTFOUNDUDN": "La UDN no se encuentra",
+                "TYPE":"Tipo"
+            },
+            "TAB": {
+                "REQUEST": "Carga de solicitudes",
                 "DESCRIPTION":"Descripción",
                 "DATE_INITIAL":"Fecha de solicitud",
                 "DATE_END":"Fecha de atención",
@@ -37,32 +66,33 @@
                 "REGISTRADOS":"Solicitudes Registradas",
                 "NO_REGISTRADOS":"Solicitudes no Registradas",
                 "CARGASOL":"Carga de Solicitudes",
-                "INVALIDUDN":"La UDN es invalida",
+                "INVALIDUDN":"Selecciona una Agencia",
                 "NOTFOUNDUDN":"La UDN no se encuentra"
             },
             "PLACEHOLDER":{
                 "UDN":"Seleccione la UDN",
                 "REQUEST":"Elige tipo de solicitud",
-                "PERSON":"Elige una persona",
+                "PERSON":"Selecciona cliente",
                 "STATUS":"Elige un estatus",
                 "DATE_TERMINATE":"Ingrese la fecha de atención"
             },
-            "TAB":{
-                "REQUEST":"Carga de solicitudes"
+            "ERROR":{
+                "ERRORDUPLICADO":"No se puede agregar un tipo de equipo con el mismo status",
+                "ERRORNUMSOLCONF":"Solo se pueden tener 4 solicitudes confirmadas por día"
             }
         }
     },
     "MODAL_REQUEST": {
         "FORM": {
             "LABEL": {
-                "CONCEPT":"Agregar Concepto",
-                "QUANTITY":"Cantidad",
-                "STATUS_EQUIPMENT":"Estatus de equipo",
-                "TYPE_EQUIPMENT":"Tipo de equipo"
+                "CONCEPT": "Agregar Concepto",
+                "QUANTITY": "Cantidad",
+                "STATUS_EQUIPMENT": "Estatus de equipo",
+                "TYPE_EQUIPMENT": "Tipo de equipo"
             },
-            "PLACEHOLDER":{
-                "STATUS_EQUIPMENT":"Seleccione un estatus de equipo",
-                "TYPE_EQUIPMENT":"Seleccione un tipo de equipo"
+            "PLACEHOLDER": {
+                "STATUS_EQUIPMENT": "Seleccione un estatus de equipo",
+                "TYPE_EQUIPMENT": "Seleccione un tipo de equipo"
             }
         }
     },
@@ -93,12 +123,25 @@
                 "FECHA_REALIZACION":"Fecha de Realización",
                 "CANTIDAD":"Cantidad",
                 "STATUS":"Estatus del equipo",
+                "INFOSOL":"Información de Solicitud",
                 "TIPOEQUIPO":"Tipo del equipo",
                 "MODELO":"Modelo",
                 "PATTERNMESSAGE":"Favor de introducir solo caracteres validos",
-                "NOFOUND":"solicitudes no encontradas"
+                "NOFOUND":"solicitudes no encontradas",
+                "TYPE":"Tipo",
+                "DATE":"Fecha de creación"
+            }
+        }
+    },
+    "MODAL_INFO_REQUEST": {
+        "FORM": {
+            "TITLE": "Solicitud",
+            "TAB": {
+                "INFO": "Información",
+                "EQUIPMENT": "Equipos"
+            },
+            "LABEL": {
             }
         }
     }
-
 }

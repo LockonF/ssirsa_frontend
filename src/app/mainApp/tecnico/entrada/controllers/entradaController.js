@@ -12,12 +12,22 @@
                                ModeloCabinet, Sucursal, udn, CabinetEntradaSalida,
                                Proyectos, TipoTransporte, LineaTransporte, Translate,
                                $scope, Cabinet, Helper, Persona, OPTIONS) {
+        //Variable definition
         var vm = this;
         vm.isGarantia = false;
         vm.isPedimento = false;
         vm.searchText = "";
         vm.isValid = false;
+        vm.selectedTab = 0;
+        vm.idEntrada = null;
+        vm.sucursal = null;
+        vm.ife_chofer = null;
+        vm.multipleInput = false;
 
+        vm.options = OPTIONS.input_types;
+        vm.selectedEntrada = null;
+
+        //Function parsing
         vm.guardar = guardar;
         vm.limpiar = limpiar;
         vm.selectionFile = selectionFile;
@@ -36,21 +46,13 @@
         vm.selectedItemChange = selectedItemChange;
         vm.search = search;
 
-        vm.options = OPTIONS.input_types;
-        vm.selectedEntrada = null;
 
-        vm.selectedTab = 0;
-        vm.idEntrada = null;
-        vm.sucursal = null;
         vm.modelos = ModeloCabinet.list();
         vm.marcas = MarcaCabinet.list();
-        vm.ife_chofer=null;
 
         //Visualizations
         vm.hideMassiveUpload = true;
         vm.hideManualUpload = true;
-        vm.hideRegisteredCabinets = true;
-        vm.hideUnregisteredCabinets = true;
         vm.inputWasCorrect = false;
 
 
@@ -77,7 +79,7 @@
             "file": null,
             "creados": [],
             "no_creados": [],
-            "modelos_no_existentes": null
+            "modelos_no_existentes": []
 
         };
 
@@ -99,6 +101,7 @@
         vm.dialogTitle = Translate.translate('INPUT.Dialogs.Confirm.Title');
         vm.dialogMessage = Translate.translate('INPUT.Dialogs.Confirm.Message');
         vm.errorSize = Translate.translate('MAIN.MSG.FILE_SIZE');
+        vm.errorQuantity = Translate.translate('INPUT.Messages.QuantityExceeded');
 
         activate();
 
@@ -197,22 +200,32 @@
                         vm.entrada.no_creados = _.map(res.no_creados, function (id) {
                             return {"economico": id, "motivo": "Marca o modelo no existentes"};
                         });
-                        vm.hideRegisteredCabinets = false;
-                        vm.hideUnregisteredCabinets = false;
+                        vm.entrada.modelos_no_existentes = _.map(res.modelos_no_existentes, function (id) {
+                            return {"denominacion": id};
+                        });
+                        vm.entrada.file=null;
                         if (vm.entrada.no_creados.length > 0) {
+                            //Input has Cabinets that couldn´t be created
                             toastr.warning(vm.warning, vm.warningTitle);
                             vm.entrada.file = null;
                         }
                         else {
+                            //Completely Succesful Input
                             toastr.success(vm.sucessMassive, vm.successTitle);
                             vm.inputWasCorrect = true;
                         }
                     }).catch(function (err) {
-                        if (err.data.no_creados.length > 0) {
-                            vm.entrada.no_creados = err.data.no_creados;
-                        }
                         vm.entrada.file = null;
-                        toastr.error(vm.errorMassive, vm.errorTitle);
+
+                        if (err.data.message != null || err.data.message != undefined) {
+                            toastr.error(vm.errorQuantity, vm.errorTitle);
+                        }
+                        else {
+                            toastr.error(vm.errorMassive, vm.errorTitle);
+                            if (err.data.no_creados.length > 0) {
+                                vm.entrada.no_creados = err.data.no_creados;
+                            }
+                        }
                     });
                 }
                 else {
@@ -221,8 +234,9 @@
                         vm.entrada.id = res.id;
                         vm.entrada.creados = res.creados;
                         vm.entrada.no_creados = res.no_creados;
-                        vm.hideRegisteredCabinets = false;
-                        vm.hideUnregisteredCabinets = false;
+                        vm.entrada.modelos_no_existentes = _.map(res.modelos_no_existentes, function (id) {
+                            return {"denominacion": id};
+                        });
                         if (vm.entrada.no_creados.length > 0) {
                             toastr.warning(vm.warning, vm.warningTitle);
                             vm.entrada.file = null;
@@ -288,8 +302,6 @@
         function limpiar() {
             vm.entrada = angular.copy(entrada);
             vm.entrada.sucursal = vm.sucursal;
-            vm.hideRegisteredCabinets = true;
-            vm.hideUnregisteredCabinets = true;
             vm.hideMassiveUpload = true;
             vm.hideManualUpload = true;
             $scope.entradaForm.$setPristine();
@@ -297,7 +309,8 @@
             $scope.entradaForm.$invalid = true;
             vm.selectedTab = 0;
             vm.inputWasCorrect = false;
-            vm.ife_chofer=null;
+            vm.ife_chofer = null;
+            vm.searchText = "";
         }
 
         function partialClean() {
@@ -306,17 +319,17 @@
             vm.entrada.creados = [];
             vm.entrada.no_creados = [];
             vm.notFoundCabinets = [];
-            vm.entrada.file=null;
+            vm.entrada.file = null;
         }
 
         function selectionImage($file) {
-            if($file.size>1000000) {
+            if ($file.size > 1000000) {
                 toastr.warning(vm.errorSize, vm.errorTitle);
-                vm.entrada.ife_chofer=null;
+                vm.entrada.ife_chofer = null;
             }
             else {
                 vm.entrada.ife_chofer = $file;
-                vm.ife_chofer=$file;
+                vm.ife_chofer = $file;
             }
         }
 
@@ -406,41 +419,44 @@
         }
 
         function addCabinet() {
-            if (_.contains(vm.existingCabinets, vm.cabinetID)) {
-                Cabinet.getIfEntrada(vm.cabinetID).then(function (res) {
-                    var index = vm.cabinets.map(function (elem) {
-                        return elem.economico;
-                    }).indexOf(res.economico);
-                    if (index != -1) {
+            if (vm.cabinetID.length > 0) {
+
+                if (_.contains(vm.existingCabinets, vm.cabinetID)) {
+                    Cabinet.getIfEntrada(vm.cabinetID).then(function (res) {
+                        var index = vm.cabinets.map(function (elem) {
+                            return elem.economico;
+                        }).indexOf(res.economico);
+                        if (index != -1) {
+                            toastr.warning(vm.errorCabinet, vm.warning);
+                        }
+                        else {
+                            var tempCabinet = angular.copy(res);
+                            tempCabinet.modelo = modeloById(res.modelo).nombre;
+                            tempCabinet.marca = marcaById(res.modelo);
+                            vm.cabinets.push(tempCabinet);
+                        }
+                        vm.cabinetID = "";
+                    }).catch(function (err) {
+                        if (err.data.detail != null)
+                            toastr.error(err.data.detail, vm.errorTitle);
+                        else
+                            toastr.error(vm.notFoundCabinet, vm.errorTitle);
+                        vm.cabinetID = "";
+                    });
+                }
+                else {
+                    if (vm.notFoundCabinets.indexOf(vm.cabinetID) != -1) {
                         toastr.warning(vm.errorCabinet, vm.warning);
                     }
                     else {
-                        var tempCabinet = angular.copy(res);
-                        tempCabinet.modelo = modeloById(res.modelo).nombre;
-                        tempCabinet.marca = marcaById(res.modelo);
-                        vm.cabinets.push(tempCabinet);
+                        toastr.warning(vm.notFoundCabinet, vm.warning);
+                        vm.notFoundCabinets.push(vm.cabinetID);
                     }
                     vm.cabinetID = "";
-                }).catch(function (err) {
-                    if(err.data.detail!=null)
-                        toastr.error(err.data.detail, vm.errorTitle);
-                    else
-                        toastr.error(vm.notFoundCabinet, vm.errorTitle);
-                    vm.cabinetID = "";
-                });
+                }
             }
-            else {
-                if (vm.notFoundCabinets.indexOf(vm.cabinetID) != -1) {
-                    toastr.warning(vm.errorCabinet, vm.warning);
-                }
-                else {
-                    toastr.warning(vm.notFoundCabinet, vm.warning);
-                    vm.notFoundCabinets.push(vm.cabinetID);
-                }
+            else
                 vm.cabinetID = "";
-            }
-
-
         }
 
 

@@ -105,6 +105,7 @@
     "INPUT":{
         "Entrance":"Registrar Entrada",
         "Output":"Registrar Salida",
+        "ID":"Entrada #",
         "Entrance_Kind":"Tipo de entrada",
         "Save":"Guardar",
         "Cancel":"Cancelar",
@@ -125,6 +126,8 @@
         "Create Model":"Registrar modelo",
         "CabinetID":"Id del cabinet",
         "Format":"Plantilla",
+        "AllowMultiple":"Permitir multiples archivos",
+        "ForbidMultiple":"Solo permitir un archivo",
         "Messages":{
             "SuccessMassive":"Carga masiva registrada correctamente",
             "SuccessNormal":"Entrada registrada correctamente",
@@ -134,7 +137,8 @@
             "ErrorCabinet":"El cabinet ya ha sido añadido",
             "NotFoundCabinet":"Cabinet no encontrado",
             "NotFoundUdn":"Sin resultados",
-            "InvalidUDN":"Selecciona una UDN"
+            "InvalidUDN":"Selecciona una UDN",
+            "QuantityExceeded":"Se sobrepasó la cantidad máxima de 2000 cabinets por carga masiva"
         },
 
         "Transport":{
@@ -197,6 +201,7 @@
 
         "UnregisteredCabinets":"Cabinets no registrados",
         "RegisteredCabinets":"Cabinets Registrados",
+        "UnexistentModels":"Modelos no existentes",
 
         "Required Field":"Campo Requerido",
         "Max100":"El campo no puede contener mas de 100 caracteres",
