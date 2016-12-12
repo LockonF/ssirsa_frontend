@@ -13,68 +13,48 @@
     </md-toolbar>
 
     <md-divider></md-divider>
-    <form name="updateSolicitudform">
-        <md-dialog-content class="md-dialog-content card1 md-blue-grey-theme">
 
+
+    <md-content class="md-dialog-content card1 md-blue-grey-theme">
+        <form name="updateSolicitudform">
             <md-input-container class="md-block">
                 <label translate>{{'CALENDAR.FORM.LABEL.DESCRIPTION'|translate}}</label>
-                <input aria-label="Descripcion" ng-model="vm.event.solicitud.descripcion" name="descripcion" required>
+                <input input-clear aria-label="Descripcion" ng-model="vm.event.solicitud.descripcion" name="descripcion" required>
                 <div ng-messages="updateSolicitudform.descripcion.$error">
 
                     <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                 </div>
             </md-input-container>
 
-            <div class="event-dialog-input-row" layout="row" layout-align="start center">
-                <p flex hide-xs translate>{{'CALENDAR.FORM.LABEL.DATE_INITIAL'|translate}}</p>
-                <md-input-container>
-                    <input type="text" aria-label="Fecha start" ng-model="vm.start" mdp-date-picker
-                           mdp-format="{{vm.formato}}"
-                           mo-date-input="{{vm.formato}}" name="fecha_start" required=""/>
-                    <div ng-messages="updateSolicitudform.fecha_start.$error">
-
-                        <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
-                    </div>
-                </md-input-container>
-            </div>
-            <div class="event-dialog-input-row" layout="row" layout-align="start center">
-                <p flex hide-xs translate>{{'CALENDAR.FORM.LABEL.DATE_END'|translate}}</p>
-                <md-input-container>
-                    <input type="text" aria-label="Fecha end" ng-model="vm.end" mdp-date-picker
-                           mdp-format="{{vm.formato}}"
-                           mo-date-input="{{vm.formato}}" name="fecha_end" required=""/>
-                    <div ng-messages="updateSolicitudform.fecha_end.$error">
-
-                        <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
-                    </div>
-                </md-input-container>
-            </div>
-
-            <div class="event-dialog-input-row" layout="row" layout-align="start center">
-                <p flex hide-xs translate>{{'CALENDAR.FORM.LABEL.DATE_TERMINATE'|translate}}</p>
-                <md-input-container>
-
-                    <input aria-label="Fecha atendida" type="text" ng-model="vm.atendida.fecha" mdp-date-picker
-                           mdp-format="{{vm.formato}}" mo-date-input="{{vm.formato}}" name="fecha_termino_date"
-                           required=""/>
-                    <div ng-messages="updateSolicitudform.fecha_termino_date.$error">
-
-                        <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
-                    </div>
-                </md-input-container>
-                <md-input-container>
-                    <input type="time" ng-model="vm.atendida.hora" mdp-time-picker name="fecha_termino_hora"
-                           required=""/>
-                    <div ng-messages="updateSolicitudform.fecha_termino_hora.$error">
-
-                        <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
-                    </div>
-
-                </md-input-container>
-            </div>
-
-
             <md-input-container class="md-block">
+                <label translate>{{'CALENDAR.FORM.LABEL.TYPE'|translate}}</label>
+                <textarea ng-model="vm.event.solicitud.tipo_solicitud" readonly></textarea>
+            </md-input-container>
+            <md-input-container  class="md-block">
+                <label translate>{{'CALENDAR.FORM.LABEL.DATE_INITIAL'|translate}}</label>
+                <adm-dtp ng-model='vm.start' full-data="start" name="fecha_start" maxdate="{{ends.unix}}" options="vm.options" required="" ></adm-dtp>
+                <div ng-messages="updateSolicitudform.fecha_start.$error">
+                <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label translate>{{'CALENDAR.FORM.LABEL.DATE_END'|translate}}</label>
+                <adm-dtp ng-model='vm.end' full-data="ends" name="fecha_end"  mindate="{{start.unix}}" options="vm.options" required="" ></adm-dtp>
+                <div ng-messages="updateSolicitudform.fecha_end.$error">
+                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label translate>{{'CALENDAR.FORM.LABEL.DATE_TERMINATE'|translate}}</label>
+                <adm-dtp ng-model='vm.atendida' name="fecha_termino" options="vm.options_time" required=""
+                         mindate="{{start.unix}}" maxdate="{{ends.unix}}"
+                ></adm-dtp>
+                <div ng-messages="updateSolicitudform.fecha_termino.$error">
+                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                </div>
+            </md-input-container>
+            <div layout="column" layout-sm="column" layout-xs="column" layout-md="column" flex="100"
+                 layout-align="space-around stretch">
                 <label translate>{{'CALENDAR.FORM.LABEL.STATUS'|translate}}</label>
                 <md-select ng-model="vm.event.solicitud.status"
                            name="status"
@@ -88,23 +68,21 @@
                     <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
                 </div>
 
-            </md-input-container>
-            <md-input-container class="md-block">
-                <label translate>{{'CALENDAR.FORM.LABEL.TYPE'|translate}}</label>
-                <textarea ng-model="vm.event.solicitud.tipo_solicitud" readonly></textarea>
-            </md-input-container>
+            </div>
 
 
-        </md-dialog-content>
+        </form>
+    </md-content>
 
-        <md-dialog-actions layout="row" class="card1 md-blue-grey-theme">
 
-            <span flex></span>
-            <md-button ng-click="vm.cancelClick()" aria-label="{{'Cancel' | triTranslate}}"
-                       translate="Cancel"></md-button>
-            <md-button ng-click="vm.okClick()" class="md-primary" ng-disabled="updateSolicitudform.$invalid"
-                       aria-label="{{vm.dialogData.confirmButtonText | triTranslate}}"
-                       translate="{{::vm.dialogData.confirmButtonText}}"></md-button>
-        </md-dialog-actions>
+    <md-dialog-actions layout="row" class="card1 md-blue-grey-theme">
+
+        <span flex></span>
+        <md-button ng-click="vm.cancelClick()" aria-label="{{'Cancel' | triTranslate}}"
+                   translate="MAIN.BUTTONS.CANCEL"></md-button>
+        <md-button ng-click="vm.okClick()" class="md-primary" ng-disabled="updateSolicitudform.$invalid"
+                   aria-label="{{vm.dialogData.confirmButtonText | triTranslate}}"
+                   translate="MAIN.BUTTONS.ACCEPT"></md-button>
+    </md-dialog-actions>
     </form>
 </md-dialog>

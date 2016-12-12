@@ -6,8 +6,10 @@
             'triangular',
             'ngAnimate', 'ngCookies', 'ngSanitize', 'ngMessages', 'ngMaterial',
             'ui.router', 'googlechart', 'chart.js', 'linkify', 'ui.calendar',
+
             'angularMoment','pascalprecht.translate','tmh.dynamicLocale', 'textAngular', 'hljs', 'md.data.table','ngMdIcons',
-            'vAccordion', 'ngMaterialDatePicker','mdPickers','cgBusy',
+            'vAccordion', 'ngMaterialDatePicker','mdPickers','cgBusy','ADM-dateTimePicker',
+
             angularDragula(angular), 'ngFileUpload','pusher-angular','checklist-model',
 
 
