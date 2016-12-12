@@ -234,7 +234,9 @@
                         vm.entrada.id = res.id;
                         vm.entrada.creados = res.creados;
                         vm.entrada.no_creados = res.no_creados;
-                        vm.entrada.modelos_no_existentes = res.modelos_no_existentes;
+                        vm.entrada.modelos_no_existentes = _.map(res.modelos_no_existentes, function (id) {
+                            return {"denominacion": id};
+                        });
                         if (vm.entrada.no_creados.length > 0) {
                             toastr.warning(vm.warning, vm.warningTitle);
                             vm.entrada.file = null;
