@@ -450,9 +450,7 @@
                                     for (var i = 0, len = vm.solicitudes.length; i < len; i++) {
                                         if (vm.solicitudes[i].tipo_solicitud == 'Envio') {
                                             vm.sol = vm.solicitudes[i];
-                                            console.log(vm.sol.fecha_inicio);
                                             vm.sol.fecha_inicio = moment(vm.sol.fecha_inicio).format('DD/MM/YYYY');
-                                            console.log(vm.sol.fecha_inicio);
                                             vm.sol.fecha_termino = moment(vm.sol.fecha_termino).format('DD/MM/YYYY');
                                             vm.sol.fecha_atendida = moment(vm.sol.fecha_atendida).format('DD/MM/YYYY HH:mm');
                                             vm.solicitudesArray.push(vm.sol);
