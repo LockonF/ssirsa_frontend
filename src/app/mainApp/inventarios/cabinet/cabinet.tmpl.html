@@ -175,9 +175,17 @@ Created by lockonDaniel on 9/11/16.
                         <!--Pre Checklist-->
                         <h3 ng-if="vm.newCabinet==true" class="md-display-1">{{'CABINET_CRUD.PRE_CHECKLIST' | translate}}</h3>
                         <div ng-if="vm.newCabinet==true" flex="flex" layout="column">
-                                <md-checkbox ng-model="vm.selected_cabinet.diagnostico.puertas">
-                                    <span>{{'CABINET_CRUD.DOORS' | translate}}</span>
-                                </md-checkbox>
+
+                                <div flex layout="row" layout-align="space-around center">
+                                    <md-checkbox ng-model="vm.selected_cabinet.diagnostico.puertas">
+                                        <span>{{'CABINET_CRUD.DOORS' | translate}}</span>
+                                    </md-checkbox>
+                                    <md-checkbox ng-model="vm.selected_cabinet.diagnostico.gas">
+                                        <span>{{'CABINET_CRUD.GAS' | translate}}</span>
+                                    </md-checkbox>
+
+                                </div>
+
                                 <md-input-container class="md-block">
                                     <label>{{ 'CABINET_CRUD.GRIDS' | translate }}</label>
                                     <input type="text" step="any" name="rejillas" numbers-only="" ng-model="vm.selected_cabinet.diagnostico.rejillas" ng-required="true" ng-pattern="/^[0-6]{1,1}$/"/>

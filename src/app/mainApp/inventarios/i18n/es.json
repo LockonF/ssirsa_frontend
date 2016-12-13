@@ -15,7 +15,9 @@
     "MAX_WHEELS":"Solo se permiten entre 1 y 6 rodajas",
     "SHOW_BRANDS_MODELS_SEARCH":"Búsqueda por marca y modelo",
     "SHOW_ECONOMIC_SEARCH":"Búsqueda por económico",
-    "SEARCH":"Buscar"
+    "SEARCH":"Buscar",
+    "DOORS":"Puertas",
+    "GAS":"Gas"
   },
   "SUPPLIES":{
     "HEADER":"Inventario de Insumos",
