@@ -38,6 +38,7 @@
                                              hide-xs="hide-xs"
                                              hide-sm="hide-sm"
                                              layout-fill
+                                             cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}"
                                              class="vr-min-height">
                         <md-list flex="flex">
                             <md-list-item flex="flex" ng-repeat="item in vm.filteredClients">
