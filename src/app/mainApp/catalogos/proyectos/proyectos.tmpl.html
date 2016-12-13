@@ -47,10 +47,11 @@
 
                 </md-switch>
 
-                <md-virtual-repeat-container id="vertical_container"
+                <md-virtual-repeat-container class="vertical_container"
                                              flex="flex"
                                              hide-xs="hide-xs"
                                              hide-sm="hide-sm"
+                                             cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}"
                                              layout-fill>
                     <md-list flex="flex">
                         <md-list-item flex="flex" ng-repeat="item in vm.filteredProjects">

@@ -69,7 +69,7 @@
             vm.filteredClients=vm.clients;
             vm.client=angular.copy(client);
             vm.user=user;
-            Clientes.getClienteId().then(function(res){
+            vm.loadingPromise = Clientes.getClienteId().then(function(res){
                 vm.role=res[0].id;
             });
         }
