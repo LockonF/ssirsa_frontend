@@ -69,7 +69,11 @@
                     <form name="ModelCabinetForm">
                         <md-input-container class="md-block">
                             <label>{{'MODEL_CABINET.FORM.LABEL.NAME'|translate}}</label>
-                            <input ng-required='true' type="text" name="nombre" ng-disabled="vm.modelo.deleted"
+                            <input ng-required='true'
+                                   type="text"
+                                   name="nombre"
+                                   is-alphanumeric
+                                   ng-disabled="vm.modelo.deleted"
                                    ng-model="vm.modelo.nombre"/>
                             <div ng-messages="ModelCabinetForm.nombre.$error">
                                 <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
@@ -91,7 +95,11 @@
                         </md-input-container>
                         <md-input-container class="md-block">
                             <label>{{'MODEL_CABINET.FORM.LABEL.DESCRIPTION'|translate}}</label>
-                            <input md-no-asterisk="" required="" type="text" name="descripcion"
+                            <input md-no-asterisk=""
+                                   required=""
+                                   type="text"
+                                   name="descripcion"
+                                   is-alphanumeric
                                    ng-disabled="vm.modelo.deleted"
                                    ng-model="vm.modelo.descripcion"/>
                             <div ng-messages="ModelCabinetForm.descripcion.$error">
@@ -100,8 +108,12 @@
                         </md-input-container>
                         <md-input-container class="md-block">
                             <label>{{'MODEL_CABINET.FORM.LABEL.KEYWORD'|translate}}</label>
-                            <input md-no-asterisk="" required="" type="text" name="palabra"
+                            <input md-no-asterisk=""
+                                   required=""
+                                   type="text"
+                                   name="palabra"
                                    ng-disabled="vm.modelo.deleted"
+                                   is-alphanumeric
                                    ng-model="vm.modelo.palabra_clave"/>
                             <div ng-messages="ModelCabinetForm.palabra.$error">
                                 <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
