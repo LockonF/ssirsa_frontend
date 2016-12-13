@@ -79,12 +79,14 @@
             "VALUE":"Valor",
             "FIELD_FILTER":"Filtro:",
             "FIELD_FIELDS":"Reporte:",
-            "DELETE":"Eliminar"
+            "DELETE":"Eliminar",
+            "TABLE":"Tabla"
         },
         "TAB":{
             "PREVIEW":"Vista previa",
             "FILTERS":"Filtros",
-            "INFORMATION":"Información"
+            "INFORMATION":"Información",
+            "FIELDS":"Campos"
         },
         "TABLE_FILTER":{
             "NAME":"Nombre",

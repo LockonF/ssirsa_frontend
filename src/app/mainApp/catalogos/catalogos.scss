@@ -49,7 +49,19 @@ md-toolbar h1 {
   font-size: 1.250em;
   font-weight: 400;
 }
-
+.avatar-reports {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  display: inline-block;
+  overflow: hidden;
+  margin: 0px;
+  vertical-align: middle;
+  zoom:0.70;
+  transform: translateZ(0);
+  -webkit-transform: scale(0.70);
+  -moz-transform:scale(0.70);
+}
 .avatar {
   position: relative;
   width: 128px;

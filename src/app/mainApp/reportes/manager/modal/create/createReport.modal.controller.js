@@ -27,6 +27,7 @@
 
         function activate() {
             vm.modelos = Reportes.getModels();
+            console.log(vm.modelos);
             vm.report = report;
         }
 

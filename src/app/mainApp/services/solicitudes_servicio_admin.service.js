@@ -1,41 +1,46 @@
 /**
  * Created by Luis Olvera on 19/07/2016.
  */
-(function(){
+(function () {
     'use_strict';
 
     angular
         .module('app.mainApp')
-        .factory('Solicitud_Servicio_Admin',Solicitud_Servicio_Admin);
+        .factory('Solicitud_Servicio_Admin', Solicitud_Servicio_Admin);
 
-    function Solicitud_Servicio_Admin($q, Restangular){
-        return{
-            create:create,
-            list:list,
-            updateSolicitud:updateSolicitud,
-            borrarSolVenta:borrarSolVenta
+    function Solicitud_Servicio_Admin($q, Restangular) {
+        var base = Restangular.all('solicitud_servicio_admin');
+        return {
+            create: create,
+            list: list,
+            updateSolicitud: updateSolicitud,
+            borrarSolVenta: borrarSolVenta,
+            getOne: getOne
         };
 
-        function create(object){
+        function create(object) {
             //Forma canonica
-            var deferred=$q.defer();
-            Restangular.all('solicitud_servicio_admin').customPOST(object).then(function(rest){
+            var deferred = $q.defer();
+            Restangular.all('solicitud_servicio_admin').customPOST(object).then(function (rest) {
                 deferred.resolve(rest);
-            }).catch(function(error){
+            }).catch(function (error) {
                 deferred.reject(error);
             });
             return deferred.promise;
         }
 
-        function list(){
+        function list() {
             return Restangular.all('solicitud_servicio_admin').customGET();
         }
 
+        function getOne(id) {
+            return base.get(id);
+        }
 
-        function borrarSolVenta(object){
-            return Restangular.one("solicitud_servicio_admin",object).customDELETE(undefined,undefined,{'Content-Type': 'application/json'}).then(function(resp){
+        function borrarSolVenta(object) {
+            return Restangular.one("solicitud_servicio_admin", object).customDELETE(undefined, undefined, {'Content-Type': 'application/json'}).then(function (resp) {
                 return resp;
-            }).catch(function(error){
+            }).catch(function (error) {
             })
         }
 

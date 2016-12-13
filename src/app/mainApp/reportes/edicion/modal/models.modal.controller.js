@@ -34,7 +34,7 @@
                 model_id: reporte.root_model,
                 related_fields:[]
             };
-            Reportes.getRelatedModels(reporte.root_model).then(function (result) {
+            vm.related_models_promise=Reportes.getRelatedModels(reporte.root_model).then(function (result) {
                 root_related_field.related_fields = result;
                 vm.related_models=[root_related_field];
             });
