@@ -11,6 +11,8 @@
         vm.isClient = true;
         activate();
         vm.cpassword = "";
+        vm.fotoByPass = null;
+        vm.ifeByPass = null;
         vm.guardarUsuario = guardarUsuario;
         vm.listSucursales = listSucursales;
         vm.enviar = enviar;
@@ -140,6 +142,8 @@
             vm.user_ini = _.clone(vm.user_vacio);
             vm.picFoto = null;
             vm.picIFE = null;
+            vm.ifeByPass = null
+            vm.fotoByPass = null;
             vm.user_ini = {
                 "user": {
                     "username": null,
@@ -172,6 +176,9 @@
                         toastr.warning(vm.errorTypeFile, vm.errorTitle);
                         vm.picFoto = null;
                     }
+                }else
+                {
+                    vm.fotoByPass=vm.picFoto;
                 }
             }
 
@@ -190,6 +197,9 @@
                         toastr.warning(vm.errorTypeFile, vm.errorTitle);
                         vm.picIFE = null;
                     }
+                }else
+                {
+                    vm.ifeByPass=vm.picIFE;
                 }
             }
 
