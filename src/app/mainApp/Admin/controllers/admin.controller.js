@@ -131,7 +131,8 @@
                     toastr.error(vm.errorMessage, vm.errorTitle);
                 });
             }).catch(function (err) {
-                toastr.error(vm.errorMessage, vm.errorTitle);
+                console.log(err);
+                toastr.error(err, vm.errorTitle);
             });
         }
 
@@ -180,6 +181,13 @@
                 {
                     vm.fotoByPass=vm.picFoto;
                 }
+            }else{
+                if(vm.fotoByPass!=null)
+                {
+                    vm.picFoto = vm.fotoByPass;
+                    console.log("algo");
+                }
+
             }
 
         }
@@ -201,6 +209,13 @@
                 {
                     vm.ifeByPass=vm.picIFE;
                 }
+            }else{
+                if(vm.ifeByPass!=null)
+                {
+                    vm.picIFE = vm.ifeByPass;
+                    console.log("algo2");
+                }
+
             }
 
         }
