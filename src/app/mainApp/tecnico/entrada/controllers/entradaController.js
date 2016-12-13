@@ -194,7 +194,7 @@
             if (vm.entrada.file != null) {
                 fd.append('file', vm.entrada.file);
                 if (vm.entrada.id == null) {
-                    EntradaSalida.postEntradaMasiva(fd).then(function (res) {
+                    vm.loadingPromiseInput = EntradaSalida.postEntradaMasiva(fd).then(function (res) {
                         vm.entrada.id = res.id;
                         vm.entrada.creados = res.creados;
                         vm.entrada.no_creados = _.map(res.no_creados, function (id) {
@@ -230,7 +230,7 @@
                 }
                 else {
                     fd.append('id', vm.entrada.id);
-                    EntradaSalida.putEntradaMasiva(fd, vm.entrada.id).then(function (res) {
+                    vm.loadingPromiseInput = EntradaSalida.putEntradaMasiva(fd, vm.entrada.id).then(function (res) {
                         vm.entrada.id = res.id;
                         vm.entrada.creados = res.creados;
                         vm.entrada.no_creados = res.no_creados;

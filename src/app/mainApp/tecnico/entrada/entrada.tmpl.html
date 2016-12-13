@@ -215,7 +215,9 @@
                     <!--Registro de cabinets-->
                     <!--ng-disabled="entradaForm.$invalid"-->
                     <md-tab label={{'INPUT.Tabs.CabinetsUpload'|translate}} ng-disabled="entradaForm.$invalid">
-                        <md-content layout-padding="">
+                        <md-content layout-padding=""
+                                    cg-busy="{promise:vm.loadingPromiseInput,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}"
+                        >
                             <h2 ng-if="vm.entrada.id != null && vm.entrada.id != undefined">
                                 {{'INPUT.ID'|translate}}{{vm.entrada.id}}</h2>
                             <div layout-gt-xs="row"
