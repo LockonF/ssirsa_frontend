@@ -25,7 +25,7 @@
                                      md-menu-class="autocomplete-custom-template"
                                      md-floating-label="{{'SUCURSAL.FORM.PLACEHOLDER.SEARCH_BRANCH'| translate }}">
                         <span
-                            md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.nombre}}</span>
+                                md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.nombre}}</span>
                         <md-item-template><span class="item-title">
                         <md-icon md-font-icon="fa fa-briefcase"></md-icon>
                         <span>&nbsp; {{item.nombre}}</span>
@@ -41,10 +41,12 @@
                         <span ng-if="vm.toggleDeleted" hide-xs hide-sm>{{'MAIN.MODEL.SHOW_ACTIVE' | translate}}</span>
                         <span ng-if="vm.toggleDeleted" hide-gt-sm>{{'MAIN.MODEL.SHOW_ACTIVE_MOBILE' | translate}}</span>
                         <span ng-if="!vm.toggleDeleted" hide-xs hide-sm>{{'MAIN.MODEL.SHOW_DELETED' | translate}}</span>
-                        <span ng-if="!vm.toggleDeleted" hide-gt-sm>{{'MAIN.MODEL.SHOW_DELETED_MOBILE' | translate}}</span>
+                        <span ng-if="!vm.toggleDeleted"
+                              hide-gt-sm>{{'MAIN.MODEL.SHOW_DELETED_MOBILE' | translate}}</span>
                     </md-switch>
                     <md-virtual-repeat-container class="vertical-container"
-                                                 ng-style='vm.myStyle' flex="flex" cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
+                                                 ng-style='vm.myStyle' flex="flex"
+                                                 cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
                         <md-list>
                             <md-list-item ng-repeat="sucursal in vm.sucursales | sucursalSearch:vm.searchText">
                                 <md-button ng-click="vm.selectedSucursales(sucursal)"
@@ -68,6 +70,7 @@
                         <md-input-container class="md-block">
                             <label>{{'SUCURSAL.FORM.LABEL.NAME'|translate}}</label>
                             <input ng-required='true' type="text" name="nombre" ng-disabled="vm.sucursal.deleted"
+                                   is-alphanumeric
                                    ng-model="vm.sucursal.nombre"/>
                             <div ng-messages="SucursalForm.nombre.$error">
                                 <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
@@ -76,6 +79,7 @@
                         <md-input-container class="md-block">
                             <label>{{'SUCURSAL.FORM.LABEL.ADDRESS'|translate}}</label>
                             <input md-no-asterisk="" required="" type="text" name="address"
+                                   is-alphanumeric
                                    ng-disabled="vm.sucursal.deleted"
                                    ng-model="vm.sucursal.direccion"/>
                             <div ng-messages="SucursalForm.address.$error">
@@ -98,6 +102,7 @@
                         <md-input-container class="md-block">
                             <label>{{'SUCURSAL.FORM.LABEL.RESPONSABLE'|translate}}</label>
                             <input md-no-asterisk="" required="" type="text" name="responsable"
+                                   only-text
                                    ng-disabled="vm.sucursal.deleted"
                                    ng-model="vm.sucursal.responsable"/>
                             <div ng-messages="SucursalForm.responsable.$error">
@@ -105,7 +110,8 @@
                             </div>
                         </md-input-container>
                     </form>
-                    <div layout="row" layout-align="end end"  layout-sm="column" layout-xs="column" layout-align-sm="start stretch" layout-align-xs="start stretch">
+                    <div layout="row" layout-align="end end" layout-sm="column" layout-xs="column"
+                         layout-align-sm="start stretch" layout-align-xs="start stretch">
                         <md-button aria-label="fab button" ng-click="vm.cancel()" class="md-raised md-primary">
                             <md-icon md-font-icon="fa fa-eraser"></md-icon>
                         </md-button>
@@ -126,8 +132,9 @@
                                    class="md-raised md-primary">
                             <md-icon md-font-icon="fa fa-save"></md-icon>
                         </md-button>
-                        <md-button ng-if="vm.sucursal.id!=null && vm.sucursal.id!=undefined && vm.sucursal.deleted" ng-click="vm.restore()" class="md-raised md-warn">
-                            <md-icon md-font-icon="zmdi zmdi-time-restore"></md-icon >
+                        <md-button ng-if="vm.sucursal.id!=null && vm.sucursal.id!=undefined && vm.sucursal.deleted"
+                                   ng-click="vm.restore()" class="md-raised md-warn">
+                            <md-icon md-font-icon="zmdi zmdi-time-restore"></md-icon>
                         </md-button>
 
                     </div>
