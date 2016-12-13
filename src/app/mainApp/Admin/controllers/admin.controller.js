@@ -27,6 +27,7 @@
             vm.successCreateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_CREATE');
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
             vm.errorSize = Translate.translate('MAIN.MSG.FILE_SIZE');
+            vm.erroNumSolConf = Translate.translate('ADMIN_PERSONA.ERROR_MESSAGE.ERRORNUMSOLCONF');
             groups.list().then(function (rest) {
                 vm.grupos = rest;
             }).catch(function (error) {
@@ -127,12 +128,16 @@
                     toastr.success(vm.successCreateMessage, vm.successTitle);
                     cancel();
                     activate();
-                }).catch(function () {
-                    toastr.error(vm.errorMessage, vm.errorTitle);
+                }).catch(function (error) {
+                    toastr.error(error, vm.errorTitle);
                 });
             }).catch(function (err) {
-                console.log(err);
-                toastr.error(err, vm.errorTitle);
+                if(err.status==400 && err.data.message=="El usuario ya existe")
+                {
+                    toastr.error(vm.erroNumSolConf,vm.errorTitle);
+                }else {
+                    toastr.error(vm.errorMessage, vm.errorTitle);
+                }
             });
         }
 

@@ -39,6 +39,7 @@
       "PASSWORD":"El password debe contener al menos 8 elementos y solo símbolos validos",
       "CPASSWORD":"El password no coincide",
       "TELEFONO":"",
+      "ERRORNUMSOLCONF":"El usuario ya existe",
       "MINLENGTH":"El telefono no tienen un mínimo de 8 números",
       "USERNAME":"El Usuario no puede comenzar con un digito y solo puede usar caracteres validos"
     }

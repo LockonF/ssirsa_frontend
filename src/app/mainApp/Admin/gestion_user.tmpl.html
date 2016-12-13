@@ -2,7 +2,7 @@
     <md-card layout-align="center center" class="md-padding card1">
         <h1 translate="ADMIN.MANAGE.MANAGEMENT_USER"></h1>
     </md-card>
-    <form name="objectForm">
+    <form name="objectForm" id="objectFormUser">
         <div flex="" layout-sm="column" layout-gt-md="row">
             <md-card flex="flex" class="md-padding card1">
                 <h2 class="md-display-1">{{'ADMIN.MANAGE.DATAPER'|translate}}</h2>
@@ -116,18 +116,22 @@
                     </md-input-container>
                     <div layout="column" >
                         <div layout="column" layout-align="center center"><span class="md-headline">{{'ADMIN_PERSONA.PROPERTY.FOTO'|translate}}</span>
-                            <md-button flex="flex" ngf-select="vm.selectionFoto($files)" ngf-accept="'image/*'" required="required" ng-disabled="false" ngf-multiple="false" ng-model="vm.picFoto" aria-label="upload" class="md-primary md-raised">
-                                <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>                                    {{'ADMIN_PERSONA.PROPERTY.ARCHIVO'|translate}}
+                            <md-button flex="flex" ngf-select="vm.selectionFoto($files)" ngf-accept="'image/*'" ng-required="true" required="required" ng-disabled="false" ngf-multiple="false" ng-model="vm.picFoto" aria-label="upload" class="md-primary md-raised">
                                 <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>
-                            </md-button><img src="assets/images/dashboards/weather.jpg" alt="Card Image" ng-if="vm.fotoByPass==null" width="120" height="120"/>
+                                {{'ADMIN_PERSONA.PROPERTY.ARCHIVO'|translate}}
+                                <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>
+                            </md-button>
+                            <img src="assets/images/dashboards/weather.jpg" alt="Card Image" ng-if="vm.fotoByPass==null" width="120" height="120"/>
                             <img ngf-src="vm.fotoByPass" width="120" height="120" ng-if="vm.fotoByPass!=null"/>
                         </div>
                         <div layout="column" layout-align="center center"><span class="md-headline">{{'ADMIN_PERSONA.PROPERTY.INE'|translate}}</span>
-                            <md-button flex="flex" ngf-select="vm.selectionIFE($files)" ngf-accept="'image/*'" required="required" ng-disabled="false" ngf-multiple="false" ng-model="vm.picIFE" aria-label="upload" class="md-primary md-raised">
-                                <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>                                    {{'ADMIN_PERSONA.PROPERTY.ARCHIVO'|translate}}
+                            <md-button flex="flex" ngf-select="vm.selectionIFE($files)" ngf-accept="'image/*'" ng-required="true" ng-disabled="false" ngf-multiple="false" ng-model="vm.picIFE" aria-label="upload" class="md-primary md-raised">
                                 <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>
-                            </md-button><img src="assets/images/dashboards/weather.jpg" alt="Card Image" ng-show="vm.picIFE==null" width="120" height="120"/>
-                            <img ngf-src="vm.ifeByPass" width="120" height="120" ng-if="vm.picIFE!=null"/>
+                                {{'ADMIN_PERSONA.PROPERTY.ARCHIVO'|translate}}
+                                <md-icon md-font-icon="zmdi zmdi-cloud-upload"></md-icon>
+                            </md-button>
+                            <img src="assets/images/dashboards/weather.jpg" alt="Card Image" ng-if="vm.ifeByPass==null" width="120" height="120"/>
+                            <img ngf-src="vm.ifeByPass" width="120" height="120" ng-if="vm.ifeByPass!=null"/>
                         </div>
                     </div>
 
