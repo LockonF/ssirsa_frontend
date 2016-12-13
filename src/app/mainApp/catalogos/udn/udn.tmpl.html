@@ -53,28 +53,48 @@
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>{{ 'UDN_CATALOG.agency' | translate }}</label>
-                        <input type="text" name="agencia" ng-model="vm.selected_udn.agencia" ng-required="true" ng-disabled="vm.selected_udn.deleted"/>
+                        <input type="text"
+                               name="agencia"
+                               ng-model="vm.selected_udn.agencia"
+                               ng-required="true"
+                               is-alphanumeric
+                               ng-disabled="vm.selected_udn.deleted"/>
                         <div ng-messages="inputForm.agencia.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>{{ 'UDN_CATALOG.center' | translate }}</label>
-                        <input type="text" name="centro" ng-model="vm.selected_udn.centro" ng-required="true" numbers-only="" ng-disabled="vm.selected_udn.deleted"/>
+                        <input type="text"
+                               name="centro"
+                               ng-model="vm.selected_udn.centro"
+                               ng-required="true"
+                               numbers-only=""
+                               ng-disabled="vm.selected_udn.deleted"/>
                         <div ng-messages="inputForm.centro.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>{{ 'UDN_CATALOG.address' | translate }}</label>
-                        <input type="text" name="centro" ng-model="vm.selected_udn.direccion" ng-required="true" ng-disabled="vm.selected_udn.deleted"/>
+                        <input type="text"
+                               name="direccion"
+                               ng-model="vm.selected_udn.direccion"
+                               ng-required="true"
+                               is-alphanumeric
+                               ng-disabled="vm.selected_udn.deleted"/>
                         <div ng-messages="inputForm.direccion.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>{{ 'UDN_CATALOG.phone' | translate }}</label>
-                        <input type="text" name="telefono" ng-model="vm.selected_udn.telefono" ng-required="true" ng-disabled="vm.selected_udn.deleted"/>
+                        <input type="text"
+                               name="telefono"
+                               ng-model="vm.selected_udn.telefono"
+                               ng-required="true"
+                               numbers-only
+                               ng-disabled="vm.selected_udn.deleted"/>
                         <div ng-messages="inputForm.telefono.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>
