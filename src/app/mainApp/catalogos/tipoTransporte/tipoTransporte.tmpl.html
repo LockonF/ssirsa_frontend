@@ -42,7 +42,12 @@
                 <form name="inputForm">
                    <md-input-container class="md-block">
                         <label>{{ 'Transport_Kind.description' | translate }}</label>
-                        <input type="text" name="descripcion" ng-model="vm.selected_tipo_transporte.descripcion" ng-required="true" ng-disabled="vm.selected_tipo_transporte.deleted"/>
+                        <input type="text"
+                               name="descripcion"
+                               ng-model="vm.selected_tipo_transporte.descripcion"
+                               ng-required="true"
+                               is-alphanumeric
+                               ng-disabled="vm.selected_tipo_transporte.deleted"/>
                         <div ng-messages="inputForm.descripcion.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>

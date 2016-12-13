@@ -117,7 +117,7 @@
                                      layout-align-sm="center stretch" layout-align-xs="center stretch">
                                     <md-input-container flex="100" flex-sm="100" flex-xs="100" class="md-block">
                                         <label>{{'OUTPUT.FORM.LABEL.DRIVER.NAME'|translate}}</label>
-                                        <input name="DriverName" md-no-asterisk="" required="" type="text"
+                                        <input name="DriverName" md-no-asterisk="" required="" type="text" only-text=""
                                                md-maxlength="100"
                                                ng-model="vm.salida.nombre_chofer"/>
                                         <div ng-messages="entradaForm.DriverName.$error">

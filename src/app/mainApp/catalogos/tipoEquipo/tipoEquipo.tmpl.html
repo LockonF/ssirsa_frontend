@@ -70,6 +70,7 @@
                         <md-input-container class="md-block">
                             <label>{{'EQUIPMENT_TYPE.FORM.LABEL.NAME'|translate}}</label>
                             <input ng-required='true' type="text" name="nombre" ng-disabled="vm.tipo_equipo.deleted"
+                                   is-alphanumeric
                                    ng-model="vm.tipo_equipo.nombre"/>
                             <div ng-messages="TipoEquipoForm.nombre.$error">
                                 <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
@@ -79,6 +80,7 @@
                         <md-input-container class="md-block">
                             <label>{{'EQUIPMENT_TYPE.FORM.LABEL.DESCRIPTION'|translate}}</label>
                             <input md-no-asterisk="" required="" type="text" name="descripcion"
+                                   is-alphanumeric
                                    ng-disabled="vm.tipo_equipo.deleted"
                                    ng-model="vm.tipo_equipo.descripcion"/>
                             <div ng-messages="TipoEquipoForm.descripcion.$error">
