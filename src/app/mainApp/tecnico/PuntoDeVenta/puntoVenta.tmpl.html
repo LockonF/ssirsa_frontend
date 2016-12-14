@@ -443,7 +443,7 @@
                 <md-button ng-click="vm.crearPuntodeVenta()" aria-label="Crear punto de venta" class="md-fab md-mini md-scale"
                            ng-show="vm.completed == 100"
                            ng-hide="vm.completed != 100"
-                           ng-disabled="generalInfo.$invalid || localData.$invalid || cabinetInfo.$invalid"
+                           ng-disabled="generalInfo.$invalid || localData.$invalid || cabinetInfo.$invalid || observationsData.$invalid"
                            translate="">
                     <md-icon md-font-icon="fa fa-save"></md-icon>
                 </md-button>
