@@ -246,7 +246,7 @@
                         {
                             "alignment": "center",
                             "style": "small",
-                            "text": "Nombre de Persona que entrega equipos Fisicos:"
+                            "text": "Nombre de Persona que recibe equipos Fisicos:"
                         },
                         {
                             "columns": [

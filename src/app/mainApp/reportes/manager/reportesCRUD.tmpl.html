@@ -73,7 +73,7 @@
             </div>
             <!--Content div-->
             <div layout="column" flex-lg="75" flex-gt-lg="75" flex-xl="75" flex-gt-sm="100" flex-md="100">
-                <md-tabs ng-if="vm.report.id!=null" layout-padding="true" md-dynamic-height="100" md-border-bottom="100" md-selected="triWizard.currentStep"
+                <md-tabs ng-if="vm.report.id!=null" layout-padding="true" md-dynamic-height="100" md-border-bottom="100" md-selected="vm.selectedTabs"
                          cg-busy="{promise:vm.loadingPromiseReport,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
                     <md-tab label={{'REPORTS.TAB.INFORMATION'|translate}}>
                         <md-content layout-padding="">
