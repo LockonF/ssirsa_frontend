@@ -41,14 +41,24 @@
                 <form name="inputForm">
                     <md-input-container class="md-block">
                         <label>{{ 'Category.name' | translate }}</label>
-                        <input type="text" name="nombre" ng-model="vm.selected_categoria.nombre" ng-required="true" ng-disabled="vm.selected_categoria.deleted"/>
+                        <input type="text"
+                               name="nombre"
+                               ng-model="vm.selected_categoria.nombre"
+                               ng-required="true"
+                               is-alphanumeric
+                               ng-disabled="vm.selected_categoria.deleted"/>
                         <div ng-messages="inputForm.nombre.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>{{ 'Category.description' | translate }}</label>
-                        <input type="text" name="descripcion" ng-model="vm.selected_categoria.descripcion" ng-required="true" ng-disabled="vm.selected_categoria.deleted"/>
+                        <input type="text"
+                               name="descripcion"
+                               ng-model="vm.selected_categoria.descripcion"
+                               ng-required="true"
+                               is-alphanumeric
+                               ng-disabled="vm.selected_categoria.deleted"/>
                         <div ng-messages="inputForm.descripcion.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>

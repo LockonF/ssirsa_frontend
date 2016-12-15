@@ -8,7 +8,7 @@
         .module('app.mainApp.reportes')
         .controller('ReportesCrudController', ReportsCrudController)
         .filter('reportSearch', reportSearch);
-    function ReportsCrudController(toastr,$timeout, $stateParams,OPTIONS, $mdDialog, Reportes, Translate, $state) {
+    function ReportsCrudController(toastr, $stateParams,OPTIONS, $mdDialog, Reportes, Translate, $state) {
         //Variable declaration
         var vm = this;
         vm.isOpen = false;
@@ -32,6 +32,21 @@
         vm.clear = clear;
         vm.exportar=exportar;
 
+        vm.tableFilterHeaders = [
+            Translate.translate('REPORTS.MODIFY.TABLE'),
+            Translate.translate('REPORTS.TABLE_FILTER.NAME'),
+            Translate.translate('REPORTS.TABLE_FILTER.FILTER_TYPE'),
+            Translate.translate('REPORTS.TABLE_FILTER.VALUE'),
+            Translate.translate('REPORTS.TABLE_FILTER.EXCLUDE')
+        ];
+        vm.tableDisplayHeaders = [
+            Translate.translate('REPORTS.MODIFY.TABLE'),
+            Translate.translate('REPORTS.MODIFY.FIELD_NAME'),
+            Translate.translate('REPORTS.MODIFY.FIELD_VERBOSE'),
+            Translate.translate('REPORTS.MODIFY.FIELD_TYPE'),
+            Translate.translate('REPORTS.MODIFY.FIELD_QUERY')
+        ];
+        vm.fieldQueries=OPTIONS.field_types;
         //Translates
         vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
         vm.errorTitle = Translate.translate('MAIN.MSG.ERROR_TITLE');
@@ -55,7 +70,7 @@
 
         activate();
         function activate() {
-             Reportes.getPartialReports().then(function (res) {
+            vm.loadingPromise=Reportes.getPartialReports().then(function (res) {
                     vm.reports = res;
                     vm.reports = _.sortBy(vm.reports, 'name');
 
@@ -74,7 +89,8 @@
 
         }
         function onTabPreview() {
-            vm.reportPromise=Reportes.generatePreview(vm.report.id).then(function (res) {
+            vm.preview=null;
+            vm.loadingPromisePreview=Reportes.generatePreviewPaginator(vm.report.id,1).then(function (res) {
                 vm.preview = res;
 
             }).catch(function () {
@@ -84,7 +100,15 @@
 
         function selectedItemChange(item) {
             if (item != null) {
-                vm.report = Reportes.getReport(item.id);
+                vm.selectedReport=angular.copy(item);
+                vm.loadingPromiseReport=Reportes.getReportObject(item.id).then(function (res) {
+                    vm.report =res;
+                    Reportes.getModel(res.root_model).then(function(res){
+                        vm.rootModel = res.name;
+                    }).catch();
+                });
+
+                vm.selectedTab=0;
             } else {
                 //cancel();
             }
@@ -171,8 +195,14 @@
         }
 
         function selected(item) {
+            vm.selectedTabs=0;
             vm.selectedReport = item;
-            vm.report = Reportes.getReport(item.id);
+            vm.loadingPromiseReport=Reportes.getReportObject(item.id).then(function (res) {
+                vm.report =res;
+                Reportes.getModel(res.root_model).then(function(res){
+                    vm.rootModel = res.name;
+                }).catch();
+            });
         }
 
         function remove() {

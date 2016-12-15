@@ -6,11 +6,12 @@
         .controller('NotificationsPanelController', NotificationsPanelController);
 
     /* @ngInject */
-    function NotificationsPanelController($scope, $http, $mdSidenav, $state, API_CONFIG) {
+    function NotificationsPanelController($scope, $window,$mdDialog,Reportes, $mdSidenav,NotificationPanel,Helper) {
         var vm = this;
         // sets the current active tab
         vm.close = close;
         vm.currentTab = 0;
+        vm.click = click;
 
 
         ////////////////
@@ -19,14 +20,34 @@
         $scope.$on('triSwitchNotificationTab', function ($event, tab) {
             vm.currentTab = tab;
         });
+        function click(notification) {
+            console.log(notification);
+            var id=parseInt(notification.notification.idObject);
+            if(notification.type==="Reporte"){
 
-        // fetch some dummy emails from the API
-        $http({
-            method: 'GET',
-            url: API_CONFIG.url + 'email/inbox'
-        }).success(function (data) {
-            vm.emails = data.slice(1, 20);
-        });
+                Reportes.getReportObject(id).then(function (res) {
+                    $window.open(res.report_file, '_blank', '');
+                });
+            }else{
+                var config = {
+                    controller: 'solicitudFullDetailDialogController',
+                    controllerAs: 'vm',
+                    bindToController: true,
+                    templateUrl: 'app/mainApp/solicitudes/solicitud/view/solicitudDetailFull.dialog.tmpl.html',
+                    parent: angular.element(document.body),
+                    fullscreen: false,
+                    locals: {
+                        solicitud: notification.notification.idObject,
+                        type:notification.type
+                    }
+                };
+                $mdDialog.show(config);
+            }
+
+            NotificationPanel.markNotification(notification._id).then(function (res) {
+                Helper.getNotificationsByUser();
+            });
+        }
 
         function close() {
             $mdSidenav('notifications').close();

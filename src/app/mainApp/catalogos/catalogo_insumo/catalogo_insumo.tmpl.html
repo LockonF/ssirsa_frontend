@@ -80,6 +80,7 @@
                     <md-input-container class="md-block">
                         <label>{{ 'Consumable_Catalog.description' | translate }}</label>
                         <input type="text" name="descripcion" ng-model="vm.catalogo_insumo.descripcion"
+                               is-alphanumeric
                                ng-disabled="vm.catalogo_insumo.deleted"
                                ng-required="true"/>
                         <div ng-messages="inputForm.descripcion.$error">
@@ -105,6 +106,7 @@
                     <md-input-container class="md-block">
                         <label>{{ 'Consumable_Catalog.keyword' | translate }}</label>
                         <input type="text" name="palabra_clave" ng-model="vm.catalogo_insumo.palabra_clave"
+                               is-alphanumeric
                                ng-disabled="vm.catalogo_insumo.deleted"
                                ng-required="true"/>
                         <div ng-messages="inputForm.palabra_clave.$error">

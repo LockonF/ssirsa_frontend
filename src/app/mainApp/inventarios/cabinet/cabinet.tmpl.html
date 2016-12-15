@@ -50,7 +50,7 @@ Created by lockonDaniel on 9/11/16.
                         <md-autocomplete
                                 md-no-cache="true", ng-if="vm.cabinet_list !=null" md-selected-item="vm.cabinet" md-selected-item-change="vm.selectedItemChange(vm.cabinet)" md-items="item in vm.search_items" md-item-text="item.economico" md-min-length="0" md-search-text-change="vm.lookup(vm.searchText)" md-search-text="vm.searchText" md-menu-class="autocomplete-custom-template" md-floating-label="{{&quot;CABINET_CRUD.LOOKUP&quot; | translate}}">
                             <md-item-template><span class="item-title">
-                <md-icon md-font-icon="zmdi zmdi-developer-board"></md-icon><span>{{item.economico}}</span></span></md-item-template>
+                            <md-icon md-font-icon="zmdi zmdi-developer-board"></md-icon><span>{{item.economico}}</span></span></md-item-template>
                         </md-autocomplete>
                         <md-virtual-repeat-container hide-sm="hide-sm" hide-xs="hide-xs" flex="flex" id="vertical_container" style="min-height:350px" cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
                             <div flex="flex" md-virtual-repeat="cabinet in vm.cabinet_list">
@@ -127,7 +127,7 @@ Created by lockonDaniel on 9/11/16.
                         <md-input-container class="md-block">
                             <label>{{'CABINET_CRUD.SELECT_MODEL' | translate}}</label>
                             <md-select ng-model="vm.selected_cabinet.modelo" ng-disabled=" vm.chosen_marca_cabinet==null || vm.modelos_choice_resolver==false || vm.selected_cabinet.deleted || vm.modelos_choice_cabinet.length==0" multiple="false">
-                                <md-option ng-repeat="modelo in vm.modelos_choice_cabinet" ng-value="modelo.id">{{modelo.descripcion}}</md-option>
+                                <md-option ng-repeat="modelo in vm.modelos_choice_cabinet" ng-value="modelo.id">{{modelo.nombre}}</md-option>
                             </md-select>
                         </md-input-container>
                         <md-input-container class="md-block">
@@ -175,9 +175,17 @@ Created by lockonDaniel on 9/11/16.
                         <!--Pre Checklist-->
                         <h3 ng-if="vm.newCabinet==true" class="md-display-1">{{'CABINET_CRUD.PRE_CHECKLIST' | translate}}</h3>
                         <div ng-if="vm.newCabinet==true" flex="flex" layout="column">
-                                <md-checkbox ng-model="vm.selected_cabinet.diagnostico.puertas">
-                                    <span>{{'CABINET_CRUD.DOORS' | translate}}</span>
-                                </md-checkbox>
+
+                                <div flex layout="row" layout-align="space-around center">
+                                    <md-checkbox ng-model="vm.selected_cabinet.diagnostico.puertas">
+                                        <span>{{'CABINET_CRUD.DOORS' | translate}}</span>
+                                    </md-checkbox>
+                                    <md-checkbox ng-model="vm.selected_cabinet.diagnostico.gas">
+                                        <span>{{'CABINET_CRUD.GAS' | translate}}</span>
+                                    </md-checkbox>
+
+                                </div>
+
                                 <md-input-container class="md-block">
                                     <label>{{ 'CABINET_CRUD.GRIDS' | translate }}</label>
                                     <input type="text" step="any" name="rejillas" numbers-only="" ng-model="vm.selected_cabinet.diagnostico.rejillas" ng-required="true" ng-pattern="/^[0-6]{1,1}$/"/>

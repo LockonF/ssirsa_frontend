@@ -4,7 +4,7 @@
         .module('app.mainApp')
         .factory('AuthService', AuthService);
     /* @ngInject */
-    function AuthService(Session, $q, Restangular, PusherClient,Channel, OAuth,EVENTS_GENERAL, $rootScope, Notification, AUTH_EVENTS, OAuthToken) {
+    function AuthService(Session, $q, Restangular, PusherClient, Channel, OAuth, EVENTS_GENERAL, $rootScope, Notification, AUTH_EVENTS, OAuthToken) {
         var authService = {
             isAuthenticated: isAuthenticated,
             login: login,
@@ -14,7 +14,7 @@
             isIdentityResolved: isIdentityResolved,
             refreshToken: refreshToken,
             getToken: getToken,
-            revokeToken:revokeToken
+            revokeToken: revokeToken
         };
 
         function getToken() {
@@ -28,6 +28,7 @@
             }
             return deferred.promise;
         }
+
         function revokeToken() {
             OAuth.revokeToken();
         }
@@ -41,6 +42,7 @@
         }
 
         function isIdentityResolved() {
+
             return angular.isDefined(Session.userInformation);
         }
 
@@ -104,13 +106,16 @@
                 user.userInformation = res;
                 getRole().then(function (res) {
                     Session.create(user.userInformation, res[0].name);
-                    PusherClient.create();
+
                     if (angular.isArray(res) && res[0].name === 'Administrador') {
-                        if(Channel.all().length==0) {
-                            PusherClient.create();
+                        if (Channel.all().length == 0) {
+                            if (angular.isUndefined(PusherClient.pusher)) {
+                                PusherClient.create();
+                            }
                             Channel.add(Notification.subscribePresenceChannel('administrador'));
                             Channel.add(Notification.subscribePresenceChannel(Session.userInformation.id.toString()));
                             $rootScope.$broadcast(EVENTS_GENERAL.bind_channels);
+
                         }
                     }
                     $rootScope.$broadcast(AUTH_EVENTS.sessionRestore);

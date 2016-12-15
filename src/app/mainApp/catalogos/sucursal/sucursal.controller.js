@@ -7,7 +7,7 @@
         .filter('sucursalSearch', sucursalSearch);
 
     /* @ngInject */
-    function SucursalController(Sucursal, $scope, toastr,Helper, Translate,$mdDialog) {
+    function SucursalController(Sucursal, $scope, NotificationPanel,toastr,Helper, Translate,$mdDialog) {
 
         var vm = this;
 
@@ -132,10 +132,20 @@
         }
         function create() {
             Sucursal.create(vm.sucursal).then(function (res) {
-                toastr.success(vm.successCreateMessage, vm.successTitle);
+
                 vm.sucursal = angular.copy(sucursal);
-                cancel();
-                activate();
+                var request={
+                    id:res.id,
+                    name:res.nombre
+                };
+                NotificationPanel.createOffice(request).then(function () {
+                    toastr.success(vm.successCreateMessage, vm.successTitle);
+                    cancel();
+                    activate();
+                }).catch(function () {
+                    toastr.error(vm.errorMessage, vm.errorTitle);
+                });
+
             }).catch(function (err) {
                 if(err.status==400 && err.data.nombre!=undefined)
                 {

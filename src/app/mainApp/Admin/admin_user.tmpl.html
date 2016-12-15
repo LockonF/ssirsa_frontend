@@ -35,7 +35,7 @@
                         <md-list  >
                             <md-list-item  ng-repeat="persona in vm.personas_admin | personaSearch:vm.searchText">
                                 <md-button ng-click="vm.selectedPersonas(persona)"
-                                           ng-class="{'selected' : persona === vm.selectedPersonaList }">
+                                           ng-class="{'selected' : (persona === vm.selectedPersonaList) }">
                                     <img  class="avatar" ngf-src="persona.foto" width="60" height="60"/>
                                     <span flex="flex">{{persona.nombre }}</span>
                                 </md-button>

@@ -8,7 +8,7 @@
         .module('app.mainApp.reportes')
         .controller('reportEditionController', reportEditionController);
 
-    function reportEditionController(Reportes, toastr,$state, $mdDialog, Translate, $stateParams, OPTIONS) {
+    function reportEditionController(Reportes, toastr, $state, $mdDialog, Translate, $stateParams, OPTIONS) {
 
         //Variables
         var vm = this;
@@ -18,7 +18,8 @@
         vm.filterTypeChar = OPTIONS.filterChar;
         vm.filterInt = OPTIONS.filterInt;
         vm.days = OPTIONS.days;
-        vm.fieldQueries=OPTIONS.field_types;
+        vm.fieldQueries = OPTIONS.field_types;
+        vm.rootModel = "";
 
         //Function parse
         vm.removeField = removeField;
@@ -26,12 +27,14 @@
         vm.showEditionFields = showEditionFields;
         vm.getValidFilters = getValidFilters;
         vm.update = update;
+        vm.initDates = initDates;
         vm.back = back;
 
         activate();
 
         //Translates
         vm.tableDisplayHeaders = [
+            Translate.translate('REPORTS.MODIFY.TABLE'),
             Translate.translate('REPORTS.MODIFY.FIELD_NAME'),
             Translate.translate('REPORTS.MODIFY.FIELD_VERBOSE'),
             Translate.translate('REPORTS.MODIFY.FIELD_TYPE'),
@@ -40,6 +43,7 @@
         ];
 
         vm.tableFilterHeaders = [
+            Translate.translate('REPORTS.MODIFY.TABLE'),
             Translate.translate('REPORTS.MODIFY.FIELD_NAME'),
             Translate.translate('REPORTS.MODIFY.FIELD_VERBOSE'),
             Translate.translate('REPORTS.MODIFY.FIELD_TYPE'),
@@ -49,13 +53,16 @@
         ];
 
         function activate() {
-            vm.report = Reportes.getReportObject($stateParams.id).then(function(res){
-                vm.report=res;
-                if(res.displayfield_set!=null)
-                    vm.report.displayfield_set=reorganizeFieldIndexes(res.displayfield_set);
-                if(res.filterfield_set!=null)
-                    vm.report.filterfield_set=reorganizeFieldIndexes(res.filterfield_set);
-            }).catch(function(){
+            vm.reportPromise = Reportes.getReportObject($stateParams.id).then(function (res) {
+                vm.report = res;
+                if (res.displayfield_set != null)
+                    vm.report.displayfield_set = reorganizeFieldIndexes(res.displayfield_set);
+                if (res.filterfield_set != null)
+                    vm.report.filterfield_set = reorganizeFieldIndexes(res.filterfield_set);
+                Reportes.getModel(res.root_model).then(function (res) {
+                    vm.rootModel = res.name;
+                }).catch();
+            }).catch(function () {
 
             });
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
@@ -79,6 +86,18 @@
                 fields[i].position = i;
             }
             return fields;
+        }
+
+        function initDates(field) {
+            if(field.filter_type==='range') {
+                if(field.filter_value2==="") {
+                    field.filter_value = moment();
+                    field.filter_value2 = moment();
+                }
+            }else if(field.filter_type==='week_day'){
+                field.filter_value = "";
+                field.filter_value2 = "";
+            }
         }
 
         function showEditionFields(ev) {
@@ -106,7 +125,7 @@
         }
 
         function back() {
-            $state.go('triangular.admin-default.reportes',{id:vm.report.id});
+            $state.go('triangular.admin-default.reportes', {id: vm.report.id});
         }
 
         function getValidFilters(fieldType) {
@@ -115,6 +134,9 @@
                     return vm.filterTypeChar;
                     break;
                 case 'DateTimeField':
+                    return vm.filterTypeDate;
+                    break;
+                case 'DateField':
                     return vm.filterTypeDate;
                     break;
                 case 'DecimalField':
@@ -128,6 +150,13 @@
         }
 
         function update() {
+            _.each(vm.report.filterfield_set, function(element, index) {
+                if(element.filter_type==='range') {
+                    var date_start=moment(element.filter_value).format('YYYY-MM-DD');
+                    var date_end=moment(element.filter_value2).format('YYYY-MM-DD');
+                    _.extend(element, {filter_value:date_start,filter_value2:date_end});
+                }
+            });
             Reportes.updateReport(vm.report).then(function () {
                 toastr.success(vm.successUpdate, vm.successTitle);
                 back();

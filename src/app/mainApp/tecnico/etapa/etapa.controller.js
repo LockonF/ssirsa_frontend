@@ -278,6 +278,7 @@
                 vm.loadingPromise = Servicios.BusquedaCatalogoTypeStep(data).then(function (res) {
                     //vm.insumosLote = res;
                     vm.insumosLote = Helper.filterDeleted(res,true);
+
                     transformArrayCatalogoInsumos();
                     vm.disabledBuscar=false;
                 }).catch(function (res) {
@@ -309,12 +310,14 @@
                 vm.insumoLote.nombre = insulote.descripcion;
                 vm.insumoLote.notas = elemento.descripcion;
                 vm.insumoLote.agregar = false;
-                if (insulote.cantidad >= vm.insumoLote.cantidad) {
+                if (parseFloat(insulote.cantidad)>= parseFloat(vm.insumoLote.cantidad)) {
+
                     vm.insumos_loteUsados.push(vm.insumoLote);
                     vm.insumoLote = null;
                     vm.insumoLote = {};
                 }
                 else {
+                  
                     vm.insumos_sinStock.push(vm.insumoLote);
                     vm.insumoLote = null;
                     vm.insumoLote = {};

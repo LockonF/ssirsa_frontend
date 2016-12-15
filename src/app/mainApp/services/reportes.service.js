@@ -17,6 +17,7 @@
             getReports:getReports,
             getReport:getReport,
             getModels:getModels,
+            getModel:getModel,
             getRelatedModels:getRelatedModels,
             getFields:getFields,
             saveReport:saveReport,
@@ -27,7 +28,8 @@
             updateReport:updateReport,
             requestReport:requestReport,
             getReportsGenerated:getReportsGenerated,
-            getReportObject:getReportObject
+            getReportObject:getReportObject,
+            generatePreviewPaginator:generatePreviewPaginator
         };
         //Clona un reporte pasando el id del reporte y el nombre
         function cloneReport(request) {
@@ -52,6 +54,10 @@
         //Obtiene todos los modelos base sobre los cuales se pueden hacer reportes, se usa solo al crearlo
         function getModels(){
             return path.all("contenttypes").all("").getList().$object;
+        }
+        //Obtiene todos los modelos base sobre los cuales se pueden hacer reportes, se usa solo al crearlo
+        function getModel(id){
+            return path.one("contenttypes",id).all("").customGET();
         }
         //Obtiene solamnte los modelos relacionados (campos que son llave primaria de otro modelo)
         // con un modelo, dado un ID de modelo, y como opcion una ruta (path) y un nombre de campo (field)
@@ -126,6 +132,10 @@
         //Permite crear un reporte nuevo con su nombre, descripción y modelo base
         function createReport(data){
             return path.all("report").all("").post(data);
+        }
+        //Permite crear una previsualización en JSON del reporte con el ID dado con paginador
+        function generatePreviewPaginator(id,pagina){
+            return path.one("report",id).all("preview").all(pagina).all("").customGET();
         }
         //Permite crear una previsualización en JSON del reporte con el ID dado
         function generatePreview(id){

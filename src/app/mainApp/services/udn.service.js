@@ -16,12 +16,15 @@
             update:update,
             create:create,
             remove:remove,
-            listObject:listObject
+            listObject:listObject,
+            getOne: getOne
         };
         function listObject() {
             return baseUdn.getList();
         }
-
+        function getOne(id) {
+            return baseUdn.get(id);
+        }
         function list(){
             return baseUdn.getList().$object;
         }

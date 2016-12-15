@@ -19,7 +19,7 @@
             vm.successTitle = Translate.translate('MAIN.MSG.SUCCESS_TITLE');
             vm.successRemission = Translate.translate('MAIN.MSG.SUCCESS_REPORT');
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
-            Reportes.getReportsGenerated().then(function (res) {
+            vm.loadingPromise=Reportes.getReportsGenerated().then(function (res) {
                 vm.reportes = res;
                 vm.reportes=_.sortBy(vm.reportes, 'name');
             }).catch(function (err) {

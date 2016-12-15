@@ -51,14 +51,24 @@
                 <form name="inputForm">
                     <md-input-container class="md-block">
                         <label>{{ 'Cabinet_Brand.description' | translate }}</label>
-                        <input type="text" name="descripcion" ng-model="vm.marca_cabinet.descripcion" ng-required="true" ng-disabled="vm.marca_cabinet.deleted"/>
+                        <input type="text"
+                               name="descripcion"
+                               ng-model="vm.marca_cabinet.descripcion"
+                               ng-required="true"
+                               is-alphanumeric
+                               ng-disabled="vm.marca_cabinet.deleted"/>
                         <div ng-messages="inputForm.descripcion.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>
                     </md-input-container>
                     <md-input-container class="md-block">
                         <label>{{ 'Cabinet_Brand.category' | translate }}</label>
-                        <input type="text" name="categoria" ng-model="vm.marca_cabinet.categoria" ng-required="true" ng-disabled="vm.marca_cabinet.deleted"/>
+                        <input type="text"
+                               name="categoria"
+                               ng-model="vm.marca_cabinet.categoria"
+                               ng-required="true"
+                               only-text
+                               ng-disabled="vm.marca_cabinet.deleted"/>
                         <div ng-messages="inputForm.categoria.$error">
                             <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
                         </div>

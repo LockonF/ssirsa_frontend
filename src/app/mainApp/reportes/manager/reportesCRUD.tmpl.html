@@ -32,7 +32,7 @@
 
         </div>
         <div layout-gt-sm="row" layout="column">
-            <div layout="column" layout-align="space-between stretch" flex-lg="35" flex-gt-lg="35" flex-xl="35" flex-gt-sm="100" flex-md="100">
+            <div layout="column" layout-align="space-between stretch" flex-lg="25" flex-gt-lg="25" flex-xl="25" flex-gt-sm="100" flex-md="100">
                 <md-autocomplete
                     md-items="item in vm.querySearch(vm.searchParameter)"
                     md-selected-item="vm.reportSelected"
@@ -57,12 +57,13 @@
                                              hide-sm="hide-sm"
                                              layout-fill
                                              class="vr-min-height">
-                    <md-list flex="flex"  cg-busy="{promise:vm.reportPromise,message:'Cargando reportes...',templateUrl:'app/mainApp/directives/loading.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
-                        <md-list-item flex="flex" ng-repeat="item in vm.reports | reportSearch:vm.searchParameter">
+                    <md-list flex="flex" cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
+                        <md-list-item flex="flex" layout="column" ng-repeat="item in vm.reports | reportSearch:vm.searchParameter">
                             <md-button
+                                style="width: 100%"
                                 ng-click="vm.selected(item)"
                                 ng-class="{'selected':item.id == vm.selectedReport.id}">
-                                <img ng-src="assets/images/report.png" class="avatar"/>
+                                <img ng-src="assets/images/report.png" class="avatar-reports"/>
                                 <span>{{item.name}}</span>
                             </md-button>
                             <md-divider></md-divider>
@@ -71,8 +72,9 @@
                 </md-virtual-repeat-container>
             </div>
             <!--Content div-->
-            <div layout="column" flex-lg="65" flex-gt-lg="65" flex-xl="65" flex-gt-sm="100" flex-md="100">
-                <md-tabs ng-if="vm.report.id!=null" layout-padding="true" md-dynamic-height="100" md-border-bottom="100" md-selected="vm.selectedTab">
+            <div layout="column" flex-lg="75" flex-gt-lg="75" flex-xl="75" flex-gt-sm="100" flex-md="100">
+                <md-tabs ng-if="vm.report.id!=null" layout-padding="true" md-dynamic-height="100" md-border-bottom="100" md-selected="vm.selectedTabs"
+                         cg-busy="{promise:vm.loadingPromiseReport,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
                     <md-tab label={{'REPORTS.TAB.INFORMATION'|translate}}>
                         <md-content layout-padding="">
                             <md-virtual-repeat-container flex="100"
@@ -113,26 +115,68 @@
                                         </md-input-container>
                                     </div>
                                 </form>
+
+
+                            </md-virtual-repeat-container>
+                        </md-content>
+                    </md-tab>
+                    <md-tab label={{'REPORTS.TAB.FIELDS'|translate}}>
+                        <md-content layout-padding="">
+                            <md-virtual-repeat-container flex="100"
+                                                         layout="column"
+                                                         layout-align="center center"
+                                                         class="vr-min-height">
                                 <div class="tabla" layout-align="center center">
-                                    <div class="table-responsive-vertical shadow-z-1" layout-align="space-around center">
+
+                                    <div class="table-responsive-vertical shadow-z-1">
                                         <!-- Table starts here -->
-                                        <table id="table2" class="table table-hover table-mc-light-blue" layout-align="center center">
+                                        <table id="tableFiltros" class="table table-hover table-mc-light-blue" layout-align="center center">
                                             <thead>
                                             <tr>
-                                                <th>{{'REPORTS.TABLE_FILTER.NAME'|translate}}</th>
-                                                <th>{{'REPORTS.TABLE_FILTER.TYPE'|translate}}</th>
+                                                <th ng-repeat="header in vm.tableDisplayHeaders">{{header}}</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr ng-repeat="data in vm.report.displayfield_set">
-                                                <td data-title="{{'REPORTS.TABLE_FILTER.NAME'|translate}}">{{data.field_verbose  }}</td>
-                                                <td data-title="{{'REPORTS.TABLE_FILTER.TYPE'|translate}}">{{data.field_type  | tipoDato}}</td>
+                                            <tr ng-repeat="field in vm.report.displayfield_set">
+                                                <td data-title="{{vm.tableDisplayHeaders[0]}}">
+                                                    <span ng-if="field.path_verbose!='' ">{{field.path_verbose}}</span>
+                                                    <span ng-if="field.path_verbose=='' ">{{vm.rootModel}}</span>
+                                                </td>
+                                                <td data-title="{{vm.tableDisplayHeaders[1]}}">
+                                                    {{field.field}}
+                                                </td>
+                                                <td data-title="{{vm.tableDisplayHeaders[2]}}">
+                                                    <md-input-container>
+                                                        <input name="inputFieldVerbose"
+                                                               required=""
+                                                               type="text"
+                                                               readonly
+                                                               md-no-asterisk
+                                                               ng-model="field.field_verbose"
+                                                               aria-label="field verbose"
+                                                        >
+                                                    </md-input-container>
+                                                </td>
+                                                <td data-title="{{vm.tableDisplayHeaders[3]}}">
+                                                    {{field.field_type|tipoDato}}
+                                                </td>
+                                                <td data-title="{{vm.tableDisplayHeaders[4]}}">
+                                                    <md-select name="selectQueryType"
+                                                               aria-label="Tipo"
+                                                               ng-model="field.aggregate">
+                                                        <md-option ng-repeat="option in vm.fieldQueries" value="{{option.id}}">
+                                                            {{option.text}}
+                                                        </md-option>
+                                                    </md-select>
+                                                </td>
+
                                             </tr>
                                             </tbody>
                                         </table>
                                     </div>
-                                </div>
 
+
+                                </div>
                             </md-virtual-repeat-container>
                         </md-content>
                     </md-tab>
@@ -149,15 +193,16 @@
                                         <table id="tableFiltros" class="table table-hover table-mc-light-blue" layout-align="center center">
                                             <thead>
                                             <tr>
-                                                <th>{{'REPORTS.TABLE_FILTER.NAME'|translate}}</th>
-                                                <th>{{'REPORTS.TABLE_FILTER.FILTER_TYPE'|translate}}</th>
-                                                <th>{{'REPORTS.TABLE_FILTER.VALUE'|translate}}</th>
-                                                <th>{{'REPORTS.TABLE_FILTER.EXCLUDE'|translate}}</th>
+                                                <th ng-repeat="header in vm.tableFilterHeaders">{{header}}</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr ng-repeat="data in vm.report.filterfield_set">
-                                                <td data-title="{{'REPORTS.TABLE_FILTER.NAME'|translate}}"><p>{{data.field_verbose}}</p></td>
+                                                <td data-title="{{'REPORTS.MODIFY.TABLE'|translate}}">
+                                                    <span ng-if="data.path_verbose!='' ">{{data.path_verbose}}</span>
+                                                    <span ng-if="data.path_verbose=='' ">{{vm.rootModel}}</span>
+                                                </td>
+                                                <td data-title="{{'REPORTS.TABLE_FILTER.NAME'|translate}}"><span>{{data.field_verbose}}</span></td>
                                                 <td data-title="{{'REPORTS.TABLE_FILTER.FILTER_TYPE'|translate}}">
 
                                                     <md-select aria-label="tipo" ng-model="data.filter_type" disabled="" layout-align="space-around start">
@@ -220,7 +265,8 @@
                         </md-content>
 
                     </md-tab>
-                    <md-tab label={{'REPORTS.TAB.PREVIEW'|translate}} md-on-select="vm.onTabPreview()">
+                    <md-tab label={{'REPORTS.TAB.PREVIEW'|translate}} md-on-select="vm.onTabPreview()"
+                            cg-busy="{promise:vm.loadingPromisePreview,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
                         <md-content layout-padding="">
                             <md-virtual-repeat-container flex="100"
                                                          layout="column"
@@ -231,14 +277,14 @@
                                         <!-- Table starts here -->
                                         <table id="tables" class="table table-hover table-mc-light-blue" layout-align="center center">
                                             <thead>
-                                            <tr>
-                                                <th ng-repeat="meta in vm.preview.meta.titles">{{meta}}</th>
-                                            </tr>
+                                                <tr>
+                                                    <th ng-repeat="meta in vm.preview.meta.titles">{{meta}}</th>
+                                                </tr>
                                             </thead>
                                             <tbody>
-                                            <tr ng-repeat="data in vm.preview.data">
-                                                <td data-title="{{vm.preview.meta.titles[$index]}}" ng-repeat="datos in data">{{datos}}</td>
-                                            </tr>
+                                                <tr ng-repeat="data in vm.preview.data">
+                                                    <td data-title="{{vm.preview.meta.titles[$index]}}" ng-repeat="datos in data track by $index">{{datos}}</td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -248,8 +294,6 @@
                     </md-tab>
                 </md-tabs>
             </div>
-            <div ui-view="belowContent"></div>
-            <menu-report md-theme="{{vm.thema}}" flex></menu-report>
 
         </div>
 

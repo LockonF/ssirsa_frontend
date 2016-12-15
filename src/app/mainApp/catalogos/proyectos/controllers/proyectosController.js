@@ -50,7 +50,7 @@
 
         function activate() {
             vm.project = null;
-            Proyectos.listObject().then(function (res) {
+            vm.loadingPromise = Proyectos.listObject().then(function (res) {
                 vm.projects = Helper.filterDeleted(res, vm.toggleDeleted);
                 vm.filteredProjects = vm.projects;
             }).catch(function () {
@@ -66,10 +66,10 @@
                 vm.clear();
                 activate();
             }).catch(function (err) {
-                if(err.data.descripcion != null){
-                    toastr.info(vm.duplicateMessage,vm.informationTitle);
+                if (err.data.descripcion != null) {
+                    toastr.info(vm.duplicateMessage, vm.informationTitle);
                 }
-                else 
+                else
                     toastr.error(vm.errorCreate, vm.errorTitle);
             });
         }
@@ -80,8 +80,8 @@
                 vm.clear();
                 activate();
             }).catch(function (err) {
-                if(err.data.descripcion != null){
-                    toastr.info(vm.duplicateMessage,vm.informationTitle);
+                if (err.data.descripcion != null) {
+                    toastr.info(vm.duplicateMessage, vm.informationTitle);
                 }
                 else
                     toastr.error(vm.errorUpdate, vm.errorTitle);

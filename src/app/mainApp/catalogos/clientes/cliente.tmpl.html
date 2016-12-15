@@ -38,6 +38,7 @@
                                              hide-xs="hide-xs"
                                              hide-sm="hide-sm"
                                              layout-fill
+                                             cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}"
                                              class="vr-min-height">
                         <md-list flex="flex">
                             <md-list-item flex="flex" ng-repeat="item in vm.filteredClients">
@@ -62,7 +63,11 @@
                     <div layout="column" layout-gt-sm="row" flex="100" >
                         <md-input-container class="md-block" flex="33">
                             <label>{{'Clients.Fields.Name'|translate}}</label>
-                            <input name="ClientName" type="text" required="" md-no-asterisk=""
+                            <input name="ClientName"
+                                   type="text"
+                                   required=""
+                                   only-text
+                                   md-no-asterisk=""
                                    ng-model="vm.client.nombre">
                             <div ng-messages="formClient.ClientName.$error">
                                 <div ng-message="required">{{'Clients.Errors.Required'|translate}}</div>
@@ -70,7 +75,11 @@
                         </md-input-container>
                         <md-input-container class="md-block" flex="33">
                             <label>{{'Clients.Fields.Surname'|translate}}</label>
-                            <input name="ClientName" type="text" required="" md-no-asterisk=""
+                            <input name="ClientName"
+                                   type="text"
+                                   required=""
+                                   only-text
+                                   md-no-asterisk=""
                                    ng-model="vm.client.apellido_paterno">
                             <div ng-messages="formClient.ClientName.$error">
                                 <div ng-message="required">{{'Clients.Errors.Required'|translate}}</div>
@@ -78,7 +87,11 @@
                         </md-input-container>
                         <md-input-container class="md-block" flex="33">
                             <label>{{'Clients.Fields.LastName'|translate}}</label>
-                            <input name="ClientName" type="text" required="" md-no-asterisk=""
+                            <input name="ClientName"
+                                   type="text"
+                                   required=""
+                                   only-text
+                                   md-no-asterisk=""
                                    ng-model="vm.client.apellido_materno">
                             <div ng-messages="formClient.ClientName.$error">
                                 <div ng-message="required">{{'Clients.Errors.Required'|translate}}</div>
@@ -87,7 +100,11 @@
                     </div>
                     <md-input-container class="md-block">
                         <label>{{'Clients.Fields.Address'|translate}}</label>
-                        <input name="ClientName" type="text" required="" md-no-asterisk=""
+                        <input name="ClientName"
+                               type="text"
+                               required=""
+                               is-alphanumeric
+                               md-no-asterisk=""
                                ng-model="vm.client.direccion">
                         <div ng-messages="formClient.ClientName.$error">
                             <div ng-message="required">{{'Clients.Errors.Required'|translate}}</div>
@@ -96,7 +113,11 @@
                     <div layout="column" layout-gt-sm="row" flex="100">
                         <md-input-container class="md-block" flex="50">
                             <label>{{'Clients.Fields.Telephone'|translate}}</label>
-                            <input name="ClientName" type="text" required="" md-no-asterisk=""
+                            <input name="ClientName"
+                                   type="text"
+                                   required=""
+                                   numbers-only
+                                   md-no-asterisk=""
                                    ng-model="vm.client.telefono" ng-pattern="/^[0-9]{10}$/">
                             <div ng-messages="formClient.ClientName.$error">
                                 <div ng-message="required">{{'Clients.Errors.Required'|translate}}</div>
@@ -125,6 +146,7 @@
                                    ng-disabled="!vm.isNew"
                                    type="text"
                                    ng-required="vm.isNew"
+                                   is-alphanumeric
                                    md-no-asterisk=""
                                    ng-model="vm.user.username">
                             <div ng-messages="formClient.ClientName.$error">

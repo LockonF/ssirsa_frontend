@@ -106,15 +106,19 @@
                                             </div>
                                         </md-input-container>
                                         <md-input-container>
-                                            <md-switch class="md-primary" ng-model="vm.diagnostico.puertas"
-                                                       ng-disabled="vm.NotEditable"
-                                                       name="puertas">
-                                                {{'TECNICO.FORM.LABEL.DOORS'|translate}}
-                                            </md-switch>
+                                            <div flex layout="row" layout-align="space-around center">
+                                                <md-checkbox class="md-primary" ng-model="vm.diagnostico.puertas"
+                                                           ng-disabled="vm.NotEditable"
+                                                           name="puertas">
+                                                    {{'TECNICO.FORM.LABEL.DOORS'|translate}}
+                                                </md-checkbox>
+                                                <md-checkbox class="md-primary" ng-model="vm.diagnostico.gas" ng-disabled="vm.NotEditable">
+                                                    <span>{{'CABINET_CRUD.GAS' | translate}}</span>
+                                                </md-checkbox>
 
-                                            <div ng-messages="registerForm.puertas.$error">
-                                                <div ng-message='required'>{{'MAIN.LABEL.REQUIRED'|translate}}</div>
                                             </div>
+
+
                                         </md-input-container>
                                         <md-input-container>
                                             <label>{{'TECNICO.FORM.LABEL.GRIDS'|translate}}</label>

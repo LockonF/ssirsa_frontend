@@ -69,7 +69,11 @@
                     <form name="TransportForm">
                         <md-input-container class="md-block">
                             <label>{{'TRANSPORT_LINE.FORM.LABEL.BUSINESS_NAME'|translate}}</label>
-                            <input ng-required='true' type="text" name="razon" ng-disabled="vm.transport.deleted"
+                            <input ng-required='true'
+                                   type="text"
+                                   name="razon"
+                                   ng-disabled="vm.transport.deleted"
+                                   is-alphanumeric
                                    ng-model="vm.transport.razon_social"/>
                             <div ng-messages="TransportForm.razon.$error">
                                 <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
@@ -77,8 +81,12 @@
                         </md-input-container>
                         <md-input-container class="md-block">
                             <label>{{'TRANSPORT_LINE.FORM.LABEL.ADDRESS'|translate}}</label>
-                            <input md-no-asterisk="" required="" type="text" name="address"
+                            <input md-no-asterisk=""
+                                   required=""
+                                   type="text"
+                                   name="address"
                                    ng-disabled="vm.transport.deleted"
+                                   is-alphanumeric
                                    ng-model="vm.transport.direccion"/>
                             <div ng-messages="TransportForm.address.$error">
                                 <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
@@ -99,8 +107,12 @@
                         </div>
                         <md-input-container class="md-block">
                             <label>{{'TRANSPORT_LINE.FORM.LABEL.RESPONSABLE'|translate}}</label>
-                            <input md-no-asterisk="" required="" type="text" name="responsable"
+                            <input md-no-asterisk=""
+                                   required=""
+                                   type="text"
+                                   name="responsable"
                                    ng-disabled="vm.transport.deleted"
+                                   only-text
                                    ng-model="vm.transport.responsable"/>
                             <div ng-messages="TransportForm.responsable.$error">
                                 <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>

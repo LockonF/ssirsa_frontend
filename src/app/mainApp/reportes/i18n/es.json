@@ -60,7 +60,7 @@
             "REPORT_DELETE_SUCCESS":"Reporte eliminado correctamente",
             "REPORT_CLONE_SUCCESS":"Reporte clonado correctamente",
             "REPORT_EXPORT_TITLE_SUCCESS":"Se solicito el reporte exitosamente",
-            "REPORT_EXPORT_MSG_SUCCESS":"Se enviará un correo o notificación cuando se haya generado el reporte",
+            "REPORT_EXPORT_MSG_SUCCESS":"Se enviará una notificación cuando se haya generado el reporte",
             "REPORT_CLONE_ERROR":"Error al clonar el reporte",
             "REPORT_DELETE_ERROR":"Error al eliminar el reporte",
             "REPORT_EXPORT_ERROR":"Error al exportar el reporte",
@@ -79,12 +79,14 @@
             "VALUE":"Valor",
             "FIELD_FILTER":"Filtro:",
             "FIELD_FIELDS":"Reporte:",
-            "DELETE":"Eliminar"
+            "DELETE":"Eliminar",
+            "TABLE":"Tabla"
         },
         "TAB":{
             "PREVIEW":"Vista previa",
             "FILTERS":"Filtros",
-            "INFORMATION":"Información"
+            "INFORMATION":"Información",
+            "FIELDS":"Campos"
         },
         "TABLE_FILTER":{
             "NAME":"Nombre",

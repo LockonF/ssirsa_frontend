@@ -21,9 +21,10 @@
         <md-tabs layout-padding="true"
                  md-dynamic-height="100"
                  md-border-bottom="100"
-                 md-selected="vm.selectedTab">
+                 md-selected="vm.selectedTab"
+                 cg-busy="{promise:vm.reportPromise,message:'Cargando reportes...',templateUrl:'app/mainApp/directives/loading.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
             <md-tab label={{'REPORTS.MODIFY.FIELDS'|translate}}>
-                <div layout="column" flex="100" layout-align="start stretch">
+                <div layout="column" flex="100" layout-align="start stretch" >
                     <md-content flex="100"
                                 layout="row"
                                 layout-align="center center"
@@ -41,9 +42,13 @@
                                     <tbody>
                                     <tr ng-repeat="field in vm.report.displayfield_set">
                                         <td data-title="{{vm.tableDisplayHeaders[0]}}">
-                                            {{field.field}}
+                                            <span ng-if="field.path_verbose!='' ">{{field.path_verbose}}</span>
+                                            <span ng-if="field.path_verbose=='' ">{{vm.rootModel}}</span>
                                         </td>
                                         <td data-title="{{vm.tableDisplayHeaders[1]}}">
+                                            {{field.field}}
+                                        </td>
+                                        <td data-title="{{vm.tableDisplayHeaders[2]}}">
                                             <md-input-container>
                                                 <input name="inputFieldVerbose"
                                                        required=""
@@ -54,10 +59,10 @@
                                                 >
                                             </md-input-container>
                                         </td>
-                                        <td data-title="{{vm.tableDisplayHeaders[2]}}">
+                                        <td data-title="{{vm.tableDisplayHeaders[3]}}">
                                             {{field.field_type|tipoDato}}
                                         </td>
-                                        <td data-title="{{vm.tableDisplayHeaders[3]}}">
+                                        <td data-title="{{vm.tableDisplayHeaders[4]}}">
                                             <md-select name="selectQueryType"
                                                        ng-model="field.aggregate">
                                                 <md-option ng-repeat="option in vm.fieldQueries" value="{{option.id}}">
@@ -65,7 +70,7 @@
                                                 </md-option>
                                             </md-select>
                                         </td>
-                                        <td data-title="{{vm.tableDisplayHeaders[4]}}">
+                                        <td data-title="{{vm.tableDisplayHeaders[5]}}">
                                             <md-button aria-label="fab button"
                                                        class="md-fab md-scale md-mini"
                                                        md-colors="{background: 'RED'}"
@@ -102,9 +107,13 @@
                                     <tbody>
                                     <tr ng-repeat="field in vm.report.filterfield_set">
                                         <td data-title="{{vm.tableFilterHeaders[0]}}">
-                                            {{field.field}}
+                                            <span ng-if="field.path_verbose!='' ">{{field.path_verbose}}</span>
+                                            <span ng-if="field.path_verbose=='' ">{{vm.rootModel}}</span>
                                         </td>
                                         <td data-title="{{vm.tableFilterHeaders[1]}}">
+                                            {{field.field}}
+                                        </td>
+                                        <td data-title="{{vm.tableFilterHeaders[2]}}">
                                             <md-input-container>
                                                 <input name="inputFieldVerbose"
                                                        required=""
@@ -115,25 +124,27 @@
                                                 >
                                             </md-input-container>
                                         </td>
-                                        <td data-title="{{vm.tableFilterHeaders[2]}}">
+                                        <td data-title="{{vm.tableFilterHeaders[3]}}">
                                             {{field.field_type|tipoDato}}
                                         </td>
-                                        <td data-title="{{vm.tableFilterHeaders[3]}}">
+                                        <td data-title="{{vm.tableFilterHeaders[4]}}">
                                             <md-select aria-label="typeFilter"
                                                        ng-model="field.filter_type"
+                                                       ng-change="vm.initDates(field)"
                                                        layout-align="space-around start"
 >
                                                 <div ng-init="filters = vm.getValidFilters(field.field_type)">
                                                     <md-option
                                                         ng-repeat="filtro in  filters"
                                                         ng-value="filtro.id"
+
                                                     >
                                                         {{filtro.value}}
                                                     </md-option>
                                                 </div>
                                             </md-select>
                                         </td>
-                                        <td data-title="{{vm.tableFilterHeaders[4]}}">
+                                        <td data-title="{{vm.tableFilterHeaders[5]}}">
                                             <div aria-label="maximum"
                                                  ng-if="field.filter_type=='max' || field.filter_type=='min'"
                                             >
@@ -142,6 +153,7 @@
                                             <div ng-if="field.filter_type=='week_day'">
                                                 <md-select aria-label="weekday"
                                                            ng-model="field.filter_value"
+
                                                            layout-align="space-around start"
                                                 >
                                                     <md-option ng-repeat="day in  vm.days" ng-value="day.id">
@@ -149,7 +161,7 @@
                                                     </md-option>
                                                 </md-select>
                                             </div>
-                                            <div ng-if="field.filter_type=='range'">
+                                            <div ng-if="field.filter_type=='range'" >
                                                 <md-input-container>
                                                     <input type="text"
                                                            aria-label="start date"
@@ -167,6 +179,7 @@
                                                            mdp-format="{{vm.formato}}"
                                                            mo-date-input="{{vm.formato}}"
                                                            name="endDate"/>
+
                                                 </md-input-container>
                                             </div>
                                             <div ng-if="field.filter_type==='exact' ||
@@ -181,7 +194,7 @@
                                                 <md-input-container>
                                                     <input type="text"
                                                            aria-label="text filter"
-                                                           ng-model="data.filter_value"
+                                                           ng-model="field.filter_value"
                                                            name="textFilter"/>
                                                 </md-input-container>
                                             </div>
@@ -194,12 +207,12 @@
                                                     <input type="text"
                                                            numbers-only
                                                            aria-label="text filter"
-                                                           ng-model="data.filter_value"
+                                                           ng-model="field.filter_value"
                                                            name="textFilter"/>
                                                 </md-input-container>
                                             </div>
                                         </td>
-                                        <td data-title="{{vm.tableFilterHeaders[5]}}">
+                                        <td data-title="{{vm.tableFilterHeaders[6]}}">
                                             <md-button aria-label="fab button"
                                                        class="md-fab md-scale md-mini  md-ink-ripple"
                                                        md-colors="{background: 'RED'}"
