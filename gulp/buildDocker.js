@@ -23,6 +23,8 @@ gulp.task('cleanMinify',function () {
     if(fileExists('.awspublish-genesis-dev.sssirsa.com')){
       del.sync(['dist/', '.awspublish-genesis-dev.sssirsa.com']);
     }
+  }else if (enviroment=='server'){
+    del.sync(['dist/']);
   }
 });
 
@@ -33,5 +35,7 @@ gulp.task('configuration',function () {
     run('config:build')();
   }else if (enviroment=='development'){
     run('config:dev')();
+  }else if (enviroment=='server'){
+    run('config:server')();
   }
 });
