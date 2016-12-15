@@ -7,14 +7,14 @@
         .config(translateConfig);
 
     /* @ngInject */
-    function translateConfig(triSettingsProvider, triRouteProvider) {
+    function translateConfig(triSettingsProvider, triRouteProvider,EnvironmentConfig) {
         var now = new Date();
         // set app name & logo (used in loader, sidemenu, footer, login pages, etc)
         triSettingsProvider.setName('SSSIRSA');
         triSettingsProvider.setCopyright('&copy;' + now.getFullYear() + ' Solid Solutions Servicios Integrales en Refrigeración');
         triSettingsProvider.setLogo('assets/images/logo.png');
         // set current version of app (shown in footer)
-        triSettingsProvider.setVersion('0.1');
+        triSettingsProvider.setVersion(EnvironmentConfig.site.version);
         // set the document title that appears on the browser tab
         triRouteProvider.setTitle('SSSIR');
         triRouteProvider.setSeparator('|');
