@@ -21,19 +21,17 @@
                 <md-input-container class="md-block">
                     <label>{{'ADMIN_PERSONA.PROPERTY.PASSWORD'|translate}}</label>
                     <md-icon md-font-icon="zmdi zmdi-key"></md-icon>
-                    <input type="password" ng-model="vm.user_ini.user.password" name="password" required="required" regex-validate="^.*$" ng-pattern="/^[A-Za-z0-9_.-@]{8,25}$/"/>
+                    <input type="password" ng-model="vm.user_ini.user.password" regex-validate="" name="password" required="required"  />
                     <div ng-messages="objectForm.password.$error">
-                        <div ng-message="pattern">
-                            {{'ADMIN_PERSONA.ERROR_MESSAGE.PASSWORD'|translate}}
+                        <div ng-message="validNumber">
+                            {{'ADMIN_PERSONA.ERROR_MESSAGE.DIGITOS'|translate}}
+                        </div>
+                        <div ng-message="lengthPassword">
+                            {{'ADMIN_PERSONA.ERROR_MESSAGE.PASSWORD_LENGTH'|translate}}
                         </div>
                         <div ng-message="required">
                             {{'MAIN.LABEL.REQUIRED'|translate}}
                         </div>
-                    </div>
-                    <div ng-if="objectForm.password.$error.regexValidate">
-                        <span style="color:#FF6D00; font-size: 12px;">
-                            {{'ADMIN_PERSONA.ERROR_MESSAGE.DIGITOS'|translate}}
-                        </span>
                     </div>
                 </md-input-container>
                 <md-input-container class="md-block">

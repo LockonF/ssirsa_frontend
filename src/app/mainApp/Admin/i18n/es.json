@@ -37,6 +37,7 @@
       "DIRECCION": "La Direccion no puede tener caracteres especiales",
       "EMAIL": "Se debe de ingresar un correo electrónico válido",
       "PASSWORD":"El password debe contener al menos 8 elementos y solo símbolos validos",
+      "PASSWORD_LENGTH":"El password debe contener al menos 8 elementos",
       "CPASSWORD":"El password no coincide",
       "TELEFONO":"",
       "DIGITOS":"El password no puede contener solo dígitos",
