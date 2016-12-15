@@ -7,5 +7,6 @@ dist/
 config
 .awspublish-genesis-stg.sssirsa.com
 .awspublish-genesis-dev.sssirsa.com
+.awspublish-genesis.sssirsa.com
 src/app/config.js
 gulp/deploy.js
