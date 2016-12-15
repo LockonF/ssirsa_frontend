@@ -37,8 +37,11 @@
       "DIRECCION": "La Direccion no puede tener caracteres especiales",
       "EMAIL": "Se debe de ingresar un correo electrónico válido",
       "PASSWORD":"El password debe contener al menos 8 elementos y solo símbolos validos",
+      "PASSWORD_LENGTH":"El password debe contener al menos 8 elementos",
       "CPASSWORD":"El password no coincide",
       "TELEFONO":"",
+      "DIGITOS":"El password no puede contener solo dígitos",
+      "ERRORNUMSOLCONF":"El usuario ya existe",
       "MINLENGTH":"El telefono no tienen un mínimo de 8 números",
       "USERNAME":"El Usuario no puede comenzar con un digito y solo puede usar caracteres validos"
     }

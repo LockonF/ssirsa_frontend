@@ -11,6 +11,8 @@
         vm.isClient = true;
         activate();
         vm.cpassword = "";
+        vm.fotoByPass = null;
+        vm.ifeByPass = null;
         vm.guardarUsuario = guardarUsuario;
         vm.listSucursales = listSucursales;
         vm.enviar = enviar;
@@ -25,6 +27,7 @@
             vm.successCreateMessage = Translate.translate('MAIN.MSG.GENERIC_SUCCESS_CREATE');
             vm.errorMessage = Translate.translate('MAIN.MSG.ERROR_MESSAGE');
             vm.errorSize = Translate.translate('MAIN.MSG.FILE_SIZE');
+            vm.erroNumSolConf = Translate.translate('ADMIN_PERSONA.ERROR_MESSAGE.ERRORNUMSOLCONF');
             groups.list().then(function (rest) {
                 vm.grupos = rest;
             }).catch(function (error) {
@@ -125,11 +128,16 @@
                     toastr.success(vm.successCreateMessage, vm.successTitle);
                     cancel();
                     activate();
-                }).catch(function () {
-                    toastr.error(vm.errorMessage, vm.errorTitle);
+                }).catch(function (error) {
+                    toastr.error(error, vm.errorTitle);
                 });
             }).catch(function (err) {
-                toastr.error(vm.errorMessage, vm.errorTitle);
+                if(err.status==400 && err.data.message=="El usuario ya existe")
+                {
+                    toastr.error(vm.erroNumSolConf,vm.errorTitle);
+                }else {
+                    toastr.error(vm.errorMessage, vm.errorTitle);
+                }
             });
         }
 
@@ -140,6 +148,8 @@
             vm.user_ini = _.clone(vm.user_vacio);
             vm.picFoto = null;
             vm.picIFE = null;
+            vm.ifeByPass = null
+            vm.fotoByPass = null;
             vm.user_ini = {
                 "user": {
                     "username": null,
@@ -172,7 +182,17 @@
                         toastr.warning(vm.errorTypeFile, vm.errorTitle);
                         vm.picFoto = null;
                     }
+                }else
+                {
+                    vm.fotoByPass=vm.picFoto;
                 }
+            }else{
+                if(vm.fotoByPass!=null)
+                {
+                    vm.picFoto = vm.fotoByPass;
+                    console.log("algo");
+                }
+
             }
 
         }
@@ -190,7 +210,17 @@
                         toastr.warning(vm.errorTypeFile, vm.errorTitle);
                         vm.picIFE = null;
                     }
+                }else
+                {
+                    vm.ifeByPass=vm.picIFE;
                 }
+            }else{
+                if(vm.ifeByPass!=null)
+                {
+                    vm.picIFE = vm.ifeByPass;
+                    console.log("algo2");
+                }
+
             }
 
         }

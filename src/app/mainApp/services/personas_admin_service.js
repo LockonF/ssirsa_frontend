@@ -41,7 +41,7 @@
             Restangular.all('persona_admin').withHttpConfig({transformRequest: angular.identity}).customPOST(form_data,"",{},{'Content-Type':undefined}).then(function(res){
                 defer.resolve(res);
             }).catch(function(err){
-                defer.resolve(err);
+                defer.reject(err);
             });
             return defer.promise;
         }
