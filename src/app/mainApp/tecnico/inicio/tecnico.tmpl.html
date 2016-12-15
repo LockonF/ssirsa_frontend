@@ -1,0 +1,123 @@
+<div class="dashboard-social-header padding-10 padding-top-10 overlay-gradient-10" layout="row"
+     layout-align="start center"
+     style="background: url(assets/images/backgrounds/material-backgrounds/mb-bg-02.jpg) no-repeat; background-size: cover;">
+    <div class="margin-right-20">
+        <img class="make-round" src="{{vmNode.currentUser.userInformation.foto!=null?vmNode.currentUser.userInformation.foto:'assets/images/user.png'}}"  width="100" height="100"/>
+    </div>
+    <div class="text-light">
+        <h3 class="font-weight-600 margin-bottom-0 text-light">{{vmNode.currentUser.userInformation.nombre}}
+            {{vmNode.currentUser.userInformation.apellido_paterno}}
+            {{vmNode.currentUser.userInformation.apellido_materno}}</h3>
+        <p class="font-weight-300 margin-top-0 margin-bottom-0">{{vmNode.currentUser.userRole}}</p>
+
+    </div>
+</div>
+<!-- Tecnico Sections-->
+<div class="full-height full-image-background mb-bg-fb-27" align="column">
+    <div align="row">
+        <!-- Tecnico A Section -->
+        <!-- In order to allow position changes, add dragula='"drag-analytics-container"' to the main div of each section -->
+        <div class="drag-container" layout="row" layout-xs="column" layout-margin
+             ng-show=vm.tecnicoAVisibility>
+
+            <tri-widget palette-background="cyan:700" content-layout="row"
+                        content-layout-align="center center" content-padding flex>
+                <a ng-href="#/entrada">
+                    <div layout="column" layout-align="center center">
+                        <div layout-align="center center">
+                            <md-icon class="font-size-5 opacity-50 margin-left-10"
+                                     md-font-icon="zmdi zmdi-check"></md-icon>
+                        </div>
+                        <div layout="column" layout-align="center center">
+                            <p class="md-headline opacity-60 margin-top-0 margin-bottom-0" translate>TEC.IN</p>
+                        </div>
+                    </div>
+                </a>
+            </tri-widget>
+            <tri-widget palette-background="cyan:200" content-layout="row"
+                        content-layout-align="center center"
+                        content-padding flex l>
+                <a ng-href="#/crear">
+                    <div layout-align="center center">
+                        <md-icon class="font-size-5 opacity-50 margin-left-10" md-font-icon="fa fa-road"></md-icon>
+                    </div>
+                    <div layout="column" layout-align="center center">
+                        <p class="md-headline opacity-60 margin-top-0 margin-bottom-0" translate>TEC.OUT</p>
+                    </div>
+                </a>
+            </tri-widget>
+
+        </div>
+        <!-- Tecnico B Section -->
+
+        <!-- Tecnico C Section -->
+        <div class="drag-container" layout="row" layout-xs="column" layout-margin
+             ng-show="vm.tecnicoCVisibility">
+            <tri-widget palette-background="amber:900" content-layout="row"
+                        content-layout-align="center center"
+                        content-padding>
+                <a ng-href="#/etapa">
+                    <div layout-align="center center">
+                        <md-icon class="font-size-5 opacity-50 margin-left-10" md-font-icon="fa fa-wrench"></md-icon>
+                    </div>
+                    <div layout="column" layout-align="center center">
+                        <p class="md-headline opacity-60 margin-top-0 margin-bottom-0" translate>TEC.SERVICE</p>
+                    </div>
+                </a>
+            </tri-widget>
+
+        </div>
+        <!-- Tecnico D Section -->
+
+        <div class="drag-container" layout="row" layout-xs="column" layout-margin
+             ng-show="vm.tecnicoDVisibility">
+            <tri-widget palette-background="green:700" content-layout="row" content-layout-align="center center"
+                        content-padding>
+                <a ng-href="#/asignacionLinea">
+                    <div layout-align="center center">
+                        <md-icon class="font-size-5 opacity-50 margin-left-10"
+                                 md-font-icon="fa fa-hand-o-down"></md-icon>
+                    </div>
+                    <div layout="column" layout-align="center center">
+                        <p class="md-headline opacity-60 margin-top-0 margin-bottom-0" translate>TEC.LINE</p>
+                    </div>
+                </a>
+            </tri-widget>
+
+        </div>
+        <!-- Tecnico E Section -->
+
+        <div class="drag-container" layout="row" layout-xs="column" layout-margin
+             ng-show="vm.tecnicoDVisibility">
+            <tri-widget palette-background="lime:900" content-layout="row"
+                        content-layout-align="center center" content-padding flex>
+                <a ng-href="#/entrada">
+                    <div layout="column" layout-align="center center">
+                        <div layout-align="center center">
+                            <md-icon class="font-size-5 opacity-50 margin-left-10"
+                                     md-font-icon="zmdi zmdi-bike"></md-icon>
+                        </div>
+                        <div layout="column" layout-align="center center">
+                            <p class="md-headline opacity-60 margin-top-0 margin-bottom-0" translate>TEC.IN</p>
+                        </div>
+                    </div>
+                </a>
+            </tri-widget>
+
+            <tri-widget palette-background="lime:500" content-layout="row"
+                        content-layout-align="center center" content-padding flex>
+                <a ng-href="#/etapa">
+                    <div layout="column" layout-align="center center">
+                        <div layout-align="center center">
+                            <md-icon class="font-size-5 opacity-50 margin-left-10"
+                                     md-font-icon="zmdi zmdi-bike"></md-icon>
+                        </div>
+                        <div layout="column" layout-align="center center">
+                            <p class="md-headline opacity-60 margin-top-0 margin-bottom-0" translate>TEC.SERVICE</p>
+                        </div>
+                    </div>
+                </a>
+            </tri-widget>
+        </div>
+    </div>
+</div>

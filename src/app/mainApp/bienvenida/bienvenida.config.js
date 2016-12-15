@@ -7,33 +7,25 @@
         .module('app.mainApp.bienvenida')
         .config(moduleConfig);
 
-    function moduleConfig($stateProvider, triMenuProvider){
+    function moduleConfig($stateProvider,$translatePartialLoaderProvider){
+        $translatePartialLoaderProvider.addPart('app/mainApp/bienvenida');
         $stateProvider
 
             .state('triangular.admin-default.bienvenida', {
                 url: '/bienvenida',
+                data: {
+                    roles: ['Administrador','Capturista','Cliente','Tecnico A','Tecnico B','Tecnico C','Tecnico D','Tecnico E']
+                },
                 templateUrl: 'app/mainApp/bienvenida/index.tmpl.html',
                 controller: 'bienvenidaController',
-                controllerAs: 'vm'
-            })
-            .state('triangular.admin-default.profile', {
-                url: '/profile',
-                templateUrl: 'app/mainApp/bienvenida/profile.tmpl.html',
-                controller: 'profileController',
-                controllerAs: 'vm'
-            })
+                controllerAs: 'vm',
+                resolve:{
+                    /*promiseObj:function (AuthService,Socket) {
 
-        triMenuProvider.addMenu({
-            name: 'Bienvenida',
-            icon: 'zmdi zmdi-home',
-            type: 'dropdown',
-            priority: 1.1,
-            children: [{
-                name: 'Inicio',
-                state: 'triangular.admin-default.bienvenida',
-                type: 'link'
-            }]
-        });
+                        return AuthService.getUser();
+                    }*/
+                }
+            })
     }
-    
+
 } )();

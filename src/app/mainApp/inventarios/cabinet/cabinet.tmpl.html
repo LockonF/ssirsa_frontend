@@ -1,0 +1,240 @@
+<!--
+Created by lockonDaniel on 9/11/16.
+-->
+<div flex="flex" layout="column">
+    <md-card flex="flex"  class="md-padding card1">
+        <md-card-content>
+            <h2 class="md-display-2">{{'CABINET_CRUD.TITLE' | translate}}</h2>
+            <div flex="flex" layout-lt-md="column" layout-gt-md="row">
+                <div flex="flex" layout="column" layout-align="start stretch">
+
+                    <md-switch ng-model="vm.showBrandsModelsSearch" ng-change="vm.cancel()">
+                        <span ng-if="vm.showBrandsModelsSearch">{{'CABINET_CRUD.SHOW_BRANDS_MODELS_SEARCH' | translate}}</span>
+                        <span ng-if="!vm.showBrandsModelsSearch">{{'CABINET_CRUD.SHOW_ECONOMIC_SEARCH' | translate}}</span>
+                    </md-switch>
+
+                    <!-- Búsqueda por económico -->
+                    <div ng-show="!vm.showBrandsModelsSearch" layout="column">
+
+                        <md-autocomplete
+                                md-no-cache="true",
+                                md-selected-item="vm.found_by_economico_cabinet"
+                                md-selected-item-change="vm.selectedItemChange(vm.found_by_economico_cabinet)"
+                                md-items="item in vm.lookupByEconomico()"
+                                md-item-text="item.economico"
+                                md-min-length="1"
+                                md-search-text-change="vm.lookupByEconomico(vm.economic_lookup_var)"
+                                md-search-text="vm.economic_lookup_var"
+                                md-menu-class="autocomplete-custom-template"
+                                md-floating-label="{{&quot;CABINET_CRUD.LOOKUP&quot; | translate}}">
+                            <md-item-template><span class="item-title">
+                            <md-icon md-font-icon="zmdi zmdi-developer-board"></md-icon><span>{{item.economico}}</span></span></md-item-template>
+                        </md-autocomplete>
+                    </div>
+
+                    <!-- Búsqueda por marca y modelo -->
+                    <div ng-show="vm.showBrandsModelsSearch" layout="column">
+                        <md-input-container>
+                            <label>{{'CABINET_CRUD.SELECT_BRAND' | translate}}</label>
+                            <md-select ng-model="vm.selected_marca" md-on-close="vm.loadModelos(vm.selected_marca)">
+                                <md-option ng-repeat="marca in vm.marcas_cabinet" ng-value="marca">{{marca.descripcion}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-progress-circular md-mode="indeterminate" ng-if="vm.modelos_resolver==false"></md-progress-circular>
+                        <md-input-container ng-if="vm.selected_marca!=null && vm.modelos_resolver==true">
+                            <label>{{'CABINET_CRUD.SELECT_MODEL' | translate}}</label>
+                            <md-select ng-model="vm.selected_modelo" md-on-close="vm.loadCabinets(vm.selected_modelo)" ng-disabled="vm.modelos_cabinet==null || vm.modelos_cabinet.length==0">
+                                <md-option ng-repeat="modelo in vm.modelos_cabinet" ng-value="modelo">{{modelo.descripcion}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-autocomplete
+                                md-no-cache="true", ng-if="vm.cabinet_list !=null" md-selected-item="vm.cabinet" md-selected-item-change="vm.selectedItemChange(vm.cabinet)" md-items="item in vm.search_items" md-item-text="item.economico" md-min-length="0" md-search-text-change="vm.lookup(vm.searchText)" md-search-text="vm.searchText" md-menu-class="autocomplete-custom-template" md-floating-label="{{&quot;CABINET_CRUD.LOOKUP&quot; | translate}}">
+                            <md-item-template><span class="item-title">
+                            <md-icon md-font-icon="zmdi zmdi-developer-board"></md-icon><span>{{item.economico}}</span></span></md-item-template>
+                        </md-autocomplete>
+                        <md-virtual-repeat-container hide-sm="hide-sm" hide-xs="hide-xs" flex="flex" id="vertical_container" style="min-height:350px" cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
+                            <div flex="flex" md-virtual-repeat="cabinet in vm.cabinet_list">
+                                <md-list flex="flex">
+                                    <md-button ng-click="vm.selectedItemChange(cabinet)" ng-class="{'selected':cabinet.economico === vm.selected_cabinet.economico}">
+                                        <md-icon md-svg-icon="assets/images/cabinet.svg" class="avatar"></md-icon>
+                                        <span>{{cabinet.economico}}</span>
+                                    </md-button>
+                                    <md-divider></md-divider>
+                                </md-list>
+                            </div>
+                        </md-virtual-repeat-container>
+                    </div>
+
+
+                </div>
+                <!--Formulario-->
+                <div flex="flex" layout-align="start stretch" layout="column">
+                    <h3 class="md-display-1">{{'CABINET_CRUD.INFO' | translate}}</h3>
+                    <form name="inputForm">
+                        <md-input-container class="md-block">
+                            <label>{{ 'CABINET_CRUD.ECONOMIC_NUMBER' | translate }}</label>
+                            <input type="text" name="economico" ng-model="vm.selected_cabinet.economico" ng-required="true" ng-pattern="/^[0-9a-zA-Z\-_ ]+$/" ng-disabled="vm.selected_cabinet.deleted"/>
+                            <div ng-messages="inputForm.economico.$error">
+                                <div ng-message="pattern">{{'MAIN.GENERAL.PATTERN_CABINET' | translate}}</div>
+                                <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>{{ 'CABINET_CRUD.PREVIOUS_ECONOMIC_NUMBER' | translate }}</label>
+                            <input type="text" name="economico_anterior" ng-model="vm.selected_cabinet.economico_anterior" ng-pattern="/^[0-9a-zA-Z\-_ ]+$/" ng-required="false" ng-disabled="vm.selected_cabinet.deleted"/>
+                            <div ng-messages="inputForm.economico_anterior.$error">
+                                <div ng-message="pattern">{{'MAIN.GENERAL.PATTERN_CABINET' | translate}}</div>
+                                <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>{{ 'CABINET_CRUD.SERIAL_NUMBER' | translate }}</label>
+                            <input type="text" name="no_serie" ng-model="vm.selected_cabinet.no_serie" ng-required="true" ng-disabled="vm.selected_cabinet.deleted"/>
+                            <div ng-messages="inputForm.no_serie.$error">
+                                <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>{{ 'CABINET_CRUD.UNILEVER_ID' | translate }}</label>
+                            <input type="text" name="id_unilever" ng-model="vm.selected_cabinet.id_unilever" ng-required="false" ng-disabled="vm.selected_cabinet.deleted" ng-change="vm.checkCapitalizado()"/>
+                            <div ng-messages="inputForm.id_unilever.$error">
+                                <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>{{ 'CABINET_CRUD.YEAR' | translate }}</label>
+                            <input type="text" name="year" ng-model="vm.selected_cabinet.year" ng-pattern="/^[0-9]{4}$/" ng-required="true" numbers-only="" ng-disabled="vm.selected_cabinet.deleted"/>
+                            <div ng-messages="inputForm.year.$error">
+                                <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
+                                <div ng-message="pattern">{{'MAIN.GENERAL.YEAR_FIELD' | translate}}</div>
+
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>{{ 'CABINET_CRUD.ISSUES' | translate }}</label>
+                            <input ng-required="true" type="text" step="any" name="no_incidencias" ng-model="vm.selected_cabinet.no_incidencias" ng-pattern="/^[1-6]$/" ng-disabled="vm.selected_cabinet.deleted" numbers-only=""/>
+                            <div ng-messages="inputForm.no_incidencias.$error">
+                                <div ng-message="pattern">{{'CABINET_CRUD.MAX_ISSUES' | translate}}</div>
+                                <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>{{'CABINET_CRUD.SELECT_BRAND' | translate}}</label>
+                            <md-select ng-model="vm.chosen_marca_cabinet" md-on-close="vm.loadModelosToChoose(vm.selected_marca)" ng-disabled="vm.selected_cabinet.deleted" multiple="false">
+                                <md-option ng-repeat="marca in vm.marcas_cabinet_choice" ng-value="marca.id">{{marca.descripcion}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>{{'CABINET_CRUD.SELECT_MODEL' | translate}}</label>
+                            <md-select ng-model="vm.selected_cabinet.modelo" ng-disabled=" vm.chosen_marca_cabinet==null || vm.modelos_choice_resolver==false || vm.selected_cabinet.deleted || vm.modelos_choice_cabinet.length==0" multiple="false">
+                                <md-option ng-repeat="modelo in vm.modelos_choice_cabinet" ng-value="modelo.id">{{modelo.nombre}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>{{'CABINET_CRUD.STATUS' | translate}}</label>
+                            <md-select name="status" ng-model="vm.selected_cabinet.status" ng-required="true" ng-disabled="vm.selected_cabinet.deleted">
+                                <md-option ng-repeat="status in vm.status" ng-value="status.value">{{status.value}}</md-option>
+                            </md-select>
+                            <div ng-messages="inputForm.status.$error">
+                                <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>{{'CABINET_CRUD.OLD' | translate}}</label>
+                            <md-select name="antiguedad" ng-model="vm.selected_cabinet.antiguedad" ng-required="true" ng-disabled="vm.selected_cabinet.deleted">
+                                <md-option ng-repeat="antiguedad in vm.antiguedad" ng-value="antiguedad.value">{{antiguedad.value}}</md-option>
+                            </md-select>
+                            <div ng-messages="inputForm.antiguedad.$error">
+                                <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
+                            </div>
+                        </md-input-container>
+                        <div flex="flex" layout="row" layout-align="space-between center">
+                            <md-checkbox flex="flex" ng-model="vm.selected_cabinet.activo">{{'CABINET_CRUD.ACTIVE' | translate}}</md-checkbox>
+                            <md-checkbox flex="flex" ng-model="vm.selected_cabinet.capitalizado" ng-required="false" ng-disabled="true">{{'CABINET_CRUD.CAPITALIZED' | translate}}</md-checkbox>
+                        </div>
+                        <!--Parte de la entrada-->
+                        <h3 ng-if="vm.newCabinet==true" class="md-display-1">{{'CABINET_CRUD.ENTRY' | translate}}</h3>
+                        <div ng-if="vm.newCabinet==true">
+                            <md-input-container class="md-block">
+                                <label>{{'CABINET_CRUD.SELECT_UDN' | translate}}</label>
+                                <md-select ng-model="vm.selected_udn" md-on-close="vm.loadEntradas(vm.selected_udn)">
+                                    <md-option ng-repeat="udn in vm.udns" ng-value="udn.id">{{udn.zona}} - {{udn.agencia}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                            <md-datepicker placeholder="{{&quot;CABINET_CRUD.SELECT_DATE&quot;}}" ng-model="vm.selected_date" ng-change="vm.lookupEntriesByDate()" class="md-block"></md-datepicker>
+                            <md-input-container class="md-block">
+                                <label>{{'CABINET_CRUD.SELECT_ENTRY' | translate}}</label>
+                                <md-select name="entrada_salida" ng-model="vm.selected_cabinet.entrada_salida" ng-required="true" name="entrada_salida" ng-disabled="vm.show_entries.length==0">
+                                    <md-option ng-repeat="entrada in vm.show_entries" ng-value="entrada.id">{{entrada.fecha| amUtc | amDateFormat:'DD/MM/YYYY HH:mm'}} - {{entrada.nombre_chofer}}</md-option>
+                                </md-select>
+                                <div ng-messages="inputForm.entrada_salida.$error">
+                                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <!--Pre Checklist-->
+                        <h3 ng-if="vm.newCabinet==true" class="md-display-1">{{'CABINET_CRUD.PRE_CHECKLIST' | translate}}</h3>
+                        <div ng-if="vm.newCabinet==true" flex="flex" layout="column">
+
+                                <div flex layout="row" layout-align="space-around center">
+                                    <md-checkbox ng-model="vm.selected_cabinet.diagnostico.puertas">
+                                        <span>{{'CABINET_CRUD.DOORS' | translate}}</span>
+                                    </md-checkbox>
+                                    <md-checkbox ng-model="vm.selected_cabinet.diagnostico.gas">
+                                        <span>{{'CABINET_CRUD.GAS' | translate}}</span>
+                                    </md-checkbox>
+
+                                </div>
+
+                                <md-input-container class="md-block">
+                                    <label>{{ 'CABINET_CRUD.GRIDS' | translate }}</label>
+                                    <input type="text" step="any" name="rejillas" numbers-only="" ng-model="vm.selected_cabinet.diagnostico.rejillas" ng-required="true" ng-pattern="/^[0-6]{1,1}$/"/>
+                                    <div ng-messages="inputForm.rejillas.$error">
+                                        <div ng-message="pattern">{{'CABINET_CRUD.MAX_GRIDS' | translate}}</div>
+                                        <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container class="md-block">
+                                    <label>{{ 'CABINET_CRUD.LAYETTES' | translate }}</label>
+                                    <input type="text" step="any" name="canastillas" numbers-only="" ng-model="vm.selected_cabinet.diagnostico.canastillas" ng-required="true" ng-pattern="/^[0-6]{1,1}$/"/>
+                                    <div ng-messages="inputForm.canastillas.$error">
+                                        <div ng-message="pattern">{{'CABINET_CRUD.MAX_LAYETTES' | translate}}</div>
+                                        <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
+                                    </div>
+                                </md-input-container>
+                                <md-input-container class="md-block">
+                                    <label>{{ 'CABINET_CRUD.WHEELS' | translate }}</label>
+                                    <input type="text" step="any" name="rodajas" numbers-only="" ng-model="vm.selected_cabinet.diagnostico.rodajas" ng-required="true" ng-pattern="/^[0-6]{1,1}$/"/>
+                                    <div ng-messages="inputForm.rodajas.$error">
+                                        <div ng-message="pattern">{{'CABINET_CRUD.MAX_WHEELS' | translate}}</div>
+                                        <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
+                                    </div>
+                                </md-input-container>
+
+                        </div>
+                    </form>
+                    <div layout="row" layout-align="end end">
+
+                        <md-button ng-if="vm.newCabinet==false &amp;&amp; vm.create_update_resolver==true && vm.selected_cabinet.deleted" ng-click="vm.restore()" class="md-raised md-warn">
+                            <md-icon md-font-icon="zmdi zmdi-time-restore"></md-icon>
+                        </md-button>
+
+                        <md-button ng-if="vm.newCabinet==false &amp;&amp; vm.create_update_resolver==true && !vm.selected_cabinet.deleted" ng-click="vm.remove()" ng-disabled="vm.selected_cabinet.deleted" class="md-raised md-warn">
+                            <md-icon md-font-icon="fa fa-trash"></md-icon>
+                        </md-button>
+                        <md-button ng-click="vm.cancel()" ng-if="vm.create_update_resolver==true" class="md-raised md-primary">
+                            <md-icon md-font-icon="fa fa-eraser"></md-icon>
+                        </md-button>
+                        <md-progress-circular md-mode="indeterminate" ng-if="vm.create_update_resolver==false"></md-progress-circular>
+                        <md-button ng-if="vm.newCabinet==true &amp;&amp; vm.create_update_resolver==true" ng-disabled="inputForm.$invalid" ng-click="vm.create()" class="md-raised md-primary">
+                            <md-icon md-font-icon="fa fa-save"></md-icon>
+                        </md-button>
+                        <md-button ng-if="vm.newCabinet==false &amp;&amp; vm.create_update_resolver==true" ng-disabled="inputForm.$invalid" ng-click="vm.update() || vm.selected_cabinet.deleted" class="md-raised md-primary">
+                            <md-icon md-font-icon="fa fa-pencil"></md-icon>
+                        </md-button>
+                    </div>
+                </div>
+            </div>
+        </md-card-content>
+    </md-card>
+</div>

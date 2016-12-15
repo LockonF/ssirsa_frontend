@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -6,70 +6,47 @@
         .controller('NotificationsPanelController', NotificationsPanelController);
 
     /* @ngInject */
-    function NotificationsPanelController($scope, $http, $mdSidenav, $state, API_CONFIG) {
+    function NotificationsPanelController($scope, $window,$mdDialog,Reportes, $mdSidenav,NotificationPanel,Helper) {
         var vm = this;
         // sets the current active tab
         vm.close = close;
         vm.currentTab = 0;
-        vm.solicitudes = [{
-            title:'Loncheria Martinez',
-            type:'Servicio en Sucursal',
-            icon:'fa fa-home',
-            fecha:'06-08-2016'
-        },
-            {
-                title:'La Tapatía',
-                type:'Servicio en Sucursal',
-                icon:'fa fa-home',
-                fecha:'06-07-2016'
-            },
-            {
-                title:'Unilever',
-                type:'Recolección',
-                icon:'fa fa-archive',
-                fecha:'06-07-2016'
-            },
+        vm.click = click;
 
-        ];
-        vm.solicitudes2 = [{
-            title:'Distribuidora 1',
-            type:'Servicio',
-            icon:'fa fa-wrench',
-            fecha:'06-08-2016'
-        },
-            {
-                title:'Distribuidora 2',
-                type:'Servicio ',
-                icon:'fa fa-wrench',
-                fecha:'06-07-2016'
-            },
-            {
-                title:'Unilever',
-                type:'Recolección',
-                icon:'fa fa-archive',
-                fecha:'06-07-2016'
-            },
-
-        ];
 
         ////////////////
 
         // add an event to switch tabs (used when user clicks a menu item before sidebar opens)
-        $scope.$on('triSwitchNotificationTab', function($event, tab) {
+        $scope.$on('triSwitchNotificationTab', function ($event, tab) {
             vm.currentTab = tab;
         });
+        function click(notification) {
+            console.log(notification);
+            var id=parseInt(notification.notification.idObject);
+            if(notification.type==="Reporte"){
 
-        // fetch some dummy emails from the API
-        $http({
-            method: 'GET',
-            url: API_CONFIG.url + 'email/inbox'
-        }).success(function(data) {
-            vm.emails = data.slice(1,20);
-        });
+                Reportes.getReportObject(id).then(function (res) {
+                    $window.open(res.report_file, '_blank', '');
+                });
+            }else{
+                var config = {
+                    controller: 'solicitudFullDetailDialogController',
+                    controllerAs: 'vm',
+                    bindToController: true,
+                    templateUrl: 'app/mainApp/solicitudes/solicitud/view/solicitudDetailFull.dialog.tmpl.html',
+                    parent: angular.element(document.body),
+                    fullscreen: false,
+                    locals: {
+                        solicitud: notification.notification.idObject,
+                        type:notification.type
+                    }
+                };
+                $mdDialog.show(config);
+            }
 
-        function openMail() {
-            $state.go('triangular-no-scroll.email.inbox');
-            vm.close();
+            NotificationPanel.markNotification(notification._id).then(function (res) {
+                Helper.getNotificationsByUser();
+            });
         }
 
         function close() {

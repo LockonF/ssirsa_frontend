@@ -1,0 +1,42 @@
+<md-dialog class="mobile-fullwidth-dialog" flex="40" flex-xs="100">
+    <md-toolbar class="toolbar-default">
+        <div class="md-toolbar-tools">
+            <h2>
+                <span>{{'Consumable_Catalog.LABEL.TITLE'|translate}}</span>
+            </h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="vm.cancel()" aria-label="cancel">
+                <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-divider></md-divider>
+    <md-dialog-content class="md-dialog-content card1 md-blue-grey-theme">
+        <form name="formUnit"
+              novalidate>
+            <md-input-container flex="100" class="md-block">
+                <label>{{'Consumable_Catalog.LABEL.NAME'|translate}}</label>
+                <input type="text"
+                       name="inputName"
+                       required
+                       md-no-asterisk
+                       ng-pattern="/^[ A-Za-z0-9]+$/"
+                       md-maxlength="100"
+                       ng-model="vm.unidad.nombre"
+                >
+                <div ng-messages="formUnit.inputName.$error">
+                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                    <div ng-message="pattern">{{'REPORTS.DIALOGS.CREATE.ERROR_PATTERN'|translate}}</div>
+                </div>
+            </md-input-container>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" class="card1 md-blue-grey-theme">
+        <md-button ng-click="vm.cancel()" md-no-ink class="md-primary">
+            {{'MAIN.BUTTONS.CANCEL'|translate}}
+        </md-button>
+        <md-button ng-click="vm.create()" ng-disabled="formUnit.$invalid" md-no-ink class="md-primary">
+            {{'MAIN.BUTTONS.SUBMIT'|translate}}
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>

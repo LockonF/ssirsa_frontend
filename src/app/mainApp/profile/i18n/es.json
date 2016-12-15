@@ -1,0 +1,32 @@
+{
+  "PROFILE": {
+    "PROPERTY": {
+      "PERFIL": "Perfil del Usuario",
+      "DATOS_PERSONALES": "Datos Personales",
+      "NOMBRE": "Nombre",
+      "AP_PATERNO": "Apellido Paterno",
+      "AP_MATERNO": "Apellido Materno",
+      "DIRECCION": "Dirección",
+      "TELEFONO": "Telefono",
+      "INE": "Carga INE",
+      "FOTO": "Carga Foto",
+      "MODIFY_EXITO": "El perfil se actualizó correctamente",
+      "MODIFY_ERROR": "Error al actualizar el perfil",
+      "ERROR": "Error",
+      "EXITO": "Éxito",
+      "ARCHIVO":"Seleccionar Archivo"
+    },
+    "ERROR_MESSAGE": {
+      "NOMBRE": "El nombre solo puede contener letras",
+      "AP_PATERNO": "El apellido paterno solo puede contener letras",
+      "AP_MATERNO": "El apellido materno solo puede contener letras ",
+      "DIRECCION": "La Direccion no puede tener caracteres especiales",
+      "EMAIL": "Se debe de ingresar un correo electrónico válido",
+      "PASSWORD":"El password debe contener al menos 8 elementos y solo símbolos validos",
+      "CPASSWORD":"El password no coincide",
+      "TELEFONO":"",
+      "MINLENGTH":"El telefono no tienen un mínimo de 8 números",
+      "USERNAME":"El Usuario no puede comenzar con un digito y solo puede usar caracteres validos"
+    }
+  }
+}

@@ -1,0 +1,158 @@
+<div layout="column">
+    <md-card class="md-padding card1" flex="100" flex-gt-sm="90" layout-align="center center">
+        <md-card-title flex="100" layout-fill>
+            <md-card-title-text>
+                    <span class="md-headline">
+                        {{'SUPPLIES.HEADER'|translate}}
+                    </span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-content class="md-padding card1" flex="100" layout="column" layout-fill layout-align="center start">
+            <form name="supplyForm"
+                  layout-fill
+                  flex="100"
+                  no-validate
+            >
+                <div layout="column" layout-gt-sm="row">
+                    <md-input-container flex="100" flex-gt-sm="30">
+                        <label>{{'SUPPLIES.FIELDS.KIND'|translate}}</label>
+                        <md-select ng-model="vm.selectedKind"
+                                   name="selectKindSuply"
+                                   md-on-close="vm.selectionChanged()"
+                                   md-no-asterisk
+                                   required
+                        >
+                            <md-option ng-repeat="option in vm.choices" value="{{option}}">
+                                {{option}}
+                            </md-option>
+                            <div ng-messages="supplyForm.selectKindSupply.$error">
+                                <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                            </div>
+                        </md-select>
+                    </md-input-container>
+                    <div
+                            flex="100"
+                            flex-gt-sm="70"
+                            class="md-block"
+                    >
+                        <md-autocomplete md-selected-item="vm.selectedInsumo"
+                                         ng-disabled="vm.selectedKind==undefined||vm.selectedKind==null"
+                                         md-selected-item-change="vm.selectedItemChange(item)"
+                                         md-items="item in vm.filteredInsumos"
+                                         md-item-text="item.palabra_clave"
+                                         md-min-length="0"
+                                         md-input-name="selectSupply"
+                                         md-search-text-change="vm.search(vm.searchText)"
+                                         required
+                                         md-search-text="vm.searchText"
+                                         md-menu-class="autocomplete-custom-template"
+                                         md-require-match="true"
+                                         md-no-cache="true"
+                                         md-no-asterisk
+                                         md-floating-label="{{'SUPPLIES.FIELDS.SUPPLY'| translate}}">
+                            <md-item-template>
+                                                    <span class="item-title">
+                                                        <md-icon md-font-icon="zmdi zmdi-developer-board"></md-icon>
+                                                        <span>&nbsp; {{item.palabra_clave}}</span>
+                                                    </span>
+                                                    <span class="item-metadata">
+                                                        <span class="item-metastat">
+                                                            <strong>{{item.descripcion}}</strong>
+                                                        </span>
+                                                    </span>
+                            </md-item-template>
+                            <md-not-found><span translate="SUPPLIES.MESSAGES.NO_RESULTS"></span></md-not-found>
+                            <div ng-messages="supplyForm.selectSupply.$error" ng-if="supplyForm.selectSupply.$touched">
+                                <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                                <div class="validate" ng-show="!vm.isValid" ng-class="{'slide':vm.isValid==false}">
+                                    <span>{{'SUPPLIES.MESSAGES.INVALID_SUPPLY'| translate}}</span>
+                                </div>
+                            </div>
+                        </md-autocomplete>
+                    </div>
+                </div>
+                <div layout="column"
+                     ng-if="vm.selectedInsumo!=null"
+                >
+                    <div layout="column" layout-gt-sm="row">
+                        <md-input-container flex="100" flex-gt-sm="50">
+                            <label>{{'SUPPLIES.FIELDS.REMISSION'|translate}}</label>
+                            <input type="text"
+                                   required
+                                   name="inputRemision"
+                                   ng-model="vm.insumo.no_remision"
+                                   md-no-asterisk
+                            >
+                            <div ng-messages="supplyForm.inputRemision.$error">
+                                <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                            </div>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container flex="100" flex-gt-sm="50">
+                            <label>{{'SUPPLIES.FIELDS.LINE'|translate}}</label>
+                            <input type="text"
+                                   required
+                                   name="inputLinea"
+                                   ng-model="vm.insumo.linea"
+                                   md-no-asterisk
+                            >
+                            <div ng-messages="supplyForm.inputLinea.$error">
+                                <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <div layout="column" layout-gt-sm="row">
+                        <md-input-container flex="100" flex-gt-sm="50">
+                            <label>{{'SUPPLIES.FIELDS.STOCK'|translate}}</label>
+                            <input type="text"
+                                   required
+                                   name="inputStock"
+                                   ng-disabled="true"
+                                   ng-model="vm.selectedInsumo.cantidad"
+                                   md-no-asterisk
+                            >
+                            <div ng-messages="supplyForm.inputStock.$error">
+                                <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container flex="100" flex-gt-sm="50">
+                            <label>{{'SUPPLIES.FIELDS.QUANTITY'|translate}}</label>
+                            <input type="text"
+                                   required
+                                   name="inputCantidad"
+                                   numbers-only=""
+                                   ng-disabled="vm.selectedInsumo.tipo=='U'"
+                                   ng-model="vm.cantidad"
+                                   md-no-asterisk
+                            >
+                            <div ng-messages="supplyForm.inputCantidad.$error">
+                                <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <md-input-container flex="100" ng-if="vm.selectedInsumo.tipo=='U'">
+                        <label>{{'SUPPLIES.FIELDS.SERIAL'|translate}}</label>
+                        <input type="text"
+                               required
+                               name="inputSerie"
+                               ng-model="vm.insumo.no_serie"
+                               md-no-asterisk
+                        >
+                        <div ng-messages="supplyForm.inputSerie.$error">
+                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                        </div>
+                    </md-input-container>
+                </div>
+            </form>
+        </md-content>
+        <md-actions flex="100" layout="row" layout-align="end center" ng-if="vm.selectedInsumo!=null">
+            <md-button ng-click="vm.clear()" md-no-ink class="md-raised md-primary" aria-label="clear">
+                <md-icon md-font-icon="fa fa-eraser"></md-icon>
+            </md-button>
+            <md-button ng-click="vm.create()" md-no-ink class="md-raised md-primary" ng-disabled="supplyForm.$invalid" aria-label="save">
+                <md-icon md-font-icon="fa fa-save"></md-icon>
+            </md-button>
+        </md-actions>
+    </md-card>
+
+</div>

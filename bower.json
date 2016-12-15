@@ -10,7 +10,6 @@
     "angular-digest-hud": "~0.1.13",
     "angular-dragula": "~1.2.2",
     "angular-google-chart": "~0.1.0",
-    "angular-google-maps": "~2.3.2",
     "angular-highlightjs": "0.5.1",
     "angular-linkify": "~1.2.0",
     "angular-local-storage": "~0.2.5",
@@ -33,7 +32,29 @@
     "material-design-iconic-font": "~2.2.0",
     "textAngular": "~1.5.0",
     "weather-icons": "https://github.com/chk1/weather-icons.git#master",
-    "ng-file-upload": "~12.0.1"
+    "ng-file-upload": "^12.2.5",
+    "angular-oauth2": "^4.0.0",
+    "angular-toastr": "^1.7.0",
+    "restangular": "^1.5.2",
+    "v-accordion": "^1.6.0",
+    "angular-material-icons": "^0.7.1",
+    "underscore": "^1.8.3",
+    "ngstorage": "^0.3.11",
+    "angular-i18n": "^1.5.8",
+    "angular-material-datetimepicker": "https://github.com/Kidaas/angular-material-datetimepicker.git#5e89eed2dd5221fc396f42833fc9c9ff01f15407",
+    "mdPickers": "https://github.com/wxjzeke/mdPickers.git#21694b5da9fa00820b84bea55b4a3170a1a5d972",
+    "pdfmake": "^0.1.20",
+    "pusher-angular": "^0.1.9",
+    "push.js": "^0.0.11",
+    "pusher-websocket-iso": "pusher#^3.2.1",
+    "checklist-model": "^0.10.0",
+    "angular-dynamic-locale": "^0.1.32",
+    "angular-translate-handler-log": "^2.10.0",
+    "angular-translate-loader-static-files": "^2.10.0",
+    "angular-busy": "^4.1.3",
+    "angular-translate-interpolation-messageformat": "^2.13.0",
+    "angular-translate-loader-url": "^2.10.0",
+    "adm-dtp": "https://github.com/adan92/ADM-dateTimePicker.git#b85c4a4e611ca7996fddc15550c9081eb52b07d3"
   },
   "devDependencies": {
     "angular-mocks": "1.4.8"
@@ -45,49 +66,67 @@
         "angular-material.scss"
       ]
     },
-    "youtube-embed":{
-      "main":[
-        "src/angular-youtube-embed"
-      ]
-
-    },
-
     "weather-icons": {
       "main": [
         "./css/weather-icons.css",
         "./font/*"
       ]
     },
-    "angular-dragula": {
+    "overrides": {
+      "angular-material": {
+        "main": [
+          "angular-material.js",
+          "angular-material.scss"
+        ]
+      },
+      "devDependencies": {
+        "angular-mocks": "1.4.8"
+      },
+      "overrides": {
+        "angular-material": {
+          "main": [
+            "angular-material.js",
+            "angular-material.scss"
+          ]
+        },
+        "weather-icons": {
+          "main": [
+            "./css/weather-icons.css",
+            "./font/*"
+          ]
+        },
+        "angular-dragula": {
+          "main": [
+            "dist/angular-dragula.js",
+            "dist/dragula.min.css"
+          ]
+        },
+        "font-awesome": {
+          "main": [
+            "./css/font-awesome.css",
+            "./fonts/*"
+          ]
+        },
+        "ng-file-upload": {
+          "main": [
+            "ng-file-upload-shim.js",
+            "ng-file-upload.js"
+          ]
+        }
+      },
+      "resolutions": {
+        "angular": "1.4.8",
+        "angular-material": "1.0.5"
+      },
       "main": [
-        "dist/angular-dragula.js",
-        "dist/dragula.min.css"
-      ]
-    },
-    "font-awesome": {
-      "main": [
-        "./css/font-awesome.css",
-        "./fonts/*"
-      ]
-    },
-    "ng-file-upload": {
-      "main": [
-        "ng-file-upload-shim.js",
-        "ng-file-upload.js"
+        "triangular.js",
+        "triangular.min.js",
+        "triangular.css",
+        "triangular.min.css"
+      ],
+      "ignore": [
+        "README.md"
       ]
     }
-  },
-  "resolutions": {
-    "angular": "1.4.8",
-    "angular-material": "1.0.5"
-  },
-  "main": [
-    "triangular.js",
-    "triangular.min.js",
-    "triangular.css",
-    "triangular.min.css"
-  ],
-  "ignore": [
-    "README.md"
-  ]
+  }
 }

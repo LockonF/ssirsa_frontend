@@ -1,0 +1,117 @@
+<div layout="column">
+    <md-card class="md-padding card1" flex="100" layout="column">
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline" translate>CABINET.LINE_ASSIGMENT</span>
+            </md-card-title-text>
+        </md-card-title>
+
+        <div flex="100" layout="row" layout-xs="column" layout-sm="column" layout-md="column"
+             layout-align-sm="center center"
+             layout-align="center center">
+
+
+            <md-input-container flex="60">
+                <form name="Buscar2" ng-submit="vm.buscar()">
+                    <label translate>CABINET.ID_CABINET</label>
+                    <input type="text" ng-model="vm.idCabinet" pattern="[0-9a-zA-Z-_ ]+" name="idCabinet2" required/>
+                    <div ng-messages="Buscar2.idCabinet2.$error">
+                        <div ng-message="pattern">
+                            {{'MAIN.LABEL.ALFANUMERICONLY'|translate}}
+                        </div>
+                        <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
+                    </div>
+                </form>
+            </md-input-container>
+
+
+            <div layout="row">
+                <md-input-container>
+                    <md-button class="md-fab" aria-label="fab button"  ng-disabled="Buscar2.$invalid " ng-click="vm.buscar()">
+                        <md-icon md-font-icon="zmdi zmdi-zoom-in"></md-icon>
+                    </md-button>
+                </md-input-container>
+
+                <md-input-container flex>
+                    <md-button class="md-fab  md-primary" ng-show="vm.ver" aria-label="fab button"
+                               ng-click="vm.guardar()">
+                        <md-icon md-font-icon="fa fa-save"></md-icon>
+                    </md-button>
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <md-input-container flex>
+                    <md-button class="md-fab  md-primary" aria-label="fab button"
+                               ng-click="vm.limpiar()">
+                        <md-icon md-font-icon="fa fa-eraser"></md-icon>
+                    </md-button>
+                </md-input-container>
+                <md-input-container flex, ng-show="vm.ver">
+                    <md-button class="md-fab  md-primary" aria-label="fab button"
+                               ng-click="vm.verInfo()">
+                        <md-icon md-font-icon="fa fa-eye"></md-icon>
+                    </md-button>
+                </md-input-container>
+            </div>
+
+        </div>
+
+        <div layout="column" ng-if="vm.ver">
+
+            <md-input-container>
+                <label translate>CABINET.AGE</label>
+                <input type="text" ng-model="vm.cabinet.antiguedad" ng-disabled="true"/>
+            </md-input-container>
+            <div layout="row"  layout="row" >
+                <form name="form.asignaLinea" layout-fill="" layout="row" layout-xs="column">
+                    <md-slider-container flex>
+                        <md-input-container flex="30">
+                            <h5 translate>CABINET.EJEX</h5>
+                        </md-input-container>
+                        <md-input-container flex="30">
+                            <loopify-number-picker value="vm.cabinet.linea_x" ng-model="vm.cabinet.linea_x"  step="1" min="1" max="100"></loopify-number-picker>
+
+                        </md-input-container>
+                        <md-slider class="md-accent" md-discrete ng-model="vm.cabinet.linea_x" min="0" max="100" step="1"
+                                   aria-label="Nivel"
+                                   md-vertical flex="90"></md-slider>
+                        </md-slider>
+
+                    </md-slider-container>
+                    <md-slider-container flex>
+                        <md-input-container flex="20">
+                            <h5 translate>CABINET.EJEY</h5>
+                        </md-input-container>
+                        <md-input-container flex="30">
+
+                            <loopify-number-picker value="vm.cabinet.linea_y"   ng-model="vm.cabinet.linea_y" step="1" min="1" max="100" label=""></loopify-number-picker>
+
+                        </md-input-container>
+                        <md-slider class="md-accent" md-discrete ng-model="vm.cabinet.linea_y" min="0" max="100" step="1"
+                                   aria-label="Nivel"
+                                   md-vertical flex="90"></md-slider>
+                        </md-slider>
+                    </md-slider-container>
+                    <md-slider-container flex>
+                        <md-input-container flex="10">
+                            <h5 translate>CABINET.EJEZ</h5>
+                        </md-input-container>
+                        <md-input-container flex="30">
+
+                            <loopify-number-picker value="vm.cabinet.linea_z"   ng-model="vm.cabinet.linea_z" step="1" min="1" max="100" label=""></loopify-number-picker>
+                        </md-input-container>
+                        <md-slider class="md-accent" md-discrete ng-model="vm.cabinet.linea_z" min="0" max="100" step="1"
+                                   aria-label="Nivel"
+                                   md-vertical flex="90"></md-slider>
+                        </md-slider>
+
+
+                    </md-slider-container>
+                </form>
+            </div>
+
+        </div>
+
+
+    </md-card>
+</div>

@@ -1,0 +1,159 @@
+
+
+.vertical-container {
+  min-height: 400px;
+  width: 100%;
+  overflow: hidden;
+}
+.repeated-item {
+  box-sizing: border-box;
+  height: 50px;
+  overflow: hidden;
+  margin-right: 16px;
+}
+
+
+.md-virtual-repeat-container .md-virtual-repeat-offsetter div {
+  padding-left: 16px; }
+
+
+
+/*
+Para sidenav
+*/
+
+
+.open  .header-profile-image,
+a:hover .header-profile-image {
+  opacity: 1;
+}
+
+.user-header-dropdown-toggle {
+  padding-top: 11px !important;
+  padding-bottom: 11px !important;
+}
+.background{
+  background-color:white;
+}
+#content {
+  overflow: hidden;
+}
+
+#content  {
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 5px;
+}
+
+md-toolbar h1 {
+  font-size: 1.250em;
+  font-weight: 400;
+}
+.avatar-reports {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  display: inline-block;
+  overflow: hidden;
+  margin: 0px;
+  vertical-align: middle;
+  zoom:0.70;
+  transform: translateZ(0);
+  -webkit-transform: scale(0.70);
+  -moz-transform:scale(0.70);
+}
+.avatar {
+  position: relative;
+  width: 128px;
+  height: 128px;
+  display: inline-block;
+  overflow: hidden;
+  margin: 0px;
+  vertical-align: middle;
+  zoom:0.70;
+  transform: translateZ(0);
+  -webkit-transform: scale(0.70);
+  -moz-transform:scale(0.70);
+}
+.avatar-250{
+  position: relative;
+  width: 150px;
+  height: 150px;
+  display: inline-block;
+  overflow: hidden;
+  margin: 0px;
+  vertical-align: middle;
+  zoom:0.70;
+  transform: translateZ(0);
+  -webkit-transform: scale(0.70);
+  -moz-transform:scale(0.70);
+}
+
+span.name {
+  font-weight: bold;
+  font-size:1.1em;
+  padding-left:5px;
+}
+md-list .md-button {
+  color: inherit;
+  font-weight: 500;
+  text-align: left;
+  width: 100%;
+}
+md-list .md-button.selected {
+  color: #03a9f4;
+}
+md-list {
+  padding: 0px 0px 8px 0px;
+}
+
+.vertical-container .md-button {
+  text-transform: capitalize !important;/*For Lower case use lowercase*/
+}
+
+
+/* Estilo para el campo de chips*/
+.chipsdemoCustomInputs md-content.autocomplete {
+  min-height: 200px; }
+.chipsdemoCustomInputs input[type=number] {
+  width: 110px; }
+.chipsdemoCustomInputs .veggie-option {
+  float: left;
+  width: 20%;
+  box-sizing: border-box;
+  padding: 0 8px; }
+.chipsdemoCustomInputs .veggie-option .md-item-text {
+  padding: 8px;
+  background: #f0f0f0;
+  border-radius: 3px; }
+.chipsdemoCustomInputs .veggie-option .md-item-text h3,
+.chipsdemoCustomInputs .veggie-option .md-item-text p {
+  padding: 0;
+  margin: 0; }
+
+/* Estilo para botones flotante*/
+#cabecera .md-button:hover {
+  background-color: #87F0F0 !important;
+
+}
+#cabecera .md-button {
+  background-color: #00BCD4 !important;
+}
+
+/*
+Estilo para el Autocomplete
+*/
+.autocomplete-custom-template li {
+  border-bottom: 1px solid #ccc;
+  height: auto;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  white-space: normal; }
+.autocomplete-custom-template li:last-child {
+  border-bottom-width: 0; }
+.autocomplete-custom-template .item-title, .autocomplete-custom-template .item-metadata {
+  display: block;
+  line-height: 2; }
+.autocomplete-custom-template .item-title md-icon {
+  height: 18px;
+  width: 18px; }

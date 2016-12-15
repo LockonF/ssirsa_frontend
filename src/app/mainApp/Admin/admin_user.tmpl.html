@@ -1,0 +1,139 @@
+<div layout="column" flex="100" layout-padding layout-fill>
+    <md-card class="md-padding card1" flex="flex">
+        <md-card-content>
+            <div layout="row" flex="" layout-align="space-around stretch" id="cabecera">
+                <h2 flex="70" flex-sm="100" flex-gt-xs="100" translate=""
+                    class="md-headline-1 text-center">ADMIN.MANAGE.BUSQUEDA_USUARIO</h2>
+            </div>
+            <div flex="100" layout="row" layout-align="space-around stretch" layout-xs="column" layout-sm="column"   layout-fill="">
+
+                <div layout="column" flex-lg="40" flex-gt-lg="40" flex-xl="40" flex-gt-sm="100" flex-md="100"
+                     flex-sm="100" flex-gt-xs="100" flex-xs="100">
+                    <md-autocomplete md-selected-item="vm.selectedUsuario"
+                                     md-selected-item-change="vm.selectedItemChange(vm.selectedUsuario)"
+
+                                     md-items="item in vm.querySearch(vm.searchText)" md-item-text="item.nombre"
+                                     md-min-length="3"
+                                     md-search-text-change="vm.search(vm.searchText)"
+                                     md-search-text="vm.searchText"
+                                     md-menu-class="autocomplete-custom-template"
+                                     md-floating-label="{{'ADMIN.MANAGE.AUTOCOMPLETE' | translate }}">
+                        <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.nombre}}</span>
+                        <md-item-template>
+                            <span class="item-title">
+                            <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
+                            <span>&nbsp; {{item.nombre}}</span>
+                            </span><span class="item-metadata">
+                                <span class="item-metastat">
+                                    <strong>{{item.apellido_paterno }}&nbsp;{{item.apellido_materno }}</strong>
+                            </span>
+                        </span>
+                        </md-item-template>
+                        <md-not-found><span translate="ADMIN.MANAGE.NOTFOUND"></span></md-not-found>
+                    </md-autocomplete>
+                    <md-virtual-repeat-container class="vertical-container"  layout-fill="" hide-xs="hide-xs" hide-sm="hide-sm">
+                        <md-list  >
+                            <md-list-item  ng-repeat="persona in vm.personas_admin | personaSearch:vm.searchText">
+                                <md-button ng-click="vm.selectedPersonas(persona)"
+                                           ng-class="{'selected' : (persona === vm.selectedPersonaList) }">
+                                    <img  class="avatar" ngf-src="persona.foto" width="60" height="60"/>
+                                    <span flex="flex">{{persona.nombre }}</span>
+                                </md-button>
+                                <md-divider></md-divider>
+
+                            </md-list-item>
+
+                        </md-list>
+
+                    </md-virtual-repeat-container>
+
+                </div>
+                <div layout-xs="column" layout-sm="column"  hide-lg="100" hide-gt-lg="100" hide-xl="100"></div>
+                <div layout="column" flex-lg="60" flex-gt-lg="65" flex-xl="65" flex-gt-sm="100" flex-md="100"
+                     flex-sm="100" flex-gt-xs="100" flex-xs="100" layout-align="start stretch">
+                    <h2 class="md-headline-1 text-center">
+                        {{'ADMIN.MANAGE.INFO_USUARIO'|translate}}</h2>
+                    <form name="objectForm">
+                        <md-input-container class="md-block">
+                            <label>{{'ADMIN_PERSONA.PROPERTY.USERNAME'|translate}}</label>
+                            <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
+                            <input type="text" ng-model="vm.persona.user.username" ng-disabled="true" name="username" required="required" ng-pattern="/^[A-Za-z_]\w*$/"/>
+                            <div ng-messages="objectForm.username.$error">
+                                <div ng-message="pattern">
+                                    {{'ADMIN_PERSONA.ERROR_MESSAGE.USERNAME'|translate}}
+                                </div>
+                                <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container class="md-block">
+                            <label>{{'ADMIN_PERSONA.PROPERTY.NOMBRE'|translate}}</label>
+                            <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
+                            <input type="text" ng-model="vm.persona.nombre" name="nombre" required="required" ng-pattern="/^[A-Za-zsáéíóúÁÉÍÓÚÑñ ]*$/"/>
+                            <div ng-messages="objectForm.nombre.$error">
+                                <div ng-message="pattern">{{'ADMIN_PERSONA.ERROR_MESSAGE.NOMBRE'|translate}}</div>
+                                <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>{{'ADMIN_PERSONA.PROPERTY.AP_PATERNO'|translate}}</label>
+                            <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
+                            <input type="text" ng-model="vm.persona.apellido_paterno" name="apellido_paterno" required="required" ng-pattern="/^[A-Za-zsáéíóúÁÉÍÓÚÑñ ]*$/"/>
+                            <div ng-messages="objectForm.apellido_paterno.$error">
+                                <div ng-message="pattern">{{'ADMIN_PERSONA.ERROR_MESSAGE.AP_PATERNO'|translate}}</div>
+                                <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>{{'ADMIN_PERSONA.PROPERTY.AP_MATERNO'|translate}}</label>
+                            <md-icon md-font-icon="zmdi zmdi-account"></md-icon>
+                            <input type="text" ng-model="vm.persona.apellido_materno" name="apellido_materno" ng-required="true" ng-pattern="/^[A-Za-zsáéíóúÁÉÍÓÚÑñ ]*$/"/>
+                            <div ng-messages="objectForm.apellido_materno.$error">
+                                <div ng-message="pattern">{{'ADMIN_PERSONA.ERROR_MESSAGE.AP_MATERNO'|translate}}</div>
+                                <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>{{'ADMIN_PERSONA.PROPERTY.DIRECCION'|translate}}</label>
+                            <md-icon md-font-icon="zmdi zmdi-pin"></md-icon>
+                            <input type="text" ng-model="vm.persona.direccion" name="direccion" required="required" ng-pattern="/^[A-Za-z_ 0-9áéíóúÁÉÍÓÚñN#]*$/"/>
+                            <div ng-messages="objectForm.direccion.$error">
+                                <div ng-message="pattern">{{'ADMIN_PERSONA.ERROR_MESSAGE.DIRECCION'|translate}}</div>
+                                <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container class="md-block">
+                            <label>{{'ADMIN_PERSONA.PROPERTY.TELEFONO'|translate}}</label>
+                            <md-icon md-font-icon="zmdi zmdi-phone"></md-icon>
+                            <input type="text" ng-model="vm.persona.telefono" only-digits name="telefono" minlength="8"  required="required"/>
+                            <div ng-messages="objectForm.telefono.$error">
+                                <div ng-message="minlength">{{'ADMIN_PERSONA.ERROR_MESSAGE.MINLENGTH'|translate}}</div>
+                                <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container md-no-float="" class="md-block">
+                            <label>{{'ADMIN_PERSONA.PROPERTY.EMAIL'|translate}}</label>
+                            <md-icon md-font-icon="zmdi zmdi-email"></md-icon>
+                            <input type="email" ng-model="vm.persona.user.email" ng-disabled="true" name="email" required="required" ng-pattern="/^.+@.+..+$/"/>
+                            <div ng-messages="objectForm.email.$error">
+                                <div ng-message="pattern">{{'ADMIN_PERSONA.ERROR_MESSAGE.EMAIL'|translate}}</div>
+                                <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
+                            </div>
+                        </md-input-container>
+
+
+
+                    </form>
+                    <div layout="row" layout-align="end end">
+                        <md-button aria-label="fab button" ng-if="vm.persona.id!=null && vm.persona.id!=undefined" ng-click="vm.remove($event)" class="md-raised md-warn"><md-icon md-font-icon="fa fa-trash"></md-icon></md-button>
+                        <md-button aria-label="fab button" ng-if="vm.persona.id!=null && vm.persona.id!=undefined" ng-disabled="objectForm.$invalid" ng-click="vm.update()" class="md-raised md-primary"><md-icon md-font-icon="fa fa-pencil"></md-icon></md-button>
+                    </div>
+                </div>
+            </div>
+        </md-card-content>
+
+
+    </md-card>
+</div>
+

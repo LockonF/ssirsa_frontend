@@ -1,0 +1,26 @@
+<div class="calendar-page" flex>
+    <div layout="row"  layout-align="end center">
+        <div flex="50">
+            <h2 class="font-weight-300 font-size-5 text-light margin-top-60 margin-bottom-30" flex
+                ng-hide="vm.currentView == 'agendaWeek'">{{vm.currentDay |
+                amDateFormat:vm.viewFormats[vm.currentView]}}</h2>
+        </div>
+        <div flex="50">
+            <md-button class="md-icon-button" ng-click="vm.changeMonth('prev')" aria-label="previous month">
+                <md-icon md-font-icon="zmdi zmdi-chevron-left" ng-style="{color: 'white'}"></md-icon>
+            </md-button>
+            <md-button hide show-gt-lg class="md-icon-button" ng-click="vm.changeMonth('today')"
+                       aria-label="today">
+                <md-icon md-font-icon="zmdi zmdi-calendar-alt" ng-style="{color: 'white'}"></md-icon>
+            </md-button>
+            <md-button class="md-icon-button" ng-click="vm.changeMonth('next')" aria-label="next month">
+                <md-icon md-font-icon="zmdi zmdi-chevron-right" ng-style="{color: 'white'}"></md-icon>
+            </md-button>
+        </div>
+    </div>
+
+
+    <div class="margin-bottom-60" flex ui-calendar="vm.calendarOptions" ng-model="vm.eventSources"
+         calendar="triangular-calendar" class="triangular-calendar"></div>
+</div>
+

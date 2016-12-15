@@ -1,0 +1,159 @@
+<div layout="column" flex="100" layout-padding layout-fill>
+    <md-card class="md-padding card1" flex="flex">
+        <md-card-content>
+            <div layout="row" flex="" layout-align="space-around stretch" id="cabecera">
+                <h2 flex="70" flex-sm="100" flex-gt-xs="100" translate=""
+                   class="md-headline-1 text-center">MODEL_CABINET.FORM.LABEL.MODEL</h2>
+                <md-button  aria-label="fab button" class="md-fab md-scale md-fab-top-right" ng-click="vm.cancel()">
+                    <md-icon md-font-icon="fa fa-plus" ng-style="{color: 'white'}">
+
+                    </md-icon>
+                </md-button>
+            </div>
+            <div flex="100" layout="row" layout-align="space-around stretch" layout-xs="column" layout-sm="column"  layout-fill="">
+
+                <div layout="column" flex-lg="40" flex-gt-lg="40" flex-xl="40" flex-gt-sm="100" flex-md="100"
+                     flex-sm="100" flex-gt-xs="100" flex-xs="100">
+                    <md-autocomplete md-selected-item="vm.selectedModelo"
+                                     md-selected-item-change="vm.selectedItemChange(vm.selectedModelo)"
+
+                                     md-items="item in vm.querySearch(vm.searchText)" md-item-text="item.nombre"
+                                     md-min-length="0"
+                                     md-search-text-change="vm.search(vm.searchText)"
+                                     md-search-text="vm.searchText"
+                                     md-menu-class="autocomplete-custom-template"
+                                     md-floating-label="{{'MODEL_CABINET.FORM.PLACEHOLDER.SEARCH_BRANCH' | translate }}">
+                        <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.nombre}}</span>
+                        <md-item-template>
+                            <span class="item-title">
+                            <md-icon md-font-icon="fa fa-briefcase"></md-icon>
+                            <span>&nbsp; {{item.nombre}}</span>
+                            </span>
+                            <span class="item-metadata">
+                            <span class="item-metastat">
+                                <strong>{{item.tipo_refrigerante }}</strong>
+                            </span>
+                        </span>
+                        </md-item-template>
+                        <md-not-found><span translate="MODEL_CABINET.FORM.PLACEHOLDER.NOT_FOUND"></span></md-not-found>
+                    </md-autocomplete>
+                    <md-switch ng-model="vm.toggleDeleted" ng-change="vm.toggleDeletedFunction()">
+                        <span ng-if="vm.toggleDeleted" hide-xs hide-sm>{{'MAIN.MODEL.SHOW_ACTIVE' | translate}}</span>
+                        <span ng-if="vm.toggleDeleted" hide-gt-sm>{{'MAIN.MODEL.SHOW_ACTIVE_MOBILE' | translate}}</span>
+                        <span ng-if="!vm.toggleDeleted" hide-xs hide-sm>{{'MAIN.MODEL.SHOW_DELETED' | translate}}</span>
+                        <span ng-if="!vm.toggleDeleted" hide-gt-sm>{{'MAIN.MODEL.SHOW_DELETED_MOBILE' | translate}}</span>
+
+                    </md-switch>
+
+                    <md-virtual-repeat-container class="vertical-container"
+                                                 ng-style='vm.myStyle' flex="flex" cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
+                        <md-list  >
+                            <md-list-item  ng-repeat="modelo in vm.modelos | modeloSearch:vm.searchText">
+                                <md-button ng-click="vm.selectedModelos(modelo)"
+                                           ng-class="{'selected' : modelo.id == vm.modelo.id }">
+                                    <md-icon md-svg-icon="assets/images/modelo.svg" class="avatar"></md-icon>
+                                    <span flex="flex">{{modelo.nombre }}</span>
+                                </md-button>
+                                <md-divider></md-divider>
+
+                            </md-list-item>
+
+                        </md-list>
+
+                    </md-virtual-repeat-container>
+                </div>
+                 <div layout="column" flex-lg="60" flex-gt-lg="65" flex-xl="65" flex-gt-sm="100" flex-md="100"
+                     flex-sm="100" flex-gt-xs="100" flex-xs="100" layout-align="start stretch">
+                    <h2 class="md-headline-1 text-center">
+                        {{'MODEL_CABINET.FORM.LABEL.INFO_MODEL'|translate}}</h2>
+                    <form name="ModelCabinetForm">
+                        <md-input-container class="md-block">
+                            <label>{{'MODEL_CABINET.FORM.LABEL.NAME'|translate}}</label>
+                            <input ng-required='true'
+                                   type="text"
+                                   name="nombre"
+                                   is-alphanumeric
+                                   ng-disabled="vm.modelo.deleted"
+                                   ng-model="vm.modelo.nombre"/>
+                            <div ng-messages="ModelCabinetForm.nombre.$error">
+                                <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>{{'MODEL_CABINET.FORM.LABEL.TYPE'|translate}}</label>
+                            <md-select ng-model="vm.modelo.tipo"
+                                       md-no-asterisk="" required=""
+                                       name="type"
+                                       ng-disabled="vm.disabled(vm.modelo.tipo,'tipo',vm.modelo.deleted)">
+                                <md-option ng-repeat="tipo in vm.tipoEquipos" ng-value="tipo.id" ng-if="tipo.deleted==false || tipo.id==vm.modelo.tipo">
+                                    {{tipo.nombre}}
+                                </md-option>
+                            </md-select>
+                            <div ng-messages="ModelCabinetForm.type.$error">
+                                <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>{{'MODEL_CABINET.FORM.LABEL.DESCRIPTION'|translate}}</label>
+                            <input md-no-asterisk=""
+                                   required=""
+                                   type="text"
+                                   name="descripcion"
+                                   is-alphanumeric
+                                   ng-disabled="vm.modelo.deleted"
+                                   ng-model="vm.modelo.descripcion"/>
+                            <div ng-messages="ModelCabinetForm.descripcion.$error">
+                                <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>{{'MODEL_CABINET.FORM.LABEL.KEYWORD'|translate}}</label>
+                            <input md-no-asterisk=""
+                                   required=""
+                                   type="text"
+                                   name="palabra"
+                                   ng-disabled="vm.modelo.deleted"
+                                   is-alphanumeric
+                                   ng-model="vm.modelo.palabra_clave"/>
+                            <div ng-messages="ModelCabinetForm.palabra.$error">
+                                <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>{{'MODEL_CABINET.FORM.LABEL.BRAND'|translate}}</label>
+
+                            <md-select ng-model="vm.modelo.marca"
+                                       name="marca"
+                                       placeholder="{{'MODEL_CABINET.FORM.LABEL.BRAND'|translate}}"
+                                       required=""
+                                       ng-disabled="vm.disabled(vm.modelo.marca,'marca',vm.modelo.deleted)"
+                            >
+
+                                <md-option ng-repeat="marca in vm.marcas" ng-value="marca.id" ng-if="marca.deleted==false || marca.id==vm.modelo.marca">{{marca.descripcion}}
+
+                                </md-option>
+                            </md-select>
+                            <div ng-messages="ModelCabinetForm.marca.$error">
+                                <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
+                            </div>
+                        </md-input-container>
+
+                    </form>
+                    <div layout="row" layout-align="end end" layout-sm="column" layout-xs="column" layout-align-sm="start stretch" layout-align-xs="start stretch">
+                        <md-button aria-label="fab button" ng-click="vm.cancel()" class="md-raised md-primary"><md-icon md-font-icon="fa fa-eraser"></md-icon></md-button>
+                        <md-button aria-label="fab button" ng-if="vm.modelo.id!=null && vm.modelo.id!=undefined && !vm.modelo.deleted" ng-click="vm.remove($event)" class="md-raised md-warn"><md-icon md-font-icon="fa fa-trash"></md-icon></md-button>
+                        <md-button aria-label="fab button" ng-if="vm.modelo.id!=null && vm.modelo.id!=undefined && !vm.modelo.deleted" ng-disabled="ModelCabinetForm.$invalid" ng-click="vm.update()" class="md-raised md-primary"><md-icon md-font-icon="fa fa-pencil"></md-icon></md-button>
+                        <md-button aria-label="fab button" ng-if="vm.modelo.id==null || vm.modelo.id==undefined" ng-disabled="ModelCabinetForm.$invalid" ng-click="vm.create()" class="md-raised md-primary"><md-icon md-font-icon="fa fa-save"></md-icon></md-button>
+                        <md-button ng-if="vm.modelo.id!=null && vm.modelo.id!=undefined && vm.modelo.deleted" ng-click="vm.restore()" class="md-raised md-warn">
+                            <md-icon md-font-icon="zmdi zmdi-time-restore"></md-icon >
+                        </md-button>
+
+                    </div>
+                </div>
+            </div>
+        </md-card-content>
+
+
+    </md-card>
+</div>
+

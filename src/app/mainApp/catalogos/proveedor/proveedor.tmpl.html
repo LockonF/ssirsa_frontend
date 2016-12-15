@@ -1,0 +1,124 @@
+<!-- Created by lockonDaniel on 9/12/16.-->
+<md-card flex="flex"  class="md-padding card1">
+    <md-card-content>
+        <div flex="flex" layout-xs="row">
+            <h2 class="md-display-2">{{'Provider.title' | translate}}</h2>
+            <md-button hide-gt-xs="hide-gt-xs" ng-click="vm.cancel()" class="md-fab md-primary md-scale">
+                <md-icon md-font-icon="fa fa-plus" style="color:white;"></md-icon>
+            </md-button>
+        </div>
+        <div flex="flex" layout-lt-md="column" layout-gt-md="row">
+            <div flex="flex" layout="column" layout-align="space-around stretch">
+                <md-autocomplete md-selected-item="vm.proveedor" md-selected-item-change="vm.selectedItemChange(vm.proveedor)" md-items="tipo in vm.search_items" md-item-text="tipo.razon_social" md-min-length="3" md-search-text-change="vm.lookup(vm.searchText)" md-search-text="vm.searchText" md-menu-class="autocomplete-custom-template" md-floating-label="{{&quot;Provider.lookup&quot; | translate}}">
+                    <md-item-template><span class="item-title">
+              <md-icon md-font-icon="zmdi zmdi-truck"></md-icon><span>{{tipo.razon_social}}</span></span></md-item-template>
+                </md-autocomplete>
+
+
+                <md-switch ng-model="vm.toggleDeleted" ng-change="vm.toggleDeletedFunction()">
+                    <span ng-if="vm.toggleDeleted" hide-xs hide-sm>{{'MAIN.MODEL.SHOW_ACTIVE' | translate}}</span>
+                    <span ng-if="vm.toggleDeleted" hide-gt-sm>{{'MAIN.MODEL.SHOW_ACTIVE_MOBILE' | translate}}</span>
+                    <span ng-if="!vm.toggleDeleted" hide-xs hide-sm>{{'MAIN.MODEL.SHOW_DELETED' | translate}}</span>
+                    <span ng-if="!vm.toggleDeleted" hide-gt-sm>{{'MAIN.MODEL.SHOW_DELETED_MOBILE' | translate}}</span>
+
+                </md-switch>
+
+                <md-virtual-repeat-container layout-fill="layout-fill" hide-xs="hide-xs" hide-sm="hide-sm" class="vr-min-height" cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
+                    <md-list flex="flex">
+                        <md-list-itm flex="flex" ng-repeat="item in vm.proveedor_list">
+                            <md-button ng-click="vm.clickRepeater(item)" ng-class="{'selected':item.id === vm.proveedor.id}">
+                                <md-icon md-svg-icon="assets/images/organization.svg" class="avatar"></md-icon><span>{{item.razon_social}}</span>
+                            </md-button>
+                            <md-divider></md-divider>
+                        </md-list-itm>
+                    </md-list>
+                </md-virtual-repeat-container>
+            </div>
+            <div flex="flex" layout-align="start stretch" layout="column">
+                <md-button id="cabecera" hide-xs="hide-xs" ng-click="vm.cancel()" class="md-fab md-primary md-scale md-fab-top-right">
+                    <md-icon md-font-icon="fa fa-plus" style="color:white;"></md-icon>
+                </md-button>
+                <h3 class="md-display-1">{{'Provider.info' | translate}}</h3>
+                <form name="inputForm">
+                    <md-input-container class="md-block">
+                        <label>{{ 'Provider.business_name' | translate }}</label>
+                        <input type="text" name="razon_social" ng-model="vm.selected_proveedor.razon_social" ng-required="true" ng-disabled="vm.selected_proveedor.deleted"/>
+                        <div ng-messages="inputForm.razon_social.$error">
+                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>{{ 'Provider.address' | translate }}</label>
+                        <input type="text" name="direccion"
+                               is-alphanumeric
+                               ng-model="vm.selected_proveedor.direccion" ng-required="true" ng-disabled="vm.selected_proveedor.deleted"/>
+                        <div ng-messages="inputForm.direccion.$error">
+                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>{{ 'Provider.rfc' | translate }}</label>
+                        <input type="text" name="rfc"
+                               is-alphanumeric
+                               ng-model="vm.selected_proveedor.rfc" ng-required="true" ng-pattern="/^[A-Za-z]{3,4}[ |-]{0,1}[0-9]{6}[ |-]{0,1}[0-9A-Za-z]{3}$/" ng-disabled="vm.selected_proveedor.deleted"/>
+                        <div ng-messages="inputForm.rfc.$error">
+                            <div ng-message="pattern">{{'MAIN.GENERAL.PATTERN_RFC_FIELD' | translate}}</div>
+                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>{{ 'Provider.phone' | translate }}</label>
+                        <input type="text" name="telefono"
+                               numbers-only
+                               ng-model="vm.selected_proveedor.telefono" ng-required="true" ng-disabled="vm.selected_proveedor.deleted"/>
+                        <div ng-messages="inputForm.telefono.$error">
+                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>{{ 'Provider.contact' | translate }}</label>
+                        <input type="text" name="contacto"
+                               only-text
+                               ng-model="vm.selected_proveedor.contacto" ng-required="true" ng-disabled="vm.selected_proveedor.deleted"/>
+                        <div ng-messages="inputForm.contacto.$error">
+                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>{{ 'Provider.email' | translate }}</label>
+                        <input type="email" name="correo_electronico" ng-model="vm.selected_proveedor.correo_electronico" ng-required="true" ng-pattern="/^.+@.+..+$/" ng-disabled="vm.selected_proveedor.deleted"/>
+                        <div ng-messages="inputForm.correo_electronico.$error">
+                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
+                            <div ng-message="pattern">{{'MAIN.GENERAL.PATTERN_EMAIL_FIELD' | translate}}</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>{{ 'Provider.comments' | translate }}</label>
+                        <input type="text" name="comentarios"
+                               is-alphanumeric
+                               ng-model="vm.selected_proveedor.comentarios" ng-required="true" ng-disabled="vm.selected_proveedor.deleted"/>
+                        <div ng-messages="inputForm.comentarios.$error">
+                            <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD' | translate}}</div>
+                        </div>
+                    </md-input-container>
+                </form>
+                <div flex="flex" layout="row" layout-align="end end">
+                    <md-button aria-label="fab button" ng-click="vm.cancel()" class="md-raised md-primary"><md-icon md-font-icon="fa fa-eraser"></md-icon></md-button>
+
+                    <md-button ng-if="vm.selected_proveedor.id!=null && vm.selected_proveedor.id!=undefined" ng-disabled="inputForm.$invalid || vm.selected_proveedor.deleted" ng-click="vm.update()" class="md-raised md-primary">
+                        <md-icon md-font-icon="fa fa-pencil"></md-icon>
+                    </md-button>
+                    <md-button ng-if="vm.selected_proveedor.id==null || vm.selected_proveedor.id==undefined" ng-disabled="inputForm.$invalid" ng-click="vm.create()" class="md-raised md-primary">
+                        <md-icon md-font-icon="fa fa-save"></md-icon>
+                    </md-button>
+                    <md-button ng-if="vm.selected_proveedor.id!=null && vm.selected_proveedor.id!=undefined && vm.selected_proveedor.deleted==false" ng-click="vm.remove()" class="md-raised md-warn">
+                        <md-icon md-font-icon="fa fa-trash"></md-icon>
+                    </md-button>
+                    <md-button ng-if="vm.selected_proveedor.id!=null &amp;&amp; vm.selected_proveedor.id!=undefined && vm.selected_proveedor.deleted==true" ng-click="vm.restore()" class="md-raised md-warn">
+                        <md-icon md-font-icon="zmdi zmdi-time-restore"></md-icon>
+                    </md-button>
+                </div>
+            </div>
+        </div>
+    </md-card-content>
+</md-card>

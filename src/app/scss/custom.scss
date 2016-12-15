@@ -19,3 +19,59 @@
   height: 100%;
   border: 0;
 }
+.card1.md-blue-grey-theme {
+
+  background-color: #eeeeee;
+}
+
+.gray-color{
+  background-color: #eeeeee;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+input[type=time]::-webkit-inner-spin-button,
+input[type=time]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+.icon-medium{
+  font-size: 30px;
+
+}
+
+.vr-min-height{
+  min-height:350px
+}
+
+#vertical_containers{
+  min-height:300px;
+}
+
+.inbox-list__email--active {
+  background: rgba(0,0,0, .05);
+  .md-avatar {
+    display: block;
+    animation: swing 1s;
+  }
+  .md-button.selected {
+    color: #03a9f4;
+  }
+}
+.md-fab-principal{
+  background-color: #02B6CE !important; }
+
+md-autocomplete md-autocomplete-wrap md-progress-linear.md-inline{
+  bottom: 19px;
+  right: 2px;
+  left: 2px;
+  width: auto;
+}

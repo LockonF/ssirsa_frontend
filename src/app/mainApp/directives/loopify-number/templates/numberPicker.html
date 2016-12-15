@@ -1,0 +1,35 @@
+<div class="loopify-number-picker" ng-class="{'has-max': isMaxValue, 'has-min': isMinValue}">
+    <div layout="row" layout-align="start stretch">
+        <div layout="column" layout-align="center" flex="70">
+
+                <input type="text"
+                       ng-disabled="disabled"
+                       ng-readonly="enter" id="{{id}}"
+                       style="text-align:center"
+                       numbers-only
+                       ng-model="value" loopify-input-number-picker>
+
+        </div>
+        <div layout="column" layout-align="start stretch" flex="30">
+            <div layout="row" layout-align="start stretch">
+                <md-button
+
+                    ng-class="{disabled: !canUp}"
+                    ng-disabled="!canUp"
+                    ng-click="incrementValue()">
+                    <md-icon md-font-icon="fa fa-sort-asc"></md-icon>
+                </md-button>
+            </div>
+            <div layout="row" layout-align="start stretch">
+                <md-button ng-class="{disabled: !canDown}"
+                           ng-disabled="!canDown"
+                           ng-click="decrementValue()">
+                    <md-icon md-font-icon="fa fa-sort-desc"></md-icon>
+                </md-button>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</div>

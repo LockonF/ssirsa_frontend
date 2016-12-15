@@ -1,0 +1,86 @@
+<md-dialog class="fullscreen-dialog mobile-fullwidth-dialog" flex="100" flex-xs="100">
+    <md-toolbar class="toolbar-default">
+        <div class="md-toolbar-tools">
+            <h2>
+                <span>{{'REPORTS.DIALOG.SELECTION.TITLE'|translate}}</span>
+            </h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="vm.cancel()" aria-label="cancel">
+                <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <div layout="row" flex class="card1 md-blue-grey-theme" layout-align="space-around stretch" layout-xs="column" layout-sm="column">
+        <div layout="column" flex-lg="25" flex-gt-lg="25" flex-xl="25" flex-gt-sm="100" flex-md="100"
+             flex-sm="100" flex-gt-xs="100" flex-xs="100"
+             cg-busy="{promise:vm.related_models_promise,message:'Cargando modelos...',templateUrl:'app/mainApp/directives/loading.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
+            <md-content flex="" class="card1 md-blue-grey-theme">
+                <report-menu-item ng-repeat="item in vm.related_models" item="item"></report-menu-item>
+            </md-content>
+        </div>
+        <div layout="column" flex-lg="75" flex-gt-lg="75" flex-xl="75" flex-gt-sm="100" flex-md="100"
+             flex-sm="100" flex-gt-xs="100" flex-xs="100" layout-align="start stretch">
+            <md-content ng-if="vm.campos.length>0" class="card1 md-blue-grey-theme"  >
+                <div>
+                    <h2 class="md-display-1 text-center">{{vm.reporte|titleCase}}</h2>
+
+                </div>
+                <div id="tabla" layout-align="center center">
+                    <div class="table-responsive-vertical shadow-z-1" layout-align="space-around center">
+                        <!-- Table starts here -->
+                        <table id="table" class="table table-hover table-mc-light-blue"
+                               layout-align="center center">
+                            <thead>
+                            <tr>
+                                <th ng-repeat="header in vm.tableDisplayHeaders track by $index">{{header}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="field in vm.campos" ng-if="field.field!='deleted'">
+                                <td data-title="{{vm.tableDisplayHeaders[0]}}">
+                                    {{field.field | titleCase}}
+                                </td>
+                                <td data-title="{{vm.tableDisplayHeaders[1]}}">
+                                    <div class="md-inline-form">
+                                        <md-input-container>
+                                            <input name="inputFieldVerbose"
+                                                   required=""
+                                                   type="text"
+                                                   md-no-asterisk
+                                                   ng-model="field.field_verbose"
+                                                   aria-label="field verbose">
+                                        </md-input-container>
+                                    </div>
+                                </td>
+                                <td data-title="{{vm.tableDisplayHeaders[2]}}">
+                                    {{field.field_type|tipoDato}}
+                                </td>
+                                <td data-title="{{vm.tableDisplayHeaders[3]}}">
+                                    <md-checkbox aria-label="campo"
+                                        checklist-model="vm.selectedFields" checklist-value="field"
+
+                                    ></md-checkbox>
+                                </td>
+                                <td data-title="{{vm.tableDisplayHeaders[4]}}">
+                                    <md-checkbox aria-label="filtro"
+                                        checklist-model="vm.selectedFilters" checklist-value="field"
+                                    ></md-checkbox>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </md-content>
+        </div>
+    </div>
+
+    <md-dialog-actions layout="row" class="card1 md-blue-grey-theme">
+        <md-button ng-click="vm.cancel()" md-no-ink class="md-primary">
+            {{'MAIN.BUTTONS.CANCEL'|translate}}
+        </md-button>
+        <md-button ng-click="vm.create()" ng-disabled="cabinetForm.$invalid" md-no-ink class="md-primary">
+            {{'MAIN.BUTTONS.SUBMIT'|translate}}
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>

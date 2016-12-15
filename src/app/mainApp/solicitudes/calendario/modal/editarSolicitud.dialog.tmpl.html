@@ -1,0 +1,88 @@
+<md-dialog class="mobile-fullwidth-dialog" flex="40" flex-xs="100">
+    <md-toolbar class="toolbar-default"
+                ng-style="{ 'background-color': vm.selectedColor.backgroundColor, color: vm.selectedColor.textColor }">
+        <div class="md-toolbar-tools">
+            <h2>
+                <span translate>{{::vm.dialogData.title}}</span>
+            </h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="vm.cancelClick()" aria-label="cancel">
+                <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <md-divider></md-divider>
+
+
+    <md-content class="md-dialog-content card1 md-blue-grey-theme">
+        <form name="updateSolicitudform">
+            <md-input-container class="md-block">
+                <label translate>{{'CALENDAR.FORM.LABEL.DESCRIPTION'|translate}}</label>
+                <input input-clear aria-label="Descripcion" ng-model="vm.event.solicitud.descripcion" name="descripcion" required>
+                <div ng-messages="updateSolicitudform.descripcion.$error">
+
+                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <label translate>{{'CALENDAR.FORM.LABEL.TYPE'|translate}}</label>
+                <textarea ng-model="vm.event.solicitud.tipo_solicitud" readonly></textarea>
+            </md-input-container>
+            <md-input-container  class="md-block">
+                <label translate>{{'CALENDAR.FORM.LABEL.DATE_INITIAL'|translate}}</label>
+                <adm-dtp ng-model='vm.start' full-data="start" name="fecha_start" maxdate="{{ends.unix}}" options="vm.options" required="" ></adm-dtp>
+                <div ng-messages="updateSolicitudform.fecha_start.$error">
+                <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label translate>{{'CALENDAR.FORM.LABEL.DATE_END'|translate}}</label>
+                <adm-dtp ng-model='vm.end' full-data="ends" name="fecha_end"  mindate="{{start.unix}}" options="vm.options" required="" ></adm-dtp>
+                <div ng-messages="updateSolicitudform.fecha_end.$error">
+                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label translate>{{'CALENDAR.FORM.LABEL.DATE_TERMINATE'|translate}}</label>
+                <adm-dtp ng-model='vm.atendida' name="fecha_termino" options="vm.options_time" required=""
+                         mindate="{{start.unix}}" maxdate="{{ends.unix}}"
+                ></adm-dtp>
+                <div ng-messages="updateSolicitudform.fecha_termino.$error">
+                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                </div>
+            </md-input-container>
+            <div layout="column" layout-sm="column" layout-xs="column" layout-md="column" flex="100"
+                 layout-align="space-around stretch">
+                <label translate>{{'CALENDAR.FORM.LABEL.STATUS'|translate}}</label>
+                <md-select ng-model="vm.event.solicitud.status"
+                           name="status"
+                           placeholder="{{'TECNICO.FORM.LABEL.STATUS'|translate}}"
+                           required>
+                    <md-option ng-repeat="status in vm.statu" ng-value="status.value">{{status.value}}
+                    </md-option>
+
+                </md-select>
+                <div ng-messages="updateSolicitudform.status.$error">
+                    <div ng-message="required">{{'MAIN.GENERAL.REQUIRED_FIELD'|translate}}</div>
+                </div>
+
+            </div>
+
+
+        </form>
+    </md-content>
+
+
+    <md-dialog-actions layout="row" class="card1 md-blue-grey-theme">
+
+        <span flex></span>
+        <md-button ng-click="vm.cancelClick()" aria-label="{{'Cancel' | triTranslate}}"
+                   translate="MAIN.BUTTONS.CANCEL"></md-button>
+        <md-button ng-click="vm.okClick()" class="md-primary" ng-disabled="updateSolicitudform.$invalid"
+                   aria-label="{{vm.dialogData.confirmButtonText | triTranslate}}"
+                   translate="MAIN.BUTTONS.ACCEPT"></md-button>
+    </md-dialog-actions>
+    </form>
+</md-dialog>

@@ -1,0 +1,113 @@
+<md-card class="md-padding card1" flex="flex">
+    <md-card-content>
+        <div layout="row" flex="" layout-align="space-around stretch">
+            <h2 flex="70" flex-sm="100" flex-gt-xs="100" class=md-headline-1 text-center" translate="">
+            Projects.Header
+            </h2>
+            <md-button aria-label="fab button" class="md-fab md-scale md-fab-top-right md-fab-principal"
+                       ng-click="vm.clear()">
+                <md-icon md-font-icon="fa fa-plus" ng-style="{color: 'white'}">
+
+                </md-icon>
+            </md-button>
+        </div>
+        <div layout-gt-sm="row" layout="column" layout-fill="">
+            <!--Autocomplete div-->
+            <div layout="column" layout-align="space-between stretch" flex-gt-sm="40" flex="100"
+                 class="vr-min-height">
+
+                <md-autocomplete
+                        md-items="item in vm.querySearch(vm.searchParameter)"
+                        md-selected-item="vm.Project"
+                        md-selected-item-change="vm.selectedItemChange(vm.Project)"
+                        md-search-text-change="vm.search(vm.searchParameter)"
+                        md-search-text="vm.searchParameter"
+                        md-item-text="item.descripcion"
+                        md-min-length="1"
+                        md-floating-label="{{'Projects.Fields.Search'|translate}}">
+                    <span md-highlight-text="vm.searchParameter" md-highlight-flags="^i">{{item.descripcion}}</span>
+                    <md-item-template>
+                        <div layout-fill ng-click="vm.clickCopy(item)">
+                            <md-icon md-font-icon="fa fa-folder"></md-icon>
+                            <span>{{item.descripcion}}</span>
+                        </div><!--
+                            <span class="item-title">
+                                <md-icon md-font-icon="fa fa-folder"></md-icon>
+                                <span>&nbsp; {{item.descripcion}}</span>
+                            </span>-->
+                    </md-item-template>
+                    <md-not-found><span translate="Projects.Errors.Not_Found"></span></md-not-found>
+                </md-autocomplete>
+
+                <md-switch ng-model="vm.toggleDeleted" ng-change="vm.toggleDeletedFunction()">
+                    <span ng-if="vm.toggleDeleted" hide-xs hide-sm>{{'MAIN.MODEL.SHOW_ACTIVE' | translate}}</span>
+                    <span ng-if="vm.toggleDeleted" hide-gt-sm>{{'MAIN.MODEL.SHOW_ACTIVE_MOBILE' | translate}}</span>
+                    <span ng-if="!vm.toggleDeleted" hide-xs hide-sm>{{'MAIN.MODEL.SHOW_DELETED' | translate}}</span>
+                    <span ng-if="!vm.toggleDeleted" hide-gt-sm>{{'MAIN.MODEL.SHOW_DELETED_MOBILE' | translate}}</span>
+
+                </md-switch>
+
+                <md-virtual-repeat-container class="vertical_container"
+                                             flex="flex"
+                                             hide-xs="hide-xs"
+                                             hide-sm="hide-sm"
+                                             cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}"
+                                             layout-fill>
+                    <md-list flex="flex">
+                        <md-list-item flex="flex" ng-repeat="item in vm.filteredProjects">
+                            <md-button
+                                    ng-click="vm.clickCopy(item)"
+                                    ng-class="{'selected':item.id === vm.selectedProject.id}">
+                                <img ng-src="assets/images/projects.png" class="avatar"/>
+                                <span>{{item.descripcion}}</span>
+                            </md-button>
+                            <md-divider></md-divider>
+                        </md-list-item>
+                    </md-list>
+                </md-virtual-repeat-container>
+
+
+            </div>
+            <!--Content div-->
+            <div layout="column" flex-gt-sm="60" flex="100">
+                <h2>{{'Projects.Fields.Information'|translate}}</h2>
+                <form name="formProject" novalidate>
+                    <md-input-container class="md-block">
+                        <label>{{'Projects.Fields.ProjectName'|translate}}</label>
+                        <input name="ProjectName"
+                               type="text"
+                               required=""
+                               is-alphanumeric
+                               md-no-asterisk=""
+                               ng-disabled="!vm.toggleDeleted"
+                               ng-model="vm.project.descripcion">
+                        <div ng-messages="formProject.ProjectName.$error">
+                            <div ng-message="required">{{'Projects.Errors.Required'|translate}}</div>
+                        </div>
+                    </md-input-container>
+                </form>
+            </div>
+        </div>
+        <md-actions layout="row" layout-align="end center">
+            <md-button ng-click="vm.clear()" md-no-ink class="md-raised md-primary" aria-label="clear">
+                <md-icon md-font-icon="fa fa-eraser"></md-icon>
+            </md-button>
+            <md-button ng-if="vm.project.id!=null && vm.project.id!=undefined && vm.project.deleted==true" ng-click="vm.restore()"
+                       class="md-raised md-warn" aria-label="restore">
+                <md-icon md-font-icon="zmdi zmdi-time-restore"></md-icon>
+            </md-button>
+            <md-button ng-if="vm.project.id!=null && vm.project.id!=undefined && vm.project.deleted==false" ng-click="vm.remove()" md-no-ink
+                       class="md-raised md-primary" aria-label="delete">
+                <md-icon md-font-icon="fa fa-trash"></md-icon>
+            </md-button>
+            <md-button ng-if="vm.project.id==null || vm.project.id==undefined" ng-click="vm.create()" md-no-ink
+                       class="md-raised md-primary" ng-disabled="formClient.$invalid" aria-label="save">
+                <md-icon md-font-icon="fa fa-save"></md-icon>
+            </md-button>
+            <md-button ng-if="vm.project.id!=null && vm.project.id!=undefined && vm.project.deleted==false" ng-click="vm.update()" md-no-ink
+                       class="md-raised md-primary" ng-disabled="formClient.$invalid" aria-label="modify">
+                <md-icon md-font-icon="fa fa-pencil"></md-icon>
+            </md-button>
+        </md-actions>
+    </md-card-content>
+</md-card>

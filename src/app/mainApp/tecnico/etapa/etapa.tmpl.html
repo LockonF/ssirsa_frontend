@@ -1,0 +1,222 @@
+<div ng-cloak>
+    <md-toolbar class="md-medium-tall">
+        <div class="md-toolbar-tools" layout="row" layout-sm="column" layout-xs="column"
+             layout-align="space-between end">
+            <div>
+                <h2>
+                    <span translate>ETAPA_SERVICIO.TITLE</span>
+                </h2>
+            </div>
+
+            <div layout="row" ng-if="vm.cabinet">
+
+                <md-button class="md-raised" aria-label="Editar"
+                           ng-click="vm.editar()">
+                    <md-icon md-font-icon="fa fa-pencil"></md-icon>
+
+                </md-button>
+                <md-button class="md-raised" aria-label="Guardar"
+                           ng-disabled="vm.diagnostico.vacio || form2.sigStep.$invalid "
+                           ng-click='vm.crearEtapaServicio()'>
+                    <md-icon md-font-icon="fa fa-save"></md-icon>
+
+                </md-button>
+                <md-button class="md-raised" aria-label="Cancelar"
+                           ng-click="vm.cancel()">
+                    <md-icon md-font-icon="fa fa-eraser"></md-icon>
+
+                </md-button>
+                <md-button class="md-raised" aria-label="Eliminar"
+                           ng-click="vm.eliminarEtapaServicio()">
+                    <md-icon md-font-icon="fa fa-trash"></md-icon>
+
+                </md-button>
+                <md-button ng-if="vm.etapaActual.actual_etapa.nombre=='E1'|| vm.etapaActual.actual_etapa.nombre=='E4'"
+                           class="md-raised md-primary"  aria-label="Prechecklist"
+                           ng-click="vm.showPreCheckDialog(ev)">
+                    <md-icon md-font-icon="fa fa-check-square"></md-icon>
+                </md-button>
+                <md-button ng-if="vm.etapaActual.actual_etapa.nombre=='E2'" class="md-raised md-primary"
+                           ng-click="vm.showDiagnosticoDialog(ev)"  aria-label="Diafnostico">
+                    <md-icon md-font-icon="fa fa-check-square"></md-icon>
+                </md-button>
+            </div>
+        </div>
+    </md-toolbar>
+    <md-content>
+        <md-content class="md-padding">
+            <div flex="100" layout="row" style="overflow-x: hidden;">
+
+                <div layout="column" flex="40">
+                    <form name="form2.Buscar" ng-submit="vm.buscar()">
+                        <md-input-container layout="column" layout-fill="true" flex="100">
+
+                            <label translate>ETAPA_SERVICIO.ID_CABINET</label>
+                            <input type="text" pattern="[0-9a-zA-Z-_ ]+" name="idCabinet" ng-model="vm.idCabinet"
+                                   required/>
+                            <div ng-messages="form2.Buscar.idCabinet.$error">
+                                <div ng-message="pattern">
+                                    {{'MAIN.LABEL.ALFANUMERICONLY'|translate}}
+                                </div>
+                                <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
+                            </div>
+
+
+                        </md-input-container>
+                    </form>
+                </div>
+                <div layout="column" flex="40">
+
+                    <form name="form2.sigStep">
+                        <div layout="column" layout-fill>
+                            <md-input-container layout="column" layout-fill="true" flex="100">
+                                <label translate>ETAPA_SERVICIO.NEXT_ETAPA</label>
+                                <md-select ng-model="vm.etapaActual.siguiente_etapa.id" name="select"
+                                           ng-disabled="vm.editable || vm.diagnostico.vacio"
+                                           ng-required="vm.etapaActual.validado">
+                                    <md-option ng-repeat="etap in vm.etapas" ng-value="etap.id">{{etap.nombre}} :
+                                        {{etap.descripcion}}
+                                    </md-option>
+                                </md-select>
+                                <div ng-messages="form2.sigStep.select.$error">
+                                    <div ng-message="required">{{'MAIN.LABEL.REQUIRED'|translate}}</div>
+                                </div>
+                            </md-input-container>
+                            <div ng-if="vm.diagnostico.vacio">
+                                <b><span style="color: #FF1B28;" translate>ETAPA_SERVICIO.NOT_PRECHECK</span></b>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <div layout="row" flex="20">
+                    <div layout="column">
+                        <div layout="row" layout-sm="row" layout-xs="column">
+                            <md-input-container flex>
+                                <md-button class="md-fab" class="md-primary" aria-label="Buscar"
+                                           ng-disabled="form2.Buscar.$invalid || vm.disabledBuscar"
+                                           ng-click="vm.buscar(); $event.stopPropagation();">
+                                    <md-icon md-font-icon="zmdi zmdi-zoom-in"></md-icon>
+                                </md-button>
+                            </md-input-container>
+                            <md-input-container flex ng-if="vm.etapaActual.actual_etapa">
+                                <md-button class="md-fab  md-primary" aria-label="fab button"
+                                           ng-click="vm.verInfo()">
+                                    <md-icon md-font-icon="fa fa-eye"></md-icon>
+                                </md-button>
+                            </md-input-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </md-content>
+
+        <md-content class="md-padding" ng-if="vm.etapaActual.actual_etapa">
+            <div layout="column" flex style="overflow-x: hidden;">
+                <div layout="row" layout-sm="column" layout-xs="column" layout-align=""
+                     ng-show="vm.insumos_loteUsados.length!=0 || vm.insumos_sinStock.lenght!=0" cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}" flex="100" layout-wrap>
+
+
+                    <div ng-repeat="insu in vm.insumos_loteUsados track by $index" flex="50">
+                        <div column>
+                            <div layout="row" layout-align="center center">
+                                <div flex="20">
+                                    <md-switch flex class="md-primary" ng-model="vm.insumos_loteUsados[$index].agregar"
+                                               aria-label="Primary Switch">
+                                    </md-switch>
+                                </div>
+                                <div layout="column" flex>
+                                    <div><b translate>ETAPA_SERVICIO.INSUM </b>: {{insu.nombre}}</div>
+                                </div>
+
+                            </div>
+                            <md-divider></md-divider>
+                        </div>
+                    </div>
+                    <md-divider></md-divider>
+                    <div ng-repeat="insu2 in vm.insumos_sinStock track by $index" flex="50" cg-busy="{promise:vm.promiseInsumos,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
+                        <div column>
+                            <div layout="row" layout-align="center center">
+                                <div flex="20">
+                                    <md-icon md-font-icon="fa fa-ban"></md-icon>
+                                    <b><span style="color: #FF1B28;" translate>ETAPA_SERVICIO.NOTSTOCK_INSUMO</span></b>
+                                </div>
+                                <div layout="column" flex>
+                                    <div><b translate>ETAPA_SERVICIO.INSUM </b>: {{insu2.nombre}}</div>
+                                </div>
+
+                            </div>
+                            <md-divider></md-divider>
+                        </div>
+                    </div>
+
+                </div>
+
+                <md-content layout="row" ng-if="vm.etapaActual.actual_etapa.nombre=='E3'">
+                    <md-switch ng-model="inputDisabled">
+                        <span translate>ETAPA_SERVICIO.ADD_MICRO</span>
+                    </md-switch>
+                    <md-input-container flex="40" ng-if="inputDisabled||vm.etapaActual.insumos[0].no_serie">
+                        <label><span translate>ETAPA_SERVICIO.SCAN</span></label>
+                        <input type="text" ng-model="vm.compresor.no_serie">
+                    </md-input-container>
+                    <md-input-container flex="35" ng-if="inputDisabled">
+                        <label><span translate>ETAPA_SERVICIO.NOTES</span></label>
+                        <input type="text" ng-model="vm.compresor.notas">
+                    </md-input-container>
+                    <md-input-container flex="15" ng-if="inputDisabled">
+                        <label><span translate>ETAPA_SERVICIO.CANTITY</span></label>
+                        <input type="number" value="1" disabled>
+                    </md-input-container>
+                    <md-input-container ng-if="inputDisabled" flex="10">
+                        <md-button class="md-fab  md-primary" aria-label="raised button"
+                                   ng-disabled="form.insumoFormEtapa.$invalid"
+                                   ng-click='vm.AddInsumoArray()'>
+                            <md-icon md-font-icon="zmdi zmdi-plus"></md-icon>
+                        </md-button>
+                    </md-input-container>
+                    <md-input-container ng-if="inputDisabled" flex="10">
+                        <md-button class="md-fab  md-primary" aria-label="raised button"
+                                   ng-click='vm.cleanInsumo()'>
+                            <md-icon md-font-icon="fa fa-eraser"></md-icon>
+                        </md-button>
+                    </md-input-container>
+                </md-content>
+                <md-content layout="row" ng-if="vm.showInsumo">
+
+                    <md-input-container flex="40" ng-if="vm.showInsumo" disabled>
+                        <label><span translate>ETAPA_SERVICIO.NO_SERIE</span></label>
+                        <input ng-disabled="true" ng-if="vm.etapaActual.insumos[0].no_serie!=null" type="text"
+                               ng-model="vm.etapaActual.insumos[0].no_serie">
+                    </md-input-container>
+                    <md-input-container flex="35" ng-if="vm.showInsumo" disabled>
+                        <label><span translate>ETAPA_SERVICIO.NOTES</span></label>
+                        <input type="text" ng-model="vm.etapaActual.insumos[0].notas" ng-disabled="true">
+                    </md-input-container>
+                    <md-input-container flex="15" ng-if="vm.showInsumo">
+                        <label><span translate>ETAPA_SERVICIO.CANTITY</span></label>
+                        <input type="number" value="1" ng-disabled="true">
+                    </md-input-container>
+                    <md-input-container flex="10" ng-if="vm.showInsumo">
+                        <md-button class="md-warn md-raised" aria-label="raised button"
+                                   ng-click='vm.DeleteInsumoArray()'>
+                            <md-icon md-font-icon="fa fa-trash"></md-icon>
+                        </md-button>
+                    </md-input-container>
+                </md-content>
+            </div>
+        </md-content>
+
+    </md-content>
+    <md-content ng-if="vm.etapaActual.actual_etapa">
+        <md-input-container layout-fill flex>
+            <md-switch class="md-primary" ng-model="vm.etapaActual.validado"
+                       aria-label="Se valida la etapa para avanzar a la siguiente fase"
+                       ng-disabled="vm.editable">
+                <span translate>ETAPA_SERVICIO.VALIDATED</span>
+            </md-switch>
+        </md-input-container>
+    </md-content>
+
+    </md-content>
+</div>

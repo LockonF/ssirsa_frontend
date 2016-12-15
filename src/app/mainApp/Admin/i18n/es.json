@@ -1,0 +1,51 @@
+{
+  "ADMIN": {
+    "MANAGE": {
+      "MANAGEMENT_USER": "Nuevo Usuario",
+      "BUSQUEDA_USUARIO":"Administración de Usuarios",
+      "INFO_USUARIO":"Información del Usuario",
+      "DATAUSER":"Datos de Contacto",
+      "DATAPER":"Datos Personales",
+      "AUTOCOMPLETE":"Busca a un Usuario",
+      "NOTFOUND":"No se encontro el usuario"
+    }
+  },
+  "ADMIN_PERSONA": {
+    "PROPERTY": {
+      "NOMBRE": "Nombre",
+      "AP_PATERNO": "Apellido Paterno",
+      "AP_MATERNO": "Apellido Materno ",
+      "DIRECCION": "Dirección",
+      "TELEFONO": "Telefono",
+      "USERNAME": "Nombre de Usuario",
+      "EMAIL": "Correo Electrónico",
+      "PASSWORD":"Contraseña",
+      "CPASSWORD":"Confirmación de Contraseña",
+      "ARCHIVO":"Seleccionar Archivo",
+      "INE":"Carga INE",
+      "FOTO":"Carga Foto",
+      "SUCURSALDEF":"Elige una sucursal",
+      "ROLDEF":"Elige el rol"
+    },
+    "PERSONA": {
+
+    },
+    "ERROR_MESSAGE": {
+      "NOMBRE": "El nombre solo puede contener letras",
+      "AP_PATERNO": "El apellido paterno solo puede contener letras",
+      "AP_MATERNO": "El apellido materno solo puede contener letras ",
+      "DIRECCION": "La Direccion no puede tener caracteres especiales",
+      "EMAIL": "Se debe de ingresar un correo electrónico válido",
+      "PASSWORD":"El password debe contener al menos 8 elementos y solo símbolos validos",
+      "PASSWORD_LENGTH":"El password debe contener al menos 8 elementos",
+      "CPASSWORD":"El password no coincide",
+      "TELEFONO":"",
+      "DIGITOS":"El password no puede contener solo dígitos",
+      "ERRORNUMSOLCONF":"El usuario ya existe",
+      "MINLENGTH":"El telefono no tienen un mínimo de 8 números",
+      "USERNAME":"El Usuario no puede comenzar con un digito y solo puede usar caracteres validos"
+    }
+  }
+
+
+}

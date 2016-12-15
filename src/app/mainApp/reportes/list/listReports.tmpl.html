@@ -1,0 +1,36 @@
+<div layout="column" flex="100" layout-padding layout-fill>
+    <md-card class="md-padding card1" flex="flex">
+        <h2 class="md-headline-1 text-center">
+            {{'REPORTS.TITLE_LIST'|translate}}</h2>
+
+        <md-virtual-repeat-container class="vertical-container" flex="flex" cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
+            <md-list>
+                <md-list-item ng-repeat="reporte in vm.reportes" class="md-2-line" >
+                    <md-button ng-click="vm.selectedReport(reporte)"
+                               layout-padding layout="row"
+                               layout-align="start center"
+                               ng-class="{'inbox-list__email--active' : reporte === vm.selectedReportList }">
+                        <md-icon md-svg-icon="assets/images/reports.svg" class="avatar"></md-icon>
+                        <div class="md-list-item-text" layout="column">
+                            <h3><b>{{'REPORTS.FIELDS.NAME'|translate}}</b> {{reporte.name }}</h3>
+                            <h4><b>{{'REPORTS.FIELDS.MODIFIED'|translate}}</b> {{reporte.report_file_creation | moment:'DD/MM/YYYY hh:mm:ss'}}</h4>
+                        </div>
+                    </md-button>
+                    <md-divider></md-divider>
+
+                </md-list-item>
+
+            </md-list>
+
+        </md-virtual-repeat-container>
+        <div layout="row" layout-align="end end" layout-sm="column" layout-xs="column" layout-align-sm="start stretch" layout-align-xs="start stretch">
+
+            <md-button aria-label="fab button"
+                       ng-click="vm.downloadReport()"
+                       ng-disabled="vm.selectedReportList==null || vm.selectedReportList==undefined"
+                       class="md-raised md-primary">
+                <md-icon md-font-icon="fa fa-file-excel-o"></md-icon>
+            </md-button>
+        </div>
+    </md-card>
+</div>

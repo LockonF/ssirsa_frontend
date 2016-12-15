@@ -1,0 +1,71 @@
+<md-dialog class="mobile-fullwidth-dialog" flex="40" flex-xs="100">
+    <md-toolbar class="toolbar-default">
+        <div class="md-toolbar-tools">
+            <h2>
+                <span >{{'MODAL_CATALOG_CONSUMABLE.FORM.TITLE.STEP'|translate}}</span>
+            </h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="vm.cancelClick()" aria-label="cancel">
+                <md-icon md-font-icon="zmdi zmdi-close"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <md-divider></md-divider>
+    <form name="updateSolicitudform">
+        <md-dialog-content class="md-dialog-content card1 md-blue-grey-theme">
+            <md-autocomplete
+                            id="etapas"
+                            md-selected-item="vm.selectedEtapa"
+                             md-selected-item-change="vm.selectedItemChange(vm.selectedEtapa)"
+                             md-items="item in vm.querySearch(vm.searchText)"
+                             md-item-text="item.descripcion"
+                             md-min-length="0"
+                             md-search-text-change="vm.search(vm.searchText)"
+                             md-search-text="vm.searchText"
+                             md-menu-class="autocomplete-custom-template"
+                             md-floating-label="{{'MODAL_CATALOG_CONSUMABLE.FORM.PLACEHOLDER.SEARCH'| translate }}">
+                        <span
+                            md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.descripcion}}</span>
+                <md-item-template>
+                        <span class="item-title">
+                            <md-icon md-font-icon="fa fa-check"></md-icon>
+                            <span>&nbsp; {{item.nombre}} - {{item.descripcion}}</span>
+                        </span>
+                </md-item-template>
+                <md-not-found><span translate="MODAL_CATALOG_CONSUMABLE.FORM.LABEL.NOT_FOUND"></span></md-not-found>
+            </md-autocomplete>
+            <md-virtual-repeat-container class="vertical-container" flex="flex">
+                <md-list   flex>
+                    <md-list-item ng-repeat="etapa in vm.etapa_list"
+                                  class="md-2-line">
+                        <div layout-padding layout="row"
+                                   layout-align="start center">
+                            <md-icon md-svg-icon="assets/images/step.svg" class="md-avatar-icon"></md-icon>
+                            <div class="md-list-item-text" layout="column">
+                                <h3><b>{{'MODAL_CATALOG_CONSUMABLE.FORM.LABEL.NAME'|translate}}</b> {{etapa.nombre }}</h3>
+                                <h4><b>{{'MODAL_CATALOG_CONSUMABLE.FORM.LABEL.DESCRIPTION'|translate}}</b> {{::etapa.descripcion}}</h4>
+                            </div>
+                            <md-button class="md-secondary md-icon-button" ng-click="vm.deleteEtapa(etapa)" aria-label="call">
+                                <md-icon md-font-icon="fa fa-close"></md-icon>
+                            </md-button>
+                        </div>
+                        <md-divider></md-divider>
+
+                    </md-list-item>
+
+                </md-list>
+
+            </md-virtual-repeat-container>
+        </md-dialog-content>
+        <md-dialog-actions layout="row" class="card1 md-blue-grey-theme">
+
+            <span flex></span>
+            <md-button ng-click="vm.cancelClick()" aria-label="{{'Cancel' | triTranslate}}"
+                       translate="MAIN.BUTTONS.CANCEL"></md-button>
+            <md-button ng-click="vm.okClick()" class="md-primary" ng-disabled="updateSolicitudform.$invalid"
+                       aria-label="{{vm.dialogData.confirmButtonText | triTranslate}}"
+                       translate="MAIN.BUTTONS.SUBMIT"></md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
