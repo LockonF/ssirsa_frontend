@@ -195,6 +195,7 @@
         }
 
         function selected(item) {
+            vm.selectedTabs=0;
             vm.selectedReport = item;
             vm.loadingPromiseReport=Reportes.getReportObject(item.id).then(function (res) {
                 vm.report =res;

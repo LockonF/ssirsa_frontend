@@ -287,13 +287,13 @@
                 {id:'isnull',value:"Es vacio"}
             ],
             days: [
-                {id: 0, value: "Lunes"},
-                {id: 1, value: "Martes"},
-                {id: 2, value: "Miércoles"},
-                {id: 3, value: "Jueves"},
-                {id: 4, value: "Viernes"},
-                {id: 5, value: "Sábado"},
-                {id: 6, value: "Domingo"}
+                {id: 2, value: "Lunes"},
+                {id: 3, value: "Martes"},
+                {id: 4, value: "Miércoles"},
+                {id: 5, value: "Jueves"},
+                {id: 6, value: "Viernes"},
+                {id: 7, value: "Sábado"},
+                {id: 1, value: "Domingo"}
             ],
             formats: [
                 {value: "xlsx"},
@@ -392,6 +392,20 @@
                 todayStr:'Hoy',
                 hideTimeSelector:true,
                 position:'top',
+                isReadOnly:true,
+                daysNames:['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
+                monthsNames:['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
+            },
+            ADTConfigBottom:{
+                calType: 'gregorian',
+                dtpType:'date',
+                format: 'DD/MM/YYYY',
+                default: 'today',
+                autoClose:true,
+                multiple:false,
+                todayStr:'Hoy',
+                hideTimeSelector:true,
+                position:'Bottom',
                 isReadOnly:true,
                 daysNames:['Do','Lu','Ma','Mi','Ju','Vi','Sa'],
                 monthsNames:['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']

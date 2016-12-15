@@ -130,12 +130,14 @@
                                         <td data-title="{{vm.tableFilterHeaders[4]}}">
                                             <md-select aria-label="typeFilter"
                                                        ng-model="field.filter_type"
+                                                       ng-change="vm.initDates(field)"
                                                        layout-align="space-around start"
 >
                                                 <div ng-init="filters = vm.getValidFilters(field.field_type)">
                                                     <md-option
                                                         ng-repeat="filtro in  filters"
                                                         ng-value="filtro.id"
+
                                                     >
                                                         {{filtro.value}}
                                                     </md-option>
@@ -151,6 +153,7 @@
                                             <div ng-if="field.filter_type=='week_day'">
                                                 <md-select aria-label="weekday"
                                                            ng-model="field.filter_value"
+
                                                            layout-align="space-around start"
                                                 >
                                                     <md-option ng-repeat="day in  vm.days" ng-value="day.id">
@@ -158,7 +161,7 @@
                                                     </md-option>
                                                 </md-select>
                                             </div>
-                                            <div ng-if="field.filter_type=='range'">
+                                            <div ng-if="field.filter_type=='range'" >
                                                 <md-input-container>
                                                     <input type="text"
                                                            aria-label="start date"
@@ -176,6 +179,7 @@
                                                            mdp-format="{{vm.formato}}"
                                                            mo-date-input="{{vm.formato}}"
                                                            name="endDate"/>
+
                                                 </md-input-container>
                                             </div>
                                             <div ng-if="field.filter_type==='exact' ||
