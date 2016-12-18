@@ -119,7 +119,7 @@
         function generarRemision() {
 
 
-            $http.get('app/mainApp/tecnico/salida/lista/formato.json').success(function (col) {
+            vm.loadingPromise=$http.get('app/mainApp/tecnico/salida/lista/formato.json').success(function (col) {
                 EntradaSalida.getRemision(vm.selectedSalidaList.id).then(function (res) {
                     col.content[0].table.body[1][0].stack[2].text = res.udn.agencia + "\n" + res.udn.direccion;//Direccion UDN
                     col.content[0].table.body[1][1].stack[2].text = res.sucursal.nombre + "\n " + res.sucursal.direccion;//Almacen general
@@ -135,16 +135,21 @@
                     if (res.cabinets.length == 0) {
                         col.content[4].table.body.splice(0, 1);
                     }
+                    var contador=res.cabinets.length;
+                    var cabinets=_.sortBy(res.cabinets, 'economico' );
+                    res.cabinets=cabinets.reverse();
+
                     res.cabinets.forEach(function (value, index) {
 
                         var arreglo = [];
                         if (value.diagnostico != null) {
                             var puertas = value.diagnostico.puertas == true ? 'Si' : 'No';
-                            arreglo = [index.toString(), value.economico, value.modelo.marca.descripcion, value.no_serie, "", puertas, value.diagnostico.canastillas.toString()];
+                            arreglo = [{"text":contador.toString(),"style": "extra_small"},{"text":  value.economico,"style": "extra_small"}, {"text": value.modelo.marca.descripcion,"style": "extra_small"}, {"text": value.no_serie,"style": "extra_small"}, "",{"text": puertas,"style": "extra_small"},{"text": value.diagnostico.canastillas.toString(),"style": "extra_small"}];
                         } else {
-                            arreglo = [index.toString(), value.economico, value.modelo.marca.descripcion, value.no_serie, " ", "N/A", "N/A"];
+                            arreglo = [{"text":contador.toString(),"style": "extra_small"}, {"text":  value.economico,"style": "extra_small"}, {"text": value.modelo.marca.descripcion,"style": "extra_small"}, {"text": value.no_serie,"style": "extra_small"}, " ", {"text":"N/A","style": "extra_small"}, {"text":"N/A","style": "extra_small"}];
                         }
                         col.content[4].table.body.splice(1, 0, arreglo);
+                        contador--;
                     });
 
                     toastr.success(vm.successRemission, vm.successTitle);

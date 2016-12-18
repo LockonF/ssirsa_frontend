@@ -142,8 +142,8 @@
                     40,
                     80,
                     80,
-                    80,
-                    80,
+                    120,
+                    40,
                     40,
                     70
                 ],
@@ -166,7 +166,7 @@
                             "style": "decoracion"
                         },
                         {
-                            "text": "Observaciones",
+                            "text": "Obs",
                             "style": "decoracion"
                         },
                         {
@@ -313,6 +313,8 @@
         },
         "small": {
             "fontSize": 10
+        },"extra_small": {
+            "fontSize": 8
         },
         "decoracion": {
             "decoration": "underline"
