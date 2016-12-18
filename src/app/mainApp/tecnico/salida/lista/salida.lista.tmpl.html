@@ -7,7 +7,7 @@
                     {{'OUTPUT_LIST.FORM.LABEL.TITLE'|translate}}</h2>
             </div>
             <div flex="100" layout="row" layout-align="space-around stretch" layout-xs="column" layout-sm="column"
-                 layout-fill="" ng-style='vm.myStyle'>
+                 layout-fill="" ng-style='vm.myStyle' cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
                 <div layout="column" flex-lg="40" flex-gt-lg="40" flex-xl="40" flex-gt-sm="100" flex-md="100"
                      flex-sm="100" flex-gt-xs="100" flex-xs="100">
                     <md-autocomplete md-selected-item="vm.selectedSalidaItem"
