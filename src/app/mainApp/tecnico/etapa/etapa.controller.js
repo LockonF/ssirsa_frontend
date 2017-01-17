@@ -658,7 +658,6 @@
 
         function crearEtapaServicio() {
             var sigetapa, etapaactual;
-            console.log(vm.etapaActual.insumos);
             vm.etapaActual.diagnostico = vm.diagnostico.id;
             etapaactual = vm.etapaActual.actual_etapa.id;
             sigetapa = vm.etapaActual.siguiente_etapa.id;
