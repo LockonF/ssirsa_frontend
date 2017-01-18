@@ -181,7 +181,7 @@
                                     vm.etapaActual.actual_etapa = vm.etapa.siguiente_etapa;
                                     vm.etapaActual.siguiente_etapa = null;
                                     vm.etapaActual.validado = true;
-                                    vm.etapaActual.insumos = null;
+                                    vm.etapaActual.insumos = [];
 
                                 }
 
@@ -480,7 +480,7 @@
             vm.etapaActual.insumos[0].no_serie=vm.compresor.no_serie;
             vm.etapaActual.insumos[0].notas= vm.compresor.notas
             vm.etapaActual.insumos[0].cantidad=1;
-            console.log(vm.etapaActual.insumos);
+
             if (vm.etapaActual.insumos[0].no_serie != null) {
 
 
@@ -671,7 +671,6 @@
                 eliminaNoSeleccionados();
 
                 vm.etapaActual.insumos_lote = vm.insumos_loteUsados;
-                console.log(vm.etapaActual.insumos[0]);
 
                 var promise = Servicios.crearEtapaServicio(vm.etapaActual);
                 promise.then(function (res) {
