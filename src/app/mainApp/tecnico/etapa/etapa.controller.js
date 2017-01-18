@@ -30,7 +30,6 @@
         vm.editable = true;
         vm.showInsumo = false;
         vm.idCabinet = null;
-        vm.insumos = [];//Arreglo que poseera los Insumos que pueden ser usados en cierta etapa para md table
         vm.insumosToArray = [];
         vm.cabinet = null;// Informacion general del cabinet al cual se le asignara una nueva etapa
         vm.diagnostico = null;// Informacion del diagnostico que propicio que entrara a un proceso de servicio tecnico
@@ -182,7 +181,7 @@
                                     vm.etapaActual.actual_etapa = vm.etapa.siguiente_etapa;
                                     vm.etapaActual.siguiente_etapa = null;
                                     vm.etapaActual.validado = true;
-                                    vm.etapaActual.insumos = null;
+                                    vm.etapaActual.insumos = [];
 
                                 }
 
@@ -478,8 +477,13 @@
             vm.etapaActual.insumos = [];
 
             vm.etapaActual.insumos.push(vm.compresor);
+            vm.etapaActual.insumos[0].no_serie=vm.compresor.no_serie;
+            vm.etapaActual.insumos[0].notas= vm.compresor.notas
+            vm.etapaActual.insumos[0].cantidad=1;
 
             if (vm.etapaActual.insumos[0].no_serie != null) {
+
+
                 notifyError(1001);
             }
         }
@@ -541,6 +545,7 @@
             vm.insumos_sinStock = [];
             vm.dataEtapa = null;//Variable que posera los datos de la etapa para el precargado de Template (id etapa, idTipoEquipo)
             vm.firstEtapa = {};
+            vm.showInsumo=false;
             $scope.form2.Buscar.$setPristine();
             $scope.form2.Buscar.$setUntouched();
             $scope.form2.sigStep.$setPristine();
@@ -556,7 +561,8 @@
                 actual_etapa: '',
                 siguiente_etapa: ''
 
-            };
+            }
+            vm.showInsumo=false;
             vm.compresor = {
                 no_serie: '',
                 notas: '',
@@ -652,7 +658,6 @@
 
         function crearEtapaServicio() {
             var sigetapa, etapaactual;
-            vm.etapaActual.insumos = vm.insumos;
             vm.etapaActual.diagnostico = vm.diagnostico.id;
             etapaactual = vm.etapaActual.actual_etapa.id;
             sigetapa = vm.etapaActual.siguiente_etapa.id;
@@ -666,7 +671,6 @@
                 eliminaNoSeleccionados();
 
                 vm.etapaActual.insumos_lote = vm.insumos_loteUsados;
-                vm.etapaActual.insumos = vm.insumos;
 
                 var promise = Servicios.crearEtapaServicio(vm.etapaActual);
                 promise.then(function (res) {
