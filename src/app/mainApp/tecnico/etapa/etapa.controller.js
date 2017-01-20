@@ -278,7 +278,7 @@
                 vm.loadingPromise = Servicios.BusquedaCatalogoTypeStep(data).then(function (res) {
                     //vm.insumosLote = res;
                     vm.insumosLote = Helper.filterDeleted(res,true);
-
+                    vm.insumosLote = Helper.sortByAttribute(vm.insumosLote, 'descripcion');
                     transformArrayCatalogoInsumos();
                     vm.disabledBuscar=false;
                 }).catch(function (res) {
