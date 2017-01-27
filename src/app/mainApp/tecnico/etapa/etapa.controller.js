@@ -515,6 +515,7 @@
                 siguiente_etapa: ''
 
             };
+            vm.disabledBuscar=false;
             vm.compresor = {
                 no_serie: '',
                 notas: '',
@@ -568,6 +569,7 @@
                 notas: '',
                 cantidad: 1
             };
+            vm.disabledBuscar=
             vm.showInsumosSection = true;
             vm.catalogoInsumos = null;//array con todos los caatalogos de insumo disponibles de la etapa
             vm.catalogoSelected = {};//Elemento del tipo Catalogo de Insumo del insumo que se deseará agregar
