@@ -277,7 +277,7 @@
                 vm.loadingPromise = Servicios.BusquedaCatalogoTypeStep(data).then(function (res) {
                     //vm.insumosLote = res;
                     vm.insumosLote = Helper.filterDeleted(res,true);
-
+                    vm.insumosLote = Helper.sortByAttribute(vm.insumosLote, 'descripcion');
                     transformArrayCatalogoInsumos();
                     vm.disabledBuscar=false;
                 }).catch(function (res) {
@@ -316,7 +316,7 @@
                     vm.insumoLote = {};
                 }
                 else {
-                  
+
                     vm.insumos_sinStock.push(vm.insumoLote);
                     vm.insumoLote = null;
                     vm.insumoLote = {};
@@ -515,6 +515,8 @@
                 siguiente_etapa: ''
 
             };
+            vm.filtradoNoSelected=[];
+            vm.disabledBuscar=false;
             vm.compresor = {
                 no_serie: '',
                 notas: '',
@@ -562,13 +564,15 @@
                 siguiente_etapa: ''
 
             }
+            vm.filtradoNoSelected=[];
             vm.showInsumo=false;
             vm.compresor = {
                 no_serie: '',
                 notas: '',
                 cantidad: 1
             };
-            vm.showInsumosSection = true;
+            vm.disabledBuscar=
+                vm.showInsumosSection = true;
             vm.catalogoInsumos = null;//array con todos los caatalogos de insumo disponibles de la etapa
             vm.catalogoSelected = {};//Elemento del tipo Catalogo de Insumo del insumo que se deseará agregar
             vm.editable = true;
@@ -670,8 +674,9 @@
 
                 eliminaNoSeleccionados();
 
-                vm.etapaActual.insumos_lote = vm.insumos_loteUsados;
 
+                vm.filtradoNoSelected=_.where(vm.insumos_loteUsados,{agregar:true});
+                vm.etapaActual.insumos_lote = vm.filtradoNoSelected;
                 var promise = Servicios.crearEtapaServicio(vm.etapaActual);
                 promise.then(function (res) {
                     toastr.success(vm.successTitle, vm.successCreateMessage);
