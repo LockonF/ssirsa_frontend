@@ -515,6 +515,7 @@
                 siguiente_etapa: ''
 
             };
+            vm.filtradoNoSelected=[];
             vm.disabledBuscar=false;
             vm.compresor = {
                 no_serie: '',
@@ -563,6 +564,7 @@
                 siguiente_etapa: ''
 
             }
+            vm.filtradoNoSelected=[];
             vm.showInsumo=false;
             vm.compresor = {
                 no_serie: '',
@@ -672,8 +674,9 @@
 
                 eliminaNoSeleccionados();
 
-                vm.etapaActual.insumos_lote = vm.insumos_loteUsados;
-
+               
+                vm.filtradoNoSelected=_.where(vm.insumos_loteUsados,{agregar:true});
+                vm.etapaActual.insumos_lote = vm.filtradoNoSelected;
                 var promise = Servicios.crearEtapaServicio(vm.etapaActual);
                 promise.then(function (res) {
                     toastr.success(vm.successTitle, vm.successCreateMessage);

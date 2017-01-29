@@ -350,6 +350,7 @@
             vm.recepcion={
 
             };
+             vm.filtradoNoSelected=[];
             vm.etapa = {};
             vm.formato="DD-MM-YYYY";
             vm.tiposTrabajo = [
@@ -430,7 +431,8 @@
             var fecha=null;
             var hora=null;
             var promise=null;
-            vm.puntoVenta.insumos_lote = vm.insumos;
+            vm.filtradoNoSelected=_.where(vm.insumos_loteUsados,{agregar:true});
+            vm.puntoVenta.insumos_lote = vm.filtradoNoSelected;
             vm.puntoVenta.modelo=vm.modelo.id;
             if (vm.reporte!=null) {
                  fecha = moment(vm.reporte.fecha).subtract(1,"day");
