@@ -381,7 +381,7 @@
             }).then(function (answer) {
                 //Accepted
                 vm.buscar();
-                promise = Servicios.getDiagnosticoFromCabinet(vm.idCabinet);
+                var promise = Servicios.getDiagnosticoFromCabinet(vm.idCabinet);
                 promise.then(function (res) {
                     vm.diagnostico = res;
                     vm.buscar();
