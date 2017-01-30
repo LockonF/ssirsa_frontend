@@ -306,7 +306,7 @@
                 elemento = filterInsumosLotebyType(insulote.tipos_equipo);
 
                 vm.insumoLote.cantidad = elemento.cantidad;
-
+                vm.insumoLote.cantidadMax = elemento.cantidad;
                 vm.insumoLote.nombre = insulote.descripcion;
                 vm.insumoLote.notas = elemento.descripcion;
                 vm.insumoLote.agregar = false;

@@ -257,7 +257,7 @@
                 elemento = filterInsumosLotebyType(insulote.tipos_equipo);
 
                 vm.insumoLote.cantidad = elemento.cantidad;
-
+                vm.insumoLote.cantidadMax = elemento.cantidad;
                 vm.insumoLote.nombre = insulote.descripcion;
                 vm.insumoLote.notas = elemento.descripcion;
                 vm.insumoLote.agregar = false;
@@ -434,7 +434,7 @@
             console.log(vm.insumos_loteUsados)
             vm.filtradoNoSelected=_.where(vm.insumos_loteUsados,{agregar:true});
             console.log(vm.filtradoNoSelected)  ;
-            vm.puntoVenta.insumos_lote =[];
+            vm.puntoVenta.insumos_lote =vm.filtradoNoSelected;
             vm.puntoVenta.modelo=vm.modelo.id;
             if (vm.reporte!=null) {
                  fecha = moment(vm.reporte.fecha).subtract(1,"day");
