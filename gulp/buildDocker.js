@@ -34,7 +34,7 @@ gulp.task('configuration',function () {
   }else if(enviroment=='production'){
     run('config:build')();
   }else if (enviroment=='development'){
-    run('config')();
+    run('config:dev')();
   }else if (enviroment=='server'){
     run('config:server')();
   }
