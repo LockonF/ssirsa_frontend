@@ -293,14 +293,14 @@
                                                         <div><b translate>ETAPA_SERVICIO.INSUM </b>: {{insu.nombre}}
                                                         </div>
                                                     </div>
-                                                    <div>
+                                                    <div ng-click="vm.validaMax($index)">
                                                         <md-input-container ng-if="insu.cantidad > 1">
                                                             <label>No. de {{insu.nombre}}</label>
                                                             <div range-spinner
                                                                  range-min="1"
                                                                  range-step="1"
                                                                  range-max="100"
-                                                                 range-default-value="insu.cantidad"
+                                                                 range-default-value="insu.cantidadMax"
                                                                  range-decimal-precision="1"
                                                                  range-model="insu.cantidad"
                                                                  accept-decimal=true
@@ -309,6 +309,9 @@
                                                             </div>
 
                                                         </md-input-container>
+                                                        <div ng-if="insu.cantidadMax < insu.cantidad ">
+                                                            <span style="color: #FF1B28;"> <b translate>MAIN.GENERAL.MAX </b><b>{{insu.cantidadMax}}</b></span>
+                                                        </div>
                                                     </div>
 
                                                 </div>

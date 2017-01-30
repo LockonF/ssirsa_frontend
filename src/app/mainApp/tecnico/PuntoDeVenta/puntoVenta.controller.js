@@ -77,6 +77,7 @@
         vm.checkFinished = checkFinished;
         vm.next=next;
         vm.prev=prev;
+        vm.validaMax=validaMax;
 
 
         // Funciones
@@ -433,7 +434,7 @@
             var promise=null;
 
             vm.filtradoNoSelected=_.where(vm.insumos_loteUsados,{agregar:true});
-            
+
             vm.puntoVenta.insumos_lote =vm.filtradoNoSelected;
             vm.puntoVenta.modelo=vm.modelo.id;
             if (vm.reporte!=null) {
@@ -497,7 +498,10 @@
             }
             vm.cancel();
         }
-
+        function validaMax(index) {
+            if (vm.insumos_loteUsados[index].cantidad > vm.insumos_loteUsados[index].cantidadMax)
+                vm.insumos_loteUsados[index].agregar = false;
+        }
 
     }
 

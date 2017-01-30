@@ -135,6 +135,7 @@
       "REQUIRED_FIELD": "Campo Requerido",
       "MIN_NUMBER": "Se necesita que el número sea al menos ",
       "MAX_NUMBER": "Se necesita que el número sea a lo más  ",
+      "MAX":"Máximo: ",
       "PHONE_REGEX": "El campo debe tener un formato (xx)xxxxxxxx",
       "PATTERN_EMAIL_FIELD": "El campo debe ser un correo electrónico",
       "PATTERN_RFC_FIELD": "El campo debe tener formato RFC",
