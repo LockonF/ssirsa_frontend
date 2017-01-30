@@ -350,6 +350,7 @@
             vm.recepcion={
 
             };
+             vm.filtradoNoSelected=[];
             vm.etapa = {};
             vm.formato="DD-MM-YYYY";
             vm.tiposTrabajo = [
@@ -430,7 +431,10 @@
             var fecha=null;
             var hora=null;
             var promise=null;
-            vm.puntoVenta.insumos_lote = vm.insumos;
+            console.log(vm.insumos_loteUsados)
+            vm.filtradoNoSelected=_.where(vm.insumos_loteUsados,{agregar:true});
+            console.log(vm.filtradoNoSelected)  ;
+            vm.puntoVenta.insumos_lote =[];
             vm.puntoVenta.modelo=vm.modelo.id;
             if (vm.reporte!=null) {
                  fecha = moment(vm.reporte.fecha).subtract(1,"day");
@@ -460,8 +464,8 @@
             if (vm.puntoVenta.id == null) {
 
                 eliminaNoSeleccionados();
-
-                vm.puntoVenta.insumos_lote = vm.insumos_loteUsados;
+                vm.filtradoNoSelected=_.where(vm.insumos_loteUsados,{agregar:true});
+                vm.puntoVenta.insumos_lote = vm.filtradoNoSelected;
                  promise = PuntoDeVenta.create(vm.puntoVenta);
                 promise.then(function (res) {
                     toastr.success(vm.successTitle, vm.successCreateMessage);
