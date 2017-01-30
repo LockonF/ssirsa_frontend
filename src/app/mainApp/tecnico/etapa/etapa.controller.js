@@ -136,8 +136,9 @@
 
 
         function buscar() {
-            vm.disabledBuscar=true;
+
             cancelwithoutId();
+            vm.disabledBuscar=true;
             if (vm.idCabinet != null) {
                 var promise = Cabinet.get(vm.idCabinet);
                 promise.then(function (res) {
@@ -569,7 +570,7 @@
                 notas: '',
                 cantidad: 1
             };
-            vm.disabledBuscar=
+            vm.disabledBuscar=false;
             vm.showInsumosSection = true;
             vm.catalogoInsumos = null;//array con todos los caatalogos de insumo disponibles de la etapa
             vm.catalogoSelected = {};//Elemento del tipo Catalogo de Insumo del insumo que se deseará agregar
