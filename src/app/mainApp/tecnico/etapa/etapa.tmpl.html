@@ -125,6 +125,26 @@
                                                aria-label="Primary Switch">
                                     </md-switch>
                                 </div>
+                                <div>
+                                    <md-input-container ng-if="insu.cantidad > 1">
+                                        <label>No. de {{insu.nombre}}</label>
+                                        <div range-spinner
+                                             range-min="1"
+                                             range-step="1"
+                                             range-max="{{insu.cantidadMax}}"
+                                             range-default-value="insu.cantidad"
+                                             range-decimal-precision="1"
+                                             range-model="insu.cantidad"
+                                             accept-decimal=true
+                                             name-of-field="{{insu.nombre}}"
+                                             id-of-field="rangeFieldId">
+                                        </div>
+                                        <span>{{insu.nombre}}</span>
+                                        <span>{{$index}}</span>
+                                        <span>Original:{{insu.cantidad}} - Copia:{{insu.cantidadMax}} </span>
+
+                                    </md-input-container>
+                                </div>
                                 <div layout="column" flex>
                                     <div><b translate>ETAPA_SERVICIO.INSUM </b>: {{insu.nombre}}</div>
                                 </div>
