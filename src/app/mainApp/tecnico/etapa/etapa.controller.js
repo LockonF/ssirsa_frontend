@@ -609,6 +609,7 @@
             $scope.form2.Buscar.$setUntouched();
             $scope.form2.sigStep.$setPristine();
             $scope.form2.sigStep.$setUntouched();
+           
 
 
         }
@@ -835,10 +836,11 @@
                 vm.insumos_loteUsados[index].agregar = false;
                 vm.insumos_loteUsados[index].error = true;
 
+
             }
             else{
                 vm.insumos_loteUsados[index].error = false;
-                
+
             }
 
         }
