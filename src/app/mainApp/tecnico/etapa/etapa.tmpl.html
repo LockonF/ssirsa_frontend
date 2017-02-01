@@ -16,7 +16,7 @@
 
                 </md-button>
                 <md-button class="md-raised" aria-label="Guardar"
-                           ng-disabled="vm.diagnostico.vacio || form2.sigStep.$invalid "
+                           ng-disabled="vm.diagnostico.vacio || form2.sigStep.$invalid ||form2.insumosValidation.$invalid "
                            ng-click='vm.crearEtapaServicio()'>
                     <md-icon md-font-icon="fa fa-save"></md-icon>
 
@@ -32,12 +32,12 @@
 
                 </md-button>
                 <md-button ng-if="vm.etapaActual.actual_etapa.nombre=='E1'|| vm.etapaActual.actual_etapa.nombre=='E4'"
-                           class="md-raised md-primary"  aria-label="Prechecklist"
+                           class="md-raised md-primary" aria-label="Prechecklist"
                            ng-click="vm.showPreCheckDialog(ev)">
                     <md-icon md-font-icon="fa fa-check-square"></md-icon>
                 </md-button>
                 <md-button ng-if="vm.etapaActual.actual_etapa.nombre=='E2'" class="md-raised md-primary"
-                           ng-click="vm.showDiagnosticoDialog(ev)"  aria-label="Diafnostico">
+                           ng-click="vm.showDiagnosticoDialog(ev)" aria-label="Diafnostico">
                     <md-icon md-font-icon="fa fa-check-square"></md-icon>
                 </md-button>
             </div>
@@ -84,10 +84,11 @@
                             </md-input-container>
                             <div ng-if="vm.diagnostico.vacio">
                                 <b><span style="color: #FF1B28;" translate>ETAPA_SERVICIO.NOT_PRECHECK</span></b>
+                                <span>{{form2.insumos}}</span>
                             </div>
                         </div>
                     </form>
-
+                    <span> </span>
                 </div>
                 <div layout="row" flex="20">
                     <div layout="column">
@@ -113,44 +114,74 @@
 
         <md-content class="md-padding" ng-if="vm.etapaActual.actual_etapa">
             <div layout="column" flex style="overflow-x: hidden;">
-                <div layout="row" layout-sm="column" layout-xs="column" layout-align=""
-                     ng-show="vm.insumos_loteUsados.length!=0 || vm.insumos_sinStock.lenght!=0" cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}" flex="100" layout-wrap>
+                <form name="form2.insumosValidation">
+                    <div layout="row" layout-sm="column" layout-xs="column" layout-align=""
+                         ng-show="vm.insumos_loteUsados.length!=0 || vm.insumos_sinStock.lenght!=0"
+                         cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}"
+                         flex="100" layout-wrap>
 
 
-                    <div ng-repeat="insu in vm.insumos_loteUsados track by $index" flex="50">
-                        <div column>
-                            <div layout="row" layout-align="center center">
-                                <div flex="20">
-                                    <md-switch flex class="md-primary" ng-model="vm.insumos_loteUsados[$index].agregar"
-                                               aria-label="Primary Switch">
-                                    </md-switch>
+                        <div ng-repeat="insu in vm.insumos_loteUsados track by $index" flex="50">
+                            <div column>
+                                <div layout="row" layout-align="center center">
+                                    <div flex="20">
+                                        <md-switch flex class="md-primary" ng-disabled="insu.error"
+                                                   ng-model="vm.insumos_loteUsados[$index].agregar"
+                                                   aria-label="Primary Switch">
+                                        </md-switch>
+                                    </div>
+                                    <div layout="column" flex>
+                                        <div><b translate>ETAPA_SERVICIO.INSUM </b>: {{insu.nombre}}</div>
+                                    </div>
+                                    <div ng-click="vm.validaMax($index)">
+                                        <md-input-container ng-if="insu.cantidadMax > 1">
+                                            <label>No. de {{insu.nombre}}</label>
+                                            <div range-spinner
+                                                 range-min="1"
+                                                 range-step="1"
+                                                 range-max="100"
+                                                 range-default-value="insu.cantidadMax"
+                                                 range-decimal-precision="1"
+                                                 range-model="insu.cantidad"
+                                                 accept-decimal="false"
+                                                 name-of-field="{{insu.nombre}}"
+                                                 id-of-field="rangeFieldId">
+                                            </div>
+
+                                        </md-input-container>
+                                        <div ng-if="insu.error">
+                                            <span style="color: #FF1B28;"> <b translate>MAIN.GENERAL.MAX </b><b>{{insu.cantidadMax}}</b></span>
+                                        </div>
+                                    </div>
+
+
                                 </div>
-                                <div layout="column" flex>
-                                    <div><b translate>ETAPA_SERVICIO.INSUM </b>: {{insu.nombre}}</div>
-                                </div>
-
+                                <md-divider></md-divider>
                             </div>
-                            <md-divider></md-divider>
-                        </div>
-                    </div>
-                    <md-divider></md-divider>
-                    <div ng-repeat="insu2 in vm.insumos_sinStock track by $index" flex="50" cg-busy="{promise:vm.promiseInsumos,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
-                        <div column>
-                            <div layout="row" layout-align="center center">
-                                <div flex="20">
-                                    <md-icon md-font-icon="fa fa-ban"></md-icon>
-                                    <b><span style="color: #FF1B28;" translate>ETAPA_SERVICIO.NOTSTOCK_INSUMO</span></b>
-                                </div>
-                                <div layout="column" flex>
-                                    <div><b translate>ETAPA_SERVICIO.INSUM </b>: {{insu2.nombre}}</div>
-                                </div>
 
+                        </div>
+
+
+                        <md-divider></md-divider>
+                        <div ng-repeat="insu2 in vm.insumos_sinStock track by $index" flex="50"
+                             cg-busy="{promise:vm.promiseInsumos,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
+                            <div column>
+                                <div layout="row" layout-align="center center">
+                                    <div flex="20">
+                                        <md-icon md-font-icon="fa fa-ban"></md-icon>
+                                        <b><span style="color: #FF1B28;" translate>ETAPA_SERVICIO.NOTSTOCK_INSUMO</span></b>
+                                    </div>
+                                    <div layout="column" flex>
+                                        <div><b translate>ETAPA_SERVICIO.INSUM </b>: {{insu2.nombre}}</div>
+                                    </div>
+
+                                </div>
+                                <md-divider></md-divider>
                             </div>
-                            <md-divider></md-divider>
                         </div>
-                    </div>
 
-                </div>
+                    </div>
+                </form>
 
                 <md-content layout="row" ng-if="vm.etapaActual.actual_etapa.nombre=='E3'">
                     <md-switch ng-model="inputDisabled">
