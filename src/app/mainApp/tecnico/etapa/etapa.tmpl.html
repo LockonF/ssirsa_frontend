@@ -114,13 +114,14 @@
 
         <md-content class="md-padding" ng-if="vm.etapaActual.actual_etapa">
             <div layout="column" flex style="overflow-x: hidden;">
-                <div layout="row" layout-sm="column" layout-xs="column" layout-align=""
-                     ng-show="vm.insumos_loteUsados.length!=0 || vm.insumos_sinStock.lenght!=0"
-                     cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}"
-                     flex="100" layout-wrap>
-                    <form name="form2.insumosValidation">
+                <form name="form2.insumosValidation">
+                    <div layout="row" layout-sm="column" layout-xs="column" layout-align=""
+                         ng-show="vm.insumos_loteUsados.length!=0 || vm.insumos_sinStock.lenght!=0"
+                         cg-busy="{promise:vm.loadingPromise,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}"
+                         flex="100" layout-wrap>
 
-                    <div ng-repeat="insu in vm.insumos_loteUsados track by $index" flex="50">
+
+                        <div ng-repeat="insu in vm.insumos_loteUsados track by $index" flex="50">
                             <div column>
                                 <div layout="row" layout-align="center center">
                                     <div flex="20">
@@ -154,33 +155,33 @@
                                     </div>
 
 
-
                                 </div>
                                 <md-divider></md-divider>
                             </div>
 
-                    </div>
-
-                    </form>
-                    <md-divider></md-divider>
-                    <div ng-repeat="insu2 in vm.insumos_sinStock track by $index" flex="50"
-                         cg-busy="{promise:vm.promiseInsumos,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
-                        <div column>
-                            <div layout="row" layout-align="center center">
-                                <div flex="20">
-                                    <md-icon md-font-icon="fa fa-ban"></md-icon>
-                                    <b><span style="color: #FF1B28;" translate>ETAPA_SERVICIO.NOTSTOCK_INSUMO</span></b>
-                                </div>
-                                <div layout="column" flex>
-                                    <div><b translate>ETAPA_SERVICIO.INSUM </b>: {{insu2.nombre}}</div>
-                                </div>
-
-                            </div>
-                            <md-divider></md-divider>
                         </div>
-                    </div>
 
-                </div>
+
+                        <md-divider></md-divider>
+                        <div ng-repeat="insu2 in vm.insumos_sinStock track by $index" flex="50"
+                             cg-busy="{promise:vm.promiseInsumos,templateUrl:'app/mainApp/directives/loading_repeater.tmpl.html',wrapperClass:'cg-busy cg-busy-animation'}">
+                            <div column>
+                                <div layout="row" layout-align="center center">
+                                    <div flex="20">
+                                        <md-icon md-font-icon="fa fa-ban"></md-icon>
+                                        <b><span style="color: #FF1B28;" translate>ETAPA_SERVICIO.NOTSTOCK_INSUMO</span></b>
+                                    </div>
+                                    <div layout="column" flex>
+                                        <div><b translate>ETAPA_SERVICIO.INSUM </b>: {{insu2.nombre}}</div>
+                                    </div>
+
+                                </div>
+                                <md-divider></md-divider>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
 
                 <md-content layout="row" ng-if="vm.etapaActual.actual_etapa.nombre=='E3'">
                     <md-switch ng-model="inputDisabled">
