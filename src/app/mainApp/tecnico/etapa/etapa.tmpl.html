@@ -121,7 +121,7 @@
                         <div column>
                             <div layout="row" layout-align="center center">
                                 <div flex="20">
-                                    <md-switch flex class="md-primary" ng-disabled="insu.cantidad > insu.cantidadMax" ng-model="vm.insumos_loteUsados[$index].agregar"
+                                    <md-switch flex class="md-primary" ng-disabled="insu.error" ng-model="vm.insumos_loteUsados[$index].agregar"
                                                aria-label="Primary Switch">
                                     </md-switch>
                                 </div>
@@ -129,7 +129,7 @@
                                     <div><b translate>ETAPA_SERVICIO.INSUM </b>: {{insu.nombre}}</div>
                                 </div>
                                 <div ng-click="vm.validaMax($index)">
-                                    <md-input-container ng-if="insu.cantidad > 1">
+                                    <md-input-container ng-if="insu.cantidadMax > 1">
                                         <label>No. de {{insu.nombre}}</label>
                                         <div range-spinner
                                              range-min="1"
@@ -144,7 +144,7 @@
                                         </div>
 
                                     </md-input-container>
-                                    <div ng-if="insu.cantidadMax < insu.cantidad ">
+                                    <div ng-if="insu.error">
                                     <span style="color: #FF1B28;"> <b translate>MAIN.GENERAL.MAX </b><b>{{insu.cantidadMax}}</b></span>
                                     </div>
                                 </div>

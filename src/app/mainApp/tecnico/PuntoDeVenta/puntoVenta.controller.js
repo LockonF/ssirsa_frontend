@@ -259,6 +259,7 @@
 
                 vm.insumoLote.cantidad = elemento.cantidad;
                 vm.insumoLote.cantidadMax = elemento.cantidad;
+                vm.insumoLote.error=false;
                 vm.insumoLote.nombre = insulote.descripcion;
                 vm.insumoLote.notas = elemento.descripcion;
                 vm.insumoLote.agregar = false;
@@ -499,10 +500,18 @@
             vm.cancel();
         }
         function validaMax(index) {
-            if (vm.insumos_loteUsados[index].cantidad > vm.insumos_loteUsados[index].cantidadMax)
-                vm.insumos_loteUsados[index].agregar = false;
-        }
+            if (parseFloat(vm.insumos_loteUsados[index].cantidad) > parseFloat(vm.insumos_loteUsados[index].cantidadMax)){
 
+                vm.insumos_loteUsados[index].agregar = false;
+                vm.insumos_loteUsados[index].error = true;
+
+            }
+            else{
+                vm.insumos_loteUsados[index].error = false;
+
+            }
+
+        }
     }
 
 })();
