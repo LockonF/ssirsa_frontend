@@ -77,6 +77,7 @@
         vm.checkFinished = checkFinished;
         vm.next=next;
         vm.prev=prev;
+        vm.validaMax=validaMax;
 
 
         // Funciones
@@ -257,7 +258,8 @@
                 elemento = filterInsumosLotebyType(insulote.tipos_equipo);
 
                 vm.insumoLote.cantidad = elemento.cantidad;
-
+                vm.insumoLote.cantidadMax = elemento.cantidad;
+                vm.insumoLote.error=false;
                 vm.insumoLote.nombre = insulote.descripcion;
                 vm.insumoLote.notas = elemento.descripcion;
                 vm.insumoLote.agregar = false;
@@ -431,10 +433,10 @@
             var fecha=null;
             var hora=null;
             var promise=null;
-            console.log(vm.insumos_loteUsados)
+
             vm.filtradoNoSelected=_.where(vm.insumos_loteUsados,{agregar:true});
-            console.log(vm.filtradoNoSelected)  ;
-            vm.puntoVenta.insumos_lote =[];
+
+            vm.puntoVenta.insumos_lote =vm.filtradoNoSelected;
             vm.puntoVenta.modelo=vm.modelo.id;
             if (vm.reporte!=null) {
                  fecha = moment(vm.reporte.fecha).subtract(1,"day");
@@ -497,8 +499,19 @@
             }
             vm.cancel();
         }
+        function validaMax(index) {
+            if (parseFloat(vm.insumos_loteUsados[index].cantidad) > parseFloat(vm.insumos_loteUsados[index].cantidadMax)){
 
+                vm.insumos_loteUsados[index].agregar = false;
+                vm.insumos_loteUsados[index].error = true;
 
+            }
+            else{
+                vm.insumos_loteUsados[index].error = false;
+
+            }
+
+        }
     }
 
 })();

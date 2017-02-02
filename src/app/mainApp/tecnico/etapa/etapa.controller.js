@@ -11,6 +11,7 @@
 
     function etapaController(Cabinet, Helper, Servicios, $mdDialog, $scope, Insumo, Translate, toastr) {
         var vm = this;
+       
         vm.activate = activate();
 
         //Inicializando Variables
@@ -22,7 +23,7 @@
             siguiente_etapa: ''
 
         };
-        vm.disabledBuscar=false;
+        vm.disabledBuscar = false;
         vm.diagnosticoEntrada = {}
         vm.showInsumosSection = true;
         vm.catalogoInsumos = null;//array con todos los caatalogos de insumo disponibles de la etapa
@@ -81,6 +82,7 @@
         vm.AddInsumoArray = AddInsumoArray;
         vm.DeleteInsumoArray = DeleteInsumoArray;
         vm.cleanInsumo = cleanInsumo;
+        vm.validaMax=validaMax;
 
 
         // Funciones
@@ -138,7 +140,7 @@
         function buscar() {
 
             cancelwithoutId();
-            vm.disabledBuscar=true;
+            vm.disabledBuscar = true;
             if (vm.idCabinet != null) {
                 var promise = Cabinet.get(vm.idCabinet);
                 promise.then(function (res) {
@@ -201,7 +203,7 @@
                                 if (vm.etapaActual.actual_etapa.nombre == 'E4') {
                                     vm.diagnostico.tipo = 'salida';
                                 }
-                                vm.etapaActual.validado =true;
+                                vm.etapaActual.validado = true;
 
                             }).catch(function (res) {
                                 if (res.status == 404)
@@ -277,13 +279,13 @@
             else {
                 vm.loadingPromise = Servicios.BusquedaCatalogoTypeStep(data).then(function (res) {
                     //vm.insumosLote = res;
-                    vm.insumosLote = Helper.filterDeleted(res,true);
+                    vm.insumosLote = Helper.filterDeleted(res, true);
                     vm.insumosLote = Helper.sortByAttribute(vm.insumosLote, 'descripcion');
                     transformArrayCatalogoInsumos();
-                    vm.disabledBuscar=false;
+                    vm.disabledBuscar = false;
                 }).catch(function (res) {
                     notifyError(res.status);
-                    vm.disabledBuscar=false;
+                    vm.disabledBuscar = false;
                 });
             }
         }
@@ -297,6 +299,7 @@
 
         }
 
+
         function transformArrayCatalogoInsumos() {
             var elemento;
             vm.insumosLote.forEach(function (insulote, index) {
@@ -306,18 +309,19 @@
                 elemento = filterInsumosLotebyType(insulote.tipos_equipo);
 
                 vm.insumoLote.cantidad = elemento.cantidad;
-
+                vm.insumoLote.cantidadMax = elemento.cantidad;
+                vm.insumoLote.error=false;
                 vm.insumoLote.nombre = insulote.descripcion;
                 vm.insumoLote.notas = elemento.descripcion;
                 vm.insumoLote.agregar = false;
-                if (parseFloat(insulote.cantidad)>= parseFloat(vm.insumoLote.cantidad)) {
+                if (parseFloat(insulote.cantidad) >= parseFloat(vm.insumoLote.cantidad)) {
 
                     vm.insumos_loteUsados.push(vm.insumoLote);
                     vm.insumoLote = null;
                     vm.insumoLote = {};
                 }
                 else {
-                  
+
                     vm.insumos_sinStock.push(vm.insumoLote);
                     vm.insumoLote = null;
                     vm.insumoLote = {};
@@ -478,9 +482,9 @@
             vm.etapaActual.insumos = [];
 
             vm.etapaActual.insumos.push(vm.compresor);
-            vm.etapaActual.insumos[0].no_serie=vm.compresor.no_serie;
-            vm.etapaActual.insumos[0].notas= vm.compresor.notas
-            vm.etapaActual.insumos[0].cantidad=1;
+            vm.etapaActual.insumos[0].no_serie = vm.compresor.no_serie;
+            vm.etapaActual.insumos[0].notas = vm.compresor.notas
+            vm.etapaActual.insumos[0].cantidad = 1;
 
             if (vm.etapaActual.insumos[0].no_serie != null) {
 
@@ -516,9 +520,9 @@
                 siguiente_etapa: ''
 
             };
-            vm.filtradoNoSelected=[];
-            vm.disabledBuscar=false;
-            vm.disabledBuscar=false;
+            vm.filtradoNoSelected = [];
+            vm.disabledBuscar = false;
+            vm.disabledBuscar = false;
             vm.compresor = {
                 no_serie: '',
                 notas: '',
@@ -534,7 +538,7 @@
             vm.diagnostico = null;// Informacion del diagnostico que propicio que entrara a un proceso de servicio tecnico
             vm.etapa = null;
             vm.etapaActual = {};
-            vm.etapaActual.validado =true;
+            vm.etapaActual.validado = true;
             vm.insumo = {
                 id: "",
                 nombre: "",
@@ -549,7 +553,7 @@
             vm.insumos_sinStock = [];
             vm.dataEtapa = null;//Variable que posera los datos de la etapa para el precargado de Template (id etapa, idTipoEquipo)
             vm.firstEtapa = {};
-            vm.showInsumo=false;
+            vm.showInsumo = false;
             $scope.form2.Buscar.$setPristine();
             $scope.form2.Buscar.$setUntouched();
             $scope.form2.sigStep.$setPristine();
@@ -566,14 +570,14 @@
                 siguiente_etapa: ''
 
             }
-            vm.filtradoNoSelected=[];
-            vm.showInsumo=false;
+            vm.filtradoNoSelected = [];
+            vm.showInsumo = false;
             vm.compresor = {
                 no_serie: '',
                 notas: '',
                 cantidad: 1
             };
-            vm.disabledBuscar=false
+            vm.disabledBuscar = false
             vm.showInsumosSection = true;
             vm.showInsumosSection = true;
             vm.catalogoInsumos = null;//array con todos los caatalogos de insumo disponibles de la etapa
@@ -586,7 +590,7 @@
             vm.diagnostico = null;// Informacion del diagnostico que propicio que entrara a un proceso de servicio tecnico
             vm.etapa = null;
             vm.etapaActual = {};
-            vm.etapaActual.validado =true;
+            vm.etapaActual.validado = true;
             vm.insumo = {
                 id: "",
                 nombre: "",
@@ -605,6 +609,7 @@
             $scope.form2.Buscar.$setUntouched();
             $scope.form2.sigStep.$setPristine();
             $scope.form2.sigStep.$setUntouched();
+           
 
 
         }
@@ -678,7 +683,7 @@
                 eliminaNoSeleccionados();
 
 
-                vm.filtradoNoSelected=_.where(vm.insumos_loteUsados,{agregar:true});
+                vm.filtradoNoSelected = _.where(vm.insumos_loteUsados, {agregar: true});
                 vm.etapaActual.insumos_lote = vm.filtradoNoSelected;
                 var promise = Servicios.crearEtapaServicio(vm.etapaActual);
                 promise.then(function (res) {
@@ -825,6 +830,21 @@
                 }
             }
         }
+        function validaMax(index) {
+            if (parseFloat(vm.insumos_loteUsados[index].cantidad) > parseFloat(vm.insumos_loteUsados[index].cantidadMax)){
+
+                vm.insumos_loteUsados[index].agregar = false;
+                vm.insumos_loteUsados[index].error = true;
+
+
+            }
+            else{
+                vm.insumos_loteUsados[index].error = false;
+
+            }
+
+        }
+
 
 
     }
