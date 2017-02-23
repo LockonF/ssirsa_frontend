@@ -11,7 +11,7 @@
 
     function etapaController(Cabinet, Helper, Servicios, $mdDialog, $scope, Insumo, Translate, toastr) {
         var vm = this;
-       
+
         vm.activate = activate();
 
         //Inicializando Variables
@@ -57,6 +57,7 @@
             notas: '',
             cantidad: 1
         }
+        vm.inputDisabled=false;
 
         //Declaracion de Funciones
 
@@ -314,9 +315,15 @@
                 vm.insumoLote.nombre = insulote.descripcion;
                 vm.insumoLote.notas = elemento.descripcion;
                 vm.insumoLote.agregar = false;
+                vm.insumoLote.tipo=insulote.tipo;
+                console.log(insulote.tipo);
                 if (parseFloat(insulote.cantidad) >= parseFloat(vm.insumoLote.cantidad)) {
-
-                    vm.insumos_loteUsados.push(vm.insumoLote);
+                    if(vm.insumoLote.tipo==='L'||vm.insumoLote.tipo==='l'){
+                        vm.insumos_loteUsados.push(vm.insumoLote);
+                    }
+                    if(vm.insumoLote.tipo==='U'||vm.insumoLote.tipo==='u'){
+                        vm.etapaActual.insumos.push(vm.insumoLote);
+                    }
                     vm.insumoLote = null;
                     vm.insumoLote = {};
                 }
@@ -337,6 +344,8 @@
         function crearInsumo() {
             if (vm.etapaActual.insumos[0].no_serie) {
                 vm.etapaActual.insumos[0].cantidad = 1;
+                vm.etapaActual.insumo[0].agregar=vm.inputDisabled;
+                vm.etapaActual.insumo[0].catalogo=vm.etapaActual.insumo[0].id;
                 vm.etapaActual.validado = false;
                 vm.crearEtapaServicio();
             }
@@ -414,10 +423,9 @@
                 if (vm.catalogoSelected.tipo = "L") {
 
                     insumoAUsar = _.findWhere(insumotmp, {"usado": true});
+                    vm.insumo.catalogo = catalogoSelected.id;
                 }
-
                 vm.insumo.id = insumoAUsar.id;
-                vm.insumo.catalogo = insumoAUsar.catalogo;
                 vm.insumo.nombre = vm.catalogoSelected.descripcion;
 
                 add();
@@ -513,6 +521,7 @@
         }
 
         function cancelwithoutId() {
+            vm.inputDisabled=false;
             vm.etapa = {
                 diagnostico: '',
                 validado: false,
@@ -563,6 +572,7 @@
         }
 
         function cancel() {
+            vm.inputDisabled=false;
             vm.etapa = {
                 diagnostico: '',
                 validado: false,
@@ -609,7 +619,7 @@
             $scope.form2.Buscar.$setUntouched();
             $scope.form2.sigStep.$setPristine();
             $scope.form2.sigStep.$setUntouched();
-           
+
 
 
         }
