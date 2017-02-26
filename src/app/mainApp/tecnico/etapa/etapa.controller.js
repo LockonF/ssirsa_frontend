@@ -710,8 +710,8 @@
                     vm.cancel();
                 }).catch(function (res) {
                     if(res.status==400){
-                        vm.errorMessage=res;// checar condicion de campo de res
-                        console.log(res);
+                        vm.errorMessage=res.data.errors[0].message;// checar condicion de campo de res
+                        console.log(res.data.errors[0].message);
                     }
                     notifyError(res.status);
                 });
