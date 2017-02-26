@@ -322,6 +322,8 @@
                         vm.insumos_loteUsados.push(vm.insumoLote);
                     }
                     if(vm.insumoLote.tipo==='U'||vm.insumoLote.tipo==='u'){
+                        console.log("Tengo Insumo Unico y es");
+                        console.log(vm.insumoLote);
                         vm.etapaActual.insumos.push(vm.insumoLote);
                     }
                     vm.insumoLote = null;
@@ -344,9 +346,9 @@
         function crearInsumo() {
             if (vm.etapaActual.insumos[0].no_serie) {
                 vm.etapaActual.insumos[0].cantidad = 1;
-                vm.etapaActual.insumo[0].agregar=vm.inputDisabled;
-                vm.etapaActual.insumo[0].catalogo=vm.etapaActual.insumo[0].id;
-                vm.etapaActual.validado = false;
+                vm.etapaActual.insumos[0].agregar=vm.inputDisabled;
+                vm.etapaActual.insumos[0].catalogo=vm.etapaActual.insumos[0].id;
+                //vm.etapaActual.validado = false;
                 vm.crearEtapaServicio();
             }
         }
@@ -427,10 +429,7 @@
                 }
                 vm.insumo.id = insumoAUsar.id;
                 vm.insumo.nombre = vm.catalogoSelected.descripcion;
-
                 add();
-
-
             }
 
         }
@@ -487,12 +486,12 @@
         function AddInsumoArray() {
 
             vm.showInsumo = true;
-            vm.etapaActual.insumos = [];
-
-            vm.etapaActual.insumos.push(vm.compresor);
+            //vm.etapaActual.insumos.push(vm.compresor);
             vm.etapaActual.insumos[0].no_serie = vm.compresor.no_serie;
             vm.etapaActual.insumos[0].notas = vm.compresor.notas
             vm.etapaActual.insumos[0].cantidad = 1;
+            vm.etapaActual.insumos[0].catalogo=vm.etapaActual.insumos[0].id;
+            vm.etapaActual.insumos[0].agregar=true;
 
             if (vm.etapaActual.insumos[0].no_serie != null) {
 
@@ -510,7 +509,11 @@
         }
 
         function DeleteInsumoArray() {
-            vm.etapaActual.insumos = null;
+            vm.etapaActual.insumos[0].no_serie ="";
+            vm.etapaActual.insumos[0].notas =""
+            vm.etapaActual.insumos[0].cantidad = "";
+            vm.etapaActual.insumos[0].catalogo="";
+            vm.etapaActual.insumos[0].agregar=false;
             vm.showInsumo = false;
         }
 
@@ -619,9 +622,6 @@
             $scope.form2.Buscar.$setUntouched();
             $scope.form2.sigStep.$setPristine();
             $scope.form2.sigStep.$setUntouched();
-
-
-
         }
 
 
@@ -695,6 +695,11 @@
 
                 vm.filtradoNoSelected = _.where(vm.insumos_loteUsados, {agregar: true});
                 vm.etapaActual.insumos_lote = vm.filtradoNoSelected;
+                if( vm.etapaActual.insumos[0].agregar==false){
+
+                    vm.etapaActual.insumos=[];
+                }
+
                 var promise = Servicios.crearEtapaServicio(vm.etapaActual);
                 promise.then(function (res) {
                     toastr.success(vm.successTitle, vm.successCreateMessage);
@@ -716,6 +721,10 @@
                     vm.etapaActual = res;
                     vm.cancel();
                 }).catch(function (res) {
+                    if(res.status==400){
+                        vm.errorMessage=res;// checar condicion de campo de res
+                        console.log(res);
+                    }
                     notifyError(res.status);
                 });
 

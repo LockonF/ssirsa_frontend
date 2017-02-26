@@ -183,7 +183,7 @@
                     </div>
                 </form>
 
-                <md-content layout="row" ng-if="vm.etapaActual.actual_etapa.nombre=='E3'">
+                <md-content layout="row" ng-if="vm.etapaActual.actual_etapa.nombre=='E3'&& vm.etapaActual.insumos">
                     <md-switch ng-model="vm.inputDisabled">
                         <span translate>ETAPA_SERVICIO.ADD_MICRO</span>
                     </md-switch>
@@ -250,4 +250,7 @@
     </md-content>
 
     </md-content>
+</div>
+<div>
+    <md-card><span>{{vm.etapaActual.insumos}}</span></md-card>
 </div>
