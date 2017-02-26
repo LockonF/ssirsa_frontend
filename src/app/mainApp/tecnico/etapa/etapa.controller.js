@@ -57,6 +57,7 @@
             notas: '',
             cantidad: 1
         }
+        vm.insumoUnicoData;
         vm.inputDisabled=false;
 
         //Declaracion de Funciones
@@ -78,7 +79,6 @@
         vm.eliminarInsumo = eliminarInsumo;
         vm.showDiagnosticoDialog = showDiagnosticoDialog;
         vm.showPreCheckDialog = showPreCheckDialog;
-        vm.crearInsumo = crearInsumo;
         vm.eliminarSinModal = eliminarSinModal;
         vm.AddInsumoArray = AddInsumoArray;
         vm.DeleteInsumoArray = DeleteInsumoArray;
@@ -324,7 +324,7 @@
                     if(vm.insumoLote.tipo==='U'||vm.insumoLote.tipo==='u'){
                         console.log("Tengo Insumo Unico y es");
                         console.log(vm.insumoLote);
-                        vm.etapaActual.insumos.push(vm.insumoLote);
+                        vm.insumoUnicoData=vm.insumoLote;
                     }
                     vm.insumoLote = null;
                     vm.insumoLote = {};
@@ -342,17 +342,6 @@
                 notifyError(998);
             }
         }
-
-        function crearInsumo() {
-            if (vm.etapaActual.insumos[0].no_serie) {
-                vm.etapaActual.insumos[0].cantidad = 1;
-                vm.etapaActual.insumos[0].agregar=vm.inputDisabled;
-                vm.etapaActual.insumos[0].catalogo=vm.etapaActual.insumos[0].id;
-                //vm.etapaActual.validado = false;
-                vm.crearEtapaServicio();
-            }
-        }
-
         function showDiagnosticoDialog(ev) {
             vm.cabinetid = vm.idCabinet;
             $mdDialog.show({
@@ -484,13 +473,14 @@
         }
 
         function AddInsumoArray() {
-
             vm.showInsumo = true;
-            //vm.etapaActual.insumos.push(vm.compresor);
+            vm.etapaActual.insumos = [];
+
+            vm.etapaActual.insumos.push(vm.compresor);
             vm.etapaActual.insumos[0].no_serie = vm.compresor.no_serie;
             vm.etapaActual.insumos[0].notas = vm.compresor.notas
             vm.etapaActual.insumos[0].cantidad = 1;
-            vm.etapaActual.insumos[0].catalogo=vm.etapaActual.insumos[0].id;
+            vm.etapaActual.insumos[0].catalogo=vm.insumoUnicoData.id;
             vm.etapaActual.insumos[0].agregar=true;
 
             if (vm.etapaActual.insumos[0].no_serie != null) {
@@ -509,11 +499,7 @@
         }
 
         function DeleteInsumoArray() {
-            vm.etapaActual.insumos[0].no_serie ="";
-            vm.etapaActual.insumos[0].notas =""
-            vm.etapaActual.insumos[0].cantidad = "";
-            vm.etapaActual.insumos[0].catalogo="";
-            vm.etapaActual.insumos[0].agregar=false;
+            vm.etapaActual.insumos = null;
             vm.showInsumo = false;
         }
 
@@ -566,6 +552,7 @@
             vm.dataEtapa = null;//Variable que posera los datos de la etapa para el precargado de Template (id etapa, idTipoEquipo)
             vm.firstEtapa = {};
             vm.showInsumo = false;
+            vm.insumoUnicoData=null;
             $scope.form2.Buscar.$setPristine();
             $scope.form2.Buscar.$setUntouched();
             $scope.form2.sigStep.$setPristine();
@@ -618,6 +605,7 @@
             vm.insumos_sinStock = [];
             vm.dataEtapa = null;//Variable que posera los datos de la etapa para el precargado de Template (id etapa, idTipoEquipo)
             vm.firstEtapa = {};
+            vm.insumoUnicoData=null;
             $scope.form2.Buscar.$setPristine();
             $scope.form2.Buscar.$setUntouched();
             $scope.form2.sigStep.$setPristine();
