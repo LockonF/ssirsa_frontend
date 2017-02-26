@@ -61,6 +61,7 @@
         vm.insumos_loteUsados = [];//Arreglo que ya posee el arreglo como es necesario para agregar los insumos al formato de arreglo para agregarlos a la etapa
         vm.insumos_sinStock = [];
         vm.puntoVenta = {insumos:[]};
+        vm.insumoUnicoData;
 
         //Declaracion de Funciones
 
@@ -70,7 +71,6 @@
         vm.eliminarEtapaServicio = eliminarEtapaServicio;//
         vm.editar = editar;
         vm.getInsumosLote = getInsumosLote;
-        vm.crearInsumo = crearInsumo;
         vm.AddInsumoArray = AddInsumoArray;
         vm.DeleteInsumoArray = DeleteInsumoArray;
         vm.filterModels = filterModels;
@@ -264,7 +264,14 @@
                 vm.insumoLote.notas = elemento.descripcion;
                 vm.insumoLote.agregar = false;
                 if (parseFloat(insulote.cantidad) >= parseFloat(vm.insumoLote.cantidad)) {
-                    vm.insumos_loteUsados.push(vm.insumoLote);
+                    if(vm.insumoLote.tipo==='L'||vm.insumoLote.tipo==='l'){
+                        vm.insumos_loteUsados.push(vm.insumoLote);
+                    }
+                    if(vm.insumoLote.tipo==='U'||vm.insumoLote.tipo==='u'){
+                        console.log("Tengo Insumo Unico y es");
+                        console.log(vm.insumoLote);
+                        vm.insumoUnicoData=vm.insumoLote;
+                    }
                 }
                 else {
                     vm.insumos_sinStock.push(vm.insumoLote);
@@ -277,12 +284,6 @@
             }
         }
 
-        function crearInsumo() {
-            if (vm.puntoVenta.insumos[0].no_serie) {
-                vm.puntoVenta.insumos[0].cantidad = 1;
-                vm.crearEtapaServicio();
-            }
-        }
 
 
         function notifyError(status) {
@@ -331,14 +332,19 @@
             vm.showInsumo = true;
             if (vm.puntoVenta.insumos[0].no_serie != null) {
                 vm.puntoVenta.insumos[0].cantidad = 1;
+                vm.puntoVenta.insumos[0].catalogo=vm.insumoUnicoData.id;
+                vm.puntoVenta.insumos[0].agregar=true;
                 notifyError(1001);
             }
+
+
         }
 
         function DeleteInsumoArray() {
             vm.puntoVenta.insumos[0].no_serie = null;
             vm.puntoVenta.insumos[0].notas = null;
             vm.puntoVenta.insumos[0].cantidad = null;
+            vm.puntoVenta.insumos[0].agregar=false;
             vm.showInsumo = false;
         }
 
@@ -385,6 +391,7 @@
             vm.insumoLote = {};
             vm.insumos_loteUsados = [];//Arreglo que ya posee el arreglo como es necesario para agregar los insumos al formato de arreglo para agregarlos a la etapa
             vm.insumos_sinStock = [];
+            vm.insumoUnicoData=null;
             vm.puntoVenta = {insumos:[]};
 
             $scope.generalInfo.$setPristine();
@@ -437,7 +444,12 @@
             vm.filtradoNoSelected=_.where(vm.insumos_loteUsados,{agregar:true});
 
             vm.puntoVenta.insumos_lote =vm.filtradoNoSelected;
+            if( vm.puntoVenta.insumos[0].agregar==false){
+
+                vm.puntoVenta.insumos=[];
+            }
             vm.puntoVenta.modelo=vm.modelo.id;
+
             if (vm.reporte!=null) {
                  fecha = moment(vm.reporte.fecha).subtract(1,"day");
                  hora = moment(vm.reporte.hora);
@@ -468,6 +480,10 @@
                 eliminaNoSeleccionados();
                 vm.filtradoNoSelected=_.where(vm.insumos_loteUsados,{agregar:true});
                 vm.puntoVenta.insumos_lote = vm.filtradoNoSelected;
+                if( vm.puntoVenta.insumos[0].agregar==false){
+
+                    vm.puntoVenta.insumos=[];
+                }
                  promise = PuntoDeVenta.create(vm.puntoVenta);
                 promise.then(function (res) {
                     toastr.success(vm.successTitle, vm.successCreateMessage);
