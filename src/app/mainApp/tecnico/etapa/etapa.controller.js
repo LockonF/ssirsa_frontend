@@ -316,14 +316,13 @@
                 vm.insumoLote.notas = elemento.descripcion;
                 vm.insumoLote.agregar = false;
                 vm.insumoLote.tipo=insulote.tipo;
-                console.log(insulote.tipo);
+
                 if (parseFloat(insulote.cantidad) >= parseFloat(vm.insumoLote.cantidad)) {
                     if(vm.insumoLote.tipo==='L'||vm.insumoLote.tipo==='l'){
                         vm.insumos_loteUsados.push(vm.insumoLote);
                     }
                     if(vm.insumoLote.tipo==='U'||vm.insumoLote.tipo==='u'){
-                        console.log("Tengo Insumo Unico y es");
-                        console.log(vm.insumoLote);
+
                         vm.insumoUnicoData=vm.insumoLote;
                     }
                     vm.insumoLote = null;
@@ -714,7 +713,7 @@
                 }).catch(function (res) {
                     if(res.status==400){
                         vm.errorMessage=res.data.errors[0].message;// checar condicion de campo de res
-                        console.log(res.data.errors[0].message);
+                       
                     }
                     notifyError(res.status);
                 });
