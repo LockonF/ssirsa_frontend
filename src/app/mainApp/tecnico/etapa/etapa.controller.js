@@ -683,7 +683,10 @@
 
                 vm.filtradoNoSelected = _.where(vm.insumos_loteUsados, {agregar: true});
                 vm.etapaActual.insumos_lote = vm.filtradoNoSelected;
-                if( vm.etapaActual.insumos[0].agregar==false){
+                if(vm.etapaActual.insumos==undefined){
+                    vm.etapaActual.insumos=[];
+                }
+                if( vm.etapaActual.insumos.length!=0 && vm.etapaActual.insumos[0].agregar==false){
 
                     vm.etapaActual.insumos=[];
                 }
