@@ -320,10 +320,10 @@
                 if (parseFloat(insulote.cantidad) >= parseFloat(vm.insumoLote.cantidad)) {
                     if(vm.insumoLote.tipo==='L'||vm.insumoLote.tipo==='l'){
                         vm.insumos_loteUsados.push(vm.insumoLote);
-                        console.log(vm.insumoLote);
+
                     }
                     if(vm.insumoLote.tipo==='U'||vm.insumoLote.tipo==='u'){
-                        console.log(vm.insumoLote);
+                       
                         vm.insumoUnicoData[0]=vm.insumoLote;
                     }
                     vm.insumoLote = null;
