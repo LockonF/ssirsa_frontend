@@ -357,15 +357,16 @@
                                         <div layout="column" flex>
                                             <form name="insumoPuntoVenta">
                                                 <div layout="row" layout-sm="column" layout-xs="column" flex
-                                                     layout-md="column" ng-if="vm.puntoVenta">
+                                                     layout-md="column" ng-if="vm.puntoVenta && vm.insumoUnicoData">
                                                     <md-switch ng-model="inputDisabled">
                                                         <span translate>ETAPA_SERVICIO.ADD_MICRO</span>
                                                     </md-switch>
                                                     <md-input-container flex
-                                                                        ng-if="inputDisabled||vm.puntoVenta.insumos[0].no_serie">
+                                                                        ng-if="inputDisabled">
                                                         <label><span translate>ETAPA_SERVICIO.SCAN</span></label>
                                                         <input type="text" ng-model="vm.puntoVenta.insumos[0].no_serie"
                                                                ng-required="vm.puntoVenta.insumos[0].no_serie==null">
+                                                        <span>{{vm.puntoVenta.insumos[0].no_serie}}</span>
                                                     </md-input-container>
                                                     <md-input-container flex ng-if="inputDisabled">
                                                         <label><span translate>ETAPA_SERVICIO.NOTES</span></label>
