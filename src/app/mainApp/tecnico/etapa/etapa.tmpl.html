@@ -183,7 +183,7 @@
                     </div>
                 </form>
 
-                <md-content layout="row" ng-if="vm.etapaActual.actual_etapa.nombre=='E3'&& vm.insumoUnicoData">
+                <md-content layout="row" ng-if="vm.etapaActual.actual_etapa.nombre=='E3'&& vm.insumoUnicoData[0]">
                     <md-switch ng-model="vm.inputDisabled">
                         <span translate>ETAPA_SERVICIO.ADD_MICRO</span>
                     </md-switch>
@@ -239,7 +239,11 @@
         </md-content>
 
     </md-content>
+    <md-content layout="row" ng-if="vm.etapaActual.actual_etapa.nombre=='E3'&& !vm.insumoUnicoData[0]">
+        <b><span style="color: #FF1B28;" translate>ETAPA_SERVICIO.NOT_INSUMOUNICO</span></b>
+    </md-content>
     <md-content ng-if="vm.etapaActual.actual_etapa">
+
         <md-input-container layout-fill flex>
             <md-switch class="md-primary" ng-model="vm.etapaActual.validado"
                        aria-label="Se valida la etapa para avanzar a la siguiente fase"
@@ -251,4 +255,5 @@
 
     </md-content>
 </div>
+
 

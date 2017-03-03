@@ -57,7 +57,7 @@
             notas: '',
             cantidad: 1
         }
-        vm.insumoUnicoData;
+        vm.insumoUnicoData=[];
         vm.inputDisabled=false;
 
         //Declaracion de Funciones
@@ -320,10 +320,11 @@
                 if (parseFloat(insulote.cantidad) >= parseFloat(vm.insumoLote.cantidad)) {
                     if(vm.insumoLote.tipo==='L'||vm.insumoLote.tipo==='l'){
                         vm.insumos_loteUsados.push(vm.insumoLote);
+                        console.log(vm.insumoLote);
                     }
                     if(vm.insumoLote.tipo==='U'||vm.insumoLote.tipo==='u'){
-
-                        vm.insumoUnicoData=vm.insumoLote;
+                        console.log(vm.insumoLote);
+                        vm.insumoUnicoData[0]=vm.insumoLote;
                     }
                     vm.insumoLote = null;
                     vm.insumoLote = {};
@@ -479,7 +480,7 @@
             vm.etapaActual.insumos[0].no_serie = vm.compresor.no_serie;
             vm.etapaActual.insumos[0].notas = vm.compresor.notas
             vm.etapaActual.insumos[0].cantidad = 1;
-            vm.etapaActual.insumos[0].catalogo=vm.insumoUnicoData.id;
+            vm.etapaActual.insumos[0].catalogo=vm.insumoUnicoData[0].id;
             vm.etapaActual.insumos[0].agregar=true;
 
             if (vm.etapaActual.insumos[0].no_serie != null) {
@@ -551,7 +552,7 @@
             vm.dataEtapa = null;//Variable que posera los datos de la etapa para el precargado de Template (id etapa, idTipoEquipo)
             vm.firstEtapa = {};
             vm.showInsumo = false;
-            vm.insumoUnicoData=null;
+            vm.insumoUnicoData=[];
             $scope.form2.Buscar.$setPristine();
             $scope.form2.Buscar.$setUntouched();
             $scope.form2.sigStep.$setPristine();
@@ -604,7 +605,7 @@
             vm.insumos_sinStock = [];
             vm.dataEtapa = null;//Variable que posera los datos de la etapa para el precargado de Template (id etapa, idTipoEquipo)
             vm.firstEtapa = {};
-            vm.insumoUnicoData=null;
+            vm.insumoUnicoData=[];
             $scope.form2.Buscar.$setPristine();
             $scope.form2.Buscar.$setUntouched();
             $scope.form2.sigStep.$setPristine();
