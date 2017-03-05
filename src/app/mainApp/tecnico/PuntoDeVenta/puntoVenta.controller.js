@@ -270,7 +270,7 @@
 
                     //vm.insumos_loteUsados.push(vm.insumoLote);
                     //Verificar porque no se manda el tipo de insumo en el promise
-                    console.log(vm.insumoLote)
+                   
                     if(vm.insumoLote.tipo==='L'||vm.insumoLote.tipo==='l'){
                         vm.insumos_loteUsados.push(vm.insumoLote);
                     }
@@ -346,7 +346,7 @@
             vm.showInsumo = true;
             if (vm.puntoVenta.insumos[0].no_serie != null) {
                 vm.puntoVenta.insumos[0].cantidad = 1;
-                vm.puntoVenta.insumos[0].catalogo=vm.insumoUnicoData.id;
+                vm.puntoVenta.insumos[0].catalogo=vm.insumoUnicoData.catalogo_insumos;
                 vm.puntoVenta.insumos[0].agregar=true;
                 notifyError(1001);
             }
@@ -498,6 +498,7 @@
 
                     vm.puntoVenta.insumos=[];
                 }
+
                  promise = PuntoDeVenta.create(vm.puntoVenta);
                 promise.then(function (res) {
                     toastr.success(vm.successTitle, vm.successCreateMessage);
@@ -508,7 +509,7 @@
 
 
                     vm.error=res.data.errors[0].message;
-                   /// console.log(res.data.errors[0].message);
+
                     notifyError(res.status);
 
 

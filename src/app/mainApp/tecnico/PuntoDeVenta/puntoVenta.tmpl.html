@@ -355,6 +355,9 @@
                                      layout-align="start stretch" flex="100">
                                     <form name="observationsData" tri-wizard-form="">
                                         <div layout="column" flex>
+                                            <md-content layout="row" ng-if="vm.etapaActual.actual_etapa.nombre=='E3'&& !vm.insumoUnicoData">
+                                                <b><span style="color: #FF1B28;" translate>ETAPA_SERVICIO.NOT_INSUMOUNICO</span></b>
+                                            </md-content>
                                             <form name="insumoPuntoVenta">
                                                 <div layout="row" layout-sm="column" layout-xs="column" flex
                                                      layout-md="column" ng-if="vm.puntoVenta && vm.insumoUnicoData">
@@ -510,3 +513,4 @@
         </div>
     </div>
 </md-card>
+
