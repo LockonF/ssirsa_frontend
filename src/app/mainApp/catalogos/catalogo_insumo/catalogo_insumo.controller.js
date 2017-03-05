@@ -249,7 +249,12 @@
                 cancel();
                 listCatalogoInsumos();
             }).catch(function(err){
-                toastr.error(vm.errorMessage,vm.errorTitle);
+                if(err.status==400 && err.data.message!=undefined) {
+                    var tipos=err.data.items.map(function(obj){return obj;}).join(', ');
+                    toastr.error(err.data.message[0]+ " : "+tipos, vm.errorTitle);
+                }else {
+                    toastr.error(vm.errorMessage, vm.errorTitle);
+                }
             });
         }
 
@@ -261,8 +266,13 @@
                 listCatalogoInsumos();
                 toastr.success(vm.successCreateMessage,vm.successTitle);
                 cancel();
-            }).catch(function(){
-                toastr.error(vm.errorMessage,vm.errorTitle);
+            }).catch(function(err){
+                if(err.status==400 && err.data.message!=undefined) {
+                    var tipos=err.data.items.map(function(obj){return obj;}).join(', ');
+                    toastr.error(err.data.message[0]+ " : "+tipos, vm.errorTitle);
+                }else {
+                    toastr.error(vm.errorMessage, vm.errorTitle);
+                }
             });
         }
 
