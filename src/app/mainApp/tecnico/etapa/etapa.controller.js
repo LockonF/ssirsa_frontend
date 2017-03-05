@@ -11,7 +11,7 @@
 
     function etapaController(Cabinet, Helper, Servicios, $mdDialog, $scope, Insumo, Translate, toastr) {
         var vm = this;
-       
+
         vm.activate = activate();
 
         //Inicializando Variables
@@ -57,6 +57,8 @@
             notas: '',
             cantidad: 1
         }
+        vm.insumoUnicoData=[];
+        vm.inputDisabled=false;
 
         //Declaracion de Funciones
 
@@ -77,7 +79,6 @@
         vm.eliminarInsumo = eliminarInsumo;
         vm.showDiagnosticoDialog = showDiagnosticoDialog;
         vm.showPreCheckDialog = showPreCheckDialog;
-        vm.crearInsumo = crearInsumo;
         vm.eliminarSinModal = eliminarSinModal;
         vm.AddInsumoArray = AddInsumoArray;
         vm.DeleteInsumoArray = DeleteInsumoArray;
@@ -314,9 +315,17 @@
                 vm.insumoLote.nombre = insulote.descripcion;
                 vm.insumoLote.notas = elemento.descripcion;
                 vm.insumoLote.agregar = false;
-                if (parseFloat(insulote.cantidad) >= parseFloat(vm.insumoLote.cantidad)) {
+                vm.insumoLote.tipo=insulote.tipo;
 
-                    vm.insumos_loteUsados.push(vm.insumoLote);
+                if (parseFloat(insulote.cantidad) >= parseFloat(vm.insumoLote.cantidad)) {
+                    if(vm.insumoLote.tipo==='L'||vm.insumoLote.tipo==='l'){
+                        vm.insumos_loteUsados.push(vm.insumoLote);
+
+                    }
+                    if(vm.insumoLote.tipo==='U'||vm.insumoLote.tipo==='u'){
+                       
+                        vm.insumoUnicoData[0]=vm.insumoLote;
+                    }
                     vm.insumoLote = null;
                     vm.insumoLote = {};
                 }
@@ -333,15 +342,6 @@
                 notifyError(998);
             }
         }
-
-        function crearInsumo() {
-            if (vm.etapaActual.insumos[0].no_serie) {
-                vm.etapaActual.insumos[0].cantidad = 1;
-                vm.etapaActual.validado = false;
-                vm.crearEtapaServicio();
-            }
-        }
-
         function showDiagnosticoDialog(ev) {
             vm.cabinetid = vm.idCabinet;
             $mdDialog.show({
@@ -414,15 +414,11 @@
                 if (vm.catalogoSelected.tipo = "L") {
 
                     insumoAUsar = _.findWhere(insumotmp, {"usado": true});
+                    vm.insumo.catalogo = catalogoSelected.id;
                 }
-
                 vm.insumo.id = insumoAUsar.id;
-                vm.insumo.catalogo = insumoAUsar.catalogo;
                 vm.insumo.nombre = vm.catalogoSelected.descripcion;
-
                 add();
-
-
             }
 
         }
@@ -477,7 +473,6 @@
         }
 
         function AddInsumoArray() {
-
             vm.showInsumo = true;
             vm.etapaActual.insumos = [];
 
@@ -485,6 +480,8 @@
             vm.etapaActual.insumos[0].no_serie = vm.compresor.no_serie;
             vm.etapaActual.insumos[0].notas = vm.compresor.notas
             vm.etapaActual.insumos[0].cantidad = 1;
+            vm.etapaActual.insumos[0].catalogo=vm.insumoUnicoData[0].id;
+            vm.etapaActual.insumos[0].agregar=true;
 
             if (vm.etapaActual.insumos[0].no_serie != null) {
 
@@ -513,6 +510,7 @@
         }
 
         function cancelwithoutId() {
+            vm.inputDisabled=false;
             vm.etapa = {
                 diagnostico: '',
                 validado: false,
@@ -554,6 +552,7 @@
             vm.dataEtapa = null;//Variable que posera los datos de la etapa para el precargado de Template (id etapa, idTipoEquipo)
             vm.firstEtapa = {};
             vm.showInsumo = false;
+            vm.insumoUnicoData=[];
             $scope.form2.Buscar.$setPristine();
             $scope.form2.Buscar.$setUntouched();
             $scope.form2.sigStep.$setPristine();
@@ -563,6 +562,7 @@
         }
 
         function cancel() {
+            vm.inputDisabled=false;
             vm.etapa = {
                 diagnostico: '',
                 validado: false,
@@ -605,13 +605,11 @@
             vm.insumos_sinStock = [];
             vm.dataEtapa = null;//Variable que posera los datos de la etapa para el precargado de Template (id etapa, idTipoEquipo)
             vm.firstEtapa = {};
+            vm.insumoUnicoData=[];
             $scope.form2.Buscar.$setPristine();
             $scope.form2.Buscar.$setUntouched();
             $scope.form2.sigStep.$setPristine();
             $scope.form2.sigStep.$setUntouched();
-           
-
-
         }
 
 
@@ -685,6 +683,14 @@
 
                 vm.filtradoNoSelected = _.where(vm.insumos_loteUsados, {agregar: true});
                 vm.etapaActual.insumos_lote = vm.filtradoNoSelected;
+                if(vm.etapaActual.insumos==undefined){
+                    vm.etapaActual.insumos=[];
+                }
+                if( vm.etapaActual.insumos.length!=0 && vm.etapaActual.insumos[0].agregar==false){
+
+                    vm.etapaActual.insumos=[];
+                }
+
                 var promise = Servicios.crearEtapaServicio(vm.etapaActual);
                 promise.then(function (res) {
                     toastr.success(vm.successTitle, vm.successCreateMessage);
@@ -706,6 +712,10 @@
                     vm.etapaActual = res;
                     vm.cancel();
                 }).catch(function (res) {
+                    if(res.status==400){
+                        vm.errorMessage=res.data.errors[0].message;// checar condicion de campo de res
+                       
+                    }
                     notifyError(res.status);
                 });
 

@@ -239,14 +239,14 @@
                 vm.insumosLote = res;
                 transformArrayCatalogoInsumos();
             }).catch(function (res) {
-               // notifyError(res.status);
+                // notifyError(res.status);
             })
         }
 
         //function filter para determinar las cantidades adecuadas del catalogo insumos porq endpoint regresa los valores para todos los tipo de equipo
 
         function filterInsumosLotebyType(tipos_equipo) {
-           return _.findWhere(tipos_equipo, {tipo_equipo: vm.modelo.tipo});
+            return _.findWhere(tipos_equipo, {tipo_equipo: vm.modelo.tipo});
         }
 
         function transformArrayCatalogoInsumos() {
@@ -352,7 +352,7 @@
             vm.recepcion={
 
             };
-             vm.filtradoNoSelected=[];
+            vm.filtradoNoSelected=[];
             vm.etapa = {};
             vm.formato="DD-MM-YYYY";
             vm.tiposTrabajo = [
@@ -439,8 +439,8 @@
             vm.puntoVenta.insumos_lote =vm.filtradoNoSelected;
             vm.puntoVenta.modelo=vm.modelo.id;
             if (vm.reporte!=null) {
-                 fecha = moment(vm.reporte.fecha).subtract(1,"day");
-                 hora = moment(vm.reporte.hora);
+                fecha = moment(vm.reporte.fecha).subtract(1,"day");
+                hora = moment(vm.reporte.hora);
                 fecha.set({
                     hour: hora.get('hour'),
                     minute: hora.get('minute'),
@@ -450,7 +450,7 @@
                 vm.puntoVenta.fecha_reporte = fecha.toISOString();
             }
             if (vm.servicio!=null) {
-                 fecha = moment(vm.servicio.fecha).subtract(1,"day");
+                fecha = moment(vm.servicio.fecha).subtract(1,"day");
                 hora = moment(vm.servicio.hora);
                 fecha.set({
                     hour: hora.get('hour'),
@@ -468,7 +468,7 @@
                 eliminaNoSeleccionados();
                 vm.filtradoNoSelected=_.where(vm.insumos_loteUsados,{agregar:true});
                 vm.puntoVenta.insumos_lote = vm.filtradoNoSelected;
-                 promise = PuntoDeVenta.create(vm.puntoVenta);
+                promise = PuntoDeVenta.create(vm.puntoVenta);
                 promise.then(function (res) {
                     toastr.success(vm.successTitle, vm.successCreateMessage);
                     vm.puntoVenta = res;
@@ -478,7 +478,7 @@
 
 
                     vm.error=res.data.errors[0].message;
-                   /// console.log(res.data.errors[0].message);
+                    /// console.log(res.data.errors[0].message);
                     notifyError(res.status);
 
 
@@ -486,7 +486,7 @@
             }
             else {
                 eliminaNoSeleccionados();
-                 promise = PuntoDeVenta.modify(vm.puntoVenta);
+                promise = PuntoDeVenta.modify(vm.puntoVenta);
                 promise.then(function (res) {
 
                     toastr.success(vm.successTitle, vm.successUpdateMessage);

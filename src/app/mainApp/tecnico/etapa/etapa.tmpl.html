@@ -183,30 +183,30 @@
                     </div>
                 </form>
 
-                <md-content layout="row" ng-if="vm.etapaActual.actual_etapa.nombre=='E3'">
-                    <md-switch ng-model="inputDisabled">
+                <md-content layout="row" ng-if="vm.etapaActual.actual_etapa.nombre=='E3'&& vm.insumoUnicoData[0]">
+                    <md-switch ng-model="vm.inputDisabled">
                         <span translate>ETAPA_SERVICIO.ADD_MICRO</span>
                     </md-switch>
-                    <md-input-container flex="40" ng-if="inputDisabled||vm.etapaActual.insumos[0].no_serie">
+                    <md-input-container flex="40" ng-if="vm.inputDisabled||vm.etapaActual.insumos[0].no_serie">
                         <label><span translate>ETAPA_SERVICIO.SCAN</span></label>
                         <input type="text" ng-model="vm.compresor.no_serie">
                     </md-input-container>
-                    <md-input-container flex="35" ng-if="inputDisabled">
+                    <md-input-container flex="35" ng-if="vm.inputDisabled">
                         <label><span translate>ETAPA_SERVICIO.NOTES</span></label>
                         <input type="text" ng-model="vm.compresor.notas">
                     </md-input-container>
-                    <md-input-container flex="15" ng-if="inputDisabled">
+                    <md-input-container flex="15" ng-if="vm.inputDisabled">
                         <label><span translate>ETAPA_SERVICIO.CANTITY</span></label>
                         <input type="number" value="1" disabled>
                     </md-input-container>
-                    <md-input-container ng-if="inputDisabled" flex="10">
+                    <md-input-container ng-if="vm.inputDisabled" flex="10">
                         <md-button class="md-fab  md-primary" aria-label="raised button"
                                    ng-disabled="form.insumoFormEtapa.$invalid"
                                    ng-click='vm.AddInsumoArray()'>
                             <md-icon md-font-icon="zmdi zmdi-plus"></md-icon>
                         </md-button>
                     </md-input-container>
-                    <md-input-container ng-if="inputDisabled" flex="10">
+                    <md-input-container ng-if="vm.inputDisabled" flex="10">
                         <md-button class="md-fab  md-primary" aria-label="raised button"
                                    ng-click='vm.cleanInsumo()'>
                             <md-icon md-font-icon="fa fa-eraser"></md-icon>
@@ -239,7 +239,11 @@
         </md-content>
 
     </md-content>
+    <md-content layout="row" ng-if="vm.etapaActual.actual_etapa.nombre=='E3'&& !vm.insumoUnicoData[0]">
+        <b><span style="color: #FF1B28;" translate>ETAPA_SERVICIO.NOT_INSUMOUNICO</span></b>
+    </md-content>
     <md-content ng-if="vm.etapaActual.actual_etapa">
+
         <md-input-container layout-fill flex>
             <md-switch class="md-primary" ng-model="vm.etapaActual.validado"
                        aria-label="Se valida la etapa para avanzar a la siguiente fase"
@@ -251,3 +255,5 @@
 
     </md-content>
 </div>
+
+
