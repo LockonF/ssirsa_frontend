@@ -61,7 +61,8 @@
         vm.insumos_loteUsados = [];//Arreglo que ya posee el arreglo como es necesario para agregar los insumos al formato de arreglo para agregarlos a la etapa
         vm.insumos_sinStock = [];
         vm.puntoVenta = {insumos:[]};
-        vm.insumoUnicoData;
+        vm.insumoUnicoData=[];
+        vm.mostrarCompresor=false;
         vm.inputDisabled=false;
 
         //Declaracion de Funciones
@@ -238,7 +239,8 @@
 
             var promise = Servicios.BusquedaCatalogoTypeStep(data);
             promise.then(function (res) {
-                vm.insumosLote = res;
+                vm.insumosLote = Helper.filterDeleted(res, true);
+                vm.insumosLote = Helper.sortByAttribute(vm.insumosLote, 'descripcion');
                 transformArrayCatalogoInsumos();
             }).catch(function (res) {
                // notifyError(res.status);
@@ -276,7 +278,8 @@
                     }
                     if(vm.insumoLote.tipo==='U'||vm.insumoLote.tipo==='u'){
 
-                        vm.insumoUnicoData=vm.insumoLote;
+                        vm.insumoUnicoData[0]=vm.insumoLote;
+                        vm.mostrarCompresor=true;
                     }
                     vm.insumoLote = null;
                     vm.insumoLote = {};
@@ -346,7 +349,7 @@
             vm.showInsumo = true;
             if (vm.puntoVenta.insumos[0].no_serie != null) {
                 vm.puntoVenta.insumos[0].cantidad = 1;
-                vm.puntoVenta.insumos[0].catalogo=vm.insumoUnicoData.catalogo_insumos;
+                vm.puntoVenta.insumos[0].catalogo=vm.insumoUnicoData[0].catalogo_insumos;
                 vm.puntoVenta.insumos[0].agregar=true;
                 notifyError(1001);
             }
@@ -403,7 +406,8 @@
             vm.insumos_loteUsados = [];//Arreglo que ya posee el arreglo como es necesario para agregar los insumos al formato de arreglo para agregarlos a la etapa
             vm.insumos_sinStock = [];
             vm.puntoVenta = {insumos:[]};
-            vm.insumoUnicoData=null;
+            vm.insumoUnicoData=[];
+            vm.mostrarCompresor=false;
             $scope.generalInfo.$setPristine();
             $scope.generalInfo.$setUntouched();
             $scope.localData.$setPristine();
