@@ -68,6 +68,7 @@
         "SCAN":"Escanea el No de serie",
         "NO_SERIE":"No de Serie:",
         "NOTSTOCK_INSUMO":"Sin Stock",
+        "NOT_INSUMOUNICO":"No hay Insumo Unico que agregar",
         "NOT_PRECHECK":"No se puede avanzar, ya que no ha llenado el Diagnostico"
 
     },
